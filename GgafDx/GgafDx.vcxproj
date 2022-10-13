@@ -30,6 +30,7 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\D3DXAniMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\D3DXMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\debug\AABActor.h" />
+    <ClInclude Include="include\jp\ggaf\dx\actor\debug\aaboardrectactor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\debug\AAPrismActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\debug\AAPyramidActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\debug\SphereActor.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\D3DXAniMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\D3DXMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\debug\AABActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\actor\debug\AABoardRectActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\debug\AAPrismActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\debug\AAPyramidActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\debug\SphereActor.cpp" />

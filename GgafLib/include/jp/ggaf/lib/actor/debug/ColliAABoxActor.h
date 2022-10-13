@@ -44,7 +44,7 @@ public:
     virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
-    void drawHitarea(CollisionChecker* prm_pColliChecker);
+    void drawHitarea(GgafDx::Checker* prm_pChecker);
 
     virtual ~ColliAABoxActor();
 

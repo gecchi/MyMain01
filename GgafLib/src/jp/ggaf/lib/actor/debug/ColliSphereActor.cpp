@@ -1,4 +1,4 @@
-#include "jp/ggaf/lib/actor/ColliSphereActor.h"
+#include "jp/ggaf/lib/actor/debug/ColliSphereActor.h"
 
 #include "jp/ggaf/core/Caretaker.h"
 #include "jp/ggaf/dx/effect/Effect.h"
@@ -30,13 +30,13 @@ void ColliSphereActor::release() {
     GGAF_DELETE_NULLABLE(ColliSphereActor::_pObj);
 }
 
-void ColliSphereActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
-    if (prm_pColliChecker != nullptr &&
-        prm_pColliChecker->_pCollisionArea != nullptr &&
-        prm_pColliChecker->getTargetActor()->canHit() &&
-        prm_pColliChecker->getTargetActor()->isActiveInTheTree()) {
-        GgafDx::GeometricActor* pActor = prm_pColliChecker->getTargetActor();
-        GgafDx::CollisionArea* pCollisionArea = prm_pColliChecker->_pCollisionArea;
+void ColliSphereActor::drawHitarea(GgafDx::Checker* prm_pChecker) {
+    if (prm_pChecker != nullptr &&
+        prm_pChecker->_pCollisionArea != nullptr &&
+        prm_pChecker->getTargetActor()->canHit() &&
+        prm_pChecker->getTargetActor()->isActiveInTheTree()) {
+        GgafDx::GeometricActor* pActor = prm_pChecker->getTargetActor();
+        GgafDx::CollisionArea* pCollisionArea = prm_pChecker->_pCollisionArea;
 
         int iAreaNum = pCollisionArea->_colli_part_num;
         if (iAreaNum > 0) {

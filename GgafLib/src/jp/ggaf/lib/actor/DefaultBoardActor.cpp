@@ -1,6 +1,8 @@
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 
 #include "jp/ggaf/lib/util/CollisionChecker2D_b.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
 
 using namespace GgafLib;
 
@@ -13,6 +15,12 @@ DefaultBoardActor::DefaultBoardActor(const char* prm_name, const char* prm_model
 
     _class_name = "DefaultBoardActor";
     _pColliChecker = (CollisionChecker2D_b*)_pChecker;
+}
+
+void DefaultBoardActor::drawHitArea() {
+#ifdef MY_DEBUG
+    CollisionChecker2D_b::drawHitArea(_pColliChecker);
+#endif
 }
 
 DefaultBoardActor::~DefaultBoardActor() {

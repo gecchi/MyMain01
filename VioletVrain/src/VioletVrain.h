@@ -3,8 +3,8 @@
 #include "VioletVrain.h"
 #include "GgafLibCommonHeader.h"
 
-#undef P_CARETAKER
-#define P_CARETAKER ((VioletVrain::VvCaretaker*)VioletVrain::VvCaretaker::_pCaretaker)
+#undef pCARETAKER
+#define pCARETAKER ((VioletVrain::VvCaretaker*)VioletVrain::VvCaretaker::_pCaretaker)
 
 #define VV_MIKATA (0x01U)
 #define VV_TEKI   (0x10U)

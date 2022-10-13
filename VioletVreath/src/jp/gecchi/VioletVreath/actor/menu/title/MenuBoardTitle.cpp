@@ -1,6 +1,7 @@
 #include "MenuBoardTitle.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/lib/util/CollisionChecker2D_b.h"
 #include "CursorTitleMenu.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteFont32x64.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelGecchi32Font.h"
@@ -20,7 +21,7 @@ using namespace VioletVreath;
 
 MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
-    _class_name = "MenuBoardPause";
+    _class_name = "MenuBoardTitle";
     setWidth(PX_C(14*32));
     setHeight(PX_C(6*32));
 
@@ -37,9 +38,9 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     for (int i = ITEM_GAME_START; i < ITEM_BANPEI; i++) {
         LabelMenuItemFont01* pLabel = NEW LabelMenuItemFont01("item");
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addItem(pLabel, PX_C(200), PX_C(40+(i*18)));
         pLabel->getAlphaFader()->setRange(0, 0.6);
         pLabel->getAlphaFader()->transitionLinearToTop(1);
+        addItem(pLabel, PX_C(200), PX_C(40+(i*18)));
     }
     //キャンセル押下時移動先アイテム
     relateAllItemToCancel(ITEM_QUIT);

@@ -1,4 +1,4 @@
-#include "jp/ggaf/lib/actor/PointerActor.h"
+#include "jp/ggaf/lib/actor/MousePointerActor.h"
 
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/effect/BoardEffect.h"
@@ -6,13 +6,12 @@
 #include "jp/ggaf/dx/model/BoardModel.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/util/Input.h"
-#include "jp/ggaf/lib/actor/HitArea2D.hpp"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 
 using namespace GgafLib;
 
-PointerActor::PointerActor(const char* prm_name, const char* prm_model)
+MousePointerActor::MousePointerActor(const char* prm_name, const char* prm_model)
       : DefaultBoardActor(prm_name, prm_model) {
 
     _w_r =  1.0 * CONFIG::GAME_BUFFER_WIDTH / CONFIG::RENDER_TARGET_BUFFER_WIDTH;
@@ -33,25 +32,21 @@ PointerActor::PointerActor(const char* prm_name, const char* prm_model)
 
     _coord_buffer_left2 = PX_C(_buffer_left2);
     _coord_buffer_top2 = PX_C(_buffer_top2);
+    _last_hWnd = pCARETAKER->_pHWndPrimary;
 
-//    HitArea2D<DefaultBoardActor>* pHitArea2D = NEW HitArea2D<DefaultBoardActor>(this);
-//    appendChild(pHitArea2D);
-//    CollisionChecker*pHitAreaChecker = pHitArea2D->getCollisionChecker();
-//    pHitAreaChecker->createCollisionArea(1);
-//    pHitAreaChecker->setColliAABox_WHD(0, PX_C(200), PX_C(100), PX_C(10));
-//    pHitArea2D->setHitAble(true);
 }
 
-void PointerActor::processSettlementBehavior() {
+void MousePointerActor::processSettlementBehavior() {
     //マウスの座標を取得
     GetCursorPos(&_mouse_point);
-//    _TRACE_("絶対座標：("<<_mouse_point.x<<","<<_mouse_point.y<<")");
     // カーソル位置からウィンドウハンドル取得
     HWND hWnd = WindowFromPoint(_mouse_point);
+    if (hWnd == pCARETAKER->_pHWndPrimary || hWnd == pCARETAKER->_pHWndSecondary) {
+        _last_hWnd = hWnd;
+    }
     // スクリーン座標をクライアント座標に変換する
-    ScreenToClient(hWnd, &_mouse_point);
-//    _TRACE_("クライアント：("<<_mouse_point.x<<","<<_mouse_point.y<<")");
-    if (hWnd == pCARETAKER->_pHWndSecondary) {
+    ScreenToClient(_last_hWnd, &_mouse_point);
+    if (_last_hWnd == pCARETAKER->_pHWndSecondary) {
         RECT& rect_Present = pCARETAKER->_aRect_Present[pCARETAKER->_secondary_adapter_no];
         pixcoord cPresent_w = rect_Present.right - rect_Present.left;
         pixcoord cPresent_h = rect_Present.bottom - rect_Present.top;
@@ -59,7 +54,7 @@ void PointerActor::processSettlementBehavior() {
         pixcoord y = (_mouse_point.y - rect_Present.top)  * ((1.0* _buffer_height2) / (1.0* cPresent_h));
         _x = PX_C(x) + _coord_buffer_left2;
         _y = PX_C(y) + _coord_buffer_top2;
-    } else {
+    } else if (_last_hWnd == pCARETAKER->_pHWndPrimary) {
         RECT& rect_Present = pCARETAKER->_aRect_Present[pCARETAKER->_primary_adapter_no];
         pixcoord cPresent_w = rect_Present.right - rect_Present.left;
         pixcoord cPresent_h = rect_Present.bottom - rect_Present.top;
@@ -67,11 +62,10 @@ void PointerActor::processSettlementBehavior() {
         pixcoord y = (_mouse_point.y - rect_Present.top)  * ((1.0* _buffer_height1) / (1.0* cPresent_h));
         _x = PX_C(x) + _coord_buffer_left1;
         _y = PX_C(y) + _coord_buffer_top1;
+    } else {
+        //どうしよう
     }
-    if (GgafDx::Input::isPushedDownKey(DIK_Q)) {
-    }
-
 }
 
-PointerActor::~PointerActor() {
+MousePointerActor::~MousePointerActor() {
 }

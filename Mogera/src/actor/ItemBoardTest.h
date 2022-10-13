@@ -1,11 +1,11 @@
 #ifndef ITEMBOARDTEST_H_
 #define ITEMBOARDTEST_H_
 #include "Mogera.h"
-#include "jp/ggaf/lib/actor/DefaultBoardActor.h"
+#include "jp/ggaf/lib/actor/DefaultBoardSetActor.h"
 
 namespace Mogera {
 
-class ItemBoardTest : public GgafLib::DefaultBoardActor {
+class ItemBoardTest : public GgafLib::DefaultBoardSetActor {
 
 public:
     ItemBoardTest(const char* prm_name);

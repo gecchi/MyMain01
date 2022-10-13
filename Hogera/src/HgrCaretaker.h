@@ -5,8 +5,8 @@
 
 #include "scene/HgrSpacetime.h"
 
-#undef P_CARETAKER
-#define P_CARETAKER ((Hogera::HgrCaretaker*)GgafCore::Caretaker::_pCaretaker)
+#undef pCARETAKER
+#define pCARETAKER ((Hogera::HgrCaretaker*)GgafCore::Caretaker::_pCaretaker)
 
 namespace Hogera {
 

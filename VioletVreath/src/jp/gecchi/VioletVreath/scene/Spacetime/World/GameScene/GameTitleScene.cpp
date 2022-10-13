@@ -41,7 +41,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : VvScene<DefaultScene>(prm
     pTitleBoard_ = NEW TitleBoard("TitleBoard");
     bringSceneMediator()->appendGroupChild(pTitleBoard_);
 
-    pMenu_ = NEW MenuBoardTitle("pMenu_");
+    pMenu_ = NEW MenuBoardTitle("MenuBoardTitle");
     bringSceneMediator()->appendGroupChild(pMenu_);
 
     pWorldBound_ = NEW WorldBoundTitle("TITLE_BG_WB");

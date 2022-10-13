@@ -65,6 +65,12 @@ public:
     virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
+    virtual void drawHitArea() override;
+
+    inline CollisionChecker2D_b* getCollisionChecker() {
+        return _pColliChecker;
+    }
+
     virtual ~DefaultBoardSetActor();
 
 };

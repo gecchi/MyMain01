@@ -6,6 +6,7 @@
 #include "jp/ggaf/dx/sound/Sound.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/gecchi/VioletVreath/actor/menu/MousePointer.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi8Font.h"
 #include "jp/gecchi/VioletVreath/Config.h"
@@ -29,6 +30,8 @@ enum {
 World::World(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "World";
     _TRACE_("World::World");
+
+    pMousePointer_ = nullptr;
 
     pLabel_aster_ = NEW LabelGecchi16Font("ASTER");
     bringSceneMediator()->appendGroupChild(pLabel_aster_);
@@ -73,6 +76,10 @@ void World::initialize() {
 #ifdef MY_DEBUG
     CollisionChecker::drawHitArea(nullptr);  //当たり判定領域表示用プリロード
 #endif
+    pMousePointer_ = desireActor(MousePointer);
+    pMousePointer_->setDefaultKind(KIND_2DFIX_MOUSE_POINTER);
+    bringSceneMediator()->appendGroupChild(pMousePointer_);
+
     pLabel_debug_ = desireActor(LabelGecchi16Font, "DebugStr");
     pLabel_debug_->update(PX_C(1), PX_C(1), "");
     bringSceneMediator()->appendGroupChild(pLabel_debug_);

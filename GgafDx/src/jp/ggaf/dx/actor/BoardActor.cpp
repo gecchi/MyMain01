@@ -37,7 +37,7 @@ _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
     _alpha = 1.0f;
-    _is_2D = true;
+    _is_fix_2D = true;
     _pFunc_calc_rot_mv_world_matrix = nullptr;
     _z = 0;
     setZEnableDraw(false);

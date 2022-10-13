@@ -20,7 +20,7 @@ using namespace Mogera;
 
 
 ItemBoardTest::ItemBoardTest(const char* prm_name) :
-        DefaultBoardActor(prm_name, "_chk_TestDefaultBoardActorModel") {
+        DefaultBoardSetActor(prm_name, "_chk_TestDefaultBoardActorModel") {
     _class_name = "ItemBoardTest";
     CollisionChecker2D_b* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
@@ -39,7 +39,7 @@ void ItemBoardTest::onActive() {
 }
 
 void ItemBoardTest::processBehavior() {
-    VirtualButton* pVb = P_CARETAKER->getSpacetime()->pVb_;
+    VirtualButton* pVb = pCARETAKER->getSpacetime()->pVb_;
 
     if (GgafDx::Input::isPressedKey(DIK_1)) {
          setAlign(ALIGN_RIGHT, VALIGN_TOP);

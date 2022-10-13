@@ -1064,7 +1064,16 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\God.cpp">
+    <ClCompile Include="src\jp\gecchi\VioletVreath\Caretaker.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorSelectMenu.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MousePointer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1432,8 +1441,11 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\RankingTable.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\Config.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\God.h" />
     <ClInclude Include="src\Version.h" />
     <ClInclude Include="src\VioletVreath.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\Caretaker.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorSelectMenu.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MousePointer.h" />
   </ItemGroup>
 </Project>

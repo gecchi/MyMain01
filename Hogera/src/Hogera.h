@@ -8,8 +8,8 @@
 
 //その他のヘッダファイルはこの様に記述
 
-#undef P_CARETAKER
-#define P_CARETAKER ((Hogera::HgrCaretaker*)Hogera::HgrCaretaker::_pCaretaker)
+#undef pCARETAKER
+#define pCARETAKER ((Hogera::HgrCaretaker*)Hogera::HgrCaretaker::_pCaretaker)
 
 #define HGR_MIKATA (0x01U)
 #define HGR_TEKI   (0x10U)

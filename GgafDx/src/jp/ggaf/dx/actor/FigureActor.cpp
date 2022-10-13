@@ -171,7 +171,7 @@ void FigureActor::processPreDraw() {
     if (isActiveInTheTree()) {
         GgafCore::Caretaker::_num_active_actor++;
         if (_alpha > 0.0f &&  ((GgafDx::Scene*)pPlatformScene)->_scene_alpha > 0.0f) { //isActiveInTheTree() ‚Å”»’è‚·‚é‚±‚Æ
-            _now_drawdepth = _is_2D ? pSpacetime->registerFigureActor2D(this) : pSpacetime->registerFigureActor3D(this);
+            _now_drawdepth = _is_fix_2D ? pSpacetime->registerFigureActor2D(this) : pSpacetime->registerFigureActor3D(this);
         }
     }
 

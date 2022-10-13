@@ -21,7 +21,7 @@ _pGeoVehicle(nullptr),
 _pScaler(nullptr),
 _pSeTransmitter(nullptr),
 _pVehicleLeader(nullptr),
-_is_2D(false),
+_is_fix_2D(false),
 _offscreen_kind(-1),
 _x(0), _y(0), _z(0),
 _rx(0), _ry(0), _rz(0),
@@ -96,7 +96,7 @@ Scaler* GeometricActor::getScaler() {
 }
 
 void GeometricActor::processSettlementBehavior() {
-    if (_is_2D) {
+    if (_is_fix_2D) {
         // ŽÀ‘•’†
     } else {
 

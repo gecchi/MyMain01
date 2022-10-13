@@ -134,7 +134,7 @@ std::string Config::COLI_AABOX_MODEL = "GgafDxAAB";
 std::string Config::COLI_AAPRISM_MODEL = "GgafDxAAPrism";
 std::string Config::COLI_AAPYRAMID_MODEL = "GgafDxAAPyramid";
 std::string Config::COLI_SPHERE_MODEL = "GgafDxSphere";
-
+std::string Config::COLI_AABOARDRECT_MODEL = "GgafDxAABoardRect";
 
 void Config::loadProperties(std::string prm_properties_filename) {
     GgafCore::Config::loadProperties(prm_properties_filename);
@@ -374,7 +374,9 @@ void Config::loadProperties(std::string prm_properties_filename) {
     if (GgafCore::Config::_properties.isExistKey("COLI_SPHERE_MODEL")) {
         Config::COLI_SPHERE_MODEL = GgafCore::Config::_properties.getStr("COLI_SPHERE_MODEL");
     }
-
+    if (GgafCore::Config::_properties.isExistKey("COLI_AABOARDRECT_MODEL")) {
+        Config::COLI_AABOARDRECT_MODEL = GgafCore::Config::_properties.getStr("COLI_AABOARDRECT_MODEL");
+    }
 
     Config::DIR_MESH[0] = GgafCore::Config::DIR_SKIN_KIND[0] + "/"
             + Config::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/";

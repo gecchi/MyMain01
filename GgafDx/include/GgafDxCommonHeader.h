@@ -357,6 +357,7 @@ class CubeMapMeshActor;
 class CubeMapMeshSetActor;
 class CubeMapMorphMeshActor;
 class WorldBoundActor;
+class AABoardRectActor;
 class AABActor;
 class AAPrismActor;
 class AAPyramidActor;

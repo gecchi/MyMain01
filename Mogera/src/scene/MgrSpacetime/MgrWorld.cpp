@@ -16,8 +16,8 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pTestScene_ = nullptr;
     pPointerTest_ = nullptr;
     pTrialAndErrScene_ = nullptr;
-    pHitCheckRounder_ = P_CARETAKER->getSpacetime()->getLinearOctreeHitCheckRounder();
-    pHitCheckRounder_b_ = P_CARETAKER->getSpacetime()->getLinearQuadtreeHitCheckRounder_b();
+    pHitCheckRounder_ = pCARETAKER->getSpacetime()->getLinearOctreeHitCheckRounder();
+    pHitCheckRounder_b_ = pCARETAKER->getSpacetime()->getLinearQuadtreeHitCheckRounder_b();
 }
 
 void MgrWorld::initialize() {
@@ -31,7 +31,7 @@ void MgrWorld::initialize() {
 }
 
 void MgrWorld::processBehavior() {
-    VirtualButton* pVb = P_CARETAKER->getSpacetime()->pVb_;
+    VirtualButton* pVb = pCARETAKER->getSpacetime()->pVb_;
     //ワイヤフレーム表示切替
     if (pVb->isPushedDown(VB_UI_DEBUG)) {
         if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {

@@ -42,7 +42,7 @@ private:
 
 public:
     /** [r] 変換済み座標であるか(true:本アクターは変換済み座標/false:本アクターはワールド座標) */
-    bool _is_2D;
+    bool _is_fix_2D;
     /** [r] 画面外種別。isOutOfView()が内部で使用。未計算時は -1 */
     int _offscreen_kind;
 

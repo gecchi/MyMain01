@@ -15,6 +15,8 @@ namespace VioletVreath {
 class World : public VvScene<GgafLib::DefaultScene> {
 
 public:
+    MousePointer* pMousePointer_;
+
     bool is_create_GameScene_;
     char aBufDebug_[128];
     LabelGecchi16Font* pLabel_aster_;

@@ -77,6 +77,9 @@ void MassPointSpriteModel::restore() {
     if (!_paVtxBuffer_data_model) {
         std::string model_def_file = std::string(_model_id) + ".psprx";
         std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
+        if (model_def_filepath == "") {
+            throwCriticalException("MassPointSpriteModel::restore() "+model_def_file+" ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+        }
         ModelManager::PointSpriteXFileFmt xdata;
         pModelManager->obtainPointSpriteModelInfo(&xdata, model_def_filepath);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;

@@ -36,6 +36,21 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\DefaultCameraViewPoint.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\debug\ColliAABoardRectActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\debug\ColliAABoxActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\debug\ColliAAPrismActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\debug\ColliAAPyramidActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\debug\ColliSphereActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\actor\interface\ICharacterChip.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -70,18 +85,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\actor\CappedGraphBarActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\actor\ColliAABoxActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\actor\ColliAAPrismActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\actor\ColliAAPyramidActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\actor\ColliSphereActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\actor\CubeMapMeshActor.h">
@@ -258,6 +261,9 @@
     <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker2D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker2D_b.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker3D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -291,6 +297,9 @@
     <ClInclude Include="include\jp\ggaf\lib\util\WMKeyInput.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\DefaultCaretaker.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\LibConfig.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -300,19 +309,7 @@
     <ClInclude Include="include\GgafLibCommonHeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\DefaultCaretaker.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\actor\menu\PointableActor.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\actor\HitArea2D.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\actor\PointerActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker2D_b.h">
+    <ClInclude Include="include\jp\ggaf\lib\actor\MousePointerActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -336,6 +333,21 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\DefaultCameraViewPoint.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\actor\debug\ColliAABoardRectActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\actor\debug\ColliAABoxActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\actor\debug\ColliAAPrismActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\actor\debug\ColliAAPyramidActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\actor\debug\ColliSphereActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\HomingLaserChip.cpp">
@@ -366,18 +378,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\actor\CappedGraphBarActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\actor\ColliAABoxActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\actor\ColliAAPrismActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\actor\ColliAAPyramidActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\actor\ColliSphereActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\actor\CubeMapMeshActor.cpp">
@@ -554,6 +554,9 @@
     <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker2D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker2D_b.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker3D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -581,19 +584,16 @@
     <ClCompile Include="src\jp\ggaf\lib\util\WMKeyInput.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\DefaultCaretaker.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\LibConfig.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\GgafLib.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\DefaultCaretaker.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\actor\PointerActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker2D_b.cpp">
+    <ClCompile Include="src\jp\ggaf\lib\actor\MousePointerActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

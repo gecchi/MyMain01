@@ -1,0 +1,15 @@
+xof 0303txt 0032
+
+SpriteModelDef Test {
+   1.0;            # FLOAT  Width
+   1.0;            # FLOAT  Height
+   "GgafDxAABoardRect.dds";  # STRING TextureFile
+   1;                # DWORD  TextureSplitRows
+   1;                # DWORD  TextureSplitCols
+   0;                # DWORD  DrawSetNum
+  1.000000, 0.000000, 0.000000, 0.000000, 
+  0.000000, 1.000000, 0.000000, 0.000000, 
+  0.000000, 0.000000, 1.000000, 0.000000, 
+  0.000000, 0.000000, 0.000000, 1.000000; 
+}
+

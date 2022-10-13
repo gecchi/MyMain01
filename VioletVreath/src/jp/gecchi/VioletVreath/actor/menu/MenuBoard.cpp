@@ -4,8 +4,8 @@
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
-
-
+#include "jp/ggaf/lib/actor/FontBoardActor.h"
+#include "jp/ggaf/lib/util/CollisionChecker2D_b.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -164,6 +164,18 @@ void MenuBoard::onSink() {
                            _fade_frames,
                            0.2, 0.3, 0, true
                        );
+}
+
+void MenuBoard::addItem(GgafDx::FigureActor* prm_pItem,
+                        coord prm_x_local, coord prm_y_local, coord prm_z_local) {
+    if (prm_pItem->instanceOf(Obj_FontBoardActor)) {
+        FontBoardActor* pItem = (FontBoardActor*)prm_pItem;
+        pItem->getCollisionChecker()->createCollisionArea(1);
+        pItem->getCollisionChecker()->setColliAABox(0, 0.8);
+        pItem->setHitAble(true);
+        pItem->setDefaultKind(KIND_2DFIX_MENU_ITEM);
+    }
+    DefaultFramedBoardMenu::addItem(prm_pItem, prm_x_local, prm_y_local, prm_z_local);
 }
 
 MenuBoard::~MenuBoard() {

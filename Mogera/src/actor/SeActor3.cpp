@@ -28,7 +28,7 @@ void SeActor3::initialize() {
 }
 
 void SeActor3::processBehavior() {
-    VirtualButton* pVb = P_CARETAKER->getSpacetime()->pVb_;
+    VirtualButton* pVb = pCARETAKER->getSpacetime()->pVb_;
     static int D = 20;
     if (GgafDx::Input::isPushedDownKey(DIK_1)) {
         getSeTransmitter()->play3D(0, true);

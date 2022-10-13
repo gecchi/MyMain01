@@ -58,6 +58,11 @@ public:
     void setColliAABox(int prm_index,
                        double per);
 
+    void setColliSquare(int prm_index, coord prm_edge);
+
+    static void drawHitArea(GgafDx::Checker* prm_pChecker);
+    static void releaseHitArea();
+
     virtual ~CollisionChecker2D_b();
 };
 

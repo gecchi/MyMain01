@@ -599,7 +599,7 @@ public:
 
     GgafDx::CollisionPart* getLastHitCollisionPart();
 
-    static void drawHitArea(CollisionChecker* prm_pColliChecker);
+    static void drawHitArea(GgafDx::Checker* prm_pChecker);
     static void releaseHitArea();
 
     virtual ~CollisionChecker();

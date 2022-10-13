@@ -17,6 +17,7 @@
 #define Obj_IFormationAble        (0x200000000000ULL)    //0b 00000000 00000000 00100000 00000000 00000000 00000000 00000000 00000000
 #define Obj_MassWallActor         (0x400000000000ULL)    //0b 00000000 00000000 01000000 00000000 00000000 00000000 00000000 00000000
 #define Obj_CubeMapMassWallActor  (0x800000000000ULL)    //0b 00000000 00000000 10000000 00000000 00000000 00000000 00000000 00000000
+#define Obj_FontBoardActor       (0x1000000000000ULL)    //0b 00000000 00000001 00000000 00000000 00000000 00000000 00000000 00000000
 
 typedef int_fast32_t dir26;
 typedef int_fast32_t dir8;
@@ -93,14 +94,17 @@ class PieGraphSpriteActor;
 
 class SpriteMeshWorldBoundActor;
 class WorldBoundActor;
-class ColliAABox;
-class ColliSphere;
-class ColliAAPrism;
-class ColliAAPyramid;
+
 class CollisionChecker;
 class CollisionChecker3D;
 class CollisionChecker2D;
 class CollisionChecker2D_b;
+
+class ColliAABox;
+class ColliSphere;
+class ColliAAPrism;
+class ColliAAPyramid;
+class ColliAABoardRectActor;
 
 class LinearOctree;
 class LinearQuadtree;
@@ -126,7 +130,7 @@ class CameraWorkerConnection;
 class CameraWorkerChanger;
 class DefaultCamWorker;
 
-class PointerActor;
+class MousePointerActor;
 
 }
 

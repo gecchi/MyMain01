@@ -242,8 +242,11 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\CursorResolutionSelect.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\MenuBoardResolutionSelect.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorSelectMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MousePointer.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.cpp" />
@@ -597,8 +600,11 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\CursorResolutionSelect.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\MenuBoardResolutionSelect.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorSelectMenu.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MousePointer.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.h" />

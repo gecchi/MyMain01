@@ -44,12 +44,10 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-//    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override {
-//        return false;
-//    }
-
     virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
+
+    virtual void drawHitArea() override;
 
     inline CollisionChecker2D_b* getCollisionChecker() {
         return _pColliChecker;

@@ -352,7 +352,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\RankingTable.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\Config.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\God.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\Caretaker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorSelectMenu.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MousePointer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.h" />
@@ -718,8 +721,11 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\RankingTable.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\Config.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\God.h" />
     <ClInclude Include="src\Version.h" />
     <ClInclude Include="src\VioletVreath.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\Caretaker.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorSelectMenu.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\mousepointer.h" />
   </ItemGroup>
 </Project>

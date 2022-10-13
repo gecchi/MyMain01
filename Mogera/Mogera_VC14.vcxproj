@@ -349,6 +349,7 @@
     <ClCompile Include="src\actor\FormationZako.cpp" />
     <ClCompile Include="src\actor\FormationZako001.cpp" />
     <ClCompile Include="src\actor\ItemBoardTest.cpp" />
+    <ClCompile Include="src\actor\LabelMenuItemFont01.cpp" />
     <ClCompile Include="src\actor\PointerTest.cpp" />
     <ClCompile Include="src\actor\PointSpriteTest.cpp" />
     <ClCompile Include="src\actor\SeActor3.cpp" />
@@ -386,6 +387,7 @@
     <ClInclude Include="src\actor\FormationZako.h" />
     <ClInclude Include="src\actor\FormationZako001.h" />
     <ClInclude Include="src\actor\ItemBoardTest.h" />
+    <ClInclude Include="src\actor\LabelMenuItemFont01.h" />
     <ClInclude Include="src\actor\PointerTest.h" />
     <ClInclude Include="src\actor\PointSpriteTest.h" />
     <ClInclude Include="src\actor\SeActor3.h" />

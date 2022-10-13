@@ -140,6 +140,9 @@ void FramedSpriteModel::restore() {
 
         std::string model_def_file = std::string(_model_id) + ".fsprx";
         std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
+        if (model_def_filepath == "") {
+            throwCriticalException("FramedSpriteModel::restore() "+model_def_file+" ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+        }
         ModelManager::FramedSpriteXFileFmt xdata;
         pModelManager->obtainFramedSpriteModelInfo(&xdata, model_def_filepath);
         _model_width_px  = xdata.Width;

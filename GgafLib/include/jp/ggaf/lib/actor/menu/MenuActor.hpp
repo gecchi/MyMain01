@@ -1004,7 +1004,9 @@ void MenuActor<T>::addItem(GgafDx::FigureActor* prm_pItem,
     prm_pItem->setAlpha(T::_alpha); //”¼“§–¾ƒ¿‚ð‹¤—L‚³‚¹‚éB
     prm_pItem->inactivate();
     _lstItems.addLast(prm_pItem, false);
-    T::appendChild(prm_pItem);
+//    T::appendChild(prm_pItem);
+    T::appendGroupChild(prm_pItem);
+
 }
 
 template<class T>

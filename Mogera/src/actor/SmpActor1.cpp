@@ -26,7 +26,7 @@ void SmpActor1::initialize() {
 }
 
 void SmpActor1::processBehavior() {
-    VirtualButton* pVb = P_CARETAKER->getSpacetime()->pVb_;
+    VirtualButton* pVb = pCARETAKER->getSpacetime()->pVb_;
     if (GgafDx::Input::isPressedKey(DIK_A)) {
         _x += PX_C(2); //‰E
     }

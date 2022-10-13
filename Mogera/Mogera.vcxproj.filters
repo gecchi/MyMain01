@@ -36,6 +36,7 @@
     <ClCompile Include="src\MgrCaretaker.cpp" />
     <ClCompile Include="src\actor\PointerTest.cpp" />
     <ClCompile Include="src\actor\ItemBoardTest.cpp" />
+    <ClCompile Include="src\actor\LabelMenuItemFont01.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\camera\MgrCamera.h" />
@@ -73,5 +74,6 @@
     <ClInclude Include="src\MgrCaretaker.h" />
     <ClInclude Include="src\actor\pointertest.h" />
     <ClInclude Include="src\actor\ItemBoardTest.h" />
+    <ClInclude Include="src\actor\labelmenuitemfont01.h" />
   </ItemGroup>
 </Project>

@@ -208,8 +208,6 @@ public:
     RECT _rectGameBuffer;
     /** [r] レンダリングターゲットテクスチャの領域(ピクセル) */
     RECT _rectRenderTargetBuffer;
-//    /** [r] ゲームバッファ領域の、[0]:左半分領域、[1]:右半分領域 (ピクセル) */
-//    RECT _aRect_HarfGameBuffer[2];
     /** [r] フルスクリーン時、レンダリングターゲットテクスチャ領域の、[0]:左半分領域、[1]:右半分領域 (ピクセル) */
     RECT _aRect_HarfRenderTargetBuffer[2];
     /** [r] 最終表示フロントバッファフレームの領域、[0]:１画面目、[1]:２画面目 (ピクセル) */

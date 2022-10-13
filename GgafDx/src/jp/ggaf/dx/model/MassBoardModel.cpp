@@ -198,6 +198,10 @@ void MassBoardModel::restore() {
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
         std::string model_def_file = std::string(_model_id) + ".sprx";
         std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
+        if (model_def_filepath == "") {
+            throwCriticalException("MassBoardModel::restore() "+model_def_file+" ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+        }
+
         ModelManager::SpriteXFileFmt xdata;
         pModelManager->obtainSpriteModelInfo(&xdata, model_def_filepath);
 

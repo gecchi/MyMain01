@@ -19,12 +19,16 @@ using namespace Mogera;
 
 
 PointerTest::PointerTest(const char* prm_name) :
-        PointerActor(prm_name, "Cur") {
+        MousePointerActor(prm_name, "Cur") {
     _class_name = "PointerTest";
+
+    setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     CollisionChecker2D_b* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAABox(0, 1.0);
+    //pChecker->setColliAABox(0, 0.8);
+    pChecker->setColliSquare(0, PX_C(16));
     setHitAble(true);
+
 }
 
 void PointerTest::onCreateModel() {
@@ -37,7 +41,7 @@ void PointerTest::onActive() {
 }
 
 void PointerTest::processBehavior() {
-    VirtualButton* pVb = P_CARETAKER->getSpacetime()->pVb_;
+    VirtualButton* pVb = pCARETAKER->getSpacetime()->pVb_;
     getUvFlipper()->behave();
 //    getScaler()->behave();
 }
@@ -54,5 +58,4 @@ void PointerTest::onInactive() {
 
 PointerTest::~PointerTest() {
 }
-
 

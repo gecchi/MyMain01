@@ -11,11 +11,11 @@
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/ColliAABox.h"
-#include "jp/ggaf/lib/util/ColliSphere.h"
-#include "jp/ggaf/lib/util/ColliAAPrism.h"
-#include "jp/ggaf/lib/util/ColliAAPyramid.h"
+#include "jp/ggaf/lib/actor/FontBoardActor.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
+#ifdef MY_DEBUG
+#include "jp/ggaf/lib/actor/debug/ColliAABoardRectActor.h"
+#endif
 
 using namespace GgafLib;
 
@@ -124,6 +124,18 @@ void CollisionChecker2D_b::setColliAABox(int prm_index, double prm_per) {
             model_height = pPlaneModel->_model_height_px;
         }
     }
+
+    if (_pActor->instanceOf(Obj_FontBoardActor)) {
+        FontBoardActor* pFontBoardActor = dynamic_cast<FontBoardActor*>(_pActor);
+#ifdef MY_DEBUG
+        if (!pFontBoardActor) {
+            throwCriticalException("["<<getTargetActor()->getName()<<"]  FontBoardActor にキャストできません。おかしい。");
+        }
+#endif
+        model_width = pFontBoardActor->_px_total_width;
+        model_height = pFontBoardActor->_px_total_height;
+    }
+
     if (model_width == 0 && model_height == 0) {
         throwCriticalException("["<<getTargetActor()->getName()<<"] このアクターは、ヒットエリアの割合指定の setColliAABox() ができません。");
     }
@@ -145,14 +157,72 @@ void CollisionChecker2D_b::setColliAABox(int prm_index, double prm_per) {
         y1 = PX_C(-model_height + ((model_height - (model_height*prm_per)) / 2.0));
     }
     y2 = y1 + PX_C(model_height*prm_per);
-
-//    _TRACE_("["<<getTargetActor()->getName()<<"] prm_per="<<prm_per);
-//    _TRACE_("model="<<model_width<<"x"<<model_height);
-//    _TRACE_("結果="<<x1<<","<<x2<<","<<y1<<","<<y2<<" = ("<<x2-x1<<"x"<<y2-y1<<")");
-
-
     setColliAABox(prm_index, x1, y1, x2, y2);
 }
+
+void CollisionChecker2D_b::setColliSquare(int prm_index, coord prm_edge) {
+    pixcoord model_width = 0;
+    pixcoord model_height = 0;
+    Align align;
+    Valign valign;
+    if (_pActor->instanceOf(Obj_GgafDx_IAlignAbleActor)) {
+        GgafDx::IAlignAbleActor* pIAlignAbleActor = dynamic_cast<GgafDx::IAlignAbleActor*>(_pActor); //成立するcrosscast
+#ifdef MY_DEBUG
+        if (!pIAlignAbleActor) {
+            throwCriticalException("["<<getTargetActor()->getName()<<"]  IAlignAbleActorにキャストできません。おかしい。");
+        }
+#endif
+        GgafDx::FigureActor* pFigureActor = dynamic_cast<GgafDx::FigureActor*>(_pActor);
+        align = pIAlignAbleActor->_align;
+        valign = pIAlignAbleActor->_valign;
+        GgafDx::Model* pModel = pFigureActor->getModel();
+        if (pModel->instanceOf(Obj_GgafDx_IPlaneModel)) {
+            GgafDx::IPlaneModel* pPlaneModel = dynamic_cast<GgafDx::IPlaneModel*>(pModel); //成立するcrosscast
+#ifdef MY_DEBUG
+            if (!pPlaneModel) {
+                throwCriticalException("["<<getTargetActor()->getName()<<"]  モデルが、IPlaneModelにキャストできません。おかしい。");
+            }
+#endif
+            model_width = pPlaneModel->_model_width_px;
+            model_height = pPlaneModel->_model_height_px;
+        }
+    }
+    if (model_width == 0 && model_height == 0) {
+        throwCriticalException("["<<getTargetActor()->getName()<<"] このアクターは、ヒットエリアの割合指定の setColliAABox() ができません。");
+    }
+    coord x1, y1, x2, y2;
+    if (align == ALIGN_LEFT) {
+        x1 = PX_C((model_width - C_PX(prm_edge)) / 2.0);
+    } else if (align == ALIGN_CENTER) {
+        x1 = PX_C(-C_PX(prm_edge) / 2.0);
+    } else  {  //ALIGN_RIGHT
+        x1 = PX_C(-model_width + ((model_width - C_PX(prm_edge)) / 2.0));
+    }
+    x2 = x1 + PX_C(C_PX(prm_edge));
+
+    if (valign == VALIGN_TOP) {
+        y1 = PX_C((model_height - (C_PX(prm_edge))) / 2.0);
+    } else if (valign == VALIGN_MIDDLE) {
+        y1 = PX_C(-C_PX(prm_edge)/ 2.0);
+    } else { //VALIGN_BOTTOM
+        y1 = PX_C(-model_height + ((model_height - C_PX(prm_edge)) / 2.0));
+    }
+    y2 = y1 + PX_C(C_PX(prm_edge));
+    setColliAABox(prm_index, x1, y1, x2, y2);
+}
+
+void CollisionChecker2D_b::drawHitArea(GgafDx::Checker* prm_pChecker) {
+#ifdef MY_DEBUG
+    ColliAABoardRectActor::get()->drawHitarea(prm_pChecker);
+#endif
+}
+
+void CollisionChecker2D_b::releaseHitArea() {
+#ifdef MY_DEBUG
+    ColliAABoardRectActor::release();
+#endif
+}
+
 
 CollisionChecker2D_b::~CollisionChecker2D_b() {
     delete _pElem;

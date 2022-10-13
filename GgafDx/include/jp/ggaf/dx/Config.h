@@ -144,7 +144,7 @@ public:
     static std::string COLI_AAPYRAMID_MODEL;
     /** [r] 球の当たり判定要素表示用のモデル */
     static std::string COLI_SPHERE_MODEL;
-
+    static std::string COLI_AABOARDRECT_MODEL;
     ////// 以下は、上記プロパティから生成される読み出し専用プロパティ ////////
 
     /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:直下) */

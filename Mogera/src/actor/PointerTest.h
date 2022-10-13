@@ -1,11 +1,11 @@
 #ifndef POINTERTEST_H_
 #define POINTERTEST_H_
 #include "Mogera.h"
-#include "jp/ggaf/lib/actor/PointerActor.h"
+#include "jp/ggaf/lib/actor/MousePointerActor.h"
 
 namespace Mogera {
 
-class PointerTest : public GgafLib::PointerActor {
+class PointerTest : public GgafLib::MousePointerActor {
 
 public:
     PointerTest(const char* prm_name);

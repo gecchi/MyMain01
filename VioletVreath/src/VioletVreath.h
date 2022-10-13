@@ -39,6 +39,13 @@
 #define KIND_ITEM   (KIND_ITEM_CHIKEI_HIT|KIND_ITEM_CHIKEI_THRU)
 #define KIND_CHIKEI (KIND_CHIKEI_CHIKEI_HIT|KIND_CHIKEI_CHIKEI_THRU)
 
+
+#define KIND_2DFIX_MOUSE_POINTER             (0x4U)   // 00000000 00000000 00000000 00000100
+#define KIND_2DFIX_MENU_ITEM                 (0x8U)   // 00000000 00000000 00000000 00001000
+
+
+
+
 #define ATTRIBUTE_NOMAL       (0x0U)    //000
 #define ATTRIBUTE_GU          (0x1U)    //001
 #define ATTRIBUTE_CHOKI       (0x2U)    //010
@@ -448,7 +455,7 @@ class MenuBoardScreenConfig;
 class MenuBoardSelect;
 class MenuBoardSoundConfig;
 class MenuBoardTitle;
-class MenuItemHitarea;
+class MousePointer;
 class MpBar;
 class MyBunshin;
 class MyBunshinBase;

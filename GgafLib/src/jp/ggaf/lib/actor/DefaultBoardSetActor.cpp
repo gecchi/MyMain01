@@ -15,6 +15,12 @@ DefaultBoardSetActor::DefaultBoardSetActor(const char* prm_name, const char* prm
     _pColliChecker = (CollisionChecker2D_b*)_pChecker;
 }
 
+void DefaultBoardSetActor::drawHitArea() {
+#ifdef MY_DEBUG
+    CollisionChecker2D_b::drawHitArea(_pColliChecker);
+#endif
+}
+
 DefaultBoardSetActor::~DefaultBoardSetActor() {
     GGAF_DELETE(_pColliChecker);
 }

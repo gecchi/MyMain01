@@ -132,6 +132,9 @@ void RegularPolygonBoardModel::restore() {
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
         std::string model_def_file = std::string(_model_id) + ".rsprx";
         std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
+        if (model_def_filepath == "") {
+            throwCriticalException("RegularPolygonBoardModel::restore() "+model_def_file+" ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+        }
         ModelManager::RegPolySpriteXFileFmt xdata;
         pModelManager->obtainRegPolySpriteModelInfo(&xdata, model_def_filepath);
 

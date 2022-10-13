@@ -40,7 +40,7 @@ void BoardTest2::onActive() {
 }
 
 void BoardTest2::processBehavior() {
-     VirtualButton* pVb = P_CARETAKER->getSpacetime()->pVb_;
+     VirtualButton* pVb = pCARETAKER->getSpacetime()->pVb_;
     if (GgafDx::Input::isPressedKey(DIK_C)) {
         setDrawFanNum(getDrawFanNum() + 1);
     }

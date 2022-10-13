@@ -2,7 +2,6 @@
 #include "CursorSelectMenu.h"
 
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
-//#include "jp/gecchi/VioletVreath/actor/menu/MenuItemHitarea.h"
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
@@ -27,9 +26,6 @@ MenuBoardSelect::MenuBoardSelect(const char* prm_name) :
         std::string default_name = XTOS(i) + "***";
         pSelectDisp->update(default_name.c_str(), ALIGN_CENTER, VALIGN_MIDDLE);
         addItem(pSelectDisp);
-
-//        MenuItemHitarea* pHitArea = NEW MenuItemHitarea(pSelectDisp);
-//        pSelectDisp->appendGroupChild(KIND_MENU_ITEM, pHitArea);
     }
 
     CursorSelectMenu* pCursor = NEW CursorSelectMenu("CursorSelectMenu");

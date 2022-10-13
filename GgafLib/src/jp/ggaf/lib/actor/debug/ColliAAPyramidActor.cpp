@@ -1,4 +1,4 @@
-#include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
+#include "jp/ggaf/lib/actor/debug/ColliAAPyramidActor.h"
 
 #include "jp/ggaf/core/Caretaker.h"
 #include "jp/ggaf/dx/effect/Effect.h"
@@ -30,14 +30,14 @@ void ColliAAPyramidActor::release() {
     GGAF_DELETE_NULLABLE(ColliAAPyramidActor::_pObj);
 }
 
-void ColliAAPyramidActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
-    if (prm_pColliChecker != nullptr &&
-        prm_pColliChecker->_pCollisionArea != nullptr &&
-        prm_pColliChecker->getTargetActor()->canHit() &&
-        prm_pColliChecker->getTargetActor()->isActiveInTheTree()) {
+void ColliAAPyramidActor::drawHitarea(GgafDx::Checker* prm_pChecker) {
+    if (prm_pChecker != nullptr &&
+        prm_pChecker->_pCollisionArea != nullptr &&
+        prm_pChecker->getTargetActor()->canHit() &&
+        prm_pChecker->getTargetActor()->isActiveInTheTree()) {
 
-        GgafDx::GeometricActor* pActor = prm_pColliChecker->getTargetActor();
-        GgafDx::CollisionArea* pCollisionArea = prm_pColliChecker->_pCollisionArea;
+        GgafDx::GeometricActor* pActor = prm_pChecker->getTargetActor();
+        GgafDx::CollisionArea* pCollisionArea = prm_pChecker->_pCollisionArea;
         int iAreaNum = pCollisionArea->_colli_part_num;
         if (iAreaNum > 0) {
             getEffect()->setAlphaMaster(1.0); //シーンに所属しないので固定値の設定が必要

@@ -1,28 +1,27 @@
-#ifndef GGAF_LIB_COLLIAAPYRAMIDACTOR_H_
-#define GGAF_LIB_COLLIAAPYRAMIDACTOR_H_
+#ifndef GGAF_LIB_COLLIAABOARDRECTACTOR_H_
+#define GGAF_LIB_COLLIAABOARDRECTACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dx/actor/debug/AAPyramidActor.h"
+#include "jp/ggaf/dx/actor/debug/AABoardRectActor.h"
 
 namespace GgafLib {
 
 /**
- * 当たり判定表示用AAピラミッド(直方三角錐)クラス
- * GgafDx::AAPyramidActor を継承し、当たり判定領域表示機能を追加したアクターです。
+ * Board四角当たり判定表示用クラス
+ * GgafDx::AABoardRectActor を継承し、当たり判定領域表示機能を追加したアクターです。
  * @version 1.00
- * @since 2016/01/18
+ * @since 2022/10/11
  * @author Masatoshi Tsuge
  */
-class ColliAAPyramidActor : public GgafDx::AAPyramidActor {
-    static ColliAAPyramidActor* _pObj;
+class ColliAABoardRectActor : public GgafDx::AABoardRectActor {
+    static ColliAABoardRectActor* _pObj;
 
 public:
-    static ColliAAPyramidActor* get();
+    static ColliAABoardRectActor* get();
     static void release();
 
 public:
-    ColliAAPyramidActor(const char* prm_name);
+    ColliAABoardRectActor(const char* prm_name);
 
-    //void processDraw() {} //オーバーライド未実装にする。
     virtual void onCreateModel() override {
     }
 
@@ -45,11 +44,11 @@ public:
     virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
-    void drawHitarea(CollisionChecker* prm_pColliChecker);
+    void drawHitarea(GgafDx::Checker* prm_pChecker);
 
-    virtual ~ColliAAPyramidActor();
+    virtual ~ColliAABoardRectActor();
 
 };
 
 }
-#endif /*GGAF_LIB_COLLIAAPYRAMIDACTOR_H_*/
+#endif /*GGAF_LIB_COLLIAABOARDRECTACTOR_H_*/

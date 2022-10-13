@@ -234,6 +234,14 @@ public:
     }
 
     /**
+     * アクターのデフォルトの種別を設定 .
+     * @param prm_kind アクターのデフォルトの種別
+     */
+    inline void setDefaultKind(kind_t prm_kind) const {
+        return getStatus()->set(STAT_DEFAULT_ACTOR_KIND, prm_kind);
+    }
+
+    /**
      * デバッグ用：ツリー構造を表示<BR>
      */
     virtual void dump();

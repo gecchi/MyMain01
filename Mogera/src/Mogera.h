@@ -8,8 +8,8 @@
 
 //その他のヘッダファイルはこの様に記述
 
-#undef P_CARETAKER
-#define P_CARETAKER ((Mogera::MgrCaretaker*)Mogera::MgrCaretaker::_pCaretaker)
+#undef pCARETAKER
+#define pCARETAKER ((Mogera::MgrCaretaker*)Mogera::MgrCaretaker::_pCaretaker)
 
 #define MGR_MIKATA (0x01U)
 #define MGR_TEKI   (0x10U)
@@ -50,6 +50,7 @@ class AniTest2;
 class SkinMeshAnimeTestScene;
 class PointerTest;
 class ItemBoardTest;
+class LabelMenuItemFont01;
 }
 
 #endif /*SIMPLEMOGERA_H_*/

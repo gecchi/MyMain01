@@ -27,6 +27,10 @@ public:
     virtual void setAlign(Align prm_align) override;
     virtual void setValign(Valign prm_valign) override;
 public:
+
+    /** 衝突判定支援オブジェクト */
+    CollisionChecker2D_b* _pColliChecker;
+
     FontBoardActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
@@ -52,11 +56,13 @@ public:
     virtual void onInactive() override {
     }
 
-    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override {
-        return false;
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
-    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
+    virtual void drawHitArea() override;
+
+    inline CollisionChecker2D_b* getCollisionChecker() {
+        return _pColliChecker;
     }
 
     virtual ~FontBoardActor();

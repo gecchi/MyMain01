@@ -1,5 +1,5 @@
-#ifndef GGAF_LIB_POINTERACTOR_H_
-#define GGAF_LIB_POINTERACTOR_H_
+#ifndef GGAF_LIB_MOUSEPOINTERACTOR_H_
+#define GGAF_LIB_MOUSEPOINTERACTOR_H_
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 #include "jp/ggaf/lib/util/Quantity.hpp"
 
@@ -12,7 +12,7 @@ namespace GgafLib {
  * @since 2022/08/09
  * @author Masatoshi Tsuge
  */
-class PointerActor : public DefaultBoardActor {
+class MousePointerActor : public DefaultBoardActor {
 
 protected:
 
@@ -34,15 +34,18 @@ protected:
     coord _coord_buffer_top1;
     coord _coord_buffer_left2;
     coord _coord_buffer_top2;
+
+    HWND _last_hWnd;
+
 public:
 
-    PointerActor(const char* prm_name, const char* prm_model);
+    MousePointerActor(const char* prm_name, const char* prm_model);
 
     virtual void processSettlementBehavior() override;
 
-    virtual ~PointerActor();
+    virtual ~MousePointerActor();
 };
 
 }
-#endif /*GGAF_LIB_POINTERACTOR_H_*/
+#endif /*GGAF_LIB_MOUSEPOINTERACTOR_H_*/
 

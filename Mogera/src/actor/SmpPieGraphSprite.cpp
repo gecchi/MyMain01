@@ -39,7 +39,7 @@ void SmpPieGraphSprite::initialize() {
 }
 
 void SmpPieGraphSprite::processBehavior() {
-    VirtualButton* pVb = P_CARETAKER->getSpacetime()->pVb_;
+    VirtualButton* pVb = pCARETAKER->getSpacetime()->pVb_;
     if (GgafDx::Input::isPressedKey(DIK_Z)) {
         setBeginAngPos(getBeginAngPos() + D_ANG(1));
     }

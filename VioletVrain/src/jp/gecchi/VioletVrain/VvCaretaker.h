@@ -5,8 +5,8 @@
 
 #include "scene/VvSpacetime.h"
 
-#undef P_CARETAKER
-#define P_CARETAKER ((VioletVrain::VvCaretaker*)GgafCore::Caretaker::_pCaretaker)
+#undef pCARETAKER
+#define pCARETAKER ((VioletVrain::VvCaretaker*)GgafCore::Caretaker::_pCaretaker)
 
 namespace VioletVrain {
 

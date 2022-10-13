@@ -38,7 +38,6 @@ Caretaker::Caretaker() : GgafCore::Caretaker() {
 
     _is_device_lost_flg = false;
     _adjustGameWindow = false;
-//    _pHWnd_adjustScreen = nullptr;
 
     _pHWndPrimary = nullptr;
     _pHWndSecondary = nullptr;
@@ -169,7 +168,6 @@ void Caretaker::chengeViewPos(HWND prm_pHWnd, int pos) {
         }
         if (!CONFIG::FULL_SCREEN && prm_pHWnd) {
             _adjustGameWindow = true;
-//            _pHWnd_adjustScreen = prm_pHWnd;
         }
     }
 }
@@ -183,7 +181,6 @@ void Caretaker::chengeViewPos1(int pos) {
     }
     if (!CONFIG::FULL_SCREEN) {
         _adjustGameWindow = true;
-//        _pHWnd_adjustScreen = _pHWndPrimary;
     }
 }
 void Caretaker::chengeViewPos2(int pos) {
@@ -194,14 +191,12 @@ void Caretaker::chengeViewPos2(int pos) {
     }
     if (!CONFIG::FULL_SCREEN) {
         _adjustGameWindow = true;
-//        _pHWnd_adjustScreen = _pHWndPrimary;
     }
 }
 void Caretaker::chengeViewAspect(bool prm_b) {
     if (!CONFIG::FULL_SCREEN) {
         CONFIG::FIXED_GAME_VIEW_ASPECT = prm_b;
         _adjustGameWindow = true;
-//        _pHWnd_adjustScreen = _pHWndPrimary;
     }
 }
 void Caretaker::setDisplaySizeInfo() {
@@ -404,8 +399,6 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
             //「フルスクリーンモード・２画面使用・RENDER_TARGET_BUFFERサイズ無視
             if (CONFIG::FIXED_GAME_VIEW_ASPECT) {
                 //「フルスクリーンモード・２画面使用・縦横比FIX」の１画面目フロントバッファ描画領域
-//                LONG fix_width = CONFIG::GAME_BUFFER_WIDTH*CONFIG::VIEW1_WIDTH_RATIO/2;
-//                LONG fix_height = CONFIG::GAME_BUFFER_HEIGHT*CONFIG::VIEW1_HEIGHT_RATIO;
                 LONG fix_width  = CONFIG::RENDER_BUFFER_SOURCE1_WIDTH  * CONFIG::VIEW1_WIDTH_RATIO;
                 LONG fix_height = CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT * CONFIG::VIEW1_HEIGHT_RATIO;
                 if (1.0f * CONFIG::FULL_SCREEN1_WIDTH / CONFIG::FULL_SCREEN1_HEIGHT > 1.0f * fix_width / fix_height) {
@@ -424,8 +417,6 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
                 //「フルスクリーンモード・２画面使用・縦横比FIX」の２画面目フロントバッファ描画領域
-//                fix_width = CONFIG::GAME_BUFFER_WIDTH*CONFIG::VIEW2_WIDTH_RATIO/2;
-//                fix_height = CONFIG::GAME_BUFFER_HEIGHT*CONFIG::VIEW2_HEIGHT_RATIO;
                 fix_width  = CONFIG::RENDER_BUFFER_SOURCE2_WIDTH  * CONFIG::VIEW2_WIDTH_RATIO;
                 fix_height = CONFIG::RENDER_BUFFER_SOURCE2_HEIGHT * CONFIG::VIEW2_HEIGHT_RATIO;
                 if (1.0f * CONFIG::FULL_SCREEN2_WIDTH / CONFIG::FULL_SCREEN2_HEIGHT > 1.0f * fix_width / fix_height) {
@@ -470,8 +461,6 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
             //「フルスクリーンモード・１画面使用・RENDER_TARGET_BUFFERサイズ無視」
             if (CONFIG::FIXED_GAME_VIEW_ASPECT) {
                 //「フルスクリーンモード・１画面使用・縦横比FIX」のフロントバッファ描画領域
-//                LONG fix_width = CONFIG::GAME_BUFFER_WIDTH*CONFIG::VIEW1_WIDTH_RATIO;
-//                LONG fix_height = CONFIG::GAME_BUFFER_HEIGHT*CONFIG::VIEW1_HEIGHT_RATIO;
                 LONG fix_width  = CONFIG::RENDER_BUFFER_SOURCE1_WIDTH  * CONFIG::VIEW1_WIDTH_RATIO;
                 LONG fix_height = CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT * CONFIG::VIEW1_HEIGHT_RATIO;
                 if (1.0f * CONFIG::FULL_SCREEN1_WIDTH / CONFIG::FULL_SCREEN1_HEIGHT > 1.0f * fix_width / fix_height) {
@@ -727,8 +716,8 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     //デバイスパラメータ作成
     D3DCAPS9 caps;
     _pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
-                                      D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
-                                      &caps);             // [out] デバイスの能力が格納される
+                           D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
+                           &caps);             // [out] デバイスの能力が格納される
 
     _num_adapter = caps.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
     _TRACE_("_num_adapter = "<< _num_adapter);
@@ -743,8 +732,6 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
             CONFIG::DUAL_VIEW = false;
             CONFIG::FULL_SCREEN1_WIDTH_BK  = CONFIG::FULL_SCREEN1_WIDTH;
             CONFIG::FULL_SCREEN1_HEIGHT_BK = CONFIG::FULL_SCREEN1_HEIGHT;
-//            CONFIG::FULL_SCREEN1_WIDTH     = CONFIG::FULL_SCREEN1_WIDTH;
-//            CONFIG::FULL_SCREEN1_HEIGHT    = CONFIG::FULL_SCREEN1_HEIGHT;
         } else {
             if (_num_adapter < CONFIG::PRIMARY_ADAPTER_NO+1 || _num_adapter < CONFIG::SECONDARY_ADAPTER_NO+1) {
                 throwCriticalException("範囲外のディスプレイアダプタ番号を指定しています。アダプタ番号は 0～"<<_num_adapter-1<<" が有効です。\n"
@@ -1790,7 +1777,6 @@ void Caretaker::chengeToBorderlessFullWindow(HWND prm_pHWnd) {
     ShowWindow(prm_pHWnd, SW_SHOWMAXIMIZED );
     UpdateWindow(prm_pHWnd);
     _adjustGameWindow = true;
-//    _pHWnd_adjustScreen = prm_pHWnd;
 }
 
 void Caretaker::backToNomalWindow(HWND prm_pHWnd) {
@@ -1803,7 +1789,6 @@ void Caretaker::backToNomalWindow(HWND prm_pHWnd) {
     ShowWindow(prm_pHWnd, SW_NORMAL);
     UpdateWindow(prm_pHWnd);
     _adjustGameWindow = true;
-//    _pHWnd_adjustScreen = prm_pHWnd;
 }
 
 void Caretaker::presentMoment() {
@@ -1866,7 +1851,6 @@ void Caretaker::presentVisualize() {
     //        }
     HRESULT hr;
     if (pCARETAKER->_is_device_lost_flg == false) {
-        //if (_adjustGameWindow && _pHWnd_adjustScreen) {
         if (_adjustGameWindow) {
             adjustGameWindow(_pHWndPrimary);
             adjustGameWindow(_pHWndSecondary);
@@ -1905,55 +1889,13 @@ void Caretaker::presentVisualize() {
         } else {
             if (CONFIG::DUAL_VIEW) {
                 //２画面使用・ウィンドウモード
-                if (CONFIG::FIXED_GAME_VIEW_ASPECT) {
-                    hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
-                    if (hr == D3D_OK) {
-                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
-                    }
-
-
-//                    //縦横比固定モード
-//                    if (CONFIG::SWAP_GAME_VIEW) {
-//                        //画面入れ替えあり
-//                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
-//                        if (hr == D3D_OK) {
-//                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
-//                        }
-//                    } else {
-//                        //画面入れ替えなし
-//                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
-//                        if (hr == D3D_OK) {
-//                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
-//                        }
-//                    }
-//                } else {
-//                    //縦横ストレッチモード
-//                    if (CONFIG::SWAP_GAME_VIEW) {
-//                        //画面入れ替えあり
-//                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], nullptr, nullptr, nullptr);
-//                        if (hr == D3D_OK) {
-//                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], nullptr, _pHWndSecondary, nullptr);
-//                        }
-//                    } else {
-//                        //画面入れ替えなし
-//                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], nullptr, nullptr, nullptr);
-//                        if (hr == D3D_OK) {
-//                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], nullptr, _pHWndSecondary, nullptr);
-//                        }
-//                    }
-
-
+                hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
+                if (hr == D3D_OK) {
+                    hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
                 }
             } else {
                 //１画面使用・ウィンドウモード
                 hr = pDevice->Present(&_rectRenderTargetBuffer, &_aRect_Present[_primary_adapter_no], nullptr, nullptr);
-//                if (CONFIG::FIXED_GAME_VIEW_ASPECT) {
-//                    //縦横比固定モード
-//                    hr = pDevice->Present(&_rectRenderTargetBuffer, &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
-//                } else {
-//                    //縦横ストレッチモード
-//                    hr = pDevice->Present(&_rectRenderTargetBuffer, nullptr, nullptr, nullptr);
-//                }
             }
         }
 

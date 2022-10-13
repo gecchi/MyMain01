@@ -3,6 +3,7 @@
 
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/lib/util/CollisionChecker2D_b.h"
 #include "actor/PointSpriteTest.h"
 #include "actor/BoardTest.h"
 #include "actor/BoardTest2.h"
@@ -17,6 +18,7 @@
 #include "actor/AniTest2.h"
 #include "actor/AniTest3.h"
 #include "actor/ItemBoardTest.h"
+#include "actor/LabelMenuItemFont01.h"
 #include "scene/MgrSpacetime/MgrWorld.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
@@ -38,6 +40,7 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
     _class_name = "TrialAndErrScene";
     requestActor(2000, SmpActor2, "SmpActor2");
     requestActor(3000, ItemBoardTest, "ItemBoardTest");
+    requestActor(4000, LabelMenuItemFont01, "LabelMenuItemFont01");
 }
 
 
@@ -49,7 +52,7 @@ void TrialAndErrScene::initialize() {
 void TrialAndErrScene::processBehavior() {
     static SmpActor2* pSmpActor2 = nullptr;
     static ItemBoardTest* pItemBoardTest = nullptr;
-
+    static LabelMenuItemFont01* pLabelMenuItemFont01 = nullptr;
     if (hasJustChangedToActive()) {
 
         pSmpActor2 = (SmpActor2*)receiveActor(2000);
@@ -61,7 +64,13 @@ void TrialAndErrScene::processBehavior() {
         bringSceneMediator()->appendGroupChild(MGR_MIKATA, pItemBoardTest);
         pItemBoardTest->setPosition(PX_C(100), PX_C(200));
 
-
+        pLabelMenuItemFont01 = (LabelMenuItemFont01*)receiveActor(4000);
+        pLabelMenuItemFont01->update("AAAAAA\r\nBBBBBBB");
+        pLabelMenuItemFont01->getCollisionChecker()->createCollisionArea(1);
+        pLabelMenuItemFont01->getCollisionChecker()->setColliAABox(0, 0.8);
+        pLabelMenuItemFont01->setHitAble(true);
+        bringSceneMediator()->appendGroupChild(MGR_MIKATA, pLabelMenuItemFont01);
+        pLabelMenuItemFont01->setPosition(PX_C(300), PX_C(250));
     }
 }
 

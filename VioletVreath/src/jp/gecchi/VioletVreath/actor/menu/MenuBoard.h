@@ -86,6 +86,17 @@ public:
     virtual void processJudgement() override;
     virtual void onSink() override;
 
+    virtual void addItem(GgafDx::FigureActor* prm_pItem,
+                         coord prm_x_local, coord prm_y_local, coord prm_z_local) override;
+
+    virtual void addItem(GgafDx::FigureActor* prm_pItem,
+                         coord prm_x_local, coord prm_y_local) {
+        addItem(prm_pItem, prm_x_local, prm_y_local, 0);
+    }
+    virtual void addItem(GgafDx::FigureActor* prm_pItem) {
+        addItem(prm_pItem, 0, 0, 0);
+    }
+
     virtual ~MenuBoard();
 };
 

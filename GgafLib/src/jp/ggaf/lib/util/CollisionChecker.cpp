@@ -13,10 +13,10 @@
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #ifdef MY_DEBUG
-#include "jp/ggaf/lib/actor/ColliAABoxActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
-#include "jp/ggaf/lib/actor/ColliSphereActor.h"
+#include "jp/ggaf/lib/actor/debug/ColliAABoxActor.h"
+#include "jp/ggaf/lib/actor/debug/ColliAAPrismActor.h"
+#include "jp/ggaf/lib/actor/debug/ColliAAPyramidActor.h"
+#include "jp/ggaf/lib/actor/debug/ColliSphereActor.h"
 #endif
 
 
@@ -185,12 +185,12 @@ GgafDx::CollisionPart* CollisionChecker::getLastHitCollisionPart() {
     }
 }
 
-void CollisionChecker::drawHitArea(CollisionChecker* prm_pColliChecker) {
+void CollisionChecker::drawHitArea(GgafDx::Checker* prm_pChecker) {
 #ifdef MY_DEBUG
-    ColliAABoxActor::get()->drawHitarea(prm_pColliChecker);
-    ColliAAPrismActor::get()->drawHitarea(prm_pColliChecker);
-    ColliAAPyramidActor::get()->drawHitarea(prm_pColliChecker);
-    ColliSphereActor::get()->drawHitarea(prm_pColliChecker);
+    ColliAABoxActor::get()->drawHitarea(prm_pChecker);
+    ColliAAPrismActor::get()->drawHitarea(prm_pChecker);
+    ColliAAPyramidActor::get()->drawHitarea(prm_pChecker);
+    ColliSphereActor::get()->drawHitarea(prm_pChecker);
 #endif
 }
 

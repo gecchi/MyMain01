@@ -14,7 +14,8 @@ using namespace GgafDx;
 MassBoardActor::MassBoardActor(const char* prm_name,
                                const char* prm_model,
                                const char* prm_effect_id,
-                               const char* prm_technique) :
+                               const char* prm_technique,
+                               Checker* prm_pChecker) :
 
                                    MassActor(prm_name,
                                              prm_model,
@@ -22,7 +23,7 @@ MassBoardActor::MassBoardActor(const char* prm_name,
                                              prm_effect_id,
                                              TYPE_MASSBOARD_EFFECT,
                                              prm_technique,
-                                             nullptr) ,
+                                             prm_pChecker) ,
                                    IAlignAbleActor(),
 _pMassBoardModel((MassBoardModel*)_pModel),
 _pMassBoardEffect((MassBoardEffect*)_pEffect),
@@ -40,7 +41,7 @@ _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek()))
     _valign = VALIGN_TOP;
     _alpha = 1.0f;
 
-    _is_2D = true;
+    _is_fix_2D = true;
     _pFunc_calc_rot_mv_world_matrix = nullptr;
 
     setZEnableDraw(false);

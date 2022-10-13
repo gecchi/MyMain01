@@ -65,7 +65,7 @@ void Jiki::onActive() {
 void Jiki::processBehavior() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    VirtualButton* pVb = &(P_CARETAKER->getSpacetime()->getWorld()->vb_);
+    VirtualButton* pVb = &(pCARETAKER->getSpacetime()->getWorld()->vb_);
     if (pVb->isPressed(VB_BUTTON1)) {
         //ボタン１（スペースキー）を押しながらの場合
         if (pVb->isPressed(VB_UP)) {
