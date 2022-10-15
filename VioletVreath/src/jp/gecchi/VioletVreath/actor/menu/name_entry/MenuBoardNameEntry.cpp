@@ -126,7 +126,7 @@ bool MenuBoardNameEntry::condSelectExPrev() {
     return VB->isAutoRepeat(VB_UI_UP);
 }
 
-void MenuBoardNameEntry::selectNext() { //右の時
+void MenuBoardNameEntry::selectNext(bool prm_smooth) { //右の時
     getMainCursor()->setPositionAt(_lstItems.getCurrent());
     if (getSelectedIndex() == ITEM_INDEX_OK_) {
         //[OK]から右で進む場合、最下段(4段目)の一番右のアイテム("_")に進む
@@ -134,10 +134,10 @@ void MenuBoardNameEntry::selectNext() { //右の時
     } else {
         _lstItems.next();
     }
-    moveCursor();
+    moveCursor(prm_smooth);
 }
 
-void MenuBoardNameEntry::selectPrev() { //左の時
+void MenuBoardNameEntry::selectPrev(bool prm_smooth) { //左の時
     getMainCursor()->setPositionAt(_lstItems.getCurrent());
     if (getSelectedIndex() == ITEM_INDEX_BS_) { //[BS]から左で戻る場合、
         int prev_item_index = getMvCursorHistoryIndex(1);
@@ -153,18 +153,18 @@ void MenuBoardNameEntry::selectPrev() { //左の時
     } else {
         _lstItems.prev();
     }
-    moveCursor();
+    moveCursor(prm_smooth);
 }
-void MenuBoardNameEntry::selectExNext() { //下の時
+void MenuBoardNameEntry::selectExNext(bool prm_smooth) { //下の時
     if (_lstItems.getRelation(ITEM_RELATION_EX_NEXT)) {
         getMainCursor()->setPositionAt(_lstItems.getCurrent());
         _lstItems.gotoRelation(ITEM_RELATION_EX_NEXT);
-        moveCursor();
+        moveCursor(prm_smooth);
     } else {
 
     }
 }
-void MenuBoardNameEntry::selectExPrev() { //上の時
+void MenuBoardNameEntry::selectExPrev(bool prm_smooth) { //上の時
     if (_lstItems.getRelation(ITEM_RELATION_EX_PREV)) {
         getMainCursor()->setPositionAt(_lstItems.getCurrent());
         if (getSelectedIndex() == ITEM_INDEX_OK_) { //OKから上で戻る場合、
@@ -178,7 +178,7 @@ void MenuBoardNameEntry::selectExPrev() { //上の時
         } else {
             _lstItems.gotoRelation(ITEM_RELATION_EX_PREV);
         }
-        moveCursor();
+        moveCursor(prm_smooth);
     } else {
     }
 }

@@ -36,12 +36,20 @@ protected:
     coord _coord_buffer_top2;
 
     HWND _last_hWnd;
-
+    GgafCore::Actor* _pHitActor;
 public:
 
     MousePointerActor(const char* prm_name, const char* prm_model);
 
     virtual void processSettlementBehavior() override;
+
+    virtual bool processHitChkLogic(Actor* prm_pOtherActor);
+
+    virtual void onHit(const Actor* prm_pOtherActor);
+
+    virtual GgafCore::Actor* getHitActor() {
+        return _pHitActor;
+    }
 
     virtual ~MousePointerActor();
 };

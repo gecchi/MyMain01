@@ -8,6 +8,8 @@
 
 namespace VioletVreath {
 
+#define pMOUSEPOINTER (pCARETAKER->getSpacetime()->getWorld()->pMousePointer_)
+
 /**
  * 世界シーンクラス .
  * アプリ上の「この世(Spacetime)」の一つ下の階層に位置します。<BR>

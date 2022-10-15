@@ -34,6 +34,7 @@ MousePointerActor::MousePointerActor(const char* prm_name, const char* prm_model
     _coord_buffer_top2 = PX_C(_buffer_top2);
     _last_hWnd = pCARETAKER->_pHWndPrimary;
 
+    _pHitActor = nullptr;
 }
 
 void MousePointerActor::processSettlementBehavior() {
@@ -65,6 +66,14 @@ void MousePointerActor::processSettlementBehavior() {
     } else {
         //‚Ç‚¤‚µ‚æ‚¤
     }
+}
+bool MousePointerActor::processHitChkLogic(Actor* prm_pOtherActor) {
+     _pHitActor = nullptr;
+     return DefaultBoardActor::processHitChkLogic(prm_pOtherActor);
+}
+
+void MousePointerActor::onHit(const Actor* prm_pOtherActor) {
+    _pHitActor = (Actor*)prm_pOtherActor;
 }
 
 MousePointerActor::~MousePointerActor() {

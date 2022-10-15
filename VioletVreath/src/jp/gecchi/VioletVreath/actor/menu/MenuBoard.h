@@ -31,6 +31,7 @@ public:
     coord target_x_;
     coord target_y_;
 
+    MousePointer* pMousePointer;
 public:
     MenuBoard(const char* prm_name, const char* prm_model);
 
@@ -50,6 +51,8 @@ public:
     virtual bool condSelectExNext() override;
     virtual bool condSelectExPrev() override;
     virtual bool condSelectCancel() override;
+    virtual GgafDx::FigureActor* condSelectItem() override;
+
     virtual void moveCursor(bool prm_smooth = true) override;
     virtual void onMoveCursor(int prm_from_index, int prm_selected_index) override;
     virtual void onSelect(int prm_from_index, int prm_selected_index) override;

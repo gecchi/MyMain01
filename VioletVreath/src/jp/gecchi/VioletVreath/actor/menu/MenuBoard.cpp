@@ -6,6 +6,8 @@
 #include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
 #include "jp/ggaf/lib/actor/FontBoardActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker2D_b.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"
+#include "jp/gecchi/VioletVreath/actor/menu/MousePointer.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -23,6 +25,9 @@ MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
     pSeTx->set(SE_DECIDED_OK    , "SE_MENU_DECIDED_OK");
     pSeTx->set(SE_DECIDED_CANCEL, "SE_MENU_DECIDED_CANCEL");
     pSeTx->set(SE_WRONG         , "SE_MENU_SE_WRONG");
+
+    pMousePointer = pMOUSEPOINTER;
+
 }
 
 void MenuBoard::setTransition(frame prm_menu_fade_frames,
@@ -81,7 +86,17 @@ bool MenuBoard::condSelectExPrev() {
 bool MenuBoard::condSelectCancel() {
     return hasJustCancelled();
 }
-
+GgafDx::FigureActor* MenuBoard::condSelectItem() {
+    if (pMousePointer) {
+        GgafCore::Actor*  pHitActor = pMousePointer->getHitActor();
+        if (pHitActor) {
+            if (pHitActor->instanceOf(Obj_GgafDx_FigureActor)) {
+                return (GgafDx::FigureActor*)pHitActor;
+            }
+        }
+    }
+    return nullptr;
+}
 void MenuBoard::riseMe() {
     target_x_ = _x;
     target_y_ = _y;

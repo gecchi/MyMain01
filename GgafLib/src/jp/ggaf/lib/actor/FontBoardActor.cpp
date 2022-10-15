@@ -124,6 +124,7 @@ void FontBoardActor::drawHitArea() {
 
 
 FontBoardActor::~FontBoardActor() {
+    GGAF_DELETE(_pColliChecker);
 }
 
 

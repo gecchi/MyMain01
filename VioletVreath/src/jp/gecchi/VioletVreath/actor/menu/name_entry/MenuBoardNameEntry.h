@@ -38,10 +38,10 @@ public:
     bool condDecision() override;
     bool condCancel() override;
 
-    void selectNext() override;
-    void selectPrev() override;
-    void selectExNext() override;
-    void selectExPrev() override;
+    void selectNext(bool prm_smooth = true) override;
+    void selectPrev(bool prm_smooth = true) override;
+    void selectExNext(bool prm_smooth = true) override;
+    void selectExPrev(bool prm_smooth = true) override;
 
     void onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_index) override;
     void onCancel(GgafDx::FigureActor* prm_pItem, int prm_item_index) override;

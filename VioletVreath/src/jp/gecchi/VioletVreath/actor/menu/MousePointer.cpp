@@ -47,6 +47,7 @@ void MousePointer::processJudgement() {
 
 void MousePointer::onHit(const GgafCore::Actor* prm_pOtherActor) {
 _TRACE_("マウスがひっとおお！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
+MousePointerActor::onHit(prm_pOtherActor);
 }
 
 void MousePointer::onInactive() {

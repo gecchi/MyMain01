@@ -478,31 +478,31 @@ public:
      * メインカーソルで「次」のメニューアイテム(但しisActive())選択＆メインカーソルを移動 .
      * onSelect() コールバックは必ず発生します。<BR>
      */
-    virtual void selectNext();
+    virtual void selectNext(bool prm_smooth = true);
 
     /**
      * メインカーソルで「前」のメニューアイテム(但しisActive())選択＆メインカーソルを移動 .
      * onSelect() コールバックは必ず発生します。<BR>
      */
-    virtual void selectPrev();
+    virtual void selectPrev(bool prm_smooth = true);
 
     /**
      * メインカーソルで「（別の）次」のメニューアイテム(但しisActive())選択＆メインカーソルを移動 .
      * onSelect() コールバックは必ず発生します。<BR>
      */
-    virtual void selectExNext();
+    virtual void selectExNext(bool prm_smooth = true);
 
     /**
      * メインカーソルで「（別の）前」のメニューアイテム(但しisActive())選択＆メインカーソルを移動 .
      * onSelect() コールバックは必ず発生します。<BR>
      */
-    virtual void selectExPrev();
+    virtual void selectExPrev(bool prm_smooth = true);
 
     /**
      * メインカーソルで「キャンセル」メニューアイテム選択＆メインカーソルを移動 .
      * onSelect() コールバックは必ず発生します。<BR>
      */
-    virtual void selectCancel();
+    virtual void selectCancel(bool prm_smooth = true);
 
     /**
      * メインカーソルで指定のインデックスのメニューアイテムを「選択」し、メインカーソルを移動させる .
@@ -695,6 +695,12 @@ public:
      * @return true:「キャンセル（メニューアイテム）」へ移動の条件成立 / false:不成立
      */
     virtual bool condSelectCancel() = 0;
+
+
+    virtual GgafDx::FigureActor* condSelectItem() {
+        return nullptr;
+    }
+
 
     /**
      * 「決定（振る舞い）」された場合に呼び出されるコールバック。
@@ -1348,7 +1354,7 @@ GgafDx::FigureActor* MenuActor<T>::getLabel(int prm_index) {
 
 
 template<class T>
-void MenuActor<T>::selectNext() {
+void MenuActor<T>::selectNext(bool prm_smooth) {
     GgafDx::FigureActor* pCurrent = _lstItems.getCurrent();
     if (_pCursorActor) {
         _pCursorActor->setPositionAt(pCurrent);
@@ -1364,13 +1370,13 @@ void MenuActor<T>::selectNext() {
             }
         }
     }
-    moveCursor();
+    moveCursor(prm_smooth);
     *(_lstMvSelectHistory.next()) = _lstItems.getCurrentIndex();
     onSelect(*(_lstMvSelectHistory.getPrev()), *(_lstMvSelectHistory.getCurrent())); //コールバック
 }
 
 template<class T>
-void MenuActor<T>::selectPrev() {
+void MenuActor<T>::selectPrev(bool prm_smooth) {
     GgafDx::FigureActor* pCurrent = _lstItems.getCurrent();
     if (_pCursorActor) {
         _pCursorActor->setPositionAt(pCurrent);
@@ -1386,13 +1392,13 @@ void MenuActor<T>::selectPrev() {
             }
         }
     }
-    moveCursor();
+    moveCursor(prm_smooth);
     *(_lstMvSelectHistory.next()) = _lstItems.getCurrentIndex();
     onSelect(*(_lstMvSelectHistory.getPrev()), *(_lstMvSelectHistory.getCurrent())); //コールバック
 }
 
 template<class T>
-void MenuActor<T>::selectExNext() {
+void MenuActor<T>::selectExNext(bool prm_smooth) {
     if (_lstItems.getRelation(ITEM_RELATION_EX_NEXT)) {
         GgafDx::FigureActor* pCurrent = _lstItems.getCurrent();
         if (_pCursorActor) {
@@ -1409,14 +1415,14 @@ void MenuActor<T>::selectExNext() {
                 }
             }
         }
-        moveCursor();
+        moveCursor(prm_smooth);
     }
     *(_lstMvSelectHistory.next()) = _lstItems.getCurrentIndex();
     onSelect(*(_lstMvSelectHistory.getPrev()), *(_lstMvSelectHistory.getCurrent())); //コールバック
 }
 
 template<class T>
-void MenuActor<T>::selectExPrev() {
+void MenuActor<T>::selectExPrev(bool prm_smooth) {
     if (_lstItems.getRelation(ITEM_RELATION_EX_PREV)) {
         GgafDx::FigureActor* pCurrent = _lstItems.getCurrent();
         if (_pCursorActor) {
@@ -1433,7 +1439,7 @@ void MenuActor<T>::selectExPrev() {
                 }
             }
         }
-        moveCursor();
+        moveCursor(prm_smooth);
     } else {
 
     }
@@ -1442,13 +1448,13 @@ void MenuActor<T>::selectExPrev() {
 }
 
 template<class T>
-void MenuActor<T>::selectCancel() {
+void MenuActor<T>::selectCancel(bool prm_smooth) {
     if (_lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
         if (_pCursorActor) {
             _pCursorActor->setPositionAt(_lstItems.getCurrent());
         }
         _lstItems.gotoRelation(ITEM_RELATION_TO_CANCEL);
-        moveCursor();
+        moveCursor(prm_smooth);
     } else {
 
     }
@@ -1629,6 +1635,10 @@ void MenuActor<T>::processBehavior() {
             selectExPrev();
         } else if (condSelectCancel()) {
             selectCancel();
+        }
+        GgafDx::FigureActor* pSelected = condSelectItem();
+        if (pSelected) {
+            selectItem(pSelected);
         }
     }
 
