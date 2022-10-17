@@ -105,22 +105,22 @@ void MenuBoardTitle::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_ind
         //GameTitleSceneクラス側でイベント実行
     } else if (prm_item_index == ITEM_KEY_CONFIG) {
         //キー入力設定メニュー起動
-        riseSubMenu(MENU_KEY_CONFIG)->setPosition(PX_C(50), PX_C(10));
+        riseSubMenu(MENU_KEY_CONFIG, PX_C(50), PX_C(10));
     } else if (prm_item_index == ITEM_SOUND_CONFIG) {
         //音量設定メニュー起動
-        riseSubMenu(MENU_SOUND_CONFIG)->setPosition(PX_C(50), PX_C(10));
+        riseSubMenu(MENU_SOUND_CONFIG, PX_C(50), PX_C(10));
     } else if (prm_item_index == ITEM_SCREEN_CONFIG) {
         //画面設定メニュー起動
-        riseSubMenu(MENU_SCREEN_CONFIG)->setPosition(PX_C(50), PX_C(10));
+        riseSubMenu(MENU_SCREEN_CONFIG, PX_C(50), PX_C(10));
     } else if (prm_item_index == ITEM_NAME_ENTRY) {
         //ネームエントリー起動 TODO:TEST
-        riseSubMenu(MENU_NAME_ENTRY)->setPosition(PX_C(50), PX_C(10));
+        riseSubMenu(MENU_NAME_ENTRY, PX_C(50), PX_C(10));
     } else if (prm_item_index == ITEM_REBOOT) {
         //確認メニュー起動
-        riseSubMenu(MENU_CONFIRM)->setPosition(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
+        riseSubMenu(MENU_CONFIRM, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
     } else if (prm_item_index == ITEM_QUIT) {
         //確認メニュー起動
-        riseSubMenu(MENU_CONFIRM)->setPosition(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
+        riseSubMenu(MENU_CONFIRM, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
     }
 }
 

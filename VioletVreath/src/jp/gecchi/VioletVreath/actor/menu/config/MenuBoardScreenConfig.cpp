@@ -667,9 +667,9 @@ void MenuBoardScreenConfig::onDecision(GgafDx::FigureActor* prm_pItem, int prm_i
         }
         sinkMe();
     } else if (prm_item_index == ITEM_OK) { //保存のOK
-        riseSubMenu()->setPosition(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //SAVE確認メニュー起動
+        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //SAVE確認メニュー起動
     } else if (prm_item_index == ITEM_OK_REBOOT) { //OKで再起動
-        riseSubMenu()->setPosition(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //SAVE確認メニュー起動
+        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //SAVE確認メニュー起動
     } else {
 
     }

@@ -129,15 +129,15 @@ void MenuBoardPause::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_ind
     if (prm_item_index == ITEM_BACK_TO_GAME) {
         sinkMe();
     } else if (prm_item_index == ITEM_KEY_CONFIG) {
-        riseSubMenu(MENU_KEY_CONFIG)->setPosition(PX_C(50), PX_C(10));
+        riseSubMenu(MENU_KEY_CONFIG, PX_C(50), PX_C(10));
     } else if (prm_item_index == ITEM_SOUND_CONFIG) {
-        riseSubMenu(MENU_SOUND_CONFIG)->setPosition(PX_C(50), PX_C(10));
+        riseSubMenu(MENU_SOUND_CONFIG, PX_C(50), PX_C(10));
     } else if (prm_item_index == ITEM_GO_TO_TITLE) {
-        riseSubMenu(MENU_CONFIRM)->setPosition(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y + PX_C(50)); //確認メニュー起動
+        riseSubMenu(MENU_CONFIRM, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y + PX_C(50)); //確認メニュー起動
     } else if (prm_item_index == ITEM_REBOOT) {
-        riseSubMenu(MENU_CONFIRM)->setPosition(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y + PX_C(50)); //確認メニュー起動
+        riseSubMenu(MENU_CONFIRM, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y + PX_C(50)); //確認メニュー起動
     } else if (prm_item_index == ITEM_QUIT_GAME) {
-        riseSubMenu(MENU_CONFIRM)->setPosition(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y + PX_C(50)); //確認メニュー起動
+        riseSubMenu(MENU_CONFIRM, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y + PX_C(50)); //確認メニュー起動
     } else if (prm_item_index == ITEM_HIDE_MENU) {
         if (toggle_HIDE_MENU_) {
             toggle_HIDE_MENU_ = false;

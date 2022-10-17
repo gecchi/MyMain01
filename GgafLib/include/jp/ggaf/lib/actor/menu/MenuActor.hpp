@@ -3,6 +3,7 @@
 #include "GgafLibCommonHeader.h"
 
 #include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
@@ -535,6 +536,8 @@ public:
      */
     virtual int selectItem(GgafDx::FigureActor* prm_item, bool prm_smooth = true);
 
+    virtual int selectItemIfPossible(GgafDx::FigureActor* prm_item, bool prm_smooth = true);
+
     /**
      * 補助カーソルで指定のメニューアイテムを「選択」し、補助カーソルを移動させる .
      * 内部で moveSubCursor() がコールバックされ、カーソルが移動することになる。<BR>
@@ -903,10 +906,18 @@ public:
      * 引数インデックスのメニューに変更されます。
      * サブメニューを表示すると、サブメニューを閉じる(sinkCurrentSubMenu()) まで、
      * 呼び出し元メニューは操作不可能になります。
-     * @param prm_index アクティブにするサブメニューのインデックス
-     * @return そのサブメニュー
+     * @param prm_index アクティブにするサブメニューのインデックス(追加した順番。0～)
      */
-    virtual MenuActor<T>* riseSubMenu(int prm_index = 0);
+    virtual void riseSubMenu(int prm_index = 0);
+
+    /**
+     * 表示完了位置を指定してサブメニューを起動 .
+     * 引数座標はサブメニューがスライドが完了して落ち着く座標を指定。
+     * @param prm_index サブメニューインデックス(追加した順番。0～)
+     * @param prm_target_x サブメニュー表示完了X座標
+     * @param prm_target_y サブメニュー表示完了Y座標
+     */
+    virtual void riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_y);
 
     /**
      * 現在アクティブなサブメニューを閉じて終了させる .
@@ -1204,6 +1215,17 @@ int MenuActor<T>::selectItem(GgafDx::FigureActor* prm_item, bool prm_smooth) {
     }
     selectItem(index, prm_smooth);
     return index;
+}
+
+template<class T>
+int MenuActor<T>::selectItemIfPossible(GgafDx::FigureActor* prm_item, bool prm_smooth) {
+    int index = _lstItems.indexOf(prm_item);
+    if (index == -1) {
+        return index;
+    } else {
+        selectItem(index, prm_smooth);
+        return index;
+    }
 }
 
 template<class T>
@@ -1563,6 +1585,10 @@ void MenuActor<T>::riseMe() {
                        T::_z + p->_z_local);
         p->setAlpha(T::getAlpha());
         p->activate();
+        GgafCore::GroupHead* pH = p->getGroupHead(); //Itemの間には団長が存在する
+        if (pH) {
+            p->activate();
+        }
         pElem = pElem->_pNext;
     }
     //表示メニューアイテム初期配置
@@ -1638,7 +1664,7 @@ void MenuActor<T>::processBehavior() {
         }
         GgafDx::FigureActor* pSelected = condSelectItem();
         if (pSelected) {
-            selectItem(pSelected);
+            selectItemIfPossible(pSelected);
         }
     }
 
@@ -1846,16 +1872,22 @@ MenuActor<T>* MenuActor<T>::getRisingSubMenu() {
 
 
 template<class T>
-MenuActor<T>* MenuActor<T>::riseSubMenu(int prm_index) {
+void MenuActor<T>::riseSubMenu(int prm_index) {
 #ifdef MY_DEBUG
     if (_lstSubMenu.length() < prm_index+1) {
         throwCriticalException("MenuActor<T>::riseSubMenu() サブメニューアイテム要素数オーバー name="<<T::getName()<<" _lstSubMenu.length()="<<_lstSubMenu.length()<<" prm_index="<<prm_index);
     }
 #endif
-    MenuActor<T>* pSubMenu = _lstSubMenu.current(prm_index);
+    MenuActor<T>* pSubMenu = getSubMenu(prm_index);
     pSubMenu->riseMe();
-    return pSubMenu;
 }
+
+template<class T>
+void MenuActor<T>::riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_y) {
+    getSubMenu(prm_index)->setPosition(prm_target_x, prm_target_y); //←によりvoid MenuBoard::riseMe() に来た時にターゲット設定される
+    riseSubMenu(prm_index);
+}
+
 
 template<class T>
 void MenuActor<T>::sinkCurrentSubMenu() {

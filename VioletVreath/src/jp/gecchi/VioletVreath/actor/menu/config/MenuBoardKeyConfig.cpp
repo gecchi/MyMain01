@@ -232,7 +232,7 @@ void MenuBoardKeyConfig::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item
         sinkMe();
     } else if (prm_item_index == ITEM_INDEX_OK_) {
         input_mode_ = 0;
-        riseSubMenu()->setPosition(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //確認メニュー起動
+        riseSubMenu(0, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //確認メニュー起動
     } else if (input_mode_ == 0) {
         input_mode_ = 1;
         input_target_item_ = prm_item_index;
