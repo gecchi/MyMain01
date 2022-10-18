@@ -68,7 +68,7 @@ void MousePointerActor::processSettlementBehavior() {
     }
 }
 bool MousePointerActor::processHitChkLogic(Actor* prm_pOtherActor) {
-     _pHitActor = nullptr;
+     //_pHitActor = nullptr;
      return DefaultBoardActor::processHitChkLogic(prm_pOtherActor);
 }
 

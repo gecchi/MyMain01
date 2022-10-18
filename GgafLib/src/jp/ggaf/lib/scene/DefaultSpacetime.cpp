@@ -2,6 +2,7 @@
 
 #include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/CollisionChecker2D_b.h"
 #include "jp/ggaf/core/util/LinearOctree.h"
 #include "jp/ggaf/core/util/LinearQuadtree.h"
 
@@ -70,6 +71,7 @@ DefaultSpacetime::~DefaultSpacetime() {
     _pLinearQuadtree_b->putTree();
     _TRACE_("<--Board—pŽl•ª–Ø");
     CollisionChecker::releaseHitArea();
+    CollisionChecker2D_b::releaseHitArea();
 #endif
     if (CONFIG::IS_HIT_CHECK_3D) {
         GGAF_DELETE(_pLinearOctree);

@@ -1587,7 +1587,7 @@ void MenuActor<T>::riseMe() {
         p->activate();
         GgafCore::GroupHead* pH = p->getGroupHead(); //Item‚ÌŠÔ‚É‚Í’c’·‚ª‘¶Ý‚·‚é
         if (pH) {
-            p->activate();
+            pH->activate();
         }
         pElem = pElem->_pNext;
     }
@@ -1662,10 +1662,10 @@ void MenuActor<T>::processBehavior() {
         } else if (condSelectCancel()) {
             selectCancel();
         }
-        GgafDx::FigureActor* pSelected = condSelectItem();
-        if (pSelected) {
-            selectItemIfPossible(pSelected);
-        }
+//        GgafDx::FigureActor* pSelected = condSelectItem();
+//        if (pSelected) {
+//            selectItemIfPossible(pSelected);
+//        }
     }
 
     if (_pCursorActor) {

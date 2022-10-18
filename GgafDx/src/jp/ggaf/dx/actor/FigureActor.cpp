@@ -108,8 +108,8 @@ _pEffect((Effect*)_pEffectCon->peek()),
 _pAlphaFader(nullptr),
 _pColorist(nullptr)
 {
+    _obj_class |= Obj_GgafDx_FigureActor;
     _class_name = "FigureActor";
-
     _technique = NEW char[256];
     FigureActor::changeEffectTechnique(prm_technique);
     _temp_technique = NEW char[256];

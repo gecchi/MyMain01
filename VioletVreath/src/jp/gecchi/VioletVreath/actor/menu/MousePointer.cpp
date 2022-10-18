@@ -43,11 +43,12 @@ void MousePointer::processBehavior() {
 }
 
 void MousePointer::processJudgement() {
+    //_TRACE_("マウスポインタヒットしたの = " << getHitActor());
 }
 
 void MousePointer::onHit(const GgafCore::Actor* prm_pOtherActor) {
-_TRACE_("マウスがひっとおお！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
-MousePointerActor::onHit(prm_pOtherActor);
+    _TRACE_("マウスポインタヒット prm_pOtherActor = " <<  prm_pOtherActor);
+    MousePointerActor::onHit(prm_pOtherActor);
 }
 
 void MousePointer::onInactive() {
