@@ -43,6 +43,8 @@ public:
 
     virtual void processSettlementBehavior() override;
 
+    virtual void processPreJudgement() override;
+
     virtual bool processHitChkLogic(Actor* prm_pOtherActor);
 
     virtual void onHit(const Actor* prm_pOtherActor);
@@ -50,6 +52,7 @@ public:
     virtual GgafCore::Actor* getHitActor() {
         return _pHitActor;
     }
+    virtual bool isPushedDownButton(int prm_button_no);
 
     virtual ~MousePointerActor();
 };

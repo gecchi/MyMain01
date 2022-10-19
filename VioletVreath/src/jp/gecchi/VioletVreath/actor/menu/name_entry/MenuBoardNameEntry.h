@@ -35,8 +35,8 @@ public:
     bool condSelectPrev() override;
     bool condSelectExNext() override;
     bool condSelectExPrev() override;
-    bool condDecision() override;
-    bool condCancel() override;
+//    bool condDecision() override;
+//    bool condCancel() override;
 
     void selectNext(bool prm_smooth = true) override;
     void selectPrev(bool prm_smooth = true) override;

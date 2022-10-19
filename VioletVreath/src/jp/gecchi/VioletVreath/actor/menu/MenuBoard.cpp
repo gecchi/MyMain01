@@ -41,15 +41,18 @@ bool MenuBoard::condDecision() {
     if (VB->isPushedDown(VB_UI_EXECUTE)) {
         //「メニューアイテム：任意」で、VB_UI_EXECUTE ボタンの場合は
         //そのアイテムを「決定」した事とする。(当たり前だが)
+        getSeTransmitter()->play(SE_DECIDED_OK);
         return true;
-    } else if (VB->isPushedDown(VB_UI_CANCEL) &&
+    } else if (condCancel() &&
                _lstItems.getRelation(ITEM_RELATION_TO_CANCEL) != nullptr &&
                _lstItems.getCurrent() == _lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
         //特別に「メニューアイテム：キャンセル」にカーソルがある場合でかつ、VB_UI_CANCEL ボタンの場合は、
         //「メニューアイテム：キャンセル」を「決定」したことにする。
         //現カーソルが「メニューアイテム：キャンセル」にあるかどうかの判断は、
         //relateAllItemToCancel() で定義されたアイテムのインデックスかどうかで判断。
-        getSeTransmitter()->play(SE_DECIDED_CANCEL);
+        return true;
+    } else if (pMousePointer && pMousePointer->isPushedDownButton(0)) {
+        getSeTransmitter()->play(SE_DECIDED_OK);
         return true;
     } else {
         return false;
@@ -60,6 +63,9 @@ bool MenuBoard::condCancel() {
     if (VB->isPushedDown(VB_UI_CANCEL)) {
         //「メニューアイテム：任意」で、VB_UI_CANCEL ボタンの場合は
         //そのアイテムを「キャンセル」した事とする。(当たり前だが)
+        getSeTransmitter()->play(SE_DECIDED_CANCEL);
+        return true;
+    } else if (pMousePointer && pMousePointer->isPushedDownButton(1)) {
         getSeTransmitter()->play(SE_DECIDED_CANCEL);
         return true;
     } else {
@@ -186,7 +192,7 @@ void MenuBoard::addItem(GgafDx::FigureActor* prm_pItem,
     if (prm_pItem->instanceOf(Obj_FontBoardActor)) {
         FontBoardActor* pItem = (FontBoardActor*)prm_pItem;
         pItem->getCollisionChecker()->createCollisionArea(1);
-        pItem->getCollisionChecker()->setColliAABox(0, 0.8);
+        pItem->getCollisionChecker()->setColliAABox(0, 0.95, 1.0); //横95%、縦100%
         pItem->setHitAble(true);
         pItem->setDefaultKind(KIND_2DFIX_MENU_ITEM);
     }

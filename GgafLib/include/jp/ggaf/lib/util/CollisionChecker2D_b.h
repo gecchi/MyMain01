@@ -55,6 +55,10 @@ public:
     void setColliAABox(int prm_index,
                        coord x1, coord y1,
                        coord x2, coord y2 );
+
+
+    void setColliAABox(int prm_index,
+                       double per_x, double pre_y);
     void setColliAABox(int prm_index,
                        double per);
 

@@ -7,7 +7,7 @@
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-
+#include "jp/gecchi/VioletVreath/actor/menu/MousePointer.h"
 
 
 using namespace GgafLib;
@@ -77,29 +77,33 @@ void MenuBoardNameEntry::setNameFontBoard(FontSpriteActor* prm_pInputedName,
     pLabelSelectedChar_ = prm_pSelectedChar;
 }
 
-bool MenuBoardNameEntry::condDecision() {
-    if (VB->isPushedDown(VB_UI_EXECUTE)) {
-        return true;
-    } else if (VB->isPushedDown(VB_UI_CANCEL) &&
-               getSelectedIndex() == ITEM_INDEX_BS_) {
-        //特別に[BS]でキャンセルボタン押した場合は。[BS]を「決定（振る舞い）」したことにする
-        getSeTransmitter()->play(SE_DECIDED_CANCEL);
-        return true;
-    } else {
-        return false;
-    }
-}
+//bool MenuBoardNameEntry::condDecision() {
+//    if (VB->isPushedDown(VB_UI_EXECUTE)) {
+//        return true;
+//    } else if (VB->isPushedDown(VB_UI_CANCEL) &&
+//               getSelectedIndex() == ITEM_INDEX_BS_) {
+//        //特別に[BS]でキャンセルボタン押した場合は。[BS]を「決定（振る舞い）」したことにする
+//        getSeTransmitter()->play(SE_DECIDED_CANCEL);
+//        return true;
+//    } else if (pMousePointer && pMousePointer->isPushedDownButton(0)) {
+//        return true;
+//    } else {
+//        return false;
+//    }
+//}
 
-bool MenuBoardNameEntry::condCancel() {
-    if (VB->isPushedDown(VB_UI_CANCEL)) {
-        //「メニューアイテム：任意」で、VB_UI_CANCEL ボタンの場合は
-        //そのアイテムを「キャンセル」した事とする。(当たり前だが)
-        getSeTransmitter()->play(SE_DECIDED_CANCEL);
-        return true;
-    } else {
-        return false;
-    }
-}
+//bool MenuBoardNameEntry::condCancel() {
+//    if (VB->isPushedDown(VB_UI_CANCEL)) {
+//        //「メニューアイテム：任意」で、VB_UI_CANCEL ボタンの場合は
+//        //そのアイテムを「キャンセル」した事とする。(当たり前だが)
+//        getSeTransmitter()->play(SE_DECIDED_CANCEL);
+//        return true;
+//    } else if (pMousePointer && pMousePointer->isPushedDownButton(1)) {
+//        return true;
+//    } else {
+//        return false;
+//    }
+//}
 
 bool MenuBoardNameEntry::condSelectNext() {
     if (getSelectedIndex() == ITEM_INDEX_BS_) {  //BSから先へ進めなくする

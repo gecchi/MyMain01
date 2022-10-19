@@ -48,10 +48,6 @@ void MenuBoardResolutionSelect::onRise() {
     selectItem(ITEM_OK); //初期選択をリセット
     MenuBoard::onRise();
 }
-void MenuBoardResolutionSelect::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
-}
-void MenuBoardResolutionSelect::onCancel(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
-}
 
 bool MenuBoardResolutionSelect::hasJustDecidedOk() {
     if (hasJustDecided() && getSelectedIndex() == ITEM_OK) {

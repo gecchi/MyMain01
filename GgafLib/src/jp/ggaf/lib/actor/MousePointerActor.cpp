@@ -67,14 +67,26 @@ void MousePointerActor::processSettlementBehavior() {
         //‚Ç‚¤‚µ‚æ‚¤
     }
 }
+
+
+void MousePointerActor::processPreJudgement() {
+    _pHitActor = nullptr;
+    DefaultBoardActor::processPreJudgement(); //–Ø“o˜^
+}
+
 bool MousePointerActor::processHitChkLogic(Actor* prm_pOtherActor) {
-     //_pHitActor = nullptr;
      return DefaultBoardActor::processHitChkLogic(prm_pOtherActor);
 }
 
 void MousePointerActor::onHit(const Actor* prm_pOtherActor) {
     _pHitActor = (Actor*)prm_pOtherActor;
 }
+
+bool MousePointerActor::isPushedDownButton(int prm_button_no) {
+    bool button = GgafDx::Input::isPushedDownMouseButton(prm_button_no);
+    return button;
+}
+
 
 MousePointerActor::~MousePointerActor() {
 }

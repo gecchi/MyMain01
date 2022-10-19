@@ -1220,12 +1220,10 @@ int MenuActor<T>::selectItem(GgafDx::FigureActor* prm_item, bool prm_smooth) {
 template<class T>
 int MenuActor<T>::selectItemIfPossible(GgafDx::FigureActor* prm_item, bool prm_smooth) {
     int index = _lstItems.indexOf(prm_item);
-    if (index == -1) {
-        return index;
-    } else {
+    if (index >= 0) {
         selectItem(index, prm_smooth);
-        return index;
     }
+    return index;
 }
 
 template<class T>
@@ -1661,11 +1659,12 @@ void MenuActor<T>::processBehavior() {
             selectExPrev();
         } else if (condSelectCancel()) {
             selectCancel();
+        } else {
+            GgafDx::FigureActor* pSelected = condSelectItem();
+            if (pSelected) {
+                selectItemIfPossible(pSelected);
+            }
         }
-//        GgafDx::FigureActor* pSelected = condSelectItem();
-//        if (pSelected) {
-//            selectItemIfPossible(pSelected);
-//        }
     }
 
     if (_pCursorActor) {

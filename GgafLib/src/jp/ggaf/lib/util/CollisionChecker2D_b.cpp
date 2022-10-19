@@ -98,6 +98,9 @@ void CollisionChecker2D_b::setColliAABox(int prm_index,
 }
 
 void CollisionChecker2D_b::setColliAABox(int prm_index, double prm_per) {
+    setColliAABox(prm_index, prm_per, prm_per);
+}
+void CollisionChecker2D_b::setColliAABox(int prm_index, double per_x, double pre_y) {
     pixcoord model_width = 0;
     pixcoord model_height = 0;
     Align align;
@@ -141,22 +144,22 @@ void CollisionChecker2D_b::setColliAABox(int prm_index, double prm_per) {
     }
     coord x1, y1, x2, y2;
     if (align == ALIGN_LEFT) {
-        x1 = PX_C((model_width - (model_width*prm_per)) / 2.0);
+        x1 = PX_C((model_width - (model_width*per_x)) / 2.0);
     } else if (align == ALIGN_CENTER) {
-        x1 = PX_C(-model_width*prm_per/ 2.0);
+        x1 = PX_C(-model_width*per_x/ 2.0);
     } else  {  //ALIGN_RIGHT
-        x1 = PX_C(-model_width + ((model_width - (model_width*prm_per)) / 2.0));
+        x1 = PX_C(-model_width + ((model_width - (model_width*per_x)) / 2.0));
     }
-    x2 = x1 + PX_C(model_width*prm_per);
+    x2 = x1 + PX_C(model_width*per_x);
 
     if (valign == VALIGN_TOP) {
-        y1 = PX_C((model_height - (model_height*prm_per)) / 2.0);
+        y1 = PX_C((model_height - (model_height*pre_y)) / 2.0);
     } else if (valign == VALIGN_MIDDLE) {
-        y1 = PX_C(-model_height*prm_per/ 2.0);
+        y1 = PX_C(-model_height*pre_y/ 2.0);
     } else { //VALIGN_BOTTOM
-        y1 = PX_C(-model_height + ((model_height - (model_height*prm_per)) / 2.0));
+        y1 = PX_C(-model_height + ((model_height - (model_height*pre_y)) / 2.0));
     }
-    y2 = y1 + PX_C(model_height*prm_per);
+    y2 = y1 + PX_C(model_height*pre_y);
     setColliAABox(prm_index, x1, y1, x2, y2);
 }
 
