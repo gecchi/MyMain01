@@ -21,8 +21,8 @@ public:
     enum {
         SE_ON_RISEN      ,
         SE_MOVE_CURSOR   ,
-        SE_DECIDED_OK    ,
-        SE_DECIDED_CANCEL,
+        SE_DECIDED       ,
+        SE_CANCEL        ,
         SE_WRONG         ,
     };
 

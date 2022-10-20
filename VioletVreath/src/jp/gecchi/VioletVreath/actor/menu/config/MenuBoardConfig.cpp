@@ -88,9 +88,10 @@ void MenuBoardConfig::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_in
     } else if (prm_item_index == ITEM_SCREEN_CONFIG) {
         riseSubMenu(ITEM_SCREEN_CONFIG, PX_C(50), PX_C(10)); //screen configÉÅÉjÉÖÅ[ãNìÆ
     }
-    MenuBoard::onDecision(prm_pItem, prm_item_index);
 }
 
+void MenuBoardConfig::onCancel(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
+}
 
 void MenuBoardConfig::onSinkDone() {
     _TRACE_(FUNC_NAME<<"!");
