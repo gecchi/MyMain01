@@ -699,7 +699,12 @@ public:
      */
     virtual bool condSelectCancel() = 0;
 
-
+    /**
+     * 特定の「メニューアイテム」が選択される条件を実装する .
+     * マウスポインタで指す、ショートカッキーを押下などで、
+     * 特定の条件でメニューアイテムを選択したい場合、ここに実装する。
+     * @return 選択されたメニューアイテム。 nullptr の場合は、メニューアイテム選択は実行されない。・
+     */
     virtual GgafDx::FigureActor* condSelectItem() {
         return nullptr;
     }
@@ -1645,10 +1650,9 @@ void MenuActor<T>::processBehavior() {
         onSelect(-1, *(_lstMvSelectHistory.getCurrent())); //コールバック
     }
     if (_can_controll && active_frames > 1) {
-        if (condDecision()) {
-            _will_be_just_decided_next_frame = true;
-        } else if (condCancel()) {
-            _will_be_just_cancelled_next_frame = true;
+        GgafDx::FigureActor* pSelected = condSelectItem();
+        if (pSelected) {
+            selectItemIfPossible(pSelected);
         } else if (condSelectNext()) {
             selectNext();
         } else if (condSelectPrev()) {
@@ -1659,12 +1663,13 @@ void MenuActor<T>::processBehavior() {
             selectExPrev();
         } else if (condSelectCancel()) {
             selectCancel();
-        } else {
-            GgafDx::FigureActor* pSelected = condSelectItem();
-            if (pSelected) {
-                selectItemIfPossible(pSelected);
-            }
         }
+        if (condDecision()) {
+            _will_be_just_decided_next_frame = true;
+        } else if (condCancel()) {
+            _will_be_just_cancelled_next_frame = true;
+        }
+
     }
 
     if (_pCursorActor) {

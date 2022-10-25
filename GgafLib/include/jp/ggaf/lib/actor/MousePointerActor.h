@@ -36,7 +36,9 @@ protected:
     coord _coord_buffer_top2;
 
     HWND _last_hWnd;
+//    GgafCore::Actor* _pSelectActor_prev;
     GgafCore::Actor* _pHitActor;
+    bool _is_select_able;
 public:
 
     MousePointerActor(const char* prm_name, const char* prm_model);
@@ -52,6 +54,8 @@ public:
     virtual GgafCore::Actor* getHitActor() {
         return _pHitActor;
     }
+    virtual GgafCore::Actor* getSelectedActor();
+    virtual bool isReleasedUpButton(int prm_button_no);
     virtual bool isPushedDownButton(int prm_button_no);
 
     virtual ~MousePointerActor();

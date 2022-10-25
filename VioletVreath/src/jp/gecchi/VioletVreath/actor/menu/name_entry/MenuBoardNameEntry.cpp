@@ -7,7 +7,7 @@
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-
+#include "jp/gecchi/VioletVreath/actor/menu/MousePointer.h"
 
 
 using namespace GgafLib;
@@ -79,6 +79,8 @@ void MenuBoardNameEntry::setNameFontBoard(FontSpriteActor* prm_pInputedName,
 
 bool MenuBoardNameEntry::condDecision() {
     if (VB->isPushedDown(VB_UI_EXECUTE)) {
+        return true;
+    } else if (pMousePointer_ && pMousePointer_->isReleasedUpButton(0)) {
         return true;
     } else if (VB->isPushedDown(VB_UI_CANCEL) &&
                getSelectedIndex() == ITEM_INDEX_BS_) {

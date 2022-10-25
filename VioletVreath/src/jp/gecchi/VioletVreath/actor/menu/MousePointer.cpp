@@ -23,7 +23,6 @@ MousePointer::MousePointer(const char* prm_name) :
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     CollisionChecker2D_b* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    //pChecker->setColliAABox(0, 0.8);
     pChecker->setColliSquare(0, PX_C(16));
     setHitAble(true);
 }
@@ -39,15 +38,12 @@ void MousePointer::onActive() {
 
 void MousePointer::processBehavior() {
     getUvFlipper()->behave();
-//    getScaler()->behave();
 }
 
 void MousePointer::processJudgement() {
-    //_TRACE_("マウスポインタヒットしたの = " << getHitActor());
 }
 
 void MousePointer::onHit(const GgafCore::Actor* prm_pOtherActor) {
-    _TRACE_("マウスポインタヒット prm_pOtherActor = " <<  prm_pOtherActor);
     MousePointerActor::onHit(prm_pOtherActor);
 }
 

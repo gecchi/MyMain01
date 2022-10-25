@@ -33,8 +33,9 @@ MousePointerActor::MousePointerActor(const char* prm_name, const char* prm_model
     _coord_buffer_left2 = PX_C(_buffer_left2);
     _coord_buffer_top2 = PX_C(_buffer_top2);
     _last_hWnd = pCARETAKER->_pHWndPrimary;
-
+//    _pSelectActor_prev = nullptr;
     _pHitActor = nullptr;
+    _is_select_able = false;
 }
 
 void MousePointerActor::processSettlementBehavior() {
@@ -66,6 +67,20 @@ void MousePointerActor::processSettlementBehavior() {
     } else {
         //‚Ç‚¤‚µ‚æ‚¤
     }
+    if (GgafDx::Input::isPushedDownMouseButton(0) || GgafDx::Input::isPushedDownMouseButton(1)) {
+        _is_select_able = true;
+//        _TRACE_("ƒNƒŠƒbƒN _is_select_able !!!!!!!!!!!!!!!!");
+    } else {
+        long dx, dy, dz;
+        GgafDx::Input::getMousePointer_REL(&dx, &dy, &dz);
+//        _TRACE_("getMousePointer ("<<dx<<","<<dy<<","<<dz<<")");
+        if (dx == 0 && dy == 0) {
+            _is_select_able = false;
+        } else {
+//            _TRACE_("ˆÚ“® _is_select_able !!!!!!!!!!!!!!!!");
+            _is_select_able = true;
+        }
+    }
 }
 
 
@@ -81,12 +96,22 @@ bool MousePointerActor::processHitChkLogic(Actor* prm_pOtherActor) {
 void MousePointerActor::onHit(const Actor* prm_pOtherActor) {
     _pHitActor = (Actor*)prm_pOtherActor;
 }
-
+bool MousePointerActor::isReleasedUpButton(int prm_button_no) {
+    bool button = GgafDx::Input::isReleasedUpMouseButton(prm_button_no);
+    return button;
+}
 bool MousePointerActor::isPushedDownButton(int prm_button_no) {
     bool button = GgafDx::Input::isPushedDownMouseButton(prm_button_no);
     return button;
 }
 
+GgafCore::Actor* MousePointerActor::getSelectedActor() {
+    if (_is_select_able ) {
+        return _pHitActor;
+    } else {
+        return nullptr;
+    }
+}
 
 MousePointerActor::~MousePointerActor() {
 }

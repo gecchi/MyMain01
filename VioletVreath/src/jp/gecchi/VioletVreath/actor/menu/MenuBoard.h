@@ -31,7 +31,7 @@ public:
     coord target_x_;
     coord target_y_;
 
-    MousePointer* pMousePointer;
+    MousePointer* pMousePointer_;
 public:
     MenuBoard(const char* prm_name, const char* prm_model);
 

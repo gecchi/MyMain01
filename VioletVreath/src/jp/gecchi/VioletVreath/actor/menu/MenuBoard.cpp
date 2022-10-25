@@ -26,7 +26,7 @@ MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
     pSeTx->set(SE_CANCEL        , "SE_MENU_CANCEL");
     pSeTx->set(SE_WRONG         , "SE_MENU_WRONG");
 
-    pMousePointer = pMOUSEPOINTER;
+    pMousePointer_ = pMOUSEPOINTER;
 
 }
 
@@ -52,7 +52,8 @@ bool MenuBoard::condDecision() {
         //relateAllItemToCancel() で定義されたアイテムのインデックスかどうかで判断。
         getSeTransmitter()->play(SE_CANCEL);
         return true;
-    } else if (pMousePointer && pMousePointer->isPushedDownButton(0)) {
+    } else if (pMousePointer_ && pMousePointer_->isReleasedUpButton(0)) {
+        getSeTransmitter()->play(SE_DECIDED);
         return true;
     } else {
         return false;
@@ -90,11 +91,11 @@ bool MenuBoard::condSelectCancel() {
     return hasJustCancelled();
 }
 GgafDx::FigureActor* MenuBoard::condSelectItem() {
-    if (pMousePointer) {
-        GgafCore::Actor*  pHitActor = pMousePointer->getHitActor();
-        if (pHitActor) {
-            if (pHitActor->instanceOf(Obj_GgafDx_FigureActor)) {
-                return (GgafDx::FigureActor*)pHitActor;
+    if (pMousePointer_) {
+        GgafCore::Actor*  pSelectedActor = pMousePointer_->getSelectedActor();
+        if (pSelectedActor) {
+            if (pSelectedActor->instanceOf(Obj_GgafDx_FigureActor)) {
+                return (GgafDx::FigureActor*)pSelectedActor;
             }
         }
     }
