@@ -19,7 +19,8 @@ int Input::_flip_ks = 0;
 DIDEVCAPS Input::_devcap;
 DIJOYSTATE Input::_joy_state[2];
 int Input::_flip_js = 0;
-//POINT Input::_mouse_point[2];
+
+Input::MouseState Input::_win_mouse_state[2];
 
 HRESULT Input::init() {
     if (Input::_pIDirectInput8) {
@@ -327,29 +328,54 @@ again:
             //ダメならまた次回へ
         }
     }
-
-//    //マウスの座標を取得
-//    GetCursorPos(&Input::_mouse_point[Input::_flip_ms]);
+    Input::MouseState& s = Input::_win_mouse_state[Input::_flip_ms];
+    s.buttons[0] = GetAsyncKeyState(VK_LBUTTON);
+    s.buttons[1] = GetAsyncKeyState(VK_RBUTTON);
+    s.buttons[2] = GetAsyncKeyState(VK_MBUTTON);
     return;
 }
 
 
+//bool Input::isPressedMouseButton_old(int prm_button_no) {
+//    if (prm_button_no < 0 || 8 < prm_button_no) {
+//        _TRACE_("isPressedMouseButton:範囲外");
+//        return false;
+//    } else {
+//        if (Input::_mouse_state[Input::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//}
+
 bool Input::isPressedMouseButton(int prm_button_no) {
+#ifdef MY_DEBUG
     if (prm_button_no < 0 || 8 < prm_button_no) {
-        _TRACE_("isPressedMouseButton:範囲外");
-        return false;
-    } else {
-        if (Input::_mouse_state[Input::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
-            return true;
-        } else {
-            return false;
-        }
+        throwCriticalException("Input::isPressedMouseButton() 範囲外です prm_button_no="<<prm_button_no);
     }
+#endif
+    return Input::_win_mouse_state[Input::_flip_ms].buttons[prm_button_no];
 }
+
+
+//bool Input::isPushedDownMouseButton_old(int prm_button_no) {
+//    if (Input::isPressedMouseButton(prm_button_no)) { //今は押している
+//        if (Input::_mouse_state[!Input::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
+//            //前回セット[!Input::_flip_ms]も押されている。押しっぱなし
+//            return false;
+//        } else {
+//            //前回セット[!Input::_flip_ms]は押されていないのでOK
+//            return true;
+//        }
+//    } else {
+//        return false;
+//    }
+//}
 
 bool Input::isPushedDownMouseButton(int prm_button_no) {
     if (Input::isPressedMouseButton(prm_button_no)) { //今は押している
-        if (Input::_mouse_state[!Input::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
+        if (Input::_win_mouse_state[!Input::_flip_ms].buttons[prm_button_no]) {
             //前回セット[!Input::_flip_ms]も押されている。押しっぱなし
             return false;
         } else {
@@ -361,9 +387,25 @@ bool Input::isPushedDownMouseButton(int prm_button_no) {
     }
 }
 
+
+//
+//bool Input::isReleasedUpMouseButton_old(int prm_button_no) {
+//    if (!Input::isPressedMouseButton(prm_button_no)) { //今は離している
+//        if (Input::_mouse_state[!Input::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
+//            //前回セット[!Input::_flip_ms]も押されていた。成立。
+//            return true;
+//        } else {
+//            //前回セット[!Input::_flip_ms]は押されていない。離しっぱなし。
+//            return false;
+//        }
+//    } else {
+//        return false;
+//    }
+//}
+
 bool Input::isReleasedUpMouseButton(int prm_button_no) {
     if (!Input::isPressedMouseButton(prm_button_no)) { //今は離している
-        if (Input::_mouse_state[!Input::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
+        if (Input::_win_mouse_state[!Input::_flip_ms].buttons[prm_button_no]) {
             //前回セット[!Input::_flip_ms]も押されていた。成立。
             return true;
         } else {
@@ -374,6 +416,7 @@ bool Input::isReleasedUpMouseButton(int prm_button_no) {
         return false;
     }
 }
+
 
 void Input::getMousePointer(long* x, long* y, long* z) {
     //マウスの移動
@@ -394,8 +437,7 @@ void Input::getMousePointer_REL(long* dx, long* dy, long* dz) {
 void Input::updateKeyboardState() {
 #ifdef MY_DEBUG
     if (Input::_pKeyboardInputDevice == nullptr) {
-        _TRACE_("Input::_pKeyboardInputDevice==nullptr !!!!");
-        return;
+        throwCriticalException("Input::_pKeyboardInputDevice==nullptr");
     }
 #endif
     Input::_flip_ks ^= 1;

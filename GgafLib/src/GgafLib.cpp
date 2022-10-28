@@ -126,6 +126,7 @@ void LibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
             }
             break;
         }
+
         case WM_SYSCOMMAND: {
             if(wParam == SC_CLOSE) {
                 PostQuitMessage(0);
@@ -141,7 +142,24 @@ void LibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     }
 }
 
-
+//#define MOUSEEVENTF_FROMTOUCH 0xFF515700
+//
+//switch(uMsg){
+//case WM_LBUTTONDOWN:
+//    {
+//        auto extra = GetMessageExtraInfo();
+//        if((extra & MOUSEEVENTF_FROMTOUCH) == MOUSEEVENTF_FROMTOUCH){
+//            if(extra & 0x80){
+//                // 入力はタッチ
+//            }else{
+//                // 入力はペン
+//            }
+//        }else{
+//            // 入力はマウス
+//        }
+//        break;
+//    }
+//}
 
 
 //int main(void) {

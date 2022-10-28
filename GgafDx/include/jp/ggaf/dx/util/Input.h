@@ -49,6 +49,11 @@ public:
     static int _flip_js;
 
 
+    struct MouseState {
+         bool buttons[8];
+    };
+    static MouseState _win_mouse_state[2];
+
 //    // マウス座標を取得する
 //    static POINT _mouse_point[2];
 
@@ -92,20 +97,21 @@ public:
      * @param prm_button_no マウスボタン番号
      * @return true：そのボタンは押されている状態である／false：そうでは無い
      */
+//    static bool isPressedMouseButton_old(int prm_button_no);
     static bool isPressedMouseButton(int prm_button_no);
-
     /**
      * マウスのボタンが押された直後の状態を調べる .
      * @param prm_button_no マウスボタン番号
      * @return true：そのボタンは押された直後である／false：そうでは無い
      */
+//    static bool isPushedDownMouseButton_old(int prm_button_no);
     static bool isPushedDownMouseButton(int prm_button_no);
-
     /**
      * マウスのボタンが離された直後の状態を調べる .
      * @param prm_button_no マウスボタン番号
      * @return true：そのボタンは離された直後である／false：そうでは無い
      */
+//    static bool isReleasedUpMouseButton_old(int prm_button_no);
     static bool isReleasedUpMouseButton(int prm_button_no);
 
     /**

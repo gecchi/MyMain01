@@ -67,7 +67,7 @@ void MousePointerActor::processSettlementBehavior() {
     } else {
         //‚Ç‚¤‚µ‚æ‚¤
     }
-    if (GgafDx::Input::isPushedDownMouseButton(0) || GgafDx::Input::isPushedDownMouseButton(1)) {
+    if (GgafDx::Input::isPushedDownMouseButton(0)) {
         _is_select_able = true;
 //        _TRACE_("ƒNƒŠƒbƒN _is_select_able !!!!!!!!!!!!!!!!");
     } else {
