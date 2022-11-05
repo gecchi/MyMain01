@@ -3,7 +3,7 @@
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 
@@ -26,7 +26,7 @@ void Zakoko::initialize() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->linkFaceAngByMvAng(true);
 
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, PX_C(128));
 }

@@ -5,7 +5,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/model/Model.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
@@ -58,7 +58,7 @@ void EnemyDrastea::initialize() {
 
     //“–‚½‚è”»’èBOX¶¬
     int colli_areas = box_num_x * box_num_y * box_num_z;
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(colli_areas);
     int n = 0;
     coord bx = -((colli_box_x_len*box_num_x + colli_box_spc_dx*(box_num_x-1)) / 2);

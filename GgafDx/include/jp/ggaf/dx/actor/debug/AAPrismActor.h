@@ -31,7 +31,7 @@ public:
     static std::map<int, AAPrismActor::RotPosPrism> pos2r;
 
 public:
-    AAPrismActor(const char* prm_name, Checker* prm_pChecker);
+    AAPrismActor(const char* prm_name, CollisionChecker* prm_pChecker);
 
     static bool initStatic();
 

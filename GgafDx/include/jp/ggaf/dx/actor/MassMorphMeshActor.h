@@ -48,7 +48,7 @@ public:
                        const char* prm_model,
                        const char* prm_effect_id,
                        const char* prm_technique,
-                       Checker* prm_pChecker );
+                       CollisionChecker* prm_pChecker );
 
     /**
      * 下位継承用コンストラクタ
@@ -67,7 +67,7 @@ public:
                        const char* prm_effect_id,
                        const char prm_effect_type,
                        const char* prm_technique,
-                       Checker* prm_pChecker);
+                       CollisionChecker* prm_pChecker);
 
     /**
      * モーフターゲットメッシュ数取得

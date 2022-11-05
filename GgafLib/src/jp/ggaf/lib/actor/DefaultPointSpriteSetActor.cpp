@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/DefaultPointSpriteSetActor.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 
 
@@ -12,17 +12,17 @@ DefaultPointSpriteSetActor::DefaultPointSpriteSetActor(const char* prm_name, con
                               prm_model,
                               "DefaultPointSpriteSetEffect",
                               "DefaultPointSpriteSetTechnique",
-                              UTIL::createChecker(this) ) {
+                              UTIL::createCollisionChecker(this) ) {
     _class_name = "DefaultPointSpriteSetActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
 }
 
 void DefaultPointSpriteSetActor::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(_pColliChecker);
+    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
 }
 
 DefaultPointSpriteSetActor::~DefaultPointSpriteSetActor() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }

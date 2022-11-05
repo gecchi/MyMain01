@@ -1,4 +1,4 @@
-#include "jp/ggaf/lib/util/CollisionChecker2D_b.h"
+#include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 
 #include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/util/LinearQuadtree.h"
@@ -10,7 +10,7 @@
 #include "jp/ggaf/dx/model/BoardSetModel.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/actor/FontBoardActor.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #ifdef MY_DEBUG
@@ -19,13 +19,13 @@
 
 using namespace GgafLib;
 
-CollisionChecker2D_b::CollisionChecker2D_b(GgafDx::GeometricActor* prm_pActor) : GgafDx::Checker(prm_pActor) ,
+ViewCollisionChecker::ViewCollisionChecker(GgafDx::GeometricActor* prm_pActor) : GgafDx::CollisionChecker(prm_pActor) ,
         _pLinearQuadtree_b(pCARETAKER->getSpacetime()->getLinearQuadtree_b()),
         _pElem(NEW GgafCore::TreeElem<2u>(_pLinearQuadtree_b->_paQuadrant, prm_pActor))
 {
 }
 
-void CollisionChecker2D_b::updateHitArea() {
+void ViewCollisionChecker::updateHitArea() {
     GgafDx::CollisionArea* const pCollisionArea = _pCollisionArea;
     if (pCollisionArea == nullptr) {
         return;
@@ -36,7 +36,7 @@ void CollisionChecker2D_b::updateHitArea() {
         _pElem->_kind = pActor->lookUpKind();
 #ifdef MY_DEBUG
         if (_pElem->_kind == 0) {
-            _TRACE_("【警告】 CollisionChecker2D_b::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
+            _TRACE_("【警告】 ViewCollisionChecker::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
         }
 #endif
         pCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //最外域の境界AABB更新
@@ -48,14 +48,14 @@ void CollisionChecker2D_b::updateHitArea() {
     }
 }
 
-bool CollisionChecker2D_b::isHit(const GgafDx::Checker* const prm_pOppChecker) {
+bool ViewCollisionChecker::isHit(const GgafDx::CollisionChecker* const prm_pOppChecker) {
     GgafDx::CollisionArea* const pCollisionArea = _pCollisionArea;
     GgafDx::CollisionArea* const pOppCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
     const GgafDx::GeometricActor* const pActor = _pActor;                //相手のアクター
     const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
 
 #ifdef MY_DEBUG
-    CollisionChecker::_num_check++;
+    WorldCollisionChecker::_num_check++;
 #endif
     if (pActor->_x + pCollisionArea->_aabb_x2 >= pOppActor->_x + pOppCollisionArea->_aabb_x1) {
         if (pActor->_x + pCollisionArea->_aabb_x1 <= pOppActor->_x + pOppCollisionArea->_aabb_x2) {
@@ -69,7 +69,7 @@ bool CollisionChecker2D_b::isHit(const GgafDx::Checker* const prm_pOppChecker) {
     return false;
 }
 
-void CollisionChecker2D_b::setColliAABox(int prm_index,
+void ViewCollisionChecker::setColliAABox(int prm_index,
                                          coord x1,
                                          coord y1,
                                          coord x2,
@@ -97,10 +97,10 @@ void CollisionChecker2D_b::setColliAABox(int prm_index,
 //    _is_enable = true;
 }
 
-void CollisionChecker2D_b::setColliAABox(int prm_index, double prm_per) {
+void ViewCollisionChecker::setColliAABox(int prm_index, double prm_per) {
     setColliAABox(prm_index, prm_per, prm_per);
 }
-void CollisionChecker2D_b::setColliAABox(int prm_index, double per_x, double pre_y) {
+void ViewCollisionChecker::setColliAABox(int prm_index, double per_x, double pre_y) {
     pixcoord model_width = 0;
     pixcoord model_height = 0;
     Align align;
@@ -163,7 +163,7 @@ void CollisionChecker2D_b::setColliAABox(int prm_index, double per_x, double pre
     setColliAABox(prm_index, x1, y1, x2, y2);
 }
 
-void CollisionChecker2D_b::setColliSquare(int prm_index, coord prm_edge) {
+void ViewCollisionChecker::setColliSquare(int prm_index, coord prm_edge) {
     pixcoord model_width = 0;
     pixcoord model_height = 0;
     Align align;
@@ -214,20 +214,20 @@ void CollisionChecker2D_b::setColliSquare(int prm_index, coord prm_edge) {
     setColliAABox(prm_index, x1, y1, x2, y2);
 }
 
-void CollisionChecker2D_b::drawHitArea(GgafDx::Checker* prm_pChecker) {
+void ViewCollisionChecker::drawHitArea(GgafDx::CollisionChecker* prm_pChecker) {
 #ifdef MY_DEBUG
     ColliAABoardRectActor::get()->drawHitarea(prm_pChecker);
 #endif
 }
 
-void CollisionChecker2D_b::releaseHitArea() {
+void ViewCollisionChecker::releaseHitArea() {
 #ifdef MY_DEBUG
     ColliAABoardRectActor::release();
 #endif
 }
 
 
-CollisionChecker2D_b::~CollisionChecker2D_b() {
+ViewCollisionChecker::~ViewCollisionChecker() {
     delete _pElem;
     //当たり判定はないかもしれない。この場合_pElemは無駄な生成と解放をすることになる。。
 }

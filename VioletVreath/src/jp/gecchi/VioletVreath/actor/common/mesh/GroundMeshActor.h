@@ -15,7 +15,7 @@ class GroundMeshActor : public GgafDx::MeshActor {
 public:
     frame offset_frames_;
 
-    GgafLib::CollisionChecker* _pColliChecker;
+    GgafLib::WorldCollisionChecker* _pColliCollisionChecker;
 
 public:
     GroundMeshActor(const char* prm_name, const char* prm_model);

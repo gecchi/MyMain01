@@ -3,7 +3,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
@@ -37,7 +37,7 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, void
     pVecVehicle->linkFaceAngByMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³Œø
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 400000);
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();

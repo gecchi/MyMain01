@@ -17,7 +17,7 @@ class SphereActor : public MeshActor {
 
 public:
     SphereActor(const char* prm_name,
-                Checker* prm_pChecker);
+                CollisionChecker* prm_pChecker);
 
     void drawSphere(coord prm_x, coord prm_y, coord prm_z, coord prm_r);
 

@@ -5,7 +5,7 @@
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/sound/Sound.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/menu/MousePointer.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi8Font.h"
@@ -74,7 +74,7 @@ void World::initialize() {
                           ALIGN_CENTER, VALIGN_MIDDLE);
 
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(nullptr);  //当たり判定領域表示用プリロード
+    WorldCollisionChecker::drawHitArea(nullptr);  //当たり判定領域表示用プリロード
 #endif
     pMousePointer_ = desireActor(MousePointer);
     pMousePointer_->setDefaultKind(KIND_2DFIX_MOUSE_POINTER);
@@ -325,7 +325,7 @@ void World::processBehavior() {
                             GgafCore::Caretaker::_num_active_actor,
                             GgafCore::Actor::_num_actors,
                             GgafCore::Caretaker::_num_drawing,
-                            CollisionChecker::_num_check,
+                            WorldCollisionChecker::_num_check,
                             askCaretaker()->_fps,
                             askCaretaker()->_slowdown_mode,
                             (GgafDx::Sound::getAppMasterVolume())

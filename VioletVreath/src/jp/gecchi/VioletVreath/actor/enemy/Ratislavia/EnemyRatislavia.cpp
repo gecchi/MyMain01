@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion004.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
@@ -65,7 +65,7 @@ void EnemyRatislavia::appendGroupChildAsFkOnSurface(GgafDx::GeometricActor* prm_
 void EnemyRatislavia::createCollisionAreaArea(int prm_nSphere) {
     angle* paAngRadial = NEW angle[prm_nSphere];
     UTIL::getRadialAngle2D(0, prm_nSphere, paAngRadial);
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(prm_nSphere);
     for (int i = 0; i < prm_nSphere; i++) {
         pChecker->setColliSphere(
@@ -117,7 +117,7 @@ void EnemyRatislavia::processBehavior() {
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDx::CollisionPart* pPart;
                 GgafDx::FigureActor* pE;
-                CollisionChecker* pChecker = getCollisionChecker();
+                WorldCollisionChecker* pChecker = getWorldCollisionChecker();
                 for (int j = 0; j < colli_part_num_; j++) {
                     pPart = pChecker->getArea()->getPart(j);
                     pE = CommonScene_dispatchDelay(EffectExplosion004, RND(1,10));
@@ -135,7 +135,7 @@ void EnemyRatislavia::processBehavior() {
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDx::CollisionPart* pPart;
                 GgafDx::FigureActor* pE;
-                CollisionChecker* pChecker = getCollisionChecker();
+                WorldCollisionChecker* pChecker = getWorldCollisionChecker();
                 for (int j = 0; j < colli_part_num_; j++) {
                     pPart = pChecker->getArea()->getPart(j);
                     pE = CommonScene_dispatch(EffectExplosion004);

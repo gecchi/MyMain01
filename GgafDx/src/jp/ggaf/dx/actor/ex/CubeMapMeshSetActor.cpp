@@ -13,7 +13,7 @@ CubeMapMeshSetActor::CubeMapMeshSetActor(const char* prm_name,
                                          const char* prm_model,
                                          const char* prm_effect_id,
                                          const char* prm_technique,
-                                         Checker* prm_pChecker) :
+                                         CollisionChecker* prm_pChecker) :
                                               MeshSetActor(prm_name,
                                                            prm_model,
                                                            TYPE_CUBEMAPMESHSET_MODEL,

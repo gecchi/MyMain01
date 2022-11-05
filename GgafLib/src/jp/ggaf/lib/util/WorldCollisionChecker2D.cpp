@@ -1,4 +1,4 @@
-#include "jp/ggaf/lib/util/CollisionChecker2D.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker2D.h"
 
 #include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/util/LinearQuadtree.h"
@@ -6,7 +6,7 @@
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliAABox.h"
 #include "jp/ggaf/lib/util/ColliSphere.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
@@ -15,13 +15,13 @@
 
 using namespace GgafLib;
 
-CollisionChecker2D::CollisionChecker2D(GgafDx::GeometricActor* prm_pActor) : CollisionChecker(prm_pActor) ,
+WorldCollisionChecker2D::WorldCollisionChecker2D(GgafDx::GeometricActor* prm_pActor) : WorldCollisionChecker(prm_pActor) ,
         _pLinearQuadtree(pCARETAKER->getSpacetime()->getLinearQuadtree()),
         _pElem(NEW GgafCore::TreeElem<2u>(_pLinearQuadtree->_paQuadrant, prm_pActor))
 {
 }
 
-void CollisionChecker2D::updateHitArea() {
+void WorldCollisionChecker2D::updateHitArea() {
     GgafDx::CollisionArea* const pCollisionArea = _pCollisionArea;
     if (pCollisionArea == nullptr) {
         return;
@@ -32,7 +32,7 @@ void CollisionChecker2D::updateHitArea() {
         _pElem->_kind = pActor->lookUpKind();
 #ifdef MY_DEBUG
         if (_pElem->_kind == 0) {
-            _TRACE_("【警告】 CollisionChecker2D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
+            _TRACE_("【警告】 WorldCollisionChecker2D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
         }
 #endif
         pCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //最外域の境界AABB更新
@@ -44,7 +44,7 @@ void CollisionChecker2D::updateHitArea() {
     }
 }
 
-bool CollisionChecker2D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
+bool WorldCollisionChecker2D::isHit(const GgafDx::CollisionChecker* const prm_pOppChecker) {
     GgafDx::CollisionArea* const pCollisionArea = _pCollisionArea;
     GgafDx::CollisionArea* const pOppCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
     const GgafDx::GeometricActor* const pActor = _pActor;                //相手のアクター
@@ -56,7 +56,7 @@ bool CollisionChecker2D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
     //まず最外境界AABoxで当たり判定を行って、ヒットすれば厳密に当たり判定を行う。
     if (colli_part_num > 1 && opp_colli_part_num > 1) {
 #ifdef MY_DEBUG
-        CollisionChecker::_num_check++;
+        WorldCollisionChecker::_num_check++;
 #endif
         bool is_hit_bound_aabb = false;
         if (pActor->_x + pCollisionArea->_aabb_x2 >= pOppActor->_x + pOppCollisionArea->_aabb_x1) {
@@ -86,7 +86,7 @@ bool CollisionChecker2D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
                 if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
-                CollisionChecker::_num_check++;
+                WorldCollisionChecker::_num_check++;
 #endif
                 if (opp_shape_kind == COLLI_AABOX) {
                     //＜長方形 と 長方形＞
@@ -125,7 +125,7 @@ bool CollisionChecker2D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
                 if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
-                CollisionChecker::_num_check++;
+                WorldCollisionChecker::_num_check++;
 #endif
                 if (opp_shape_kind == COLLI_AABOX) {
                     //＜円 と 長方形＞
@@ -164,7 +164,7 @@ bool CollisionChecker2D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
                 if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
-                CollisionChecker::_num_check++;
+                WorldCollisionChecker::_num_check++;
 #endif
                 if (opp_shape_kind == COLLI_AABOX) {
                     //＜直角三角形 と 長方形＞
@@ -207,7 +207,7 @@ bool CollisionChecker2D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
 }
 
 
-CollisionChecker2D::~CollisionChecker2D() {
+WorldCollisionChecker2D::~WorldCollisionChecker2D() {
     delete _pElem;
     //当たり判定はないかもしれない。この場合_pElemは無駄な生成と解放をすることになる。。
 }

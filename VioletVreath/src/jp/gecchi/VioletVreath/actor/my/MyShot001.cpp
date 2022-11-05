@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 
@@ -21,7 +21,7 @@ void MyShot001::initialize() {
     _sy = _sz = R_SC(35);
     setBoundingSphereRadiusRate(45.0f);
     setCullingDraw(false);
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(50), -PX_C(50), -PX_C(50),
                               PX_C(50),  PX_C(50),  PX_C(50));
@@ -53,7 +53,7 @@ void MyShot001::onHit(const GgafCore::Actor* prm_pOtherActor) {
 
 
 //void MyShot001::drawHitArea() {
-//    CollisionChecker::drawHitArea(_pColliChecker);
+//    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 //}
 MyShot001::~MyShot001() {
 }

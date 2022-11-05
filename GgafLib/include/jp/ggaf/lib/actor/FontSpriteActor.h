@@ -29,7 +29,7 @@ protected:
     static void createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info);
 public:
     /** 衝突判定支援オブジェクト */
-    CollisionChecker* _pColliChecker;
+    WorldCollisionChecker* _pColliCollisionChecker;
     Align _align;
     Valign _valign;
 

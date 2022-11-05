@@ -33,7 +33,7 @@ private:
 public:
 
     /** 衝突判定支援オブジェクト */
-    CollisionChecker2D_b* _pColliChecker;
+    ViewCollisionChecker* _pColliCollisionChecker;
 
     DefaultBoardSetActor(const char* prm_name, const char* prm_model);
 
@@ -67,8 +67,8 @@ public:
 
     virtual void drawHitArea() override;
 
-    inline CollisionChecker2D_b* getCollisionChecker() {
-        return _pColliChecker;
+    inline ViewCollisionChecker* getWorldCollisionChecker() {
+        return _pColliCollisionChecker;
     }
 
     virtual ~DefaultBoardSetActor();

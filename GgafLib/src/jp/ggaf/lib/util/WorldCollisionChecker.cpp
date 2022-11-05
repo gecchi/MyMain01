@@ -1,4 +1,4 @@
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 #include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/util/TreeElem.hpp"
@@ -6,7 +6,7 @@
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliAABox.h"
 #include "jp/ggaf/lib/util/ColliSphere.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
@@ -24,19 +24,19 @@
 using namespace GgafLib;
 
 #ifdef MY_DEBUG
-unsigned int CollisionChecker::_num_check = 0;
+unsigned int WorldCollisionChecker::_num_check = 0;
 #endif
 
-CollisionChecker::CollisionChecker(GgafDx::GeometricActor* prm_pActor) : GgafDx::Checker(prm_pActor) {
+WorldCollisionChecker::WorldCollisionChecker(GgafDx::GeometricActor* prm_pActor) : GgafDx::CollisionChecker(prm_pActor) {
 }
 
-void CollisionChecker::changeColliSphereR(int prm_index, coord r) {
+void WorldCollisionChecker::changeColliSphereR(int prm_index, coord r) {
     ColliSphere* pSphere = (ColliSphere*)_pCollisionArea->_papColliPart[prm_index];
     pSphere->changeR(r);
     _pCollisionArea->_need_update_aabb = true;
 }
 
-void CollisionChecker::setColliSphere(int prm_index, coord x, coord y, coord z, coord r, bool rot_x, bool rot_y, bool rot_z) {
+void WorldCollisionChecker::setColliSphere(int prm_index, coord x, coord y, coord z, coord r, bool rot_x, bool rot_y, bool rot_z) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == nullptr) {
         throwCriticalException("["<<getTargetActor()->getName()<<"]  まず createCollisionArea を実行して、要素数を宣言してください。");
@@ -69,13 +69,13 @@ void CollisionChecker::setColliSphere(int prm_index, coord x, coord y, coord z, 
 //    _is_enable = true;
 }
 
-void CollisionChecker::moveColliAABoxPos(int prm_index, coord cx, coord cy, coord cz) {
+void WorldCollisionChecker::moveColliAABoxPos(int prm_index, coord cx, coord cy, coord cz) {
     ColliAABox* pAABox = (ColliAABox*)_pCollisionArea->_papColliPart[prm_index];
     pAABox->movePos(cx, cy, cz);
     _pCollisionArea->_need_update_aabb = true;
 }
 
-void CollisionChecker::setColliAABox(int prm_index,
+void WorldCollisionChecker::setColliAABox(int prm_index,
                                      coord x1,
                                      coord y1,
                                      coord z1,
@@ -112,7 +112,7 @@ void CollisionChecker::setColliAABox(int prm_index,
 //    _is_enable = true;
 }
 
-void CollisionChecker::setColliAAPrism(int prm_index,
+void WorldCollisionChecker::setColliAAPrism(int prm_index,
                                        coord x1, coord y1, coord z1,
                                        coord x2, coord y2, coord z2,
                                        pos_t pos_info,
@@ -144,7 +144,7 @@ void CollisionChecker::setColliAAPrism(int prm_index,
 //    _is_enable = true;
 }
 
-void CollisionChecker::setColliAAPyramid(int prm_index,
+void WorldCollisionChecker::setColliAAPyramid(int prm_index,
                                          coord x1, coord y1, coord z1,
                                          coord x2, coord y2, coord z2,
                                          pos_t pos_info,
@@ -176,7 +176,7 @@ void CollisionChecker::setColliAAPyramid(int prm_index,
 //    _is_enable = true;
 }
 
-GgafDx::CollisionPart* CollisionChecker::getLastHitCollisionPart() {
+GgafDx::CollisionPart* WorldCollisionChecker::getLastHitCollisionPart() {
     int hit_colli_part_index = _pCollisionArea->_hit_colli_part_index;
     if (hit_colli_part_index >= 0) {
         return _pCollisionArea->_papColliPart[hit_colli_part_index];
@@ -185,7 +185,7 @@ GgafDx::CollisionPart* CollisionChecker::getLastHitCollisionPart() {
     }
 }
 
-void CollisionChecker::drawHitArea(GgafDx::Checker* prm_pChecker) {
+void WorldCollisionChecker::drawHitArea(GgafDx::CollisionChecker* prm_pChecker) {
 #ifdef MY_DEBUG
     ColliAABoxActor::get()->drawHitarea(prm_pChecker);
     ColliAAPrismActor::get()->drawHitarea(prm_pChecker);
@@ -194,7 +194,7 @@ void CollisionChecker::drawHitArea(GgafDx::Checker* prm_pChecker) {
 #endif
 }
 
-void CollisionChecker::releaseHitArea() {
+void WorldCollisionChecker::releaseHitArea() {
 #ifdef MY_DEBUG
     ColliAABoxActor::release();
     ColliAAPrismActor::release();
@@ -204,6 +204,6 @@ void CollisionChecker::releaseHitArea() {
 }
 
 
-CollisionChecker::~CollisionChecker() {
+WorldCollisionChecker::~WorldCollisionChecker() {
     //当たり判定はないかもしれない。この場合_pElemは無駄な生成と解放をすることになる。。
 }

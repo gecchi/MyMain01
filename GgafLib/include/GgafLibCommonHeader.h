@@ -95,10 +95,10 @@ class PieGraphSpriteActor;
 class SpriteMeshWorldBoundActor;
 class WorldBoundActor;
 
-class CollisionChecker;
-class CollisionChecker3D;
-class CollisionChecker2D;
-class CollisionChecker2D_b;
+class WorldCollisionChecker;
+class WorldCollisionChecker3D;
+class WorldCollisionChecker2D;
+class ViewCollisionChecker;
 
 class ColliAABox;
 class ColliSphere;

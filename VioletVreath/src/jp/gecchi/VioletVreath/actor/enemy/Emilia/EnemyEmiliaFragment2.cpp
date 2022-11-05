@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Emilia/FormationEmilia.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -33,7 +33,7 @@ void EnemyEmiliaFragment2::onCreateModel() {
 void EnemyEmiliaFragment2::initialize() {
     setHitAble(true);
     setScaleR(0.1);
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(50));
     getVecVehicle()->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(6), D_ANG(9));

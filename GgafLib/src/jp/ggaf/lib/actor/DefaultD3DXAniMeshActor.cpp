@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/DefaultD3DXAniMeshActor.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 
 
@@ -12,17 +12,17 @@ DefaultD3DXAniMeshActor::DefaultD3DXAniMeshActor(const char* prm_name, const cha
                            prm_model,
                            "DefaultD3DXAniMeshEffect",
                            "DefaultD3DXAniMeshTechnique",
-                           UTIL::createChecker(this) ) {
+                           UTIL::createCollisionChecker(this) ) {
     _class_name = "DefaultD3DXAniMeshActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
 }
 
 void DefaultD3DXAniMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(_pColliChecker);
+    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
 }
 
 DefaultD3DXAniMeshActor::~DefaultD3DXAniMeshActor() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }

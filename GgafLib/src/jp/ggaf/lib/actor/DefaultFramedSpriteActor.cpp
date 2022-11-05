@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/DefaultFramedSpriteActor.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 
 
@@ -12,19 +12,19 @@ DefaultFramedSpriteActor::DefaultFramedSpriteActor(const char* prm_name, const c
                       prm_model,
                       "DefaultFramedSpriteEffect",
                       "DefaultFramedSpriteTechnique",
-                      UTIL::createChecker(this) ) {
+                      UTIL::createCollisionChecker(this) ) {
     _class_name = "DefaultFramedSpriteActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
     setZWriteEnable(false);
 }
 
 void DefaultFramedSpriteActor::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(_pColliChecker);
+    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
 }
 
 DefaultFramedSpriteActor::~DefaultFramedSpriteActor() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }
 

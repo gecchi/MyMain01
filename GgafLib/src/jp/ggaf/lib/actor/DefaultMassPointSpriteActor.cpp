@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
@@ -19,15 +19,15 @@ DefaultMassPointSpriteActor::DefaultMassPointSpriteActor(const char* prm_name, c
                         prm_model,
                         "DefaultMassPointSpriteEffect",
                         "DefaultMassPointSpriteTechnique",
-                        UTIL::createChecker(this) ) {
+                        UTIL::createCollisionChecker(this) ) {
     _class_name = "DefaultMassPointSpriteActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
     _pMassPointSpriteModel->registerCallback_VertexInstanceDataInfo(DefaultMassPointSpriteActor::createVertexInstanceData);
 }
 
 void DefaultMassPointSpriteActor::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(_pColliChecker);
+    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
 }
 
@@ -135,5 +135,5 @@ void DefaultMassPointSpriteActor::processDraw() {
 }
 
 DefaultMassPointSpriteActor::~DefaultMassPointSpriteActor() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }

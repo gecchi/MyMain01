@@ -57,7 +57,7 @@ public:
     coord _wall_width;
 //    /** [r]壁ブロック移動スピード(値は正、但し移動方向はX軸負の方向) */
 //    int _feature_p1;
-    CollisionChecker* _pColliChecker;
+    WorldCollisionChecker* _pColliCollisionChecker;
     /** [r]外壁シーン */
     WallSectionScene* _pWallSectionScene;
 
@@ -71,7 +71,7 @@ public:
 //                  const char* prm_model,
 //                  const char* prm_effect_id,
 //                  const char* prm_technique,
-//                  GgafDx::Checker* prm_pChecker);
+//                  GgafDx::CollisionChecker* prm_pChecker);
 
     void init();
 
@@ -115,8 +115,8 @@ public:
     virtual void config(WallSectionScene* prm_pWallSectionScene,
                         pos_t prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch);
 
-    inline CollisionChecker* getCollisionChecker() {
-        return _pColliChecker;
+    inline WorldCollisionChecker* getWorldCollisionChecker() {
+        return _pColliCollisionChecker;
     }
 
     virtual ~MassWallActor();

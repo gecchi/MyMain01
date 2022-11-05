@@ -3,7 +3,7 @@
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 
 

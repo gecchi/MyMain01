@@ -38,7 +38,7 @@ public:
                    const char* prm_model,
                    const char* prm_effect_id,
                    const char* prm_technique,
-                   Checker* prm_pChecker );
+                   CollisionChecker* prm_pChecker );
 
     virtual void processDraw() override;
 

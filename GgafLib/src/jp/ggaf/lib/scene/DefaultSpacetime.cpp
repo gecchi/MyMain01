@@ -1,8 +1,8 @@
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 
 #include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/CollisionChecker2D_b.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
+#include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 #include "jp/ggaf/core/util/LinearOctree.h"
 #include "jp/ggaf/core/util/LinearQuadtree.h"
 
@@ -70,8 +70,8 @@ DefaultSpacetime::~DefaultSpacetime() {
     _TRACE_("Board用四分木 -->");
     _pLinearQuadtree_b->putTree();
     _TRACE_("<--Board用四分木");
-    CollisionChecker::releaseHitArea();
-    CollisionChecker2D_b::releaseHitArea();
+    WorldCollisionChecker::releaseHitArea();
+    ViewCollisionChecker::releaseHitArea();
 #endif
     if (CONFIG::IS_HIT_CHECK_3D) {
         GGAF_DELETE(_pLinearOctree);

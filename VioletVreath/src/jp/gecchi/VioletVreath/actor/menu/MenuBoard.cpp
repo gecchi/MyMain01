@@ -5,7 +5,7 @@
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
 #include "jp/ggaf/lib/actor/FontBoardActor.h"
-#include "jp/ggaf/lib/util/CollisionChecker2D_b.h"
+#include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"
 #include "jp/gecchi/VioletVreath/actor/menu/MousePointer.h"
 
@@ -189,8 +189,8 @@ void MenuBoard::addItem(GgafDx::FigureActor* prm_pItem,
                         coord prm_x_local, coord prm_y_local, coord prm_z_local) {
     if (prm_pItem->instanceOf(Obj_FontBoardActor)) {
         FontBoardActor* pItem = (FontBoardActor*)prm_pItem;
-        pItem->getCollisionChecker()->createCollisionArea(1);
-        pItem->getCollisionChecker()->setColliAABox(0, 0.95, 1.0); //‰¡95%Ac100%
+        pItem->getWorldCollisionChecker()->createCollisionArea(1);
+        pItem->getWorldCollisionChecker()->setColliAABox(0, 0.95, 1.0); //‰¡95%Ac100%
         pItem->setHitAble(true);
         pItem->setDefaultKind(KIND_2DFIX_MENU_ITEM);
     }

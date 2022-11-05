@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
@@ -35,7 +35,7 @@ EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
 
 void EnemyGlajaLance001::initialize() {
     setHitAble(false);
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(3);
     pChecker->setColliAACube(0, PX_C(20));
     pChecker->setColliAACube(1, -PX_C(80), 0, 0,
@@ -58,7 +58,7 @@ void EnemyGlajaLance001::onActive() {
                               RND(D_ANG(0), D_ANG(360)) );
     pVecVehicle->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(20), D_ANG(15));
     pVecVehicle->linkFaceAngByMvAng(true);
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->disable(1);
     pChecker->disable(2);
     setScale(R_SC(1));
@@ -102,7 +102,7 @@ void EnemyGlajaLance001::processBehavior() {
             }
             if (!pScaler->isTransitioning()) {
                 //‘„‚Ì—¼’[“–‚½‚è”»’èoŒ»
-                CollisionChecker* pChecker = getCollisionChecker();
+                WorldCollisionChecker* pChecker = getWorldCollisionChecker();
                 pChecker->enable(1);
                 pChecker->enable(2);
                 pPhase->changeNext();

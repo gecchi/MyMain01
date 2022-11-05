@@ -3,7 +3,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "scene/HgrSpacetime.h"
 #include "scene/HgrSpacetime/HgrWorld.h"
@@ -34,7 +34,7 @@ void Jiki::initialize() {
     GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 3);
     pUvFlipper->exec(FLIP_ORDER_LOOP, 5);
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
 //    pChecker->createCollisionArea(1);
 ////    pChecker->set2DColliSquare(0, PX_C(128));
 ////    pChecker->set2DColliCircle(0, PX_C(32));

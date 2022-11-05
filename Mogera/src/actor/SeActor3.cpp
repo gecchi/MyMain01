@@ -2,7 +2,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleMvAngAssistant.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "MgrCaretaker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
@@ -15,7 +15,7 @@ SeActor3::SeActor3(const char* prm_name) :
         GgafLib::DefaultMeshActor(prm_name, "Zako") { //Guruguru.x ‚ªŽQÆ‚³‚ê‚éB
     //À•WÝ’è
     setMaterialColor(0.0, 1.0, 1.0);
-//    CollisionChecker* pChecker = getCollisionChecker();
+//    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
 //    pChecker->createCollisionArea(1);
 //    pChecker->setColliSphere(0, PX_C(20));
 //    setHitAble(true);

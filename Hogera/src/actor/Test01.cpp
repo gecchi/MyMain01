@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/util/Input.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "HgrCaretaker.h"
 
@@ -37,7 +37,7 @@ void Test01::initialize() {
     pUvFlipper->setFlipPtnRange(0, 3);
     pUvFlipper->exec(FLIP_ORDER_LOOP, 5);
 
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
 //    pChecker->createCollisionArea(1);
 //    pChecker->set2DColliRightTriangle_WH(0, PX_C(-10), PX_C(-20), PX_C(50), PX_C(100), POS_R_TRIANGLE_PP);
 //    pChecker->setColliSphere(0, PX_C(64));

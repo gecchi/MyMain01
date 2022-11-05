@@ -1,4 +1,4 @@
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker3D.h"
 
 #include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/util/LinearOctree.h"
@@ -6,7 +6,7 @@
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliAABox.h"
 #include "jp/ggaf/lib/util/ColliSphere.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
@@ -17,13 +17,13 @@
 
 using namespace GgafLib;
 
-CollisionChecker3D::CollisionChecker3D(GgafDx::GeometricActor* prm_pActor) : CollisionChecker(prm_pActor) ,
+WorldCollisionChecker3D::WorldCollisionChecker3D(GgafDx::GeometricActor* prm_pActor) : WorldCollisionChecker(prm_pActor) ,
         _pLinearOctree(pCARETAKER->getSpacetime()->getLinearOctree()),
         _pElem(NEW GgafCore::TreeElem<3u>(_pLinearOctree->_paOctant, prm_pActor))
 {
 }
 
-void CollisionChecker3D::updateHitArea() {
+void WorldCollisionChecker3D::updateHitArea() {
     GgafDx::CollisionArea* const pCollisionArea = _pCollisionArea;
     if (pCollisionArea == nullptr) {
         return;
@@ -34,7 +34,7 @@ void CollisionChecker3D::updateHitArea() {
         _pElem->_kind = pActor->lookUpKind();
 #ifdef MY_DEBUG
         if (_pElem->_kind == 0) {
-            _TRACE_("【警告】 CollisionChecker3D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
+            _TRACE_("【警告】 WorldCollisionChecker3D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
         }
 #endif
         pCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //最外域の境界AABB更新
@@ -48,7 +48,7 @@ void CollisionChecker3D::updateHitArea() {
     }
 }
 
-bool CollisionChecker3D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
+bool WorldCollisionChecker3D::isHit(const GgafDx::CollisionChecker* const prm_pOppChecker) {
     GgafDx::CollisionArea* const pCollisionArea = _pCollisionArea;
     GgafDx::CollisionArea* const pOppCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
     const GgafDx::GeometricActor* const pActor = _pActor;                //相手のアクター
@@ -60,7 +60,7 @@ bool CollisionChecker3D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
     //まず最外境界AABoxで当たり判定を行って、ヒットすれば厳密に当たり判定を行う。
     if (colli_part_num > 2 || opp_colli_part_num > 2) {
 #ifdef MY_DEBUG
-        CollisionChecker::_num_check++;
+        WorldCollisionChecker::_num_check++;
 #endif
         if (pActor->_x + pCollisionArea->_aabb_x2 >= pOppActor->_x + pOppCollisionArea->_aabb_x1) {
             if (pActor->_x + pCollisionArea->_aabb_x1 <= pOppActor->_x + pOppCollisionArea->_aabb_x2) {
@@ -144,7 +144,7 @@ CNT:
 
 
 #ifdef MY_DEBUG
-                CollisionChecker::_num_check++;
+                WorldCollisionChecker::_num_check++;
 #endif
 
                 if (opp_shape_kind == COLLI_AABOX) {
@@ -203,7 +203,7 @@ CNT:
                 if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
-                CollisionChecker::_num_check++;
+                WorldCollisionChecker::_num_check++;
 #endif
                 if (opp_shape_kind == COLLI_AABOX) {
                     //＜球 と AAB＞
@@ -247,7 +247,7 @@ CNT:
                 if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
-                CollisionChecker::_num_check++;
+                WorldCollisionChecker::_num_check++;
 #endif
                 if (opp_shape_kind == COLLI_AABOX) {
                     //＜AAPrism と AAB＞
@@ -288,7 +288,7 @@ CNT:
                 if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
-                CollisionChecker::_num_check++;
+                WorldCollisionChecker::_num_check++;
 #endif
                 if (opp_shape_kind == COLLI_AABOX) {
                     //＜AAPyramid と AAB＞
@@ -326,7 +326,7 @@ CNT:
 }
 
 
-CollisionChecker3D::~CollisionChecker3D() {
+WorldCollisionChecker3D::~WorldCollisionChecker3D() {
     delete _pElem;
     //当たり判定はないかもしれない。この場合_pElemは無駄な生成と解放をすることになる。。
 }

@@ -9,7 +9,7 @@ using namespace GgafDx;
 std::map<int, AAPyramidActor::RotPosPyramid> AAPyramidActor::pos2r;
 
 AAPyramidActor::AAPyramidActor(const char* prm_name,
-                               Checker* prm_pChecker) :
+                               CollisionChecker* prm_pChecker) :
                                    MeshActor(prm_name,
                                              CONFIG::COLI_AAPYRAMID_MODEL.c_str(),
                                              "DefaultMeshEffect",

@@ -2,7 +2,7 @@
 
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -15,7 +15,7 @@ AliceShot::AliceShot(const char* prm_name, const char* prm_model) :
 
 void AliceShot::initialize() {
     setHitAble(false);
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, PX_C(16));
 }

@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include <stdio.h>
 
 using namespace GgafLib;
@@ -20,7 +20,7 @@ TestEnemy::TestEnemy(const char* prm_name, const char* prm_model, void* prm_pSta
 
 void TestEnemy::initialize() {
     setHitAble(true);
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(8);
 //    pChecker->setColliAABox(0, -30000, -30000, -30000, 30000, 30000, 30000);
 //    pChecker->setColliSphere(0, 30000);

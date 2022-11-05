@@ -63,7 +63,7 @@ public:
     };
 
     static VERTEX_instancedata _aInstancedata[];
-    CollisionChecker* _pColliChecker;
+    WorldCollisionChecker* _pColliCollisionChecker;
 
     /** レーザーテクスチャ種別  0:不明 1:末尾 2:中間 3:先頭から２番目で先頭のテクスチャ （末尾かつ先頭は末尾が優先） 4:本当の先頭(但し描画できない) */
     int _chip_kind;
@@ -108,14 +108,14 @@ public:
      * 当たり判定要素数は２つになる。
      * 【注意】<BR>
      * 予めレーザーチップ間の距離が開かず、すり抜けが起こらないとわかっている場合は、<BR>
-     * 本メソッドで設定せず、通常 getCollisionChecker()->createCollisionArea(1);<BR>
+     * 本メソッドで設定せず、通常 getWorldCollisionChecker()->createCollisionArea(1);<BR>
      * を行ったほうがパフォーマンスが良い。<BR>
      * @param prm_edge_length
      */
     virtual void registerHitAreaCube_AutoGenMidColli(int prm_edge_length);
 
-    inline CollisionChecker* getCollisionChecker() {
-        return _pColliChecker;
+    inline WorldCollisionChecker* getWorldCollisionChecker() {
+        return _pColliCollisionChecker;
     }
 
     /**

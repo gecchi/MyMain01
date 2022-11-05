@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/DefaultSkinAniMeshActor.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 using namespace GgafLib;
 
@@ -12,17 +12,17 @@ DefaultSkinAniMeshActor::DefaultSkinAniMeshActor(const char* prm_name,
                                                                   prm_model,
                                                                   "DefaultSkinAniMeshEffect",
                                                                   "DefaultSkinAniMeshTechnique",
-                                                                  UTIL::createChecker(this) ) {
+                                                                  UTIL::createCollisionChecker(this) ) {
     _class_name = "DefaultSkinAniMeshActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
 }
 
 void DefaultSkinAniMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(_pColliChecker);
+    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
 }
 
 DefaultSkinAniMeshActor::~DefaultSkinAniMeshActor() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }

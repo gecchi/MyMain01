@@ -3,9 +3,9 @@
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/util/Input.h"
-#include "jp/ggaf/dx/actor/supporter/Checker.h"
+#include "jp/ggaf/dx/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 
 
@@ -30,7 +30,7 @@ void Horizon001::onCreateModel() {
 void Horizon001::initialize() {
     setCullingDraw(false);
     setPosition(0, PX_C(-100), 0);
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(1);
     Spacetime* pSpacetime =  pCARETAKER->getSpacetime();
     pChecker->setColliAABox(0, pSpacetime->_x_bound_left  + (chip_width_*2),

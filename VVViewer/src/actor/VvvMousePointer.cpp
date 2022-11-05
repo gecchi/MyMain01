@@ -1,4 +1,4 @@
-#include "MousePointer.h"
+#include "VvvMousePointer.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
@@ -11,15 +11,15 @@
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "jp/gecchi/VioletVreath/Caretaker.h"
+
 
 using namespace GgafLib;
-using namespace VioletVreath;
+using namespace VVViewer;
 
 
-MousePointer::MousePointer(const char* prm_name) :
-        MousePointerActor(prm_name, "MousePointer") {
-    _class_name = "MousePointer";
+VvvMousePointer::VvvMousePointer(const char* prm_name) :
+        MousePointerActor(prm_name, "VvvMousePointer") {
+    _class_name = "VvvMousePointer";
 
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     ViewCollisionChecker* pChecker = getWorldCollisionChecker();
@@ -28,29 +28,29 @@ MousePointer::MousePointer(const char* prm_name) :
     setHitAble(true);
 }
 
-void MousePointer::onCreateModel() {
+void VvvMousePointer::onCreateModel() {
 }
 
-void MousePointer::initialize() {
+void VvvMousePointer::initialize() {
 }
 
-void MousePointer::onActive() {
+void VvvMousePointer::onActive() {
 }
 
-void MousePointer::processBehavior() {
+void VvvMousePointer::processBehavior() {
     getUvFlipper()->behave();
 }
 
-void MousePointer::processJudgement() {
+void VvvMousePointer::processJudgement() {
 }
 
-void MousePointer::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void VvvMousePointer::onHit(const GgafCore::Actor* prm_pOtherActor) {
     MousePointerActor::onHit(prm_pOtherActor);
 }
 
-void MousePointer::onInactive() {
+void VvvMousePointer::onInactive() {
 }
 
-MousePointer::~MousePointer() {
+VvvMousePointer::~VvvMousePointer() {
 }
 

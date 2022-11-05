@@ -16,7 +16,7 @@ PointSpriteSetActor::PointSpriteSetActor(const char* prm_name,
                                          const char* prm_model,
                                          const char* prm_effect_id,
                                          const char* prm_technique,
-                                         Checker* prm_pChecker) :
+                                         CollisionChecker* prm_pChecker) :
 
                                              FigureActor(prm_name,
                                                          prm_model,
@@ -46,7 +46,7 @@ PointSpriteSetActor::PointSpriteSetActor(const char* prm_name,
                                          const char* prm_effect_id,
                                          const char prm_effect_type,
                                          const char* prm_technique,
-                                         Checker* prm_pChecker) :
+                                         CollisionChecker* prm_pChecker) :
 
                                              FigureActor(prm_name,
                                                          prm_model,

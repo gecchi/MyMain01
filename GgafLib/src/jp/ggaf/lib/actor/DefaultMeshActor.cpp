@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 
 
@@ -13,17 +13,17 @@ DefaultMeshActor::DefaultMeshActor(const char* prm_name,
                      prm_model,
                      "DefaultMeshEffect",
                      "DefaultMeshTechnique",
-                     UTIL::createChecker(this) ) {
+                     UTIL::createCollisionChecker(this) ) {
     _class_name = "DefaultMeshActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
 }
 
 void DefaultMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(_pColliChecker);
+    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
 }
 
 DefaultMeshActor::~DefaultMeshActor() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }

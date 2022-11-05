@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/effect/Effect.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/dx/util/CollisionPart.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliSphere.h"
 
 
@@ -30,7 +30,7 @@ void ColliSphereActor::release() {
     GGAF_DELETE_NULLABLE(ColliSphereActor::_pObj);
 }
 
-void ColliSphereActor::drawHitarea(GgafDx::Checker* prm_pChecker) {
+void ColliSphereActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
     if (prm_pChecker != nullptr &&
         prm_pChecker->_pCollisionArea != nullptr &&
         prm_pChecker->getTargetActor()->canHit() &&

@@ -5,7 +5,7 @@
 #include "jp/ggaf/dx/effect/MeshSetEffect.h"
 #include "jp/ggaf/dx/model/MeshSetModel.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/effect/SingleLaserEffect.h"
 
 using namespace GgafLib;
@@ -18,9 +18,9 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model) :
                                   "SingleLaserEffect",
                                   TYPE_SINGLELASER_EFFECT,
                                   "SingleLaserTechnique",
-                                  UTIL::createChecker(this) ) {
+                                  UTIL::createCollisionChecker(this) ) {
     _class_name = "SingleLaser";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
 
     setZEnableDraw(true);    //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
@@ -57,10 +57,10 @@ void SingleLaser::processDraw() {
 
 void SingleLaser::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(_pColliChecker);
+    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
 }
 
 SingleLaser::~SingleLaser() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }

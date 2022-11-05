@@ -1,12 +1,12 @@
-#ifndef GGAF_LIB_COLLISIONCHECKER_H_
-#define GGAF_LIB_COLLISIONCHECKER_H_
+#ifndef GGAF_LIB_WORLDCOLLISIONCHECKER_H_
+#define GGAF_LIB_WORLDCOLLISIONCHECKER_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dx/actor/supporter/Checker.h"
+#include "jp/ggaf/dx/util/CollisionChecker.h"
 
 namespace GgafLib {
 
 /**
- * 衝突チェッカークラス.
+ * ワールド空間の衝突チェッカークラス.
  * アクターに当たり判定チェック等機能を追加するクラス。
  * １つの「当たり判定領域」は、複数の「当たり判定領域要素」から形成されています。<BR>
  * 各「当たり判定領域要素」は、BOX型と球型の２種類の内から選べます。<BR>
@@ -18,7 +18,7 @@ namespace GgafLib {
  * @since 2008/09/08
  * @author Masatoshi Tsuge
  */
-class CollisionChecker : public GgafDx::Checker {
+class WorldCollisionChecker : public GgafDx::CollisionChecker {
 
 public:
 #ifdef MY_DEBUG
@@ -30,7 +30,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  当たり判定機能を追加するActor
      */
-    explicit CollisionChecker(GgafDx::GeometricActor* prm_pActor);
+    explicit WorldCollisionChecker(GgafDx::GeometricActor* prm_pActor);
 
 
     void changeColliSphereR(int prm_index, coord r);
@@ -599,12 +599,12 @@ public:
 
     GgafDx::CollisionPart* getLastHitCollisionPart();
 
-    static void drawHitArea(GgafDx::Checker* prm_pChecker);
+    static void drawHitArea(GgafDx::CollisionChecker* prm_pChecker);
     static void releaseHitArea();
 
-    virtual ~CollisionChecker();
+    virtual ~WorldCollisionChecker();
 };
 
 }
-#endif /*GGAF_LIB_COLLISIONCHECKER_H_*/
+#endif /*GGAF_LIB_WORLDCOLLISIONCHECKER_H_*/
 

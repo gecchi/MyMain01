@@ -458,7 +458,7 @@ class VecVehicleMvAngAssistant;
 class AxisVehicle;
 class AxisVehicleAssistantA;
 class GeoVehicle;
-class Checker;
+class CollisionChecker;
 class Scaler;
 class AlphaFader;
 class Colorist;

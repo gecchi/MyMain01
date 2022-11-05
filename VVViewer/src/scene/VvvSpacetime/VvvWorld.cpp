@@ -22,6 +22,7 @@
 #include "actor/VvvGrid.h"
 #include "actor/VvvCamera.h"
 #include "actor/Font01.h"
+#include "actor/VvvMousePointer.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 
 
@@ -43,9 +44,14 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     bringSceneMediator()->appendGroupChild(pFont01_help_);
     view_help_ = true;
     view_info_ = true;
+    pVvvMousePointer_= nullptr;
 }
 
 void VvvWorld::initialize() {
+    pVvvMousePointer_ = desireActor(VvvMousePointer);
+    pVvvMousePointer_->setDefaultKind(KIND_2DFIX_MOUSE_POINTER);
+    bringSceneMediator()->appendGroupChild(pVvvMousePointer_);
+
      pFont01_help_->setAlign(ALIGN_LEFT, VALIGN_TOP);
      pFont01_help_->setMaterialColor(1.0,0.5,0.2);
      pFont01_help_->update(PX_C(0), PX_C(0),

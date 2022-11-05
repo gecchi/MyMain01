@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/DefaultMassMorphMeshActor.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/model/MassMorphMeshModel.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
@@ -16,9 +16,9 @@ DefaultMassMorphMeshActor::DefaultMassMorphMeshActor(const char* prm_name, const
                                prm_model,
                                "DefaultMassMorphMeshEffect",
                                "DefaultMassMorphMeshTechnique",
-                               UTIL::createChecker(this) ) {
+                               UTIL::createCollisionChecker(this) ) {
     _class_name = "DefaultMassMorphMeshActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
     _pMassMorphMeshModel->registerCallback_VertexInstanceDataInfo(DefaultMassMorphMeshActor::createVertexInstanceData);
 }
 
@@ -126,10 +126,10 @@ void DefaultMassMorphMeshActor::processDraw() {
 }
 void DefaultMassMorphMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(_pColliChecker);
+    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
 }
 
 DefaultMassMorphMeshActor::~DefaultMassMorphMeshActor() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }

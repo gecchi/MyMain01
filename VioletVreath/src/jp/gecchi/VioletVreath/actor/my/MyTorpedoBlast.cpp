@@ -3,7 +3,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafLib;
@@ -19,7 +19,7 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
 }
 
 void MyTorpedoBlast::initialize() {
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(1);
     getVecVehicle()->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(0), D_ANG(6));
     setHitAble(true);
@@ -30,7 +30,7 @@ void MyTorpedoBlast::onReset() {
     //MyTorpedoBlast‚ÍAdispatchForce‚³‚ê‚é‚Ì‚ÅA
     //onInactive() onActive()‚Å‚ÌÀ‘•‚ğ”ğ‚¯‚é
     getStatus()->reset();
-    getCollisionChecker()->setColliSphere(0, PX_C(10));
+    getWorldCollisionChecker()->setColliSphere(0, PX_C(10));
     getVecVehicle()->setMvVelo(0);
     setScale(R_SC(1));
     GgafDx::Scaler* const pScaler = getScaler();
@@ -43,7 +43,7 @@ void MyTorpedoBlast::processBehavior() {
     if (!pScaler->isTransitioning()) {
         sayonara();//–c‚ç‚ñ‚Å‚µ‚Ú‚Ş‚ªI—¹
     } else {
-        getCollisionChecker()->setColliSphere(0, _sx); //“–‚½‚è”»’è‚à•Ï‰»
+        getWorldCollisionChecker()->setColliSphere(0, _sx); //“–‚½‚è”»’è‚à•Ï‰»
         getVecVehicle()->behave();
         pScaler->behave();
     }

@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/DefaultMassSpriteActor.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
@@ -16,17 +16,17 @@ DefaultMassSpriteActor::DefaultMassSpriteActor(const char* prm_name, const char*
                           prm_model,
                           "DefaultMassSpriteEffect",
                           "DefaultMassSpriteTechnique",
-                          UTIL::createChecker(this) ) {
+                          UTIL::createCollisionChecker(this) ) {
 
     _class_name = "DefaultMassSpriteActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
     _pMassSpriteModel->registerCallback_VertexInstanceDataInfo(DefaultMassSpriteActor::createVertexInstanceData);
     setZWriteEnable(false);
 }
 
 void DefaultMassSpriteActor::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(_pColliChecker);
+    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
 }
 
@@ -147,5 +147,5 @@ void DefaultMassSpriteActor::processDraw() {
 }
 
 DefaultMassSpriteActor::~DefaultMassSpriteActor() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }

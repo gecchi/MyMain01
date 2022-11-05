@@ -11,7 +11,7 @@ LPDIRECTINPUT8 Input::_pIDirectInput8 = nullptr;
 LPDIRECTINPUTDEVICE8 Input::_pKeyboardInputDevice = nullptr;
 LPDIRECTINPUTDEVICE8 Input::_pJoystickInputDevice = nullptr;
 LPDIRECTINPUTDEVICE8 Input::_pMouseInputDevice  = nullptr;
-DIMOUSESTATE2 Input::_mouse_state[2];
+DIMOUSESTATE2 Input::_di_mouse_state[2];
 int  Input::_flip_ms = 0;
 
 BYTE Input::_keyboard_state[2][256];
@@ -318,7 +318,7 @@ again:
     hr = Input::_pMouseInputDevice->Poll(); //マウスは通常Poll不用と思うが呼び出しても無害と書いてあるので呼ぶ。
     hr = Input::_pMouseInputDevice->GetDeviceState(
                                               sizeof(DIMOUSESTATE2),
-                                              (void*)&Input::_mouse_state[Input::_flip_ms]
+                                              (void*)&Input::_di_mouse_state[Input::_flip_ms]
                                           );
     if (FAILED(hr)) {
         hr = Input::_pMouseInputDevice->Acquire();
@@ -341,7 +341,7 @@ again:
 //        _TRACE_("isPressedMouseButton:範囲外");
 //        return false;
 //    } else {
-//        if (Input::_mouse_state[Input::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
+//        if (Input::_di_mouse_state[Input::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
 //            return true;
 //        } else {
 //            return false;
@@ -361,7 +361,7 @@ bool Input::isPressedMouseButton(int prm_button_no) {
 
 //bool Input::isPushedDownMouseButton_old(int prm_button_no) {
 //    if (Input::isPressedMouseButton(prm_button_no)) { //今は押している
-//        if (Input::_mouse_state[!Input::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
+//        if (Input::_di_mouse_state[!Input::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
 //            //前回セット[!Input::_flip_ms]も押されている。押しっぱなし
 //            return false;
 //        } else {
@@ -391,7 +391,7 @@ bool Input::isPushedDownMouseButton(int prm_button_no) {
 //
 //bool Input::isReleasedUpMouseButton_old(int prm_button_no) {
 //    if (!Input::isPressedMouseButton(prm_button_no)) { //今は離している
-//        if (Input::_mouse_state[!Input::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
+//        if (Input::_di_mouse_state[!Input::_flip_ms].rgbButtons[prm_button_no] & 0x80) {
 //            //前回セット[!Input::_flip_ms]も押されていた。成立。
 //            return true;
 //        } else {
@@ -420,18 +420,18 @@ bool Input::isReleasedUpMouseButton(int prm_button_no) {
 
 void Input::getMousePointer(long* x, long* y, long* z) {
     //マウスの移動
-    *x = Input::_mouse_state[Input::_flip_ms].lX;
-    *y = Input::_mouse_state[Input::_flip_ms].lY;
+    *x = Input::_di_mouse_state[Input::_flip_ms].lX;
+    *y = Input::_di_mouse_state[Input::_flip_ms].lY;
     //ホイールの状態
-    *z = Input::_mouse_state[Input::_flip_ms].lZ;
+    *z = Input::_di_mouse_state[Input::_flip_ms].lZ;
 }
 
 void Input::getMousePointer_REL(long* dx, long* dy, long* dz) {
     //マウスの移動
-    *dx = Input::_mouse_state[Input::_flip_ms].lX - Input::_mouse_state[!Input::_flip_ms].lX;
-    *dy = Input::_mouse_state[Input::_flip_ms].lY - Input::_mouse_state[!Input::_flip_ms].lY;
+    *dx = Input::_di_mouse_state[Input::_flip_ms].lX - Input::_di_mouse_state[!Input::_flip_ms].lX;
+    *dy = Input::_di_mouse_state[Input::_flip_ms].lY - Input::_di_mouse_state[!Input::_flip_ms].lY;
     //ホイールの状態
-    *dz = Input::_mouse_state[Input::_flip_ms].lZ - Input::_mouse_state[!Input::_flip_ms].lZ;
+    *dz = Input::_di_mouse_state[Input::_flip_ms].lZ - Input::_di_mouse_state[!Input::_flip_ms].lZ;
 }
 
 void Input::updateKeyboardState() {

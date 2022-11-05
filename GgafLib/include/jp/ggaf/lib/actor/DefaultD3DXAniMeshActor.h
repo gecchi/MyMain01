@@ -16,7 +16,7 @@ namespace GgafLib {
  * <TR><TD>getVecVehicle()</TD><TD>力車。移動回転支援</TD><TD>GgafDx::VecVehicle</TD></TR>
  * <TR><TD>_pPuppeteer</TD><TD>フレームアニメーション支援</TD><TD>GgafDx::Puppeteer</TD></TR>
  * <TR><TD>getSeTransmitter()</TD><TD>効果音発生管理</TD><TD>GgafDx::SeTransmitter</TD></TR>
- * <TR><TD>getCollisionChecker()</TD><TD>衝突判定支援</TD><TD>GgafLib::CollisionChecker3D</TD></TR>
+ * <TR><TD>getWorldCollisionChecker()</TD><TD>衝突判定支援</TD><TD>GgafLib::WorldCollisionChecker3D</TD></TR>
  * </TABLE>
  * @version 1.00
  * @since 2009/11/25
@@ -26,7 +26,7 @@ class DefaultD3DXAniMeshActor : public GgafDx::D3DXAniMeshActor {
 
 public:
     /** 衝突判定支援オブジェクト */
-    CollisionChecker* _pColliChecker;
+    WorldCollisionChecker* _pColliCollisionChecker;
 
 public:
     DefaultD3DXAniMeshActor(const char* prm_name, const char* prm_model);
@@ -51,8 +51,8 @@ public:
 
     virtual void drawHitArea() override;
 
-    inline CollisionChecker* getCollisionChecker() {
-        return _pColliChecker;
+    inline WorldCollisionChecker* getWorldCollisionChecker() {
+        return _pColliCollisionChecker;
     }
 
     virtual ~DefaultD3DXAniMeshActor();

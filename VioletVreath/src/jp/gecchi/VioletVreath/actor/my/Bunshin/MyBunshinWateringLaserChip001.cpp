@@ -14,7 +14,7 @@
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/dx/util/CollisionPart.h"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/LockonCursor001_Main.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
@@ -466,7 +466,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;
     //ヒットエフェクト
     GgafDx::FigureActor* pE = UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
-    GgafDx::CollisionPart* pColliPart = getCollisionChecker()->getLastHitCollisionPart();
+    GgafDx::CollisionPart* pColliPart = getWorldCollisionChecker()->getLastHitCollisionPart();
     pE->setPosition(pE->_x + pColliPart->_cx, pE->_y + pColliPart->_cy, pE->_z + pColliPart->_cz); //爆発エフェクト位置を補正
 
     if ((pOther->lookUpKind() & KIND_ENEMY_BODY) ) {

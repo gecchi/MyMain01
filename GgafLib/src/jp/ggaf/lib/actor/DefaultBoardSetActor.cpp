@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/actor/DefaultBoardSetActor.h"
 
-#include "jp/ggaf/lib/util/CollisionChecker2D_b.h"
+#include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 
 using namespace GgafLib;
 
@@ -10,18 +10,18 @@ DefaultBoardSetActor::DefaultBoardSetActor(const char* prm_name, const char* prm
             prm_model,
             "DefaultBoardSetEffect",
             "DefaultBoardSetTechnique",
-            NEW CollisionChecker2D_b(this) ) {
+            NEW ViewCollisionChecker(this) ) {
     _class_name = "DefaultBoardSetActor";
-    _pColliChecker = (CollisionChecker2D_b*)_pChecker;
+    _pColliCollisionChecker = (ViewCollisionChecker*)_pChecker;
 }
 
 void DefaultBoardSetActor::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker2D_b::drawHitArea(_pColliChecker);
+    ViewCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
 }
 
 DefaultBoardSetActor::~DefaultBoardSetActor() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }
 

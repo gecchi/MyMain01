@@ -11,7 +11,7 @@
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -73,7 +73,7 @@ void EnemyRatislaviaEye::onCreateModel() {
 void EnemyRatislaviaEye::initialize() {
     setHitAble(true);
     getVecVehicle()->linkFaceAngByMvAng(true);
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 200000);
 }

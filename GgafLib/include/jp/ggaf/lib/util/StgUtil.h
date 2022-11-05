@@ -42,7 +42,7 @@ public:
     /** POS_R_TRIANGLE の Y要素反転テーブル */
     static std::map<pos_t,pos_t> POS_R_TRIANGLE_inv_Y;
 
-    static GgafDx::Checker* createChecker(GgafDx::GeometricActor* prm_pActor);
+    static GgafDx::CollisionChecker* createCollisionChecker(GgafDx::GeometricActor* prm_pActor);
 
     /**
      * AAB 対 AAB 当たり判定(現在直接埋め込んだので未使用) .

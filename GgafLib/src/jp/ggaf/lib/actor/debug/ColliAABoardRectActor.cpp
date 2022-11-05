@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/effect/Effect.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/dx/util/CollisionPart.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliAABox.h"
 
 
@@ -30,7 +30,7 @@ void ColliAABoardRectActor::release() {
     GGAF_DELETE_NULLABLE(ColliAABoardRectActor::_pObj);
 }
 
-void ColliAABoardRectActor::drawHitarea(GgafDx::Checker* prm_pChecker) {
+void ColliAABoardRectActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
     if (prm_pChecker != nullptr &&
         prm_pChecker->_pCollisionArea != nullptr &&
         prm_pChecker->getTargetActor()->canHit() &&

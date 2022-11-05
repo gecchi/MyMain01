@@ -26,7 +26,7 @@ private:
 
 public:
     /** 衝突判定支援オブジェクト */
-    CollisionChecker* _pColliChecker;
+    WorldCollisionChecker* _pColliCollisionChecker;
 
     DefaultMassMeshActor(const char* prm_name, const char* prm_model);
 
@@ -52,8 +52,8 @@ public:
 
     virtual void drawHitArea() override;
 
-    inline CollisionChecker* getCollisionChecker() {
-        return _pColliChecker;
+    inline WorldCollisionChecker* getWorldCollisionChecker() {
+        return _pColliCollisionChecker;
     }
 
     virtual ~DefaultMassMeshActor();

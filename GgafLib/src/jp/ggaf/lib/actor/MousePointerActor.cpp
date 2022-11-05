@@ -6,7 +6,7 @@
 #include "jp/ggaf/dx/model/BoardModel.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/util/Input.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 
 using namespace GgafLib;

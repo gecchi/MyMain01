@@ -86,7 +86,6 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\AlphaFader.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\AxisVehicle.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\AxisVehicleAssistantA.h" />
-    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Checker.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Colorist.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\GeoVehicle.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Morpher.hpp" />
@@ -196,6 +195,7 @@
     <ClInclude Include="include\jp\ggaf\dx\util\BoneAniMeshFrame.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\BoneAniMeshWorldMatStack.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\CollisionArea.h" />
+    <ClInclude Include="include\jp\ggaf\dx\util\CollisionChecker.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\CollisionPart.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\curve\CurveManufacture.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\curve\CurveSource.h" />
@@ -273,7 +273,6 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\AlphaFader.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\AxisVehicle.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\AxisVehicleAssistantA.cpp" />
-    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Checker.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Colorist.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\GeoVehicle.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Puppeteer.cpp" />
@@ -377,6 +376,7 @@
     <ClCompile Include="src\jp\ggaf\dx\util\BoneAniMeshAllocHierarchy.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\BoneAniMeshWorldMatStack.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\CollisionArea.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\util\CollisionChecker.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\CollisionPart.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\curve\CurveManufacture.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\curve\CurveSource.cpp" />

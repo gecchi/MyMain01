@@ -5,11 +5,11 @@
 #include "jp/ggaf/dx/effect/MeshSetEffect.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/dx/util/CollisionPart.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
-#include "jp/ggaf/dx/actor/supporter/Checker.h"
+#include "jp/ggaf/dx/util/CollisionChecker.h"
 
 
 
@@ -22,10 +22,10 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
                               prm_model,
                               "LaserChipEffect",
                               "LaserChipTechnique",
-                              UTIL::createChecker(this) ) {
+                              UTIL::createCollisionChecker(this) ) {
 //    _pMeshSetModel->_draw_set_num = 11; //現在のレーザーの最大セット数は11。
     _obj_class |= Obj_LaserChip;
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
     _class_name = "LaserChip";
     _pChip_infront = nullptr;
     _pChip_behind = nullptr;
@@ -73,7 +73,7 @@ void LaserChip::onActive() {
         _pDepo->_num_chip_active++;
     }
     _force_alpha = 1.00; //最初は奥でもハッキリ映る。
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     GgafDx::CollisionArea* pArea = pChecker->getArea();
     if (pArea) {
         pChecker->moveColliAABoxPos(0, 0, 0, 0);
@@ -81,7 +81,7 @@ void LaserChip::onActive() {
 }
 
 void LaserChip::processSettlementBehavior() {
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     const LaserChip* pChip_infront = _pChip_infront;
     const LaserChip* pChip_behind = _pChip_behind;
 
@@ -284,7 +284,7 @@ void LaserChip::processPreDraw() {
 
 void LaserChip::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(_pColliChecker);
+    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
 }
 
@@ -356,7 +356,7 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     _hitarea_edge_length_3_2 = _hitarea_edge_length_3 * 2;
     _hitarea_edge_length_6   = _hitarea_edge_length_3 * 2;
     _hitarea_edge_length_6_2 = _hitarea_edge_length_6 * 2;
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(4);
     pChecker->setColliAACube(0, prm_edge_length);
     pChecker->setColliAACube(1, prm_edge_length);
@@ -495,6 +495,6 @@ void LaserChip::processDraw() {
 
 
 LaserChip::~LaserChip() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }
 

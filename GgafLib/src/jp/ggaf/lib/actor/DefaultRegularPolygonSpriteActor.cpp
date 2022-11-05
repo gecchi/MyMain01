@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/DefaultRegularPolygonSpriteActor.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 
 
@@ -12,19 +12,19 @@ DefaultRegularPolygonSpriteActor::DefaultRegularPolygonSpriteActor(const char* p
                                   prm_model,
                                   "DefaultRegularPolygonSpriteEffect",
                                   "DefaultRegularPolygonSpriteTechnique",
-                                  UTIL::createChecker(this) ) {
+                                  UTIL::createCollisionChecker(this) ) {
     _class_name = "DefaultRegularPolygonSpriteActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
     setZWriteEnable(false);
 }
 
 void DefaultRegularPolygonSpriteActor::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(_pColliChecker);
+    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
 }
 
 DefaultRegularPolygonSpriteActor::~DefaultRegularPolygonSpriteActor() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }
 

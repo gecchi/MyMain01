@@ -5,7 +5,7 @@
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -39,7 +39,7 @@ void EnemyEtis::initialize() {
     for (int i = 0; i < (width_x_ - depth_y_) ; i+= depth_y_) {
         nArea++;
     }
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(nArea);
     for (int i = 0, n = 0; i < width_x_-depth_y_; i += depth_y_, n++) {
         pChecker->setColliAABox(n,

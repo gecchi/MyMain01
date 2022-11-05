@@ -120,10 +120,6 @@
     <ClInclude Include="include\jp\ggaf\lib\util\ColliAABox.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliAAPrism.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliAAPyramid.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker2D.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker2D_b.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker3D.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliSphere.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\Direction26Util.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\Direction8Util.h" />
@@ -132,8 +128,12 @@
     <ClInclude Include="include\jp\ggaf\lib\util\ScenePhase.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\StgUtil.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\VBReplayRecorder.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\ViewCollisionChecker.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\VirtualButton.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\WMKeyInput.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\WorldCollisionChecker.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\WorldCollisionChecker2D.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\WorldCollisionChecker3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GgafLib.cpp" />
@@ -218,18 +218,18 @@
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAABox.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAAPrism.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAAPyramid.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker2D.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker2D_b.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker3D.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliSphere.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\Direction26Util.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\Direction8Util.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ScenePhase.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\StgUtil.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\VBReplayRecorder.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\ViewCollisionChecker.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\VirtualButton.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\WMKeyInput.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\WorldCollisionChecker.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\WorldCollisionChecker2D.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\WorldCollisionChecker3D.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8DCA921E-86EE-410D-A91A-3249D6D92AE9}</ProjectGuid>

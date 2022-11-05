@@ -14,7 +14,7 @@ using namespace GgafDx;
 
 SpriteMeshSetActor::SpriteMeshSetActor(const char* prm_name,
                                        const char* prm_model,
-                                       Checker* prm_pChecker) :
+                                       CollisionChecker* prm_pChecker) :
 
                                                MeshSetActor(prm_name,
                                                             prm_model,

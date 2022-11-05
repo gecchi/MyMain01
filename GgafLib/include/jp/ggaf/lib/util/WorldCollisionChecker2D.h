@@ -1,18 +1,18 @@
-#ifndef GGAF_LIB_COLLISIONCHECKER2D_H_
-#define GGAF_LIB_COLLISIONCHECKER2D_H_
+#ifndef GGAF_LIB_WORLDCOLLISIONCHECKER2D_H_
+#define GGAF_LIB_WORLDCOLLISIONCHECKER2D_H_
 #include "GgafLibCommonHeader.h"
-#include "CollisionChecker.h"
+#include "WorldCollisionChecker.h"
 
 #include "jp/ggaf/core/util/TreeElem.hpp"
 namespace GgafLib {
 
 /**
- * 2D用衝突チェッカークラス.
+ * ワールド空間の2Dモード用衝突チェッカークラス.
  * @version 1.00
  * @since 2017/08/04
  * @author Masatoshi Tsuge
  */
-class CollisionChecker2D : public CollisionChecker {
+class WorldCollisionChecker2D : public WorldCollisionChecker {
 
     GgafCore::LinearQuadtree* const _pLinearQuadtree; //TODO:どこに持たせようか悩むがとりあえずココに
 
@@ -25,7 +25,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  当たり判定機能を追加するActor
      */
-    explicit CollisionChecker2D(GgafDx::GeometricActor* prm_pActor);
+    explicit WorldCollisionChecker2D(GgafDx::GeometricActor* prm_pActor);
 
     /**
      * 当たり判定領域BOXの回転平行移動と、八分木登録を行います .
@@ -41,11 +41,11 @@ public:
      * @param prm_pOppChecker 他の当たり判定領域
      * @return true:当たっている / false:当たっていない
      */
-    bool isHit(const GgafDx::Checker* const prm_pOppChecker) override;
+    bool isHit(const GgafDx::CollisionChecker* const prm_pOppChecker) override;
 
-    virtual ~CollisionChecker2D();
+    virtual ~WorldCollisionChecker2D();
 };
 
 }
-#endif /*GGAF_LIB_COLLISIONCHECKER2D_H_*/
+#endif /*GGAF_LIB_WORLDCOLLISIONCHECKER2D_H_*/
 

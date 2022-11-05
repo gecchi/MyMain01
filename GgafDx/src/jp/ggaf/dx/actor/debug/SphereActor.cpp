@@ -7,7 +7,7 @@
 using namespace GgafDx;
 
 SphereActor::SphereActor(const char* prm_name,
-                         Checker* prm_pChecker) :
+                         CollisionChecker* prm_pChecker) :
 
                              MeshActor(prm_name,
                                        CONFIG::COLI_SPHERE_MODEL.c_str(),

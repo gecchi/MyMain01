@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/effect/MassSpriteEffect.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 
 
@@ -17,11 +17,11 @@ FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model) :
                                     prm_model,
                                     "FontSpriteEffect",
                                     "FontSpriteTechnique",
-                                    UTIL::createChecker(this) ) ,
+                                    UTIL::createCollisionChecker(this) ) ,
             ICharacterChip<FontSpriteActor, 256, 1024>(this, (int)(_pMassSpriteModel->_model_width_px), (int)(_pMassSpriteModel->_model_height_px))
 {
     _class_name = "FontSpriteActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
     _align = ALIGN_CENTER;
     _valign = VALIGN_MIDDLE;
     _pMassSpriteModel->registerCallback_VertexInstanceDataInfo(FontSpriteActor::createVertexInstanceData);
@@ -166,7 +166,7 @@ void FontSpriteActor::processDraw() {
 }
 
 FontSpriteActor::~FontSpriteActor() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }
 
 

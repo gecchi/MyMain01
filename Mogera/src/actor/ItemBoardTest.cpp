@@ -5,14 +5,14 @@
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dx/util/Input.h"
 #include "actor/ItemBoardTest.h"
 #include "MgrCaretaker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "jp/ggaf/lib/util/CollisionChecker2D_b.h"
+#include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 
 
 using namespace GgafLib;
@@ -22,7 +22,7 @@ using namespace Mogera;
 ItemBoardTest::ItemBoardTest(const char* prm_name) :
         DefaultBoardSetActor(prm_name, "_chk_TestDefaultBoardActorModel") {
     _class_name = "ItemBoardTest";
-    CollisionChecker2D_b* pChecker = getCollisionChecker();
+    ViewCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, 1.0);
     setHitAble(true);

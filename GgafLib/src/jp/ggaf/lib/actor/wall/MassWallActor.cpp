@@ -3,7 +3,7 @@
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 #include "jp/ggaf/dx/model/Model.h"
@@ -27,7 +27,7 @@ MassWallActor::MassWallActor(const char* prm_name,
                                                      "MassWallEffect",
                                                      TYPE_MASSWALL_EFFECT,
                                                      "MassWallTechnique",
-                                                     UTIL::createChecker(this))
+                                                     UTIL::createCollisionChecker(this))
 {
     init();
 }
@@ -43,7 +43,7 @@ MassWallActor::MassWallActor(const char* prm_name,
                                                      prm_effect,
                                                      TYPE_MASSWALL_EFFECT,
                                                      prm_technique,
-                                                     UTIL::createChecker(this))
+                                                     UTIL::createCollisionChecker(this))
 {
     init();
 }
@@ -51,7 +51,7 @@ MassWallActor::MassWallActor(const char* prm_name,
 void MassWallActor::init() {
     _class_name = "MassWallActor";
     _obj_class |= Obj_MassWallActor;
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
     _wall_draw_face = 0;
     _pos_info = 0;
     _pWallSectionScene = nullptr;
@@ -61,7 +61,7 @@ void MassWallActor::init() {
     _wall_height = 0;
     setHitAble(true);
 
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(3);
     pChecker->setColliAABox(0, 0,0,0, 0,0,0);
     pChecker->setColliAAPrism(1, 0,0,0, 0,0,0, 0);
@@ -370,7 +370,7 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
     _wall_height = _pWallSectionScene->_wall_height;
     _pos_info = prm_pos_info;
 
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     if (prm_aColliBoxStretch[0] == 0) {
         pChecker->disable(0);
         pChecker->disable(1);
@@ -419,10 +419,10 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
 
 void MassWallActor::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(_pColliChecker);
+    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
 }
 
 MassWallActor::~MassWallActor() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }

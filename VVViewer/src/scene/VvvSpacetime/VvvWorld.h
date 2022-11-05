@@ -42,7 +42,7 @@ public:
     Font01* pFont01_info_;
     bool view_info_;
     bool view_help_;
-
+    VvvMousePointer* pVvvMousePointer_;
 
     /**
      * コンストラクタ .

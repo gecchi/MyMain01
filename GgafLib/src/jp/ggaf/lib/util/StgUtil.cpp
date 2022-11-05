@@ -6,8 +6,8 @@
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker2D.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker2D.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker3D.h"
 #include "jp/ggaf/lib/util/ColliSphere.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
@@ -55,11 +55,11 @@ void StgUtil::init() {
     StgUtil::_was_StgUtil_inited_flg = true;
 }
 
-GgafDx::Checker* StgUtil::createChecker(GgafDx::GeometricActor* prm_pActor) {
+GgafDx::CollisionChecker* StgUtil::createCollisionChecker(GgafDx::GeometricActor* prm_pActor) {
     if (CONFIG::IS_HIT_CHECK_3D) {
-        return NEW CollisionChecker3D(prm_pActor);
+        return NEW WorldCollisionChecker3D(prm_pActor);
     } else {
-        return NEW CollisionChecker2D(prm_pActor);
+        return NEW WorldCollisionChecker2D(prm_pActor);
     }
 }
 

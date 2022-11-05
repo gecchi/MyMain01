@@ -36,7 +36,7 @@ public:
     //static const int BUFFER_SIZE;
 
     /** マウス状態（表、裏）*/
-    static DIMOUSESTATE2 _mouse_state[2];
+    static DIMOUSESTATE2 _di_mouse_state[2];
     /** 現在アクティブなマウス状態の表裏(0:表／1:裏) */
     static int _flip_ms;
     /** キーボードの状態（表、裏） */
@@ -88,7 +88,7 @@ public:
 
     /**
      * マウスの状態を更新 .
-     * 結果は _mouse_state の表か裏に格納される。
+     * 結果は _di_mouse_state の表か裏に格納される。
      */
     static void updateMouseState();
 

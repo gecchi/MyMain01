@@ -7,14 +7,14 @@
 #include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Checker.h"
+#include "jp/ggaf/dx/util/CollisionChecker.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 using namespace GgafDx;
 
 GeometricActor::GeometricActor(const char* prm_name,
-                               Checker* prm_pChecker) : BaseActor(prm_name),
+                               CollisionChecker* prm_pChecker) : BaseActor(prm_name),
 _pVecVehicle(nullptr),
 _pAxisVehicle(nullptr),
 _pGeoVehicle(nullptr),
@@ -52,10 +52,10 @@ _is_local(false)
     _pFormation = nullptr;
 }
 
-void GeometricActor::setChecker(Checker* prm_pChecker) {
+void GeometricActor::setCollisionChecker(CollisionChecker* prm_pChecker) {
     if (_pChecker) {
-        throwCriticalException("eometricActor::setChecker() : "<<
-                "this="<<NODE_INFO<<" は、既に Checker がありんす。");
+        throwCriticalException("eometricActor::setCollisionChecker() : "<<
+                "this="<<NODE_INFO<<" は、既に CollisionChecker がありんす。");
     }
     _pChecker= prm_pChecker;
 }

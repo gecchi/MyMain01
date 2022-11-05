@@ -3,7 +3,7 @@
 #include "jp/ggaf/dx/effect/MeshEffect.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/model/MeshModel.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 
@@ -16,11 +16,11 @@ GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model) :
                      prm_model,
                      "GroundMeshEffect",
                      "GroundMeshTechnique",
-                     UTIL::createChecker(this) ) {
+                     UTIL::createCollisionChecker(this) ) {
 
     _class_name = "GroundMeshActor";
     offset_frames_ = 0;
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
 
 //    if (pMeshModel_->paVtxBuffer_data_[0].nx == 0 &&
 //        pMeshModel_->paVtxBuffer_data_[0].ny == 0 &&
@@ -50,10 +50,10 @@ void GroundMeshActor::processDraw() {
 
 void GroundMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(_pColliChecker);
+    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
 }
 
 GroundMeshActor::~GroundMeshActor() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }

@@ -1,18 +1,18 @@
-#ifndef GGAF_DX_CHECKER_H_
-#define GGAF_DX_CHECKER_H_
+#ifndef GGAF_DX_COLLISIONCHECKER_H_
+#define GGAF_DX_COLLISIONCHECKER_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
 namespace GgafDx {
 
 /**
- * チェックに関する色々な機能を持ったクラス .
- * （旧GeometryChecker）
+ * 衝突（当たり判定）チェッカークラス .
+ * （旧GeometryCollisionChecker）
  * @version 1.00
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class Checker : public GgafCore::Object {
+class CollisionChecker : public GgafCore::Object {
 
 public:
     /** 対象アクター */
@@ -24,7 +24,7 @@ public:
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor
      */
-    explicit Checker(GeometricActor* prm_pActor);
+    explicit CollisionChecker(GeometricActor* prm_pActor);
 
     /**
      * 当たり判定領域を更新し、その領域をツリーに登録 .
@@ -41,10 +41,10 @@ public:
 
     /**
      * ヒットしているかどうか
-     * @param prm_pOtherChecker 相手のチェッカー
+     * @param prm_pOtherCollisionChecker 相手のチェッカー
      * @return
      */
-    virtual bool isHit(const Checker* const prm_pOtherChecker) = 0;
+    virtual bool isHit(const CollisionChecker* const prm_pOtherCollisionChecker) = 0;
 
     virtual GeometricActor* getTargetActor() {
         if (_pActor == nullptr) {
@@ -77,9 +77,9 @@ public:
      */
     virtual bool isEnable(int prm_index);
 
-    virtual ~Checker();
+    virtual ~CollisionChecker();
 };
 
 }
-#endif /*GGAF_DX_CHECKER_H_*/
+#endif /*GGAF_DX_COLLISIONCHECKER_H_*/
 

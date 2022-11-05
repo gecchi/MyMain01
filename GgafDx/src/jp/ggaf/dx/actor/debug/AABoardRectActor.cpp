@@ -7,7 +7,7 @@
 using namespace GgafDx;
 
 AABoardRectActor::AABoardRectActor(const char* prm_name,
-                                   Checker* prm_pChecker) :
+                                   CollisionChecker* prm_pChecker) :
                                 BoardActor(prm_name,
                                      CONFIG::COLI_AABOARDRECT_MODEL.c_str(),
                                      "DefaultBoardEffect",

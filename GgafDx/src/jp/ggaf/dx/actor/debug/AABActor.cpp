@@ -7,7 +7,7 @@
 using namespace GgafDx;
 
 AABActor::AABActor(const char* prm_name,
-                   Checker* prm_pChecker) :
+                   CollisionChecker* prm_pChecker) :
                            MeshActor(prm_name,
                                      CONFIG::COLI_AABOX_MODEL.c_str(),
                                      "DefaultMeshEffect",

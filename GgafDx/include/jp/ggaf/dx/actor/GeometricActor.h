@@ -65,7 +65,7 @@ public:
     /** [r/w]ワールドZ軸方向スケール(_sz : 倍率 = 1000 : 1.0倍) */
     scale _sz;
     /** [r]チェッカー */
-    Checker* _pChecker;
+    CollisionChecker* _pChecker;
 
     /** [r]モデルの境界球半径倍率 */
     dxcoord _rate_of_bounding_sphere_radius;
@@ -159,7 +159,7 @@ public:
      * @return
      */
     GeometricActor(const char* prm_name,
-                   Checker* prm_pChecker);
+                   CollisionChecker* prm_pChecker);
 
     virtual GeometricActor* getPrev() const override { //共変の戻り値
         return (GeometricActor*)GgafCore::Actor::getPrev();
@@ -169,7 +169,7 @@ public:
         return (GeometricActor*)GgafCore::Actor::getNext();
     }
 
-    void setChecker(Checker* prm_pChecker);
+    void setCollisionChecker(CollisionChecker* prm_pChecker);
     /**
      * 本アクターの力車を取得 .
      * @return 力車
@@ -261,7 +261,7 @@ public:
      * 当たり判定ロジック .
      * 当たり判定ロジックを実装している。<BR>
      * チェッカーオブジェクトがある場合、<BR>
-     * Checker::isHit() で判定する。<BR>
+     * CollisionChecker::isHit() で判定する。<BR>
      * チェッカーオブジェクトが無い場合、<BR>
      * ヒットしていないこととする。<BR>
      * @param prm_pOtherActor 相手のアクター

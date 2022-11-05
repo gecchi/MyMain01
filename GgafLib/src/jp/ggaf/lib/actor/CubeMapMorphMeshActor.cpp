@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/CubeMapMorphMeshActor.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 
 
@@ -12,18 +12,18 @@ CubeMapMorphMeshActor::CubeMapMorphMeshActor(const char* prm_name, const char* p
                                     prm_model,
                                     "CubeMapMorphMeshEffect",
                                     "CubeMapMorphMeshTechnique",
-                                    UTIL::createChecker(this) ) {
+                                    UTIL::createCollisionChecker(this) ) {
     _class_name = "CubeMapMorphMeshActor";
-    _pColliChecker = (CollisionChecker*)_pChecker;
+    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
 }
 
 void CubeMapMorphMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    CollisionChecker::drawHitArea(_pColliChecker);
+    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
 #endif
     }
 
 
 CubeMapMorphMeshActor::~CubeMapMorphMeshActor() {
-    GGAF_DELETE(_pColliChecker);
+    GGAF_DELETE(_pColliCollisionChecker);
 }

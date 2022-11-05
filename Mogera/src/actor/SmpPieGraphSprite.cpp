@@ -6,7 +6,7 @@
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/actor/supporter/Colorist.h"
 #include "jp/ggaf/dx/model/RegularPolygonSpriteModel.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "MgrCaretaker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
@@ -27,7 +27,7 @@ SmpPieGraphSprite::SmpPieGraphSprite(const char* prm_name) :
     int angle_num = ((GgafDx::RegularPolygonSpriteModel*)getModel())->getAngleNum();
     linkVariable(&_x);
     scale(-PX_C(50), PX_C(50), 0, angle_num); //Œ»Ý’l‚Å‰æ–Ê•\Ž¦‚Í600px‚Æ‚·‚éB
-    CollisionChecker* pChecker = getCollisionChecker();
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(20));
     setHitAble(true);

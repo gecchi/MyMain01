@@ -93,7 +93,7 @@ public:
                 const char* prm_model,
                 const char* prm_effect,
                 const char* prm_technique,
-                Checker* prm_pChecker);
+                CollisionChecker* prm_pChecker);
 
     /**
      * コンストラクタ .
@@ -114,7 +114,7 @@ public:
                 const char* prm_effect_id,
                 const char prm_effect_type,
                 const char* prm_technique,
-                Checker* prm_pChecker);
+                CollisionChecker* prm_pChecker);
 
     virtual FigureActor* getPrev() const override {  //共変の戻り値
         return (FigureActor*)GgafCore::Actor::getPrev();
