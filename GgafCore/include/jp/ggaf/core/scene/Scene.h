@@ -143,21 +143,21 @@ public:
 
 
 
-    /**
-     * 自ツリーの配下ノード全てに、再帰呼び出しを行う。
-     * @param pFunc 再帰呼び出しするメソッド
-     */
-    inline void callRecursive(void (Scene::*pFunc)()) const {
-        Scene* pElementTemp = _pChildFirst;
-        while (pElementTemp) {
-            (pElementTemp->*pFunc)(); //実行
-            if (pElementTemp->_is_last_flg) {
-                break;
-            } else {
-                pElementTemp = pElementTemp->_pNext;
-            }
-        }
-    }
+//    /**
+//     * 自ツリーの配下ノード全てに、再帰呼び出しを行う。
+//     * @param pFunc 再帰呼び出しするメソッド
+//     */
+//    inline void callRecursive(void (Scene::*pFunc)()) const {
+//        Scene* pElementTemp = _pChildFirst;
+//        while (pElementTemp) {
+//            (pElementTemp->*pFunc)(); //実行
+//            if (pElementTemp->_is_last_flg) {
+//                break;
+//            } else {
+//                pElementTemp = pElementTemp->_pNext;
+//            }
+//        }
+//    }
 
     /**
     * 一時停止状態かどうか判断
@@ -178,7 +178,17 @@ public:
     virtual void pause() {
         if (_can_live_flg) {
             _was_paused_flg_in_next_frame = true;
-            callRecursive(&Scene::pause); //再帰
+//            callRecursive(&Scene::pause); //再帰
+            //再帰
+            Scene* pElementTemp = _pChildFirst;
+            while (pElementTemp) {
+                pElementTemp->pause(); //実行
+                if (pElementTemp->_is_last_flg) {
+                    break;
+                } else {
+                    pElementTemp = pElementTemp->_pNext;
+                }
+            }
         }
     }
 
@@ -192,7 +202,17 @@ public:
     virtual void unpause() {
         if (_can_live_flg) {
             _was_paused_flg_in_next_frame = false;
-            callRecursive(&Scene::unpause); //再帰
+//            callRecursive(&Scene::unpause); //再帰
+            //再帰
+            Scene* pElementTemp = _pChildFirst;
+            while (pElementTemp) {
+                pElementTemp->unpause(); //実行
+                if (pElementTemp->_is_last_flg) {
+                    break;
+                } else {
+                    pElementTemp = pElementTemp->_pNext;
+                }
+            }
         }
     }
 

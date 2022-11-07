@@ -198,33 +198,33 @@ void GeometricActor::processSettlementBehavior() {
         const dxcoord fX = _fX;
         const dxcoord fY = _fY;
         const dxcoord fZ = _fZ;
-        static Camera* pCam = pCARETAKER->getSpacetime()->getCamera();
-        static const D3DXPLANE* pPlnTop = &(pCam->_plnTop);
+        Camera* pCam = pCARETAKER->getSpacetime()->getCamera();
+        const D3DXPLANE* pPlnTop = &(pCam->_plnTop);
         _dest_from_vppln_top     = pPlnTop->a * fX +
                                    pPlnTop->b * fY +
                                    pPlnTop->c * fZ +
                                    pPlnTop->d;
-        static const D3DXPLANE* pPlnBottom = &(pCam->_plnBottom);
+        const D3DXPLANE* pPlnBottom = &(pCam->_plnBottom);
         _dest_from_vppln_bottom  = pPlnBottom->a * fX +
                                    pPlnBottom->b * fY +
                                    pPlnBottom->c * fZ +
                                    pPlnBottom->d;
-        static const D3DXPLANE* pPlnLeft = &(pCam->_plnLeft);
+        const D3DXPLANE* pPlnLeft = &(pCam->_plnLeft);
         _dest_from_vppln_left    = pPlnLeft->a * fX +
                                    pPlnLeft->b * fY +
                                    pPlnLeft->c * fZ +
                                    pPlnLeft->d;
-        static const D3DXPLANE* pPlnRight = &(pCam->_plnRight);
+        const D3DXPLANE* pPlnRight = &(pCam->_plnRight);
         _dest_from_vppln_right   = pPlnRight->a * fX +
                                    pPlnRight->b * fY +
                                    pPlnRight->c * fZ +
                                    pPlnRight->d;
-        static const D3DXPLANE* pPlnInfront = &(pCam->_plnInfront);
+        const D3DXPLANE* pPlnInfront = &(pCam->_plnInfront);
         _dest_from_vppln_infront = pPlnInfront->a * fX +
                                    pPlnInfront->b * fY +
                                    pPlnInfront->c * fZ +
                                    pPlnInfront->d;
-        static const D3DXPLANE* pPlnBack = &(pCam->_plnBack);
+        const D3DXPLANE* pPlnBack = &(pCam->_plnBack);
         _dest_from_vppln_back    = pPlnBack->a * fX +
                                    pPlnBack->b * fY +
                                    pPlnBack->c * fZ +

@@ -1,7 +1,7 @@
-/mingw/bin/gprof "GprofCdt\VioletVreath_launcher.exe" gmon.out -p > gprofp_result.txt
-/mingw/bin/gprof "GprofCdt\VioletVreath_launcher.exe" gmon.out -q > gprofq_result.txt
-/mingw/bin/gprof "GprofCdt\VioletVreath_launcher.exe" gmon.out -A > gprofA_result.txt
-/mingw/bin/gprof "GprofCdt\VioletVreath_launcher.exe" gmon.out | ./gprof2dot.py --skew=0.0001 -n0.02 -e0.0 | dot -Tsvg -o gprofdot_result.svg
+/mingw/bin/gprof "GprofCdt_x64\VioletVreath_launcher.exe" gmon.out -p > gprofp_result.txt
+/mingw/bin/gprof "GprofCdt_x64\VioletVreath_launcher.exe" gmon.out -q > gprofq_result.txt
+/mingw/bin/gprof "GprofCdt_x64\VioletVreath_launcher.exe" gmon.out -A > gprofA_result.txt
+/mingw/bin/gprof "GprofCdt_x64\VioletVreath_launcher.exe" gmon.out | ./gprof2dot.py --skew=0.0001 -n0.02 -e0.0 | dot -Tsvg -o gprofdot_result.svg
 cygstart gprofp_result.txt
 cygstart gprofq_result.txt
 cygstart gprofA_result.txt

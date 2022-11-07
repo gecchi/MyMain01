@@ -35,38 +35,38 @@ template<class T>
 class Element : public Node<T> {
 
 protected:
-    /**
-     * 自ツリーの配下ノード全てに、再帰呼び出しを行う。
-     * @param pFunc 再帰呼び出しするメソッド
-     */
-    inline void callRecursive(void (Element<T>::*pFunc)()) const {
-        T* pElementTemp = Node<T>::_pChildFirst;
-        while (pElementTemp) {
-            (pElementTemp->*pFunc)(); //実行
-            if (pElementTemp->_is_last_flg) {
-                break;
-            } else {
-                pElementTemp = pElementTemp->_pNext;
-            }
-        }
-    }
-
-    /**
-     * 自ツリーの配下ノード全てに、再帰呼び出しを行う。
-     * @param pFunc 再帰呼び出しするメソッド(frame 引数有り)
-     * @param prm_frame pFuncの引数であるframe
-     */
-    inline void callRecursive(void (Element<T>::*pFunc)(frame), frame prm_frame) const {
-        T* pElementTemp = Node<T>::_pChildFirst;
-        while (pElementTemp) {
-            (pElementTemp->*pFunc)(prm_frame); //実行
-            if (pElementTemp->_is_last_flg) {
-                break;
-            } else {
-                pElementTemp = pElementTemp->_pNext;
-            }
-        }
-    }
+//    /**
+//     * 自ツリーの配下ノード全てに、再帰呼び出しを行う。
+//     * @param pFunc 再帰呼び出しするメソッド
+//     */
+//    inline void callRecursive(void (Element<T>::*pFunc)()) const {
+//        T* pElementTemp = Node<T>::_pChildFirst;
+//        while (pElementTemp) {
+//            (pElementTemp->*pFunc)(); //実行
+//            if (pElementTemp->_is_last_flg) {
+//                break;
+//            } else {
+//                pElementTemp = pElementTemp->_pNext;
+//            }
+//        }
+//    }
+//
+//    /**
+//     * 自ツリーの配下ノード全てに、再帰呼び出しを行う。
+//     * @param pFunc 再帰呼び出しするメソッド(frame 引数有り)
+//     * @param prm_frame pFuncの引数であるframe
+//     */
+//    inline void callRecursive(void (Element<T>::*pFunc)(frame), frame prm_frame) const {
+//        T* pElementTemp = Node<T>::_pChildFirst;
+//        while (pElementTemp) {
+//            (pElementTemp->*pFunc)(prm_frame); //実行
+//            if (pElementTemp->_is_last_flg) {
+//                break;
+//            } else {
+//                pElementTemp = pElementTemp->_pNext;
+//            }
+//        }
+//    }
 
 
 public:
@@ -910,7 +910,17 @@ template<class T>
 void Element<T>::behave() {
     if (_is_active_in_the_tree_flg) {
         processBehavior();    //ユーザー実装用
-        callRecursive(&Element<T>::behave); //再帰
+        //callRecursive(&Element<T>::behave);
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->behave();
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -918,7 +928,17 @@ template<class T>
 void Element<T>::settleBehavior() {
     if (_is_active_in_the_tree_flg) {
         processSettlementBehavior(); //フレームワーク用
-        callRecursive(&Element<T>::settleBehavior); //再帰
+        //callRecursive(&Element<T>::settleBehavior); //再帰
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->settleBehavior();
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -926,7 +946,17 @@ template<class T>
 void Element<T>::preJudge() {
     if (_is_active_in_the_tree_flg) {
         processPreJudgement();    //フレームワーク用
-        callRecursive(&Element<T>::preJudge); //再帰
+        //callRecursive(&Element<T>::preJudge); //再帰
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->preJudge();
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -934,7 +964,17 @@ template<class T>
 void Element<T>::judge() {
     if (_is_active_in_the_tree_flg) {
         processJudgement();    //ユーザー実装用
-        callRecursive(&Element<T>::judge); //再帰
+        //callRecursive(&Element<T>::judge); //再帰
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->judge();
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -942,7 +982,17 @@ template<class T>
 void Element<T>::preDraw() {
     if (_is_active_in_the_tree_flg) {
         processPreDraw();
-        callRecursive(&Element<T>::preDraw); //再帰
+        //callRecursive(&Element<T>::preDraw); //再帰
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->preDraw();
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -950,7 +1000,17 @@ template<class T>
 void Element<T>::draw() {
     if (_is_active_in_the_tree_flg) {
         processDraw();
-        callRecursive(&Element<T>::draw); //再帰
+        //callRecursive(&Element<T>::draw); //再帰
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->draw();
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -958,7 +1018,17 @@ template<class T>
 void Element<T>::afterDraw() {
     if (_is_active_in_the_tree_flg) {
         processAfterDraw();
-        callRecursive(&Element<T>::afterDraw); //再帰
+        //callRecursive(&Element<T>::afterDraw); //再帰
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->processAfterDraw();
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -966,7 +1036,17 @@ template<class T>
 void Element<T>::doFinally() {
     if (_is_active_in_the_tree_flg) {
         processFinal();
-        callRecursive(&Element<T>::doFinally); //再帰
+        //callRecursive(&Element<T>::doFinally); //再帰
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->doFinally();
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -995,7 +1075,17 @@ void Element<T>::resetTree() {
             onReset();
             _is_already_reset = true;
         }
-        callRecursive(&Element<T>::resetTree); //再帰
+        //callRecursive(&Element<T>::resetTree); //再帰
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->resetTree(); //実行
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -1010,7 +1100,17 @@ template<class T>
 void Element<T>::activateTree() {
     if (_can_live_flg) {
         activateDelay(1);
-        callRecursive(&Element<T>::activateTree); //再帰
+        //callRecursive(&Element<T>::activateTree); //再帰
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->activateTree(); //実行
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -1032,7 +1132,17 @@ template<class T>
 void Element<T>::activateTreeImmed() {
     if (_can_live_flg) {
         activateImmed();
-        callRecursive(&Element<T>::activateTreeImmed); //再帰
+        //callRecursive(&Element<T>::activateTreeImmed); //再帰
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->activateTreeImmed(); //実行
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -1096,7 +1206,17 @@ void Element<T>::activateTreeDelay(frame prm_offset_frames) {
 #endif
     if (_can_live_flg) {
         activateDelay(prm_offset_frames);
-        callRecursive(&Element<T>::activateTreeDelay, prm_offset_frames); //再帰
+        //callRecursive(&Element<T>::activateTreeDelay, prm_offset_frames); //再帰
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->activateTreeDelay(prm_offset_frames); //実行
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -1111,7 +1231,17 @@ template<class T>
 void Element<T>::inactivateTree() {
     if (_can_live_flg) {
         inactivateDelay(1);
-        callRecursive(&Element<T>::inactivateTree); //再帰
+        //callRecursive(&Element<T>::inactivateTree); //再帰
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->inactivateTree();
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -1163,7 +1293,17 @@ void Element<T>::inactivateTreeDelay(frame prm_offset_frames) {
 #endif
     if (_can_live_flg) {
         inactivateDelay(prm_offset_frames);
-        callRecursive(&Element<T>::inactivateTreeDelay, prm_offset_frames); //再帰
+        //callRecursive(&Element<T>::inactivateTreeDelay, prm_offset_frames); //再帰
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->inactivateTreeDelay(prm_offset_frames);
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
@@ -1185,7 +1325,17 @@ template<class T>
 void Element<T>::inactivateTreeImmed() {
     if (_can_live_flg) {
         inactivateImmed();
-        callRecursive(&Element<T>::inactivateTreeImmed); //再帰
+        //callRecursive(&Element<T>::inactivateTreeImmed); //再帰
+        //再帰
+        T* pElementTemp = Node<T>::_pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->inactivateTreeImmed();
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
     }
 }
 
