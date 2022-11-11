@@ -42,12 +42,11 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
 
     //Board用四分木作成
     _TRACE_("Board用四分木作成開始");
-    _pLinearQuadtree_b = NEW GgafCore::LinearQuadtree_b(2,
-                                                    _x_bound_left_b  ,_y_bound_top_b,
-                                                    _x_bound_right_b , _y_bound_bottom_b   );
+    _pLinearQuadtree_b = NEW GgafCore::LinearQuadtree_b(2, _x_bound_left_b  ,_y_bound_top_b,
+                                                           _x_bound_right_b , _y_bound_bottom_b   );
     _pLinearQuadtreeHitCheckRounder_b = NEW QuadtreeRounder(_pLinearQuadtree_b->_paQuadrant,
-                                                              _pLinearQuadtree_b->_num_space,
-                                                              &GgafCore::Actor::executeHitChk_MeAnd);
+                                                            _pLinearQuadtree_b->_num_space,
+                                                            &GgafCore::Actor::executeHitChk_MeAnd);
     _TRACE_("Board用四分木作成終了");
 }
 

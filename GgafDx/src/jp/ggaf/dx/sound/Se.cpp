@@ -166,9 +166,17 @@ void Se::play(bool prm_is_looping) {
 void Se::stop() {
     HRESULT hr;
     hr = _pIDirectSoundBuffer->Stop();
-    checkDxException(hr, DS_OK, "が失敗しました。");
+#ifdef MY_DEBUG
+    if (hr != DS_OK) {
+        _TRACE_("Se::stop() Stop() 失敗しました。_wave_key="<<_wave_key);
+    }
+#endif
     hr = _pIDirectSoundBuffer->SetCurrentPosition(0); //バッファ頭だし
-    checkDxException(hr, DS_OK, "SetCurrentPosition(0) が失敗しました。");
+#ifdef MY_DEBUG
+    if (hr != DS_OK) {
+        _TRACE_("Se::stop() SetCurrentPosition(0) 失敗しました。_wave_key="<<_wave_key);
+    }
+#endif
 }
 
 void Se::setVolume(int prm_volume) {

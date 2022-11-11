@@ -45,6 +45,7 @@ void myTerminateHandler();
  * GNU GCC ならばエントリポイント
  */
 int main(int argc, char *argv[]) {
+
     return LibMain(argc, argv);
 }
 
@@ -486,4 +487,6 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
 //        break;
 //}
 //}
+
+
 

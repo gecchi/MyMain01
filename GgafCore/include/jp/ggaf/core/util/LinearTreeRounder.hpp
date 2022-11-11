@@ -71,6 +71,10 @@ public:
             }
         }
 
+        /**
+         * スタックにアクターが存在するか .
+         * @return
+         */
         inline bool isExist() {
             return _papCur == _papFirst ? false : true;
         }
@@ -108,13 +112,13 @@ public:
 
     TreeSpace<DIMENSION>* _paTargetSpace;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Aグループのスタック */
-    TStack _stackGroupA_Current;
+    TStack _stackCurrent_GroupA;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Bグループのスタック */
-    TStack _stackGroupB_Current;
+    TStack _stackCurrent_GroupB;
     /** [r]ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Aグループのスタック */
-    TStack _stackGroupA;
+    TStack _stackParent_GroupA;
     /** [r]ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Bグループのスタック */
-    TStack _stackGroupB;
+    TStack _stackParent_GroupB;
 
     /** [r]今回当たり判定を行うアクター種別A */
     kind_t _kind_groupA;
@@ -151,8 +155,8 @@ public:
             //ではN分木を巡る旅へ行ってらっしゃい
             execute(0); //いってきます
             //はいお帰りなさい。
-            _stackGroupA.clear();
-            _stackGroupB.clear();
+            _stackParent_GroupA.clear();
+            _stackParent_GroupB.clear();
         }
     }
 
@@ -166,46 +170,66 @@ public:
         TreeElem<DIMENSION>* pElem = pOctant_this_level->_pElem_first;
         const kind_t kind_groupA = _kind_groupA;
         const kind_t kind_groupB = _kind_groupB;
+        const kind_t kind_groupAB = kind_groupA | kind_groupB;
         if (pElem) {
             TreeElem<DIMENSION>* pElem_last = pOctant_this_level->_pElem_last;
             while (true) {
                 kind_t kind = pElem->_kind;
                 T* pObject = (T*)(pElem->_pObject);
                 if (kind & kind_groupA) {
-                    _stackGroupA_Current.push(pObject);
-                }
-                if (kind & kind_groupB) {
-                    _stackGroupB_Current.push(pObject);
+                    _stackCurrent_GroupA.push(pObject);
+                } else if (kind & kind_groupB) {
+                    _stackCurrent_GroupB.push(pObject);
                 }
                 if (pElem == pElem_last) {
                     break;
                 }
                 pElem = pElem->_pNext;
             }
-            //現在の空間のグループAとグループB総当り
-            executeRoundRobin(&_stackGroupA_Current, &_stackGroupB_Current);
-            //現在の空間のグループAと親空間所属のグループB総当り
-            executeRoundRobin(&_stackGroupA_Current, &_stackGroupB );
-            //親空間所属のグループAと現在の空間のグループB総当り
-            executeRoundRobin(&_stackGroupA , &_stackGroupB_Current);
+
+            if (_stackCurrent_GroupA.isExist()) {
+                if (_stackCurrent_GroupB.isExist()) {
+                    //現在の空間のグループAとグループB総当り
+                    executeRoundRobin(&_stackCurrent_GroupA, &_stackCurrent_GroupB);
+                    if (_stackParent_GroupB.isExist()) {
+                        //現在の空間のグループAと親空間所属のグループB総当り
+                        executeRoundRobin(&_stackCurrent_GroupA, &_stackParent_GroupB);
+                    }
+                    if (_stackParent_GroupA.isExist()) {
+                        //親空間所属のグループAと現在の空間のグループB総当り
+                        executeRoundRobin(&_stackParent_GroupA, &_stackCurrent_GroupB);
+                    }
+                } else {
+                    if (_stackParent_GroupB.isExist()) {
+                        executeRoundRobin(&_stackCurrent_GroupA, &_stackParent_GroupB);
+                    }
+                }
+            } else {
+                if (_stackCurrent_GroupB.isExist()) {
+                    if (_stackParent_GroupA.isExist()) {
+                        executeRoundRobin(&_stackParent_GroupA, &_stackCurrent_GroupB);
+                    }
+                }
+            }
+
         }
         const uint32_t lower_level_index = (prm_index<<DIMENSION) + 1; //_papOctant[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
         if ( lower_level_index >= _num_space) {
             //要素数オーバー、つまりリーフ
-            _stackGroupA_Current.clear();
-            _stackGroupB_Current.clear();
+            _stackCurrent_GroupA.clear();
+            _stackCurrent_GroupB.clear();
             return; //親空間へ戻る
         } else {
 
             //もぐる。が、その前に現空間アクターを親空間アクターのスタックへ追加。
             //もぐった空間から見た場合の親空間アクター累計を作っておいてやる。
             //(同時に現空間スタックも開放)
-            T** temp_stackGroupA = _stackGroupA._papCur; //スタックポインタ保存(潜った後のリセットに使用)
-            T** temp_stackGroupB = _stackGroupB._papCur; //スタックポインタ保存(潜った後のリセットに使用)
-            _stackGroupA.popush(&_stackGroupA_Current); //Current を Parent に追加。同時にCurrentはクリアされる。
-            _stackGroupB.popush(&_stackGroupB_Current); //Current を Parent に追加。同時にCurrentはクリアされる。
-            bool isExistGroupA = _stackGroupA.isExist();
-            bool isExistGroupB = _stackGroupB.isExist();
+            T** temp_stackParentGroupA = _stackParent_GroupA._papCur; //スタックポインタ保存(潜った後のリセットに使用)
+            T** temp_stackParentGroupB = _stackParent_GroupB._papCur; //スタックポインタ保存(潜った後のリセットに使用)
+            _stackParent_GroupA.popush(&_stackCurrent_GroupA); //Current を Parent に追加(統合)。同時にCurrentはクリアされる。
+            _stackParent_GroupB.popush(&_stackCurrent_GroupB); //Current を Parent に追加(統合)。同時にCurrentはクリアされる。
+            bool isExistGroupA = _stackParent_GroupA.isExist(); //Current ＋ Parent に種別Aアクターが存在するかどうか
+            bool isExistGroupB = _stackParent_GroupB.isExist(); //Current ＋ Parent に種別Bアクターが存在するかどうか
 
             //ヒットチェックを行いに、子空間(８個)へ潜りに行こう～。
             //次のレベルの空間に種別AとBが登録されていれば潜る。
@@ -214,33 +238,59 @@ public:
             //それ以外は潜らない
             TreeSpace<DIMENSION>* pOctant_lower_level = &(_paTargetSpace[lower_level_index]);
             kind_t kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
-            if (kind_bit_field_lower_level & kind_groupA) {
-                if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {
-                    execute(lower_level_index);
+            if (isExistGroupA) {
+                if (isExistGroupB) {
+                    //現＋親空間に 種別A 存在 かつ 種別B 存在
+                    for (int i = 0; i < (1<<DIMENSION); i++) {
+                        //次のレベルの空間に、種別Aか、種別Bが、所属するならば潜る
+                        kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
+                        if (kind_bit_field_lower_level & kind_groupAB)
+                        {
+                            execute(lower_level_index+i);
+                        }
+                        ++pOctant_lower_level;
+                    }
+                } else {
+                    //現＋親空間に 種別A のみ存在
+                    for (int i = 0; i < (1<<DIMENSION); i++) {
+                        //次のレベルの空間に、種別B が所属するならば潜る
+                        kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
+                        if (kind_bit_field_lower_level & kind_groupB) {
+                            execute(lower_level_index+i);
+                        }
+                        ++pOctant_lower_level;
+                    }
                 }
-            } else if (kind_bit_field_lower_level & kind_groupB) {
-                if (isExistGroupA) {
-                    execute(lower_level_index);
+            } else {
+                if (isExistGroupB) {
+                    //現＋親空間に 種別B のみ存在
+                    for (int i = 0; i < (1<<DIMENSION); i++) {
+                        //次のレベルの空間に、種別A が所属するならば潜る
+                        kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
+                        if (kind_bit_field_lower_level & kind_groupA) {
+                            execute(lower_level_index+i);
+                        }
+                        ++pOctant_lower_level;
+                    }
+                } else {
+                    //現＋親空間に 種別A 種別B も存在しない （配下空間に  種別A＋種別B が存在）
+                    for (int i = 0; i < (1<<DIMENSION); i++) {
+                        //次のレベルの空間に、種別A＋種別B が所属するならば潜る
+                        kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
+                        if (kind_bit_field_lower_level & kind_groupA) {
+                            if (kind_bit_field_lower_level & kind_groupB) {
+                                execute(lower_level_index+i);
+                            }
+                        }
+                        ++pOctant_lower_level;
+                    }
+
                 }
             }
-
-            for (int i = 1; i < (1<<DIMENSION); i++) {
-                kind_bit_field_lower_level = (++pOctant_lower_level)->_kind_bit_field;
-                if (kind_bit_field_lower_level & kind_groupA) {
-                    if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {
-                        execute(lower_level_index+i);
-                    }
-                } else if (kind_bit_field_lower_level & kind_groupB) {
-                    if (isExistGroupA) {
-                        execute(lower_level_index+i);
-                    }
-                }
-            }
-
             //お帰りなさい
             //スタックの解放（pushした分、元に戻す）
-            _stackGroupA._papCur = temp_stackGroupA;
-            _stackGroupB._papCur = temp_stackGroupB;
+            _stackParent_GroupA._papCur = temp_stackParentGroupA;
+            _stackParent_GroupB._papCur = temp_stackParentGroupB;
             return; //親空間へ戻る
         }
     }
@@ -250,21 +300,19 @@ public:
      * @param prm_pStackA アクター種別Aグループのスタック
      * @param prm_pStackB アクター種別Bグループのスタック
      */
-    void executeRoundRobin(TStack* prm_pStackA, TStack* prm_pStackB) {
+    inline void executeRoundRobin(TStack* prm_pStackA, TStack* prm_pStackB) {
         //LinearTreeRounderでは、要素の指す(Object*)インスタンスは Tが前提
-        if (prm_pStackA->isExist() && prm_pStackB->isExist()) {
-            void (T::*pFunc)(T*) = _pFunc;
-            T** papStackT_A_Cur = prm_pStackA->_papCur;
-            T** papStackT_B_Cur = prm_pStackB->_papCur;
-            T** papStackT_A = prm_pStackA->_papFirst;
-            while (papStackT_A != papStackT_A_Cur) {
-                T** papStackT_B = prm_pStackB->_papFirst;
-                while (papStackT_B != papStackT_B_Cur) {
-                    ((*papStackT_A)->*pFunc)(*papStackT_B);
-                    ++papStackT_B;
-                }
-                ++papStackT_A;
+        void (T::*pFunc)(T*) = _pFunc;
+        T** papStackT_A_Cur = prm_pStackA->_papCur;
+        T** papStackT_B_Cur = prm_pStackB->_papCur;
+        T** papStackT_A = prm_pStackA->_papFirst;
+        while (papStackT_A != papStackT_A_Cur) {
+            T** papStackT_B = prm_pStackB->_papFirst;
+            while (papStackT_B != papStackT_B_Cur) {
+                ((*papStackT_A)->*pFunc)(*papStackT_B);
+                ++papStackT_B;
             }
+            ++papStackT_A;
         }
     }
 

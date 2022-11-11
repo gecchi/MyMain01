@@ -65,7 +65,13 @@ void Spacetime::processJudgement() {
         static const kind_t group_B4 = KIND_MY_BODY;
         pHitCheckRounder->executeAll(group_A4, group_B4);
 
-
+#ifdef MY_DEBUG
+        if (GgafDx::Input::isPushedDownKey(DIK_J)) {
+            _TRACE_("Board用四分木 -->");
+            _pLinearQuadtree_b->putTree();
+            _TRACE_("<--Board用四分木");
+        }
+#endif
         QuadtreeRounder_b* pHitCheckRounder_b = getLinearQuadtreeHitCheckRounder_b();
         pHitCheckRounder_b->executeAll(KIND_2DFIX_MOUSE_POINTER, KIND_2DFIX_MENU_ITEM);
     }
