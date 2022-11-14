@@ -55,19 +55,24 @@ bool WorldCollisionChecker3D::isHit(const GgafDx::CollisionChecker* const prm_pO
     const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
     const int colli_part_num = pCollisionArea->_colli_part_num;
     const int opp_colli_part_num = pOppCollisionArea->_colli_part_num; //相手の当たり判定要素数
-
+    const coord pActor_x = pActor->_x;
+    const coord pActor_y = pActor->_y;
+    const coord pActor_z = pActor->_z;
+    const coord pOppActor_x = pOppActor->_x;
+    const coord pOppActor_y = pOppActor->_y;
+    const coord pOppActor_z = pOppActor->_z;
     //複数の当たり判定要素をもつアクター同士の場合、
     //まず最外境界AABoxで当たり判定を行って、ヒットすれば厳密に当たり判定を行う。
     if (colli_part_num > 2 || opp_colli_part_num > 2) {
 #ifdef MY_DEBUG
         WorldCollisionChecker::_num_check++;
 #endif
-        if (pActor->_x + pCollisionArea->_aabb_x2 >= pOppActor->_x + pOppCollisionArea->_aabb_x1) {
-            if (pActor->_x + pCollisionArea->_aabb_x1 <= pOppActor->_x + pOppCollisionArea->_aabb_x2) {
-                if (pActor->_z + pCollisionArea->_aabb_z2 >= pOppActor->_z + pOppCollisionArea->_aabb_z1) {
-                    if (pActor->_z + pCollisionArea->_aabb_z1 <= pOppActor->_z + pOppCollisionArea->_aabb_z2) {
-                        if (pActor->_y + pCollisionArea->_aabb_y2 >= pOppActor->_y + pOppCollisionArea->_aabb_y1) {
-                            if (pActor->_y + pCollisionArea->_aabb_y1 <= pOppActor->_y + pOppCollisionArea->_aabb_y2) {
+        if (pActor_x + pCollisionArea->_aabb_x2 >= pOppActor_x + pOppCollisionArea->_aabb_x1) {
+            if (pActor_x + pCollisionArea->_aabb_x1 <= pOppActor_x + pOppCollisionArea->_aabb_x2) {
+                if (pActor_z + pCollisionArea->_aabb_z2 >= pOppActor_z + pOppCollisionArea->_aabb_z1) {
+                    if (pActor_z + pCollisionArea->_aabb_z1 <= pOppActor_z + pOppCollisionArea->_aabb_z2) {
+                        if (pActor_y + pCollisionArea->_aabb_y2 >= pOppActor_y + pOppCollisionArea->_aabb_y1) {
+                            if (pActor_y + pCollisionArea->_aabb_y1 <= pOppActor_y + pOppCollisionArea->_aabb_y2) {
                                 goto CNT;
                             }
                         }
@@ -123,13 +128,10 @@ CNT:
 //};
 
 
-
-
     for (int i = 0; i < colli_part_num; i++) {
         const GgafDx::CollisionPart* const pColliPart = pCollisionArea->_papColliPart[i];
         if (!pColliPart->_is_valid_flg) { continue; }
         const int shape_kind = pColliPart->_shape_kind;
-
 
         if (shape_kind == COLLI_AABOX) {
 
@@ -150,13 +152,13 @@ CNT:
                 if (opp_shape_kind == COLLI_AABOX) {
                     //＜AAB と AAB＞
                     coord max_dx = pColliPart->_hdx + pOppColliPart->_hdx;
-                    if ((ucoord)( (pOppActor->_x + pOppColliPart->_cx) - (pActor->_x + pColliPart->_cx) + max_dx ) < (ucoord)(2*max_dx)) {
+                    if ((ucoord)( (pOppActor_x + pOppColliPart->_cx) - (pActor_x + pColliPart->_cx) + max_dx ) < (ucoord)(2*max_dx)) {
                         //↑左辺計算が0より小さい場合 unsigned キャストにより正の大きな数になるので条件成立しない事を利用し、ABSの判定を一つ除去してる。
                         //BOX vs BOX の当たり判定頻度はパフォーマンスに大きな影響を与えるため、わずかでも高速化したいため。
                         coord max_dz = pColliPart->_hdz + pOppColliPart->_hdz;
-                        if ((ucoord)( (pOppActor->_z + pOppColliPart->_cz) - (pActor->_z + pColliPart->_cz) + max_dz ) < (ucoord)(2*max_dz)) {
+                        if ((ucoord)( (pOppActor_z + pOppColliPart->_cz) - (pActor_z + pColliPart->_cz) + max_dz ) < (ucoord)(2*max_dz)) {
                             coord max_dy = pColliPart->_hdy + pOppColliPart->_hdy;
-                            if ((ucoord)( (pOppActor->_y + pOppColliPart->_cy) - (pActor->_y + pColliPart->_cy) + max_dy ) < (ucoord)(2*max_dy)) {
+                            if ((ucoord)( (pOppActor_y + pOppColliPart->_cy) - (pActor_y + pColliPart->_cy) + max_dy ) < (ucoord)(2*max_dy)) {
                                 pCollisionArea->_hit_colli_part_index = i;
                                 pOppCollisionArea->_hit_colli_part_index = j;
                                 return true;

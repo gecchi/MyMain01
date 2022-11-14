@@ -53,8 +53,14 @@ bool MenuBoard::condDecision() {
         getSeTransmitter()->play(SE_CANCEL);
         return true;
     } else if (pMousePointer_ && pMousePointer_->isReleasedUpButton(0)) {
-        getSeTransmitter()->play(SE_DECIDED);
-        return true;
+        GgafCore::Actor* pHitActor = pMousePointer_->getHitActor();
+        if (_lstItems.getCurrent() == pHitActor) {
+            getSeTransmitter()->play(SE_DECIDED);
+            return true;
+        } else {
+            getSeTransmitter()->play(SE_WRONG);
+            return false;
+        }
     } else {
         return false;
     }
