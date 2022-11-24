@@ -167,13 +167,12 @@ public:
      */
     void execute(uint32_t prm_index) {
         TreeSpace<DIMENSION>* pOctant_this_level = &(_paTargetSpace[prm_index]);
-        TreeElem<DIMENSION>* pElem = pOctant_this_level->_pElem_first;
+        TreeElem<DIMENSION>* pElem = pOctant_this_level->_pBelongElems;
         const kind_t kind_groupA = _kind_groupA;
         const kind_t kind_groupB = _kind_groupB;
         const kind_t kind_groupAB = kind_groupA | kind_groupB;
         if (pElem) {
-            TreeElem<DIMENSION>* pElem_last = pOctant_this_level->_pElem_last;
-            while (true) {
+            while (pElem) {
                 kind_t kind = pElem->_kind;
                 T* pObject = (T*)(pElem->_pObject);
                 if (kind & kind_groupA) {
@@ -181,10 +180,7 @@ public:
                 } else if (kind & kind_groupB) {
                     _stackCurrent_GroupB.push(pObject);
                 }
-                if (pElem == pElem_last) {
-                    break;
-                }
-                pElem = pElem->_pNext;
+                pElem = pElem->_pBelongNext;
             }
 
             if (_stackCurrent_GroupA.isExist()) {

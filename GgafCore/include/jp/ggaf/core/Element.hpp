@@ -1022,7 +1022,7 @@ void Element<T>::afterDraw() {
         //Ä‹A
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
-            pElementTemp->processAfterDraw();
+            pElementTemp->afterDraw();
             if (pElementTemp->_is_last_flg) {
                 break;
             } else {

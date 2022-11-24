@@ -8,6 +8,7 @@
 		<project>GgafCore</project>
 		<project>GgafDx</project>
 		<project>GgafLib</project>
+		<project>VioletVrain</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

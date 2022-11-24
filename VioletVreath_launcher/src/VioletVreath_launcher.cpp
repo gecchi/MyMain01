@@ -270,6 +270,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             }
             break;
         }
+        /*
         case WM_LBUTTONDBLCLK: {
             //擬似フルスクリーンの切り替え
             LONG lStyle = GetWindowLong( hWnd, GWL_STYLE );
@@ -282,6 +283,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             }
             break;
         }
+        */
         case WM_KEYDOWN: {
             if (wParam == VK_F11) {
                 //擬似フルスクリーンの切り替え

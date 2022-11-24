@@ -18,12 +18,12 @@ class TreeSpace : public Object {
 public:
     /** [r]線形N分木配列の自身の要素番号 */
     uint32_t _my_index;
-    /** [r]所属してる要素の種別情報 */
+    /** [r]この空間＋子孫空間に所属してる要素の種別情報 */
     kind_t _kind_bit_field;
-    /** [r]ぶら下がる要素の先頭 */
-    TreeElem<DIMENSION>* _pElem_first;
-    /** [r]ぶら下がる要素の末尾 */
-    TreeElem<DIMENSION>* _pElem_last;
+    /** [r]この空間に登録された要素連結リストの根本 */
+    TreeElem<DIMENSION>* _pBelongElems;
+    /** [r]登録を行った空間連結リスト用、次の空間 */
+    TreeSpace<DIMENSION>* _pRegTreeSpaceNext;
 
 public:
     /**
@@ -31,35 +31,18 @@ public:
      * @return
      */
     TreeSpace() : Object() {
-        _pElem_first = nullptr;
-        _pElem_last = nullptr;
+        _pBelongElems = nullptr;
         _kind_bit_field = 0;
         _my_index = 0xffffffff; //ありえない0xffffffffを入れておく
+        _pRegTreeSpaceNext = nullptr;
     }
 
+    /**
+     * 要素登録 .
+     * @param prm_pElem 要素
+     * @return true:そのインデックスに初回登録 ／ false:それ以外
+     */
     void registerElem(TreeElem<DIMENSION>* const prm_pElem) {
-        if (prm_pElem->_pSpace_current == this) {
-            //_TRACE_("belongToせんでいい");
-            return;
-        } else {
-            if (_pElem_first == nullptr) {
-                //１番目に追加の場合
-                _pElem_first = prm_pElem;
-                _pElem_last = prm_pElem;
-                //nullptrはclear時設定済み。省略しても大丈夫なはず。
-                //            _pNext = nullptr;
-                //            _pPrev = nullptr;
-                prm_pElem->_pSpace_current = this;
-            } else {
-                //末尾に追加の場合
-                _pElem_last->_pNext = prm_pElem;
-                prm_pElem->_pPrev = _pElem_last;
-                //nullptrはclear時設定済み。省略しても大丈夫なはず。
-                //            _pNext = nullptr;
-                _pElem_last = prm_pElem;
-                prm_pElem->_pSpace_current = this;
-            }
-        }
         //引数の要素番号
         uint32_t index = _my_index;
         const kind_t this_kind = prm_pElem->_kind;
@@ -79,19 +62,19 @@ public:
             index = (index-1)>>DIMENSION;
             p = p - (p->_my_index - index);
         }
+        prm_pElem->_pSpace_current = this;
+        prm_pElem->_pBelongNext = _pBelongElems; //初回は _pBelongElems == nullptr
+        _pBelongElems = prm_pElem;
     }
 
     void dump() {
-        if (_pElem_first == nullptr) {
+        if (_pBelongElems == nullptr) {
             _TRACE_N_("x");
         } else {
-            TreeElem<DIMENSION>* pElem = _pElem_first;
-            while (true) {
+            TreeElem<DIMENSION>* pElem = _pBelongElems;
+            while (pElem) {
                 pElem->dump();
-                if (pElem == _pElem_last) {
-                    break;
-                }
-                pElem = pElem -> _pNext;
+                pElem = pElem ->_pBelongNext;
             }
         }
     }

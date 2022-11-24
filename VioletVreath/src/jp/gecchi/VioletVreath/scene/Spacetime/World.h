@@ -55,6 +55,9 @@ public:
             } else {
                 is_show_cursor_ = prm_bool;
                 while (ShowCursor(TRUE) < 0) {}
+//                if (pMousePointer_) {
+//                    pMousePointer_->activate();
+//                }
             }
         } else {
             if (!is_show_cursor_) {
@@ -62,6 +65,9 @@ public:
             } else {
                 is_show_cursor_ = prm_bool;
                 while (ShowCursor(FALSE) >= 0) {}
+//                if (pMousePointer_) {
+//                    pMousePointer_->inactivate();
+//                }
             }
         }
     }

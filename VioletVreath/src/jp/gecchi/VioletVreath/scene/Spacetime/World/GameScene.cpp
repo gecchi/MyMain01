@@ -42,13 +42,13 @@ pStageWorld_(nullptr) {
     pMenuBoardPause_ = NEW MenuBoardPause("MenuBoardPause");
     bringSceneMediator()->appendGroupChild(pMenuBoardPause_);
 
-    appendChild(NEW GamePreTitleScene("PreGameTitle"));
-    appendChild(NEW GameTitleScene("GameTitle"));
-    appendChild(NEW GameDemoScene("GameDemo"));
-    appendChild(NEW GameBeginningScene("GameBeginning"));
-    appendChild(NEW GameMainScene("GameMain"));
-    appendChild(NEW GameEndingScene("GameEnding"));
-    appendChild(NEW GameOverScene("GameOver"));
+    appendChild(NEW GamePreTitleScene("PreGameTitle"));   //PHASE_PRE_TITLE
+    appendChild(NEW GameTitleScene("GameTitle"));         //PHASE_TITLE
+    appendChild(NEW GameDemoScene("GameDemo"));           //PHASE_DEMO
+    appendChild(NEW GameBeginningScene("GameBeginning")); //PHASE_BEGINNING
+    appendChild(NEW GameMainScene("GameMain"));           //PHASE_MAIN
+    appendChild(NEW GameEndingScene("GameEnding"));       //PHASE_ENDING
+    appendChild(NEW GameOverScene("GameOver"));           //PHASE_GAME_OVER
     getPhase()->relateChildScene(PHASE_PRE_TITLE, PHASE_GAME_OVER,  "PreGameTitle");
     is_frame_advance_ = false;
 

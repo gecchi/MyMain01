@@ -29,7 +29,7 @@ _num_space((uint32_t)((_POW4[_top_space_level+1] -1) / 3))
     for (uint32_t i = 0; i < _num_space; i++) {
         _paQuadrant[i]._my_index = i;
     }
-    _pRegElemFirst = nullptr;
+    _pRegTreeSpaces = nullptr;
     _TRACE_(FUNC_NAME<<" 四分木ルートレベル(level=0)の空間位置=(" << _root_x1 << "," << _root_y1 << ")-(" << _root_x2 << "," << _root_y2 << ")");
     _TRACE_(FUNC_NAME<<" 四分木ルートレベル(level=0)の空間の広さ=" << _root_x2-_root_x1 << "x" << _root_y2-_root_y1 );
     _TRACE_(FUNC_NAME<<" 四分木末端レベル(level="<<_top_space_level<<")の空間の広さ=" << _top_level_dx << "x" << _top_level_dy );
@@ -185,58 +185,38 @@ void LinearQuadtree::registerElem(TreeElem<2u>* const prm_pElem,
     }
 #endif
 
-    //登録したElemをリストに追加して保持しておく。
-    //理由は、後で clearAllElem() 一斉にクリアしたいが為。ここの仕組みは最適化の余地がある。
-    //例えば登録済みの空間Indexのみを配列で保持して後でclearAllElem() する。連結リストより速いのでは。
-    //TODO:最後に全要素を四分木からクリアするより良い方法があるまでは、この方法で一旦保持する・・・なんかない
-    if (prm_pElem->_pSpace_current == nullptr) {
-        if (_pRegElemFirst == nullptr) {
-            prm_pElem->_pRegLinkNext = nullptr;
-            _pRegElemFirst = prm_pElem;
-        } else {
-            prm_pElem->_pRegLinkNext = _pRegElemFirst;
-            _pRegElemFirst = prm_pElem;
-        }
-    } else {
-#ifdef MY_DEBUG
-        throwCriticalException("登録しようとした引数要素は、他の空間に所属状態です。"
-                                   "クリアがなされていないか、２重登録しています。現所属空間インデックス="<<(prm_pElem->_pSpace_current->_my_index)<<"  要素対象オブジェクト="<<(prm_pElem->_pObject));
-#endif
-    }
     //要素を線形四分木空間に登録(所属させる)
-    _paQuadrant[index].registerElem(prm_pElem);
+    TreeSpace<2u>* pTreeSpace = &(_paQuadrant[index]);
+    if (pTreeSpace->_pBelongElems) {
+        pTreeSpace->registerElem(prm_pElem);
+    } else {
+        pTreeSpace->registerElem(prm_pElem);
+        pTreeSpace->_pRegTreeSpaceNext = _pRegTreeSpaces;
+        _pRegTreeSpaces = pTreeSpace;
+    }
 }
 
 void LinearQuadtree::clearAllElem() {
-    //登録済みの要素リストを使用して、四分木をクリア
-    TreeElem<2u>* pElem = _pRegElemFirst;
-    while (pElem) {
-//        pElem->clear();
-        if(pElem->_pSpace_current == nullptr) {
-            //スルー
-        } else {
-            uint32_t index = pElem->_pSpace_current->_my_index;
-            while (true) {
-                if (_paQuadrant[index]._kind_bit_field == 0 ) {
-                    break;
-                } else {
-                    _paQuadrant[index]._kind_bit_field = 0;
-                    _paQuadrant[index]._pElem_first = nullptr;
-                    _paQuadrant[index]._pElem_last = nullptr;
-                }
-                if (index == 0) {
-                    break;
-                }
-                // 親空間要素番号で繰り返す
-                index = (index-1)>>2;
+    //登録済み空間リストを使用して、四分木をクリア
+    TreeSpace<2u>* pTreeSpace = _pRegTreeSpaces;
+    while (pTreeSpace) {
+        pTreeSpace->_pBelongElems = nullptr;
+        uint32_t index = pTreeSpace->_my_index;
+        while (true) {
+            if (_paQuadrant[index]._kind_bit_field == 0) {
+                break;
             }
-            pElem->_pNext = nullptr;
-            pElem->_pPrev = nullptr;
-            pElem->_pSpace_current = nullptr;
+            _paQuadrant[index]._kind_bit_field = 0;
+            if (index == 0) {
+                break;
+            }
+            //親空間要素番号で繰り返す
+            index = (index-1)>>3;
         }
-        pElem = pElem->_pRegLinkNext;
+
+        pTreeSpace = pTreeSpace->_pRegTreeSpaceNext;
     }
-    _pRegElemFirst = nullptr;
+    _pRegTreeSpaces = nullptr;
 }
 
 LinearQuadtree::~LinearQuadtree() {

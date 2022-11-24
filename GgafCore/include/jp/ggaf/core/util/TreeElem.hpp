@@ -30,12 +30,8 @@ public:
     kind_t _kind;
     /** [r]所属空間 */
     TreeSpace<DIMENSION>* _pSpace_current;
-    /** [r]次要素 */
-    TreeElem* _pNext;
-    /** [r]前要素 */
-    TreeElem* _pPrev;
-    /** [r]登録リスト用リンク */
-    TreeElem* _pRegLinkNext;
+    /** [r]空間に登録された要素（TreeSpace._pBelongElems）にぶら下がる次要素 */
+    TreeElem* _pBelongNext;
 
     /**
      * コンストラクタ .
@@ -48,9 +44,7 @@ public:
     {
         _kind = 0;
         _pSpace_current = nullptr;
-        _pNext = nullptr;
-        _pPrev = nullptr;
-        _pRegLinkNext = nullptr;
+        _pBelongNext = nullptr;
     }
 
     void dump() {

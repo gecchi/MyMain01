@@ -217,12 +217,26 @@ CNT:
                     }
                 } else if (opp_shape_kind == COLLI_SPHERE) {
                     //＜球 と 球＞
-                    if (UTIL::isHit3D(pActor  , (ColliSphere*)pColliPart,
-                                      pOppActor, (ColliSphere*)pOppColliPart)) {
+                    //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
+                    //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
+                    //(x2-x1)^2 + (y2-y1)^2 + (z2-z1)^2 <= (r1+r2)^2
+                    double dx = (double)( (pActor_x+pColliPart->_cx) - (pOppActor_x+pOppColliPart->_cx) );
+                    double dy = (double)( (pActor_y+pColliPart->_cy) - (pOppActor_y+pOppColliPart->_cy) );
+                    double dz = (double)( (pActor_z+pColliPart->_cz) - (pOppActor_z+pOppColliPart->_cz) );
+                    double dd = dx*dx + dy*dy + dz*dz;
+                    if (dd <= (double)(((ColliSphere*)pColliPart)->_r + ((ColliSphere*)pOppColliPart)->_r) *
+                              (double)(((ColliSphere*)pColliPart)->_r + ((ColliSphere*)pOppColliPart)->_r)
+                    ) {
                         pCollisionArea->_hit_colli_part_index = i;
                         pOppCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
+//                    if (UTIL::isHit3D(pActor  , (ColliSphere*)pColliPart,
+//                                      pOppActor, (ColliSphere*)pOppColliPart)) {
+//                        pCollisionArea->_hit_colli_part_index = i;
+//                        pOppCollisionArea->_hit_colli_part_index = j;
+//                        return true;
+//                    }
                 } else if (opp_shape_kind == COLLI_AAPRISM) {
                     //＜球 と AAPrism＞
                     if (UTIL::isHit3D(pOppActor, (ColliAAPrism*)pOppColliPart,

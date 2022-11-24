@@ -12,8 +12,6 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelScoreFont.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -126,7 +124,6 @@ void GameMainScene::processBehavior() {
             break;
         }
     }
-
 }
 
 void GameMainScene::onInactive() {
