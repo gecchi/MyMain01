@@ -512,12 +512,6 @@ void GeometricActor::setFaceAngTwd(const GeometricActor* prm_pActor) {
     setFaceAngTwd(prm_pActor->_x, prm_pActor->_y, prm_pActor->_z);
 }
 
-void GeometricActor::scaleAs(const GeometricActor* prm_pActor) {
-    _sx = prm_pActor->_sx;
-    _sy = prm_pActor->_sy;
-    _sz = prm_pActor->_sz;
-}
-
 void GeometricActor::onEnd() {
     BaseActor::onEnd();
     _pFormation = nullptr;

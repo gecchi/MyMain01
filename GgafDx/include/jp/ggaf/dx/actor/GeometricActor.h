@@ -568,12 +568,6 @@ public:
     virtual void setFaceAngTwd(const GeometricActor* prm_pActor);
 
     /**
-     * X軸Y軸Z軸スケール _sx, _sy, _sz をコピーして設定 .
-     * @param prm_pActor コピー元アクター
-     */
-    virtual void scaleAs(const GeometricActor* prm_pActor);
-
-    /**
      * 自身の内部ワールド変換(_matWorldRotMv) の逆行列を未計算なら計算し、計算済みならそのまま返す .
      * @return _matInvWorldRotMv
      */

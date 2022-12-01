@@ -42,28 +42,16 @@ void Spacetime::processJudgement() {
         //本シーンの所属シーンの所属アクター全てについて当たり判定チェックを行う。
         //空間分割(八分木)アルゴリズムにより、チェック回数の最適化を行っています。
         //詳細は 「種別相関定義コピペツール.xls」 の 「種別相関」 シート参照
-        OctreeRounder* pHitCheckRounder = getLinearOctreeHitCheckRounder();
 #ifdef MY_DEBUG
         if (GgafDx::Input::isPushedDownKey(DIK_I)) {
            getLinearOctree()->putTree();
         }
 #endif
         //八分木アルゴリズムでヒットチェック
-        static const kind_t group_A1 = KIND_CHIKEI;
-        static const kind_t group_B1 = KIND_MY_CHIKEI_HIT|KIND_ENEMY_CHIKEI_HIT|KIND_ITEM_CHIKEI_HIT|KIND_CHIKEI_CHIKEI_HIT;
-        pHitCheckRounder->executeAll(group_A1, group_B1);
-
-        static const kind_t group_A2 = KIND_ITEM;
-        static const kind_t group_B2 = KIND_MY_BODY_CHIKEI_HIT;
-        pHitCheckRounder->executeAll(group_A2, group_B2);
-
-        static const kind_t group_A3 = KIND_MY;
-        static const kind_t group_B3 = KIND_ENEMY_BODY;
-        pHitCheckRounder->executeAll(group_A3, group_B3);
-
-        static const kind_t group_A4 = KIND_ENEMY_SHOT;
-        static const kind_t group_B4 = KIND_MY_BODY;
-        pHitCheckRounder->executeAll(group_A4, group_B4);
+        executeWorldHitCheck(KIND_CHIKEI, KIND_MY_CHIKEI_HIT|KIND_ENEMY_CHIKEI_HIT|KIND_ITEM_CHIKEI_HIT|KIND_CHIKEI_CHIKEI_HIT);
+        executeWorldHitCheck(KIND_ITEM, KIND_MY_BODY_CHIKEI_HIT);
+        executeWorldHitCheck(KIND_MY, KIND_ENEMY_BODY);
+        executeWorldHitCheck(KIND_ENEMY_SHOT, KIND_MY_BODY);
 
 #ifdef MY_DEBUG
         if (GgafDx::Input::isPushedDownKey(DIK_J)) {
@@ -72,8 +60,7 @@ void Spacetime::processJudgement() {
             _TRACE_("<--Board用四分木");
         }
 #endif
-        QuadtreeRounder_b* pHitCheckRounder_b = getLinearQuadtreeHitCheckRounder_b();
-        pHitCheckRounder_b->executeAll(KIND_2DFIX_MOUSE_POINTER, KIND_2DFIX_MENU_ITEM);
+        executeViewHitCheck(KIND_2DFIX_MOUSE_POINTER, KIND_2DFIX_MENU_ITEM);
     }
 }
 

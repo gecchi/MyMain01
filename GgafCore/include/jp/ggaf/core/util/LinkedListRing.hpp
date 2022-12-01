@@ -650,20 +650,17 @@ public:
      * ---「実行前」------------------------------
      * ([E])⇔[A]⇔[B]⇔[C]!⇔[D]⇔[E]⇔([A])
      * -------------------------------------------
-     *               ↓ set(X) … 値 X を上書きして、元々の値 C をゲット
+     *               ↓ replace(X) … 値 X を上書きして、元々の値 C をゲット
      * ---「実行後」------------------------------
      * ([E])⇔[A]⇔[B]⇔[X]!⇔[D]⇔[E]⇔([A])
      * -------------------------------------------
      *
-     * ※但し、上書き前の元の要素設定時に、自動 delete フラグをセットにしていた場合、
-     * 本メソッド実行時に内部で delete され、戻り値には nullptrが返ります。
+     * ※但し、上書き前の元の要素設定時に、自動 delete フラグはそのままとなります。
      * </pre>
      * @param prm_pVal 新しい要素の値
-     * @param prm_is_delete_value true  : リストのdelete時に、引数の要素値についてもdeleteを発行する。(Tのヘッダincludeを忘れずに！)<BR>
-     *                            false : リストのdelete時に、引数の要素値について何も行わない。
      * @return 元の設定要素が自動 delete の場合 nullptr ／ 元の設定要素が自動 delete ではない場合、上書きされる前の要素(解放に利用される事を想定。)
      */
-    virtual T* set(const T* prm_pVal, bool prm_is_delete_value = true);
+    virtual T* replace(const T* prm_pVal);
 
     /**
      * カレント要素を抜き取る .
@@ -1239,11 +1236,15 @@ bool LinkedListRing<T>::isFirst() const {
 }
 
 template<class T>
-T* LinkedListRing<T>::set(const T* prm_pVal, bool prm_is_delete_value) {
+T* LinkedListRing<T>::replace(const T* prm_pVal) {
+#ifdef MY_DEBUG
+    if (_pElemActive == nullptr) {
+        throwCriticalException("LinkedListRing<T>::replace カレント要素が存在しません");
+    }
+#endif
     const T* pValue = _pElemActive->_pValue;
     bool is_delete_value = _pElemActive->_is_delete_value;
     _pElemActive->_pValue = prm_pVal;
-    _pElemActive->_is_delete_value = prm_is_delete_value;
 
     if (_papLinearVal) {
         _papLinearVal[_pElemActive->_idx] = prm_pVal;
@@ -1266,14 +1267,13 @@ T* LinkedListRing<T>::remove() {
             //要素数が変更されるのでインデックスは無効化にする
             GGAF_DELETEARR(_papLinearVal);
         }
+        const T* pRetValue =  nullptr;
         _num_elem--;
         if (pMy->_is_first_flg && pMy->_is_last_flg) {
             //要素が１つの場合
             _pElemActive = nullptr;
             _pElem_first = nullptr;
-            const T* r = pMy->_pValue;
-            GGAF_DELETE(pMy);
-            return (T*) r;
+            pRetValue = pMy->_pValue;
         } else {
             //連結から外す
             Elem* pMyNext = _pElemActive->_pNext;
@@ -1289,9 +1289,14 @@ T* LinkedListRing<T>::remove() {
                 pMyNext->_is_first_flg = true; //次の要素が新しい先頭になる
             }
             _pElemActive = pMyNext; //カレント要素は next に更新。
-            const T* r = pMy->_pValue;
-            GGAF_DELETE(pMy);
-            return (T*) r;
+            pRetValue = pMy->_pValue;
+        }
+        if (pMy->_is_delete_value) {
+            GGAF_DELETE(pMy); //~Elem() pRetValue は deleteされる
+            return nullptr;
+        } else {
+            GGAF_DELETE(pMy); //~Elem() pRetValue は deleteされない
+            return (T*) pRetValue;
         }
     } else {
         return nullptr;

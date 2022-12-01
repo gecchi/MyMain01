@@ -33,7 +33,7 @@ public:
     /**
      * u‚±‚Ì¢v‚ÌU‚é•‘‚¢ˆ— .
      */
-    void processBehavior() override {}
+    void processBehavior() override;
 
     virtual VvvCamera* getCamera() override { //‹¤•Ï‚Ì–ß‚è’l
         return (VvvCamera*)_pCamera;

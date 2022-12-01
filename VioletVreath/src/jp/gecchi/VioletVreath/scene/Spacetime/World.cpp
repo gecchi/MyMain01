@@ -310,10 +310,12 @@ void World::processBehavior() {
             hide_cursor_cnt_++;
             if (hide_cursor_cnt_ == 3*60) {
                 showCursor(false);
+                pMousePointer_->inactivate();
             }
         } else {
             hide_cursor_cnt_ = 0;
             showCursor(true);
+            pMousePointer_->activate();
         }
     }
 

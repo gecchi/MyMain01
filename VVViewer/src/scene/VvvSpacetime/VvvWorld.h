@@ -5,6 +5,7 @@
 
 #include "VvvCaretaker.h"
 #include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/dx/actor/FigureActor.h"
 
 namespace VVViewer {
 
@@ -21,10 +22,15 @@ public:
     class ActorInfo {
     public:
         GgafDx::FigureActor* pActor_;
+        GgafLib::WorldCollisionChecker* pCollisionChecker_;
         std::string modelfile_;
-        ActorInfo(GgafDx::FigureActor* pActor, std::string modelfile) {
+        ActorInfo(GgafDx::FigureActor* pActor, GgafLib::WorldCollisionChecker* pCollisionChecker, std::string modelfile) {
             pActor_ = pActor;
+            pCollisionChecker_ = pCollisionChecker;
             modelfile_ = modelfile;
+        }
+        ~ActorInfo() {
+            pActor_->end();
         }
     };
 

@@ -17,6 +17,12 @@ void VvvSpacetime::initialize() {
     appendChild(pWorld_);
 }
 
+void VvvSpacetime::processBehavior() {
+
+    executeWorldHitCheck(KIND_POINTER_RAY, KIND_ACTOR);
+
+}
+
 VvvSpacetime::~VvvSpacetime() {
 }
 

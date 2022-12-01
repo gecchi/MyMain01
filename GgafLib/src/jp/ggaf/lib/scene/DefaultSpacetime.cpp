@@ -50,6 +50,22 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
     _TRACE_("Board—pŽl•ª–Øì¬I—¹");
 }
 
+void DefaultSpacetime::executeWorldHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
+    if (CONFIG::IS_HIT_CHECK_3D) {
+       OctreeRounder* pHitCheckRounder = getLinearOctreeHitCheckRounder();
+       pHitCheckRounder->executeAll(prm_kind_groupA, prm_kind_groupB);
+    } else {
+       QuadtreeRounder* pHitCheckRounder = getLinearQuadtreeHitCheckRounder();
+       pHitCheckRounder->executeAll(prm_kind_groupA, prm_kind_groupB);
+    }
+}
+
+void DefaultSpacetime::executeViewHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
+    QuadtreeRounder_b* pHitCheckRounder_b = getLinearQuadtreeHitCheckRounder_b();
+    pHitCheckRounder_b->executeAll(prm_kind_groupA, prm_kind_groupB);
+}
+
+
 void DefaultSpacetime::processFinal() {
     if (CONFIG::IS_HIT_CHECK_3D) {
         _pLinearOctree->clearAllElem();

@@ -16,6 +16,7 @@
 #include "jp/ggaf/lib/actor/DefaultRegularPolygonSpriteActor.h"
 #include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "VvvCaretaker.h"
 #include "actor/CamWorker/VvvCamWorker.h"
 #include "actor/VvvCursor.h"
@@ -49,7 +50,7 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 
 void VvvWorld::initialize() {
     pVvvMousePointer_ = desireActor(VvvMousePointer);
-    pVvvMousePointer_->setDefaultKind(KIND_2DFIX_MOUSE_POINTER);
+//    pVvvMousePointer_->setDefaultKind(KIND_2DFIX_MOUSE_POINTER);
     bringSceneMediator()->appendGroupChild(pVvvMousePointer_);
 
      pFont01_help_->setAlign(ALIGN_LEFT, VALIGN_TOP);
@@ -135,7 +136,6 @@ void VvvWorld::processBehavior() {
      } else if (GgafDx::Input::isPushedDownKey(DIK_DELETE)) {
         //選択を削除
         if (listActorInfo_.length() > 0) {
-            listActorInfo_.getCurrent()->pActor_->end();
             listActorInfo_.remove();
         }
         if (listActorInfo_.length() > 0) {
@@ -311,6 +311,10 @@ void VvvWorld::processBehavior() {
             if (GgafDx::Input::isPressedKey(DIK_ESCAPE)) {
                 pActor->setScaleR(1.0);
             }
+            //当たり判定更新
+            dxcoord bound = pActor->getModel()->_bounding_sphere_radius * pActor->_rate_of_bounding_sphere_radius;
+            GgafLib::WorldCollisionChecker* pChecker = listActorInfo_.getCurrent()->pCollisionChecker_;
+            pChecker->setColliSphere(0, DX_C(bound));
         } else if (GgafDx::Input::isPressedKey(DIK_R)) {
             //軸回転
             if (GgafDx::Input::isPressedKey(DIK_PGUP)) {
@@ -523,89 +527,134 @@ void VvvWorld::processBehavior() {
         CONFIG::DIR_TEXTURE[1]      = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
         CONFIG::DIR_TEXTURE[2]      = dropfile_dir;
         transform(ext.begin(), ext.end(), ext.begin(), static_cast<int (*)(int)>(toupper));
+        {
+            GgafDx::FigureActor* pActor = nullptr;
+            GgafLib::WorldCollisionChecker* pChecker = nullptr;
+            std::string modelfile = "";
+            if (ext == "MESHX") {
+                GgafDx::ModelManager* pModelManager = pCARETAKER->_pModelManager;
+                GgafDx::ModelManager::MeshXFileFmt xdata;
+                std::string model_def_filepath = std::string(VvvCaretaker::dropfiles_);
+                pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
+                if (xdata.XFileNum >= 2) {
+                    GgafLib::DefaultMorphMeshActor* pDefaultMorphMeshActor =
+                            desireActor(GgafLib::DefaultMorphMeshActor, "actor", model.c_str());
+                    pActor = pDefaultMorphMeshActor;
+                    pChecker = pDefaultMorphMeshActor->getWorldCollisionChecker();
+                } else {
+    //            if (model.find("WORLDBOUND") == string::npos) {
+    //                pActor = desireActor(GgafLib::WorldBoundActor, "actor", filename);
+    //            } else {
+                    GgafLib::DefaultMeshActor* pDefaultMeshActor =
+                            desireActor(GgafLib::DefaultMeshActor, "actor", model.c_str());
+                    pActor = pDefaultMeshActor;
+                    pChecker = pDefaultMeshActor->getWorldCollisionChecker();
+    //            }
+    //                DefaultMeshActor* pDefaultMeshActor = (DefaultMeshActor*)pActor;
+    //                pDefaultMeshActor->setBumpMapTexture("normal.bmp");
 
-        GgafDx::FigureActor* pActor = nullptr;
-        std::string modelfile = "";
-        if (ext == "MESHX") {
-            GgafDx::ModelManager* pModelManager = pCARETAKER->_pModelManager;
-            GgafDx::ModelManager::MeshXFileFmt xdata;
-            std::string model_def_filepath = std::string(VvvCaretaker::dropfiles_);
-            pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-            if (xdata.XFileNum >= 2) {
-                pActor = desireActor(GgafLib::DefaultMorphMeshActor, "actor", model.c_str());
-            } else {
-//            if (model.find("WORLDBOUND") == string::npos) {
-//                pActor = desireActor(GgafLib::WorldBoundActor, "actor", filename);
-//            } else {
-                pActor = desireActor(GgafLib::DefaultMeshActor, "actor", model.c_str());
-//            }
-//                DefaultMeshActor* pDefaultMeshActor = (DefaultMeshActor*)pActor;
-//                pDefaultMeshActor->setBumpMapTexture("normal.bmp");
+
+                }
+            } else if (ext == "SPRX") {
+                GgafLib::DefaultSpriteActor* pDefaultSpriteActor =
+                        desireActor(GgafLib::DefaultSpriteActor, "actor", model.c_str());
+                pActor = pDefaultSpriteActor;
+                pChecker = pDefaultSpriteActor->getWorldCollisionChecker();
+            } else if (ext == "PSPRX") {
+                GgafLib::DefaultPointSpriteActor* pDefaultPointSpriteActor =
+                        desireActor(GgafLib::DefaultPointSpriteActor, "actor", model.c_str());
+                pActor = pDefaultPointSpriteActor;
+                pChecker = pDefaultPointSpriteActor->getWorldCollisionChecker();
+            } else if (ext == "FSPRX") {
+                GgafLib::DefaultFramedSpriteActor* pDefaultFramedSpriteActor =
+                        desireActor(GgafLib::DefaultFramedSpriteActor, "actor", model.c_str());
+                pActor = pDefaultFramedSpriteActor;
+                pChecker = pDefaultFramedSpriteActor->getWorldCollisionChecker();
+            } else if (ext == "RSPRX") {
+                GgafLib::DefaultRegularPolygonSpriteActor* pDefaultRegularPolygonSpriteActor =
+                        desireActor(GgafLib::DefaultRegularPolygonSpriteActor, "actor", model.c_str());
+                pActor = pDefaultRegularPolygonSpriteActor;
+                pChecker = pDefaultRegularPolygonSpriteActor->getWorldCollisionChecker();
+            } else if (ext == "X") {
+                //DefaultMeshActor のみ x ファイル直接でも大丈夫
+                GgafLib::DefaultMeshActor* pDefaultMeshActor =
+                        desireActor(GgafLib::DefaultMeshActor, "actor", model.c_str());
+                pActor = pDefaultMeshActor;
+                pChecker = pDefaultMeshActor->getWorldCollisionChecker();
             }
-        } else if (ext == "SPRX") {
-            pActor = desireActor(GgafLib::DefaultSpriteActor, "actor", model.c_str());
-        } else if (ext == "PSPRX") {
-            pActor = desireActor(GgafLib::DefaultPointSpriteActor, "actor", model.c_str());
-        } else if (ext == "FSPRX") {
-            pActor = desireActor(GgafLib::DefaultFramedSpriteActor, "actor", model.c_str());
-        } else if (ext == "RSPRX") {
-            pActor = desireActor(GgafLib::DefaultRegularPolygonSpriteActor, "actor", model.c_str());
-        } else if (ext == "X") {
-            //DefaultMeshActor のみ x ファイル直接でも大丈夫
-            pActor = desireActor(GgafLib::DefaultMeshActor, "actor", model.c_str());
-        }
-        //アクター表示
-        if (pActor) {
-            bringSceneMediator()->appendGroupChild(pActor);
-            ActorInfo* pActorInfo = NEW ActorInfo(pActor, string(VvvCaretaker::dropfiles_));
-            listActorInfo_.addLast(pActorInfo);
-            listActorInfo_.createIndex();
-            listActorInfo_.last(); //カレントをlastへ
-            VvvCamera* pCam = pCARETAKER->getSpacetime()->getCamera();
+            //アクター表示
+            if (pActor) {
+                dxcoord bound = pActor->getModel()->_bounding_sphere_radius * pActor->_rate_of_bounding_sphere_radius;
+                pChecker->createCollisionArea(1);
+                pChecker->setColliSphere(0, DX_C(bound));
+                pActor->setHitAble(true);
 
-            GgafDx::GeometricActor* p = pCam->getCameraViewPoint();
-            pActor->setPositionAt(p);
+                bringSceneMediator()->appendGroupChild(KIND_ACTOR, pActor);
+                ActorInfo* pActorInfo = NEW ActorInfo(pActor, pChecker, string(VvvCaretaker::dropfiles_));
+                listActorInfo_.addLast(pActorInfo);
+                listActorInfo_.createIndex();
+                listActorInfo_.last(); //カレントをlastへ
+                VvvCamera* pCam = pCARETAKER->getSpacetime()->getCamera();
+
+                GgafDx::GeometricActor* p = pCam->getCameraViewPoint();
+                pActor->setPositionAt(p);
+            }
+
+
         }
+
 
         if (!(file_name.find("cubemap") == std::string::npos &&
               file_name.find("CubeMap") == std::string::npos &&
               file_name.find("Cubemap") == std::string::npos)
         ) {
-            if (listActorInfo_.getCurrent()) {
-                GgafDx::FigureActor* pCurrentActor = listActorInfo_.getCurrent()->pActor_;
-                GgafDx::FigureActor* pNewActor = nullptr;
-                if (pCurrentActor->instanceOf(Obj_GgafDx_MeshActor)) {
-                    string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->modelfile_.c_str()) + "/";
-                    CONFIG::DIR_MESH[2] = was_dropfile_dir;
-                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
-                    CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-                    CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir;
-                    string was_model = UTIL::getFileBaseNameWithoutExt(listActorInfo_.getCurrent()->modelfile_.c_str());
-                    pNewActor = desireActor(GgafLib::CubeMapMeshActor, "actor", was_model.c_str());
-                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
-                    CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-                    CONFIG::DIR_TEXTURE[2]    = dropfile_dir;
-                    ((CubeMapMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
+            GgafDx::FigureActor* pNewActor = nullptr;
+            GgafLib::WorldCollisionChecker* pNewChecker = nullptr;
+            GgafDx::FigureActor* pCurrentActor = listActorInfo_.getCurrent()->pActor_;
+            if (pCurrentActor->instanceOf(Obj_GgafDx_MeshActor)) {
+                string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->modelfile_.c_str()) + "/";
+                CONFIG::DIR_MESH[2] = was_dropfile_dir;
+                CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
+                CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir;
+                string was_model = UTIL::getFileBaseNameWithoutExt(listActorInfo_.getCurrent()->modelfile_.c_str());
+                GgafLib::CubeMapMeshActor* pCubeMapMeshActor =
+                        desireActor(GgafLib::CubeMapMeshActor, "actor", was_model.c_str());
+                CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
+                CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                CONFIG::DIR_TEXTURE[2]    = dropfile_dir;
+                pCubeMapMeshActor->setCubeMap(file_name.c_str(), 0.5);
+                pNewActor = pCubeMapMeshActor;
+                pNewChecker = pCubeMapMeshActor->getWorldCollisionChecker();
 
-                } else if (pCurrentActor->instanceOf(Obj_GgafDx_MorphMeshActor)) {
-                    string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->modelfile_.c_str()) + "/";
-                    CONFIG::DIR_MESH[2] = was_dropfile_dir;
-                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
-                    CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-                    CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir;
-                    pNewActor = desireActor(GgafLib::CubeMapMorphMeshActor, "actor", pCurrentActor->getModel()->getName());
-                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
-                    CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-                    CONFIG::DIR_TEXTURE[2]    = dropfile_dir;
-                    ((CubeMapMorphMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
-                }
+            } else if (pCurrentActor->instanceOf(Obj_GgafDx_MorphMeshActor)) {
+                string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->modelfile_.c_str()) + "/";
+                CONFIG::DIR_MESH[2] = was_dropfile_dir;
+                CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
+                CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir;
+                GgafLib::CubeMapMorphMeshActor*  pCubeMapMorphMeshActor =
+                        desireActor(GgafLib::CubeMapMorphMeshActor, "actor", pCurrentActor->getModel()->getName());
+                CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
+                CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                CONFIG::DIR_TEXTURE[2]    = dropfile_dir;
+                pCubeMapMorphMeshActor->setCubeMap(file_name.c_str(), 0.5);
+                pNewActor = pCubeMapMorphMeshActor;
+                pNewChecker = pCubeMapMorphMeshActor->getWorldCollisionChecker();
+            }
+            if (pNewActor) {
                 pNewActor->setPositionAt(pCurrentActor);
                 pNewActor->setFaceAngAs(pCurrentActor);
-                pNewActor->scaleAs(pCurrentActor);
-                bringSceneMediator()->appendGroupChild(pNewActor);
-                ActorInfo* pActorInfoNew = NEW ActorInfo(pNewActor, listActorInfo_.getCurrent()->modelfile_);
-                listActorInfo_.set(pActorInfoNew);
-                pCurrentActor->end();
+                pNewActor->setScaleAt(pCurrentActor);
+                bringSceneMediator()->appendGroupChild(KIND_ACTOR, pNewActor);
+
+                dxcoord new_bound = pNewActor->getModel()->_bounding_sphere_radius * pNewActor->_rate_of_bounding_sphere_radius;
+                pNewChecker->createCollisionArea(1);
+                pNewChecker->setColliSphere(0, DX_C(new_bound));
+                pNewActor->setHitAble(true);
+
+                ActorInfo* pActorInfoNew = NEW ActorInfo(pNewActor, pNewChecker, listActorInfo_.getCurrent()->modelfile_);
+                listActorInfo_.replace(pActorInfoNew);
             }
         } else if (!(file_name.find("Nmap") == std::string::npos &&
             file_name.find("NMap") == std::string::npos &&
@@ -622,6 +671,7 @@ void VvvWorld::processBehavior() {
                 ((GgafDx::MeshActor*)pCurrentActor)->effectBumpMapping(file_name.c_str());
             }
         }
+
 
         //プロパティ復帰
         CONFIG::DIR_MESH[0]   = vvv_dir_texture_system;
@@ -679,6 +729,8 @@ void VvvWorld::processBehavior() {
         } else {
             pFont01_info_->update("empty");
         }
+
+
     } else {
     }
 }

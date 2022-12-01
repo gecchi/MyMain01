@@ -96,6 +96,11 @@ public:
         return _pLinearQuadtreeHitCheckRounder_b;
     }
 
+    virtual void executeWorldHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB);
+
+    virtual void executeViewHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB);
+
+
     virtual DefaultCamera* getCamera() override { //‹¤•Ï‚Ì–ß‚è’l
         return (DefaultCamera*)_pCamera;
     }
