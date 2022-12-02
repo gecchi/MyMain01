@@ -1,0 +1,15 @@
+xof 0303txt 0032
+
+SpriteModelDef HitBoard {
+   128.0;            # FLOAT  Width
+   128.0;            # FLOAT  Height
+   "Cursor.png";  # STRING TextureFile
+   2;                # DWORD  TextureSplitRows
+   2;                # DWORD  TextureSplitCols
+   8;                #DrawSetNum
+  1.000000, 0.000000, 0.000000, 0.000000, 
+  0.000000, 1.000000, 0.000000, 0.000000, 
+  0.000000, 0.000000, 1.000000, 0.000000, 
+  0.000000, 0.000000, 0.000000, 1.000000; 
+}
+

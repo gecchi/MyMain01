@@ -21,7 +21,12 @@ VvvMousePointer::VvvMousePointer(const char* prm_name) :
         MousePointerActor(prm_name, "VvvMousePointer") {
     _class_name = "VvvMousePointer";
 
+
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+    ViewCollisionChecker* pChecker = getWorldCollisionChecker();
+    pChecker->createCollisionArea(1);
+    pChecker->setColliSquare(0, PX_C(16));
+    setHitAble(true);
 }
 
 void VvvMousePointer::onCreateModel() {

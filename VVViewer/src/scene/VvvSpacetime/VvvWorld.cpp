@@ -17,6 +17,7 @@
 #include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
+#include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 #include "VvvCaretaker.h"
 #include "actor/CamWorker/VvvCamWorker.h"
 #include "actor/VvvCursor.h"
@@ -30,6 +31,64 @@
 using namespace GgafLib;
 using namespace VVViewer;
 using namespace std;
+
+
+
+
+template<class T>
+class VvvActor : public T {
+public:
+    GgafLib::DefaultBoardActor* pHitActor_;
+    VvvWorld* pWorld_;
+public:
+    VvvActor(const char* prm_name, const char* prm_model)
+        : T(prm_name, prm_model) {
+        pHitActor_ = nullptr;
+        pWorld_ =  (VvvWorld*)(pCARETAKER->getSpacetime()->pWorld_);
+    }
+
+    virtual void initialize() override {
+        pHitActor_ = desireActor(GgafLib::DefaultBoardActor, "HitArea", "HitBoard");
+        pHitActor_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+        ViewCollisionChecker* pChecker = pHitActor_->getWorldCollisionChecker();
+        pChecker->createCollisionArea(1);
+        pChecker->setColliAABox(0, 0.5);
+        pHitActor_->setHitAble(true);
+        T::appendGroupChild(KIND_ACTOR, pHitActor_);
+    }
+
+    virtual void processBehavior() override {
+        dxcoord len_left = (-T::_dest_from_vppln_left);
+        dxcoord len_rigth = (-T::_dest_from_vppln_right);
+
+        dxcoord width = len_left  +  len_rigth;
+
+        dxcoord len_top = (-T::_dest_from_vppln_top);
+        dxcoord len_bottom = (-T::_dest_from_vppln_bottom);
+
+        dxcoord height = len_top  +  len_bottom;
+
+        dxcoord x = ( PX_DX(pWorld_->_buffer_width1) / width) * len_left;
+        dxcoord y = PX_DX(pWorld_->_buffer_height1) - (( PX_DX(pWorld_->_buffer_height1) / height)* len_top);
+        // - PX_DX(pWorld_->_buffer_height1/2)
+        //len_left / len_rigth;
+//        RCNV();
+        pHitActor_->setPosition(DX_C(x), DX_C(y));
+    }
+    /**
+     * 範囲中のある値について、範囲を変換した場合の相対値を取得 .
+     * 範囲 min_a ～ max_a の a の値を、範囲 min_b ～ max_b に変換した場合の a に対応する値(b) を得る<br>
+     */
+    static inline double _rcnv_(double max_a, double a,  double max_b) {
+        return ( max_b  / max_a) * a;
+    }
+
+
+
+    virtual ~VvvActor() {
+    }
+};
+
 
 VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pCamWorker_ = NEW VvvCamWorker("VvvCamWorker", pCARETAKER->getSpacetime()->getCamera());
@@ -46,12 +105,22 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     view_help_ = true;
     view_info_ = true;
     pVvvMousePointer_= nullptr;
+
+    _w_r =  1.0 * CONFIG::GAME_BUFFER_WIDTH / CONFIG::RENDER_TARGET_BUFFER_WIDTH;
+    _h_r =  1.0 * CONFIG::GAME_BUFFER_HEIGHT / CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
+
+    _buffer_left1 = CONFIG::RENDER_BUFFER_SOURCE1_LEFT*_w_r;
+    _buffer_top1 = CONFIG::RENDER_BUFFER_SOURCE1_TOP*_h_r;
+    _buffer_width1 = CONFIG::RENDER_BUFFER_SOURCE1_WIDTH*_w_r;
+    _buffer_height1 = CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT*_h_r;
+
+
 }
 
 void VvvWorld::initialize() {
     pVvvMousePointer_ = desireActor(VvvMousePointer);
 //    pVvvMousePointer_->setDefaultKind(KIND_2DFIX_MOUSE_POINTER);
-    bringSceneMediator()->appendGroupChild(pVvvMousePointer_);
+    bringSceneMediator()->appendGroupChild(KIND_POINTER, pVvvMousePointer_);
 
      pFont01_help_->setAlign(ALIGN_LEFT, VALIGN_TOP);
      pFont01_help_->setMaterialColor(1.0,0.5,0.2);
@@ -538,7 +607,7 @@ void VvvWorld::processBehavior() {
                 pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
                 if (xdata.XFileNum >= 2) {
                     GgafLib::DefaultMorphMeshActor* pDefaultMorphMeshActor =
-                            desireActor(GgafLib::DefaultMorphMeshActor, "actor", model.c_str());
+                            desireActor(VvvActor<GgafLib::DefaultMorphMeshActor>, "actor", model.c_str());
                     pActor = pDefaultMorphMeshActor;
                     pChecker = pDefaultMorphMeshActor->getWorldCollisionChecker();
                 } else {
@@ -546,7 +615,7 @@ void VvvWorld::processBehavior() {
     //                pActor = desireActor(GgafLib::WorldBoundActor, "actor", filename);
     //            } else {
                     GgafLib::DefaultMeshActor* pDefaultMeshActor =
-                            desireActor(GgafLib::DefaultMeshActor, "actor", model.c_str());
+                            desireActor(VvvActor<GgafLib::DefaultMeshActor>, "actor", model.c_str());
                     pActor = pDefaultMeshActor;
                     pChecker = pDefaultMeshActor->getWorldCollisionChecker();
     //            }
@@ -557,28 +626,28 @@ void VvvWorld::processBehavior() {
                 }
             } else if (ext == "SPRX") {
                 GgafLib::DefaultSpriteActor* pDefaultSpriteActor =
-                        desireActor(GgafLib::DefaultSpriteActor, "actor", model.c_str());
+                        desireActor(VvvActor<GgafLib::DefaultSpriteActor>, "actor", model.c_str());
                 pActor = pDefaultSpriteActor;
                 pChecker = pDefaultSpriteActor->getWorldCollisionChecker();
             } else if (ext == "PSPRX") {
                 GgafLib::DefaultPointSpriteActor* pDefaultPointSpriteActor =
-                        desireActor(GgafLib::DefaultPointSpriteActor, "actor", model.c_str());
+                        desireActor(VvvActor<GgafLib::DefaultPointSpriteActor>, "actor", model.c_str());
                 pActor = pDefaultPointSpriteActor;
                 pChecker = pDefaultPointSpriteActor->getWorldCollisionChecker();
             } else if (ext == "FSPRX") {
                 GgafLib::DefaultFramedSpriteActor* pDefaultFramedSpriteActor =
-                        desireActor(GgafLib::DefaultFramedSpriteActor, "actor", model.c_str());
+                        desireActor(VvvActor<GgafLib::DefaultFramedSpriteActor>, "actor", model.c_str());
                 pActor = pDefaultFramedSpriteActor;
                 pChecker = pDefaultFramedSpriteActor->getWorldCollisionChecker();
             } else if (ext == "RSPRX") {
                 GgafLib::DefaultRegularPolygonSpriteActor* pDefaultRegularPolygonSpriteActor =
-                        desireActor(GgafLib::DefaultRegularPolygonSpriteActor, "actor", model.c_str());
+                        desireActor(VvvActor<GgafLib::DefaultRegularPolygonSpriteActor>, "actor", model.c_str());
                 pActor = pDefaultRegularPolygonSpriteActor;
                 pChecker = pDefaultRegularPolygonSpriteActor->getWorldCollisionChecker();
             } else if (ext == "X") {
                 //DefaultMeshActor のみ x ファイル直接でも大丈夫
                 GgafLib::DefaultMeshActor* pDefaultMeshActor =
-                        desireActor(GgafLib::DefaultMeshActor, "actor", model.c_str());
+                        desireActor(VvvActor<GgafLib::DefaultMeshActor>, "actor", model.c_str());
                 pActor = pDefaultMeshActor;
                 pChecker = pDefaultMeshActor->getWorldCollisionChecker();
             }
@@ -588,16 +657,24 @@ void VvvWorld::processBehavior() {
                 pChecker->createCollisionArea(1);
                 pChecker->setColliSphere(0, DX_C(bound));
                 pActor->setHitAble(true);
-
                 bringSceneMediator()->appendGroupChild(KIND_ACTOR, pActor);
+
+
+//                GgafLib::DefaultBoardActor* pDefaultBoardActor =
+//                        desireActor(GgafLib::DefaultBoardActor, "HitArea", "HitBoard");
+//                pActor->appendGroupChild(KIND_ACTOR, pDefaultBoardActor);
+
+
+
                 ActorInfo* pActorInfo = NEW ActorInfo(pActor, pChecker, string(VvvCaretaker::dropfiles_));
                 listActorInfo_.addLast(pActorInfo);
                 listActorInfo_.createIndex();
                 listActorInfo_.last(); //カレントをlastへ
-                VvvCamera* pCam = pCARETAKER->getSpacetime()->getCamera();
 
-                GgafDx::GeometricActor* p = pCam->getCameraViewPoint();
-                pActor->setPositionAt(p);
+
+                VvvCamera* pCam = pCARETAKER->getSpacetime()->getCamera();
+                GgafDx::GeometricActor* pCameraViewPoint = pCam->getCameraViewPoint();
+                pActor->setPositionAt(pCameraViewPoint);
             }
 
 
@@ -619,7 +696,7 @@ void VvvWorld::processBehavior() {
                 CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir;
                 string was_model = UTIL::getFileBaseNameWithoutExt(listActorInfo_.getCurrent()->modelfile_.c_str());
                 GgafLib::CubeMapMeshActor* pCubeMapMeshActor =
-                        desireActor(GgafLib::CubeMapMeshActor, "actor", was_model.c_str());
+                        desireActor(VvvActor<GgafLib::CubeMapMeshActor>, "actor", was_model.c_str());
                 CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
                 CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                 CONFIG::DIR_TEXTURE[2]    = dropfile_dir;
@@ -634,7 +711,7 @@ void VvvWorld::processBehavior() {
                 CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                 CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir;
                 GgafLib::CubeMapMorphMeshActor*  pCubeMapMorphMeshActor =
-                        desireActor(GgafLib::CubeMapMorphMeshActor, "actor", pCurrentActor->getModel()->getName());
+                        desireActor(VvvActor<GgafLib::CubeMapMorphMeshActor>, "actor", pCurrentActor->getModel()->getName());
                 CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
                 CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                 CONFIG::DIR_TEXTURE[2]    = dropfile_dir;

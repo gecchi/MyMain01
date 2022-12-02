@@ -34,11 +34,6 @@ public:
     static pixcoord RENDER_TARGET_BUFFER_HEIGHT;
 
     /** [r] 描画先サーフェイス（RENDER_TARGET_BUFFER）の中から、実際にゲームに表示する画面領域（クリッピング） */
-//    static pixcoord RENDER_BUFFER_SOURCE1_LEFT;
-//    static pixcoord RENDER_BUFFER_SOURCE1_TOP;
-//    static pixcoord RENDER_BUFFER_SOURCE1_WIDTH;
-//    static pixcoord RENDER_BUFFER_SOURCE1_HEIGHT;
-
     static pixcoord RENDER_BUFFER_SOURCE1_LEFT;
     static pixcoord RENDER_BUFFER_SOURCE1_TOP;
     static pixcoord RENDER_BUFFER_SOURCE1_WIDTH;

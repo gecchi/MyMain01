@@ -19,8 +19,8 @@ void VvvSpacetime::initialize() {
 
 void VvvSpacetime::processBehavior() {
 
-    executeWorldHitCheck(KIND_POINTER_RAY, KIND_ACTOR);
-
+    executeWorldHitCheck(KIND_POINTER, KIND_ACTOR);
+    executeViewHitCheck(KIND_POINTER, KIND_ACTOR);
 }
 
 VvvSpacetime::~VvvSpacetime() {

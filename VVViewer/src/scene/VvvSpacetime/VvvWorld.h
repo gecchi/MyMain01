@@ -50,6 +50,13 @@ public:
     bool view_help_;
     VvvMousePointer* pVvvMousePointer_;
 
+    double _w_r;
+    double _h_r;
+    pixcoord _buffer_left1;
+    pixcoord _buffer_top1;
+    pixcoord _buffer_width1;
+    pixcoord _buffer_height1;
+
     /**
      * コンストラクタ .
      * @param prm_name 名称
