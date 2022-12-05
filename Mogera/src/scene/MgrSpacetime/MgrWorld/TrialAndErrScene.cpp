@@ -66,8 +66,8 @@ void TrialAndErrScene::processBehavior() {
 
         pLabelMenuItemFont01 = (LabelMenuItemFont01*)receiveActor(4000);
         pLabelMenuItemFont01->update("AAAAAA\r\nBBBBBBB");
-        pLabelMenuItemFont01->getWorldCollisionChecker()->createCollisionArea(1);
-        pLabelMenuItemFont01->getWorldCollisionChecker()->setColliAABox(0, 0.8);
+        pLabelMenuItemFont01->getViewCollisionChecker()->createCollisionArea(1);
+        pLabelMenuItemFont01->getViewCollisionChecker()->setColliAABox(0, 0.8);
         pLabelMenuItemFont01->setHitAble(true);
         bringSceneMediator()->appendGroupChild(MGR_MIKATA, pLabelMenuItemFont01);
         pLabelMenuItemFont01->setPosition(PX_C(300), PX_C(250));

@@ -50,7 +50,7 @@ public:
     virtual void initialize() override {
         pHitActor_ = desireActor(GgafLib::DefaultBoardActor, "HitArea", "HitBoard");
         pHitActor_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-        ViewCollisionChecker* pChecker = pHitActor_->getWorldCollisionChecker();
+        ViewCollisionChecker* pChecker = pHitActor_->getViewCollisionChecker();
         pChecker->createCollisionArea(1);
         pChecker->setColliAABox(0, 0.5);
         pHitActor_->setHitAble(true);
@@ -70,20 +70,8 @@ public:
 
         dxcoord x = ( PX_DX(pWorld_->_buffer_width1) / width) * len_left;
         dxcoord y = PX_DX(pWorld_->_buffer_height1) - (( PX_DX(pWorld_->_buffer_height1) / height)* len_top);
-        // - PX_DX(pWorld_->_buffer_height1/2)
-        //len_left / len_rigth;
-//        RCNV();
         pHitActor_->setPosition(DX_C(x), DX_C(y));
     }
-    /**
-     * 範囲中のある値について、範囲を変換した場合の相対値を取得 .
-     * 範囲 min_a ～ max_a の a の値を、範囲 min_b ～ max_b に変換した場合の a に対応する値(b) を得る<br>
-     */
-    static inline double _rcnv_(double max_a, double a,  double max_b) {
-        return ( max_b  / max_a) * a;
-    }
-
-
 
     virtual ~VvvActor() {
     }

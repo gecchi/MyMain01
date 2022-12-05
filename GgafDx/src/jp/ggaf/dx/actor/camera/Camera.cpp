@@ -51,6 +51,7 @@ _y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
     // 射影変換行列作成
     _TRACE_(FUNC_NAME<<" _cameraZ_org="<<_cameraZ_org<<" dxcoord");
     _TRACE_(FUNC_NAME<<" _dep="<<_dep<<"");
+    _TRACE_(FUNC_NAME<<" _zn=" << _zn << " dxcoord");
     _TRACE_(FUNC_NAME<<" _zf=("<<-_cameraZ_org<<"*("<<_dep<<"+1.0))=" << _zf << " dxcoord");
     _TRACE_(FUNC_NAME<<" カメラの表示距離範囲 ["<<_zn<<" ~ "<<_zf<<"] dxcoord");
 
@@ -75,11 +76,11 @@ _y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
     } else {
         //3Dモード通常射影
         D3DXMatrixPerspectiveFovLH(
-                &_matProj,
-                _rad_fovY,       //y方向視野角ラディアン(0～π)
-                _screen_aspect,  //アスペクト比  640×480 の場合  640/480
-                _zn,             //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
-                _zf              //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
+            &_matProj,
+            _rad_fovY,       //y方向視野角ラディアン(0～π)
+            _screen_aspect,  //アスペクト比  640×480 の場合  640/480
+            _zn,             //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
+            _zf              //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
         );
     }
 
@@ -89,13 +90,29 @@ _y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
     setHitAble(false);
 
     pCARETAKER->_pID3DDevice9->GetViewport(&_viewport);
-
+    _TRACE_("_viewport.X="<<_viewport.X);
+    _TRACE_("_viewport.Y="<<_viewport.Y);
+    _TRACE_("_viewport.Width="<<_viewport.Width);
+    _TRACE_("_viewport.Height="<<_viewport.Height);
+    _TRACE_("_viewport.MinZ="<<_viewport.MinZ);
+    _TRACE_("_viewport.MaxZ="<<_viewport.MaxZ);
     _x_prev = 0;
     _y_prev = 0;
     _z_prev = 0;
 
     _pCameraViewPoint = nullptr;
     _pCameraUpVector = nullptr;
+
+
+    //ビューポート行列
+    // | W/2,    0, 0, 0 |
+    // |   0, -H/2, 0, 0 |
+    // |   0,    0, 1, 0 |
+    // | W/2,  H/2, 0, 1 |
+    //
+    //W :スクリーン幅(ピクセル)
+    //H :スクリーン高さ(ピクセル)
+
 }
 
 void Camera::initialize() {
@@ -111,6 +128,17 @@ void Camera::processBehavior() {
     const dxcoord x2 = dxcoord(_viewport.X + _viewport.Width);
     const dxcoord y2 = dxcoord(_viewport.Y + _viewport.Height);
 
+    //(x1,y1)   -------->
+    //    +--------------------+
+    //  | |                    |
+    //  | |                    |
+    //  | |                    |
+    //  | |                    |
+    //  | |                    |
+    //  v |                    |
+    //    +--------------------+
+    //                         (x2,y2)
+    //※y 軸が逆
     // 視錐台の８点が格納されるインスタンス
     _vecNear[0].x = x1;  _vecNear[0].y = y1;  _vecNear[0].z = _viewport.MinZ;   // 左下 (変換後)
     _vecNear[1].x = x2;  _vecNear[1].y = y1;  _vecNear[1].z = _viewport.MinZ;   // 右下 (変換後)

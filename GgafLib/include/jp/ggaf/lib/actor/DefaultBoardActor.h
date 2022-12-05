@@ -49,7 +49,7 @@ public:
 
     virtual void drawHitArea() override;
 
-    inline ViewCollisionChecker* getWorldCollisionChecker() {
+    inline ViewCollisionChecker* getViewCollisionChecker() {
         return _pColliCollisionChecker;
     }
 

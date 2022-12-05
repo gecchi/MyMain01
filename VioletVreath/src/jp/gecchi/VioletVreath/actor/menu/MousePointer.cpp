@@ -22,7 +22,7 @@ MousePointer::MousePointer(const char* prm_name) :
     _class_name = "MousePointer";
 
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    ViewCollisionChecker* pChecker = getWorldCollisionChecker();
+    ViewCollisionChecker* pChecker = getViewCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSquare(0, PX_C(16));
     setHitAble(true);

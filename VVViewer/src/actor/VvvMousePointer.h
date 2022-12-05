@@ -8,6 +8,9 @@ namespace VVViewer {
 class VvvMousePointer : public GgafLib::MousePointerActor {
 
 public:
+
+    GgafLib::DefaultMeshActor* pI_;
+
     VvvMousePointer(const char* prm_name);
 
     void onCreateModel() override;
