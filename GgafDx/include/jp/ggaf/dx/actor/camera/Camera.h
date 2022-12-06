@@ -193,7 +193,9 @@ public:
     inline dxcoord getZOrigin() const {
         return _cameraZ_org;
     }
-
+    inline double getDep() {
+        return _dep;
+    }
     virtual ~Camera(); //デストラクタ
 };
 

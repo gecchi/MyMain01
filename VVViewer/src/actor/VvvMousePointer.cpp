@@ -37,12 +37,13 @@ void VvvMousePointer::onCreateModel() {
 
 void VvvMousePointer::initialize() {
 
-//    pI_ = desireActor(GgafLib::DefaultMeshActor, "Guruguru", "Guruguru");
-//    WorldCollisionChecker* pChecker = pI_->getWorldCollisionChecker();
-//    pChecker->createCollisionArea(1);
-//    pChecker->setColliSphere(0, PX_C(100));
-//    pI_->setHitAble(true);
-//    appendGroupChild(KIND_ACTOR, pI_);
+    pI_ = desireActor(GgafLib::DefaultMeshActor, "Guruguru", "Guruguru");
+    WorldCollisionChecker* pChecker = pI_->getWorldCollisionChecker();
+    pChecker->createCollisionArea(1);
+    pChecker->setColliSphere(0, PX_C(100));
+    pI_->setScaleR(3.0);
+    pI_->setHitAble(true);
+    appendGroupChild(KIND_ACTOR, pI_);
 }
 
 void VvvMousePointer::onActive() {
@@ -76,22 +77,46 @@ void VvvMousePointer::processBehavior() {
     dxcoord zn = pCam->_zn;
     dxcoord zf = pCam->_zf;
     dxcoord cameraZ_org = pCam->_cameraZ_org;
+    dxcoord dep = pCam->_dep;
 
+    //   0 _zn(0.1)                                                              _zf(1.0)
+    //   | |                                                                      |
+    //---<-+------------------------o---------------------------------------------+- - - - - -
+    //   |                          |                                             |
+    //  cameraZ_org                 |                                  -_cameraZ_org*_dep
+    //   |<----------target_dep_d-->|
+
+    dxcoord target_dep_d = -cameraZ_org; //オブジェクトの距離（ここに実際の測った距離）
     //深さデフォルトのZは
-    dxcoord Z = RCNV(cameraZ_org, zf, 0.0, 0.0, 1.0);
-    //_zf=(68.3*(15+1.0))=1092.8 dxcoord
-    D3DXVECTOR3 pos = { (FLOAT)C_PX(_x), (FLOAT)C_PX(_y), Z };
-    _TRACE_("befor pos=("<<pos.x<<","<<pos.y<<","<<pos.z<<")");
+    dxcoord zt = RCNV(0, -cameraZ_org*(dep+1), target_dep_d, zn, zf);
+    dxcoord zt_rate = RCNV(zn, zf, zt, 0.0, 1.0);
+    D3DXVECTOR3 inN = D3DXVECTOR3( (FLOAT)C_PX(_x), (FLOAT)C_PX(_y), (FLOAT)0 );
+    D3DXVECTOR3 inF = D3DXVECTOR3( (FLOAT)C_PX(_x), (FLOAT)C_PX(_y), (FLOAT)1 );
+    D3DXVECTOR3 outN,  outF;
+    //_TRACE_("befor inN=("<<inN.x<<","<<inN.y<<","<<inN.z<<")");
+    //_TRACE_("befor inF=("<<inF.x<<","<<inF.y<<","<<inF.z<<")");
     D3DXVec3Unproject(
-        &pos,         //D3DXVECTOR3 *pOut,              [in, out] 演算結果である D3DXVECTOR3 構造体へのポインタ。
-        &pos,         //CONST D3DXVECTOR3 *pV,          [in] 処理の基になる D3DXVECTOR3 構造体へのポインタ。(スクリーン座標)
+        &outN,         //D3DXVECTOR3 *pOut,              [in, out] 演算結果である D3DXVECTOR3 構造体へのポインタ。
+        &inN,         //CONST D3DXVECTOR3 *pV,          [in] 処理の基になる D3DXVECTOR3 構造体へのポインタ。(スクリーン座標)
         &(pCam->_viewport),   //CONST D3DVIEWPORT9 *pViewport,  [in] ビューポートを表す D3DVIEWPORT9 構造体へのポインタ。
         &(pCam->_matProj),    //CONST D3DXMATRIX *pProjection,  [in] 射影行列を表す D3DXMATRIX 構造体へのポインタ。
         &(pCam->_matView),    //CONST D3DXMATRIX *pView,        [in] ビュー行列を表す D3DXMATRIX 構造体へのポインタ。
         &mat_world            //CONST D3DXMATRIX *pWorld        [in] ワールド行列を表す D3DXMATRIX 構造体へのポインタ。
     );
-    _TRACE_("after DX_C(pos)=("<<DX_C(pos.x)<<","<<DX_C(pos.y)<<","<<DX_C(pos.z)<<")");
-   // pI_->setPosition(DX_C(pos.x),DX_C(pos.y),DX_C(pos.z));
+    D3DXVec3Unproject(
+        &outF,         //D3DXVECTOR3 *pOut,              [in, out] 演算結果である D3DXVECTOR3 構造体へのポインタ。
+        &inF,         //CONST D3DXVECTOR3 *pV,          [in] 処理の基になる D3DXVECTOR3 構造体へのポインタ。(スクリーン座標)
+        &(pCam->_viewport),   //CONST D3DVIEWPORT9 *pViewport,  [in] ビューポートを表す D3DVIEWPORT9 構造体へのポインタ。
+        &(pCam->_matProj),    //CONST D3DXMATRIX *pProjection,  [in] 射影行列を表す D3DXMATRIX 構造体へのポインタ。
+        &(pCam->_matView),    //CONST D3DXMATRIX *pView,        [in] ビュー行列を表す D3DXMATRIX 構造体へのポインタ。
+        &mat_world            //CONST D3DXMATRIX *pWorld        [in] ワールド行列を表す D3DXMATRIX 構造体へのポインタ。
+    );
+    //_TRACE_("after outN=("<<outN.x<<","<<outN.y<<","<<outN.z<<")");
+    //_TRACE_("after outF=("<<outF.x<<","<<outF.y<<","<<outF.z<<")");
+    dxcoord x = RCNV(0.0, 1.0, zt_rate, outN.x, outF.x);
+    dxcoord y = RCNV(0.0, 1.0, zt_rate, outN.y, outF.y);
+    dxcoord z = RCNV(0.0, 1.0, zt_rate, outN.z, outF.z);
+   pI_->setPosition(DX_C(x),DX_C(y),DX_C(z));
 }
 
 void VvvMousePointer::processJudgement() {

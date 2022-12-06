@@ -67,23 +67,22 @@ void Spacetime::SeArray::play(int index) {
 }
 
 Spacetime::Spacetime(const char* prm_name, Camera* prm_pCamera) : GgafCore::Spacetime(prm_name),
-_x_bound_left  (-DX_C(prm_pCamera->getZFar())), //カメラの写す範囲＝Spacetimeの範囲
-_x_bound_right (+DX_C(prm_pCamera->getZFar())),
-_y_bound_bottom(-DX_C(prm_pCamera->getZFar())),
-_y_bound_top   (+DX_C(prm_pCamera->getZFar())),
-_z_bound_near  (-DX_C(prm_pCamera->getZFar())),
-_z_bound_far   (+DX_C(prm_pCamera->getZFar())),
+_x_bound_left  (-DX_C(-prm_pCamera->getZOrigin()*prm_pCamera->getDep())), //カメラの写す範囲＝Spacetimeの範囲
+_x_bound_right (+DX_C(-prm_pCamera->getZOrigin()*prm_pCamera->getDep())),
+_y_bound_bottom(-DX_C(-prm_pCamera->getZOrigin()*prm_pCamera->getDep())),
+_y_bound_top   (+DX_C(-prm_pCamera->getZOrigin()*prm_pCamera->getDep())),
+_z_bound_near  (-DX_C(-prm_pCamera->getZOrigin()*prm_pCamera->getDep())),
+_z_bound_far   (+DX_C(-prm_pCamera->getZOrigin()*prm_pCamera->getDep())),
 _x_bound_left_b   (_x_bound_left    + PX_C(CONFIG::GAME_BUFFER_WIDTH  / 2)),
 _x_bound_right_b  (_x_bound_right   + PX_C(CONFIG::GAME_BUFFER_WIDTH  / 2)),
 _y_bound_bottom_b (-_y_bound_bottom + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2)),
 _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
 {
-
     _obj_class |= Obj_GgafDx_Spacetime;
     _class_name = "Spacetime";
 
-    _TRACE_("Spacetime Bound = X("<<_x_bound_left<<" ~ "<<_x_bound_right<<") Y("<<_y_bound_bottom<<" ~ "<<_y_bound_top<<") Z("<<_z_bound_near<<" ~ "<<_z_bound_far<<")");
-    _TRACE_("Spacetime board Bound  = X("<<_x_bound_left_b<<" ~ "<<_x_bound_right_b<<") Y("<<_y_bound_top_b<<" ~ "<<_y_bound_bottom_b<<")");
+    _TRACE_("Spacetime World  Bound = X("<<_x_bound_left<<" ~ "<<_x_bound_right<<") Y("<<_y_bound_bottom<<" ~ "<<_y_bound_top<<") Z("<<_z_bound_near<<" ~ "<<_z_bound_far<<")");
+    _TRACE_("Spacetime Screen Bound = X("<<_x_bound_left_b<<" ~ "<<_x_bound_right_b<<") Y("<<_y_bound_top_b<<" ~ "<<_y_bound_bottom_b<<")");
 
 
 //TODO:フォグいつか

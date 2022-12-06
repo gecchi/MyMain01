@@ -6,7 +6,6 @@
 #include "jp/ggaf/lib/util/Quaternion.hpp"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
-#include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraUpVector.h"
@@ -56,12 +55,34 @@ void AroundViewCamWorker::processBehavior() {
 //    } else if(GgafDx::Input::isReleasedUpMouseButton(0) || GgafDx::Input::isReleasedUpMouseButton(1) || GgafDx::Input::isReleasedUpMouseButton(2)) {
 //        pVPGuide_->inactivate(); //ガイドOFF
 //    }
-
-    if (isPushedMouseButton0 || isPushedMouseButton1 || isPushedMouseButton2) {
+    POINT mouse_point;
+    //マウスの座標を取得
+    GetCursorPos(&mouse_point);
+    // カーソル位置からウィンドウハンドル取得
+    HWND hWnd = WindowFromPoint(mouse_point);
+//    if (pCARETAKER->_sync_frame_time) {
+//        _onScreen = false;
+//        _hWnd_last = nullptr;
+//        _isPressed0 = false;
+//        _isPressed1 = false;
+//        _isPressed2 = false;
+//    } else {
+        if (pCARETAKER->_pHWndPrimary == hWnd) {
+            _onScreen = true;
+            _hWnd_last = hWnd;
+        } else if (pCARETAKER->_pHWndSecondary && pCARETAKER->_pHWndSecondary == hWnd) {
+            _onScreen = true;
+            _hWnd_last = hWnd;
+        } else {
+            _onScreen = false;
+            _hWnd_last = nullptr;
+        }
+//    }
+    if (_onScreen && (isPushedMouseButton0 || isPushedMouseButton1 || isPushedMouseButton2)) {
         RECT cRect; // クライアント領域の矩形
         int cw, ch; // クライアント領域の幅、高さ
         // クライアント領域の幅・高さを計算
-        GetClientRect(pCARETAKER->_pHWndPrimary, &cRect);
+        GetClientRect(_hWnd_last, &cRect);
         cw = cRect.right - cRect.left;
         ch = cRect.bottom - cRect.top;
         if (cw > ch) {
@@ -69,6 +90,24 @@ void AroundViewCamWorker::processBehavior() {
         } else {
             _cd = cw;
         }
+        if (isPushedMouseButton0) {
+            _isPressed0 = true;
+        }
+        if (isPushedMouseButton1) {
+            _isPressed1 = true;
+        }
+        if (isPushedMouseButton2) {
+            _isPressed2 = true;
+        }
+    }
+    if (!isPressedMouseButton0) {
+        _isPressed0 = false;
+    }
+    if (!isPressedMouseButton1) {
+        _isPressed1 = false;
+    }
+    if (!isPressedMouseButton2) {
+        _isPressed2 = false;
     }
 
     static const coord game_width = PX_C(CONFIG::GAME_BUFFER_WIDTH*2);
@@ -125,7 +164,7 @@ void AroundViewCamWorker::processBehavior() {
         //(x, y, z) は CAM か VP か UP
 
         //視点を中心にカメラが回転移動
-        if (isPressedMouseButton0 && (mdx != 0 || mdy != 0)) {
+        if ((_isPressed0) && (mdx != 0 || mdy != 0)) {
             //注視点→カメラ の方向ベクトル(vx, vy, vz)
             double vx_eye = (double)(_t_x_CAM - _t_x_VP);
             double vy_eye = (double)(_t_y_CAM - _t_y_VP);
@@ -148,7 +187,7 @@ void AroundViewCamWorker::processBehavior() {
             }
         }
         //カメラを中心に視点が回転移動
-        if (isPressedMouseButton1 && (mdx != 0 || mdy != 0)) {
+        if (_isPressed1 && (mdx != 0 || mdy != 0)) {
             //カメラ→注視点 の方向ベクトル(vx, vy, vz)
             double vx_cam = (double)(_t_x_VP - _t_x_CAM);
             double vy_cam = (double)(_t_y_VP - _t_y_CAM);
@@ -171,7 +210,7 @@ void AroundViewCamWorker::processBehavior() {
             }
         }
         //カメラをと視点が平行移動
-        if (isPressedMouseButton2 && (mdx != 0 || mdy != 0)) {
+        if (_isPressed2 && (mdx != 0 || mdy != 0)) {
             double ang = -PI/2.0;
             double sinHalf = sin(ang/2); //回転させたい角度
             double cosHalf = cos(ang/2);
@@ -196,7 +235,7 @@ void AroundViewCamWorker::processBehavior() {
                         _t_z_VP + (qu.k*r) , DEFAULT_CAMERA_SLIDE_FRAMES);
         }
 
-    } else if (mdz != 0 || (isPressedMouseButton0 && isPressedMouseButton1)) {
+    } else if ((mdz != 0 && _onScreen) || (isPressedMouseButton0 && isPressedMouseButton1)) {
         //ウォークスルー
         if (_mdz_flg == false) {
             //ホイールした（両方押し）最初のフレーム

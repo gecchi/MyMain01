@@ -21,7 +21,7 @@ _tan_half_fovX(tan(_rad_fovX/2.0)),
 _tan_half_fovY(tan(_rad_fovY/2.0)),
 _cameraZ_org(-1.0 * ((1.0 * (CONFIG::GAME_BUFFER_HEIGHT) / PX_UNIT) / 2.0) / _tan_half_fovY),
 _zn(0.1f),
-_zf(-_cameraZ_org*(_dep+1.0)),
+_zf(-_cameraZ_org*(_dep+1.0)-_zn),
 _x_buffer_left(PX_C(CONFIG::GAME_BUFFER_WIDTH) / -2),
 _x_buffer_right(PX_C(CONFIG::GAME_BUFFER_WIDTH) / 2),
 _y_buffer_top(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / 2),
@@ -52,7 +52,7 @@ _y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
     _TRACE_(FUNC_NAME<<" _cameraZ_org="<<_cameraZ_org<<" dxcoord");
     _TRACE_(FUNC_NAME<<" _dep="<<_dep<<"");
     _TRACE_(FUNC_NAME<<" _zn=" << _zn << " dxcoord");
-    _TRACE_(FUNC_NAME<<" _zf=("<<-_cameraZ_org<<"*("<<_dep<<"+1.0))=" << _zf << " dxcoord");
+    _TRACE_(FUNC_NAME<<" _zf=("<<-_cameraZ_org<<"*("<<_dep<<"+1.0)-"<<_zn<<")=" << _zf << " dxcoord");
     _TRACE_(FUNC_NAME<<" ƒJƒƒ‰‚Ì•\Ž¦‹——£”ÍˆÍ ["<<_zn<<" ~ "<<_zf<<"] dxcoord");
 
     //³ŽË‰e
