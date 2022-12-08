@@ -31,13 +31,20 @@
  * 範囲中のある値について、範囲を変換した場合の相対値を取得 .
  * 範囲 MIN_A__ ～ MAX_A__ の A__ の値を、範囲 MIN_B__ ～ MAX_B__ に変換した場合の A__ に対応した値を得る<br>
  */
-#define RCNV(MIN_A__,MAX_A__,A__,MIN_B__,MAX_B__) (GgafCore::Util::_rcnv_((double)(MIN_A__),(double)(MAX_A__),(double)(A__),(double)(MIN_B__),(double)(MAX_B__)))
+#define RCNV(MIN_A__,MAX_A__,A__,MIN_B__,MAX_B__)  ( GgafCore::Util::_rcnv_((double)(MIN_A__),(double)(MAX_A__),(double)(A__),(double)(MIN_B__),(double)(MAX_B__)) )
+
 /**
  * 0 ～ 1 の範囲のある値について、範囲を変換した場合の相対値を取得 .
- * 範囲 0 ～ 1 の X の値を、範囲 MIN_B__ ～ MAX_B__ に変換した場合の値を得る<br>
- * y = ( (max_b-min_b)*x + min_b)
+ * 範囲 0 ～ 1 の X_IN_0_1 の値を、範囲 MIN_B__ ～ MAX_B__ に変換した場合の値を得る<br>
  */
-#define RCNV_0_to_1(X,MIN_B__,MAX_B__) (GgafCore::Util::_rcnv_0_to_1_((double)(X),(double)(MIN_B__),(double)(MAX_B__)))
+#define RCNV_0_1_to(X_IN_0_1,MIN_B__,MAX_B__)  ( GgafCore::Util::_rcnv_0_1_to((double)(X_IN_0_1),(double)(MIN_B__),(double)(MAX_B__)) )
+
+/**
+ * 範囲中のある値について、0 ～ 1 の範囲に変換した場合の相対値を取得 .
+ * 範囲 MIN_A__ ～ MAX_A__ の A__ の値を、範囲 0 ～ 1 に変換した場合の A__ に対応した値を得る<br>
+ */
+#define RCNV_to_0_1(MIN_A__,MAX_A__,A__)  ( GgafCore::Util::_rcnv_to_0_1((double)(MIN_A__),(double)(MAX_A__),(double)(A__)) )
+
 
 /**
  * 整数の乱数を得る .
@@ -454,9 +461,15 @@ public:
         return ( (min_b-max_b)*a - (max_a*min_b) + (max_b*min_a) ) / (min_a-max_a);
     }
 
-    static inline double _rcnv_0_to_1_(double x, double min_b, double max_b) {
-        return ( (max_b-min_b)*x + min_b);
+    static inline double _rcnv_0_1_to(double x_in_0_1, double min_b, double max_b) {
+        return ( (max_b-min_b)*x_in_0_1 + min_b);
     }
+
+    static inline double _rcnv_to_0_1(double min_a, double max_a, double a) {
+        return ((min_a-a) / (min_a-max_a));
+    }
+
+
     /**
      * ３乗根を求める .
      * @param x

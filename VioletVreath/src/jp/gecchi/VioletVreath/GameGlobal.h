@@ -32,7 +32,7 @@
  * ランク値(RANK_VAL)が 0.0 を下回っても制限無し。
  * ランク値(RANK_VAL)が 1.0 を上回っても制限無し。
  */
-#define RF(RANK_VAL, RANK_0_VAL, RANK_1_VAL)  ( RCNV_0_to_1( (RANK_VAL), (RANK_0_VAL), (RANK_1_VAL) ) )
+#define RF(RANK_VAL, RANK_0_VAL, RANK_1_VAL)  ( RCNV_0_1_to( (RANK_VAL), (RANK_0_VAL), (RANK_1_VAL) ) )
 
 /**
  * ランク用関数(上限下限有り) .
@@ -40,7 +40,7 @@
  * ランク値(RANK_VAL)が 0.0 を下回る場合は、RANK_0_VALに固定。
  * ランク値(RANK_VAL)が 1.0 を上回る場合は、RANK_1_VALに固定。
  */
-#define RF_ULL(RANK_VAL, RANK_0_VAL, RANK_1_VAL)  ( ((RANK_VAL) < 0) ? (RANK_0_VAL) : ( ((RANK_VAL) > 1) ? (RANK_1_VAL) : (RCNV_0_to_1((RANK_VAL),(RANK_0_VAL),(RANK_1_VAL))) ) )
+#define RF_ULL(RANK_VAL, RANK_0_VAL, RANK_1_VAL)  ( ((RANK_VAL) < 0) ? (RANK_0_VAL) : ( ((RANK_VAL) > 1) ? (RANK_1_VAL) : (RCNV_0_1_to((RANK_VAL),(RANK_0_VAL),(RANK_1_VAL))) ) )
 
 /**
  * ランク用関数(下限のみ有り) .
@@ -48,7 +48,7 @@
  * ランク値(RANK_VAL)が 0.0 を下回る場合は、RANK_0_VALに固定。
  * ランク値(RANK_VAL)が 1.0 を上回っても制限無し。
  */
-#define RF_LL(RANK_VAL, RANK_0_VAL, RANK_1_VAL)  ( ((RANK_VAL) < 0) ? (RANK_0_VAL) : (RCNV_0_to_1((RANK_VAL),(RANK_0_VAL),(RANK_1_VAL))) )
+#define RF_LL(RANK_VAL, RANK_0_VAL, RANK_1_VAL)  ( ((RANK_VAL) < 0) ? (RANK_0_VAL) : (RCNV_0_1_to((RANK_VAL),(RANK_0_VAL),(RANK_1_VAL))) )
 
 /**
  * ランク用関数(上限のみ有り) .
@@ -56,7 +56,7 @@
  * ランク値(RANK_VAL)が 0.0 を下回っても制限無し。
  * ランク値(RANK_VAL)が 1.0 を上回る場合は、RANK_1_VALに固定。
  */
-#define RF_UL(RANK_VAL, RANK_0_VAL, RANK_1_VAL)  ( ((RANK_VAL) > 1) ? (RANK_1_VAL) : (RCNV_0_to_1((RANK_VAL),(RANK_0_VAL),(RANK_1_VAL))) )
+#define RF_UL(RANK_VAL, RANK_0_VAL, RANK_1_VAL)  ( ((RANK_VAL) > 1) ? (RANK_1_VAL) : (RCNV_0_1_to((RANK_VAL),(RANK_0_VAL),(RANK_1_VAL))) )
 
 
 namespace VioletVreath {

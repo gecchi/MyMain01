@@ -19,6 +19,8 @@ public:
 
     void onActive() override;
 
+    void processBehaviorX();
+    void processBehaviorX2();
     void processBehavior() override;
 
     void processJudgement() override;

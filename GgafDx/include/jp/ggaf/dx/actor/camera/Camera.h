@@ -28,45 +28,43 @@ class Camera : public GeometricActor {
 
 public:
     D3DVIEWPORT9 _viewport;
-
-    // 視錐台の6つの面の頂点座標
-    /** [r]視錐台面、手前の四角形の頂点(読み込み専用、毎フレーム更新) */
-    D3DXVECTOR3 _vecNear[4];
-    /** [r]視錐台面、奥の四角形の頂点(読み込み専用、毎フレーム更新) */
-    D3DXVECTOR3 _vecFar[4];
-
-    D3DXVECTOR3 _vecVerticalCenter[4];
-
     // 視錐台の6つの面
-    /** [r]視錐台面、上(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台上面、法線は視錐台の内から外に向いている(毎フレーム更新) */
     D3DXPLANE _plnTop;
-    /** [r]視錐台面、下(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台下面、法線は視錐台の内から外に向いている(毎フレーム更新) */
     D3DXPLANE _plnBottom;
-    /** [r]視錐台面、左(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台左面、法線は視錐台の内から外に向いている(毎フレーム更新) */
     D3DXPLANE _plnLeft;
-    /** [r]視錐台面、右(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台右面、法線は視錐台の内から外に向いている(毎フレーム更新) */
     D3DXPLANE _plnRight;
-    /** [r]視錐台面、手前(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台手前面、法線は視錐台の内から外に向いている(毎フレーム更新) */
     D3DXPLANE _plnInfront;
-    /** [r]視錐台面、奥(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台奥面、法線は視錐台の内から外に向いている(毎フレーム更新) */
     D3DXPLANE _plnBack;
-    /** [r]視錐台を左右に分割する垂直面、左右の効果音のパンに使用(読み込み専用、毎フレーム更新) */
+    /** [r]視錐台を左右に分割する垂直面、左右の効果音のパンに使用(毎フレーム更新) */
     D3DXPLANE _plnVerticalCenter;
+
+    /** [r]DirectXビューポート変換行列 */
+    D3DXMATRIX _matViewPort;
+    /** [r]DirectXビューポート変換逆行列 */
+    D3DXMATRIX _matInvViewPort;
 
     /** [r]DirectX射影変換行列（現在のカメラの射影変換行列） */
     D3DXMATRIX _matProj;
-    /** [r]DirectX正射影変換行列 */
-    D3DXMATRIX _matOrthoProj;
-
+    /** [r]DirectX射影変換逆行列 */
+    D3DXMATRIX _matInvProj;
     /** [r]DirectXカメラの位置(フレーム毎更新) */
     D3DXVECTOR3* _pVecCamFromPoint;
     /** [r]DirectXカメラの注視点(フレーム毎更新) */
     D3DXVECTOR3* _pVecCamLookatPoint;
     /** [r]DirectXカメラの上ベクトル(フレーム毎更新) */
     D3DXVECTOR3* _pVecCamUp;
-    /** [r]DirectXVIEW変換行列(フレーム毎更新) */
+    /** [r]DirectXビュー変換行列(フレーム毎更新) */
     D3DXMATRIX _matView;
-
+    /** [r]DirectXビュー変換逆行列(フレーム毎更新) */
+    D3DXMATRIX _matInvView;
+    /** [r]視錐台計算用(フレーム毎更新) */
+    D3DXMATRIX _matInvViewPort_Proj_View;
     /** [r]視野角Xラジアン */
     const double _rad_fovX;
     /** [r]深さ（_cameraZ_orgの何倍か)  */
@@ -176,6 +174,10 @@ public:
 
     inline D3DXMATRIX* getProjectionMatrix()  {
         return &_matProj;
+    }
+
+    inline D3DXMATRIX* getInvProjectionMatrix()  {
+        return &_matInvProj;
     }
 
     inline D3DXMATRIX* getViewMatrix() {

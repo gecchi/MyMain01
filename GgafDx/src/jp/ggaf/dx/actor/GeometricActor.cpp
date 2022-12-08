@@ -194,6 +194,30 @@ void GeometricActor::processSettlementBehavior() {
             processChangeGeoFinal(); //絶対座標計算後の処理用コールバック
         }
 
+        // 視錐台の面からの距離
+        //-------------------------------------------------
+        //  平面方程式：ax+by+cz+d
+        //  平面の法線ベクトル：n = (a, b, c)
+        //  平面上の1点を、p = (x0, y0, z0) とすると、
+        //  平面の法線ベクトルと平面状の1点の内積：d = n*p
+        //
+        //  表裏判定をするときは、点 p = (x0, y0, z0)を、
+        //  p = (x0, y0, z0, 1) とみなし、
+        //  平面との内積：a*x0 + b*y0 + c*z0 + d*1 = ans
+        //  ans > 0 なら表、ans < 0 なら裏、ans == 0 なら面上、となる。
+        //  DXPlaneDotCoord() は、この処理を行っている
+        //
+        //  また、p = (x0, y0, z0, 0) とみなして内積の計算を行うと、
+        //  角度の関係を調べることができる。
+        //  → D3DXPlaneDotNormal()
+        //-------------------------------------------------
+        //面：a x + b y + c z + d = 0
+        //点：(x0, y0, z0)
+        //において、面と点の距離は     _______________
+        //D = (a x0 + b y0 + cz0 + d) / √a^2 +b^2 + c^2
+        //であるが
+        //面方程式の法線正規化済みなので、分母＝1 となる
+
         //視錐台面からの距離を更新
         const dxcoord fX = _fX;
         const dxcoord fY = _fY;
@@ -214,11 +238,13 @@ void GeometricActor::processSettlementBehavior() {
                                    pPlnLeft->b * fY +
                                    pPlnLeft->c * fZ +
                                    pPlnLeft->d;
+
         const D3DXPLANE* pPlnRight = &(pCam->_plnRight);
         _dest_from_vppln_right   = pPlnRight->a * fX +
                                    pPlnRight->b * fY +
                                    pPlnRight->c * fZ +
                                    pPlnRight->d;
+
         const D3DXPLANE* pPlnInfront = &(pCam->_plnInfront);
         _dest_from_vppln_infront = pPlnInfront->a * fX +
                                    pPlnInfront->b * fY +
