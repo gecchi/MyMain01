@@ -1,12 +1,10 @@
 #ifndef GGAF_CORE_LINEARQUADTREE_H_
 #define GGAF_CORE_LINEARQUADTREE_H_
 #include "GgafCommonHeader.h"
-#include "jp/ggaf/core/Object.h"
+#include "jp/ggaf/core/util/LinearTree.hpp"
 
-#include "jp/ggaf/core/util/TreeSpace.hpp"
-#include "jp/ggaf/core/util/TreeElem.hpp"
 
-#define MAX_QUADTREE_LEVEL 14
+//#define MAX_QUADTREE_LEVEL 14
 
 namespace GgafCore {
 
@@ -71,7 +69,7 @@ namespace GgafCore {
  * <BR>
  * <B>＜空間(配列)要素番号＞</B><BR>
  * 空間番号に対応する線形配列のインデックスを指す。<BR>
- * 具体的には _paQuadrant の要素番号。<BR>
+ * 具体的には _paTreeSpaceArray の要素番号。<BR>
  * <BR>
  *
  *  <B>【例１】</B><BR>
@@ -112,7 +110,7 @@ namespace GgafCore {
  * @since 2017/08/02
  * @author Masatoshi Tsuge
  */
-class LinearQuadtree : public Object {
+class LinearQuadtree : public LinearTree<2u> {
 
 private:
     /**
@@ -194,13 +192,13 @@ private:
     }
 
 public:
-    /** [r]四分木の空間を一直線に並べた線形配列 */
-    TreeSpace<2u>* _paQuadrant; //_paQuadrant[0] は ROOT空間へのポインタ
-    /** [r]登録を行った空間の先頭要素 */
-    TreeSpace<2u>* _pRegTreeSpaces;
+//    /** [r]四分木の空間を一直線に並べた線形配列 */
+//    TreeSpace<2u>* _paTreeSpaceArray; //_paTreeSpaceArray[0] は ROOT空間へのポインタ
+//    /** [r]登録を行った空間の先頭要素 */
+//    TreeSpace<2u>* _pRegTreeSpaces;
 
-    /** [r]最大空間レベル */
-    const uint32_t _top_space_level; //ルート空間はLevel=0
+//    /** [r]最大空間レベル */
+//    const uint32_t _top_space_level; //ルート空間はLevel=0
     /** [r]root空間の対角の頂点となるx座標の小さい方 */
     const int _root_x1;
     /** [r]root空間の対角の頂点となるy座標の小さい方 */
@@ -216,12 +214,12 @@ public:
 
     const double _r_top_level_dx;
     const double _r_top_level_dy;
-    /** [r]全空間数 */
-    const uint32_t _num_space;
-    /** [r]8の累乗の値を予め計算して保持している配列 */
-    static const uint32_t _POW4[(MAX_QUADTREE_LEVEL+1)+1];
+//    /** [r]全空間数 */
+//    const uint32_t _num_space;
+//    /** [r]8の累乗の値を予め計算して保持している配列 */
+//    static const uint32_t _POW4[(MAX_QUADTREE_LEVEL+1)+1];
 
-    char _aChar_strbit[33];
+//    char _aChar_strbit[33];
 public:
     /**
      * 線形四分木空間を構築する.
@@ -254,13 +252,13 @@ public:
      * registerElem() <BR>
      * により四分木へ再度要素登録が可能となる。
      */
-    void clearAllElem();
+//    void clearAllElem();
 
     /**
      * デバッグ用。四分木登録状況出力 .
      */
-    void putTree();
-    void putTree(uint32_t prm_index_begin, int prm_lv = 0, int prm_pos = 0);
+//    void putTree();
+//    void putTree(uint32_t prm_index_begin, int prm_lv = 0, int prm_pos = 0);
 
     virtual ~LinearQuadtree();
 };

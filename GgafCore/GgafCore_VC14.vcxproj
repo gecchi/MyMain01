@@ -68,6 +68,7 @@
     <ClInclude Include="include\jp\ggaf\core\util\EnumIndex.h" />
     <ClInclude Include="include\jp\ggaf\core\util\LinearOctree.h" />
     <ClInclude Include="include\jp\ggaf\core\util\LinearQuadtree.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\LinearTree.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\LinearTreeRounder.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\LinkedListRing.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\Logger.h" />

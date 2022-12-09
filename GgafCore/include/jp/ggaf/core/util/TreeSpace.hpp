@@ -3,7 +3,6 @@
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
-
 namespace GgafCore {
 
 /**
@@ -12,7 +11,7 @@ namespace GgafCore {
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
-template<uint32_t DIMENSION>
+template<int DIMENSION>
 class TreeSpace : public Object {
 
 public:
@@ -46,7 +45,7 @@ public:
         //引数の要素番号
         uint32_t index = _my_index;
         const kind_t this_kind = prm_pElem->_kind;
-        TreeSpace<DIMENSION>* p = this; //= & _paOctant[index]
+        TreeSpace<DIMENSION>* p = this; //= & _paTreeSpaceArray[index]
         while (true) {
             if (p->_kind_bit_field & this_kind) {
                 //もう種別情報が設定済みならば、それ以上の親も設定済みの為、抜ける

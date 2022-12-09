@@ -24,7 +24,7 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
         _pLinearOctree = NEW GgafCore::LinearOctree(CONFIG::OCTREE_LEVEL,
                                                     _x_bound_left  ,_y_bound_bottom, _z_bound_near ,
                                                     _x_bound_right ,_y_bound_top   , _z_bound_far   );
-        _pLinearOctreeHitCheckRounder = NEW OctreeRounder(_pLinearOctree->_paOctant,
+        _pLinearOctreeHitCheckRounder = NEW OctreeRounder(_pLinearOctree->_paTreeSpaceArray,
                                                           _pLinearOctree->_num_space,
                                                           &GgafCore::Actor::executeHitChk_MeAnd);
         _TRACE_("八分木作成終了");
@@ -34,7 +34,7 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
         _pLinearQuadtree = NEW GgafCore::LinearQuadtree(CONFIG::QUADTREE_LEVEL,
                                                         _x_bound_left  ,_y_bound_bottom,
                                                         _x_bound_right ,_y_bound_top    );
-        _pLinearQuadtreeHitCheckRounder = NEW QuadtreeRounder(_pLinearQuadtree->_paQuadrant,
+        _pLinearQuadtreeHitCheckRounder = NEW QuadtreeRounder(_pLinearQuadtree->_paTreeSpaceArray,
                                                               _pLinearQuadtree->_num_space,
                                                               &GgafCore::Actor::executeHitChk_MeAnd);
         _TRACE_("四分木作成終了");
@@ -44,7 +44,7 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
     _TRACE_("Board用四分木作成開始");
     _pLinearQuadtree_b = NEW GgafCore::LinearQuadtree_b(2, _x_bound_left_b  ,_y_bound_top_b,
                                                            _x_bound_right_b , _y_bound_bottom_b   );
-    _pLinearQuadtreeHitCheckRounder_b = NEW QuadtreeRounder(_pLinearQuadtree_b->_paQuadrant,
+    _pLinearQuadtreeHitCheckRounder_b = NEW QuadtreeRounder(_pLinearQuadtree_b->_paTreeSpaceArray,
                                                             _pLinearQuadtree_b->_num_space,
                                                             &GgafCore::Actor::executeHitChk_MeAnd);
     _TRACE_("Board用四分木作成終了");

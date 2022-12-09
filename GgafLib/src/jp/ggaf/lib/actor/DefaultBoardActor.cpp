@@ -1,7 +1,6 @@
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 
 #include "jp/ggaf/lib/util/ViewCollisionChecker.h"
-#include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
 using namespace GgafLib;

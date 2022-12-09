@@ -15,7 +15,7 @@ namespace GgafCore {
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
-template<class T, uint32_t DIMENSION>
+template<class T, int DIMENSION>
 class LinearTreeRounder : public Object {
 
     uint32_t _num_space;

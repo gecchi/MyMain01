@@ -56,7 +56,7 @@ _y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
     _TRACE_(FUNC_NAME<<" ƒJƒƒ‰‚Ì•\Ž¦‹——£”ÍˆÍ ["<<_zn<<" ~ "<<_zf<<"] dxcoord");
 
     if (CONFIG::PRJ_2D_MODE) {
-        //2Dƒ‚[ƒh³ŽË‰e•ÏŠ·‹ts—ñ
+        //2Dƒ‚[ƒhF³ŽË‰e•ÏŠ·
         D3DXMatrixOrthoLH(
             &_matProj,
             PX_DX(CONFIG::GAME_BUFFER_WIDTH),
@@ -65,7 +65,7 @@ _y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
             _zf
         );
     } else {
-        //3Dƒ‚[ƒh’ÊíŽË‰e•ÏŠ·‹ts—ñ
+        //3Dƒ‚[ƒhF’Êí‚ÌŽË‰e•ÏŠ·
         D3DXMatrixPerspectiveFovLH(
             &_matProj,
             _rad_fovY,       //y•ûŒüŽ‹–ìŠpƒ‰ƒfƒBƒAƒ“(0`ƒÎ)

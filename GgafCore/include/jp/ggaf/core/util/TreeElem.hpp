@@ -3,8 +3,7 @@
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/core/util/TreeSpace.hpp"
-#include "jp/ggaf/core/util/LinearOctree.h"
-#include "jp/ggaf/core/util/LinearQuadtree.h"
+
 
 namespace GgafCore {
 
@@ -16,7 +15,7 @@ typedef LinearQuadtree LinearQuadtree_b;
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
-template<uint32_t DIMENSION>
+template<int DIMENSION>
 class TreeElem : public Object {
 
     friend class LinearOctree;

@@ -438,25 +438,27 @@ class Rgb;
 
 class Config;
 class Properties;
-class LinearOctree;
 
-template<uint32_t DIMENSION>
+template<int DIMENSION>
 class TreeSpace;
 
-template<uint32_t DIMENSION>
+template<int DIMENSION>
 class TreeElem;
 
+template<int DIMENSION>
+class LinearTree;
+
 class LinearQuadtree;
+class LinearOctree;
+
+template<class T, int DIMENSION>
+class LinearTreeRounder;
 
 //class Curtain;
 class Table;
-
 class EnumIndex;
-
 class Xpm;
 
-template<class T, uint32_t DIMENSION>
-class LinearTreeRounder;
 
 }
 
