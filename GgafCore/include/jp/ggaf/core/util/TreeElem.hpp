@@ -30,7 +30,7 @@ public:
     /** [r]所属空間 */
     TreeNode<DIM>* _pSpace_current;
     /** [r]空間に登録された要素（TreeNode._pBelongElemList）にぶら下がる次要素 */
-    TreeElem* _pBelongNext;
+    TreeElem<DIM>* _pBelongNext;
 
     /**
      * コンストラクタ .
