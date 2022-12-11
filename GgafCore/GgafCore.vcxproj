@@ -29,12 +29,12 @@
     <ClCompile Include="src\jp\ggaf\core\actor\GroupHead.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\MainActor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\SceneMediator.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Caretaker.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Config.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Cradle.cpp" />
     <ClCompile Include="src\jp\ggaf\core\exception\CriticalException.cpp" />
     <ClCompile Include="src\jp\ggaf\core\exception\Exception.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GarbageBox.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Caretaker.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Object.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Phase.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Properties.cpp" />
@@ -73,7 +73,6 @@
     <ClInclude Include="include\jp\ggaf\core\exception\criticalexception.h" />
     <ClInclude Include="include\jp\ggaf\core\exception\exception.h" />
     <ClInclude Include="include\jp\ggaf\core\garbagebox.h" />
-    <ClInclude Include="include\jp\ggaf\core\god.h" />
     <ClInclude Include="include\jp\ggaf\core\node.hpp" />
     <ClInclude Include="include\jp\ggaf\core\object.h" />
     <ClInclude Include="include\jp\ggaf\core\phase.h" />
@@ -102,7 +101,7 @@
     <ClInclude Include="include\jp\ggaf\core\util\transitionvalueset.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\trapezoidalvelovalue.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\treeelem.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\treespace.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\treenode.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\util.h" />
     <ClInclude Include="include\jp\ggaf\core\util\xpm.h" />
   </ItemGroup>

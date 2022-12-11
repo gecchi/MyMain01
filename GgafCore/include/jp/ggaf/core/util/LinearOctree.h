@@ -3,10 +3,9 @@
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/util/LinearTree.hpp"
 
-
-//#define MAX_OCTREE_LEVEL 8
-
 namespace GgafCore {
+
+#define MAX_OCTREE_LEVEL 8
 
 /**
  * 線形八分木クラス .
@@ -72,7 +71,7 @@ namespace GgafCore {
  * <BR>
  * <B>＜空間(配列)要素番号＞</B><BR>
  * 空間番号に対応する線形配列のインデックスを指す。<BR>
- * 具体的には _paTreeSpaceArray の要素番号。<BR>
+ * 具体的には _paTreeNodeArray の要素番号。<BR>
  * <BR>
  *
  *  <B>【例１】</B><BR>
@@ -117,10 +116,7 @@ class LinearOctree : public LinearTree<3u> {
 
 private:
     /**
-     * 同一Level空間の八分木モートン順序の通し空間番号取得 .
-     * 同一Levelとは <BR>
-     * 「引数と結果は同一level空間ですよ」<BR>
-     * という意味。本メソッドの引数は任意のLevel空間を受け入れる。<BR>
+     * 引数の座標インデックスに対応する、最大レベルの空間（分割されない最も深い空間）でのモートン順序の通し空間番号取得 .
      * やっていることは<BR>
      * ・引数をそれぞれ3bitごとに間隔を開ける<BR>
      * ・引数2の結果を1ビット、引数2の結果を2ビット  ずらして OR を取る<BR>
@@ -196,13 +192,6 @@ private:
     }
 
 public:
-//    /** [r]八分木の空間を一直線に並べた線形配列 */
-//    TreeSpace<3u>* _paTreeSpaceArray; //_paTreeSpaceArray[0] は ROOT空間へのポインタ
-//    /** [r]登録を行った空間連結リストの根本（clearAllElem() で使用する） */
-//    TreeSpace<3u>* _pRegTreeSpaces;
-
-//    /** [r]最大空間レベル */
-//    const uint32_t _top_space_level; //ルート空間はLevel=0
     /** [r]root空間の対角の頂点となるx座標の小さい方 */
     const int _root_x1;
     /** [r]root空間の対角の頂点となるy座標の小さい方 */
@@ -216,21 +205,15 @@ public:
     /** [r]root空間の対角の頂点となるz座標大きい方 */
     const int _root_z2;
     /** [r]最小空間(=最高分割の空間)の1空間のX軸方向の距離 */
-    const int _top_level_dx;
+    const double _top_level_dx;
     /** [r]最小空間(=最高分割の空間)の1空間のY軸方向の距離 */
-    const int _top_level_dy;
+    const double _top_level_dy;
     /** [r]最小空間(=最高分割の空間)の1空間のZ軸方向の距離 */
-    const int _top_level_dz;
+    const double _top_level_dz;
 
     const double _r_top_level_dx;
     const double _r_top_level_dy;
     const double _r_top_level_dz;
-//    /** [r]全空間数 */
-//    const uint32_t _num_space;
-//    /** [r]8の累乗の値を予め計算して保持している配列 */
-//    static const uint32_t _POW8[(MAX_OCTREE_LEVEL+1)+1];
-
-//    char _aChar_strbit[33];
 
 public:
     /**
@@ -244,8 +227,8 @@ public:
      * @param z2 〃
      */
     LinearOctree(uint32_t prm_level,
-                     int x1, int y1, int z1,
-                     int x2, int y2, int z2);
+                 int x1, int y1, int z1,
+                 int x2, int y2, int z2);
 
     /**
      * 要素を八分木空間に登録する
@@ -261,20 +244,6 @@ public:
     void registerElem(TreeElem<3u>* const prm_pElem,
                       int tx1, int ty1, int tz1,
                       int tx2, int ty2, int tz2);
-
-    /**
-     * 八分木空間に登録されている全要素を消去する（未所属状態にする）.
-     * 本メソッドクリアしたならば、<BR>
-     * registerElem() <BR>
-     * により八分木へ再度要素登録が可能となる。
-     */
-//    void clearAllElem();
-
-    /**
-     * デバッグ用。八分木登録状況出力 .
-     */
-//    void putTree();
-//    void putTree(uint32_t prm_index_begin, int prm_lv = 0, int prm_pos = 0);
 
     virtual ~LinearOctree();
 };

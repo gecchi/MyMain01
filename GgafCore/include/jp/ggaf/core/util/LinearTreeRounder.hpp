@@ -4,7 +4,7 @@
 #include "jp/ggaf/core/Object.h"
 
 #include "jp/ggaf/core/util/LinearOctree.h"
-#include "jp/ggaf/core/util/TreeSpace.hpp"
+#include "jp/ggaf/core/util/TreeNode.hpp"
 
 namespace GgafCore {
 
@@ -15,7 +15,7 @@ namespace GgafCore {
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
-template<class T, int DIMENSION>
+template<class T, int DIM>
 class LinearTreeRounder : public Object {
 
     uint32_t _num_space;
@@ -110,7 +110,7 @@ public:
         }
     };
 
-    TreeSpace<DIMENSION>* _paTargetSpace;
+    TreeNode<DIM>* _paTargetSpace;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Aグループのスタック */
     TStack _stackCurrent_GroupA;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Bグループのスタック */
@@ -132,7 +132,7 @@ public:
      * コンストラクタ
      * @param prm_level 作成するN分木空間レベル
      */
-    LinearTreeRounder(TreeSpace<DIMENSION>* prm_paTargetSpace, int prm_num_space, void (T::*prm_pFunc)(T*)) {
+    LinearTreeRounder(TreeNode<DIM>* prm_paTargetSpace, int prm_num_space, void (T::*prm_pFunc)(T*)) {
         _paTargetSpace = prm_paTargetSpace;
         _num_space = prm_num_space;
         _pFunc = prm_pFunc;
@@ -166,8 +166,8 @@ public:
      * @param prm_index 線形N分木配列の配列要素番号
      */
     void execute(uint32_t prm_index) {
-        TreeSpace<DIMENSION>* pOctant_this_level = &(_paTargetSpace[prm_index]);
-        TreeElem<DIMENSION>* pElem = pOctant_this_level->_pBelongElems;
+        TreeNode<DIM>* pOctant_this_level = &(_paTargetSpace[prm_index]);
+        TreeElem<DIM>* pElem = pOctant_this_level->_pBelongElemList;
         const kind_t kind_groupA = _kind_groupA;
         const kind_t kind_groupB = _kind_groupB;
         const kind_t kind_groupAB = kind_groupA | kind_groupB;
@@ -209,7 +209,7 @@ public:
             }
 
         }
-        const uint32_t lower_level_index = (prm_index<<DIMENSION) + 1; //_papOctant[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
+        const uint32_t lower_level_index = (prm_index<<DIM) + 1; //_papOctant[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
         if ( lower_level_index >= _num_space) {
             //要素数オーバー、つまりリーフ
             _stackCurrent_GroupA.clear();
@@ -232,12 +232,12 @@ public:
             //又は、次のレベルの空間に種別Aがあり、かつストックに種別Bがあれば潜る。
             //又は、次のレベルの空間に種別Bがあり、かつストックに種別Aがあれば潜る。
             //それ以外は潜らない
-            TreeSpace<DIMENSION>* pOctant_lower_level = &(_paTargetSpace[lower_level_index]);
+            TreeNode<DIM>* pOctant_lower_level = &(_paTargetSpace[lower_level_index]);
             kind_t kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
             if (isExistGroupA) {
                 if (isExistGroupB) {
                     //現＋親空間に 種別A 存在 かつ 種別B 存在
-                    for (int i = 0; i < (1<<DIMENSION); i++) {
+                    for (int i = 0; i < (1<<DIM); i++) {
                         //次のレベルの空間に、種別Aか、種別Bが、所属するならば潜る
                         kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
                         if (kind_bit_field_lower_level & kind_groupAB)
@@ -248,7 +248,7 @@ public:
                     }
                 } else {
                     //現＋親空間に 種別A のみ存在
-                    for (int i = 0; i < (1<<DIMENSION); i++) {
+                    for (int i = 0; i < (1<<DIM); i++) {
                         //次のレベルの空間に、種別B が所属するならば潜る
                         kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
                         if (kind_bit_field_lower_level & kind_groupB) {
@@ -260,7 +260,7 @@ public:
             } else {
                 if (isExistGroupB) {
                     //現＋親空間に 種別B のみ存在
-                    for (int i = 0; i < (1<<DIMENSION); i++) {
+                    for (int i = 0; i < (1<<DIM); i++) {
                         //次のレベルの空間に、種別A が所属するならば潜る
                         kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
                         if (kind_bit_field_lower_level & kind_groupA) {
@@ -270,7 +270,7 @@ public:
                     }
                 } else {
                     //現＋親空間に 種別A 種別B も存在しない （配下空間に  種別A＋種別B が存在）
-                    for (int i = 0; i < (1<<DIMENSION); i++) {
+                    for (int i = 0; i < (1<<DIM); i++) {
                         //次のレベルの空間に、種別A＋種別B が所属するならば潜る
                         kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
                         if (kind_bit_field_lower_level & kind_groupA) {

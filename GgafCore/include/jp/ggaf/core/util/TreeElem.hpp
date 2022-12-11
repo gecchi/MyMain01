@@ -2,7 +2,7 @@
 #define GGAF_CORE_TREEELEM_H_
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
-#include "jp/ggaf/core/util/TreeSpace.hpp"
+#include "jp/ggaf/core/util/TreeNode.hpp"
 
 
 namespace GgafCore {
@@ -15,21 +15,21 @@ typedef LinearQuadtree LinearQuadtree_b;
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
-template<int DIMENSION>
+template<int DIM>
 class TreeElem : public Object {
 
     friend class LinearOctree;
     friend class LinearQuadtree;
 public:
     /** 空間の配列 */
-    TreeSpace<DIMENSION>* _paSpace;
+    TreeNode<DIM>* _paSpace;
     /** [r]要素オブジェクト（これが本体） */
     Object* const _pObject;
     /** [r]要素オブジェクトの種別 */
     kind_t _kind;
     /** [r]所属空間 */
-    TreeSpace<DIMENSION>* _pSpace_current;
-    /** [r]空間に登録された要素（TreeSpace._pBelongElems）にぶら下がる次要素 */
+    TreeNode<DIM>* _pSpace_current;
+    /** [r]空間に登録された要素（TreeNode._pBelongElemList）にぶら下がる次要素 */
     TreeElem* _pBelongNext;
 
     /**
@@ -37,7 +37,7 @@ public:
      * @param prm_paSpace 空間の配列へのポインタ
      * @param prm_pObject 対象オブジェクト(キャラクタなどN分木で管理したい実際の値)
      */
-    TreeElem(TreeSpace<DIMENSION>* prm_paSpace, Object* prm_pObject) : Object() ,
+    TreeElem(TreeNode<DIM>* prm_paSpace, Object* prm_pObject) : Object() ,
         _paSpace(prm_paSpace),
         _pObject(prm_pObject)
     {

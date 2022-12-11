@@ -21,7 +21,7 @@ using namespace GgafLib;
 
 ViewCollisionChecker::ViewCollisionChecker(GgafDx::GeometricActor* prm_pActor) : GgafDx::CollisionChecker(prm_pActor) ,
         _pLinearQuadtree_b(pCARETAKER->getSpacetime()->getLinearQuadtree_b()),
-        _pElem(NEW GgafCore::TreeElem<2u>(_pLinearQuadtree_b->_paTreeSpaceArray, prm_pActor))
+        _pElem(NEW GgafCore::TreeElem<2u>(_pLinearQuadtree_b->_paTreeNodeArray, prm_pActor))
 {
 }
 

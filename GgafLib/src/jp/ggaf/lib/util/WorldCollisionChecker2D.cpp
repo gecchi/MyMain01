@@ -17,7 +17,7 @@ using namespace GgafLib;
 
 WorldCollisionChecker2D::WorldCollisionChecker2D(GgafDx::GeometricActor* prm_pActor) : WorldCollisionChecker(prm_pActor) ,
         _pLinearQuadtree(pCARETAKER->getSpacetime()->getLinearQuadtree()),
-        _pElem(NEW GgafCore::TreeElem<2u>(_pLinearQuadtree->_paTreeSpaceArray, prm_pActor))
+        _pElem(NEW GgafCore::TreeElem<2u>(_pLinearQuadtree->_paTreeNodeArray, prm_pActor))
 {
 }
 

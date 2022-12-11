@@ -439,19 +439,19 @@ class Rgb;
 class Config;
 class Properties;
 
-template<int DIMENSION>
-class TreeSpace;
+template<int DIM>
+class TreeNode;
 
-template<int DIMENSION>
+template<int DIM>
 class TreeElem;
 
-template<int DIMENSION>
+template<int DIM>
 class LinearTree;
 
 class LinearQuadtree;
 class LinearOctree;
 
-template<class T, int DIMENSION>
+template<class T, int DIM>
 class LinearTreeRounder;
 
 //class Curtain;

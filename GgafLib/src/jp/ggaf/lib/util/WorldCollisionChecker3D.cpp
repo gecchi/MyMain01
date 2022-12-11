@@ -19,7 +19,7 @@ using namespace GgafLib;
 
 WorldCollisionChecker3D::WorldCollisionChecker3D(GgafDx::GeometricActor* prm_pActor) : WorldCollisionChecker(prm_pActor) ,
         _pLinearOctree(pCARETAKER->getSpacetime()->getLinearOctree()),
-        _pElem(NEW GgafCore::TreeElem<3u>(_pLinearOctree->_paTreeSpaceArray, prm_pActor))
+        _pElem(NEW GgafCore::TreeElem<3u>(_pLinearOctree->_paTreeNodeArray, prm_pActor))
 {
 }
 
