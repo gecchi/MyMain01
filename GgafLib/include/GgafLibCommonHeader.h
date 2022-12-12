@@ -22,6 +22,8 @@
 typedef int_fast32_t dir26;
 typedef int_fast32_t dir8;
 
+typedef GgafCore::LinearQuadtree LinearQuadtree_b;
+
 //‘O•ûéŒ¾(forward declaration)
 namespace GgafLib {
 
@@ -108,7 +110,6 @@ class ColliAABoardRectActor;
 
 class LinearOctree;
 class LinearQuadtree;
-class LinearQuadtree_b;
 
 class LaserChip;
 class WateringLaserChip;

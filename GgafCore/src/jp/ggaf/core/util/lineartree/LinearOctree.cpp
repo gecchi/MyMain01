@@ -1,4 +1,4 @@
-#include "jp/ggaf/core/util/LinearOctree.h"
+#include "jp/ggaf/core/util/lineartree/LinearOctree.h"
 
 #include "jp/ggaf/core/exception/CriticalException.h"
 #include "jp/ggaf/core/util/Util.h"
@@ -32,7 +32,7 @@ _r_top_level_dz(1.0 / _top_level_dz)
     _TRACE_(FUNC_NAME<<" ”ª•ª–Ø––’[ƒŒƒxƒ‹(level="<<_top_space_level<<")‚Ì‹óŠÔ‚ÌL‚³=" << (uint32_t)_top_level_dx << "x" << (uint32_t)_top_level_dy << "x" << (uint32_t)_top_level_dz);
 }
 
-void LinearOctree::registerElem(TreeElem<3u>* const prm_pElem,
+void LinearOctree::registerElem(NodeElem* const prm_pElem,
                                     int tx1, int ty1, int tz1,
                                     int tx2, int ty2, int tz2) {
 

@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/util/WorldCollisionChecker3D.h"
 
 #include "jp/ggaf/core/actor/GroupHead.h"
-#include "jp/ggaf/core/util/LinearOctree.h"
+#include "jp/ggaf/core/util/lineartree/LinearOctree.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
@@ -19,7 +19,7 @@ using namespace GgafLib;
 
 WorldCollisionChecker3D::WorldCollisionChecker3D(GgafDx::GeometricActor* prm_pActor) : WorldCollisionChecker(prm_pActor) ,
         _pLinearOctree(pCARETAKER->getSpacetime()->getLinearOctree()),
-        _pElem(NEW GgafCore::TreeElem<3u>(_pLinearOctree->_paTreeNodeArray, prm_pActor))
+        _pElem(NEW GgafCore::LinearOctree::NodeElem(prm_pActor))
 {
 }
 

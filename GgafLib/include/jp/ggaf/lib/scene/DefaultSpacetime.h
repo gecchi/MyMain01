@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
 #include "jp/ggaf/lib/LibConfig.h"
-#include "jp/ggaf/core/util/LinearTreeRounder.hpp"
+#include "jp/ggaf/core/util/lineartree/LinearTreeRounder.hpp"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
 

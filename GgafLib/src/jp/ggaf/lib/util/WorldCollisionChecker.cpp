@@ -1,7 +1,6 @@
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 #include "jp/ggaf/core/actor/GroupHead.h"
-#include "jp/ggaf/core/util/TreeElem.hpp"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"

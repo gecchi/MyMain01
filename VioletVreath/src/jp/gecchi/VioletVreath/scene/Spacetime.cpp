@@ -1,7 +1,7 @@
 #include "Spacetime.h"
 
 
-#include "jp/ggaf/core/util/LinearQuadtree.h"
+#include "jp/ggaf/core/util/lineartree/LinearQuadtree.h"
 #include "jp/ggaf/core/exception/CriticalException.h"
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"

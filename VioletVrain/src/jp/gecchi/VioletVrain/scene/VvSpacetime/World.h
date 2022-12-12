@@ -4,7 +4,7 @@
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime.h"
-#include "jp/ggaf/core/util/LinearTreeRounder.hpp"
+#include "jp/ggaf/core/util/lineartree/LinearTreeRounder.hpp"
 #include "jp/ggaf/lib/util/Quantity.hpp"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 

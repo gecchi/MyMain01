@@ -1,7 +1,6 @@
-#include "jp/ggaf/core/util/LinearQuadtree.h"
+#include "jp/ggaf/core/util/lineartree/LinearQuadtree.h"
 
 #include "jp/ggaf/core/exception/CriticalException.h"
-#include "jp/ggaf/core/util/TreeNode.hpp"
 #include "jp/ggaf/core/util/Util.h"
 
 using namespace GgafCore;
@@ -29,7 +28,7 @@ _r_top_level_dy(1.0 / _top_level_dy)
     _TRACE_(FUNC_NAME<<" 四分木末端レベル(level="<<_top_space_level<<")の空間の広さ=" << (uint32_t)_top_level_dx << "x" << (uint32_t)_top_level_dy );
 }
 
-void LinearQuadtree::registerElem(TreeElem<2u>* const prm_pElem,
+void LinearQuadtree::registerElem(NodeElem* const prm_pElem,
                                   int tx1, int ty1,
                                   int tx2, int ty2 ) {
     //はみ出る場合は補正

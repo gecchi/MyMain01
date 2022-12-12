@@ -440,12 +440,6 @@ class Config;
 class Properties;
 
 template<int DIM>
-class TreeNode;
-
-template<int DIM>
-class TreeElem;
-
-template<int DIM>
 class LinearTree;
 
 class LinearQuadtree;

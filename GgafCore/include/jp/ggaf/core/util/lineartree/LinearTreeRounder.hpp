@@ -3,14 +3,13 @@
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
-#include "jp/ggaf/core/util/LinearOctree.h"
-#include "jp/ggaf/core/util/TreeNode.hpp"
+#include "jp/ggaf/core/util/lineartree/LinearOctree.h"
 
 namespace GgafCore {
 
 #define MAX_COLLISIONSTACK_ACTOR_NUM (2000)
 /**
- * Tを要素とし当たり判定機能を追加した線形N分木または四分木の各要素に処理を行う .
+ * Tを要素とし当たり判定機能を追加した線形N分木の各要素に処理を行う .
  * @version 1.00
  * @since 2009/11/23
  * @author Masatoshi Tsuge
@@ -110,7 +109,7 @@ public:
         }
     };
 
-    TreeNode<DIM>* _paTargetSpace;
+    typename LinearTree<DIM>::NodeSpace* _paTargetSpace;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Aグループのスタック */
     TStack _stackCurrent_GroupA;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Bグループのスタック */
@@ -132,7 +131,7 @@ public:
      * コンストラクタ
      * @param prm_level 作成するN分木空間レベル
      */
-    LinearTreeRounder(TreeNode<DIM>* prm_paTargetSpace, int prm_num_space, void (T::*prm_pFunc)(T*)) {
+    LinearTreeRounder(typename LinearTree<DIM>::NodeSpace* prm_paTargetSpace, int prm_num_space, void (T::*prm_pFunc)(T*)) {
         _paTargetSpace = prm_paTargetSpace;
         _num_space = prm_num_space;
         _pFunc = prm_pFunc;
@@ -166,8 +165,8 @@ public:
      * @param prm_index 線形N分木配列の配列要素番号
      */
     void execute(uint32_t prm_index) {
-        TreeNode<DIM>* pOctant_this_level = &(_paTargetSpace[prm_index]);
-        TreeElem<DIM>* pElem = pOctant_this_level->_pBelongElemList;
+        typename LinearTree<DIM>::NodeSpace* pOctant_this_level = &(_paTargetSpace[prm_index]);
+        typename LinearTree<DIM>::NodeElem* pElem = pOctant_this_level->_pNodeValueList;
         const kind_t kind_groupA = _kind_groupA;
         const kind_t kind_groupB = _kind_groupB;
         const kind_t kind_groupAB = kind_groupA | kind_groupB;
@@ -180,7 +179,7 @@ public:
                 } else if (kind & kind_groupB) {
                     _stackCurrent_GroupB.push(pObject);
                 }
-                pElem = pElem->_pBelongNext;
+                pElem = pElem->_pNextValue;
             }
 
             if (_stackCurrent_GroupA.isExist()) {
@@ -232,7 +231,7 @@ public:
             //又は、次のレベルの空間に種別Aがあり、かつストックに種別Bがあれば潜る。
             //又は、次のレベルの空間に種別Bがあり、かつストックに種別Aがあれば潜る。
             //それ以外は潜らない
-            TreeNode<DIM>* pOctant_lower_level = &(_paTargetSpace[lower_level_index]);
+            typename LinearTree<DIM>::NodeSpace* pOctant_lower_level = &(_paTargetSpace[lower_level_index]);
             kind_t kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
             if (isExistGroupA) {
                 if (isExistGroupB) {

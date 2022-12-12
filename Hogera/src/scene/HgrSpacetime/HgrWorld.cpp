@@ -1,6 +1,6 @@
 #include "HgrWorld.h"
 
-#include "jp/ggaf/core/util/LinearQuadtree.h"
+#include "jp/ggaf/core/util/lineartree/LinearQuadtree.h"
 #include "jp/ggaf/dx/util/Input.h"
 #include "scene/HgrSpacetime/HgrWorld/TrialAndErrScene.h"
 #include "scene/HgrSpacetime.h"

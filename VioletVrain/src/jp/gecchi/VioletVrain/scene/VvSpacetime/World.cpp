@@ -1,6 +1,6 @@
 #include "World.h"
 
-#include "jp/ggaf/core/util/LinearQuadtree.h"
+#include "jp/ggaf/core/util/lineartree/LinearQuadtree.h"
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime/World/TrialAndErrScene.h"
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime.h"
