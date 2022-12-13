@@ -1,6 +1,6 @@
 #include "World.h"
 
-#include "jp/ggaf/core/util/lineartree/LinearQuadtree.h"
+#include "jp/ggaf/core/util/lineartree/LinearQuadtree.hpp"
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime/World/TrialAndErrScene.h"
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime.h"
@@ -20,7 +20,7 @@ World::World(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     vb_.remapK(VB_UI_DEBUG, VBK_Q);
 
     pTrialAndErrScene_ = nullptr;
-    pHitCheckRounder_  = pCARETAKER->getSpacetime()->getLinearQuadtreeHitCheckRounder();
+//    pHitCheckRounder_  = pCARETAKER->getSpacetime()->getLinearQuadtreeHitCheckRounder();
 }
 
 void World::initialize() {
@@ -39,7 +39,7 @@ void World::processJudgement() {
         pCARETAKER->getSpacetime()->getLinearQuadtree()->putTree();
         _TRACE_("----------------------------------");
     }
-    pHitCheckRounder_->executeAll(VV_MIKATA, VV_TEKI);
+//    pHitCheckRounder_->executeAll(VV_MIKATA, VV_TEKI);
     //executeAllHitChk ‚Í processJudgement() ‚ÅŒÄ‚Ô•K—v‚ ‚è
     //(processBehavior())‚Å‚Í‚Ü‚¾“o˜^‚³‚ê‚Ä‚¢‚È‚¢)
 }

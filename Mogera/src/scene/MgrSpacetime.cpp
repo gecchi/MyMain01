@@ -64,6 +64,13 @@ void MgrSpacetime::processBehavior() {
     }
 
 }
+void MgrSpacetime::processJudgement() {
+    //当たり判定チェック
+    executeWorldHitCheck(MGR_MIKATA, MGR_TEKI);
+    executeViewHitCheck(MGR_MIKATA, MGR_TEKI);
+
+}
+
 
 MgrSpacetime::~MgrSpacetime() {
     GGAF_DELETE(pVb_);

@@ -34,6 +34,10 @@ void HgrSpacetime::initialize() {
 void HgrSpacetime::processBehavior() {
 }
 
+void HgrSpacetime::processJudgement() {
+    executeWorldHitCheck(HGR_MIKATA, HGR_TEKI);
+}
+
 HgrSpacetime::~HgrSpacetime() {
 }
 

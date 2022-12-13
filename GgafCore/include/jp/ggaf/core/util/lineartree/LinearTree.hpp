@@ -4,7 +4,7 @@
 #include "jp/ggaf/core/Object.h"
 
 #include "jp/ggaf/core/util/Util.h"
-
+#include "jp/ggaf/core/util/lineartree/LinearTreeRounder.hpp"
 #include <math.h>
 
 namespace GgafCore {
@@ -17,7 +17,7 @@ namespace GgafCore {
  * @since 2022/12/11
  * @author Masatoshi Tsuge
  */
-template<int DIM>
+template<class T, int DIM>
 class LinearTree : public Object {
 
 public:
@@ -31,7 +31,7 @@ public:
     class NodeElem : public Object {
     public:
         /** [r]要素オブジェクト（これが本体） */
-        Object* const _pObject;
+        T* const _pObject;
         /** [r]要素オブジェクトの種別 */
         kind_t _kind;
         /** [r]空間に登録された要素（NodeSpace._pNodeValueList）にぶら下がる次要素 */
@@ -40,7 +40,7 @@ public:
          * コンストラクタ .
          * @param prm_pObject 対象オブジェクト(キャラクタなどN分木で管理したい実際の値)
          */
-        NodeElem(Object* prm_pObject) : Object() ,
+        NodeElem(T* prm_pObject) : Object() ,
             _pObject(prm_pObject)
         {
             _kind = 0;
@@ -125,20 +125,21 @@ public:
     };
 
 public:
-    /** [r]N分木のN	 */
+    /** [r]N分木のN、2のDIM乗の値が入る（DIM:2→4, DIM:3→8,…)。	 */
     const uint32_t _N;
     /** [r]N分木の空間を一直線に並べた線形配列 */
     NodeSpace* _paNodeSpaceArray; //_paNodeSpaceArray[0] は ROOT空間へのポインタ
-    /** [r]登録を行った空間連結リストの根本。_pRegNodeSpaceNext で連結されている。（clearAllElem() で使用する） */
+    /** [r]登録を行った空間連結リストの根本。空間開放時に使用。_pRegNodeSpaceNext で連結されている。（clearAllElem() で使用する） */
     NodeSpace* _pRegNodeSpaceList;
     /** [r]最大空間レベル */
     const uint32_t _top_space_level; //ルート空間はLevel=0
     /** [r]全空間数 */
     uint32_t _num_space;
     char _aChar_strbit[33];
-    /** [r]N（N分木のN）の累乗の配列。計算用。(20は十分最大レベル空間と思える適当な値) */
+    /** [r]N（N分木のN）の2乗の配列、計算用。(20は十分最大レベル空間と思える適当な値) */
     uint32_t POW_N[20];
 
+    LinearTreeRounder<T,DIM>* _pLinearTreeRounder;
     /**
      * コンストラクタ .
      * @param prm_level 構築する空間レベル
@@ -159,33 +160,16 @@ public:
             _paNodeSpaceArray[i]._self_index = i;
         }
         _pRegNodeSpaceList = nullptr;
+        _pLinearTreeRounder = nullptr;
     }
 
-    /**
-     * 登録を行った空間のクリア処理
-     */
-    void clearAllElem() {
-        //登録済み空間リストを使用してクリア
-        NodeSpace* pNodeSpace = _pRegNodeSpaceList;
-        while (pNodeSpace) {
-            pNodeSpace->_pNodeValueList = nullptr; //登録済み空間の根本を nullptr でクリア
-            uint32_t index = pNodeSpace->_self_index;
-            //_kind_bit_field の値は親空間に遡って 0 でリセットする。
-            while (true) {
-                if (_paNodeSpaceArray[index]._kind_bit_field == 0) {
-                    break;
-                }
-                _paNodeSpaceArray[index]._kind_bit_field = 0;
-                if (index == 0) {
-                    break;
-                }
-                //親空間要素番号で繰り返す
-                index = (index-1)>>DIM;
-            }
-            pNodeSpace = pNodeSpace->_pRegNodeSpaceNext;
+    LinearTreeRounder<T,DIM>* getLinearTreeRounder(void (T::*prm_pFunc)(T*)) {
+        if (!_pLinearTreeRounder) {
+            _pLinearTreeRounder = NEW LinearTreeRounder<T,DIM>(_paNodeSpaceArray,
+                                                               _num_space,
+                                                                prm_pFunc);
         }
-        //登録済みリストをクリア
-        _pRegNodeSpaceList = nullptr;
+        return _pLinearTreeRounder;
     }
 
     /**
@@ -227,6 +211,35 @@ public:
             _pRegNodeSpaceList = pNodeSpace;
         }
     }
+
+    /**
+     * 登録を行った空間のクリア処理
+     */
+    void clearAllElem() {
+        //登録済み空間リストを使用してクリア
+        NodeSpace* pNodeSpace = _pRegNodeSpaceList;
+        while (pNodeSpace) {
+            pNodeSpace->_pNodeValueList = nullptr; //登録済み空間の根本を nullptr でクリア
+            uint32_t index = pNodeSpace->_self_index;
+            //_kind_bit_field の値は親空間に遡って 0 でリセットする。
+            while (true) {
+                if (_paNodeSpaceArray[index]._kind_bit_field == 0) {
+                    break;
+                }
+                _paNodeSpaceArray[index]._kind_bit_field = 0;
+                if (index == 0) {
+                    break;
+                }
+                //親空間要素番号で繰り返す
+                index = (index-1)>>DIM;
+            }
+            pNodeSpace = pNodeSpace->_pRegNodeSpaceNext;
+        }
+        //登録済みリストをクリア
+        _pRegNodeSpaceList = nullptr;
+    }
+
+
     /**
      * デバッグ用。登録状況出力 .
      */
@@ -261,6 +274,7 @@ public:
 
     virtual ~LinearTree() {
         GGAF_DELETEARR(_paNodeSpaceArray);
+        GGAF_DELETE_NULLABLE(_pLinearTreeRounder);
     }
 };
 

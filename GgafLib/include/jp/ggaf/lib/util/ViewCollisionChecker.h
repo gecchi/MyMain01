@@ -3,7 +3,7 @@
 #include "GgafLibCommonHeader.h"
 #include "WorldCollisionChecker.h"
 
-#include "jp/ggaf/core/util/lineartree/LinearQuadtree.h"
+#include "jp/ggaf/core/util/lineartree/LinearQuadtree.hpp"
 
 namespace GgafLib {
 
@@ -19,7 +19,7 @@ class ViewCollisionChecker : public GgafDx::CollisionChecker {
 
 public:
     /** üŒ`”ª•ª–Ø“o˜^—p—v‘f */
-    GgafCore::LinearQuadtree::NodeElem* const _pElem;
+    GgafCore::LinearQuadtree<GgafCore::Actor>::NodeElem* const _pElem;
 
 public:
     /**

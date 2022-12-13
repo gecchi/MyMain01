@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/util/WorldCollisionChecker2D.h"
 
 #include "jp/ggaf/core/actor/GroupHead.h"
-#include "jp/ggaf/core/util/lineartree/LinearQuadtree.h"
+#include "jp/ggaf/core/util/lineartree/LinearQuadtree.hpp"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
@@ -17,7 +17,7 @@ using namespace GgafLib;
 
 WorldCollisionChecker2D::WorldCollisionChecker2D(GgafDx::GeometricActor* prm_pActor) : WorldCollisionChecker(prm_pActor) ,
         _pLinearQuadtree(pCARETAKER->getSpacetime()->getLinearQuadtree()),
-        _pElem(NEW GgafCore::LinearQuadtree::NodeElem(prm_pActor))
+        _pElem(NEW GgafCore::LinearQuadtree<GgafCore::Actor>::NodeElem(prm_pActor))
 {
 }
 

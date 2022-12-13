@@ -32,6 +32,10 @@ void VvSpacetime::initialize() {
 void VvSpacetime::processBehavior() {
 }
 
+void VvSpacetime::processJudgement() {
+    executeWorldHitCheck(VV_MIKATA, VV_TEKI);
+}
+
 VvSpacetime::~VvSpacetime() {
 }
 

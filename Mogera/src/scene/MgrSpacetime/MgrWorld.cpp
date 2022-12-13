@@ -16,8 +16,8 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pTestScene_ = nullptr;
     pPointerTest_ = nullptr;
     pTrialAndErrScene_ = nullptr;
-    pHitCheckRounder_ = pCARETAKER->getSpacetime()->getLinearOctreeHitCheckRounder();
-    pHitCheckRounder_b_ = pCARETAKER->getSpacetime()->getLinearQuadtreeHitCheckRounder_b();
+//    pHitCheckRounder_ = pCARETAKER->getSpacetime()->getLinearOctreeHitCheckRounder();
+//    pHitCheckRounder_b_ = pCARETAKER->getSpacetime()->getLinearQuadtreeHitCheckRounder_b();
 }
 
 void MgrWorld::initialize() {
@@ -53,9 +53,10 @@ void MgrWorld::processBehavior() {
 
 void MgrWorld::processJudgement() {
     //当たり判定チェック
-    pHitCheckRounder_->executeAll(MGR_MIKATA, MGR_TEKI);
 
-    pHitCheckRounder_b_->executeAll(MGR_MIKATA, MGR_TEKI);
+//    pHitCheckRounder_->executeAll(MGR_MIKATA, MGR_TEKI);
+//
+//    pHitCheckRounder_b_->executeAll(MGR_MIKATA, MGR_TEKI);
 
 }
 

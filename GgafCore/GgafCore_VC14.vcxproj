@@ -35,6 +35,39 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\jp\ggaf\core\actor\Actor.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepository.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepositoryStore.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\DepositoryFormation.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\DestructActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\Formation.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\TreeFormation.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\GroupHead.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\MainActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\SceneMediator.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Caretaker.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Config.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Cradle.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\exception\CriticalException.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\exception\Exception.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\GarbageBox.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Object.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Phase.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Properties.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\scene\MainScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\scene\Scene.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\scene\Spacetime.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\DetectMemoryLeaks.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\Logger.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\RepeatSeq.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\Rgb.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\Status.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\Table.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\Util.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\Xpm.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="include\GgafCommonHeader.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\Actor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\DisusedActor.h" />
@@ -66,12 +99,8 @@
     <ClInclude Include="include\jp\ggaf\core\util\Curtain.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\DetectMemoryLeaks.h" />
     <ClInclude Include="include\jp\ggaf\core\util\EnumIndex.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\LinearOctree.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\LinearQuadtree.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\LinearTree.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\LinearTreeRounder.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\lineartree\LinearOctree.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\lineartree\LinearQuadtree.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\lineartree\LinearOctree.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\lineartree\LinearQuadtree.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\lineartree\LinearTree.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\lineartree\LinearTreeRounder.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\LinkedListRing.hpp" />
@@ -85,45 +114,8 @@
     <ClInclude Include="include\jp\ggaf\core\util\TransitionValue.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\TransitionValueSet.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\TrapezoidalVeloValue.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\TreeElem.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\TreeNode.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\Util.h" />
     <ClInclude Include="include\jp\ggaf\core\util\Xpm.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\jp\ggaf\core\actor\Actor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepository.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepositoryStore.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\DepositoryFormation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\DestructActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\Formation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\TreeFormation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\GroupHead.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\MainActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\SceneMediator.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Caretaker.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Config.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Cradle.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\exception\CriticalException.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\exception\Exception.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\GarbageBox.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Object.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Phase.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Properties.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\scene\MainScene.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\scene\Scene.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\scene\Spacetime.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\DetectMemoryLeaks.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\lineartree\LinearOctree.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\lineartree\LinearQuadtree.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Logger.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\RepeatSeq.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Rgb.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Status.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Table.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Util.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Xpm.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3A785B3F-EA57-4320-9034-7BC4A9C4A105}</ProjectGuid>

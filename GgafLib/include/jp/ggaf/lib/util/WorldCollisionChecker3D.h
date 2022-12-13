@@ -3,7 +3,7 @@
 #include "GgafLibCommonHeader.h"
 #include "WorldCollisionChecker.h"
 
-#include "jp/ggaf/core/util/lineartree/LinearOctree.h"
+#include "jp/ggaf/core/util/lineartree/LinearOctree.hpp"
 
 namespace GgafLib {
 
@@ -15,11 +15,11 @@ namespace GgafLib {
  */
 class WorldCollisionChecker3D : public WorldCollisionChecker {
 
-    GgafCore::LinearOctree* const _pLinearOctree; //TODO:‚Ç‚±‚É‚½‚¹‚æ‚¤‚©”Y‚Ş‚ª‚Æ‚è‚ ‚¦‚¸ƒRƒR‚É
+    GgafCore::LinearOctree<GgafCore::Actor>* const _pLinearOctree; //TODO:‚Ç‚±‚É‚½‚¹‚æ‚¤‚©”Y‚Ş‚ª‚Æ‚è‚ ‚¦‚¸ƒRƒR‚É
 
 public:
     /** üŒ`”ª•ª–Ø“o˜^—p—v‘f */
-    GgafCore::LinearOctree::NodeElem* const _pElem;
+    GgafCore::LinearOctree<GgafCore::Actor>::NodeElem* const _pElem;
 
 public:
     /**

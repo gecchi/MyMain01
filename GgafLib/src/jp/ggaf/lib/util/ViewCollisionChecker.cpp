@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 
 #include "jp/ggaf/core/actor/GroupHead.h"
-#include "jp/ggaf/core/util/lineartree/LinearQuadtree.h"
+#include "jp/ggaf/core/util/lineartree/LinearQuadtree.hpp"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/dx/actor/BoardActor.h"
@@ -21,7 +21,7 @@ using namespace GgafLib;
 
 ViewCollisionChecker::ViewCollisionChecker(GgafDx::GeometricActor* prm_pActor) : GgafDx::CollisionChecker(prm_pActor) ,
         _pLinearQuadtree_b(pCARETAKER->getSpacetime()->getLinearQuadtree_b()),
-        _pElem(NEW GgafCore::LinearQuadtree::NodeElem(prm_pActor))
+        _pElem(NEW GgafCore::LinearQuadtree<GgafCore::Actor>::NodeElem(prm_pActor))
 {
 }
 

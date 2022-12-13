@@ -42,6 +42,8 @@ public:
      */
     void processBehavior() override;
 
+    void processJudgement() override;
+
     virtual MgrCamera* getCamera() override { //‹¤•Ï‚Ì–ß‚è’l
         return (MgrCamera*)_pCamera;
     }
