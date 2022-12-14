@@ -24,86 +24,69 @@ typedef GgafCore::LinearTreeRounder<GgafCore::Actor, 2> QuadtreeRounder_b;
  * @author Masatoshi Tsuge
  */
 class DefaultSpacetime : public GgafDx::Spacetime {
-    virtual void processFinal() override;
 
 public:
-    GgafCore::LinearOctree<GgafCore::Actor>* _pLinearOctree;
-//    OctreeRounder* _pLinearOctreeHitCheckRounder;
-    GgafCore::LinearQuadtree<GgafCore::Actor>* _pLinearQuadtree;
-//    QuadtreeRounder* _pLinearQuadtreeHitCheckRounder;
-
-    GgafCore::LinearQuadtree<GgafCore::Actor>* _pLinearQuadtree_b;
-//    QuadtreeRounder_b* _pLinearQuadtreeHitCheckRounder_b;
-
+    GgafCore::LinearOctree<GgafCore::Actor>* _pWorldLinearOctree;
+    GgafCore::LinearQuadtree<GgafCore::Actor>* _pWorldLinearQuadtree;
+    GgafCore::LinearQuadtree<GgafCore::Actor>* _pViewLinearQuadtree;
+    /** processPreJudgement() 実行済み判定 */
+    bool _is_done_processPreJudgement;
 public:
     DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera);
 
     inline GgafCore::LinearOctree<GgafCore::Actor>* getLinearOctree() {
 #ifdef MY_DEBUG
-        if (_pLinearOctree == nullptr) {
+        if (_pWorldLinearOctree == nullptr) {
             throwCriticalException("DefaultSpacetime::getLinearOctree() 八分木は作成されていません。\n"
                     "IS_HIT_CHECK_3D プロパティ true にしてください。\n"
                     "現在のIS_HIT_CHECK_3D="<<CONFIG::IS_HIT_CHECK_3D );
         }
 #endif
-        return _pLinearOctree;
+        return _pWorldLinearOctree;
     }
-
-//    inline OctreeRounder* getLinearOctreeHitCheckRounder() {
-//#ifdef MY_DEBUG
-//        if (_pLinearOctreeHitCheckRounder == nullptr) {
-//            throwCriticalException("DefaultSpacetime::getLinearOctreeHitCheckRounder() 八分木は作成されていません。\n"
-//                    "IS_HIT_CHECK_3D プロパティ true にしてください。\n"
-//                    "現在のIS_HIT_CHECK_3D="<<CONFIG::IS_HIT_CHECK_3D );
-//        }
-//#endif
-//        return _pLinearOctreeHitCheckRounder;
-//    }
 
     inline GgafCore::LinearQuadtree<GgafCore::Actor>* getLinearQuadtree() {
 #ifdef MY_DEBUG
-        if (_pLinearQuadtree == nullptr) {
+        if (_pWorldLinearQuadtree == nullptr) {
             throwCriticalException("DefaultSpacetime::getLinearQuadtree() 四分木は作成されていません。 IS_HIT_CHECK_2D プロパティ true にしてください。現在のIS_HIT_CHECK_2D="<<CONFIG::IS_HIT_CHECK_2D );
         }
 #endif
-        return _pLinearQuadtree;
+        return _pWorldLinearQuadtree;
     }
-
-//    inline QuadtreeRounder* getLinearQuadtreeHitCheckRounder() {
-//#ifdef MY_DEBUG
-//        if (_pLinearQuadtreeHitCheckRounder == nullptr) {
-//            throwCriticalException("DefaultSpacetime::_pLinearQuadtreeHitCheckRounder() 四分木は作成されていません。 IS_HIT_CHECK_2D プロパティ true にしてください。現在のIS_HIT_CHECK_2D="<<CONFIG::IS_HIT_CHECK_2D );
-//        }
-//#endif
-//        return _pLinearQuadtreeHitCheckRounder;
-//    }
-
-    inline GgafCore::LinearQuadtree<GgafCore::Actor>* getLinearQuadtree_b() {
+    inline GgafCore::LinearQuadtree<GgafCore::Actor>* getViewLinearQuadtree() {
 #ifdef MY_DEBUG
-        if (_pLinearQuadtree_b == nullptr) {
-            throwCriticalException("DefaultSpacetime::getLinearQuadtree_b() 四分木は作成されていません。");
+        if (_pViewLinearQuadtree == nullptr) {
+            throwCriticalException("DefaultSpacetime::getViewLinearQuadtree() 四分木は作成されていません。");
         }
 #endif
-        return _pLinearQuadtree_b;
+        return _pViewLinearQuadtree;
     }
 
-//    inline QuadtreeRounder* getLinearQuadtreeHitCheckRounder_b() {
-//#ifdef MY_DEBUG
-//        if (_pLinearQuadtreeHitCheckRounder_b == nullptr) {
-//            throwCriticalException("DefaultSpacetime::_pLinearQuadtreeHitCheckRounder_b() 四分木は作成されていません。");
-//        }
-//#endif
-//        return _pLinearQuadtreeHitCheckRounder_b;
-//    }
-
+    /**
+     * ワールド座標上のアクターの「種別Aグループ 対 種別Bグループ」の ヒットチェック を行う  .
+     * ３次元（８分木） or ２次元（４分木）
+     * processJudgement() で呼ぶ必要あり。（processPreJudgement() で ツリーに登録している為）<BR>
+     * @param prm_kind_groupA アクター種別Aグループ
+     * @param prm_kind_groupB アクター種別Bグループ
+     */
     virtual void executeWorldHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB);
 
+    /**
+     * ビュー座標上のアクターの「種別Aグループ 対 種別Bグループ」の ヒットチェック を行う  .
+     * processJudgement() で呼ぶ必要あり。（processPreJudgement() で ツリーに登録している為）<BR>
+     * @param prm_kind_groupA アクター種別Aグループ
+     * @param prm_kind_groupB アクター種別Bグループ
+     */
     virtual void executeViewHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB);
 
 
     virtual DefaultCamera* getCamera() override { //共変の戻り値
         return (DefaultCamera*)_pCamera;
     }
+
+    virtual void processPreJudgement() override;
+
+    virtual void processFinal() override;
 
     virtual ~DefaultSpacetime();
 };

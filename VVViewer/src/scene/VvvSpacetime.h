@@ -35,6 +35,8 @@ public:
      */
     void processBehavior() override;
 
+    void processJudgement() override;
+
     virtual VvvCamera* getCamera() override { //‹¤•Ï‚Ì–ß‚è’l
         return (VvvCamera*)_pCamera;
     }

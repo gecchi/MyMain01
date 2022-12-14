@@ -18,8 +18,8 @@
 using namespace GgafLib;
 
 WorldCollisionChecker3D::WorldCollisionChecker3D(GgafDx::GeometricActor* prm_pActor) : WorldCollisionChecker(prm_pActor) ,
-        _pLinearOctree(pCARETAKER->getSpacetime()->getLinearOctree()),
-        _pElem(NEW GgafCore::LinearOctree<GgafCore::Actor>::NodeElem(prm_pActor))
+        _pWorldLinearOctree(pCARETAKER->getSpacetime()->getLinearOctree()),
+        _pNodeElem(NEW GgafCore::LinearOctree<GgafCore::Actor>::NodeElem(prm_pActor))
 {
 }
 
@@ -31,20 +31,19 @@ void WorldCollisionChecker3D::updateHitArea() {
     GgafDx::GeometricActor* const pActor = _pActor;
     if (pActor->isActiveInTheTree()) {
         //八分木に登録！
-        _pElem->_kind = pActor->lookUpKind();
+        _pNodeElem->_kind = pActor->lookUpKind();
 #ifdef MY_DEBUG
-        if (_pElem->_kind == 0) {
+        if (_pNodeElem->_kind == 0) {
             _TRACE_("【警告】 WorldCollisionChecker3D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
         }
 #endif
         pCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //最外域の境界AABB更新
-        _pLinearOctree->registerElem(_pElem, pActor->_x + pCollisionArea->_aabb_x1,
-                                             pActor->_y + pCollisionArea->_aabb_y1,
-                                             pActor->_z + pCollisionArea->_aabb_z1,
-                                             pActor->_x + pCollisionArea->_aabb_x2,
-                                             pActor->_y + pCollisionArea->_aabb_y2,
-                                             pActor->_z + pCollisionArea->_aabb_z2);
-
+        _pWorldLinearOctree->registerElem(_pNodeElem, pActor->_x + pCollisionArea->_aabb_x1,
+                                                      pActor->_y + pCollisionArea->_aabb_y1,
+                                                      pActor->_z + pCollisionArea->_aabb_z1,
+                                                      pActor->_x + pCollisionArea->_aabb_x2,
+                                                      pActor->_y + pCollisionArea->_aabb_y2,
+                                                      pActor->_z + pCollisionArea->_aabb_z2);
     }
 }
 
@@ -343,6 +342,6 @@ CNT:
 
 
 WorldCollisionChecker3D::~WorldCollisionChecker3D() {
-    delete _pElem;
+    delete _pNodeElem;
     //当たり判定はないかもしれない。この場合_pElemは無駄な生成と解放をすることになる。。
 }

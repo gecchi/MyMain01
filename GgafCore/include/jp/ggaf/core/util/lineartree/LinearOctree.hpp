@@ -257,7 +257,7 @@ public:
     /**
      * 要素を八分木空間に登録する
      * 空間番号範囲外になった場合は無視される。
-     * @param prm_pElem 要素
+     * @param prm_pNodeElem 要素
      * @param tx1 要素対象オブジェクトの外枠の座標
      * @param ty1 〃
      * @param tz1 〃
@@ -265,9 +265,9 @@ public:
      * @param ty2 〃
      * @param tz2 〃
      */
-    void registerElem(typename LinearTree<T,3>::NodeElem* const prm_pElem,
-            int tx1, int ty1, int tz1,
-            int tx2, int ty2, int tz2) {
+    void registerElem(typename LinearTree<T,3>::NodeElem* const prm_pNodeElem,
+                      int tx1, int ty1, int tz1,
+                      int tx2, int ty2, int tz2) {
         //はみ出る場合は補正
         if (tx1 <= _root_x1)  { tx1 = _root_x1; }
         if (tx2 >= _root_x2)  { tx2 = _root_x2; }
@@ -298,7 +298,7 @@ public:
                             (uint32_t)((tz2 - _root_z1) * _r_top_level_dz)
                         );                 //↑_root_x2,_root_y2,_root_z2 と間違えていません。
         //空間に登録する（共通化）
-        LinearTree<T, 3>::registerElem(prm_pElem, minnum_in_toplevel,maxnum_in_toplevel);
+        LinearTree<T, 3>::registerElem(prm_pNodeElem, minnum_in_toplevel,maxnum_in_toplevel);
 //以下は共通化前のコード
 //    //引数のBOXは、どのレベルの空間に所属しているのか取得
 //    const uint32_t differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;

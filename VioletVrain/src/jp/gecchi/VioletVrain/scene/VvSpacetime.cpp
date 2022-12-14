@@ -34,6 +34,8 @@ void VvSpacetime::processBehavior() {
 
 void VvSpacetime::processJudgement() {
     executeWorldHitCheck(VV_MIKATA, VV_TEKI);
+    //executeWorldHitCheck ‚Í processJudgement() ‚ÅŒÄ‚Ô•K—v‚ ‚è
+    //(processBehavior())‚Å‚Í‚Ü‚¾“o˜^‚³‚ê‚Ä‚¢‚È‚¢)
 }
 
 VvSpacetime::~VvSpacetime() {

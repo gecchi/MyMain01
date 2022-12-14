@@ -241,13 +241,13 @@ public:
     /**
      * 要素を四分木空間に登録する
      * 空間番号範囲外になった場合は無視される。
-     * @param prm_pElem 要素
+     * @param prm_pNodeElem 要素
      * @param tx1 要素対象オブジェクトの外枠の座標
      * @param ty1 〃
      * @param tx2 〃
      * @param ty2 〃
      */
-    void registerElem(typename LinearTree<T,2>::NodeElem* const prm_pElem,
+    void registerElem(typename LinearTree<T,2>::NodeElem* const prm_pNodeElem,
             int tx1, int ty1,
             int tx2, int ty2 ) {
         //はみ出る場合は補正
@@ -277,7 +277,7 @@ public:
                               (uint32_t)((ty2 - _root_y1) * _r_top_level_dy)
                           );                 //↑_root_x2,_root_y2 と間違えていません。
         //空間に登録する（共通化）
-        LinearTree<T,2>::registerElem(prm_pElem, minnum_in_toplevel, maxnum_in_toplevel);
+        LinearTree<T,2>::registerElem(prm_pNodeElem, minnum_in_toplevel, maxnum_in_toplevel);
 //以下は共通化前のコード
 //    //引数のRect(要素)は、どのレベルの空間に所属（内包されている）しているのか、最大のレベル空間を取得
 //    const uint32_t differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;

@@ -19,6 +19,10 @@ void VvvSpacetime::initialize() {
 
 void VvvSpacetime::processBehavior() {
 
+}
+
+void VvvSpacetime::processJudgement() {
+
     executeWorldHitCheck(KIND_POINTER, KIND_ACTOR);
     executeViewHitCheck(KIND_POINTER, KIND_ACTOR);
 }

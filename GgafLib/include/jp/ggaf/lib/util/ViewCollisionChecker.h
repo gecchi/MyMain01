@@ -15,11 +15,11 @@ namespace GgafLib {
  */
 class ViewCollisionChecker : public GgafDx::CollisionChecker {
 
-    LinearQuadtree_b* const _pLinearQuadtree_b; //TODO:どこに持たせようか悩むがとりあえずココに
+    ViewLinearQuadtree* const _pViewLinearQuadtree; //TODO:どこに持たせようか悩むがとりあえずココに
 
 public:
     /** 線形八分木登録用要素 */
-    GgafCore::LinearQuadtree<GgafCore::Actor>::NodeElem* const _pElem;
+    GgafCore::LinearQuadtree<GgafCore::Actor>::NodeElem* const _pNodeElem;
 
 public:
     /**

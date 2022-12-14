@@ -25,7 +25,6 @@ namespace GgafCore {
  */
 class Config {
 
-
 public:
     /** [r/w] FPS */
     static frame FPS;

@@ -68,7 +68,6 @@ void MgrSpacetime::processJudgement() {
     //当たり判定チェック
     executeWorldHitCheck(MGR_MIKATA, MGR_TEKI);
     executeViewHitCheck(MGR_MIKATA, MGR_TEKI);
-
 }
 
 

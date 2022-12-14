@@ -12,6 +12,7 @@ namespace GgafCore {
 /**
  * 線形N分木共通 .
  * 線形4分木と線形8分木の共通処理をまとめたクラス
+ * @tparam T 空間に登録させるオブジェクトの型
  * @tparam DIM 次元。2の場合4分木、3の場合8分木の機能となる。
  * @version 1.00
  * @since 2022/12/11
@@ -83,13 +84,13 @@ public:
         }
         /**
          * 要素登録 .
-         * @param prm_pElem 要素
+         * @param prm_pNodeElem 要素
          * @return true:そのインデックスに初回登録 ／ false:それ以外
          */
-        void registerElem(NodeElem* const prm_pElem) {
+        void registerElem(NodeElem* const prm_pNodeElem) {
             //引数の要素番号
             uint32_t index = _self_index;
-            const kind_t this_kind = prm_pElem->_kind;
+            const kind_t this_kind = prm_pNodeElem->_kind;
             NodeSpace* p = this; //= & _paNodeSpaceArray[index]
             while (true) {
                 if (p->_kind_bit_field & this_kind) {
@@ -106,8 +107,8 @@ public:
                 index = (index-1)>>DIM;
                 p = p - (p->_self_index - index);
             }
-            prm_pElem->_pNextValue = _pNodeValueList; //初回は _pNodeValueList == nullptr
-            _pNodeValueList = prm_pElem;
+            prm_pNodeElem->_pNextValue = _pNodeValueList; //初回は _pNodeValueList == nullptr
+            _pNodeValueList = prm_pNodeElem;
         }
         void dump() {
             if (_pNodeValueList == nullptr) {
@@ -163,22 +164,21 @@ public:
         _pLinearTreeRounder = nullptr;
     }
 
-    LinearTreeRounder<T,DIM>* getLinearTreeRounder(void (T::*prm_pFunc)(T*)) {
+    LinearTreeRounder<T,DIM>* getLinearTreeRounder() {
         if (!_pLinearTreeRounder) {
             _pLinearTreeRounder = NEW LinearTreeRounder<T,DIM>(_paNodeSpaceArray,
-                                                               _num_space,
-                                                                prm_pFunc);
+                                                               _num_space);
         }
         return _pLinearTreeRounder;
     }
 
     /**
      * 要素を空間に登録 .
-     * @param prm_pElem
+     * @param prm_pNodeElem
      * @param minnum_in_toplevel BOXの左下手前のXYZ座標点が所属する空間は、最大レベルの空間（分割されない最も深い空間）でのモートン順序通し空間番号
      * @param maxnum_in_toplevel BOXの右上奥のXYZ座標点が所属する空間は、最大レベルの空間（分割されない最も深い空間）でのモートン順序通し空間番号
      */
-    void registerElem(NodeElem* const prm_pElem, const uint32_t minnum_in_toplevel, const uint32_t maxnum_in_toplevel) {
+    void registerElem(NodeElem* const prm_pNodeElem, const uint32_t minnum_in_toplevel, const uint32_t maxnum_in_toplevel) {
         //どのレベルの空間に所属しているのか取得
         const uint32_t differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;
         uint32_t shift_num = 0;
@@ -204,12 +204,24 @@ public:
         //要素を線形N分木空間に登録(所属させる)
         NodeSpace* pNodeSpace = &(_paNodeSpaceArray[index]);
         if (pNodeSpace->_pNodeValueList) {
-            pNodeSpace->registerElem(prm_pElem);
+            pNodeSpace->registerElem(prm_pNodeElem);
         } else {
-            pNodeSpace->registerElem(prm_pElem);
+            pNodeSpace->registerElem(prm_pNodeElem);
             pNodeSpace->_pRegNodeSpaceNext = _pRegNodeSpaceList;
             _pRegNodeSpaceList = pNodeSpace;
         }
+    }
+
+    /**
+     * N分木登録済みの要素に対して、「種別Aグループ 対 種別Bグループ」の ヒットチェック を行う  .
+     * アプリ側は本メソッドを呼ぶだけでよい。<BR>
+     * ただし executeAllHitChk は processJudgement() で呼ぶ必要あり。<BR>
+     * @param prm_pFuncHitCheck ヒットチェックメソッド。T クラスの  void T::xxxXXX(T* prm_pActor) の形式。
+     * @param prm_kind_groupA アクター種別Aグループ
+     * @param prm_kind_groupB アクター種別Bグループ
+     */
+    void executeAll(void (T::*prm_pFuncHitCheck)(T*), kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
+        getLinearTreeRounder()->executeAll(prm_pFuncHitCheck , prm_kind_groupA, prm_kind_groupB);
     }
 
     /**

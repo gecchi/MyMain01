@@ -58,7 +58,7 @@ void Spacetime::processJudgement() {
 #ifdef MY_DEBUG
         if (GgafDx::Input::isPushedDownKey(DIK_J)) {
             _TRACE_("Board用四分木 -->");
-            _pLinearQuadtree_b->putTree();
+            _pViewLinearQuadtree->putTree();
             _TRACE_("<--Board用四分木");
         }
 #endif

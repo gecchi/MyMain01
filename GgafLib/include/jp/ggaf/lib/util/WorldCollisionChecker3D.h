@@ -15,11 +15,11 @@ namespace GgafLib {
  */
 class WorldCollisionChecker3D : public WorldCollisionChecker {
 
-    GgafCore::LinearOctree<GgafCore::Actor>* const _pLinearOctree; //TODO:どこに持たせようか悩むがとりあえずココに
+    GgafCore::LinearOctree<GgafCore::Actor>* const _pWorldLinearOctree; //TODO:どこに持たせようか悩むがとりあえずココに
 
 public:
     /** 線形八分木登録用要素 */
-    GgafCore::LinearOctree<GgafCore::Actor>::NodeElem* const _pElem;
+    GgafCore::LinearOctree<GgafCore::Actor>::NodeElem* const _pNodeElem;
 
 public:
     /**

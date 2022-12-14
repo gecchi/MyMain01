@@ -22,7 +22,7 @@
 typedef int_fast32_t dir26;
 typedef int_fast32_t dir8;
 
-typedef GgafCore::LinearQuadtree<GgafCore::Actor> LinearQuadtree_b;
+typedef GgafCore::LinearQuadtree<GgafCore::Actor> ViewLinearQuadtree;
 
 //‘O•ûéŒ¾(forward declaration)
 namespace GgafLib {

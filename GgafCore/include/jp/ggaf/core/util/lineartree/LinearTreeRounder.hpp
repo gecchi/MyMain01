@@ -125,17 +125,17 @@ public:
     /** [r]今回当たり判定を行うアクター種別B */
     kind_t _kind_groupB;
     /** [r]実行するTのメンバ関数 */
-    void (T::*_pFunc)(T*);
+    void (T::*_pFuncHitCheck)(T*);
 
 public:
     /**
      * コンストラクタ
      * @param prm_level 作成するN分木空間レベル
      */
-    LinearTreeRounder(typename LinearTree<T,DIM>::NodeSpace* prm_paTargetSpace, int prm_num_space, void (T::*prm_pFunc)(T*)) {
+    LinearTreeRounder(typename LinearTree<T,DIM>::NodeSpace* prm_paTargetSpace, int prm_num_space) {
         _paTargetSpace = prm_paTargetSpace;
         _num_space = prm_num_space;
-        _pFunc = prm_pFunc;
+        _pFuncHitCheck = nullptr;
         _kind_groupA = 0;
         _kind_groupB = 0;
     }
@@ -147,7 +147,8 @@ public:
      * @param prm_kind_groupA アクター種別Aグループ
      * @param prm_kind_groupB アクター種別Bグループ
      */
-    void executeAll(kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
+    void executeAll(void (T::*prm_pFuncHitCheck)(T*), kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
+        _pFuncHitCheck = prm_pFuncHitCheck;
         _kind_groupA = prm_kind_groupA;
         _kind_groupB = prm_kind_groupB;
         kind_t k_bit = _paTargetSpace[0]._kind_bit_field;
@@ -297,7 +298,7 @@ public:
      */
     inline void executeRoundRobin(TStack* prm_pStackA, TStack* prm_pStackB) {
         //LinearTreeRounderでは、要素の指す(Object*)インスタンスは Tが前提
-        void (T::*pFunc)(T*) = _pFunc;
+        void (T::*pFunc)(T*) = _pFuncHitCheck;
         T** papStackT_A_Cur = prm_pStackA->_papCur;
         T** papStackT_B_Cur = prm_pStackB->_papCur;
         T** papStackT_A = prm_pStackA->_papFirst;
