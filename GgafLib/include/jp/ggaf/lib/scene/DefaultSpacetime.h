@@ -4,16 +4,17 @@
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
 #include "jp/ggaf/lib/LibConfig.h"
-#include "jp/ggaf/core/util/lineartree/LinearTreeRounder.hpp"
+#include "jp/ggaf/core/util/lineartree/LinearOctreeRounder.hpp"
+#include "jp/ggaf/core/util/lineartree/LinearQuadtreeRounder.hpp"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
 
 namespace GgafLib {
 
-typedef GgafCore::LinearTreeRounder<GgafCore::Actor, 3> OctreeRounder;
-typedef GgafCore::LinearTreeRounder<GgafCore::Actor, 2> QuadtreeRounder;
-
-typedef GgafCore::LinearTreeRounder<GgafCore::Actor, 2> QuadtreeRounder_b;
+//typedef GgafCore::LinearOctreeRounder<GgafCore::Actor> WorldOctreeRounder;
+//typedef GgafCore::LinearQuadtreeRounder<GgafCore::Actor> WorldQuadtreeRounder;
+//
+//typedef GgafCore::LinearQuadtreeRounder<GgafCore::Actor> ViewQuadtreeRounder;
 /**
  * 「この世」クラスインターフェイス.
  * GgafDx::Spacetime を継承しただけのインターフェースです。<BR>
@@ -27,10 +28,16 @@ class DefaultSpacetime : public GgafDx::Spacetime {
 
 public:
     GgafCore::LinearOctree<GgafCore::Actor>* _pWorldLinearOctree;
+    GgafCore::LinearOctreeRounder<GgafCore::Actor>* _pWorldOctreeRounder;
     GgafCore::LinearQuadtree<GgafCore::Actor>* _pWorldLinearQuadtree;
+    GgafCore::LinearQuadtreeRounder<GgafCore::Actor>* _pWorldQuadtreeRounder;
     GgafCore::LinearQuadtree<GgafCore::Actor>* _pViewLinearQuadtree;
+    GgafCore::LinearQuadtreeRounder<GgafCore::Actor>* _pViewQuadtreeRounder;
+#ifdef MY_DEBUG
     /** processPreJudgement() 実行済み判定 */
     bool _is_done_processPreJudgement;
+#endif
+
 public:
     DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera);
 

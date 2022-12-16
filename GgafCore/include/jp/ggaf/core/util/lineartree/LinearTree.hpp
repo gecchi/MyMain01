@@ -4,10 +4,13 @@
 #include "jp/ggaf/core/Object.h"
 
 #include "jp/ggaf/core/util/Util.h"
-#include "jp/ggaf/core/util/lineartree/LinearTreeRounder.hpp"
+#include "jp/ggaf/core/util/lineartree/ITreeNodeElem.hpp"
+
 #include <math.h>
 
 namespace GgafCore {
+
+#define MAX_TREE_LEVEL (20)
 
 /**
  * 線形N分木共通 .
@@ -18,42 +21,10 @@ namespace GgafCore {
  * @since 2022/12/11
  * @author Masatoshi Tsuge
  */
-template<class T, int DIM>
+template<class T, int DIM, int N>
 class LinearTree : public Object {
 
 public:
-
-    /**
-     * 線形N分木配列用空間にぶら下がる要素クラス .
-     * @version 1.00
-     * @since 2009/11/23
-     * @author Masatoshi Tsuge
-     */
-    class NodeElem : public Object {
-    public:
-        /** [r]要素オブジェクト（これが本体） */
-        T* const _pObject;
-        /** [r]要素オブジェクトの種別 */
-        kind_t _kind;
-        /** [r]空間に登録された要素（NodeSpace._pNodeValueList）にぶら下がる次要素 */
-        NodeElem* _pNextValue;
-        /**
-         * コンストラクタ .
-         * @param prm_pObject 対象オブジェクト(キャラクタなどN分木で管理したい実際の値)
-         */
-        NodeElem(T* prm_pObject) : Object() ,
-            _pObject(prm_pObject)
-        {
-            _kind = 0;
-            _pNextValue = nullptr;
-        }
-        void dump() {
-            _TRACE_N_("o");
-        }
-        virtual ~NodeElem() {
-        }
-    };
-
 
     /**
      * 線形N分木配列用空間クラス .
@@ -68,9 +39,10 @@ public:
         /** [r]この空間＋子孫空間に所属してる要素の種別情報 */
         kind_t _kind_bit_field;
         /** [r]この空間に登録された要素連結リストの根本。_pNextValue で連結されている。 */
-        NodeElem* _pNodeValueList;
+        ITreeNodeElem* _pNodeValueList;
         /** [r]登録を行った空間連結リスト用、次の空間(開放時に使用) */
         NodeSpace* _pRegNodeSpaceNext;
+
     public:
         /**
          * コンストラクタ
@@ -82,12 +54,13 @@ public:
             _self_index = 0xffffffff; //ありえない0xffffffffを入れておく
             _pRegNodeSpaceNext = nullptr;
         }
+
         /**
          * 要素登録 .
          * @param prm_pNodeElem 要素
          * @return true:そのインデックスに初回登録 ／ false:それ以外
          */
-        void registerElem(NodeElem* const prm_pNodeElem) {
+        void registerElem(ITreeNodeElem* prm_pNodeElem) {
             //引数の要素番号
             uint32_t index = _self_index;
             const kind_t this_kind = prm_pNodeElem->_kind;
@@ -110,11 +83,12 @@ public:
             prm_pNodeElem->_pNextValue = _pNodeValueList; //初回は _pNodeValueList == nullptr
             _pNodeValueList = prm_pNodeElem;
         }
+
         void dump() {
             if (_pNodeValueList == nullptr) {
                 _TRACE_N_("x");
             } else {
-                NodeElem* pElem = _pNodeValueList;
+                ITreeNodeElem* pElem = _pNodeValueList;
                 while (pElem) {
                     pElem->dump();
                     pElem = pElem ->_pNextValue;
@@ -127,7 +101,7 @@ public:
 
 public:
     /** [r]N分木のN、2のDIM乗の値が入る（DIM:2→4, DIM:3→8,…)。	 */
-    const uint32_t _N;
+//    const uint32_t _N;
     /** [r]N分木の空間を一直線に並べた線形配列 */
     NodeSpace* _paNodeSpaceArray; //_paNodeSpaceArray[0] は ROOT空間へのポインタ
     /** [r]登録を行った空間連結リストの根本。空間開放時に使用。_pRegNodeSpaceNext で連結されている。（clearAllElem() で使用する） */
@@ -138,38 +112,32 @@ public:
     uint32_t _num_space;
     char _aChar_strbit[33];
     /** [r]N（N分木のN）の2乗の配列、計算用。(20は十分最大レベル空間と思える適当な値) */
-    uint32_t POW_N[20];
+    uint32_t POW_N[MAX_TREE_LEVEL];
 
-    LinearTreeRounder<T,DIM>* _pLinearTreeRounder;
     /**
      * コンストラクタ .
      * @param prm_level 構築する空間レベル
      * @param prm_max_tree_level 想定できる最大空間レベル
      */
     LinearTree(uint32_t prm_level) : Object(),
-    _N((uint32_t)pow(2.0, DIM)),
     _top_space_level(prm_level) {
+#ifdef MY_DEBUG
+    if (prm_level > MAX_TREE_LEVEL) {
+        throwCriticalException("LinearTree::LinearTree() 空間レベルオーバー！ prm_level="<<prm_level);
+    }
+#endif
         //計算用累乗の配列
-        for (int lv = 0; lv < 20; lv++) {
-            POW_N[lv] = (uint32_t)(pow((double)_N , lv));
+        for (int lv = 0; lv < MAX_TREE_LEVEL; lv++) {
+            POW_N[lv] = (uint32_t)(pow((double)N , lv));
         }
         //全空間数を求める
-        _num_space = ((uint32_t)((POW_N[_top_space_level+1] -1) / (_N-1)));
+        _num_space = ((uint32_t)((POW_N[_top_space_level+1] -1) / (N-1)));
         //線形N分木配列作成
         _paNodeSpaceArray = NEW NodeSpace[_num_space];
         for (uint32_t i = 0; i < _num_space; i++) {
             _paNodeSpaceArray[i]._self_index = i;
         }
         _pRegNodeSpaceList = nullptr;
-        _pLinearTreeRounder = nullptr;
-    }
-
-    LinearTreeRounder<T,DIM>* getLinearTreeRounder() {
-        if (!_pLinearTreeRounder) {
-            _pLinearTreeRounder = NEW LinearTreeRounder<T,DIM>(_paNodeSpaceArray,
-                                                               _num_space);
-        }
-        return _pLinearTreeRounder;
     }
 
     /**
@@ -178,18 +146,18 @@ public:
      * @param minnum_in_toplevel BOXの左下手前のXYZ座標点が所属する空間は、最大レベルの空間（分割されない最も深い空間）でのモートン順序通し空間番号
      * @param maxnum_in_toplevel BOXの右上奥のXYZ座標点が所属する空間は、最大レベルの空間（分割されない最も深い空間）でのモートン順序通し空間番号
      */
-    void registerElem(NodeElem* const prm_pNodeElem, const uint32_t minnum_in_toplevel, const uint32_t maxnum_in_toplevel) {
+    void registerElem(ITreeNodeElem* prm_pNodeElem, const uint32_t minnum_in_toplevel, const uint32_t maxnum_in_toplevel) {
         //どのレベルの空間に所属しているのか取得
         const uint32_t differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;
         uint32_t shift_num = 0;
         for (uint32_t i = 0; i < _top_space_level; i++) {
-            if (((differ_bit_pos>>(i*DIM)) & (_N-1)) != 0 ) {
+            if (((differ_bit_pos>>(i*DIM)) & (N-1)) != 0 ) {
                 shift_num = i+1;
             }
         }
         //次の２行の意味は、LinearOctree.cpp、LinearQuadtree.cpp のコメント「以下は共通化前のコード」以降を参照
         const uint32_t morton_order_space_num = minnum_in_toplevel>>(shift_num*DIM);
-        const uint32_t index = morton_order_space_num + (POW_N[_top_space_level-shift_num]-1)/(_N-1);
+        const uint32_t index = morton_order_space_num + (POW_N[_top_space_level-shift_num]-1)/(N-1);
 
 #ifdef MY_DEBUG
         if (index > _num_space-1) {
@@ -210,18 +178,6 @@ public:
             pNodeSpace->_pRegNodeSpaceNext = _pRegNodeSpaceList;
             _pRegNodeSpaceList = pNodeSpace;
         }
-    }
-
-    /**
-     * N分木登録済みの要素に対して、「種別Aグループ 対 種別Bグループ」の ヒットチェック を行う  .
-     * アプリ側は本メソッドを呼ぶだけでよい。<BR>
-     * ただし executeAllHitChk は processJudgement() で呼ぶ必要あり。<BR>
-     * @param prm_pFuncHitCheck ヒットチェックメソッド。T クラスの  void T::xxxXXX(T* prm_pActor) の形式。
-     * @param prm_kind_groupA アクター種別Aグループ
-     * @param prm_kind_groupB アクター種別Bグループ
-     */
-    void executeAll(void (T::*prm_pFuncHitCheck)(T*), kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
-        getLinearTreeRounder()->executeAll(prm_pFuncHitCheck , prm_kind_groupA, prm_kind_groupB);
     }
 
     /**
@@ -267,7 +223,7 @@ public:
                 _TRACE_N_("  ");
             }
             UTIL::strbin(_paNodeSpaceArray[prm_index]._kind_bit_field, _aChar_strbit);
-            _TRACE_N_("LV"<<prm_lv<<"-"<<space_no<<"(POS:"<<prm_pos<<")["<<prm_index<<"]="<<_aChar_strbit<<" /NodeElem->");
+            _TRACE_N_("LV"<<prm_lv<<"-"<<space_no<<"(POS:"<<prm_pos<<")["<<prm_index<<"]="<<_aChar_strbit<<" /Node->");
             _paNodeSpaceArray[prm_index].dump();
             _TRACE_N_("\n");
         }
@@ -286,7 +242,6 @@ public:
 
     virtual ~LinearTree() {
         GGAF_DELETEARR(_paNodeSpaceArray);
-        GGAF_DELETE_NULLABLE(_pLinearTreeRounder);
     }
 };
 

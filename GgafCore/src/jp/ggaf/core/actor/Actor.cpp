@@ -7,8 +7,7 @@ using namespace GgafCore;
 #ifdef MY_DEBUG
 unsigned int Actor::_num_actors = 0;
 #endif
-Actor::Actor(const char* prm_name) :
-Element<Actor>(prm_name),
+Actor::Actor(const char* prm_name) : Element<Actor>(prm_name), ITreeNodeElem(),
 _pDependenceDepository(nullptr),
 _pFormation(nullptr),
 _can_hit_flg(false),

@@ -266,6 +266,7 @@ void GeometricActor::processPreJudgement() {
                 //Ž‹–ìŠO“–‚½‚è”»’è–³Œø‚Ìê‡‚Í“o˜^‚µ‚È‚¢
             } else  {
                 //–Ø“o˜^
+                _kind = lookUpKind();
                 _pChecker->updateHitArea();
             }
         }

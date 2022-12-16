@@ -439,7 +439,7 @@ class Rgb;
 class Config;
 class Properties;
 
-template<class T, int DIM>
+template<class T, int DIM, int N>
 class LinearTree;
 
 template<class T>
@@ -448,8 +448,14 @@ class LinearQuadtree;
 template<class T>
 class LinearOctree;
 
-template<class T, int DIM>
+template<class T, int DIM, int N>
 class LinearTreeRounder;
+
+template<class T>
+class LinearOctreeRounder;
+
+template<class T>
+class LinearQuadtreeRounder;
 
 //class Curtain;
 class Table;

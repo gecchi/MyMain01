@@ -83,8 +83,11 @@
     <ClInclude Include="include\jp\ggaf\core\util\curtain.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\DetectMemoryLeaks.h" />
     <ClInclude Include="include\jp\ggaf\core\util\enumindex.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\lineartree\itreenodeelem.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\lineartree\linearoctree.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\lineartree\linearoctreerounder.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\lineartree\linearquadtree.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\lineartree\linearquadtreerounder.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\lineartree\lineartree.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\lineartree\lineartreerounder.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\linkedlistring.hpp" />

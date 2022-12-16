@@ -33,15 +33,6 @@ void World::processBehavior() {
 }
 
 void World::processJudgement() {
-    //当たり判定チェック
-    if (GgafDx::Input::isPushedDownKey(DIK_I)) {
-        _TRACE_("----------------------------------");
-        pCARETAKER->getSpacetime()->getLinearQuadtree()->putTree();
-        _TRACE_("----------------------------------");
-    }
-//    pHitCheckRounder_->executeAll(VV_MIKATA, VV_TEKI);
-    //executeAllHitChk は processJudgement() で呼ぶ必要あり
-    //(processBehavior())ではまだ登録されていない)
 }
 
 World::~World() {

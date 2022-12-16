@@ -154,5 +154,8 @@
     <ClInclude Include="include\jp\ggaf\core\Phase.h" />
     <ClInclude Include="include\jp\ggaf\core\Properties.h" />
     <ClInclude Include="include\GgafCommonHeader.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\lineartree\ITreeNodeElem.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\lineartree\LinearOctreeRounder.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\lineartree\LinearQuadtreeRounder.hpp" />
   </ItemGroup>
 </Project>

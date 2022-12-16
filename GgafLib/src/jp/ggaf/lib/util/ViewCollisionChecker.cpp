@@ -20,8 +20,7 @@
 using namespace GgafLib;
 
 ViewCollisionChecker::ViewCollisionChecker(GgafDx::GeometricActor* prm_pActor) : GgafDx::CollisionChecker(prm_pActor) ,
-        _pViewLinearQuadtree(pCARETAKER->getSpacetime()->getViewLinearQuadtree()),
-        _pNodeElem(NEW GgafCore::LinearQuadtree<GgafCore::Actor>::NodeElem(prm_pActor))
+        _pViewLinearQuadtree(pCARETAKER->getSpacetime()->getViewLinearQuadtree())
 {
 }
 
@@ -33,14 +32,14 @@ void ViewCollisionChecker::updateHitArea() {
     GgafDx::GeometricActor* const pActor = _pActor;
     if (pActor->isActiveInTheTree()) {
         //四分木に登録！
-        _pNodeElem->_kind = pActor->lookUpKind();
+//        _pNodeElem->_kind = pActor->lookUpKind();
 #ifdef MY_DEBUG
-        if (_pNodeElem->_kind == 0) {
+        if (pActor->_kind == 0) {
             _TRACE_("【警告】 ViewCollisionChecker::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
         }
 #endif
         pCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //最外域の境界AABB更新
-        _pViewLinearQuadtree->registerElem(_pNodeElem, pActor->_x + pCollisionArea->_aabb_x1,
+        _pViewLinearQuadtree->registerElem(pActor, pActor->_x + pCollisionArea->_aabb_x1,
                                                        pActor->_y + pCollisionArea->_aabb_y1,
                                                        pActor->_x + pCollisionArea->_aabb_x2,
                                                        pActor->_y + pCollisionArea->_aabb_y2);
@@ -228,6 +227,5 @@ void ViewCollisionChecker::releaseHitArea() {
 
 
 ViewCollisionChecker::~ViewCollisionChecker() {
-    delete _pNodeElem;
     //当たり判定はないかもしれない。この場合_pElemは無駄な生成と解放をすることになる。。
 }

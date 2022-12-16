@@ -3,6 +3,8 @@
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/util/lineartree/LinearTree.hpp"
 
+#include "jp/ggaf/core/util/lineartree/LinearQuadtreeRounder.hpp"
+
 namespace GgafCore {
 
 
@@ -111,7 +113,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 template<class T>
-class LinearQuadtree : public LinearTree<T,2> {
+class LinearQuadtree : public LinearTree<T, 2, 4> {
 
 private:
     /**
@@ -217,13 +219,13 @@ public:
      */
     LinearQuadtree(uint32_t prm_level,
                    int x1, int y1,
-                   int x2, int y2) : LinearTree<T,2>(prm_level),
+                   int x2, int y2) : LinearTree<T,2,4>(prm_level),
     _root_x1(x1),
     _root_y1(y1),
     _root_x2(x2),
     _root_y2(y2),
-    _top_level_dx( (_root_x2-_root_x1) / ((float)(1<<LinearTree<T,2>::_top_space_level)) ),
-    _top_level_dy( (_root_y2-_root_y1) / ((float)(1<<LinearTree<T,2>::_top_space_level)) ),
+    _top_level_dx( (_root_x2-_root_x1) / ((float)(1<<LinearTree<T,2,4>::_top_space_level)) ),
+    _top_level_dy( (_root_y2-_root_y1) / ((float)(1<<LinearTree<T,2,4>::_top_space_level)) ),
     _r_top_level_dx(1.0 / _top_level_dx),
     _r_top_level_dy(1.0 / _top_level_dy)
     {
@@ -232,10 +234,10 @@ public:
             throwCriticalException("LinearQuadtree::LinearQuadtree() 空間レベルオーバー！ prm_level="<<prm_level);
         }
     #endif
-        _TRACE_("LinearQuadtree::LinearQuadtree("<<prm_level<<") 線形四分木空間配列要素数 _num_space="<<(LinearTree<T,2>::_num_space));
+        _TRACE_("LinearQuadtree::LinearQuadtree("<<prm_level<<") 線形四分木空間配列要素数 _num_space="<<(LinearTree<T,2,4>::_num_space));
         _TRACE_(FUNC_NAME<<" 四分木ルートレベル(level=0)の空間位置=(" << _root_x1 << "," << _root_y1 << ")-(" << _root_x2 << "," << _root_y2 << ")");
         _TRACE_(FUNC_NAME<<" 四分木ルートレベル(level=0)の空間の広さ=" << _root_x2-_root_x1 << "x" << _root_y2-_root_y1 );
-        _TRACE_(FUNC_NAME<<" 四分木末端レベル(level="<<(LinearTree<T,2>::_top_space_level)<<")の空間の広さ=" << (uint32_t)_top_level_dx << "x" << (uint32_t)_top_level_dy );
+        _TRACE_(FUNC_NAME<<" 四分木末端レベル(level="<<(LinearTree<T,2,4>::_top_space_level)<<")の空間の広さ=" << (uint32_t)_top_level_dx << "x" << (uint32_t)_top_level_dy );
     }
 
     /**
@@ -247,7 +249,7 @@ public:
      * @param tx2 〃
      * @param ty2 〃
      */
-    void registerElem(typename LinearTree<T,2>::NodeElem* const prm_pNodeElem,
+    void registerElem(T* prm_pNodeElem,
             int tx1, int ty1,
             int tx2, int ty2 ) {
         //はみ出る場合は補正
@@ -277,7 +279,7 @@ public:
                               (uint32_t)((ty2 - _root_y1) * _r_top_level_dy)
                           );                 //↑_root_x2,_root_y2 と間違えていません。
         //空間に登録する（共通化）
-        LinearTree<T,2>::registerElem(prm_pNodeElem, minnum_in_toplevel, maxnum_in_toplevel);
+        LinearTree<T,2,4>::registerElem((ITreeNodeElem*)prm_pNodeElem, minnum_in_toplevel, maxnum_in_toplevel);
 //以下は共通化前のコード
 //    //引数のRect(要素)は、どのレベルの空間に所属（内包されている）しているのか、最大のレベル空間を取得
 //    const uint32_t differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;
@@ -375,7 +377,11 @@ public:
 //    //配列の6番目とは、配列要素番号は-1して5になる。
 //    //+1 して -1 するので結局、所属空間レベルxの最初の配列要素番号は  (4^x - 1) / 3 となる
 //
-}
+    }
+    LinearQuadtreeRounder<T>* createRounder(void (T::*prm_pFuncHitCheck)(T*)) {
+        LinearQuadtreeRounder<T>* pRounder = NEW LinearQuadtreeRounder<T>(LinearTree<T,2,4>::_paNodeSpaceArray, LinearTree<T,2,4>::_num_space, prm_pFuncHitCheck);
+        return pRounder;
+    }
 
     virtual ~LinearQuadtree() {
     }

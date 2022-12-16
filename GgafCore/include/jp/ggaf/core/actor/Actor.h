@@ -2,6 +2,7 @@
 #define GGAF_CORE_ACTOR_H_
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/Element.hpp"
+#include "jp/ggaf/core/util/lineartree/ITreeNodeElem.hpp"
 #include "jp/ggaf/core/util/Status.h"
 
 #define STAT_DEFAULT_ACTOR_KIND 0
@@ -35,7 +36,7 @@ namespace GgafCore {
  * @since 2007/11/14
  * @author Masatoshi Tsuge
  */
-class Actor : public Element<Actor> {
+class Actor : public Element<Actor>, public ITreeNodeElem {
 
     friend class Caretaker;
     friend class MainActor;

@@ -5,6 +5,8 @@
 #include "jp/gecchi/VioletVrain/VvCaretaker.h"
 #include "jp/ggaf/core/scene/Scene.h"
 #include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/util/lineartree/LinearQuadtree.hpp"
+
 using namespace VioletVrain;
 
 #define PRIMARY_VIEW 0
@@ -36,6 +38,11 @@ void VvSpacetime::processJudgement() {
     executeWorldHitCheck(VV_MIKATA, VV_TEKI);
     //executeWorldHitCheck ‚Í processJudgement() ‚ÅŒÄ‚Ô•K—v‚ ‚è
     //(processBehavior())‚Å‚Í‚Ü‚¾“o˜^‚³‚ê‚Ä‚¢‚È‚¢)
+    if (GgafDx::Input::isPushedDownKey(DIK_I)) {
+        _TRACE_("----------------------------------");
+        getLinearQuadtree()->putTree();
+        _TRACE_("----------------------------------");
+    }
 }
 
 VvSpacetime::~VvSpacetime() {

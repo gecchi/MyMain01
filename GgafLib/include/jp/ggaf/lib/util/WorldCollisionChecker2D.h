@@ -18,10 +18,6 @@ class WorldCollisionChecker2D : public WorldCollisionChecker {
     GgafCore::LinearQuadtree<GgafCore::Actor>* const _pWorldLinearQuadtree; //TODO:どこに持たせようか悩むがとりあえずココに
 
 public:
-    /** 線形八分木登録用要素 */
-    GgafCore::LinearQuadtree<GgafCore::Actor>::NodeElem* const _pNodeElem;
-
-public:
     /**
      * コンストラクタ<BR>
      * @param   prm_pActor  当たり判定機能を追加するActor

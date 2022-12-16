@@ -3,6 +3,7 @@
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/util/lineartree/LinearTree.hpp"
 
+#include "jp/ggaf/core/util/lineartree/LinearOctreeRounder.hpp"
 namespace GgafCore {
 
 #define MAX_OCTREE_LEVEL 8
@@ -113,7 +114,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 template<class T>
-class LinearOctree : public LinearTree<T, 3> {
+class LinearOctree : public LinearTree<T, 3, 8> {
 
 private:
     /**
@@ -228,17 +229,17 @@ public:
      * @param z2 〃
      */
     LinearOctree(uint32_t prm_level,
-                   int x1, int y1, int z1,
-                   int x2, int y2, int z2) : LinearTree<T, 3>(prm_level),
+                 int x1, int y1, int z1,
+                 int x2, int y2, int z2) : LinearTree<T, 3, 8>(prm_level),
     _root_x1(x1),
     _root_y1(y1),
     _root_z1(z1),
     _root_x2(x2),
     _root_y2(y2),
     _root_z2(z2),
-    _top_level_dx( (_root_x2-_root_x1) / ((double)(1<<LinearTree<T,3>::_top_space_level)) ),
-    _top_level_dy( (_root_y2-_root_y1) / ((double)(1<<LinearTree<T,3>::_top_space_level)) ),
-    _top_level_dz( (_root_z2-_root_z1) / ((double)(1<<LinearTree<T,3>::_top_space_level)) ), //+1は空間数をオーバーしないように余裕をもたせるため
+    _top_level_dx( (_root_x2-_root_x1) / ((double)(1<<LinearTree<T,3,8>::_top_space_level)) ),
+    _top_level_dy( (_root_y2-_root_y1) / ((double)(1<<LinearTree<T,3,8>::_top_space_level)) ),
+    _top_level_dz( (_root_z2-_root_z1) / ((double)(1<<LinearTree<T,3,8>::_top_space_level)) ),
     _r_top_level_dx(1.0 / _top_level_dx),
     _r_top_level_dy(1.0 / _top_level_dy),
     _r_top_level_dz(1.0 / _top_level_dz)
@@ -248,10 +249,10 @@ public:
             throwCriticalException("LinearOctree::LinearOctree() 空間レベルオーバー！ prm_level="<<prm_level);
         }
     #endif
-        _TRACE_("LinearOctree::LinearOctree("<<prm_level<<") 線形八分木空間配列要素数 _num_space="<<(LinearTree<T,3>::_num_space));
+        _TRACE_("LinearOctree::LinearOctree("<<prm_level<<") 線形八分木空間配列要素数 _num_space="<<(LinearTree<T,3,8>::_num_space));
         _TRACE_(FUNC_NAME<<" 八分木ルートレベル(level=0)の空間位置=(" << _root_x1 << "," << _root_y1 << "," << _root_z1 << ")-(" << _root_x2 << "," << _root_y2 << "," << _root_z2 << ")");
         _TRACE_(FUNC_NAME<<" 八分木ルートレベル(level=0)の空間の広さ=" << _root_x2-_root_x1 << "x" << _root_y2-_root_y1 << "x" << _root_z2-_root_z1);
-        _TRACE_(FUNC_NAME<<" 八分木末端レベル(level="<<(LinearTree<T, 3>::_top_space_level)<<")の空間の広さ=" << (uint32_t)_top_level_dx << "x" << (uint32_t)_top_level_dy << "x" << (uint32_t)_top_level_dz);
+        _TRACE_(FUNC_NAME<<" 八分木末端レベル(level="<<(LinearTree<T,3,8>::_top_space_level)<<")の空間の広さ=" << (uint32_t)_top_level_dx << "x" << (uint32_t)_top_level_dy << "x" << (uint32_t)_top_level_dz);
     }
 
     /**
@@ -265,9 +266,10 @@ public:
      * @param ty2 〃
      * @param tz2 〃
      */
-    void registerElem(typename LinearTree<T,3>::NodeElem* const prm_pNodeElem,
+    void registerElem(T* const prm_pNodeElem,
                       int tx1, int ty1, int tz1,
                       int tx2, int ty2, int tz2) {
+
         //はみ出る場合は補正
         if (tx1 <= _root_x1)  { tx1 = _root_x1; }
         if (tx2 >= _root_x2)  { tx2 = _root_x2; }
@@ -298,7 +300,8 @@ public:
                             (uint32_t)((tz2 - _root_z1) * _r_top_level_dz)
                         );                 //↑_root_x2,_root_y2,_root_z2 と間違えていません。
         //空間に登録する（共通化）
-        LinearTree<T, 3>::registerElem(prm_pNodeElem, minnum_in_toplevel,maxnum_in_toplevel);
+       LinearTree<T,3,8>::registerElem((ITreeNodeElem*)prm_pNodeElem, minnum_in_toplevel,maxnum_in_toplevel);
+
 //以下は共通化前のコード
 //    //引数のBOXは、どのレベルの空間に所属しているのか取得
 //    const uint32_t differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;
@@ -395,6 +398,11 @@ public:
 //    //所望の所属空間レベルは 2の最初の空間は配列は 9+1 の10番目から始まる。
 //    //配列の10番目とは、配列要素番号は-1して9になる。
 //    //+1 して -1 するので結局、所属空間レベルxの最初の配列要素番号は  (8^x - 1) / 7 となる
+    }
+
+    LinearOctreeRounder<T>* createRounder(void (T::*prm_pFuncHitCheck)(T*)) {
+        LinearOctreeRounder<T>* pRounder = NEW LinearOctreeRounder<T>( LinearTree<T,3,8>::_paNodeSpaceArray,  LinearTree<T,3,8>::_num_space, prm_pFuncHitCheck);
+        return pRounder;
     }
 
     virtual ~LinearOctree() {

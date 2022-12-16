@@ -79,6 +79,7 @@ void AroundViewCamWorker::processBehavior() {
         }
 //    }
     if (_onScreen && (isPushedMouseButton0 || isPushedMouseButton1 || isPushedMouseButton2)) {
+        mdx = mdy = mdz = 0;
         RECT cRect; // クライアント領域の矩形
         int cw, ch; // クライアント領域の幅、高さ
         // クライアント領域の幅・高さを計算

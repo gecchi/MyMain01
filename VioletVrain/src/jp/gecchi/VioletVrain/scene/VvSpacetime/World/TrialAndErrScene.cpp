@@ -23,7 +23,6 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
     requestActor(10000, Test01);
     requestActor(10002, Zako);
     requestActor(10001, Jiki);
-
 }
 
 void TrialAndErrScene::initialize() {
@@ -51,8 +50,6 @@ void TrialAndErrScene::processBehavior() {
         Jiki* pJiki = (Jiki*)receiveActor(10001);
         pJiki->setPosition(PX_C(200), PX_C(400),0);
         bringSceneMediator()->appendGroupChild(VV_TEKI, pJiki);
-
-
     }
 
 
