@@ -237,9 +237,9 @@ public:
     _root_x2(x2),
     _root_y2(y2),
     _root_z2(z2),
-    _top_level_dx( (_root_x2-_root_x1) / ((double)(1<<LinearTree<T,3,8>::_top_space_level)) ),
-    _top_level_dy( (_root_y2-_root_y1) / ((double)(1<<LinearTree<T,3,8>::_top_space_level)) ),
-    _top_level_dz( (_root_z2-_root_z1) / ((double)(1<<LinearTree<T,3,8>::_top_space_level)) ),
+    _top_level_dx( ((_root_x2-_root_x1) / ((double)(1<<LinearTree<T,3,8>::_top_space_level))) + 1 ),
+    _top_level_dy( ((_root_y2-_root_y1) / ((double)(1<<LinearTree<T,3,8>::_top_space_level))) + 1 ),
+    _top_level_dz( ((_root_z2-_root_z1) / ((double)(1<<LinearTree<T,3,8>::_top_space_level))) + 1 ),  // + 1 ÇÕÅAMAX_OCTREE_LEVEL(8) Ç≈ space_index Ç™ 255 Ç…ó}Ç¶ÇÈÇΩÇﬂ
     _r_top_level_dx(1.0 / _top_level_dx),
     _r_top_level_dy(1.0 / _top_level_dy),
     _r_top_level_dz(1.0 / _top_level_dz)

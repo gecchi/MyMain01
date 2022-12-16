@@ -224,8 +224,8 @@ public:
     _root_y1(y1),
     _root_x2(x2),
     _root_y2(y2),
-    _top_level_dx( (_root_x2-_root_x1) / ((float)(1<<LinearTree<T,2,4>::_top_space_level)) ),
-    _top_level_dy( (_root_y2-_root_y1) / ((float)(1<<LinearTree<T,2,4>::_top_space_level)) ),
+    _top_level_dx( ((_root_x2-_root_x1) / ((float)(1<<LinearTree<T,2,4>::_top_space_level))) + 1),
+    _top_level_dy( ((_root_y2-_root_y1) / ((float)(1<<LinearTree<T,2,4>::_top_space_level))) + 1),
     _r_top_level_dx(1.0 / _top_level_dx),
     _r_top_level_dy(1.0 / _top_level_dy)
     {
