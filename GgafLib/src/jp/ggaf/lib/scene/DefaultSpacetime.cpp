@@ -70,7 +70,9 @@ void DefaultSpacetime::executeViewHitCheck(kind_t prm_kind_groupA, kind_t prm_ki
 
 void DefaultSpacetime::processPreJudgement() {
     GgafDx::Spacetime::processPreJudgement();
+#ifdef MY_DEBUG
     _is_done_processPreJudgement = true;
+#endif
 }
 void DefaultSpacetime::processFinal() {
     if (CONFIG::IS_HIT_CHECK_3D) {
@@ -79,7 +81,9 @@ void DefaultSpacetime::processFinal() {
         _pWorldLinearQuadtree->clearAllElem();
     }
     _pViewLinearQuadtree->clearAllElem();
+#ifdef MY_DEBUG
     _is_done_processPreJudgement = false;
+#endif
 }
 
 DefaultSpacetime::~DefaultSpacetime() {
