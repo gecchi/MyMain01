@@ -14,8 +14,8 @@ FormationAppho001b::FormationAppho001b(const char* prm_name) : FormationAppho001
 }
 
 void FormationAppho001b::onCalledUpAppho(EnemyAppho* prm_pAppho, int prm_index) {
-    int d = 130;
-    prm_pAppho->entry_pos_.set( pMYSHIP->_x + RND(-PX_C(d),PX_C(d)),
+    int d = 200;
+    prm_pAppho->entry_pos_.set( pMYSHIP->_x + PX_C(200) + RND(-PX_C(d),PX_C(d)),
                                 pMYSHIP->_y + RND(-PX_C(d),PX_C(d)),
                                 MyShip::lim_z_left_ + RND(-PX_C(d),PX_C(d)));
     coord r = PX_C(400);
@@ -26,7 +26,7 @@ void FormationAppho001b::onCalledUpAppho(EnemyAppho* prm_pAppho, int prm_index) 
                                      pMYSHIP->_y - y,
                                      pMYSHIP->_z      );
     Spacetime* pSpacetime =  pCARETAKER->getSpacetime();
-    prm_pAppho->leave_pos_.set( (pSpacetime->_x_bound_right/2)  + RND(-PX_C(d),PX_C(d)),
+    prm_pAppho->leave_pos_.set( (pSpacetime->_x_bound_right/2)  + PX_C(200) + RND(-PX_C(d),PX_C(d)),
                                 (pSpacetime->_y_bound_bottom/2) + RND(-PX_C(d),PX_C(d)),
                                 pMYSHIP->_z                                         );
 }

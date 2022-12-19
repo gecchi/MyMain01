@@ -6,7 +6,7 @@
 #include "jp/ggaf/core/util/lineartree/LinearOctreeRounder.hpp"
 namespace GgafCore {
 
-#define MAX_OCTREE_LEVEL 8
+#define MAX_WORLD_HIT_CHECK_OCTREE_LEVEL 8
 
 /**
  * 線形八分木クラス .
@@ -239,13 +239,13 @@ public:
     _root_z2(z2),
     _top_level_dx( ((_root_x2-_root_x1) / ((double)(1<<LinearTree<T,3,8>::_top_space_level))) + 1 ),
     _top_level_dy( ((_root_y2-_root_y1) / ((double)(1<<LinearTree<T,3,8>::_top_space_level))) + 1 ),
-    _top_level_dz( ((_root_z2-_root_z1) / ((double)(1<<LinearTree<T,3,8>::_top_space_level))) + 1 ),  // + 1 は、MAX_OCTREE_LEVEL(8) で space_index が 255 に抑えるため
+    _top_level_dz( ((_root_z2-_root_z1) / ((double)(1<<LinearTree<T,3,8>::_top_space_level))) + 1 ),  // + 1 は、MAX_WORLD_HIT_CHECK_OCTREE_LEVEL(8) で space_index が 255 に抑えるため
     _r_top_level_dx(1.0 / _top_level_dx),
     _r_top_level_dy(1.0 / _top_level_dy),
     _r_top_level_dz(1.0 / _top_level_dz)
     {
     #ifdef MY_DEBUG
-        if (prm_level > MAX_OCTREE_LEVEL) {
+        if (prm_level > MAX_WORLD_HIT_CHECK_OCTREE_LEVEL) {
             throwCriticalException("LinearOctree::LinearOctree() 空間レベルオーバー！ prm_level="<<prm_level);
         }
     #endif

@@ -8,53 +8,62 @@
 
 using namespace GgafLib;
 
+
+WorldOctree* DefaultSpacetime::_pWorldOctree = nullptr;
+WorldOctreeRounder* DefaultSpacetime::_pWorldOctreeRounder = nullptr;
+WorldQuadtree* DefaultSpacetime::_pWorldQuadtree = nullptr;
+WorldQuadtreeRounder* DefaultSpacetime::_pWorldQuadtreeRounder = nullptr;
+ViewQuadtree* DefaultSpacetime::_pViewQuadtree = nullptr;
+ViewQuadtreeRounder* DefaultSpacetime::_pViewQuadtreeRounder = nullptr;
+
+
 DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera) :
         GgafDx::Spacetime(prm_name, prm_pCamera) {
     _class_name = "DefaultSpacetime";
-    _pWorldLinearOctree = nullptr;
-    _pWorldOctreeRounder = nullptr;
-    _pWorldLinearQuadtree = nullptr;
-    _pWorldQuadtreeRounder = nullptr;
 #ifdef MY_DEBUG
     _is_done_processPreJudgement = false;
 #endif
 
-    if (CONFIG::IS_HIT_CHECK_3D) {
-        //八分木作成
-        _TRACE_("八分木作成開始");
-        _pWorldLinearOctree = NEW GgafCore::LinearOctree<GgafCore::Actor>(CONFIG::OCTREE_LEVEL,
-                                                    _x_bound_left  ,_y_bound_bottom, _z_bound_near ,
-                                                    _x_bound_right ,_y_bound_top   , _z_bound_far   );
-        _pWorldOctreeRounder = _pWorldLinearOctree->createRounder(&GgafCore::Actor::executeHitChk_MeAnd);
-        _TRACE_("八分木作成終了");
-    } else {
+    if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
         //四分木作成
         _TRACE_("四分木作成開始");
-        _pWorldLinearQuadtree = NEW GgafCore::LinearQuadtree<GgafCore::Actor>(CONFIG::QUADTREE_LEVEL,
-                                                        _x_bound_left  ,_y_bound_bottom,
-                                                        _x_bound_right ,_y_bound_top    );
-        _pWorldQuadtreeRounder = _pWorldLinearQuadtree->createRounder(&GgafCore::Actor::executeHitChk_MeAnd);
+        DefaultSpacetime::_pWorldQuadtree = NEW WorldQuadtree(CONFIG::WORLD_HIT_CHECK_QUADTREE_LEVEL,
+                                                              _x_bound_left  ,_y_bound_bottom,
+                                                              _x_bound_right ,_y_bound_top    );
+        DefaultSpacetime::_pWorldQuadtreeRounder =
+                _pWorldQuadtree->createRounder(&GgafCore::Actor::executeHitChk_MeAnd);
         _TRACE_("四分木作成終了");
+    } else {
+        //八分木作成
+        _TRACE_("八分木作成開始");
+        DefaultSpacetime::_pWorldOctree = NEW WorldOctree(CONFIG::WORLD_HIT_CHECK_OCTREE_LEVEL,
+                                                          _x_bound_left  ,_y_bound_bottom, _z_bound_near ,
+                                                          _x_bound_right ,_y_bound_top   , _z_bound_far   );
+        DefaultSpacetime::_pWorldOctreeRounder =
+                _pWorldOctree->createRounder(&GgafCore::Actor::executeHitChk_MeAnd);
+        _TRACE_("八分木作成終了");
     }
 
     //Board用四分木作成
     _TRACE_("Board用四分木作成開始");
-    _pViewLinearQuadtree = NEW GgafCore::LinearQuadtree<GgafCore::Actor>(2, _x_bound_left_b  ,_y_bound_top_b,
-                                                                              _x_bound_right_b , _y_bound_bottom_b   );
-    _pViewQuadtreeRounder = _pViewLinearQuadtree->createRounder(&GgafCore::Actor::executeHitChk_MeAnd);
+    DefaultSpacetime::_pViewQuadtree = NEW ViewQuadtree(CONFIG::VIEW_HIT_CHECK_QUADTREE_LEVEL,
+                                                        _x_bound_left_b  ,_y_bound_top_b,
+                                                        _x_bound_right_b , _y_bound_bottom_b   );
+    DefaultSpacetime::_pViewQuadtreeRounder =
+            _pViewQuadtree->createRounder(&GgafCore::Actor::executeHitChk_MeAnd);
     _TRACE_("Board用四分木作成終了");
 }
 
 void DefaultSpacetime::executeWorldHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
 #ifdef MY_DEBUG
     if (!_is_done_processPreJudgement) {
-        throwCriticalException("DefaultSpacetime::executeWorldHitCheck() ツリーに要素が登録されていません。本メソッドは processJudgement() で実行してください。");
+        throwCriticalException("DefaultSpacetime::executeWorldHitCheck() ツリーに要素がまだ登録されていません。本メソッドは processJudgement() で実行してください。");
     }
 #endif
-    if (CONFIG::IS_HIT_CHECK_3D) {
-        _pWorldOctreeRounder->executeAll(prm_kind_groupA, prm_kind_groupB);
+    if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
+        DefaultSpacetime::_pWorldQuadtreeRounder->executeAll(prm_kind_groupA, prm_kind_groupB);
     } else {
-        _pWorldQuadtreeRounder->executeAll(prm_kind_groupA, prm_kind_groupB);
+        DefaultSpacetime::_pWorldOctreeRounder->executeAll(prm_kind_groupA, prm_kind_groupB);
     }
 }
 
@@ -62,10 +71,10 @@ void DefaultSpacetime::executeWorldHitCheck(kind_t prm_kind_groupA, kind_t prm_k
 void DefaultSpacetime::executeViewHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
 #ifdef MY_DEBUG
     if (!_is_done_processPreJudgement) {
-        throwCriticalException("DefaultSpacetime::executeViewHitCheck() ツリーに要素が登録されていません。本メソッドは processJudgement() で実行してください。");
+        throwCriticalException("DefaultSpacetime::executeViewHitCheck() ツリーに要素がまだ登録されていません。本メソッドは processJudgement() で実行してください。");
     }
 #endif
-    _pViewQuadtreeRounder->executeAll(prm_kind_groupA, prm_kind_groupB);
+    DefaultSpacetime::_pViewQuadtreeRounder->executeAll(prm_kind_groupA, prm_kind_groupB);
 }
 
 void DefaultSpacetime::processPreJudgement() {
@@ -75,12 +84,12 @@ void DefaultSpacetime::processPreJudgement() {
 #endif
 }
 void DefaultSpacetime::processFinal() {
-    if (CONFIG::IS_HIT_CHECK_3D) {
-        _pWorldLinearOctree->clearAllElem();
+    if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
+        DefaultSpacetime::_pWorldQuadtree->clearAllElem();
     } else {
-        _pWorldLinearQuadtree->clearAllElem();
+        DefaultSpacetime::_pWorldOctree->clearAllElem();
     }
-    _pViewLinearQuadtree->clearAllElem();
+    DefaultSpacetime::_pViewQuadtree->clearAllElem();
 #ifdef MY_DEBUG
     _is_done_processPreJudgement = false;
 #endif
@@ -88,28 +97,28 @@ void DefaultSpacetime::processFinal() {
 
 DefaultSpacetime::~DefaultSpacetime() {
 #ifdef MY_DEBUG
-    if (CONFIG::IS_HIT_CHECK_3D) {
-        _TRACE_("World八分木 -->");
-        _pWorldLinearOctree->putTree();
-        _TRACE_("<--World八分木");
-    } else {
+    if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
         _TRACE_("World四分木 -->");
-        _pWorldLinearQuadtree->putTree();
+        DefaultSpacetime::_pWorldQuadtree->putTree();
         _TRACE_("<--World四分木");
+    } else {
+        _TRACE_("World八分木 -->");
+        DefaultSpacetime::_pWorldOctree->putTree();
+        _TRACE_("<--World八分木");
     }
     _TRACE_("View四分木 -->");
-    _pViewLinearQuadtree->putTree();
+    DefaultSpacetime::_pViewQuadtree->putTree();
     _TRACE_("<--View四分木");
     WorldCollisionChecker::releaseHitArea();
     ViewCollisionChecker::releaseHitArea();
 #endif
-    if (CONFIG::IS_HIT_CHECK_3D) {
-        GGAF_DELETE(_pWorldLinearOctree);
-        GGAF_DELETE(_pWorldOctreeRounder);
+    if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
+        GGAF_DELETE(DefaultSpacetime::_pWorldQuadtree);
+        GGAF_DELETE(DefaultSpacetime::_pWorldQuadtreeRounder);
     } else {
-        GGAF_DELETE(_pWorldLinearQuadtree);
-        GGAF_DELETE(_pWorldQuadtreeRounder);
+        GGAF_DELETE(DefaultSpacetime::_pWorldOctree);
+        GGAF_DELETE(DefaultSpacetime::_pWorldOctreeRounder);
     }
-    GGAF_DELETE(_pViewLinearQuadtree);
-    GGAF_DELETE(_pViewQuadtreeRounder);
+    GGAF_DELETE(DefaultSpacetime::_pViewQuadtree);
+    GGAF_DELETE(DefaultSpacetime::_pViewQuadtreeRounder);
 }

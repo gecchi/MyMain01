@@ -40,7 +40,7 @@ void VvSpacetime::processJudgement() {
     //(processBehavior())‚Å‚Í‚Ü‚¾“o˜^‚³‚ê‚Ä‚¢‚È‚¢)
     if (GgafDx::Input::isPushedDownKey(DIK_I)) {
         _TRACE_("----------------------------------");
-        getLinearQuadtree()->putTree();
+        VvSpacetime::_pWorldQuadtree->putTree();
         _TRACE_("----------------------------------");
     }
 }

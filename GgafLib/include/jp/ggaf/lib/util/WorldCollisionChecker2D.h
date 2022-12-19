@@ -15,8 +15,6 @@ namespace GgafLib {
  */
 class WorldCollisionChecker2D : public WorldCollisionChecker {
 
-    GgafCore::LinearQuadtree<GgafCore::Actor>* const _pWorldLinearQuadtree; //TODO:どこに持たせようか悩むがとりあえずココに
-
 public:
     /**
      * コンストラクタ<BR>

@@ -15,7 +15,6 @@ FormationAppho001::FormationAppho001(const char* prm_name) :
     num_Appho_       = 0;
     interval_frames_ = 0;
 
-
     for (int i = 0; i < RF_FormationAppho001_Num(G_MAX_RANK); i++) {
         std::string name = "Appho("+XTOS(i)+")";
         appendFormationMember(NEW EnemyAppho(name.c_str()));

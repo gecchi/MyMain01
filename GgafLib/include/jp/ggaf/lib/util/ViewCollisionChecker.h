@@ -15,8 +15,6 @@ namespace GgafLib {
  */
 class ViewCollisionChecker : public GgafDx::CollisionChecker {
 
-    GgafCore::LinearQuadtree<GgafCore::Actor>* const _pViewLinearQuadtree; //TODO:どこに持たせようか悩むがとりあえずココに
-
 public:
     /**
      * コンストラクタ<BR>

@@ -56,10 +56,10 @@ void StgUtil::init() {
 }
 
 GgafDx::CollisionChecker* StgUtil::createCollisionChecker(GgafDx::GeometricActor* prm_pActor) {
-    if (CONFIG::IS_HIT_CHECK_3D) {
-        return NEW WorldCollisionChecker3D(prm_pActor);
-    } else {
+    if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
         return NEW WorldCollisionChecker2D(prm_pActor);
+    } else {
+        return NEW WorldCollisionChecker3D(prm_pActor);
     }
 }
 

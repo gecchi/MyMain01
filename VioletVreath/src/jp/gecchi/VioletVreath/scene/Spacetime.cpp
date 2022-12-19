@@ -1,6 +1,5 @@
 #include "Spacetime.h"
 
-
 #include "jp/ggaf/core/util/lineartree/LinearQuadtree.hpp"
 #include "jp/ggaf/core/exception/CriticalException.h"
 #include "jp/ggaf/core/actor/SceneMediator.h"
@@ -46,7 +45,9 @@ void Spacetime::processJudgement() {
         //詳細は 「種別相関定義コピペツール.xls」 の 「種別相関」 シート参照
 #ifdef MY_DEBUG
         if (GgafDx::Input::isPushedDownKey(DIK_I)) {
-           getLinearOctree()->putTree();
+            _TRACE_("八分木 -->");
+            _pWorldOctree->putTree();
+            _TRACE_("<--八分木");
         }
 #endif
         //八分木アルゴリズムでヒットチェック
@@ -58,7 +59,7 @@ void Spacetime::processJudgement() {
 #ifdef MY_DEBUG
         if (GgafDx::Input::isPushedDownKey(DIK_J)) {
             _TRACE_("Board用四分木 -->");
-            _pViewLinearQuadtree->putTree();
+            _pViewQuadtree->putTree();
             _TRACE_("<--Board用四分木");
         }
 #endif

@@ -19,8 +19,7 @@
 
 using namespace GgafLib;
 
-ViewCollisionChecker::ViewCollisionChecker(GgafDx::GeometricActor* prm_pActor) : GgafDx::CollisionChecker(prm_pActor) ,
-        _pViewLinearQuadtree(pCARETAKER->getSpacetime()->getViewLinearQuadtree())
+ViewCollisionChecker::ViewCollisionChecker(GgafDx::GeometricActor* prm_pActor) : GgafDx::CollisionChecker(prm_pActor)
 {
 }
 
@@ -39,10 +38,10 @@ void ViewCollisionChecker::updateHitArea() {
         }
 #endif
         pCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //ÅŠOˆæ‚Ì‹«ŠEAABBXV
-        _pViewLinearQuadtree->registerElem(pActor, pActor->_x + pCollisionArea->_aabb_x1,
-                                                       pActor->_y + pCollisionArea->_aabb_y1,
-                                                       pActor->_x + pCollisionArea->_aabb_x2,
-                                                       pActor->_y + pCollisionArea->_aabb_y2);
+        DefaultSpacetime::_pViewQuadtree->registerElem(pActor, pActor->_x + pCollisionArea->_aabb_x1,
+                                                               pActor->_y + pCollisionArea->_aabb_y1,
+                                                               pActor->_x + pCollisionArea->_aabb_x2,
+                                                               pActor->_y + pCollisionArea->_aabb_y2);
 
     }
 }

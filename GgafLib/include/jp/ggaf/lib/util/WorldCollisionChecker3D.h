@@ -15,8 +15,6 @@ namespace GgafLib {
  */
 class WorldCollisionChecker3D : public WorldCollisionChecker {
 
-    GgafCore::LinearOctree<GgafCore::Actor>* const _pWorldLinearOctree; //TODO:どこに持たせようか悩むがとりあえずココに
-
 public:
     /**
      * コンストラクタ<BR>

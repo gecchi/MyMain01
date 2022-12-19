@@ -17,8 +17,7 @@
 
 using namespace GgafLib;
 
-WorldCollisionChecker3D::WorldCollisionChecker3D(GgafDx::GeometricActor* prm_pActor) : WorldCollisionChecker(prm_pActor) ,
-        _pWorldLinearOctree(pCARETAKER->getSpacetime()->getLinearOctree())
+WorldCollisionChecker3D::WorldCollisionChecker3D(GgafDx::GeometricActor* prm_pActor) : WorldCollisionChecker(prm_pActor)
 {
 }
 
@@ -29,21 +28,18 @@ void WorldCollisionChecker3D::updateHitArea() {
     }
     GgafDx::GeometricActor* const pActor = _pActor;
     if (pActor->isActiveInTheTree()) {
-        //î™ï™ñÿÇ…ìoò^ÅI
-//        _pNodeElem->_kind = pActor->lookUpKind();
-       // pActor->_kind = pActor->lookUpKind();
 #ifdef MY_DEBUG
         if (pActor->_kind == 0) {
             _TRACE_("ÅyåxçêÅz WorldCollisionChecker3D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")ÇÃéÌï Ç™0Ç…Ç‡Ç©Ç©ÇÌÇÁÇ∏ÅAî™ï™ñÿÇ…ìoò^ÇµÇÊÇ§Ç∆ÇµÇƒÇ¢Ç‹Ç∑ÅBÇ»Ç∫Ç≈Ç∑Ç©ÅHÅB");
         }
 #endif
         pCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //ç≈äOàÊÇÃã´äEAABBçXêV
-        _pWorldLinearOctree->registerElem(pActor, pActor->_x + pCollisionArea->_aabb_x1,
-                                                      pActor->_y + pCollisionArea->_aabb_y1,
-                                                      pActor->_z + pCollisionArea->_aabb_z1,
-                                                      pActor->_x + pCollisionArea->_aabb_x2,
-                                                      pActor->_y + pCollisionArea->_aabb_y2,
-                                                      pActor->_z + pCollisionArea->_aabb_z2);
+        DefaultSpacetime::_pWorldOctree->registerElem(pActor, pActor->_x + pCollisionArea->_aabb_x1,
+                                                              pActor->_y + pCollisionArea->_aabb_y1,
+                                                              pActor->_z + pCollisionArea->_aabb_z1,
+                                                              pActor->_x + pCollisionArea->_aabb_x2,
+                                                              pActor->_y + pCollisionArea->_aabb_y2,
+                                                              pActor->_z + pCollisionArea->_aabb_z2);
     }
 }
 

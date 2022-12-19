@@ -8,7 +8,7 @@
 namespace GgafCore {
 
 
-#define MAX_QUADTREE_LEVEL 14
+#define MAX_WORLD_HIT_CHECK_QUADTREE_LEVEL 14
 
 /**
  * 線形四分木クラス .
@@ -230,7 +230,7 @@ public:
     _r_top_level_dy(1.0 / _top_level_dy)
     {
     #ifdef MY_DEBUG
-        if (prm_level > MAX_QUADTREE_LEVEL) {
+        if (prm_level > MAX_WORLD_HIT_CHECK_QUADTREE_LEVEL) {
             throwCriticalException("LinearQuadtree::LinearQuadtree() 空間レベルオーバー！ prm_level="<<prm_level);
         }
     #endif

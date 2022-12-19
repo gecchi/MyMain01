@@ -36,7 +36,7 @@ void HgrWorld::processJudgement() {
     //当たり判定チェック
     if (GgafDx::Input::isPushedDownKey(DIK_I)) {
         _TRACE_("----------------------------------");
-        pCARETAKER->getSpacetime()->getLinearQuadtree()->putTree();
+        HgrSpacetime::_pWorldQuadtree->putTree();
         _TRACE_("----------------------------------");
     }
 //    pHitCheckRounder_->executeAll(HGR_MIKATA, HGR_TEKI);

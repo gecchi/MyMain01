@@ -117,11 +117,9 @@ void EnemyAppho::processBehavior() {
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              //滞留中
-             if (pPhase->getFrame() % 16U == 0) {
-                 //ちょくちょく自機を見つめる
-                 pVecVehicle->turnFaceAngTwd(pMYSHIP,
-                                         D_ANG(1), 0, TURN_CLOSE_TO, true);
-             }
+             //自機を見つめる
+             pVecVehicle->turnFaceAngTwd(pMYSHIP,
+                                     D_ANG(1), 0, TURN_CLOSE_TO, true);
 
              if (pPhase->hasArrivedFrameAt(180)) {
                  //自機の方に向いたら敵弾発射！

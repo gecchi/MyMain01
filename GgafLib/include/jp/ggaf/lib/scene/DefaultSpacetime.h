@@ -11,10 +11,14 @@
 
 namespace GgafLib {
 
-//typedef GgafCore::LinearOctreeRounder<GgafCore::Actor> WorldOctreeRounder;
-//typedef GgafCore::LinearQuadtreeRounder<GgafCore::Actor> WorldQuadtreeRounder;
-//
-//typedef GgafCore::LinearQuadtreeRounder<GgafCore::Actor> ViewQuadtreeRounder;
+typedef GgafCore::LinearOctree<GgafCore::Actor> WorldOctree;
+typedef GgafCore::LinearOctreeRounder<GgafCore::Actor> WorldOctreeRounder;
+typedef GgafCore::LinearQuadtree<GgafCore::Actor> WorldQuadtree;
+typedef GgafCore::LinearQuadtreeRounder<GgafCore::Actor> WorldQuadtreeRounder;
+
+typedef GgafCore::LinearQuadtree<GgafCore::Actor> ViewQuadtree;
+typedef GgafCore::LinearQuadtreeRounder<GgafCore::Actor> ViewQuadtreeRounder;
+
 /**
  * 「この世」クラスインターフェイス.
  * GgafDx::Spacetime を継承しただけのインターフェースです。<BR>
@@ -27,12 +31,13 @@ namespace GgafLib {
 class DefaultSpacetime : public GgafDx::Spacetime {
 
 public:
-    GgafCore::LinearOctree<GgafCore::Actor>* _pWorldLinearOctree;
-    GgafCore::LinearOctreeRounder<GgafCore::Actor>* _pWorldOctreeRounder;
-    GgafCore::LinearQuadtree<GgafCore::Actor>* _pWorldLinearQuadtree;
-    GgafCore::LinearQuadtreeRounder<GgafCore::Actor>* _pWorldQuadtreeRounder;
-    GgafCore::LinearQuadtree<GgafCore::Actor>* _pViewLinearQuadtree;
-    GgafCore::LinearQuadtreeRounder<GgafCore::Actor>* _pViewQuadtreeRounder;
+    static WorldOctree* _pWorldOctree;
+    static WorldOctreeRounder* _pWorldOctreeRounder;
+    static WorldQuadtree* _pWorldQuadtree;
+    static WorldQuadtreeRounder* _pWorldQuadtreeRounder;
+
+    static ViewQuadtree* _pViewQuadtree;
+    static ViewQuadtreeRounder* _pViewQuadtreeRounder;
 #ifdef MY_DEBUG
     /** processPreJudgement() 実行済み判定 */
     bool _is_done_processPreJudgement;
@@ -40,34 +45,6 @@ public:
 
 public:
     DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera);
-
-    inline GgafCore::LinearOctree<GgafCore::Actor>* getLinearOctree() {
-#ifdef MY_DEBUG
-        if (_pWorldLinearOctree == nullptr) {
-            throwCriticalException("DefaultSpacetime::getLinearOctree() 八分木は作成されていません。\n"
-                    "IS_HIT_CHECK_3D プロパティ true にしてください。\n"
-                    "現在のIS_HIT_CHECK_3D="<<CONFIG::IS_HIT_CHECK_3D );
-        }
-#endif
-        return _pWorldLinearOctree;
-    }
-
-    inline GgafCore::LinearQuadtree<GgafCore::Actor>* getLinearQuadtree() {
-#ifdef MY_DEBUG
-        if (_pWorldLinearQuadtree == nullptr) {
-            throwCriticalException("DefaultSpacetime::getLinearQuadtree() 四分木は作成されていません。 IS_HIT_CHECK_2D プロパティ true にしてください。現在のIS_HIT_CHECK_2D="<<CONFIG::IS_HIT_CHECK_2D );
-        }
-#endif
-        return _pWorldLinearQuadtree;
-    }
-    inline GgafCore::LinearQuadtree<GgafCore::Actor>* getViewLinearQuadtree() {
-#ifdef MY_DEBUG
-        if (_pViewLinearQuadtree == nullptr) {
-            throwCriticalException("DefaultSpacetime::getViewLinearQuadtree() 四分木は作成されていません。");
-        }
-#endif
-        return _pViewLinearQuadtree;
-    }
 
     /**
      * ワールド座標上のアクターの「種別Aグループ 対 種別Bグループ」の ヒットチェック を行う  .
