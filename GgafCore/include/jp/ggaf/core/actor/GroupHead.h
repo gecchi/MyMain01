@@ -25,9 +25,9 @@ namespace GgafCore {
  *               ｜
  *               ｜getChildFirst()
  *               ↓
- *     GroupHead ⇔ GroupHead ⇔ GroupHead ⇔
+ *          GroupHead ⇔ GroupHead ⇔ GroupHead ⇔
  *           ｜                ｜                ｜
- *           ｜getChildFirst()   ｜                ｜
+ *           ｜getChildFirst() ｜                ｜
  *           ↓                ↓                ↓
  *     キャラのアクター達  キャラのアクター達  キャラのアクター
  * </PRE>

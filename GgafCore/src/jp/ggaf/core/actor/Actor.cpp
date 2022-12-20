@@ -11,7 +11,7 @@ Actor::Actor(const char* prm_name) : Element<Actor>(prm_name), ITreeNodeElem(),
 _pDependenceDepository(nullptr),
 _pFormation(nullptr),
 _can_hit_flg(false),
-_can_hit_out_of_view(true)
+_enable_out_of_view_hit_flg(true)
 {
     _class_name = "Actor";
     _obj_class = Obj_ggaf_Actor;
@@ -38,17 +38,12 @@ Actor::~Actor() {
     //OutputDebugStringA("*");
 }
 
-void Actor::setHitAble(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg) {
+void Actor::setHitAbleTree(bool prm_can_hit_flg, bool prm_enable_out_of_view_hit_flg) {
     _can_hit_flg = prm_can_hit_flg;
-    _can_hit_out_of_view = prm_can_hit_out_of_view_flg;
-}
-
-void Actor::setHitAbleTree(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg) {
-    _can_hit_flg = prm_can_hit_flg;
-    _can_hit_out_of_view = prm_can_hit_out_of_view_flg;
+    _enable_out_of_view_hit_flg = prm_enable_out_of_view_hit_flg;
     Actor* pActor_tmp = _pChildFirst;
     while (pActor_tmp) {
-        pActor_tmp->setHitAble(prm_can_hit_flg, prm_can_hit_out_of_view_flg);
+        pActor_tmp->setHitAble(prm_can_hit_flg, prm_enable_out_of_view_hit_flg);
         if (pActor_tmp->_is_last_flg) {
             break;
         } else {

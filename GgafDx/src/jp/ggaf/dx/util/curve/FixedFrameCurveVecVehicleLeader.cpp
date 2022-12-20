@@ -97,7 +97,7 @@ void FixedFrameCurveVecVehicleLeader::behave() {
                     pVecVehicle_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index] * 1.05) ;
                 } if (calc_d*0.99 > actually_d) {
                     //速度補正：距離が予想より近い(0.99倍以内になっている)ので少しゆっくりする(0.95倍のスピードにする)
-                    pVecVehicle_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index] * (((1.0*actually_d)/calc_d)*0.95)) ;
+                    pVecVehicle_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index] * 0.95) ;
                 } else {
                     pVecVehicle_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index]);
                 }

@@ -103,11 +103,12 @@ void EnemyOebius::processBehavior() {
                 getVecVehicle()->setMvAcce(0); //加速度がある場合は切っておく
                 pVehicleLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1は無限ループ
             }
-
+            //FormationOebiusの回転移動に追従
             FormationOebius* pFormation = (FormationOebius*)getFormation();
             pVehicleLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
             pVehicleLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
-            pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
+            //カーブ移動するようにDriverを操作
+            pVehicleLeader_->behave();
 
             if (scatter_flg_) {
                 pPhase->changeNext();

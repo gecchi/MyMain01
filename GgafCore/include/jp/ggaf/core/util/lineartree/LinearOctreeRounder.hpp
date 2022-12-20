@@ -19,8 +19,8 @@ public:
      * コンストラクタ
      * @param prm_level 作成するN分木空間レベル
      */
-    LinearOctreeRounder(typename LinearTree<T,3,8>::NodeSpace* prm_paTargetSpaceArray, int prm_num_space, void (T::*prm_pFuncHitCheck)(T*))
-        : LinearTreeRounder<T,3,8>(prm_paTargetSpaceArray, prm_num_space, prm_pFuncHitCheck)  {
+    LinearOctreeRounder(typename LinearTree<T,3,8>::NodeSpace* prm_paLinearTreeSpace, int prm_num_space, void (T::*prm_pFuncHitCheck)(T*))
+        : LinearTreeRounder<T,3,8>(prm_paLinearTreeSpace, prm_num_space, prm_pFuncHitCheck)  {
     }
 
 

@@ -262,7 +262,7 @@ void GeometricActor::processSettlementBehavior() {
 void GeometricActor::processPreJudgement() {
     if (_pChecker) {
         if (_can_hit_flg) {
-            if (_can_hit_out_of_view == false && isOutOfView()) {
+            if (_enable_out_of_view_hit_flg == false && isOutOfView()) {
                 //‹–ìŠO“–‚½‚è”»’è–³Œø‚Ìê‡‚Í“o˜^‚µ‚È‚¢
             } else  {
                 //–Ø“o˜^

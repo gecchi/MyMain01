@@ -59,7 +59,7 @@ public:
     /** [r]アクター衝突判定有無フラグ */
     bool _can_hit_flg;
     /** [r]true:視界外でもヒットチェックを行う/false:視界外はヒットチェックを行なわない */
-    bool _can_hit_out_of_view;
+    bool _enable_out_of_view_hit_flg;
     /** [r/w]自由ステータス */
     Status* _pStatus;
 
@@ -79,9 +79,12 @@ public:
     /**
      * 自アクターの衝突判定有無を設定する。 .
      * @param prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
-     * @param prm_can_hit_out_of_view_flg  衝突判定有りの場合、視野外衝突判定の有無を設定(true:画面外衝突判定有り／false:画面外衝突判定無し)
+     * @param prm_enable_out_of_view_hit_flg  衝突判定有りの場合、視野外衝突判定の有無を設定(true:画面外衝突判定有り／false:画面外衝突判定無し)
      */
-    void setHitAble(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg);
+    void setHitAble(bool prm_can_hit_flg, bool prm_enable_out_of_view_hit_flg) {
+        _can_hit_flg = prm_can_hit_flg;
+        _enable_out_of_view_hit_flg = prm_enable_out_of_view_hit_flg;
+    }
     /**
      * 自アクターの衝突判定有無を設定する。 .
      * 視野外衝突判定の有無は変化しない。
@@ -90,12 +93,21 @@ public:
     void setHitAble(bool prm_can_hit_flg) {
         _can_hit_flg = prm_can_hit_flg;
     }
+
+    /**
+     * 視野外衝突判定の有無を設定 .
+     * 衝突判定有無は変化しない。
+     * @param prm_enable_out_of_view_hit_flg (true:画面外衝突判定有り／false:画面外衝突判定無し)
+     */
+    void enableOutOfViewHit(bool prm_enable_out_of_view_hit_flg) {
+        _enable_out_of_view_hit_flg = prm_enable_out_of_view_hit_flg;
+    }
     /**
      * 自ツリーアクターの衝突判定有無を設定する。 .
      * @param prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
-     * @param prm_can_hit_out_of_view_flg  衝突判定有りの場合、視野外衝突判定の有無を設定(true:画面外衝突判定有り／false:画面外衝突判定無し)
+     * @param prm_enable_out_of_view_hit_flg  衝突判定有りの場合、視野外衝突判定の有無を設定(true:画面外衝突判定有り／false:画面外衝突判定無し)
      */
-    void setHitAbleTree(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg);
+    void setHitAbleTree(bool prm_can_hit_flg, bool prm_enable_out_of_view_hit_flg);
     void setHitAbleTree(bool prm_can_hit_flg);
     /**
      * 現在衝突できる状況かどうか判定 .

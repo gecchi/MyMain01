@@ -1,6 +1,7 @@
 #include "jp/ggaf/dx/util/CollisionChecker.h"
 
 #include "jp/ggaf/core/exception/CriticalException.h"
+#include "jp/ggaf/dx/actor/GeometricActor.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/dx/util/CollisionPart.h"
 
@@ -14,6 +15,7 @@ _pActor(prm_pActor) {
 void CollisionChecker::createCollisionArea(int prm_colli_part_num) {
     if (_pCollisionArea == nullptr) {
         _pCollisionArea = NEW CollisionArea(prm_colli_part_num);
+        _pActor->setHitAble(true);
     } else {
         throwCriticalException("Šù‚É createCollisionArea ‚³‚ê‚Ä‚¢‚Ü‚·B");
     }

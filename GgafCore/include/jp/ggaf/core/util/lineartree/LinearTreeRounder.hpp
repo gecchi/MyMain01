@@ -110,7 +110,7 @@ public:
         }
     };
 
-    typename LinearTree<T,DIM,N>::NodeSpace* _paTargetSpaceArray;
+    typename LinearTree<T,DIM,N>::NodeSpace* _paLinearTreeSpace;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Aグループのスタック */
     TStack _stackCurrent_GroupA;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Bグループのスタック */
@@ -132,8 +132,8 @@ public:
      * コンストラクタ
      * @param prm_level 作成するN分木空間レベル
      */
-    LinearTreeRounder(typename LinearTree<T,DIM,N>::NodeSpace* prm_paTargetSpaceArray, int prm_num_space, void (T::*prm_pFuncHitCheck)(T*)) {
-        _paTargetSpaceArray = prm_paTargetSpaceArray;
+    LinearTreeRounder(typename LinearTree<T,DIM,N>::NodeSpace* prm_paLinearTreeSpace, int prm_num_space, void (T::*prm_pFuncHitCheck)(T*)) {
+        _paLinearTreeSpace = prm_paLinearTreeSpace;
         _num_space = prm_num_space;
         _pFuncHitCheck = prm_pFuncHitCheck;
         _kind_groupA = 0;
@@ -150,7 +150,7 @@ public:
     void executeAll(kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
         _kind_groupA = prm_kind_groupA;
         _kind_groupB = prm_kind_groupB;
-        kind_t k_bit = _paTargetSpaceArray[0]._kind_bit_field;
+        kind_t k_bit = _paLinearTreeSpace[0]._kind_bit_field;
         if ( (k_bit & prm_kind_groupA) && (k_bit & prm_kind_groupB) ) {
             //ではN分木を巡る旅へ行ってらっしゃい
             execute(0); //いってきます
@@ -166,7 +166,7 @@ public:
      * @param prm_index 線形N分木配列の配列要素番号
      */
     void execute(uint32_t prm_index) {
-        typename LinearTree<T,DIM,N>::NodeSpace* pOctant_this_level = &(_paTargetSpaceArray[prm_index]);
+        typename LinearTree<T,DIM,N>::NodeSpace* pOctant_this_level = &(_paLinearTreeSpace[prm_index]);
         ITreeNodeElem* pElem = pOctant_this_level->_pNodeValueList;
         const kind_t kind_groupA = _kind_groupA;
         const kind_t kind_groupB = _kind_groupB;
@@ -231,7 +231,7 @@ public:
             //又は、次のレベルの空間に種別Aがあり、かつストックに種別Bがあれば潜る。
             //又は、次のレベルの空間に種別Bがあり、かつストックに種別Aがあれば潜る。
             //それ以外は潜らない
-            typename LinearTree<T,DIM,N>::NodeSpace* pOctant_lower_level = &(_paTargetSpaceArray[lower_level_index]);
+            typename LinearTree<T,DIM,N>::NodeSpace* pOctant_lower_level = &(_paLinearTreeSpace[lower_level_index]);
             kind_t kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
             if (isExistGroupA) {
                 if (isExistGroupB) {
