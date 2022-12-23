@@ -35,9 +35,9 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
         VvEnemyActor<DefaultMassMorphMeshActor>(prm_name, "Emus", StatusReset(EnemyEmus)) {
     _class_name = "EnemyEmus";
     is_open_hatch_ = false;
-    frame_of_open_interval_  = 3*60;
-    frame_of_close_interval_ = 5*60;
-    frame_of_morph_interval_ = 120;
+    frame_of_open_interval_  = SEC_F(3);
+    frame_of_close_interval_ = SEC_F(5);
+    frame_of_morph_interval_ = SEC_F(4);
 
 //    pConn_pDepoStore_laser_set = connectToDepositoryManager(
 //             "EnemyEmusLaserChip001DepoStore"

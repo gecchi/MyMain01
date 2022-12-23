@@ -118,8 +118,8 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_RANKUP_WAS_END) {
         _TRACE_(FUNC_NAME<<" EVENT_RANKUP_WAS_END prm_pSource="<<prm_pSource);
         RankUpStage* pScene = (RankUpStage*)prm_pSource; //èIóπêÈåæÇµÇΩRankUpStage
-        pScene->fadeoutSceneWithBgm(240);
-        pScene->sayonara(240);
+        pScene->fadeoutSceneWithBgm(SEC_F(4));
+        pScene->sayonara(SEC_F(4));
 
         //ÉXÉçÅ[âÒïú
         GgafCore::Scene* pRankUpStage = getChildFirst();

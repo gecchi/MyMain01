@@ -337,7 +337,7 @@ void EnemyStraea::onInactive() {
     for (int i = 0; i < laser_way_; i++) {
         for (int j = 0; j < laser_way_; j++) {
             if (papapLaserChipDepo_[i][j]) {
-                papapLaserChipDepo_[i][j]->sayonara(60*10);
+                papapLaserChipDepo_[i][j]->sayonara(SEC_F(10));
             }
         }
     }

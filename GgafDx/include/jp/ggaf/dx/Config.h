@@ -104,8 +104,8 @@ public:
     static int SE_VOLUME;
     /** [r/w] SE最大同時発声数(1～64) */
     static int MAX_SE_AT_ONCE;
-    /** [r/w] ゲーム空間でカメラからの最遠距離(zf)のに位置したアクターのSE発声遅延レーム数 */
-    static int SE_DELAY_MAX_DEPTH;
+    /** [r/w] ゲーム空間でカメラからの最遠距離(zf)のに位置したアクターのSE発声遅延ミリ秒数 */
+    static int SE_DELAY_MSEC_MAX_DEPTH;
     /** [r/w] ゲーム空間でカメラからの最遠距離(zf)のに位置したアクターのSE発声ボリュームの減衰割合 */
     static double SE_VOLUME_RATE_MAX_DEPTH;
 

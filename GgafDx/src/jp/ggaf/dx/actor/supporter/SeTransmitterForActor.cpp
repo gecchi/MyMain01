@@ -11,8 +11,9 @@
 #include "jp/ggaf/dx/sound/Se.h"
 #include "jp/ggaf/dx/util/Util.h"
 
-
 using namespace GgafDx;
+
+frame SeTransmitterForActor::_se_delay_max_depth = MSEC_F(CONFIG::SE_DELAY_MSEC_MAX_DEPTH);
 
 SeTransmitterForActor::SeTransmitterForActor(GeometricActor* prm_pActor) : SeTransmitter() ,
         _pActor(prm_pActor),
@@ -66,7 +67,7 @@ void SeTransmitterForActor::play3D(int prm_se_no, bool prm_can_looping) {
     const double DZ = C_PX(pCam->_z - _pActor->_z);
     const double px_d = sqrt(DX*DX + DY*DY + DZ*DZ); //dはピクセル
     pixcoord px_cam_zf = DX_PX(pCam->getZFar());
-    int vol = RCNV(0, px_cam_zf, px_d, GGAF_MAX_VOLUME*1.1, GGAF_MAX_VOLUME*CONFIG::SE_VOLUME_RATE_MAX_DEPTH);
+    int vol = RCNV(0, px_cam_zf, px_d, GGAF_MAX_VOLUME*1.1, GGAF_MAX_VOLUME * CONFIG::SE_VOLUME_RATE_MAX_DEPTH);
 //    int vol =  GGAF_MIN_VOLUME + ((1.0 - (d / (DX_PX(pCam->getZFar())*0.6) )) * VOLUME_RANGE_3D); // 0.6 は調整補正、最遠でもMAX*0.4倍の音量となる。
 //                                                                                          // 値を減らすと、遠くても音量がより大きくなる。
     if (GGAF_MAX_VOLUME < vol) {
@@ -84,14 +85,14 @@ void SeTransmitterForActor::play3D(int prm_se_no, bool prm_can_looping) {
     const angle ang = UTIL::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_infront );
     const float pan = ANG_COS(ang) * 0.95; //0.95は完全に右のみ或いは左のみから聞こえるのをやや緩和
 
-    int delay = RCNV(0.0, px_cam_zf, px_d, -10, CONFIG::SE_DELAY_MAX_DEPTH);
-//    int delay = (px_d / DX_PX(pCam->getZFar()))*CONFIG::SE_DELAY_MAX_DEPTH - 10; //10フレーム底上げ
+    int delay = RCNV(0.0, px_cam_zf, px_d, -10, SeTransmitterForActor::_se_delay_max_depth);
+//    int delay = (px_d / DX_PX(pCam->getZFar()))*SeTransmitterForActor::_se_delay_max_depth - 10; //10フレーム底上げ
 //                                                                    //pCam->getZFar() はカメラの表示範囲の最遠距離
-//                                                                    //最遠に位置したアクターのSEはSE_DELAY_MAX_DEPTHフレーム遅れる
+//                                                                    //最遠に位置したアクターのSEはSeTransmitterForActor::_se_delay_max_depthフレーム遅れる
     if (delay < 0) {
         delay = 0;
-    } else if (delay > CONFIG::SE_DELAY_MAX_DEPTH) {
-        delay = CONFIG::SE_DELAY_MAX_DEPTH;
+    } else if (delay > SeTransmitterForActor::_se_delay_max_depth) {
+        delay = SeTransmitterForActor::_se_delay_max_depth;
     }
 
     float rate_frequency = 1.0; //初フレームは近づく速度を計算できないので1.0
@@ -140,7 +141,7 @@ void SeTransmitterForActor::updatePanVolume3D() {
             }
         } else {
             if (_vec_is_playing_3d[i] == 1) {
-                if (_playing_3d_freames > CONFIG::SE_DELAY_MAX_DEPTH) {
+                if (_playing_3d_freames > SeTransmitterForActor::_se_delay_max_depth) {
                     _vec_is_playing_3d[i] = 0;
                 }
             } else if (_vec_is_playing_3d[i] == 2) {
@@ -166,7 +167,7 @@ void SeTransmitterForActor::updatePanVolume3D() {
 
 //                        vol =  GGAF_MIN_VOLUME + ((1.0 - (d / (DX_PX(pCam->getZFar())*0.6) )) * VOLUME_RANGE_3D); //0.6 は調整補正
                 vol = RCNV(0, px_cam_zf, px_d, GGAF_MAX_VOLUME*1.1, GGAF_MAX_VOLUME*CONFIG::SE_VOLUME_RATE_MAX_DEPTH);
-                //TODO:SE_DELAY_MAX_DEPTH同様最遠ボリューム割合を外だし！
+                //TODO:SeTransmitterForActor::_se_delay_max_depth 同様最遠ボリューム割合を外だし！
                 if (GGAF_MAX_VOLUME < vol) {
                     vol = GGAF_MAX_VOLUME;
                 } else if (GGAF_MIN_VOLUME > vol) {
@@ -184,7 +185,7 @@ void SeTransmitterForActor::updatePanVolume3D() {
                                                       //最高で 0.05 : 0.95 の割合に留めるため。
                 //リアルタイムの周波数を計算
                 double px_v = _px_d_cam_acter_prev - px_d; //vが観測者からのActor速度
-                static double px_svos = 1.0 * px_cam_zf / (CONFIG::SE_DELAY_MAX_DEPTH); //音速
+                static double px_svos = 1.0 * px_cam_zf / (SeTransmitterForActor::_se_delay_max_depth); //音速
                 if (ZEROd_EQ(px_svos-px_v)) {
                     rate_frequency = 0.0; //音無し
                 } else {
@@ -197,7 +198,7 @@ void SeTransmitterForActor::updatePanVolume3D() {
                 _px_d_cam_acter_prev = px_d;
             } //初回計算
 
-            //int delay = RCNV(0.0, px_cam_zf, px_d, -10, CONFIG::SE_DELAY_MAX_DEPTH);//TODO:遅らせてさした３つを設定
+            //int delay = RCNV(0.0, px_cam_zf, px_d, -10, SeTransmitterForActor::_se_delay_max_depth);//TODO:遅らせてさした３つを設定
 //            if (strcmp(_pActor->getName(),"SeActor3") == 0) {
 //                _TRACE_("pan="<<pan<<"\tvol="<<vol<<"\trate_frequency="<<rate_frequency);
 //            }

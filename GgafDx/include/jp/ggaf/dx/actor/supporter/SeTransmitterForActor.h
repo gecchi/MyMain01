@@ -35,6 +35,8 @@ public:
     /** [r]前回計算時のカメラからアクターの距離 */
     double _px_d_cam_acter_prev;
 
+    static frame _se_delay_max_depth;
+
 public:
     /**
      * コンストラクタ .

@@ -80,7 +80,7 @@ void Stage02_01::processBehavior() {
         getBgmConductor()->performFromTheBegining(0);
     }
     //シーン終了のイベントを通知
-    if (getActiveFrame() == _paFrame_NextEvent[_event_num-1] + 60*60) {
+    if (getActiveFrame() == _paFrame_NextEvent[_event_num-1] + SEC_F(60)) {
         throwEventUpperTree(EVENT_STAGE02_01_WAS_FINISHED);
     }
 

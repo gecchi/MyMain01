@@ -17,13 +17,6 @@ namespace GgafLib {
 class DefaultScene : public GgafDx::Scene {
 
 public:
-    /** [r]シーンイベント用のフレーム値の配列(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
-    frame* _paFrame_NextEvent;
-    /** [r]シーンのイベント数（_paFrame_NextEventの要素数）(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
-    int _event_num;
-    /** シーンの現在イベント(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
-    int _cnt_event;
-
     /** 特色関数用引数1 */
     velo _feature_p1;
     /** [r/w]特色関数へのポインタ */
@@ -64,7 +57,6 @@ public:
 
 
 public:
-
     /**
      * 特色関数を設定する。
      * 設定された特色関数を配下ツリーシーンの全アクターに実行を行う。<BR>
@@ -103,13 +95,6 @@ public:
      * @return 直近のWallScene
      */
     WallScene* getNearestWallScene();
-
-    /**
-     * 最後のシーンイベントフレームを返します。
-     * シーンイベントがない場合は 0 を返す。
-     * @return 最後のシーンイベントフレーム
-     */
-    frame getLastEventFrame();
 
     virtual ~DefaultScene();
 };

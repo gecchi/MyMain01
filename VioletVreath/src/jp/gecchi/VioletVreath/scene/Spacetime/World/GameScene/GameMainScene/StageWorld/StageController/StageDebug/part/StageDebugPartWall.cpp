@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 StageDebugPartWall::StageDebugPartWall(const char* prm_name) :
-        StageDebugPart(prm_name, EVENT_STAGEDEBUG_PART_WALL_WAS_FINISHED) {
+        StageDebugPart<GgafLib::WallScene>(prm_name) {
     _class_name = "StageDebugPartWall";
 
     //********* ï«èÓïÒ ***********

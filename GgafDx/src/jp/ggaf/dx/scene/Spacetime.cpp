@@ -4,6 +4,7 @@
 #include "jp/ggaf/core/util/LinkedListRing.hpp"
 #include "jp/ggaf/core/util/RepeatSeq.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/Caretaker.h"
@@ -103,7 +104,7 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
     bringSceneMediator()->appendGroupChild(_pCamera);
 
     _pRing_pSeArray = NEW GgafCore::LinkedListRing<SeArray>();
-    for (int i = 0; i < CONFIG::SE_DELAY_MAX_DEPTH; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
+    for (int i = 0; i < SeTransmitterForActor::_se_delay_max_depth; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
     _pRing_pSeArray->createIndex();
@@ -164,8 +165,8 @@ void Spacetime::registerSe(Se* prm_pSe,
 
     //SEの鳴るタイミングを 0～8フレームをずらしてバラつかせる
     int delay = prm_delay+1+(GgafCore::RepeatSeq::nextVal(_seqkey_se_delay));
-    if (delay > CONFIG::SE_DELAY_MAX_DEPTH-1) {
-        delay = CONFIG::SE_DELAY_MAX_DEPTH-1;
+    if (delay > SeTransmitterForActor::_se_delay_max_depth-1) {
+        delay = SeTransmitterForActor::_se_delay_max_depth-1;
     }
     _pRing_pSeArray->getNext(delay)->add(prm_pSe, prm_volume, prm_pan, prm_frequency_rate, prm_can_looping, prm_pActor);
 }

@@ -42,7 +42,7 @@ void MagicMeterStatus::processDraw() {
             setAlpha(alpha1);
             _x = mm_x + mm_w*i;
             _y = mm_y + mm_h;
-            sprintf(aBuf_, "%06d", (int)((pMagic->lvinfo_[pMagic->level_].remained_frame_of_effecting)*(1.0/60.0)));
+            sprintf(aBuf_, "%06d", (int)((pMagic->lvinfo_[pMagic->level_].remained_frame_of_effecting)* CONFIG::FRAME_SEC ));
             update(aBuf_);
             FontBoardActor::processDraw();
         }
@@ -54,7 +54,7 @@ void MagicMeterStatus::processDraw() {
             for (int j = 1; j <= pMagic->level_; j++) {
                 setAlpha(rr);
                 _y = mm_y - (mm_h*(j+1)*rr); //j+1 ‚Ì +1 ‚ÍÅ‰º’i‚ª nothing ‚Ìˆ×
-                sprintf(aBuf_, "%06d", (int)((pMagic->lvinfo_[j].remained_frame_of_effecting)*(1.0/60.0)));
+                sprintf(aBuf_, "%06d", (int)(   (pMagic->lvinfo_[j].remained_frame_of_effecting)*CONFIG::FRAME_SEC ) );
                 update(aBuf_);
                 FontBoardActor::processDraw();
             }

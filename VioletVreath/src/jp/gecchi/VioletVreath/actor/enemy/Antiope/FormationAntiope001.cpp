@@ -91,7 +91,7 @@ void FormationAntiope001::processBehavior() {
         }
     } else {
         if (!wasDeclaredEnd()) {
-            sayonara(1000);
+            sayonara(SEC_F(10));
         }
     }
 }

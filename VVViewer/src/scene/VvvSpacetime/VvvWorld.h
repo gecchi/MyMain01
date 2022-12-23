@@ -56,7 +56,7 @@ public:
     pixcoord _buffer_top1;
     pixcoord _buffer_width1;
     pixcoord _buffer_height1;
-
+    std::map<int, int> mapNumDik_;
     /**
      * コンストラクタ .
      * @param prm_name 名称
@@ -72,6 +72,14 @@ public:
      * 世界シーンの振る舞い処理 .
      */
     void processBehavior() override;
+
+    void manipulateWorld();
+
+    void manipulateActiveActor(GgafDx::FigureActor* prm_pActiveActor);
+
+    void behaveActor(GgafDx::FigureActor* prm_pActor);
+
+    void processDragAndDrop();
 
     virtual ~VvvWorld();
 };

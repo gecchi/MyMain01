@@ -286,7 +286,7 @@ void MagicMeter::processBehavior() {
 
     for (int m = 0; m < lstMagic_.length(); m++) {
         pMagic = lstMagic_.getFromFirst(m);    //魔法オブジェクト
-        pMagicPhase = pMagic->_pPhase;           //魔法のフェーズ状況
+        pMagicPhase = pMagic->_pPhase;         //魔法のフェーズ状況
         pMagic_level = pMagic->level_;         //魔法の現レベル
         pMagic_new_level = pMagic->new_level_; //魔法の新レベル（詠唱中・発動中の場合）
         pLvTgtMvCur = papLvTgtMvCur_[m];       //操作カーソルオブジェクト(↑↓移動)

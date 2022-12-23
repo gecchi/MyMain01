@@ -123,7 +123,7 @@ void EnemyEres::onInactive() {
     if (createActorDepository_) {
         //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
         getSceneMediator()->appendChild(pDepo_shot001_->getGroupHead()->extract());
-        pDepo_shot001_->sayonara(60 * 5);//‰ð•ú—\–ñ
+        pDepo_shot001_->sayonara(SEC_F(5));//‰ð•ú—\–ñ
     }
     sayonara();
 }

@@ -81,7 +81,7 @@ void Stage02::onCatchEvent(hashval prm_no, void* prm_pSource) {
     ScenePhase* pPhase = getPhase();
     if (prm_no == EVENT_STAGE02_CTRLER_WAS_END ) {
         _TRACE_(FUNC_NAME<<" STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PHASE_ENDへ");
-        pScene_StagePartCtrler_->sayonara(60*60);
+        pScene_StagePartCtrler_->sayonara(SEC_F(60));
         pPhase->change(Stage::PHASE_END);
     } else {
 

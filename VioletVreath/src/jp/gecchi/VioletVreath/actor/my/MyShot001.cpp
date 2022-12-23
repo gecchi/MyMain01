@@ -4,8 +4,7 @@
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-
-
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -46,6 +45,24 @@ void MyShot001::processJudgement() {
 
 void MyShot001::onHit(const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
+    if (pOther->lookUpKind() & KIND_CHIKEI) {
+        //ヒット相手が地形ならば自機の大きさで判定し、ヒットしなければ消失しない
+        MyShip* pMyShip = pMYSHIP;
+        WorldCollisionChecker* pMyShipChecker = pMyShip->getWorldCollisionChecker();
+        coord x = pMyShip->_x;
+        coord y = pMyShip->_y;
+        coord z = pMyShip->_z;
+        pMyShip->setPositionAt(this); //座標だけすげかえる
+        WorldCollisionChecker* pOtherChecker = (WorldCollisionChecker*)pOther->getCollisionChecker();
+        bool r = pOtherChecker->isHit(pMyShipChecker);
+        pMyShip->_x = x;
+        pMyShip->_y = y;
+        pMyShip->_z = z;
+        if (!r) {
+            //自機の大きさで判定し、ヒットしないので無問題
+            return;
+        }
+    }
     setHitAble(false);
     UTIL::activateExplosionEffectOf(this);
     sayonara(); //必ず貫通しない

@@ -80,7 +80,7 @@ int Config::MASTER_VOLUME = 800;
 int Config::BGM_VOLUME = 800;
 int Config::SE_VOLUME = 800;
 int Config::MAX_SE_AT_ONCE = 16;
-int Config::SE_DELAY_MAX_DEPTH = 180;
+int Config::SE_DELAY_MSEC_MAX_DEPTH = 3000;
 double Config::SE_VOLUME_RATE_MAX_DEPTH=0.2;
 
 std::string Config::DIRNAME_RESOURCE_SKIN_XXX_MESH = "mesh";
@@ -314,13 +314,13 @@ void Config::loadProperties(std::string prm_properties_filename) {
     if (GgafCore::Config::_properties.isExistKey("MAX_SE_AT_ONCE")) {
         Config::MAX_SE_AT_ONCE = GgafCore::Config::_properties.getInt("MAX_SE_AT_ONCE");
     }
-    if (GgafCore::Config::_properties.isExistKey("SE_DELAY_MAX_DEPTH")) {
-        Config::SE_DELAY_MAX_DEPTH = GgafCore::Config::_properties.getInt("SE_DELAY_MAX_DEPTH");
+    if (GgafCore::Config::_properties.isExistKey("SE_DELAY_MSEC_MAX_DEPTH")) {
+        Config::SE_DELAY_MSEC_MAX_DEPTH = GgafCore::Config::_properties.getInt("SE_DELAY_MSEC_MAX_DEPTH");
     }
 
-    if (Config::SE_DELAY_MAX_DEPTH*2 > GGAF_END_DELAY) {
-        throwCriticalException("Config::SE_DELAY_MAX_DEPTH("<<Config::SE_DELAY_MAX_DEPTH<<")は、GGAF_END_DELAY("<<GGAF_END_DELAY<<")の半分以下である必要があります。\n"<<
-                "SE_DELAY_MAX_DEPTH の設定値をもっと下げてください。");
+    if (Config::SE_DELAY_MSEC_MAX_DEPTH*2 > GGAF_END_DELAY*1000) {
+        throwCriticalException("Config::SE_DELAY_MSEC_MAX_DEPTH("<<Config::SE_DELAY_MSEC_MAX_DEPTH<<")は、GGAF_END_DELAY*1000("<<(GGAF_END_DELAY*1000)<<")の半分以下である必要があります。\n"<<
+                "SE_DELAY_MSEC_MAX_DEPTH の設定値をもっと下げてください。");
     }
 
     if (GgafCore::Config::_properties.isExistKey("SE_VOLUME_RATE_MAX_DEPTH")) {
@@ -526,7 +526,7 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::BGM_VOLUME=" << Config::BGM_VOLUME);
     _TRACE_("Config::SE_VOLUME=" << Config::SE_VOLUME);
     _TRACE_("Config::MAX_SE_AT_ONCE=" << Config::MAX_SE_AT_ONCE);
-    _TRACE_("Config::SE_DELAY_MAX_DEPTH=" << Config::SE_DELAY_MAX_DEPTH);
+    _TRACE_("Config::SE_DELAY_MSEC_MAX_DEPTH=" << Config::SE_DELAY_MSEC_MAX_DEPTH);
     _TRACE_("Config::SE_VOLUME_RATE_MAX_DEPTH=" << Config::SE_VOLUME_RATE_MAX_DEPTH);
 
     _TRACE_("Config::DIRNAME_RESOURCE_SKIN_XXX_MESH=" << Config::DIRNAME_RESOURCE_SKIN_XXX_MESH);

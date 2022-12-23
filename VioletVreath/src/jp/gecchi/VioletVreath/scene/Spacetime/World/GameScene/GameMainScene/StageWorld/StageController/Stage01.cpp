@@ -86,7 +86,7 @@ void Stage01::processBehavior() {
         }
         case Stage::PHASE_PLAYING: {
             if (pPhase->hasArrivedFrameAt(60)) { //ステージ１開始！
-                pMessage_->update(PX_C(300), PX_C(300), "SCENE DEBUG START!");
+                pMessage_->update(PX_C(300), PX_C(300), "SCENE 01 START!");
                 pMessage_->inactivateDelay(240);
             }
             //EVENT_STAGE01_PART_CTRLER_WAS_ENDイベント待ち
@@ -100,7 +100,7 @@ void Stage01::processBehavior() {
 
             if (pPhase->hasArrivedFrameAt(60)) {
                 pMessage_->activateImmed();
-                pMessage_->update(PX_C(300), PX_C(300), "SCENE DEBUG CLEAR!!");
+                pMessage_->update(PX_C(300), PX_C(300), "SCENE 01 CLEAR!!");
                 pMessage_->inactivateDelay(120);
                 fadeoutSceneWithBgm(300);
             }
@@ -123,7 +123,7 @@ void Stage01::onCatchEvent(hashval prm_no, void* prm_pSource) {
     ScenePhase* pPhase = getPhase();
     if (prm_no == EVENT_STAGE01_PART_CTRLER_WAS_END ) {
         _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_CTRLER_WAS_END をキャッチ。ステータスをStage::PHASE_ENDへ");
-        pScene_StagePartCtrler_->sayonara(60*60);
+        pScene_StagePartCtrler_->sayonara(SEC_F(60));
         pPhase->change(Stage::PHASE_END);
     } else {
 

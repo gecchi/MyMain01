@@ -3,7 +3,7 @@
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/MainActor.h"
 
-#define FORMATION_END_DELAY (30*60)
+#define FORMATION_END_DELAY (SEC_F(30))
 
 namespace GgafCore {
 

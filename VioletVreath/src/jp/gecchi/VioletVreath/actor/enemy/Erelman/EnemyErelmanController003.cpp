@@ -21,7 +21,7 @@ EnemyErelmanController003::EnemyErelmanController003(const char* prm_name) :
 void EnemyErelmanController003::onCoreHit() {
     if (pFormationErelman_) {
         _TRACE_("EnemyErelmanController003::onCoreHit()->freeMenber() ‚«‚Ü‚µ‚½");
-        ((FormationErelman003*)pFormationErelman_)->freeMenber(60*3);
+        ((FormationErelman003*)pFormationErelman_)->freeMenber(SEC_F(3));
     }
 }
 

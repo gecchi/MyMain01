@@ -3,6 +3,7 @@
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/Node.hpp"
 
+#include "jp/ggaf/core/Config.h"
 #include "jp/ggaf/core/Phase.h"
 #include "jp/ggaf/core/GarbageBox.h"
 #include "jp/ggaf/core/exception/CriticalException.h"
@@ -1152,7 +1153,7 @@ void Element<T>::activateDelay(frame prm_offset_frames) {
     if (prm_offset_frames == 0) {
         throwCriticalException("activateDelay(0) は無意味である。いつまでも activate() されませんよ！！！。意図してますか？ name="<<Node<T>::_name<<" this="<<this);
     }
-    if (prm_offset_frames >= 60*60*60) { //１時間後
+    if (prm_offset_frames >= SEC_F(60*60)) { //１時間後
         throwCriticalException("activateDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも activate() されませんよ！！！。負の数になったのとちがう？。 name="<<Node<T>::_name<<" this="<<this);
     }
 #endif
@@ -1200,7 +1201,7 @@ void Element<T>::activateTreeDelay(frame prm_offset_frames) {
     if (prm_offset_frames == 0) {
         throwCriticalException("activateTreeDelay(0) は無意味である。いつまでも activate() されませんよ！！！。意図してますか？ name="<<Node<T>::_name<<" this="<<this);
     }
-    if (prm_offset_frames >= 60*60*60) { //１時間後
+    if (prm_offset_frames >= SEC_F(60*60)) { //１時間後
         throwCriticalException("activateTreeDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも activate() されませんよ！負の数になったのとちがう？ name="<<Node<T>::_name<<" this="<<this);
     }
 #endif
@@ -1251,7 +1252,7 @@ void Element<T>::inactivateDelay(frame prm_offset_frames) {
     if (prm_offset_frames == 0) {
         throwCriticalException("inactivateDelay(0) は無意味である。いつまでも inactivate() されませんよ！！！。意図してますか？ name="<<Node<T>::_name<<" this="<<this);
     }
-    if (prm_offset_frames >= 60*60*60) { //１時間後
+    if (prm_offset_frames >= SEC_F(60*60)) { //１時間後
         throwCriticalException("inactivateDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも inactivate() されませんよ！負の数になったのとちがう？ name="<<Node<T>::_name<<" this="<<this);
     }
 #endif
@@ -1287,7 +1288,7 @@ void Element<T>::inactivateTreeDelay(frame prm_offset_frames) {
     if (prm_offset_frames == 0) {
         throwCriticalException("inactivateTreeDelay(0) は無意味である。いつまでも inactivate() されませんよ！！！。意図してますか？ name="<<Node<T>::_name<<" this="<<this);
     }
-    if (prm_offset_frames >= 60*60*60) { //１時間後
+    if (prm_offset_frames >= SEC_F(60*60)) { //１時間後
         throwCriticalException("inactivateTreeDelay("<<prm_offset_frames<<") って遅すぎるんちゃうん？。いつまでも inactivate() されませんよ！負の数になったのとちがう？ name="<<Node<T>::_name<<" this="<<this);
     }
 #endif

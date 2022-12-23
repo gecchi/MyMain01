@@ -9,6 +9,7 @@ using namespace GgafCore;
 
 Properties Config::_properties;
 frame Config::FPS = 60;
+double Config::FRAME_SEC = 1.0 / Config::FPS;
 uint32_t Config::MAX_SKIP_FRAME = 20;
 uint32_t Config::OBJNUM_TO_SLOWDOWN1 = 1000;
 uint32_t Config::OBJNUM_TO_SLOWDOWN2 = 1500;
@@ -44,6 +45,8 @@ void Config::loadProperties(std::string prm_properties_filename) {
     if (_properties.isExistKey("FPS")) {
         Config::FPS = _properties.getUInt("FPS");
     }
+    Config::FRAME_SEC = 1.0 / CONFIG::FPS;
+
     if (_properties.isExistKey("MAX_SKIP_FRAME")) {
         Config::MAX_SKIP_FRAME = _properties.getUInt("MAX_SKIP_FRAME");
     }

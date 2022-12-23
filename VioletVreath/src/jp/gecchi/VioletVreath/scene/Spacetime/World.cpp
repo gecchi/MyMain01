@@ -248,7 +248,7 @@ void World::processBehavior() {
         }
 
         case PHASE_CALM2: {
-            if ((pPhase->getFrame() >= 30 && pCaretaker->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pCaretaker->_fps <= CONFIG::FPS*1.01) || pPhase->getFrame() >= 60*60*3) {
+            if ((pPhase->getFrame() >= SEC_F(0.5) && pCaretaker->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pCaretaker->_fps <= CONFIG::FPS*1.01) || pPhase->getFrame() >= SEC_F(60*3)) {
                 pGameScene_ = (GameScene*)receiveScene(2);
                 pPhase->changeNext();
             }
@@ -269,9 +269,9 @@ void World::processBehavior() {
         case PHASE_CALM4: {
             if (pPhase->hasJustChanged()) {
             }
-            if (pPhase->getFrame() >= 60) {
+            if (pPhase->getFrame() >= SEC_F(1)) {
                 pLabel_aster_->update("*");
-                pLabel_aster_->sayonara(60);
+                pLabel_aster_->sayonara(SEC_F(1));
                 pLabel_resolution1_->sayonara();
                 pLabel_resolution2_->sayonara();
                 pLabel_warn1_->sayonara();
@@ -308,7 +308,7 @@ void World::processBehavior() {
         GgafDx::Input::getMousePointer_REL(&mdx, &mdy, &mdz);
         if (mdx == 0 && mdy == 0 && mdz == 0) {
             hide_cursor_cnt_++;
-            if (hide_cursor_cnt_ == 3*60) {
+            if (hide_cursor_cnt_ == SEC_F(3)) {
                 showCursor(false);
                 pMousePointer_->inactivate();
             }

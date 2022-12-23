@@ -111,8 +111,8 @@ void GameDemoScene::processBehavior() {
                     papLabel_ranking_[i]->update(buf);
                     papLabel_ranking_[i]->setPosition(PX_C(400), PX_C(50+(i*22)));
                     papLabel_ranking_[i]->setAlpha(papLabel_ranking_[i]->getAlphaFader()->getBottom());
-                    papLabel_ranking_[i]->getAlphaFader()->beat(25*60, 2*60, 20*60, 2*60, 1); //フェードイン・しばらくしてフェードアウト
-                    papLabel_ranking_[i]->activateDelay((i+1)*12); //上から順番にぼやーっと表示していく
+                    papLabel_ranking_[i]->getAlphaFader()->beat(SEC_F(25), SEC_F(2), SEC_F(20), SEC_F(2), 1); //フェードイン・しばらくしてフェードアウト
+                    papLabel_ranking_[i]->activateDelay(SEC_F((i+1)*0.2)); //上から順番にぼやーっと表示していく
                 }
             }
 
@@ -137,7 +137,7 @@ void GameDemoScene::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_FINISH)");
             }
-            if (pPhase->hasArrivedFrameAt(60*60*6)) {
+            if (pPhase->hasArrivedFrameAt(SEC_F(6*60))) {
                 _TRACE_(FUNC_NAME<<" throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH); //終わったイベント発動
             }

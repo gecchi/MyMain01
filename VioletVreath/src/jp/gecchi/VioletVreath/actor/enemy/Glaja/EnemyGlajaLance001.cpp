@@ -146,7 +146,7 @@ void EnemyGlajaLance001::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 //HIT後消えるまで
             }
-            addAlpha(-1.0/90.0); //sayonara(90);だから
+            addAlpha(-1.0/SEC_F(1.5)); //sayonara(SEC_F(1.5));だから
             break;
         }
     }
@@ -171,7 +171,7 @@ void EnemyGlajaLance001::onHit(const GgafCore::Actor* prm_pOtherActor) {
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getVecVehicle()->stop();
-        sayonara(90);
+        sayonara(SEC_F(1.5));
         getPhase()->change(PHASE_LEAVE); //矢がフェードアウトする
     } else {
         //破壊されなかった時(スタミナ > 0)

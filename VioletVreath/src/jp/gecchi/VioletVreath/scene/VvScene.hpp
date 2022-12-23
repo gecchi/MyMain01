@@ -9,6 +9,14 @@ namespace VioletVreath {
 
 template<class T>
 class VvScene : public T {
+public:
+    /** [r]シーンイベント用のフレーム値の配列(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
+    frame* _paFrame_NextEvent;
+    /** [r]シーンのイベント数（_paFrame_NextEventの要素数）(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
+    int _event_num;
+    /** シーンの現在イベント(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
+    int _cnt_event;
+
 
     /** 何フレームに１回動作するか */
     frame _once_in_n_time;
@@ -16,32 +24,37 @@ class VvScene : public T {
 
 public:
     VvScene(const char* prm_name, GgafCore::SceneMediator* prm_pSceneMediator = nullptr) : T(prm_name, prm_pSceneMediator) {
+
+        _paFrame_NextEvent = nullptr;
+        _cnt_event = 0;
+        _event_num = 0;
+
         _once_in_n_time = 1;
         _is_next_frame = true;
     }
-    void nextFrame() {
+    void nextFrame() override {
         _is_next_frame = (_once_in_n_time == 1 || pCARETAKER->_frame_of_Caretaker % _once_in_n_time == 0);
         if (_is_next_frame) {
             T::nextFrame();
         }
     }
-    void behave() {
+    void behave() override {
         if (_is_next_frame) {
             T::behave();
         }
     }
 
-    void settleBehavior() {
+    void settleBehavior() override {
         if (_is_next_frame) {
             T::settleBehavior();
         }
     }
-    void resetTree() {
+    void resetTree() override {
         _once_in_n_time = 1;
         T::resetTree();
     }
 
-    void reset() {
+    void reset() override {
         _once_in_n_time = 1;
         T::reset();
     }
@@ -69,7 +82,23 @@ public:
             _once_in_n_time += prm_once_in_n_time;
         }
     }
+
+    /**
+     * 最後のシーンイベントフレームを返します。
+     * シーンイベントがない場合は 0 を返す。
+     * @return 最後のシーンイベントフレーム
+     */
+    frame getLastEventFrame() {
+        if (_paFrame_NextEvent) {
+            return _paFrame_NextEvent[_event_num-1];
+        } else {
+            return 0;
+        }
+    }
+
     virtual ~VvScene() {
+        //シーンにイベントが無いかもしれない
+        GGAF_DELETEARR_NULLABLE(_paFrame_NextEvent);
     }
 };
 

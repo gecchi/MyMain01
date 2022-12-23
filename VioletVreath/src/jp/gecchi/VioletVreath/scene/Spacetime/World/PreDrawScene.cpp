@@ -155,7 +155,7 @@ void PreDrawScene::processBehavior() {
                     _id_++;
                 }
             }
-            if (pPhase->getFrame() > 60*120) {
+            if (pPhase->getFrame() > SEC_F(120)) {
                 //タイムアウト
                 _TRACE_("PreDrawScene Time Out!!");
                 pPhase->changeNext();
@@ -163,7 +163,7 @@ void PreDrawScene::processBehavior() {
             break;
         }
         case PHASE_CALM_DOWN: {
-            if ((pPhase->getFrame() > 60 && pCARETAKER->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) || pPhase->getFrame() > 60*60) {
+            if ((pPhase->getFrame() > 60 && pCARETAKER->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) || pPhase->getFrame() > SEC_F(60)) {
                 fadeoutSceneWithBgmTree(120);
                 pPhase->changeNext();
             }

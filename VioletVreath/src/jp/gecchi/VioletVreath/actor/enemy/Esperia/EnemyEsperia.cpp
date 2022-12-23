@@ -374,7 +374,7 @@ void EnemyEsperia::onInactive() {
     //レーザーデポジトリは遅れてから戻す
     for (int i = 0; i < max_laser_way_; i++) {
         if (papLaserChipDepo_[i]) {
-            papLaserChipDepo_[i]->sayonara(60*10);
+            papLaserChipDepo_[i]->sayonara(SEC_F(10));
         }
     }
     sayonara();

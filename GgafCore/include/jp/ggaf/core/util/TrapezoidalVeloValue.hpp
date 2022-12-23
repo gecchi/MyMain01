@@ -3,6 +3,7 @@
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
+#include "jp/ggaf/core/Config.h"
 #include "jp/ggaf/core/util/Util.h"
 
 namespace GgafCore {
@@ -753,7 +754,7 @@ public:
             _phase_no = TVMOVE_DONE;
         }
 #ifdef MY_DEBUG
-        if (_spent_frames > 60*60*60) {
+        if (_spent_frames > SEC_F(60*60)) {
             throwCriticalException("1ŽžŠÔˆÈãŠŠ‚è‚Á‚Ï‚È‚µ‚È‚ñ‚Å‚·‚ªI");
         }
 #endif

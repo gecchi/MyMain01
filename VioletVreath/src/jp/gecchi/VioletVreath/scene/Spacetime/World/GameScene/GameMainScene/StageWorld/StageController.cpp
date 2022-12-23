@@ -38,7 +38,7 @@ StageController::StageController(const char* prm_name) : VvScene<DefaultScene>(p
     _TRACE_("StageController::StageController("<<prm_name<<")");
 //    had_ready_main_stage_ = false;
     loop_ = 1;
-    main_stage_ = 0; //stage0はデバッグ
+    main_stage_ = 1; //stage0はデバッグ
     pStageMainCannel_ = nullptr;
 
     pTransitStage_ = NEW TransitStage("TransitStage");
@@ -52,7 +52,7 @@ StageController::StageController(const char* prm_name) : VvScene<DefaultScene>(p
 void StageController::onReset() {
     _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<"");
     loop_ = 1;
-    main_stage_ = 0; //stage0はデバッグ
+    main_stage_ = 1; //stage0はデバッグ
     if (pStageMainCannel_) {
         pStageMainCannel_->inactivate();
     }
@@ -212,27 +212,27 @@ void StageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     ScenePhase* pPhase = getPhase();
     if (prm_no == EVENT_STAGEDEBUG_WAS_FINISHED) {
         _TRACE_("StageController::onCatchEvent(EVENT_STAGEDEBUG_WAS_FINISHED)");
-        pStageMainCannel_->sayonara(180);
-        pStageMainCannel_->fadeoutSceneWithBgmTree(180);
+        pStageMainCannel_->sayonara(SEC_F(3));
+        pStageMainCannel_->fadeoutSceneWithBgmTree(SEC_F(3));
         pPhase->change(PHASE_PLAY_TRANSIT);
     }
 
     if (prm_no == EVENT_STAGE01_WAS_FINISHED) {
         _TRACE_("StageController::onCatchEvent(EVENT_STAGE01_WAS_FINISHED)");
-        pStageMainCannel_->sayonara(180);
-        pStageMainCannel_->fadeoutSceneWithBgmTree(180);
+        pStageMainCannel_->sayonara(SEC_F(3));
+        pStageMainCannel_->fadeoutSceneWithBgmTree(SEC_F(3));
         pPhase->change(PHASE_PLAY_TRANSIT);
     }
     if (prm_no == EVENT_STAGE02_WAS_FINISHED) {
         _TRACE_("StageController::onCatchEvent(EVENT_STAGE02_WAS_FINISHED)");
-        pStageMainCannel_->sayonara(180);
-        pStageMainCannel_->fadeoutSceneWithBgmTree(180);
+        pStageMainCannel_->sayonara(SEC_F(3));
+        pStageMainCannel_->fadeoutSceneWithBgmTree(SEC_F(3));
         pPhase->change(PHASE_PLAY_TRANSIT);
     }
     if (prm_no == EVENT_TRANSIT_WAS_END) {
         _TRACE_("StageController::onCatchEvent(EVENT_TRANSIT_WAS_END)");
-        pTransitStage_->inactivateDelay(180);
-        pTransitStage_->fadeoutSceneWithBgmTree(180);
+        pTransitStage_->inactivateDelay(SEC_F(3));
+        pTransitStage_->fadeoutSceneWithBgmTree(SEC_F(3));
         pPhase->change(PHASE_FINISH);
     }
 

@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationEbe::FormationEbe(const char* prm_name, const char* prm_ldr_id)
-   : DepositoryFormation(prm_name, 20*60) {
+   : DepositoryFormation(prm_name, SEC_F(20)) {
     _class_name = "FormationEbe";
 
     pConn_pEbeDepo_ = connectToDepositoryManager("EnemyEbe4Formation");

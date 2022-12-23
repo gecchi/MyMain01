@@ -84,7 +84,7 @@ void RankUpStage::processBehavior() {
                     pPhase->change(PHASE_RESULT);
                 }
 #ifdef MY_DEBUG
-                if (pPhase->hasArrivedFrameAt(_paFrame_NextEvent[_event_num-1]+(10*60*60))) { //最終のアクター出現から10分。
+                if (pPhase->hasArrivedFrameAt(_paFrame_NextEvent[_event_num-1]+(SEC_F(10*60)))) { //最終のアクター出現から10分。
                     throwCriticalException(NODE_INFO<<" ランクアップシーンが終わらないのではないだろうか？？");
                 }
 #endif

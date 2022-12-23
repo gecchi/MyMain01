@@ -170,6 +170,10 @@ public:
     }
 
     void setCollisionChecker(CollisionChecker* prm_pChecker);
+
+    CollisionChecker* getCollisionChecker() {
+        return _pChecker;
+    }
     /**
      * 本アクターの力車を取得 .
      * @return 力車

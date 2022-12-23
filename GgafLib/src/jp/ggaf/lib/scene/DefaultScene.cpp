@@ -8,9 +8,9 @@ DefaultScene::DefaultScene(const char* prm_name, GgafCore::SceneMediator* prm_pS
         GgafDx::Scene(prm_name, prm_pSceneMediator ? prm_pSceneMediator : NEW DefaultSceneMediator(this)) {
     _obj_class |= Obj_DefaultScene;
     _class_name = "DefaultScene";
-    _paFrame_NextEvent = nullptr;
-    _cnt_event = 0;
-    _event_num = 0;
+//    _paFrame_NextEvent = nullptr;
+//    _cnt_event = 0;
+//    _event_num = 0;
     _feature_p1 = 0;
     _pFuncFeature = nullptr;
     GGAF_DELETE_NULLABLE(_pPhase);
@@ -77,15 +77,5 @@ WallScene* DefaultScene::getNearestWallScene() {
     }
 }
 
-frame DefaultScene::getLastEventFrame() {
-    if (_paFrame_NextEvent) {
-        return _paFrame_NextEvent[_event_num-1];
-    } else {
-        return 0;
-    }
-}
-
 DefaultScene::~DefaultScene() {
-    //シーンにイベントが無いかもしれない
-    GGAF_DELETEARR_NULLABLE(_paFrame_NextEvent);
 }

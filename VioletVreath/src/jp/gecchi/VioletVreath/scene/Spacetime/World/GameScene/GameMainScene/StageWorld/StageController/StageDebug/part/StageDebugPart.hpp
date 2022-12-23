@@ -19,10 +19,22 @@ template<class T>
 class StageDebugPart :  public VvScene<T> {
 
 public:
+    enum {
+        PHASE_INIT    ,
+        PHASE_BEGIN   ,
+        PHASE_PLAYING ,
+        PHASE_END     ,
+        PHASE_BANPEI,
+    };
+
     hashval event_part_finish_;
+    frame frame_of_last_event_;
+    frame last_event_delay_frames_;
 public:
-    StageDebugPart(const char* prm_name, hashval prm_event_part_finish): VvScene<T>(prm_name) {
+    StageDebugPart(const char* prm_name, hashval prm_event_part_finish = 0): VvScene<T>(prm_name, nullptr) {
         event_part_finish_ = prm_event_part_finish;
+        last_event_delay_frames_ = SEC_F(60);
+        frame_of_last_event_ = MAX_FRAME - last_event_delay_frames_;
     }
 
     virtual void processJudgement() override {
@@ -38,12 +50,13 @@ public:
                 //自分のシーンBGMを演奏開始！
                 pBgm->performFromTheBegining(0);
             }
+            frame_of_last_event_ = this->getLastEventFrame();
         }
 
-        if (frame_of_last_event > 0 && frame_of_behaving == frame_of_last_event + 60*60) {
+        if (frame_of_last_event > 0 && frame_of_behaving == frame_of_last_event_ + last_event_delay_frames_) {
             if (pBgm->isReady(0)) {
                 //BGMをフェードアウト
-                pBgm->fadeoutStop(0, 120);
+                pBgm->fadeoutStop(0, SEC_F(2));
             }
             //シーン終了のイベントを通知
             this->throwEventUpperTree(event_part_finish_);
@@ -57,4 +70,4 @@ public:
 };
 
 }
-#endif /*STAGE_H_*/
+#endif /*STAGEDEBUGPART_H_*/

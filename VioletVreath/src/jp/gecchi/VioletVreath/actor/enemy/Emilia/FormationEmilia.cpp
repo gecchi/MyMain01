@@ -37,7 +37,7 @@ void FormationEmilia::onActive() {
 
 void FormationEmilia::processBehavior() {
     if (getActiveFrame() >= RF_FormationEmilia_DurationFrames(G_RANK)) { //oŒ»‚µ‘±‚¯‚éŽžŠÔ
-        sayonara(180*60);
+        sayonara(SEC_F(180));
     } else {
         if (getActiveFrame() % R_interval_frames_ == 0) {
             EnemyEmilia* pEmilia = (EnemyEmilia*)(pConn_depo_Emilia_->peek()->dispatch());

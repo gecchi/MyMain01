@@ -129,7 +129,7 @@ void WallScene::processBehavior() {
                 //また、!pSection->_pWallLast->isActive() は
                 //他のセクションシーンに dispatchForce() されずに、活動範囲外に消えたからOK、と考えた。
                 _TRACE_(FUNC_NAME<<" ["<<getName()<<"] シーンのセクション["<<pSection->getName()<<"]inactivate!!");
-                pSection->inactivateDelay(60*60);
+                pSection->inactivateDelay(360);
                 _ringLoopEndSection.remove();
                 if (pSection == _pLastSectionScene) {
                     //最終セクションならば一度コールバックを行い、処理を任せる。
