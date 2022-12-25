@@ -558,12 +558,17 @@ void VvvWorld:: manipulateActiveActor(GgafDx::FigureActor* prm_pActiveActor) {
             GgafDx::SkinAniMeshActor* pSkinAniMeshActor = dynamic_cast<GgafDx::SkinAniMeshActor*>(prm_pActiveActor);
             if (pSkinAniMeshActor) {
                 GgafDx::Puppeteer* pPuppeteer = pSkinAniMeshActor->getPuppeteer();
+                int performance_num = pPuppeteer->getPerformanceNum();
                 int dik = GgafDx::Input::getFirstPressedKey();
-                for (int i = 0; i <  pPuppeteer->getPerformanceNum(); i++) {
+                for (int i = 0; i <= 9; i++) {
                     if (GgafDx::Input::isPushedDownKey(mapNumDik_[i])) {
-                        pPuppeteer->shiftTo(i);
-                    } else {
-                        pPuppeteer->stop();
+                        if (i < performance_num) {
+                            pPuppeteer->play(i);
+                            break;
+                        } else {
+                            pPuppeteer->stop();
+                            break;
+                        }
                     }
                 }
             }
@@ -572,11 +577,17 @@ void VvvWorld:: manipulateActiveActor(GgafDx::FigureActor* prm_pActiveActor) {
             GgafDx::BoneAniMeshActor* pBoneAniMeshActor = dynamic_cast<GgafDx::BoneAniMeshActor*>(prm_pActiveActor);
             if (pBoneAniMeshActor) {
                 GgafDx::Puppeteer* pPuppeteer = pBoneAniMeshActor->getPuppeteer();
-                for (int i = 0; i <  pPuppeteer->getPerformanceNum(); i++) {
+                int performance_num = pPuppeteer->getPerformanceNum();
+                int dik = GgafDx::Input::getFirstPressedKey();
+                for (int i = 0; i <= 9; i++) {
                     if (GgafDx::Input::isPushedDownKey(mapNumDik_[i])) {
-                        pPuppeteer->shiftTo(i);
-                    } else {
-                        pPuppeteer->stop();
+                        if (i < performance_num) {
+                            pPuppeteer->play(i);
+                            break;
+                        } else {
+                            pPuppeteer->stop();
+                            break;
+                        }
                     }
                 }
             }

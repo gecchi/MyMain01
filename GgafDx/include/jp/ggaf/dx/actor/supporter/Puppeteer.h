@@ -103,7 +103,7 @@ public:
                        double prm_ani_time_delta = 60.0 / 4800);  //内部4800フレームを1秒換算 (60FPSの場合)
 
     /**
-     * 芸をプレイしてもらう（＝パペットが操られる） .
+     * 芸（メイン）をプレイしてもらう（＝パペットが操られる） .
      * @param prm_performance_no プレイする芸番号（アニメーションコントローラーのアニメーションセットIDに一致する）
      */
     void play(UINT prm_performance_no);
@@ -115,7 +115,12 @@ public:
      */
     void shiftTo(UINT prm_performance_no, frame prm_switch_frames = 120);
 
-
+    /**
+     * 一時的な芸（サブ）をプレイしてもらう .
+     * メインで「歩く」を play 中に、それを維持したまま「手を振る」という動作をする場合に実行。
+     * @param prm_performance_no プレイする芸番号（アニメーションコントローラーのアニメーションセットIDに一致する）
+     * @param prm_num_loop 繰り返し回数
+     */
     void playPartly(UINT prm_performance_no, double prm_num_loop = 1.0);
 
     void stop();
