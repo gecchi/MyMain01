@@ -173,9 +173,9 @@ void PointSpriteSetModel::restore() {
             _TRACE_("PointSpriteSetModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }
 
-        if (_nVertices*_draw_set_num > 65535) {
-            throwCriticalException("PointSpriteSetModel::restore() 頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  _nVertices*_draw_set_num:"<<_nVertices*_draw_set_num);
-        }
+//        if (_nVertices*_draw_set_num > 65535) {
+//            throwCriticalException("PointSpriteSetModel::restore() 頂点インデックスが 65535 を超えたかもしれません。\n対象Model："<<getName()<<"  _nVertices*_draw_set_num:"<<_nVertices*_draw_set_num);
+//        }
 //        _nFaces = 0; //_nFacesは使用しない
         _paVtxBuffer_data = NEW PointSpriteSetModel::VERTEX[_nVertices*_draw_set_num];
         _size_vertex_unit = sizeof(PointSpriteSetModel::VERTEX);

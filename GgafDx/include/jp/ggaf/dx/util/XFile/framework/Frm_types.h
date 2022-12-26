@@ -39,7 +39,7 @@
 
 struct TEXTURE {
     uint8_t Type, Depth; //Type of texture and bit depth
-    uint16_t Width, Height; //Width and height of texture
+    uint32_t Width, Height; //Width and height of texture
     uint32_t Size; //Size of texture = Width * Height
     uint32_t Compressed; //Compressed size of texture
     uint8_t* Bits; //texture data

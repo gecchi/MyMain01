@@ -32,7 +32,7 @@ Bone* Bone::IsName(std::string &BoneName) {
     return 0;
 }
 
-void Bone::UpdateIndices(uint16_t pIndex) {
+void Bone::UpdateIndices(uint32_t pIndex) {
     for (uint32_t i = 0; i < _nVertices; i++)
         _Vertices[i] += pIndex;
 }
@@ -225,8 +225,8 @@ void Model3D::ConcatenateMeshes(void) {
             * sizeof(Frm::Vertex));
     ConcatMesh->_Faces = NEW Frm::Face[ConcatMesh->_nFaces];
     memset(ConcatMesh->_Faces, 0, ConcatMesh->_nFaces * sizeof(Frm::Face));
-    ConcatMesh->_FaceMaterials = NEW uint16_t[ConcatMesh->_nFaces];
-    memset(ConcatMesh->_FaceMaterials, 0, ConcatMesh->_nFaces * sizeof(uint16_t));
+    ConcatMesh->_FaceMaterials = NEW uint32_t[ConcatMesh->_nFaces];
+    memset(ConcatMesh->_FaceMaterials, 0, ConcatMesh->_nFaces * sizeof(uint32_t));
     if (ConcatMesh->_nTextureCoords != 0) {
         ConcatMesh->_TextureCoords
                 = NEW Frm::TCoord[ConcatMesh->_nTextureCoords];
@@ -250,7 +250,7 @@ void Model3D::ConcatenateMeshes(void) {
         memcpy(&(ConcatMesh->_Faces[(*i)->_FirstFace]), (*i)->_Faces,
                 (*i)->_nFaces * sizeof(Frm::Face));
         memcpy(&(ConcatMesh->_FaceMaterials[(*i)->_FirstFace]),
-                (*i)->_FaceMaterials, (*i)->_nFaces * sizeof(uint16_t));
+                (*i)->_FaceMaterials, (*i)->_nFaces * sizeof(uint32_t));
         if ((*i)->_nTextureCoords != 0)
             memcpy(&(ConcatMesh->_TextureCoords[(*i)->_FirstTextureCoord]),
                     (*i)->_TextureCoords, (*i)->_nTextureCoords

@@ -24,14 +24,14 @@ public:
         _Type = IO_3DX;
         token_next = 0; //add tsuge
     }
-    bool Load(std::string pFilename, Frm::Model3D* &pT);
-    bool Save(std::string pFilename, Frm::Model3D* &pT);
-    bool Load(std::string pFilename, std::vector<Frm::Model3D*> &pVT) {
-        return false;
-    }
-    bool Save(std::string pFilename, std::vector<Frm::Model3D*> &pVT) {
-        return false;
-    }
+    bool Load(std::string pFilename, Frm::Model3D* pT);
+//    bool Save(std::string pFilename, Frm::Model3D* &pT);
+//    bool Load(std::string pFilename, std::vector<Frm::Model3D*> &pVT) {
+//        return false;
+//    }
+//    bool Save(std::string pFilename, std::vector<Frm::Model3D*> &pVT) {
+//        return false;
+//    }
 
 private:
     std::ifstream fin;

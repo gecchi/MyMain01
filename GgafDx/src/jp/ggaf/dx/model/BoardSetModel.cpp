@@ -148,8 +148,8 @@ void BoardSetModel::restore() {
         } else {
             _TRACE_("BoardSetModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }
-        if (4*_draw_set_num > 65535) {
-            throwCriticalException("SpriteSetModel::restore() 頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:4  セット数:"<<(_draw_set_num));
+        if (2 * 3 * _draw_set_num > 65535) { // 2 = nFace (板ポリゴンの数）
+            _TRACE_("【警告】SpriteSetModel::restore() 頂点インデックスが 65535 を超えたかもしれません。しらんけど。\n対象Model："<<getName()<<" インデックス:3*2(faces) セット数:"<<(_draw_set_num));
         }
         _size_vertices = sizeof(BoardSetModel::VERTEX)*4;
         _size_vertex_unit = sizeof(BoardSetModel::VERTEX);

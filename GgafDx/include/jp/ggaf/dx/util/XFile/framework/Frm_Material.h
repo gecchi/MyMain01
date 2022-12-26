@@ -30,7 +30,7 @@ public:
     Color4 _FaceColor;
     float _power;
     Color3 _SpecularColor, _EmissiveColor;
-    uint16_t _TextID;
+    uint32_t _TextID;
     std::string _TextureName;
 };
 

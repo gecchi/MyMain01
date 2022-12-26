@@ -190,7 +190,7 @@ void Model::transformPosNomalVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_uni
 
 void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                        Frm::Model3D* model_pModel3D,
-                       uint16_t* paNumVertices) {
+                       uint32_t* paNumVertices) {
     //ƒ‘O’ñ„
     //prm_paVtxBuffer ‚É‚Í x,y,z,tu,tv ‚ÍÝ’èÏ‚Ý
     Frm::Mesh* model_pMeshesFront = model_pModel3D->_Meshes.front();

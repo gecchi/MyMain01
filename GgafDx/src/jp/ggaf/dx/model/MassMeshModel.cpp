@@ -93,7 +93,7 @@ void MassMeshModel::restore() {
 
         //メッシュを結合する前に、情報を確保しておく
         int nMesh = (int)pModel3D->_Meshes.size();
-        uint16_t* paNumVertices = NEW uint16_t[nMesh];
+        uint32_t* paNumVertices = NEW uint32_t[nMesh];
         int index_Mesh = 0;
         for (std::list<Frm::Mesh*>::iterator iteMeshes = pModel3D->_Meshes.begin();
                 iteMeshes != pModel3D->_Meshes.end(); iteMeshes++) {
@@ -105,8 +105,8 @@ void MassMeshModel::restore() {
         Frm::Mesh* pMeshesFront = pModel3D->_Meshes.front();
         _nVertices = pMeshesFront->_nVertices;
         _nFaces = pMeshesFront->_nFaces;
-        if (_nVertices > 65535) {
-            throwCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  _nVertices:"<<_nVertices);
+        if (_nFaces*3 > 65535) {
+            _TRACE_("【警告】頂点インデックスが 65535 を超えたかもしれません。しらんけど。\n対象Model："<<getName()<<" インデックス:3*"<<_nFaces<<"(faces) _nVertices:"<<_nVertices);
         }
         UINT nTextureCoords = pMeshesFront->_nTextureCoords;
 //        nFaceNormals = pMeshesFront->_nFaceNormals;

@@ -9,6 +9,8 @@
 #include "jp/ggaf/dx/model/BoneAniMeshModel.h"
 #include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
 #include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
+#include "jp/ggaf/dx/util/XFile/framework/Frm_Mesh.h"
+#include "jp/ggaf/dx/util/XFile/Toolbox/IOModel_X.h"
 #include "jp/ggaf/lib/actor/CubeMapMeshActor.h"
 #include "jp/ggaf/lib/actor/CubeMapMorphMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultSkinAniMeshActor.h"
@@ -18,6 +20,7 @@
 #include "jp/ggaf/lib/actor/DefaultPointSpriteActor.h"
 #include "jp/ggaf/lib/actor/DefaultFramedSpriteActor.h"
 #include "jp/ggaf/lib/actor/DefaultRegularPolygonSpriteActor.h"
+#include "jp/ggaf/lib/actor/DefaultD3DXMeshActor.h"
 #include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
@@ -563,7 +566,13 @@ void VvvWorld:: manipulateActiveActor(GgafDx::FigureActor* prm_pActiveActor) {
                 for (int i = 0; i <= 9; i++) {
                     if (GgafDx::Input::isPushedDownKey(mapNumDik_[i])) {
                         if (i < performance_num) {
-                            pPuppeteer->play(i);
+                            if (GgafDx::Input::isPressedKey(DIK_LSHIFT) || GgafDx::Input::isPressedKey(DIK_RSHIFT)) {
+                                pPuppeteer->shiftTo(i, SEC_F(2));
+                            } else if (GgafDx::Input::isPressedKey(DIK_SPACE)) {
+                                pPuppeteer->playPartly(i, 1.0);
+                            } else {
+                                pPuppeteer->play(i);
+                            }
                             break;
                         } else {
                             pPuppeteer->stop();
@@ -582,7 +591,13 @@ void VvvWorld:: manipulateActiveActor(GgafDx::FigureActor* prm_pActiveActor) {
                 for (int i = 0; i <= 9; i++) {
                     if (GgafDx::Input::isPushedDownKey(mapNumDik_[i])) {
                         if (i < performance_num) {
-                            pPuppeteer->play(i);
+                            if (GgafDx::Input::isPressedKey(DIK_LSHIFT) || GgafDx::Input::isPressedKey(DIK_RSHIFT)) {
+                                pPuppeteer->shiftTo(i, SEC_F(2));
+                            } else if (GgafDx::Input::isPressedKey(DIK_SPACE)) {
+                                pPuppeteer->playPartly(i, 1.0);
+                            } else {
+                                pPuppeteer->play(i);
+                            }
                             break;
                         } else {
                             pPuppeteer->stop();
@@ -787,8 +802,7 @@ void VvvWorld::processDragAndDrop() {
                     pActor = pDefaultMorphMeshActor;
                     pChecker = pDefaultMorphMeshActor->getWorldCollisionChecker();
                 } else {
-                    GgafLib::DefaultMeshActor* pDefaultMeshActor =
-                            desireActor(VvvActor<GgafLib::DefaultMeshActor>, "actor", model.c_str());
+                    GgafLib::DefaultMeshActor* pDefaultMeshActor = NEW VvvActor<GgafLib::DefaultMeshActor>("actor", model.c_str());
                     pActor = pDefaultMeshActor;
                     pChecker = pDefaultMeshActor->getWorldCollisionChecker();
                 }
@@ -814,12 +828,12 @@ void VvvWorld::processDragAndDrop() {
             pActor = pDefaultRegularPolygonSpriteActor;
             pChecker = pDefaultRegularPolygonSpriteActor->getWorldCollisionChecker();
         } else if (ext == "X") {
-            //DefaultMeshActor のみ x ファイル直接でも大丈夫
-            GgafLib::DefaultMeshActor* pDefaultMeshActor =
-                    desireActor(VvvActor<GgafLib::DefaultMeshActor>, "actor", model.c_str());
+            std::string xfilepath = std::string(VvvCaretaker::dropfiles_);
+            GgafLib::DefaultMeshActor* pDefaultMeshActor = NEW VvvActor<GgafLib::DefaultMeshActor>("actor", model.c_str());
             pActor = pDefaultMeshActor;
             pChecker = pDefaultMeshActor->getWorldCollisionChecker();
         }
+
         //アクター表示
         if (pActor) {
             dxcoord bound = pActor->getModel()->_bounding_sphere_radius * pActor->_rate_of_bounding_sphere_radius;
@@ -827,20 +841,10 @@ void VvvWorld::processDragAndDrop() {
             pChecker->setColliSphere(0, DX_C(bound));
             pActor->setHitAble(true);
             bringSceneMediator()->appendGroupChild(KIND_ACTOR, pActor);
-
-
-//                GgafLib::DefaultBoardActor* pDefaultBoardActor =
-//                        desireActor(GgafLib::DefaultBoardActor, "HitArea", "HitBoard");
-//                pActor->appendGroupChild(KIND_ACTOR, pDefaultBoardActor);
-
-
-
             ActorInfo* pActorInfo = NEW ActorInfo(pActor, pChecker, string(VvvCaretaker::dropfiles_));
             listActorInfo_.addLast(pActorInfo);
             listActorInfo_.createIndex();
             listActorInfo_.last(); //カレントをlastへ
-
-
             VvvCamera* pCam = pCARETAKER->getSpacetime()->getCamera();
             GgafDx::GeometricActor* pCameraViewPoint = pCam->getCameraViewPoint();
             pActor->setPositionAt(pCameraViewPoint);

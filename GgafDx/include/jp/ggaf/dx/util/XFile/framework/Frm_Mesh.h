@@ -34,11 +34,11 @@ public:
     }
     ~Bone(void);
     Bone* IsName(std::string &BoneName);
-    void UpdateIndices(uint16_t pIndex);
+    void UpdateIndices(uint32_t pIndex);
 
     Matrix _MatrixPos, _SkinOffset;
     uint32_t _nVertices;
-    uint16_t* _Vertices;
+    uint32_t* _Vertices;
     float* _Weights;
     std::string _MeshName;
     std::string _Name;
@@ -46,7 +46,7 @@ public:
 };
 
 struct Subset {
-    uint16_t Size;
+    uint32_t Size;
     Face* Faces;
 };
 
@@ -69,10 +69,10 @@ public:
     void UpdateIndices(void);
     void CreateSubsets(void);
     //Vertices
-    uint16_t _nVertices, _FirstVertex;
+    uint32_t _nVertices, _FirstVertex;
     Vertex* _Vertices;
     //Texture Coords for each vertex
-    uint16_t _nTextureCoords, _FirstTextureCoord;
+    uint32_t _nTextureCoords, _FirstTextureCoord;
     TCoord* _TextureCoords;
     //Faces
     uint32_t _nFaces, _FirstFace;
@@ -80,13 +80,13 @@ public:
     //Subset of a mesh: there is one subset for each material used
     std::list<Subset*> _Subsets;
     //Normals
-    uint16_t _nNormals, _FirstNormal;
+    uint32_t _nNormals, _FirstNormal;
     vector<float>* _Normals;
-    uint16_t _nFaceNormals;
+    uint32_t _nFaceNormals;
     Face* _FaceNormals;   //add tsuge
     //Material index for each face
-    uint16_t _nMaterials, _FirstMaterial;
-    uint16_t* _FaceMaterials;
+    uint32_t _nMaterials, _FirstMaterial;
+    uint32_t* _FaceMaterials;
     //list of Materials for that Mesh
     std::list<Material*> _Materials;
     std::string _Name;

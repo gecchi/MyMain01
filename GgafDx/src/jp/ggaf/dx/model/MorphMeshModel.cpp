@@ -218,7 +218,7 @@ void MorphMeshModel::restore() {
             }
             //メッシュを結合する前に、情報を確保しておく
             int nMesh = (int)papModel3D[pattern]->_Meshes.size();
-            uint16_t* paNumVertices = NEW uint16_t[nMesh];
+            uint32_t* paNumVertices = NEW uint32_t[nMesh];
             int index_Mesh = 0;
             for (std::list<Frm::Mesh*>::iterator iteMeshes = papModel3D[pattern]->_Meshes.begin();
                     iteMeshes != papModel3D[pattern]->_Meshes.end(); iteMeshes++) {
@@ -232,8 +232,8 @@ void MorphMeshModel::restore() {
             nFaces = papMeshesFront[pattern]->_nFaces;
 //            nFaceNormals = papMeshesFront[pattern]->_nFaceNormals;
 
-            if (nVertices*(morph_target_num+1) > 65535) {
-                throwCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:"<<nVertices<<"  セット数:"<<(morph_target_num+1));
+            if (nFaces * 3 > 65535) {
+                _TRACE_("【警告】頂点インデックスが 65535 を超えたかもしれません。しらんけど。\n対象Model："<<getName()<<"  インデックス:3*"<<nFaces<<"(faces) nVertices:"<<nVertices);
             }
 
             if (pattern == 0) {

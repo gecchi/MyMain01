@@ -166,11 +166,9 @@ void SpriteSetModel::restore() {
         } else {
             _TRACE_("SpriteSetModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }
-        if (4*_draw_set_num > 65535) {
-            throwCriticalException("SpriteSetModel::restore() 頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:4  セット数:"<<(_draw_set_num));
-        }
-        if ( 2 * 3 * _draw_set_num > 65535) {
-            throwCriticalException("SpriteSetModel::restore() 頂点インデックスが 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nFaces:2(*3)  セット数:"<<(_draw_set_num));
+
+        if ( 2 * 3 * _draw_set_num > 65535) { //2=板ポリゴンの面数
+            _TRACE_("【警告】SpriteSetModel::restore() 頂点インデックスが 65535を超えたかもしれません。しらんけど。\n対象Model："<<getName()<<"  インデックス:3*2(faces)*"<<_draw_set_num<<"(sets) ");
         }
 
         //バッファ作成

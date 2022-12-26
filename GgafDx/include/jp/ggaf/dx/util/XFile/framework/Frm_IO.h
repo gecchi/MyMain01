@@ -21,10 +21,10 @@ public:
     IO(void) :
         _Type(IO_NOTYPE) {
     }
-    virtual bool Load(std::string pFilename, T &pT)=0;
-    virtual bool Save(std::string pFilename, T &pT)=0;/**/
-    virtual bool Load(std::string pFilename, std::vector<T> &pVT)=0;
-    virtual bool Save(std::string pFilename, std::vector<T> &pVT)=0;/**/
+    virtual bool Load(std::string pFilename, T pT)=0;
+//    virtual bool Save(std::string pFilename, T &pT)=0;/**/
+//    virtual bool Load(std::string pFilename, std::vector<T> &pVT)=0;
+//    virtual bool Save(std::string pFilename, std::vector<T> &pVT)=0;/**/
     void LoadInBuffer(std::string pFilename) {
         int length;
         std::ifstream fin(pFilename.c_str());

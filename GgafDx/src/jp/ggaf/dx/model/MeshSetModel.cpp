@@ -214,7 +214,7 @@ void MeshSetModel::restore() {
 
         //メッシュを結合する前に、情報を確保しておく
         int nMesh = (int)pModel3D->_Meshes.size();
-        uint16_t* paNumVertices = NEW uint16_t[nMesh];
+        uint32_t* paNumVertices = NEW uint32_t[nMesh];
         int index_Mesh = 0;
         for (std::list<Frm::Mesh*>::iterator iteMeshes = pModel3D->_Meshes.begin();
                 iteMeshes != pModel3D->_Meshes.end(); iteMeshes++) {
@@ -229,15 +229,14 @@ void MeshSetModel::restore() {
         nFaces = pMeshesFront->_nFaces;
 //        nFaceNormals = pMeshesFront->_nFaceNormals;
         unit_paVtxBuffer_data = NEW MeshSetModel::VERTEX[nVertices];
-
-        if (nVertices*_draw_set_num > 65535) {
-            throwCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:"<<nVertices<<"  セット数:"<<(_draw_set_num));
-        }
-
         _nVertices = nVertices;
         _nFaces = nFaces;
         _size_vertices = sizeof(MeshSetModel::VERTEX) * nVertices;
         _size_vertex_unit = sizeof(MeshSetModel::VERTEX);
+
+        if (_nFaces * 3 * _draw_set_num > 65535) {
+            _TRACE_("【警告】頂点インデックスが 65535 を超えたかもしれません。しらんけど。\n対象Model："<<getName()<<"  インデックス:3*"<<_nFaces<<"(faces)*"<<_draw_set_num<<"(sets)  nVertices:"<<nVertices);
+        }
 
         //法線以外設定
         for (int i = 0; i < nVertices; i++) {
@@ -306,7 +305,7 @@ void MeshSetModel::restore() {
         GGAF_DELETEARR(unit_paIndexBuffer_data);
 
         //マテリアルリストをセット数分繰り返しコピーで作成
-        uint16_t* paFaceMaterials = NEW uint16_t[nFaces * _draw_set_num];
+        uint32_t* paFaceMaterials = NEW uint32_t[nFaces * _draw_set_num];
         for (int i = 0; i < _draw_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
                 paFaceMaterials[(i*nFaces) + j] = pMeshesFront->_FaceMaterials[j];

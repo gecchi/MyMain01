@@ -212,7 +212,7 @@ void MeshModel::restore() {
         }
         //メッシュを結合する前に、情報を確保しておく
         int nMesh = (int)pModel3D->_Meshes.size();
-        uint16_t* paNumVertices = NEW uint16_t[nMesh];
+        uint32_t* paNumVertices = NEW uint32_t[nMesh];
         int index_Mesh = 0;
         for (std::list<Frm::Mesh*>::iterator iteMeshes = pModel3D->_Meshes.begin();
                 iteMeshes != pModel3D->_Meshes.end(); iteMeshes++) {
@@ -233,7 +233,9 @@ void MeshModel::restore() {
             _TRACE3_("nTextureCoords="<<nTextureCoords<<"/_nVertices="<<_nVertices);
             _TRACE3_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
         }
-
+        if (_nFaces * 3 > 65535) {
+            _TRACE_("【警告】頂点インデックスが 65535 を超えたかもしれません。しらんけど。\n対象Model："<<getName()<<" インデックス:3*"<<_nFaces<<"(faces) _nVertices:"<<_nVertices);
+        }
         //頂点バッファ作成開始！
         //法線以外設定
         for (UINT i = 0; i < _nVertices; i++) {

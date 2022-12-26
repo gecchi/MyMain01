@@ -364,19 +364,13 @@ float4 PS_DefaultSkinAniMesh(
     return colOut;
 }
 
-float4 PS_DefaultSkinAniMesh2(
-    float2 prm_uv	  : TEXCOORD0,
-    float4 prm_color    : COLOR0
+float4 PS_Flush(
+    float2 prm_uv	 : TEXCOORD0,
+    float4 prm_color : COLOR0
 ) : COLOR  {
     //テクスチャをサンプリングして色取得（原色を取得）
     const float4 colTex = tex2D( MyTextureSampler, prm_uv);
-    float4 colOut = colTex * prm_color;
-
-    //Blinkerを考慮
-    if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);
-    }
-    //マスターα
+    float4 colOut = colTex * prm_color * FLUSH_COLOR;
     colOut.a *= g_alpha_master;
     return colOut;
 }
@@ -419,7 +413,10 @@ technique DefaultSkinAniMeshTechnique
     }
 }
 
-technique DefaultSkinAniMeshTechnique2
+/**
+ * 閃光エフェクトのテクニック .
+ */
+technique Flush
 {
     pass P0 {
         AlphaBlendEnable = true;
@@ -428,8 +425,11 @@ technique DefaultSkinAniMeshTechnique2
         DestBlend = InvSrcAlpha;
         BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultSkinAniMesh();
-        PixelShader  = compile PS_VERSION PS_DefaultSkinAniMesh2();
+        PixelShader  = compile PS_VERSION PS_Flush();
     }
 }
+
+
+
 
 
