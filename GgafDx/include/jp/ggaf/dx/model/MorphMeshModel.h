@@ -96,7 +96,9 @@ public:
     /** 頂点バッファの写しコピーの頂点配列のモーフターゲット数配列 */
     VERTEX_MORPH**  _papaVtxBuffer_data_morph;
     /** インデックスバッファの写しコピー（プライマリのみ） */
-    WORD* _paIndexBuffer_data;
+    bool _is_65535;
+    uint16_t* _paIndex16Buffer_data;
+    uint32_t* _paIndex32Buffer_data;
 
     /** Paulさんモデル（要素数＝プライマリ＋モーフターゲット数） */
     Frm::Model3D** _papModel3D;

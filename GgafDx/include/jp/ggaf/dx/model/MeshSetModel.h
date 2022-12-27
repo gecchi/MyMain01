@@ -70,7 +70,9 @@ public:
     UINT* _paUint_material_list_grp_num;
 
     VERTEX* _paVtxBuffer_data;
-    WORD* _paIndexBuffer_data;
+    bool _is_65535;
+    uint16_t* _paIndex16Buffer_data;
+    uint32_t* _paIndex32Buffer_data;
 
     /** Paul‚³‚ñƒ‚ƒfƒ‹ */
     Frm::Model3D* _pModel3D;

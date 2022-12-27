@@ -204,7 +204,7 @@ void VvvMousePointer::processBehavior() {
     dxcoord y = (near_W_zt_rate*matWorldCoords._42 - ((zt_rate - 1) * (far_W*matWorldCoords._32))) / W;
     dxcoord z = (near_W_zt_rate*matWorldCoords._43 - ((zt_rate - 1) * (far_W*matWorldCoords._33))) / W;
     pI_->setPosition(DX_C(x), DX_C(y), DX_C(z));
-    _TRACE_("pI=("<<DX_PX(x)<<","<<DX_PX(y)<<","<<DX_PX(z));
+//    _TRACE_("pI=("<<DX_PX(x)<<","<<DX_PX(y)<<","<<DX_PX(z));
 }
 
 void VvvMousePointer::processJudgement() {

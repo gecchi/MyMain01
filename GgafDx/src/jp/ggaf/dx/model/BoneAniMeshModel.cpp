@@ -30,7 +30,8 @@ BoneAniMeshModel::BoneAniMeshModel(const char* prm_model_id) : Model(prm_model_i
     _num_materials = 0L;
     _anim_ticks_per_second = 4800; //restoreBoneAniMeshModel で上書きされる場合がある。
     _paVtxBuffer_data = nullptr;
-    _paIndexBuffer_data = nullptr;
+    _paIndex16Buffer_data = nullptr;
+    _paIndex32Buffer_data = nullptr;
     _paVertexBuffer = nullptr;
     _paIndexBuffer = nullptr;
     _index_param_num = 0;
@@ -44,7 +45,7 @@ BoneAniMeshModel::BoneAniMeshModel(const char* prm_model_id) : Model(prm_model_i
     _num_animation_set = 0;
     _max_draw_set_num = 1;
     _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = nullptr;
-
+    _indexBuffer_fmt = D3DFMT_UNKNOWN;
 }
 
 HRESULT BoneAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -285,7 +286,7 @@ void BoneAniMeshModel::restore() {
         _nVertices = vertices_total_num;
         _nFaces = faces_total_num;
         _paVtxBuffer_data =  NEW BoneAniMeshModel::VERTEX[_nVertices];
-        _paIndexBuffer_data = NEW WORD[_nFaces*3];
+        _indexBuffer_fmt = D3DFMT_UNKNOWN;
         _paIndexBuffer_frame_no = NEW int[_nFaces*3];
         if (!_paMaterial_default) {
             if (materials_total_num > 0) {
@@ -393,44 +394,54 @@ void BoneAniMeshModel::restore() {
             DWORD nFace = pMesh->GetNumFaces();
             D3DINDEXBUFFER_DESC desc;
             pIb->GetDesc( &desc );
-            if (desc.Format == D3DFMT_INDEX16) {
+            if (_indexBuffer_fmt == D3DFMT_UNKNOWN) {
+                _indexBuffer_fmt = desc.Format;
+                if (_indexBuffer_fmt == D3DFMT_INDEX16) {
+                    _paIndex16Buffer_data = NEW uint16_t[_nFaces*3];
+                } else {
+                    _paIndex32Buffer_data = NEW uint32_t[_nFaces*3];
+                }
+            }
+
+
+            if (_indexBuffer_fmt == D3DFMT_INDEX16) {
                 void* paIndexBuffer;
-                pIb->Lock(0, nFace*3*sizeof(WORD), (void**)&paIndexBuffer, 0);
+                pIb->Lock(0, nFace*3*sizeof(uint16_t), (void**)&paIndexBuffer, 0);
                 char* p = (char*)paIndexBuffer;
-    //            _TRACE_("["<<i<<"]:IndexFmt=WORD");
+    //            _TRACE_("["<<i<<"]:IndexFmt=uint16_t");
                 for (int f = 0; f < nFace; f++) {
-                    WORD val1,val2,val3;
-                    memcpy(&(val1), p, sizeof(WORD));  p += sizeof(WORD);
-                    memcpy(&(val2), p, sizeof(WORD));  p += sizeof(WORD);
-                    memcpy(&(val3), p, sizeof(WORD));  p += sizeof(WORD);
+                    uint16_t val1,val2,val3;
+                    memcpy(&(val1), p, sizeof(uint16_t));  p += sizeof(uint16_t);
+                    memcpy(&(val2), p, sizeof(uint16_t));  p += sizeof(uint16_t);
+                    memcpy(&(val3), p, sizeof(uint16_t));  p += sizeof(uint16_t);
     //                _TRACE_("["<<i<<"]["<<f<<"]:Index=("<<val1<<","<<val2<<","<<val3<<")");
                     int offset = (v_cnt-nVertices); //頂点番号を通しにするための計算。
                                                     //v_cnt:通しカウンタ ＝ nVertices：初回はメッシュコンテナの頂点数 なので 0 となる。
-                    _paIndexBuffer_data[i_cnt+0] = offset + val1;
-                    _paIndexBuffer_data[i_cnt+1] = offset + val2;
-                    _paIndexBuffer_data[i_cnt+2] = offset + val3;
-                    _paIndexBuffer_frame_no[i_cnt+0] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+0]].index);
-                    _paIndexBuffer_frame_no[i_cnt+1] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+1]].index);
-                    _paIndexBuffer_frame_no[i_cnt+2] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+2]].index);
+                    _paIndex16Buffer_data[i_cnt+0] = offset + val1;
+                    _paIndex16Buffer_data[i_cnt+1] = offset + val2;
+                    _paIndex16Buffer_data[i_cnt+2] = offset + val3;
+                    _paIndexBuffer_frame_no[i_cnt+0] = (int)(_paVtxBuffer_data[_paIndex16Buffer_data[i_cnt+0]].index);
+                    _paIndexBuffer_frame_no[i_cnt+1] = (int)(_paVtxBuffer_data[_paIndex16Buffer_data[i_cnt+1]].index);
+                    _paIndexBuffer_frame_no[i_cnt+2] = (int)(_paVtxBuffer_data[_paIndex16Buffer_data[i_cnt+2]].index);
                     i_cnt+=3;
                 }
             } else {
                 void* paIndexBuffer;
-                pIb->Lock(0, nFace*3*sizeof(DWORD), (void**)&paIndexBuffer, 0);
+                pIb->Lock(0, nFace*3*sizeof(uint32_t), (void**)&paIndexBuffer, 0);
                 char* p = (char*)paIndexBuffer;
                 for (int f = 0; f < nFace; f++) {
-                    WORD val1,val2,val3;
-                    memcpy(&(val1), p, sizeof(WORD));  p += sizeof(DWORD);
-                    memcpy(&(val2), p, sizeof(WORD));  p += sizeof(DWORD);
-                    memcpy(&(val3), p, sizeof(WORD));  p += sizeof(DWORD);
+                    uint32_t val1,val2,val3;
+                    memcpy(&(val1), p, sizeof(uint32_t));  p += sizeof(uint32_t);
+                    memcpy(&(val2), p, sizeof(uint32_t));  p += sizeof(uint32_t);
+                    memcpy(&(val3), p, sizeof(uint32_t));  p += sizeof(uint32_t);
                     int offset = (v_cnt-nVertices); //頂点番号を通しにするための計算。
                                                     //v_cnt:通しカウンタ ＝ nVertices：初回はメッシュコンテナの頂点数 なので 0 となる。
-                    _paIndexBuffer_data[i_cnt+0] = offset + val1;
-                    _paIndexBuffer_data[i_cnt+1] = offset + val2;
-                    _paIndexBuffer_data[i_cnt+2] = offset + val3;
-                    _paIndexBuffer_frame_no[i_cnt+0] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+0]].index);
-                    _paIndexBuffer_frame_no[i_cnt+1] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+1]].index);
-                    _paIndexBuffer_frame_no[i_cnt+2] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+2]].index);
+                    _paIndex32Buffer_data[i_cnt+0] = offset + val1;
+                    _paIndex32Buffer_data[i_cnt+1] = offset + val2;
+                    _paIndex32Buffer_data[i_cnt+2] = offset + val3;
+                    _paIndexBuffer_frame_no[i_cnt+0] = (int)(_paVtxBuffer_data[_paIndex32Buffer_data[i_cnt+0]].index);
+                    _paIndexBuffer_frame_no[i_cnt+1] = (int)(_paVtxBuffer_data[_paIndex32Buffer_data[i_cnt+1]].index);
+                    _paIndexBuffer_frame_no[i_cnt+2] = (int)(_paVtxBuffer_data[_paIndex32Buffer_data[i_cnt+2]].index);
                     i_cnt += 3;
                 }
             }
@@ -484,9 +495,16 @@ void BoneAniMeshModel::restore() {
                 }
                 paramno++;
             }
-            vtx_idx1 = _paIndexBuffer_data[faceNoCnt*3 + 0]; //faceNoCnt(面番号)に対する頂点番号
-            vtx_idx2 = _paIndexBuffer_data[faceNoCnt*3 + 1];
-            vtx_idx3 = _paIndexBuffer_data[faceNoCnt*3 + 2];
+            if (_indexBuffer_fmt == D3DFMT_INDEX16) {
+                vtx_idx1 = _paIndex16Buffer_data[faceNoCnt*3 + 0]; //faceNoCnt(面番号)に対する頂点番号
+                vtx_idx2 = _paIndex16Buffer_data[faceNoCnt*3 + 1];
+                vtx_idx3 = _paIndex16Buffer_data[faceNoCnt*3 + 2];
+            } else {
+                vtx_idx1 = _paIndex32Buffer_data[faceNoCnt*3 + 0]; //faceNoCnt(面番号)に対する頂点番号
+                vtx_idx2 = _paIndex32Buffer_data[faceNoCnt*3 + 1];
+                vtx_idx3 = _paIndex32Buffer_data[faceNoCnt*3 + 2];
+            }
+
 
             if (max_num_vertices < vtx_idx1) {
                 max_num_vertices = vtx_idx1;
@@ -572,18 +590,34 @@ void BoneAniMeshModel::restore() {
     //インデックスバッファデータ作成
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
-                                   sizeof(WORD) * _nFaces * 3,
-                                   D3DUSAGE_WRITEONLY,
-                                   D3DFMT_INDEX16,
-                                   D3DPOOL_DEFAULT,
-                                   &(_paIndexBuffer),
-                                   nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
-        void* paIndexBuffer;
-        _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
-        memcpy(paIndexBuffer , _paIndexBuffer_data , sizeof(WORD) * _nFaces * 3);
-        _paIndexBuffer->Unlock();
+        if (_indexBuffer_fmt == D3DFMT_INDEX16) {
+            hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
+                                       sizeof(uint16_t) * _nFaces * 3,
+                                       D3DUSAGE_WRITEONLY,
+                                       D3DFMT_INDEX16,
+                                       D3DPOOL_DEFAULT,
+                                       &(_paIndexBuffer),
+                                       nullptr);
+            checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
+            void* paIndexBuffer;
+            _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
+            memcpy(paIndexBuffer , _paIndex16Buffer_data , sizeof(uint16_t) * _nFaces * 3);
+            _paIndexBuffer->Unlock();
+        } else {
+            hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
+                                       sizeof(uint32_t) * _nFaces * 3,
+                                       D3DUSAGE_WRITEONLY,
+                                       D3DFMT_INDEX32,
+                                       D3DPOOL_DEFAULT,
+                                       &(_paIndexBuffer),
+                                       nullptr);
+            checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
+            void* paIndexBuffer;
+            _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
+            memcpy(paIndexBuffer , _paIndex32Buffer_data , sizeof(uint32_t) * _nFaces * 3);
+            _paIndexBuffer->Unlock();
+        }
+
     }
     _TRACE3_("_model_id=" << _model_id << " end");
 }
@@ -704,7 +738,8 @@ BoneAniMeshModel::~BoneAniMeshModel() {
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames); //Model::~Model() で実行されてるはず
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR(_paVtxBuffer_data);
-    GGAF_DELETEARR(_paIndexBuffer_data);
+    GGAF_DELETEARR(_paIndex16Buffer_data);
+    GGAF_DELETEARR(_paIndex32Buffer_data);
     GGAF_DELETEARR(_paIndexBuffer_frame_no);
     GGAF_DELETEARR(_paIndexParam);
 //    GGAF_DELETE(_pFrameRoot); //_pAllocHierarchyを消すと_pFrameRootは消さなくて良いと思う

@@ -403,27 +403,27 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
         //add tsuge エラーチェックを追加。
         _LoadMesh->_FirstVertex = LastMesh->_FirstVertex + LastMesh->_nVertices;
         if (65535 < ((int)LastMesh->_FirstVertex + (int)LastMesh->_nVertices)) {
-            throwCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstVertex が 65535を超えたかもしれません。\n頂点数が多いので何とかしてください。");
+            _TRACE_("【警告】IO_Model_X::ProcessMesh() Xファイル'"<<active_load_filename<<"'読み込み中、_FirstVertex が 65535を超えたかもしれません。\n頂点数が多いので何とかしてください。");
         }
         _LoadMesh->_FirstFace = LastMesh->_FirstFace + LastMesh->_nFaces;
         if (65535 < ((int)LastMesh->_FirstFace + (int)LastMesh->_nFaces)) {
-            throwCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstFace が 65535を超えたかもしれません。\n頂点インデックス（面）数が多いので何とかしてください。");
+            _TRACE_("【警告】IO_Model_X::ProcessMesh()Xファイル'"<<active_load_filename<<"'読み込み中、_FirstFace が 65535を超えたかもしれません。\n頂点インデックス（面）数が多いので何とかしてください。");
         }
         _LoadMesh->_FirstTextureCoord = LastMesh->_FirstTextureCoord
                 + LastMesh->_nTextureCoords;
         if (65535 < ((int)LastMesh->_FirstTextureCoord + (int)LastMesh->_nTextureCoords)) {
-            throwCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstTextureCoord が 65535を超えたかもしれません。\nテクスチャUV座標数が多いので何とかしてください。");
+            _TRACE_("【警告】IO_Model_X::ProcessMesh()Xファイル'"<<active_load_filename<<"'読み込み中、_FirstTextureCoord が 65535を超えたかもしれません。\nテクスチャUV座標数が多いので何とかしてください。");
         }
         _LoadMesh->_FirstMaterial = LastMesh->_FirstMaterial
                 + LastMesh->_nMaterials;
         if (65535 < ((int)LastMesh->_FirstMaterial + (int)LastMesh->_nMaterials)) {
-            throwCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstMaterial が 65535を超えたかもしれません。\nマテリアル数が多いので何とかしてください。");
+            _TRACE_("【警告】IO_Model_X::ProcessMesh()Xファイル'"<<active_load_filename<<"'読み込み中、_FirstMaterial が 65535を超えたかもしれません。\nマテリアル数が多いので何とかしてください。");
         }
         if (_LoadMesh->_FirstTextureCoord < _LoadMesh->_FirstVertex)
             _LoadMesh->_FirstTextureCoord = _LoadMesh->_FirstVertex;
         _LoadMesh->_FirstNormal = LastMesh->_FirstNormal + LastMesh->_nNormals;
         if (65535 < ((int)LastMesh->_FirstNormal + (int)LastMesh->_nNormals)) {
-            throwCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstNormal が 65535を超えたかもしれません。\n法線数が多いので何とかしてください。");
+            _TRACE_("【警告】IO_Model_X::ProcessMesh()Xファイル'"<<active_load_filename<<"'読み込み中、_FirstNormal が 65535を超えたかもしれません。\n法線数が多いので何とかしてください。");
         }
         if (_LoadMesh->_FirstNormal < _LoadMesh->_FirstVertex)
             _LoadMesh->_FirstNormal = _LoadMesh->_FirstVertex;

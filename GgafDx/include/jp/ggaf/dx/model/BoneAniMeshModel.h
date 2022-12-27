@@ -35,7 +35,9 @@ public:
     };
 
     BoneAniMeshModel::VERTEX* _paVtxBuffer_data;
-    WORD* _paIndexBuffer_data;
+    D3DFORMAT _indexBuffer_fmt;
+    uint16_t* _paIndex16Buffer_data;
+    uint32_t* _paIndex32Buffer_data;
     /** インデックスバッファ番号に対応する頂点バッファのフレームメッシュ番号 */
     int* _paIndexBuffer_frame_no;
     /** 頂点バッファ（全フレームのメッシュ分） */

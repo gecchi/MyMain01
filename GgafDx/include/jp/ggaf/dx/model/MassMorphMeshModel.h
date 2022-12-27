@@ -21,7 +21,9 @@ public:
         float tu, tv;     // テクスチャ座標
     };
     VERTEX_model_primary* _paVtxBuffer_data_model;
-    WORD* _paIndexBuffer_data;
+    bool _is_65535;
+    uint16_t* _paIndex16Buffer_data;
+    uint32_t* _paIndex32Buffer_data;
 
     /** モーフターゲットの頂点フォーマット定義 */
     struct VERTEX_model_morph : public Model::VERTEX_POS_NOMAL {

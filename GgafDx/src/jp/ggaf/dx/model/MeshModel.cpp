@@ -26,7 +26,8 @@ MeshModel::MeshModel(const char* prm_model_id) : Model(prm_model_id) {
     _paVertexBuffer = nullptr;
     _paIndexBuffer = nullptr;
     _paVtxBuffer_data = nullptr;
-    _paIndexBuffer_data = nullptr;
+    _paIndex16Buffer_data = nullptr;
+    _paIndex32Buffer_data = nullptr;
     _paIndexParam = nullptr;
     _material_list_grp_num = 0;
     _size_vertices = 0;
@@ -34,6 +35,7 @@ MeshModel::MeshModel(const char* prm_model_id) : Model(prm_model_id) {
     _nVertices = 0;
     _nFaces = 0;
     _max_draw_set_num = 1;
+    _is_65535 = false;
 }
 
 HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -166,6 +168,7 @@ HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, vo
 
 void MeshModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
+
     if (_paVtxBuffer_data == nullptr) {
         //【MeshModel再構築（＝初期化）処理概要】
         //１）頂点バッファ、頂点インデックスバッファ を new
@@ -235,6 +238,7 @@ void MeshModel::restore() {
         }
         if (_nFaces * 3 > 65535) {
             _TRACE_("【警告】頂点インデックスが 65535 を超えたかもしれません。しらんけど。\n対象Model："<<getName()<<" インデックス:3*"<<_nFaces<<"(faces) _nVertices:"<<_nVertices);
+            _is_65535 = true;
         }
         //頂点バッファ作成開始！
         //法線以外設定
@@ -278,11 +282,21 @@ void MeshModel::restore() {
         }
 
         //インデックスバッファ登録
-        _paIndexBuffer_data = NEW WORD[_nFaces*3];
-        for (UINT i = 0; i < _nFaces; i++) {
-            _paIndexBuffer_data[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
-            _paIndexBuffer_data[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
-            _paIndexBuffer_data[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
+        if (_is_65535) {
+            _paIndex32Buffer_data = NEW uint32_t[_nFaces*3];
+            for (UINT i = 0; i < _nFaces; i++) {
+                _paIndex32Buffer_data[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
+                _paIndex32Buffer_data[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
+                _paIndex32Buffer_data[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
+            }
+
+        } else {
+            _paIndex16Buffer_data = NEW uint16_t[_nFaces*3];
+            for (UINT i = 0; i < _nFaces; i++) {
+                _paIndex16Buffer_data[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
+                _paIndex16Buffer_data[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
+                _paIndex16Buffer_data[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
+            }
         }
 
         //描画時（DrawIndexedPrimitive）のパラメータリスト作成
@@ -321,24 +335,45 @@ void MeshModel::restore() {
                 }
                 paramno++;
             }
+            if (_is_65535) {
+                if (max_num_vertices <  _paIndex32Buffer_data[faceNoCnt*3 + 0]) {
+                    max_num_vertices = _paIndex32Buffer_data[faceNoCnt*3 + 0];
+                }
+                if (max_num_vertices <  _paIndex32Buffer_data[faceNoCnt*3 + 1]) {
+                    max_num_vertices = _paIndex32Buffer_data[faceNoCnt*3 + 1];
+                }
+                if (max_num_vertices <  _paIndex32Buffer_data[faceNoCnt*3 + 2]) {
+                    max_num_vertices = _paIndex32Buffer_data[faceNoCnt*3 + 2];
+                }
+                if (min_num_vertices >  _paIndex32Buffer_data[faceNoCnt*3 + 0]) {
+                    min_num_vertices = _paIndex32Buffer_data[faceNoCnt*3 + 0];
+                }
+                if (min_num_vertices >  _paIndex32Buffer_data[faceNoCnt*3 + 1]) {
+                    min_num_vertices = _paIndex32Buffer_data[faceNoCnt*3 + 1];
+                }
+                if (min_num_vertices >  _paIndex32Buffer_data[faceNoCnt*3 + 2]) {
+                    min_num_vertices = _paIndex32Buffer_data[faceNoCnt*3 + 2];
+                }
 
-            if (max_num_vertices <  _paIndexBuffer_data[faceNoCnt*3 + 0]) {
-                max_num_vertices = _paIndexBuffer_data[faceNoCnt*3 + 0];
-            }
-            if (max_num_vertices <  _paIndexBuffer_data[faceNoCnt*3 + 1]) {
-                max_num_vertices = _paIndexBuffer_data[faceNoCnt*3 + 1];
-            }
-            if (max_num_vertices <  _paIndexBuffer_data[faceNoCnt*3 + 2]) {
-                max_num_vertices = _paIndexBuffer_data[faceNoCnt*3 + 2];
-            }
-            if (min_num_vertices >  _paIndexBuffer_data[faceNoCnt*3 + 0]) {
-                min_num_vertices = _paIndexBuffer_data[faceNoCnt*3 + 0];
-            }
-            if (min_num_vertices >  _paIndexBuffer_data[faceNoCnt*3 + 1]) {
-                min_num_vertices = _paIndexBuffer_data[faceNoCnt*3 + 1];
-            }
-            if (min_num_vertices >  _paIndexBuffer_data[faceNoCnt*3 + 2]) {
-                min_num_vertices = _paIndexBuffer_data[faceNoCnt*3 + 2];
+            } else {
+                if (max_num_vertices <  _paIndex16Buffer_data[faceNoCnt*3 + 0]) {
+                    max_num_vertices = _paIndex16Buffer_data[faceNoCnt*3 + 0];
+                }
+                if (max_num_vertices <  _paIndex16Buffer_data[faceNoCnt*3 + 1]) {
+                    max_num_vertices = _paIndex16Buffer_data[faceNoCnt*3 + 1];
+                }
+                if (max_num_vertices <  _paIndex16Buffer_data[faceNoCnt*3 + 2]) {
+                    max_num_vertices = _paIndex16Buffer_data[faceNoCnt*3 + 2];
+                }
+                if (min_num_vertices >  _paIndex16Buffer_data[faceNoCnt*3 + 0]) {
+                    min_num_vertices = _paIndex16Buffer_data[faceNoCnt*3 + 0];
+                }
+                if (min_num_vertices >  _paIndex16Buffer_data[faceNoCnt*3 + 1]) {
+                    min_num_vertices = _paIndex16Buffer_data[faceNoCnt*3 + 1];
+                }
+                if (min_num_vertices >  _paIndex16Buffer_data[faceNoCnt*3 + 2]) {
+                    min_num_vertices = _paIndex16Buffer_data[faceNoCnt*3 + 2];
+                }
             }
             prev_materialno = materialno;
         }
@@ -395,18 +430,34 @@ void MeshModel::restore() {
     //インデックスバッファデータ作成
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
-                                    sizeof(WORD) * _nFaces * 3,
-                                    D3DUSAGE_WRITEONLY,
-                                    D3DFMT_INDEX16,
-                                    D3DPOOL_DEFAULT,
-                                    &(_paIndexBuffer),
-                                    nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
-        void* paIndexBuffer;
-        _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
-        memcpy(paIndexBuffer , _paIndexBuffer_data , sizeof(WORD) * _nFaces * 3);
-        _paIndexBuffer->Unlock();
+        if (_is_65535) {
+            hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
+                                        sizeof(uint32_t) * _nFaces * 3,
+                                        D3DUSAGE_WRITEONLY,
+                                        D3DFMT_INDEX32,
+                                        D3DPOOL_DEFAULT,
+                                        &(_paIndexBuffer),
+                                        nullptr);
+            checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
+            void* paIndexBuffer;
+            _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
+            memcpy(paIndexBuffer , _paIndex32Buffer_data , sizeof(uint32_t) * _nFaces * 3);
+            _paIndexBuffer->Unlock();
+        } else {
+
+            hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
+                                        sizeof(uint16_t) * _nFaces * 3,
+                                        D3DUSAGE_WRITEONLY,
+                                        D3DFMT_INDEX16,
+                                        D3DPOOL_DEFAULT,
+                                        &(_paIndexBuffer),
+                                        nullptr);
+            checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
+            void* paIndexBuffer;
+            _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
+            memcpy(paIndexBuffer , _paIndex16Buffer_data , sizeof(uint16_t) * _nFaces * 3);
+            _paIndexBuffer->Unlock();
+        }
     }
 
     //テクスチャ作成
@@ -446,7 +497,8 @@ void MeshModel::release() {
 
 MeshModel::~MeshModel() {
     GGAF_DELETEARR(_paVtxBuffer_data);
-    GGAF_DELETEARR(_paIndexBuffer_data);
+    GGAF_DELETEARR_NULLABLE(_paIndex16Buffer_data);
+    GGAF_DELETEARR_NULLABLE(_paIndex32Buffer_data);
     GGAF_DELETEARR(_paIndexParam);
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
@@ -502,9 +554,9 @@ MeshModel::~MeshModel() {
 //        _TRACE_("#インデックスバッファ _nFaces="<<_nFaces);
 //        WORD vtx1,vtx2,vtx3;
 //        for (int face = 0; face < _nFaces; face++) {
-//            vtx1 = _paIndexBuffer_data[face*3 + 0];
-//            vtx2 = _paIndexBuffer_data[face*3 + 1];
-//            vtx3 = _paIndexBuffer_data[face*3 + 2];
+//            vtx1 = _paIndex16Buffer_data[face*3 + 0];
+//            vtx2 = _paIndex16Buffer_data[face*3 + 1];
+//            vtx3 = _paIndex16Buffer_data[face*3 + 2];
 //            _TRACE_("面["<<face<<"] 3;"<<vtx1<<","<<vtx2<<","<<vtx3<<";,");
 //        }
 //

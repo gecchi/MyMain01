@@ -211,8 +211,8 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
         paRadSum_Vtx[v] = 0;
     }
     std::fill_n(paRadSum_Vtx, nVertices, 0);
-    unsigned short indexVertices_per_Face[3];
-    unsigned short indexNormals_per_Face[3];
+    DWORD indexVertices_per_Face[3];
+    DWORD indexNormals_per_Face[3];
     for (int face_index = 0; face_index < nFaces; face_index++) {
         for (int v = 0; v < 3; v++) {
             //面に対する頂点インデックス３つ(A,B,Cとする)
@@ -222,7 +222,7 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                 indexNormals_per_Face[v] = model_pMeshesFront->_FaceNormals[face_index].data[v];
             } else {
                 //法線が無い場合
-                indexNormals_per_Face[v] = (unsigned short)0;
+                indexNormals_per_Face[v] = (DWORD)0;
             }
         }
 
@@ -264,7 +264,7 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                 indexNormals_per_Face[v] = model_pMeshesFront->_FaceNormals[face_index].data[v];
             } else {
                 //法線が無い場合
-                indexNormals_per_Face[v] = (unsigned short)0;
+                indexNormals_per_Face[v] = (DWORD)0;
             }
         }
         if (nFaceNormals > face_index) {

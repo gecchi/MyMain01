@@ -181,7 +181,7 @@ void Model3D::ConcatenateMeshes(void) {
     if (_Meshes.size() < 2)
         return;
 
-    _TRACE_("Concatenating Meshes ...");
+    _TRACE_("Concatenating "<<(_Meshes.size())<<" Meshes ...");
 
     Mesh* ConcatMesh = NEW Mesh;
     Mesh* LastMesh = _Meshes.back();

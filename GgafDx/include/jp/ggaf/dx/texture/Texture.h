@@ -28,6 +28,7 @@ class Texture : public GgafCore::Object {
 public:
     /** モデル定義の識別名。(50文字まで) */
     char* _texture_name;
+    std::string _texture_file_name;
     /** テクスチャの幅(px) */
     UINT _tex_width;
     /** テクスチャの高さ(px) */

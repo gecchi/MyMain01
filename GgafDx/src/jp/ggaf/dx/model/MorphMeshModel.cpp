@@ -29,7 +29,8 @@ MorphMeshModel::MorphMeshModel(const char* prm_model_id) : Model(prm_model_id) {
     _paIndexBuffer = nullptr;
     _paVtxBuffer_data_primary = nullptr;
     _papaVtxBuffer_data_morph = nullptr;
-    _paIndexBuffer_data = nullptr;
+    _paIndex16Buffer_data = nullptr;
+    _paIndex32Buffer_data = nullptr;
     _paIndexParam = nullptr;
     _material_list_grp_num = 0;
     _size_vertices_primary = 0;
@@ -37,6 +38,7 @@ MorphMeshModel::MorphMeshModel(const char* prm_model_id) : Model(prm_model_id) {
     _size_vertices_morph = 0;
     _size_vertex_unit_morph = 0;
     _max_draw_set_num = 1;
+    _is_65535 = true;
 }
 
 HRESULT MorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -200,7 +202,8 @@ void MorphMeshModel::restore() {
         MorphMeshModel::INDEXPARAM*     paIndexParam = nullptr;
         MorphMeshModel::VERTEX_PRIMARY* paVtxBuffer_data_primary = nullptr;
         MorphMeshModel::VERTEX_MORPH**  papaVtxBuffer_data_morph = nullptr;
-        WORD*                           paIdxBuffer_data = nullptr;
+        uint16_t* paIdx16Buffer_data = nullptr;
+        uint32_t* paIdx32Buffer_data = nullptr;
 
         paIOX = NEW ToolBox::IO_Model_X[morph_target_num+1];
         papModel3D = NEW Frm::Model3D*[morph_target_num+1];
@@ -233,6 +236,7 @@ void MorphMeshModel::restore() {
 //            nFaceNormals = papMeshesFront[pattern]->_nFaceNormals;
 
             if (nFaces * 3 > 65535) {
+                _is_65535 = true;
                 _TRACE_("【警告】頂点インデックスが 65535 を超えたかもしれません。しらんけど。\n対象Model："<<getName()<<"  インデックス:3*"<<nFaces<<"(faces) nVertices:"<<nVertices);
             }
 
@@ -301,11 +305,20 @@ void MorphMeshModel::restore() {
         }
 
         //インデックスバッファ取得
-        paIdxBuffer_data = NEW WORD[nFaces*3];
-        for (int i = 0; i < nFaces; i++) {
-            paIdxBuffer_data[i*3 + 0] = papMeshesFront[0]->_Faces[i].data[0];
-            paIdxBuffer_data[i*3 + 1] = papMeshesFront[0]->_Faces[i].data[1];
-            paIdxBuffer_data[i*3 + 2] = papMeshesFront[0]->_Faces[i].data[2];
+        if (_is_65535) {
+            paIdx32Buffer_data = NEW uint32_t[nFaces*3];
+            for (int i = 0; i < nFaces; i++) {
+                paIdx32Buffer_data[i*3 + 0] = papMeshesFront[0]->_Faces[i].data[0];
+                paIdx32Buffer_data[i*3 + 1] = papMeshesFront[0]->_Faces[i].data[1];
+                paIdx32Buffer_data[i*3 + 2] = papMeshesFront[0]->_Faces[i].data[2];
+            }
+        } else {
+            paIdx16Buffer_data = NEW uint16_t[nFaces*3];
+            for (int i = 0; i < nFaces; i++) {
+                paIdx16Buffer_data[i*3 + 0] = papMeshesFront[0]->_Faces[i].data[0];
+                paIdx16Buffer_data[i*3 + 1] = papMeshesFront[0]->_Faces[i].data[1];
+                paIdx16Buffer_data[i*3 + 2] = papMeshesFront[0]->_Faces[i].data[2];
+            }
         }
 
         //描画時（DrawIndexedPrimitive）のパラメータリスト作成
@@ -344,24 +357,44 @@ void MorphMeshModel::restore() {
                 }
                 paramno++;
             }
-
-            if (max_num_vertices <  paIdxBuffer_data[faceNoCnt*3 + 0]) {
-                max_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 0];
-            }
-            if (max_num_vertices <  paIdxBuffer_data[faceNoCnt*3 + 1]) {
-                max_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 1];
-            }
-            if (max_num_vertices <  paIdxBuffer_data[faceNoCnt*3 + 2]) {
-                max_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 2];
-            }
-            if (min_num_vertices >  paIdxBuffer_data[faceNoCnt*3 + 0]) {
-                min_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 0];
-            }
-            if (min_num_vertices >  paIdxBuffer_data[faceNoCnt*3 + 1]) {
-                min_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 1];
-            }
-            if (min_num_vertices >  paIdxBuffer_data[faceNoCnt*3 + 2]) {
-                min_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 2];
+            if (_is_65535) {
+                if (max_num_vertices <  paIdx32Buffer_data[faceNoCnt*3 + 0]) {
+                    max_num_vertices = paIdx32Buffer_data[faceNoCnt*3 + 0];
+                }
+                if (max_num_vertices <  paIdx32Buffer_data[faceNoCnt*3 + 1]) {
+                    max_num_vertices = paIdx32Buffer_data[faceNoCnt*3 + 1];
+                }
+                if (max_num_vertices <  paIdx32Buffer_data[faceNoCnt*3 + 2]) {
+                    max_num_vertices = paIdx32Buffer_data[faceNoCnt*3 + 2];
+                }
+                if (min_num_vertices >  paIdx32Buffer_data[faceNoCnt*3 + 0]) {
+                    min_num_vertices = paIdx32Buffer_data[faceNoCnt*3 + 0];
+                }
+                if (min_num_vertices >  paIdx32Buffer_data[faceNoCnt*3 + 1]) {
+                    min_num_vertices = paIdx32Buffer_data[faceNoCnt*3 + 1];
+                }
+                if (min_num_vertices >  paIdx32Buffer_data[faceNoCnt*3 + 2]) {
+                    min_num_vertices = paIdx32Buffer_data[faceNoCnt*3 + 2];
+                }
+            } else {
+                if (max_num_vertices <  paIdx16Buffer_data[faceNoCnt*3 + 0]) {
+                     max_num_vertices = paIdx16Buffer_data[faceNoCnt*3 + 0];
+                 }
+                 if (max_num_vertices <  paIdx16Buffer_data[faceNoCnt*3 + 1]) {
+                     max_num_vertices = paIdx16Buffer_data[faceNoCnt*3 + 1];
+                 }
+                 if (max_num_vertices <  paIdx16Buffer_data[faceNoCnt*3 + 2]) {
+                     max_num_vertices = paIdx16Buffer_data[faceNoCnt*3 + 2];
+                 }
+                 if (min_num_vertices >  paIdx16Buffer_data[faceNoCnt*3 + 0]) {
+                     min_num_vertices = paIdx16Buffer_data[faceNoCnt*3 + 0];
+                 }
+                 if (min_num_vertices >  paIdx16Buffer_data[faceNoCnt*3 + 1]) {
+                     min_num_vertices = paIdx16Buffer_data[faceNoCnt*3 + 1];
+                 }
+                 if (min_num_vertices >  paIdx16Buffer_data[faceNoCnt*3 + 2]) {
+                     min_num_vertices = paIdx16Buffer_data[faceNoCnt*3 + 2];
+                 }
             }
             prev_materialno = materialno;
         }
@@ -390,7 +423,11 @@ void MorphMeshModel::restore() {
         //モデルに保持させる
         _papModel3D               = papModel3D;
         _papMeshesFront           = papMeshesFront;
-        _paIndexBuffer_data       = paIdxBuffer_data;
+        if (_is_65535) {
+            _paIndex32Buffer_data = paIdx32Buffer_data;
+        } else {
+            _paIndex16Buffer_data = paIdx16Buffer_data;
+        }
         _paVtxBuffer_data_primary = paVtxBuffer_data_primary;
         _papaVtxBuffer_data_morph = papaVtxBuffer_data_morph;
         _paIndexParam             = paIndexParam;
@@ -516,19 +553,35 @@ void MorphMeshModel::restore() {
     //インデックスバッファデータ作成（プライマリ、モーフターゲット共に同じ）
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        int nFaces = _papMeshesFront[0]->_nFaces;
-        hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
-                                    sizeof(WORD) * nFaces * 3,
-                                    D3DUSAGE_WRITEONLY,
-                                    D3DFMT_INDEX16,
-                                    D3DPOOL_DEFAULT,
-                                    &(_paIndexBuffer),
-                                    nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
-        void* paIndexBuffer;
-        _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
-        memcpy(paIndexBuffer, _paIndexBuffer_data , sizeof(WORD) * nFaces * 3);
-        _paIndexBuffer->Unlock();
+        if (_is_65535) {
+            int nFaces = _papMeshesFront[0]->_nFaces;
+            hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
+                                        sizeof(uint32_t) * nFaces * 3,
+                                        D3DUSAGE_WRITEONLY,
+                                        D3DFMT_INDEX32,
+                                        D3DPOOL_DEFAULT,
+                                        &(_paIndexBuffer),
+                                        nullptr);
+            checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
+            void* paIndexBuffer;
+            _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
+            memcpy(paIndexBuffer, _paIndex32Buffer_data , sizeof(uint32_t) * nFaces * 3);
+            _paIndexBuffer->Unlock();
+        } else {
+            int nFaces = _papMeshesFront[0]->_nFaces;
+            hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
+                                        sizeof(uint16_t) * nFaces * 3,
+                                        D3DUSAGE_WRITEONLY,
+                                        D3DFMT_INDEX16,
+                                        D3DPOOL_DEFAULT,
+                                        &(_paIndexBuffer),
+                                        nullptr);
+            checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
+            void* paIndexBuffer;
+            _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
+            memcpy(paIndexBuffer, _paIndex16Buffer_data , sizeof(uint16_t) * nFaces * 3);
+            _paIndexBuffer->Unlock();
+        }
     }
 
     if (!_papTextureConnection) {
@@ -593,7 +646,8 @@ MorphMeshModel::~MorphMeshModel() {
     //_papMeshesFront[0],_papMeshesFront[1] は _papModel3D をDELETEしているのでする必要は無い
     GGAF_DELETEARR(_papMeshesFront);
     _papMeshesFront = nullptr;
-    GGAF_DELETEARR(_paIndexBuffer_data);
+    GGAF_DELETEARR_NULLABLE(_paIndex16Buffer_data);
+    GGAF_DELETEARR_NULLABLE(_paIndex32Buffer_data);
     GGAF_DELETEARR(_paIndexParam);
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);

@@ -18,9 +18,11 @@ MassMeshModel::MassMeshModel(const char* prm_model_id) : MassModel(prm_model_id)
     _TRACE3_("_model_id="<<_model_id);
     _obj_class |= Obj_GgafDx_MassMeshModel;
     _paVtxBuffer_data_model = nullptr;
-    _paIndexBuffer_data = nullptr;
+    _paIndex16Buffer_data = nullptr;
+    _paIndex32Buffer_data = nullptr;
     registerCallback_VertexModelInfo(MassMeshModel::createVertexModel); //頂点レイアウト情報作成コールバック関数
     _max_draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
+    _is_65535 = false;
     _TRACE_("MassMeshModel::MassMeshModel(" << _model_id << ") End");
 }
 
@@ -106,6 +108,7 @@ void MassMeshModel::restore() {
         _nVertices = pMeshesFront->_nVertices;
         _nFaces = pMeshesFront->_nFaces;
         if (_nFaces*3 > 65535) {
+            _is_65535 = true;
             _TRACE_("【警告】頂点インデックスが 65535 を超えたかもしれません。しらんけど。\n対象Model："<<getName()<<" インデックス:3*"<<_nFaces<<"(faces) _nVertices:"<<_nVertices);
         }
         UINT nTextureCoords = pMeshesFront->_nTextureCoords;
@@ -152,11 +155,20 @@ void MassMeshModel::restore() {
         }
 
         //インデックスバッファ構築
-        _paIndexBuffer_data = NEW WORD[_nFaces*3];
-        for (UINT i = 0; i < _nFaces; i++) {
-            _paIndexBuffer_data[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
-            _paIndexBuffer_data[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
-            _paIndexBuffer_data[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
+        if (_is_65535) {
+            _paIndex32Buffer_data = NEW uint32_t[_nFaces*3];
+            for (UINT i = 0; i < _nFaces; i++) {
+                _paIndex32Buffer_data[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
+                _paIndex32Buffer_data[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
+                _paIndex32Buffer_data[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
+            }
+        } else {
+            _paIndex16Buffer_data = NEW uint16_t[_nFaces*3];
+            for (UINT i = 0; i < _nFaces; i++) {
+                _paIndex16Buffer_data[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
+                _paIndex16Buffer_data[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
+                _paIndex16Buffer_data[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
+            }
         }
         //マテリアル設定
         setMaterial(pMeshesFront);
@@ -186,20 +198,38 @@ void MassMeshModel::restore() {
     //デバイスにインデックスバッファ作成
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
-                                sizeof(WORD) * _nFaces * 3,
-                                D3DUSAGE_WRITEONLY,
-                                D3DFMT_INDEX16,
-                                D3DPOOL_DEFAULT,
-                                &(_paIndexBuffer),
-                                nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<_model_id);
-        void* pDeviceMemory = 0;
-        hr = _paIndexBuffer->Lock(0, 0, (void**)&pDeviceMemory,0);
-        checkDxException(hr, D3D_OK, "インデックスバッファのロック取得に失敗 model="<<_model_id);
-        memcpy(pDeviceMemory, _paIndexBuffer_data, sizeof(WORD)*_nFaces*3);
-        hr = _paIndexBuffer->Unlock();
-        checkDxException(hr, D3D_OK, "インデックスバッファのアンロック取得に失敗 model="<<_model_id);
+        if (_is_65535) {
+            hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
+                                    sizeof(uint32_t) * _nFaces * 3,
+                                    D3DUSAGE_WRITEONLY,
+                                    D3DFMT_INDEX32,
+                                    D3DPOOL_DEFAULT,
+                                    &(_paIndexBuffer),
+                                    nullptr);
+            checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<_model_id);
+            void* pDeviceMemory = 0;
+            hr = _paIndexBuffer->Lock(0, 0, (void**)&pDeviceMemory,0);
+            checkDxException(hr, D3D_OK, "インデックスバッファのロック取得に失敗 model="<<_model_id);
+            memcpy(pDeviceMemory, _paIndex32Buffer_data, sizeof(uint32_t)*_nFaces*3);
+            hr = _paIndexBuffer->Unlock();
+            checkDxException(hr, D3D_OK, "インデックスバッファのアンロック取得に失敗 model="<<_model_id);
+        } else {
+            hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
+                                    sizeof(uint16_t) * _nFaces * 3,
+                                    D3DUSAGE_WRITEONLY,
+                                    D3DFMT_INDEX16,
+                                    D3DPOOL_DEFAULT,
+                                    &(_paIndexBuffer),
+                                    nullptr);
+            checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<_model_id);
+            void* pDeviceMemory = 0;
+            hr = _paIndexBuffer->Lock(0, 0, (void**)&pDeviceMemory,0);
+            checkDxException(hr, D3D_OK, "インデックスバッファのロック取得に失敗 model="<<_model_id);
+            memcpy(pDeviceMemory, _paIndex16Buffer_data, sizeof(uint16_t)*_nFaces*3);
+            hr = _paIndexBuffer->Unlock();
+            checkDxException(hr, D3D_OK, "インデックスバッファのアンロック取得に失敗 model="<<_model_id);
+        }
+
     }
 
     //デバイスにテクスチャ作成
@@ -357,6 +387,7 @@ HRESULT MassMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
 
 MassMeshModel::~MassMeshModel() {
     GGAF_DELETEARR(_paVtxBuffer_data_model);
-    GGAF_DELETEARR(_paIndexBuffer_data);
+    GGAF_DELETEARR_NULLABLE(_paIndex16Buffer_data);
+    GGAF_DELETEARR_NULLABLE(_paIndex32Buffer_data);
 }
 

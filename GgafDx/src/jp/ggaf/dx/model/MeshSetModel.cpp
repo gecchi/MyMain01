@@ -28,13 +28,15 @@ MeshSetModel::MeshSetModel(const char* prm_model_id) : Model(prm_model_id) {
     _paIndexBuffer = nullptr;
     _paUint_material_list_grp_num = nullptr;
     _paVtxBuffer_data = nullptr;
-    _paIndexBuffer_data = nullptr;
+    _paIndex16Buffer_data = nullptr;
+    _paIndex32Buffer_data = nullptr;
     _papaIndexParam = nullptr;
     _size_vertex_unit= 0;
     _size_vertices = 0;
     _nVertices = 0;
     _nFaces= 0;
     _max_draw_set_num = MESHSETMODEL_MAX_DARW_SET_NUM;
+    _is_65535 = false;
 }
 
 HRESULT MeshSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -198,8 +200,11 @@ void MeshSetModel::restore() {
         MeshSetModel::INDEXPARAM** papaIndexParam = nullptr;
         MeshSetModel::VERTEX* unit_paVtxBuffer_data = nullptr;
         MeshSetModel::VERTEX* paVtxBuffer_data = nullptr;
-        WORD* unit_paIndexBuffer_data = nullptr;
-        WORD* paIdxBuffer_data = nullptr;
+        uint16_t* unit_paIndex16Buffer_data = nullptr;
+        uint16_t* paIdx16Buffer_data = nullptr;
+        uint32_t* unit_paIndex32Buffer_data = nullptr;
+        uint32_t* paIdx32Buffer_data = nullptr;
+
         D3DMATERIAL9* paMaterial = nullptr;
 
         int nVertices = 0;
@@ -235,6 +240,7 @@ void MeshSetModel::restore() {
         _size_vertex_unit = sizeof(MeshSetModel::VERTEX);
 
         if (_nFaces * 3 * _draw_set_num > 65535) {
+            _is_65535 = true;
             _TRACE_("【警告】頂点インデックスが 65535 を超えたかもしれません。しらんけど。\n対象Model："<<getName()<<"  インデックス:3*"<<_nFaces<<"(faces)*"<<_draw_set_num<<"(sets)  nVertices:"<<nVertices);
         }
 
@@ -276,12 +282,22 @@ void MeshSetModel::restore() {
             }
         }
         //インデックスバッファ登録
-        unit_paIndexBuffer_data = NEW WORD[nFaces*3];
-        for (int i = 0; i < nFaces; i++) {
-            unit_paIndexBuffer_data[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
-            unit_paIndexBuffer_data[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
-            unit_paIndexBuffer_data[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
+        if (_is_65535) {
+            unit_paIndex32Buffer_data = NEW uint32_t[nFaces*3];
+            for (int i = 0; i < nFaces; i++) {
+                unit_paIndex32Buffer_data[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
+                unit_paIndex32Buffer_data[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
+                unit_paIndex32Buffer_data[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
+            }
+        } else {
+            unit_paIndex16Buffer_data = NEW uint16_t[nFaces*3];
+            for (int i = 0; i < nFaces; i++) {
+                unit_paIndex16Buffer_data[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
+                unit_paIndex16Buffer_data[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
+                unit_paIndex16Buffer_data[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
+            }
         }
+
 
         //頂点バッファをセット数分繰り返しコピーで作成
         paVtxBuffer_data = NEW MeshSetModel::VERTEX[nVertices * _draw_set_num];
@@ -294,15 +310,28 @@ void MeshSetModel::restore() {
         GGAF_DELETEARR(unit_paVtxBuffer_data);
 
         //インデックスバッファをセット数分繰り返しコピーで作成
-        paIdxBuffer_data = NEW WORD[(nFaces*3) * _draw_set_num];
-        for (int i = 0; i < _draw_set_num; i++) {
-            for (int j = 0; j < nFaces; j++) {
-                paIdxBuffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIndexBuffer_data[j*3 + 0] + (nVertices*i);
-                paIdxBuffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIndexBuffer_data[j*3 + 1] + (nVertices*i);
-                paIdxBuffer_data[((i*nFaces*3)+(j*3)) + 2] = unit_paIndexBuffer_data[j*3 + 2] + (nVertices*i);
-            }
+        if (_is_65535) {
+            paIdx32Buffer_data = NEW uint32_t[(nFaces*3) * _draw_set_num];
+             for (int i = 0; i < _draw_set_num; i++) {
+                 for (int j = 0; j < nFaces; j++) {
+                     paIdx32Buffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIndex32Buffer_data[j*3 + 0] + (nVertices*i);
+                     paIdx32Buffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIndex32Buffer_data[j*3 + 1] + (nVertices*i);
+                     paIdx32Buffer_data[((i*nFaces*3)+(j*3)) + 2] = unit_paIndex32Buffer_data[j*3 + 2] + (nVertices*i);
+                 }
+             }
+             GGAF_DELETEARR(unit_paIndex32Buffer_data);
+        } else {
+            paIdx16Buffer_data = NEW uint16_t[(nFaces*3) * _draw_set_num];
+             for (int i = 0; i < _draw_set_num; i++) {
+                 for (int j = 0; j < nFaces; j++) {
+                     paIdx16Buffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIndex16Buffer_data[j*3 + 0] + (nVertices*i);
+                     paIdx16Buffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIndex16Buffer_data[j*3 + 1] + (nVertices*i);
+                     paIdx16Buffer_data[((i*nFaces*3)+(j*3)) + 2] = unit_paIndex16Buffer_data[j*3 + 2] + (nVertices*i);
+                 }
+             }
+             GGAF_DELETEARR(unit_paIndex16Buffer_data);
         }
-        GGAF_DELETEARR(unit_paIndexBuffer_data);
+
 
         //マテリアルリストをセット数分繰り返しコピーで作成
         uint32_t* paFaceMaterials = NEW uint32_t[nFaces * _draw_set_num];
@@ -350,24 +379,44 @@ void MeshSetModel::restore() {
                     }
                     paramno++;
                 }
-
-                if (max_num_vertices <  paIdxBuffer_data[faceNoCnt*3 + 0]) {
-                    max_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 0];
-                }
-                if (max_num_vertices <  paIdxBuffer_data[faceNoCnt*3 + 1]) {
-                    max_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 1];
-                }
-                if (max_num_vertices <  paIdxBuffer_data[faceNoCnt*3 + 2]) {
-                    max_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 2];
-                }
-                if (min_num_vertices >  paIdxBuffer_data[faceNoCnt*3 + 0]) {
-                    min_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 0];
-                }
-                if (min_num_vertices >  paIdxBuffer_data[faceNoCnt*3 + 1]) {
-                    min_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 1];
-                }
-                if (min_num_vertices >  paIdxBuffer_data[faceNoCnt*3 + 2]) {
-                    min_num_vertices = paIdxBuffer_data[faceNoCnt*3 + 2];
+                if (_is_65535) {
+                    if (max_num_vertices <  paIdx32Buffer_data[faceNoCnt*3 + 0]) {
+                        max_num_vertices = paIdx32Buffer_data[faceNoCnt*3 + 0];
+                    }
+                    if (max_num_vertices <  paIdx32Buffer_data[faceNoCnt*3 + 1]) {
+                        max_num_vertices = paIdx32Buffer_data[faceNoCnt*3 + 1];
+                    }
+                    if (max_num_vertices <  paIdx32Buffer_data[faceNoCnt*3 + 2]) {
+                        max_num_vertices = paIdx32Buffer_data[faceNoCnt*3 + 2];
+                    }
+                    if (min_num_vertices >  paIdx32Buffer_data[faceNoCnt*3 + 0]) {
+                        min_num_vertices = paIdx32Buffer_data[faceNoCnt*3 + 0];
+                    }
+                    if (min_num_vertices >  paIdx32Buffer_data[faceNoCnt*3 + 1]) {
+                        min_num_vertices = paIdx32Buffer_data[faceNoCnt*3 + 1];
+                    }
+                    if (min_num_vertices >  paIdx32Buffer_data[faceNoCnt*3 + 2]) {
+                        min_num_vertices = paIdx32Buffer_data[faceNoCnt*3 + 2];
+                    }
+                } else {
+                    if (max_num_vertices <  paIdx16Buffer_data[faceNoCnt*3 + 0]) {
+                        max_num_vertices = paIdx16Buffer_data[faceNoCnt*3 + 0];
+                    }
+                    if (max_num_vertices <  paIdx16Buffer_data[faceNoCnt*3 + 1]) {
+                        max_num_vertices = paIdx16Buffer_data[faceNoCnt*3 + 1];
+                    }
+                    if (max_num_vertices <  paIdx16Buffer_data[faceNoCnt*3 + 2]) {
+                        max_num_vertices = paIdx16Buffer_data[faceNoCnt*3 + 2];
+                    }
+                    if (min_num_vertices >  paIdx16Buffer_data[faceNoCnt*3 + 0]) {
+                        min_num_vertices = paIdx16Buffer_data[faceNoCnt*3 + 0];
+                    }
+                    if (min_num_vertices >  paIdx16Buffer_data[faceNoCnt*3 + 1]) {
+                        min_num_vertices = paIdx16Buffer_data[faceNoCnt*3 + 1];
+                    }
+                    if (min_num_vertices >  paIdx16Buffer_data[faceNoCnt*3 + 2]) {
+                        min_num_vertices = paIdx16Buffer_data[faceNoCnt*3 + 2];
+                    }
                 }
                 prev_materialno = materialno;
             }
@@ -397,7 +446,11 @@ void MeshSetModel::restore() {
         _pModel3D = pModel3D;
         _pMeshesFront = pMeshesFront;
         _nFaces = _pMeshesFront->_nFaces;
-        _paIndexBuffer_data = paIdxBuffer_data;
+        if (_is_65535) {
+            _paIndex32Buffer_data = paIdx32Buffer_data;
+        } else {
+            _paIndex16Buffer_data = paIdx16Buffer_data;
+        }
         _paVtxBuffer_data = paVtxBuffer_data;
         _papaIndexParam = papaIndexParam;
 
@@ -439,23 +492,34 @@ void MeshSetModel::restore() {
     //流し込むインデックスバッファデータ作成
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
-                               sizeof(WORD) * _nFaces * 3 * _draw_set_num,
-                                D3DUSAGE_WRITEONLY,
-                                D3DFMT_INDEX16,
-                                D3DPOOL_DEFAULT,
-                                &(_paIndexBuffer),
-                                nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
+        if (_is_65535) {
+            hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
+                                   sizeof(uint32_t) * _nFaces * 3 * _draw_set_num,
+                                    D3DUSAGE_WRITEONLY,
+                                    D3DFMT_INDEX32,
+                                    D3DPOOL_DEFAULT,
+                                    &(_paIndexBuffer),
+                                    nullptr);
+            checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
+            void* paIndexBuffer;
+            _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
+            memcpy(paIndexBuffer, _paIndex32Buffer_data, sizeof(uint32_t) * _nFaces * 3 * _draw_set_num);
+            _paIndexBuffer->Unlock();
+        } else {
+            hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
+                                   sizeof(uint16_t) * _nFaces * 3 * _draw_set_num,
+                                    D3DUSAGE_WRITEONLY,
+                                    D3DFMT_INDEX16,
+                                    D3DPOOL_DEFAULT,
+                                    &(_paIndexBuffer),
+                                    nullptr);
+            checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
+            void* paIndexBuffer;
+            _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
+            memcpy(paIndexBuffer, _paIndex16Buffer_data, sizeof(uint16_t) * _nFaces * 3 * _draw_set_num);
+            _paIndexBuffer->Unlock();
+        }
 
-        void* paIndexBuffer;
-        _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
-        memcpy(
-          paIndexBuffer ,
-          _paIndexBuffer_data,
-          sizeof(WORD) * _nFaces * 3 * _draw_set_num
-        );
-        _paIndexBuffer->Unlock();
     }
 
     if (_papTextureConnection == nullptr) {
@@ -507,7 +571,8 @@ MeshSetModel::~MeshSetModel() {
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     GGAF_DELETEARR(_paVtxBuffer_data);
-    GGAF_DELETEARR(_paIndexBuffer_data);
+    GGAF_DELETEARR_NULLABLE(_paIndex16Buffer_data);
+    GGAF_DELETEARR_NULLABLE(_paIndex32Buffer_data);
     //release();
     //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される
 }

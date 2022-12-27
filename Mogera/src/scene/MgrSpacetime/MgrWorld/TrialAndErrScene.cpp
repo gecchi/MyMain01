@@ -41,6 +41,7 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
     requestActor(2000, SmpActor2, "SmpActor2");
     requestActor(3000, ItemBoardTest, "ItemBoardTest");
     requestActor(4000, LabelMenuItemFont01, "LabelMenuItemFont01");
+    requestActor(5000, AniTest, "AniTest1-1");
 }
 
 
@@ -53,7 +54,14 @@ void TrialAndErrScene::processBehavior() {
     static SmpActor2* pSmpActor2 = nullptr;
     static ItemBoardTest* pItemBoardTest = nullptr;
     static LabelMenuItemFont01* pLabelMenuItemFont01 = nullptr;
+
+    static AniTest* p1 = nullptr;
+
+
+
     if (hasJustChangedToActive()) {
+        p1 = (AniTest*)receiveActor(5000);
+        bringSceneMediator()->appendGroupChild(p1);
 
         pSmpActor2 = (SmpActor2*)receiveActor(2000);
         bringSceneMediator()->appendGroupChild(MGR_MIKATA, pSmpActor2);

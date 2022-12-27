@@ -769,6 +769,7 @@ void VvvWorld::processDragAndDrop() {
             std::string buf;
             bool isSkinWeights = false;
             bool isAnimationSet = false;
+            int nFrameTransformMatrix = 0;
             std::string data;
             while (isSkinWeights == false && !ifs.eof()) {
                 ifs >> data;
@@ -778,8 +779,8 @@ void VvvWorld::processDragAndDrop() {
                 if (data == "AnimationKey") {
                     isAnimationSet = true;
                 }
-                if (isSkinWeights && isAnimationSet) {
-                    break;
+                if (data == "FrameTransformMatrix") {
+                    nFrameTransformMatrix++;
                 }
             }
             ifs.close();

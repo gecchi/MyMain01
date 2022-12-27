@@ -28,7 +28,8 @@ SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_id) : Model(prm_model_i
     _pAniControllerBase = nullptr;
     _num_materials = 0L;
     _paVtxBuffer_data = nullptr;
-    _paIndexBuffer_data = nullptr;
+    _paIndex32Buffer_data = nullptr;
+    _paIndex16Buffer_data = nullptr;
     _pVertexDeclaration = nullptr;
     _paVertexBuffer = nullptr;
     _paIndexBuffer = nullptr;
@@ -43,6 +44,7 @@ SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_id) : Model(prm_model_i
     _num_animation_set = 0;
     _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = nullptr;
     _max_draw_set_num = 1;
+    _indexBuffer_fmt = D3DFMT_UNKNOWN;
 }
 
 HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -161,19 +163,19 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
 
 void SkinAniMeshModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
-
-    ModelManager* pModelManager = pCARETAKER->_pModelManager;
-    ModelManager::MeshXFileFmt xdata;
-    std::string model_def_file = std::string(_model_id) + ".meshx";
-    std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-    pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-    _draw_set_num = xdata.DrawSetNum;
-    if (_draw_set_num != 1) {
-        _TRACE_("SkinAniMeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は常に 1 です。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
-        _draw_set_num = 1;
-    }
-    _matBaseTransformMatrix = xdata.BaseTransformMatrix;
     if (_paVtxBuffer_data == nullptr) {
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
+        ModelManager::MeshXFileFmt xdata;
+        std::string model_def_file = std::string(_model_id) + ".meshx";
+        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
+        pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
+        _draw_set_num = xdata.DrawSetNum;
+        if (_draw_set_num != 1) {
+            _TRACE_("SkinAniMeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は常に 1 です。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
+            _draw_set_num = 1;
+        }
+        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
+
         struct VERTEX_EX {
             float bone_combi_grp_index; //ボーンコンビネーションのグループのインデックス
             byte  infl_bone_id[4];      //ボーンID
@@ -242,7 +244,8 @@ void SkinAniMeshModel::restore() {
         _nFaces = faces_total_num;
         _paVtxBuffer_data =  NEW SkinAniMeshModel::VERTEX[_nVertices];
         VERTEX_EX* paVtx_wk = NEW VERTEX_EX[_nVertices];
-        _paIndexBuffer_data = NEW WORD[_nFaces*3];
+        _indexBuffer_fmt = D3DFMT_UNKNOWN;
+
         if (!_paMaterial_default) {
             if (materials_total_num > 0) {
                 _paMaterial_default = NEW D3DMATERIAL9[_num_materials];
@@ -607,37 +610,47 @@ void SkinAniMeshModel::restore() {
             DWORD nFace = pMesh1->GetNumFaces();
             D3DINDEXBUFFER_DESC desc;
             pIb->GetDesc( &desc );
-            if (desc.Format == D3DFMT_INDEX16) {
+
+            if (_indexBuffer_fmt == D3DFMT_UNKNOWN) {
+                _indexBuffer_fmt = desc.Format;
+                if (_indexBuffer_fmt == D3DFMT_INDEX16) {
+                    _paIndex16Buffer_data = NEW uint16_t[_nFaces*3];
+                } else {
+                    _paIndex32Buffer_data = NEW uint32_t[_nFaces*3];
+                }
+            }
+
+            if (_indexBuffer_fmt == D3DFMT_INDEX16) {
                 void* paIndexBuffer;
-                pIb->Lock(0, nFace*3*sizeof(WORD), (void**)&paIndexBuffer, 0);
+                pIb->Lock(0, nFace*3*sizeof(uint16_t), (void**)&paIndexBuffer, 0);
                 char* p = (char*)paIndexBuffer;
                 for (int f = 0; f < nFace; f++) {
-                    WORD val1,val2,val3;
-                    memcpy(&(val1), p, sizeof(WORD));  p += sizeof(WORD);
-                    memcpy(&(val2), p, sizeof(WORD));  p += sizeof(WORD);
-                    memcpy(&(val3), p, sizeof(WORD));  p += sizeof(WORD);
+                    uint16_t val1,val2,val3;
+                    memcpy(&(val1), p, sizeof(uint16_t));  p += sizeof(uint16_t);
+                    memcpy(&(val2), p, sizeof(uint16_t));  p += sizeof(uint16_t);
+                    memcpy(&(val3), p, sizeof(uint16_t));  p += sizeof(uint16_t);
                     int offset = (vtx_idx_thru-nVertices); //頂点番号を通しにするための計算。
                                                            //vtx_idx_thru：メッシュコンテナ処理終了時の
                                                            //              通し頂点インデックスの＋１ ＝ nVertices
                                                            //              初回はメッシュコンテナの頂点数 なので 0 となる。
-                    _paIndexBuffer_data[i_cnt+0] = offset + val1;
-                    _paIndexBuffer_data[i_cnt+1] = offset + val2;
-                    _paIndexBuffer_data[i_cnt+2] = offset + val3;
+                    _paIndex16Buffer_data[i_cnt+0] = offset + val1;
+                    _paIndex16Buffer_data[i_cnt+1] = offset + val2;
+                    _paIndex16Buffer_data[i_cnt+2] = offset + val3;
                     i_cnt+=3;
                 }
             } else {
                 void* paIndexBuffer;
-                pIb->Lock(0, nFace*3*sizeof(DWORD), (void**)&paIndexBuffer, 0);
+                pIb->Lock(0, nFace*3*sizeof(uint32_t), (void**)&paIndexBuffer, 0);
                 char* p = (char*)paIndexBuffer;
                 for (int f = 0; f < nFace; f++) {
-                    WORD val1,val2,val3;
-                    memcpy(&(val1), p, sizeof(WORD));  p += sizeof(DWORD);
-                    memcpy(&(val2), p, sizeof(WORD));  p += sizeof(DWORD);
-                    memcpy(&(val3), p, sizeof(WORD));  p += sizeof(DWORD);
+                    uint32_t val1,val2,val3;
+                    memcpy(&(val1), p, sizeof(uint32_t));  p += sizeof(uint32_t);
+                    memcpy(&(val2), p, sizeof(uint32_t));  p += sizeof(uint32_t);
+                    memcpy(&(val3), p, sizeof(uint32_t));  p += sizeof(uint32_t);
                     int offset = (vtx_idx_thru-nVertices);
-                    _paIndexBuffer_data[i_cnt+0] = offset + val1;
-                    _paIndexBuffer_data[i_cnt+1] = offset + val2;
-                    _paIndexBuffer_data[i_cnt+2] = offset + val3;
+                    _paIndex32Buffer_data[i_cnt+0] = offset + val1;
+                    _paIndex32Buffer_data[i_cnt+1] = offset + val2;
+                    _paIndex32Buffer_data[i_cnt+2] = offset + val3;
                     i_cnt += 3;
                 }
             }
@@ -689,7 +702,13 @@ void SkinAniMeshModel::restore() {
         int face_idx;
         for (face_idx = 0; face_idx < _nFaces; face_idx++) {
             //インデックスバッファ番号に対応する頂点バッファの bone_combi_grp_index
-            bone_combi_grp_index = (int)(paVtx_wk[_paIndexBuffer_data[face_idx*3+0]].bone_combi_grp_index);
+            int index_buffer_idx;
+            if (_indexBuffer_fmt == D3DFMT_INDEX16) {
+                index_buffer_idx = _paIndex16Buffer_data[face_idx*3+0];
+            } else {
+                index_buffer_idx = _paIndex32Buffer_data[face_idx*3+0];
+            }
+            bone_combi_grp_index = (int)(paVtx_wk[index_buffer_idx].bone_combi_grp_index);
             if (bone_combi_grp_index != prev_bone_combi_grp_index) {
                 prev_face_idx_break = face_idx_break;
                 face_idx_break = face_idx;
@@ -712,9 +731,16 @@ void SkinAniMeshModel::restore() {
                 }
                 paramno++;
             }
-            vtx_idx1 = _paIndexBuffer_data[face_idx*3 + 0]; //faceNoCnt(面番号)に対する頂点番号
-            vtx_idx2 = _paIndexBuffer_data[face_idx*3 + 1];
-            vtx_idx3 = _paIndexBuffer_data[face_idx*3 + 2];
+            if (_indexBuffer_fmt == D3DFMT_INDEX16) {
+                vtx_idx1 = _paIndex16Buffer_data[face_idx*3 + 0]; //faceNoCnt(面番号)に対する頂点番号
+                vtx_idx2 = _paIndex16Buffer_data[face_idx*3 + 1];
+                vtx_idx3 = _paIndex16Buffer_data[face_idx*3 + 2];
+            } else {
+                vtx_idx1 = _paIndex32Buffer_data[face_idx*3 + 0]; //faceNoCnt(面番号)に対する頂点番号
+                vtx_idx2 = _paIndex32Buffer_data[face_idx*3 + 1];
+                vtx_idx3 = _paIndex32Buffer_data[face_idx*3 + 2];
+            }
+
 
             if (max_num_vertices < vtx_idx1) {
                 max_num_vertices = vtx_idx1;
@@ -895,18 +921,34 @@ void SkinAniMeshModel::restore() {
     //インデックスバッファデータ作成
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
-                                   sizeof(WORD) * _nFaces * 3,
-                                   D3DUSAGE_WRITEONLY,
-                                   D3DFMT_INDEX16,
-                                   D3DPOOL_DEFAULT,
-                                   &(_paIndexBuffer),
-                                   nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
-        void* paIndexBuffer;
-        _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
-        memcpy(paIndexBuffer , _paIndexBuffer_data , sizeof(WORD) * _nFaces * 3);
-        _paIndexBuffer->Unlock();
+        if (_indexBuffer_fmt == D3DFMT_INDEX16) {
+            hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
+                                       sizeof(uint16_t) * _nFaces * 3,
+                                       D3DUSAGE_WRITEONLY,
+                                       D3DFMT_INDEX16,
+                                       D3DPOOL_DEFAULT,
+                                       &(_paIndexBuffer),
+                                       nullptr);
+            checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
+            void* paIndexBuffer;
+            _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
+            memcpy(paIndexBuffer , _paIndex16Buffer_data , sizeof(uint16_t) * _nFaces * 3);
+            _paIndexBuffer->Unlock();
+        } else {
+            hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
+                                       sizeof(uint32_t) * _nFaces * 3,
+                                       D3DUSAGE_WRITEONLY,
+                                       D3DFMT_INDEX32,
+                                       D3DPOOL_DEFAULT,
+                                       &(_paIndexBuffer),
+                                       nullptr);
+            checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
+            void* paIndexBuffer;
+            _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
+            memcpy(paIndexBuffer , _paIndex32Buffer_data , sizeof(uint32_t) * _nFaces * 3);
+            _paIndexBuffer->Unlock();
+        }
+
     }
     _TRACE3_("_model_id=" << _model_id << " end");
 }
@@ -1028,7 +1070,8 @@ SkinAniMeshModel::~SkinAniMeshModel() {
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames); //Model::~Model() で実行されてるはず
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR(_paVtxBuffer_data);
-    GGAF_DELETEARR(_paIndexBuffer_data);
+    GGAF_DELETEARR_NULLABLE(_paIndex16Buffer_data);
+    GGAF_DELETEARR_NULLABLE(_paIndex32Buffer_data);
     GGAF_DELETEARR(_paIndexParam);
 //    GGAF_DELETE(_pFrameRoot); //_pAllocHierarchyを消すと_pFrameRootは消さなくて良いと思う
 }

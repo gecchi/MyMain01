@@ -68,8 +68,10 @@ public:
     std::vector<BoneConbiGrp> _vec_bone_combi_grp_info;
 
     SkinAniMeshModel::VERTEX* _paVtxBuffer_data;
+    D3DFORMAT _indexBuffer_fmt;
+    uint16_t* _paIndex16Buffer_data;
+    uint32_t* _paIndex32Buffer_data;
 
-    WORD* _paIndexBuffer_data;
     /** シェーダー入力頂点フォーマット */
     LPDIRECT3DVERTEXDECLARATION9 _pVertexDeclaration;
     /** 頂点バッファ（全フレームのメッシュ分） */

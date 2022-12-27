@@ -82,8 +82,9 @@ public:
 
     VERTEX* _paVtxBuffer_data;
 
-    WORD* _paIndexBuffer_data;
-
+    bool _is_65535;
+    uint16_t* _paIndex16Buffer_data;
+    uint32_t* _paIndex32Buffer_data;
 public:
     /**
      * コンストラクタ<BR>
