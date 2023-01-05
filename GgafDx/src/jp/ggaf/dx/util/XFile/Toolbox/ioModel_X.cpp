@@ -49,7 +49,7 @@ XOF_TEMPLATEID Templates[MAX_TEMPLATES] = { { "template", X_TEMPLATE },
 bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* pT) {
     active_load_filename = pFilename;
     XFileHeader XHeader;
-    _LoadSkeletton = 0;
+//    _LoadSkeletton = 0;
 
     _TRACE_("===> Processing file:" << pFilename << " ===>");
 
@@ -117,8 +117,11 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* pT) {
         }
     }
 
-    if (_LoadSkeletton != 0)
-        MapMeshToBones(_LoadSkeletton);
+//    if (_LoadSkeletton != 0)
+//        MapMeshToBones(_LoadSkeletton);
+    for (std::list<Frm::Bone*>::iterator iteBone = _load_toplevel_Skelettons.begin(); iteBone != _load_toplevel_Skelettons.end(); iteBone++) {
+        MapMeshToBones((*iteBone));
+    }
 
     _TRACE_("<=== Processed file:" << pFilename << " OK <===");
 
@@ -340,13 +343,14 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
 
     if (pBone == 0) {
         _TRACE_("Skeletton 1st bone:" << cBone->_Name);
-        _LoadSkeletton = cBone;
-        _Object->_Skeletton = _LoadSkeletton;
+//        _LoadSkeletton = cBone;
+        //_Object->_Skeletton = _LoadSkeletton;
 
         //add tsuge begin
         //作者のバグだと思われる。
         //_LoadSkelettonが上書きされていくような仕組みになってしまっているのを修正。
         //とりあえず listに退避する。・・・修正前はメモリーリークになってた。
+        _load_toplevel_Skelettons.push_back(cBone);
         _Object->_toplevel_Skelettons.push_back(cBone);
         //add tsuge end
 
@@ -843,7 +847,7 @@ void ToolBox::IO_Model_X::ProcessMaterial(void) {
 //
 //////////////////////////////////////////////////////////
 void ToolBox::IO_Model_X::ProcessSkinWeights(void) {
-    Frm::Bone* cBone;
+    Frm::Bone* cBone = 0;
     std::string temp;
     char Data[TEXT_BUFFER];
 
@@ -851,7 +855,16 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void) {
     Find('"');
     fin.getline(Data, TEXT_BUFFER, '"');
     temp = Data;
-    cBone = _LoadSkeletton->IsName(temp);
+//    cBone = _LoadSkeletton->IsName(temp);
+
+    for (std::list<Frm::Bone*>::iterator iteBone = _load_toplevel_Skelettons.begin(); iteBone != _load_toplevel_Skelettons.end(); iteBone++) {
+        cBone = (*iteBone)->IsName(temp);
+        if (cBone) {
+            break;
+        }
+    }
+
+
     //   cBone->_Mesh = _LoadMesh;
     _TRACE_("Skinning bone:" << cBone->_Name);
     Find(';');

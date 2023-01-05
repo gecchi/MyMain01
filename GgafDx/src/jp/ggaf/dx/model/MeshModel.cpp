@@ -165,6 +165,17 @@ HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, vo
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
     return D3D_OK;
 }
+void MeshModel::bone(Frm::Bone* pBone,int dep) {
+    std::string indent = "";
+    for (int i = 0; i < dep; i++) {
+        indent += "    ";
+    }
+    _TRACE_("pBone:"<<indent<<"_MeshName("<<dep<<")="<<(pBone->_MeshName)<<"");
+    _TRACE_("pBone:"<<indent<<"_Name("<<dep<<")="<<(pBone->_Name)<<"");
+    for (std::list<Frm::Bone*>::iterator iteBone = pBone->_Bones.begin(); iteBone != pBone->_Bones.end(); iteBone++) {
+        bone((*iteBone),dep+1);
+    }
+}
 
 void MeshModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
@@ -212,6 +223,23 @@ void MeshModel::restore() {
         bool r = iox.Load(xfilepath, pModel3D);
         if (r == false) {
             throwCriticalException("Xファイルの読込み失敗。対象="<<xfilepath);
+        }
+        {
+            _TRACE_("-------------------------");
+            std::list<Frm::Bone*> lstBone = pModel3D->_toplevel_Skelettons;
+            for (std::list<Frm::Bone*>::iterator iteBone = lstBone.begin(); iteBone != lstBone.end(); iteBone++) {
+                bone((*iteBone));
+            }
+
+
+//            Frm::Bone* pBone = pModel3D->_Skeletton;
+//            _TRACE_("_Skeletton->_MeshName="<<(pBone->_MeshName)<<"");
+//            _TRACE_("_Skeletton->_Name="<<(pBone->_Name)<<"");
+//            bone(pBone);
+//            for (std::list<Frm::Bone*>::iterator iteBone = pBone->_Bones.begin(); iteBone != pBone->_Bones.end(); iteBone++) {
+//                _TRACE_("(*iteBone)->_MeshName="<<((*iteBone)->_MeshName)<<"");
+//                _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name)<<"");
+//            }
         }
         //メッシュを結合する前に、情報を確保しておく
         int nMesh = (int)pModel3D->_Meshes.size();

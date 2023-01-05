@@ -8,7 +8,7 @@ bool detectMemoryLeaksFlag = false;
 
 void *
 operator new(std::size_t size, const char* strFileName, int nLineNum)
-throw (std::bad_alloc)
+//throw (std::bad_alloc)
 {
     void * address = malloc(size);
     if (address == 0) {
@@ -25,7 +25,7 @@ throw (std::bad_alloc)
 
 void *
 operator new[](std::size_t size, const char* strFileName, int nLineNum)
-throw (std::bad_alloc)
+//throw (std::bad_alloc)
 {
     void * address = malloc(size);
     if (address == 0) {

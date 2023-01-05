@@ -272,8 +272,12 @@ void Model3D::ConcatenateMeshes(void) {
     //skinning indices
 
     _TRACE_("Adapting the Bone hierarchy ...");
-    if (_Skeletton != 0)
-        UpdateBoneIndices(_Skeletton);
+//    if (_Skeletton != 0)
+//        UpdateBoneIndices(_Skeletton);
+
+    for (std::list<Frm::Bone*>::iterator iteBone = _toplevel_Skelettons.begin(); iteBone != _toplevel_Skelettons.end(); iteBone++) {
+        UpdateBoneIndices((*iteBone));
+    }
     //TODO: Ç±Ç±ÇÕï°êîÅB_toplevel_SkelettonsÇ≈Ç‹ÇÌÇ∑ÅH
 
     _TRACE_("Bone hierarchy adapted.");

@@ -19,8 +19,7 @@ namespace ToolBox {
 
 class IO_Model_X: Frm::IO<Frm::Model3D*> {
 public:
-    IO_Model_X(void) :
-        _LoadSkeletton(0) { //tsuge add
+    IO_Model_X(void) { // : _LoadSkeletton(0) { //tsuge add
         _Type = IO_3DX;
         token_next = 0; //add tsuge
     }
@@ -35,7 +34,8 @@ public:
 
 private:
     std::ifstream fin;
-    Frm::Bone* _LoadSkeletton;
+//    Frm::Bone* _LoadSkeletton;
+    std::list<Frm::Bone*> _load_toplevel_Skelettons;
     Frm::Mesh* _LoadMesh;
     Frm::AnimationSet* _LoadAnimationSet;
     Frm::Model3D* _Object;

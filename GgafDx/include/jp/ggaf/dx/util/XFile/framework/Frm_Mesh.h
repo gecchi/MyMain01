@@ -147,14 +147,14 @@ public:
 
 class Model3D {
 public:
-    Model3D(void) :
-        _Skeletton(0) {
+    Model3D(void) //: _Skeletton(0)
+    {
     }
     ~Model3D(void);
     Mesh* IsMeshName(std::string &pText);
     void ConcatenateMeshes(void);
     AnimationSet* FindAnimationSet(std::string &pText);
-    Bone* _Skeletton;
+//    Bone* _Skeletton;
     std::list<Mesh*> _Meshes;
     std::list<AnimationSet*> _AnimationSets;
 

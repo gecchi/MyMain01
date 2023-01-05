@@ -100,6 +100,8 @@ public:
 
     void release() override;
 
+    void bone(Frm::Bone* pBone, int dep = 0);
+
     /**
      * デストラクタ<BR>
      */
