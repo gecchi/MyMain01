@@ -364,9 +364,9 @@ void VvvWorld::manipulateWorld() {
             //ハーフランバード切替
             GgafDx::MeshActor* pMeshActor = dynamic_cast<GgafDx::MeshActor*>(pA);
             if (pMeshActor->_lambert_flg > 0) {
-                pMeshActor->_lambert_flg = -1.0f;
+                pMeshActor->_lambert_flg = -1.0f;  //-1.0:Lambert
             } else {
-                pMeshActor->_lambert_flg = 1.0f;
+                pMeshActor->_lambert_flg = 1.0f;   //1.0:Half Lambert
             }
         }
     }

@@ -59,7 +59,6 @@ _pMeshEffect((MeshEffect*)_pEffect)
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
 
-
 void MeshActor::processDraw() {
     ID3DXEffect* const pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     HRESULT hr;

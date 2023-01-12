@@ -8,6 +8,7 @@
 #endif
 
 #include "jp/ggaf/core/exception/CriticalException.h"
+#include "jp/ggaf/dx/util/Util.h"
 
 using namespace std; //add tsuge
 
@@ -102,10 +103,10 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* pT) {
         case X_EBRACE:
             break; //end of a block ?!
         case X_FRAME:
-            ProcessBone((Frm::Bone*) 0);
+            ProcessBone((Frm::Bone*) 0, 0);
             break;
         case X_MESH:
-            ProcessMesh();
+            ProcessMesh(0);
             break;
         case X_ANIMATIONSET:
             ProcessAnimationSets();
@@ -119,9 +120,9 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* pT) {
 
 //    if (_LoadSkeletton != 0)
 //        MapMeshToBones(_LoadSkeletton);
-    for (std::list<Frm::Bone*>::iterator iteBone = _load_toplevel_Skelettons.begin(); iteBone != _load_toplevel_Skelettons.end(); iteBone++) {
-        MapMeshToBones((*iteBone));
-    }
+//    for (std::list<Frm::Bone*>::iterator iteBone = _load_toplevel_Skelettons.begin(); iteBone != _load_toplevel_Skelettons.end(); iteBone++) {
+//        MapMeshToBones((*iteBone));
+//    }
 
     _TRACE_("<=== Processed file:" << pFilename << " OK <===");
 
@@ -259,10 +260,21 @@ void ToolBox::IO_Model_X::Find(uint8_t pChar) {
 char* ToolBox::IO_Model_X::SetUID(char pType) {
     //This is a quick hack to derive a Unique ID for blocks with
     //no identifier names like in the tiny_4anim.x example.
-    static uint32_t seq = GetTickCount(); //tsuge add
-    _X_UID.Integer[0] = (seq++);        //tsuge add
-    _X_UID.Integer[1] = GetTickCount(); //This function return a 4 byte wide number
+//    static uint32_t seq = GetTickCount(); //tsuge add
+//    _X_UID.Integer[0] = (seq++);        //tsuge add
+//    _X_UID.Integer[1] = GetTickCount(); //This function return a 4 byte wide number
 
+    static uint32_t seq = 0; //tsuge add
+    seq++;
+    string xuid = UTIL::dec2hex(seq, 8);
+    _X_UID.Text[0] = xuid[0];
+    _X_UID.Text[1] = xuid[1];
+    _X_UID.Text[2] = xuid[2];
+    _X_UID.Text[3] = xuid[3];
+    _X_UID.Text[4] = xuid[4];
+    _X_UID.Text[5] = xuid[5];
+    _X_UID.Text[6] = xuid[6];
+    _X_UID.Text[7] = xuid[7];
     _X_UID.Text[8+0] = pType; //We set the 5th byte with a significant character
     _X_UID.Text[8+1] = '\0'; //add tsuge デバッグ表示用のため
 
@@ -273,8 +285,9 @@ char* ToolBox::IO_Model_X::SetUID(char pType) {
 //tsuge add begin 表示可能文字に
     for (int i = 0; i < 8; i++) {
         _X_UID.Text[i] %= 92;
-        while (_X_UID.Text[i] < 32)
+        while (_X_UID.Text[i] < 32) {
             _X_UID.Text[i] += 32;
+        }
     }
 
 //tsuge add end
@@ -320,14 +333,18 @@ void ToolBox::IO_Model_X::ProcessFrameTransformMatrix(Frm::Bone* &pB) {
 //
 //////////////////////////////////////////////////////////
 
-void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
+void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone, int dep) {
+    //DEBUG
+    std::string indent = "";
+    for (int i = 0; i < dep; i++) {
+        indent += "    ";
+    }
+
     Frm::Bone* cBone;
     int16_t Token;
     char Data[TEXT_BUFFER];
 
     cBone = NEW Frm::Bone();
-
-
     //mod tsuge Token = fin.peek();
     if (token_next == 0) {
         Token = fin.peek();
@@ -342,7 +359,7 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
         cBone->_Name = SetUID('B');
 
     if (pBone == 0) {
-        _TRACE_("Skeletton 1st bone:" << cBone->_Name);
+        _TRACE_("ProcessBone("<<dep<<"):" << indent << "  1st bone:" << cBone->_Name);
 //        _LoadSkeletton = cBone;
         //_Object->_Skeletton = _LoadSkeletton;
 
@@ -355,7 +372,7 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
         //add tsuge end
 
     } else {
-        _TRACE_("\t" << pBone->_Name << "->" << cBone->_Name);
+        _TRACE_("ProcessBone("<<dep<<"):" << indent << " " << pBone->_Name << " -> " << cBone->_Name);
         pBone->_Bones.push_back(cBone);
     }
     Find('{');
@@ -374,13 +391,15 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
             cBone->_MeshName = Data;
             break;
         case X_FRAME:
-            ProcessBone(cBone);
+            dep ++;
+            ProcessBone(cBone, dep);
+            dep --;
             break;
         case X_FRAMETRANSFORMMATRIX:
             ProcessFrameTransformMatrix(cBone);
             break;
         case X_MESH:
-            ProcessMesh();
+            ProcessMesh(dep);
             cBone->_MeshName = _LoadMesh->_Name;
             break;
         default:
@@ -396,7 +415,11 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
 //
 //////////////////////////////////////////////////////////
 
-void ToolBox::IO_Model_X::ProcessMesh(void) {
+void ToolBox::IO_Model_X::ProcessMesh(int dep) {
+    std::string indent = "";
+    for (int i = 0; i < dep; i++) {
+        indent += "    ";
+    }
     std::string Text;
     int16_t Token;
     char Data[TEXT_BUFFER];
@@ -431,11 +454,11 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
         }
         if (_LoadMesh->_FirstNormal < _LoadMesh->_FirstVertex)
             _LoadMesh->_FirstNormal = _LoadMesh->_FirstVertex;
-        _TRACE_("Starting Vertex index:" << _LoadMesh->_FirstVertex);
-        _TRACE_("Starting Face index:" << _LoadMesh->_FirstFace);
-        _TRACE_("Starting TextureCoord index:" << _LoadMesh->_FirstTextureCoord);
-        _TRACE_("Starting Normal index:" << _LoadMesh->_FirstNormal);
-        _TRACE_("Starting Material index:" << _LoadMesh->_FirstMaterial);
+//        _TRACE_("ProcessMesh("<<dep<<"):"<< indent << " Starting Vertex index:" << _LoadMesh->_FirstVertex);
+//        _TRACE_("ProcessMesh("<<dep<<"):"<< indent << " Starting Face index:" << _LoadMesh->_FirstFace);
+//        _TRACE_("ProcessMesh("<<dep<<"):"<< indent << " Starting TextureCoord index:" << _LoadMesh->_FirstTextureCoord);
+//        _TRACE_("ProcessMesh("<<dep<<"):"<< indent << " Starting Normal index:" << _LoadMesh->_FirstNormal);
+//        _TRACE_("ProcessMesh("<<dep<<"):"<< indent << " Starting Material index:" << _LoadMesh->_FirstMaterial);
     }
 
     Token = fin.peek();
@@ -446,11 +469,11 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
         _LoadMesh->_Name = SetUID('M');
 
     Find('{');
-    _TRACE_("Mesh:「" << _LoadMesh->_Name<<"」");
+    _TRACE_("ProcessMesh("<<dep<<"):"<< indent << " Mesh:「" << _LoadMesh->_Name<<"」");
 
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nVertices = (uint32_t) TextToNum(Data);
-    _TRACE_("Number of vertices:" << _LoadMesh->_nVertices);
+    _TRACE_("ProcessMesh("<<dep<<"):"<< indent << " Number of vertices:" << _LoadMesh->_nVertices);
     _LoadMesh->_Vertices = NEW Frm::Vertex[_LoadMesh->_nVertices];
     //   _LoadMesh->_SkinnedVertices = NEW Frm::Vertex[_LoadMesh->_nVertices];
     for (int i = 0; i < _LoadMesh->_nVertices; i++) {
@@ -487,7 +510,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
 //の場合は、0,1,2 と 0,2,3 に分割
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nFaces = (uint32_t) TextToNum(Data);
-    _TRACE_("Before Number of Faces:" << _LoadMesh->_nFaces);
+    _TRACE_("ProcessMesh("<<dep<<"):"<< indent << " Before Number of Faces:" << _LoadMesh->_nFaces);
     _LoadMesh->_Faces = NEW Frm::Face[(_LoadMesh->_nFaces)*2];
     int face_vtx_num;
     int nFaces = _LoadMesh->_nFaces;
@@ -527,7 +550,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
         n++;
     }
 
-    _TRACE_("After Number of Faces:" << _LoadMesh->_nFaces);
+    _TRACE_("ProcessMesh("<<dep<<"):"<< indent << " After Number of Faces:" << _LoadMesh->_nFaces);
 
     Token = X_COMMENT;
     while (Token != X_EBRACE) {
@@ -574,7 +597,7 @@ void ToolBox::IO_Model_X::ProcessMeshTextureCoords(void) {
 
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nTextureCoords = (uint32_t) TextToNum(Data);
-    _TRACE_("Number of Texture Coords:" << _LoadMesh->_nTextureCoords);
+    //_TRACE_("Number of Texture Coords:" << _LoadMesh->_nTextureCoords);
     _LoadMesh->_TextureCoords = NEW Frm::TCoord[_LoadMesh->_nTextureCoords];
     for (int i = 0; i < _LoadMesh->_nTextureCoords; i++) {
         fin.getline(Data, TEXT_BUFFER, ';');
@@ -631,7 +654,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
     //4頂点による法線インデックスに対応
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nNormals = (uint32_t) TextToNum(Data);
-    _TRACE_("Number of normals :" << _LoadMesh->_nNormals);
+    //_TRACE_("Number of normals :" << _LoadMesh->_nNormals);
     _LoadMesh->_Normals = NEW Frm::vector<float>[_LoadMesh->_nNormals];
     for (int i = 0; i < _LoadMesh->_nNormals; i++) {
         fin.getline(Data, TEXT_BUFFER, ';');
@@ -645,7 +668,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
 
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nFaceNormals = TextToNum(Data);
-    _TRACE_("Before Number of normals index :" << _LoadMesh->_nFaceNormals);
+    //_TRACE_("Before Number of normals index :" << _LoadMesh->_nFaceNormals);
     _LoadMesh->_FaceNormals = NEW Frm::Face[_LoadMesh->_nFaces]; //NEW Frm::Face[_LoadMesh->_nFaceNormals] と間違えてはいない。
     int face_vtx_num;
     int n = 0;
@@ -679,7 +702,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
         n++;
     }
     _LoadMesh->_nFaceNormals = n;
-    _TRACE_("After Number of normals index :" << n);
+    //_TRACE_("After Number of normals index :" << n);
 
 
 
@@ -724,7 +747,7 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
 
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_FaceMaterials = NEW uint32_t[((uint32_t)TextToNum(Data))*2];
-    _TRACE_("Before Number of Materials:" << (uint32_t)TextToNum(Data));
+    //_TRACE_("Before Number of Materials:" << (uint32_t)TextToNum(Data));
 
     int file_nFaceMaterials = (uint32_t) TextToNum(Data);
     int n = 0;
@@ -751,7 +774,7 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
     n++;
     fin.get(); //eats the last semicolon
 
-    _TRACE_("After Number of Materials:" << n);
+    //_TRACE_("After Number of Materials:" << n);
 
 
     Token = X_COMMENT;
@@ -864,39 +887,42 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void) {
         }
     }
 
+    if (cBone) {
+        //   cBone->_Mesh = _LoadMesh;
+        _TRACE_("Skinning bone:" << cBone->_Name);
+        Find(';');
 
-    //   cBone->_Mesh = _LoadMesh;
-    _TRACE_("Skinning bone:" << cBone->_Name);
-    Find(';');
-
-    fin.getline(Data, TEXT_BUFFER, ';');
-    cBone->_nVertices = (uint32_t) TextToNum(Data);
-    cBone->_Vertices = NEW uint32_t[(cBone->_nVertices)];
-    for (uint32_t i = 0; i < cBone->_nVertices - 1; i++) {
-        fin.getline(Data, TEXT_BUFFER, ',');
-        cBone->_Vertices[i] = (uint32_t) TextToNum(Data);
+        fin.getline(Data, TEXT_BUFFER, ';');
+        cBone->_nVertices = (uint32_t) TextToNum(Data);
+        cBone->_Vertices = NEW uint32_t[(cBone->_nVertices)];
+        for (uint32_t i = 0; i < cBone->_nVertices - 1; i++) {
+            fin.getline(Data, TEXT_BUFFER, ',');
+            cBone->_Vertices[i] = (uint32_t) TextToNum(Data);
+            _TRACE_("Vertex:" << atoi(Data));
+        }
+        fin.getline(Data, TEXT_BUFFER, ';');
+        cBone->_Vertices[cBone->_nVertices - 1] = (uint32_t) TextToNum(Data);
         _TRACE_("Vertex:" << atoi(Data));
-    }
-    fin.getline(Data, TEXT_BUFFER, ';');
-    cBone->_Vertices[cBone->_nVertices - 1] = (uint32_t) TextToNum(Data);
-    _TRACE_("Vertex:" << atoi(Data));
 
-    cBone->_Weights = NEW float[cBone->_nVertices];
-    for (uint32_t i = 0; i < cBone->_nVertices - 1; i++) {
-        fin.getline(Data, TEXT_BUFFER, ',');
-        cBone->_Weights[i] = TextToNum(Data);
+        cBone->_Weights = NEW float[cBone->_nVertices];
+        for (uint32_t i = 0; i < cBone->_nVertices - 1; i++) {
+            fin.getline(Data, TEXT_BUFFER, ',');
+            cBone->_Weights[i] = TextToNum(Data);
+            _TRACE_("Weight:" << atof(Data));
+        }
+        fin.getline(Data, TEXT_BUFFER, ';');
+        cBone->_Weights[cBone->_nVertices - 1] = TextToNum(Data);
         _TRACE_("Weight:" << atof(Data));
-    }
-    fin.getline(Data, TEXT_BUFFER, ';');
-    cBone->_Weights[cBone->_nVertices - 1] = TextToNum(Data);
-    _TRACE_("Weight:" << atof(Data));
 
-    for (int i = 0; i < 15; i++) {
-        fin.getline(Data, TEXT_BUFFER, ',');
-        cBone->_SkinOffset[i] = TextToNum(Data);
+        for (int i = 0; i < 15; i++) {
+            fin.getline(Data, TEXT_BUFFER, ',');
+            cBone->_SkinOffset[i] = TextToNum(Data);
+        }
+        fin.getline(Data, TEXT_BUFFER, ';');
+        cBone->_SkinOffset[15] = TextToNum(Data);
+    } else {
+        _TRACE_("ProcessSkinWeights() ? bone Name=" << temp << " is nothing...");
     }
-    fin.getline(Data, TEXT_BUFFER, ';');
-    cBone->_SkinOffset[15] = TextToNum(Data);
     Find('}');
 }
 
@@ -1114,18 +1140,18 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
 //
 //////////////////////////////////////////////////////////
 void ToolBox::IO_Model_X::MapMeshToBones(Frm::Bone* &pBone) {
-    if (pBone->_MeshName.empty())
-        pBone->_MeshName = _LoadMesh->_Name;
+//    if (pBone->_MeshName.empty())
+//        pBone->_MeshName = _LoadMesh->_Name;
 
-    _TRACE_("Bone" << pBone->_Name << "is linked to mesh「" << pBone->_MeshName <<"」");
+    _TRACE_("Bone " << pBone->_Name << " is linked to mesh「" << pBone->_MeshName <<"」");
 
-    if (!pBone->_Bones.empty())
-        for (std::list<Frm::Bone*>::iterator i = pBone->_Bones.begin(); i
-                != pBone->_Bones.end(); i++) {
-            if ((*i)->_MeshName.empty()) {
-                (*i)->_MeshName = pBone->_MeshName;
-            }
+    if (!pBone->_Bones.empty()) {
+        for (std::list<Frm::Bone*>::iterator i = pBone->_Bones.begin(); i != pBone->_Bones.end(); i++) {
+//            if ((*i)->_MeshName.empty()) {
+//                (*i)->_MeshName = pBone->_MeshName;
+//            }
             MapMeshToBones(*i);
         }
+    }
 }
 

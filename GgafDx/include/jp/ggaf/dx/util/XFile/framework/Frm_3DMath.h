@@ -258,7 +258,7 @@ public:
     void QuaternionMatrix(T &x, T &y, T &z, T &w);
 
 private:
-    int k, l, row, col;
+    //int k, l, row, col; //delete tsuge
 };
 
 typedef matrix<float> Matrix;
@@ -444,7 +444,7 @@ Array<T, size> Array<T, size>::operator-(Array<T, size> pA) {
 template<typename T>
 matrix<T> matrix<T>::operator+(matrix<T> pm) {
     T Rdata[16];
-    for (k = 0; k < 16; k++)
+    for (int k = 0; k < 16; k++)
         Rdata[k] = data[k] + pm.data[k];
     return matrix<T> (Rdata);
 }
@@ -452,7 +452,7 @@ matrix<T> matrix<T>::operator+(matrix<T> pm) {
 template<typename T>
 matrix<T> matrix<T>::operator-(matrix<T> pm) {
     T Rdata[16];
-    for (k = 0; k < 16; k++)
+    for (int k = 0; k < 16; k++)
         Rdata[k] = data[k] - pm.data[k];
     return matrix<T> (Rdata);
 }
@@ -460,11 +460,11 @@ matrix<T> matrix<T>::operator-(matrix<T> pm) {
 template<typename T>
 matrix<T> matrix<T>::operator*(matrix<T> pm) {
     T Rdata[16];
-    for (row = 0; row < 16; row += 4)
-        for (col = 0; col < 4; col++) {
-            l = 0;
+    for (int row = 0; row < 16; row += 4)
+        for (int col = 0; col < 4; col++) {
+            int l = 0;
             Rdata[row + col] = 0;
-            for (k = 0; k < 4; k++, l += 4)
+            for (int k = 0; k < 4; k++, l += 4)
                 Rdata[row + col] += data[row + k] * pm.data[l + col];
         }
     return matrix<T> (Rdata);
@@ -473,11 +473,11 @@ matrix<T> matrix<T>::operator*(matrix<T> pm) {
 template<typename T>
 matrix<T>& matrix<T>::operator*=(matrix<T> &pm) {
     T Rdata[16];
-    for (row = 0; row < 16; row += 4)
-        for (col = 0; col < 4; col++) {
-            l = 0;
+    for (int row = 0; row < 16; row += 4)
+        for (int col = 0; col < 4; col++) {
+            int l = 0;
             Rdata[row + col] = 0;
-            for (k = 0; k < 4; k++, l += 4)
+            for (int k = 0; k < 4; k++, l += 4)
                 Rdata[row + col] += data[row + k] * pm.data[l + col];
         }
     memcpy(data, Rdata, 16* sizeof (T));
@@ -489,27 +489,38 @@ matrix<T> matrix<T>::operator*(T pT)
 {
     T Rdata[16];
     memcpy(Rdata, data, 16 * sizeof(T));
-    for (k = 0; k < 16; k++)
-    Rdata[k] *= pT;
+    for (int k = 0; k < 16; k++)
+        Rdata[k] *= pT;
     return matrix<T>(Rdata);
 }
 
 template<typename T>
 vector<T> matrix<T>::operator*(const vector<T>& pV)
 {
-    T vdata[4], pvdata[4];
+//Gccの場合落ちる。（※コメントを外すと落ちない。謎・・・）
+//危険なので使用しないこととする。
+//    _TRACE_("pV.x="<<pV.x);
+//    _TRACE_("pV.y="<<pV.y);
+//    _TRACE_("pV.z="<<pV.z);
+    T vdata[4];
+    T pvdata[4];
+//    _TRACE_("pvdata[0]="<<pvdata[0]);
+//    _TRACE_("pvdata[1]="<<pvdata[1]);
+//    _TRACE_("pvdata[2]="<<pvdata[2]);
+//    _TRACE_("pvdata[3]="<<pvdata[3]);
     pvdata[0] = pV.x;
     pvdata[1] = pV.y;
     pvdata[2] = pV.z;
-    pvdata[3] = 0;
-    for (col = 0; col < 4; col++)
+    pvdata[3] = 1.0f;
+    for (int col = 0; col < 4; col++)
     {
-        vdata[row] = 0;
-        k=0;
-        for (row = 0; row < 4; row++, k+=4)
+        vdata[col] = 0;
+        int k=0;
+        for (int row = 0; row < 4; row++, k+=4)
         vdata[col] += data[k + col]*pvdata[row];
     }
-    return vector<T>(vdata);
+    vector<T> ret(vdata[0], vdata[1], vdata[2]);
+    return ret;
 } /**/
 
 template<typename T>
@@ -520,11 +531,11 @@ Array<T, 3> matrix<T>::operator*(const Array<T, 3>& pV)
     memcpy(pvdata, pV.data, 3*sizeof(T));
     pvdata[3] = 1.0f;
 
-    for (col = 0; col < 4; col++)
+    for (int col = 0; col < 4; col++)
     {
-        k = 0;
+        int k = 0;
         vdata[col] = 0;
-        for (row = 0; row < 4; row++, k+=4)
+        for (int row = 0; row < 4; row++, k+=4)
         vdata[col] += data[k + col]*pvdata[row];
     }
 

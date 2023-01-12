@@ -112,7 +112,6 @@ OUT_VS VS_DefaultMesh(
         //通常のランバート反射、内積の負の値をカット
         refl_power = max(refl_power, 0);
     }
-    refl_power *= refl_power;
     //拡散光色に反射率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
     out_vs.color.rgb = (g_colLightAmbient + (g_colLightDiffuse*refl_power)) * g_colMaterialDiffuse.rgb;
     //αはライトに関係なくマテリアルαを優先とする

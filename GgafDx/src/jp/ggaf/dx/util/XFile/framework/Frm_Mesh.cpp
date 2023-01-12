@@ -5,6 +5,8 @@
 /////////////////////////////////////////////////////////
 
 #include "jp/ggaf/dx/util/XFile/framework/Frm_mesh.h"
+#include "jp/ggaf/dx/util/Util.h"
+#include <d3dx9math.h>
 
 using namespace Frm;
 
@@ -178,8 +180,8 @@ Mesh* Model3D::IsMeshName(std::string &pText) {
 
 void Model3D::ConcatenateMeshes(void) {
     //We only concatenate when there are at least two meshes
-    if (_Meshes.size() < 2)
-        return;
+    //if (_Meshes.size() < 2)
+    //    return;
 
     _TRACE_("Concatenating "<<(_Meshes.size())<<" Meshes ...");
 
@@ -196,6 +198,7 @@ void Model3D::ConcatenateMeshes(void) {
     ConcatMesh->_nNormals = LastMesh->_FirstNormal + LastMesh->_nNormals;
     //add tsuge begin
     ConcatMesh->_nMaterials = LastMesh->_FirstMaterial + LastMesh->_nMaterials;
+    ConcatMesh->_nFaceNormals = LastMesh->_nFaceNormals + LastMesh->_nFaceNormals;
     //addtsuge end
 
 
@@ -214,6 +217,14 @@ void Model3D::ConcatenateMeshes(void) {
     _TRACE_("Final number of TextureCoords:"<< ConcatMesh->_nTextureCoords);
     _TRACE_("Final number of Normals:"<< ConcatMesh->_nNormals);
     _TRACE_("Final number of Materials:"<< ConcatMesh->_nMaterials);
+
+
+    //add tsuge
+    for (std::list<Frm::Bone*>::iterator iteBone = _toplevel_Skelettons.begin(); iteBone != _toplevel_Skelettons.end(); iteBone++) {
+        Matrix mat;
+        mat.Identity();
+        UpdateVertex((*iteBone), mat);
+    }
 
     //We create all the arrays:
     // - Vertices and Faces
@@ -245,8 +256,8 @@ void Model3D::ConcatenateMeshes(void) {
     //We fill up the arrays with each array from the _Meshes container
     for (std::list<Mesh*>::iterator i = _Meshes.begin(); i != _Meshes.end(); i++) {
         (*i)->UpdateIndices();
-        memcpy(&(ConcatMesh->_Vertices[(*i)->_FirstVertex]), (*i)->_Vertices,
-                (*i)->_nVertices * sizeof(Frm::Vertex));
+        memcpy(&(ConcatMesh->_Vertices[(*i)->_FirstVertex]), (*i)->_Vertices, (*i)->_nVertices * sizeof(Frm::Vertex));
+
         memcpy(&(ConcatMesh->_Faces[(*i)->_FirstFace]), (*i)->_Faces,
                 (*i)->_nFaces * sizeof(Frm::Face));
         memcpy(&(ConcatMesh->_FaceMaterials[(*i)->_FirstFace]),
@@ -267,6 +278,9 @@ void Model3D::ConcatenateMeshes(void) {
         }
     }
 
+
+
+
     ////////////////////////////////////////////////////////////
     //OK. We now process the bone hierarchy to update the
     //skinning indices
@@ -276,10 +290,9 @@ void Model3D::ConcatenateMeshes(void) {
 //        UpdateBoneIndices(_Skeletton);
 
     for (std::list<Frm::Bone*>::iterator iteBone = _toplevel_Skelettons.begin(); iteBone != _toplevel_Skelettons.end(); iteBone++) {
-        UpdateBoneIndices((*iteBone));
+        UpdateBoneIndices(*iteBone);
     }
     //TODO: ここは複数。_toplevel_Skelettonsでまわす？
-
     _TRACE_("Bone hierarchy adapted.");
 
     //We eventually delete all the previous meshes
@@ -299,15 +312,62 @@ void Model3D::ConcatenateMeshes(void) {
 
 void Model3D::UpdateBoneIndices(Bone* &pBone) {
     Mesh* BoneMesh = IsMeshName(pBone->_MeshName);
-    if (BoneMesh != 0)
+    if (BoneMesh != 0) {
         pBone->UpdateIndices(BoneMesh->_FirstVertex);
+    }
     pBone->_MeshName = "ConcatMesh";
-    if (!pBone->_Bones.empty())
-        for (std::list<Bone*>::iterator i = pBone->_Bones.begin(); i
-                != pBone->_Bones.end(); i++)
+    if (!pBone->_Bones.empty()) {
+        for (std::list<Bone*>::iterator i = pBone->_Bones.begin(); i != pBone->_Bones.end(); i++) {
             UpdateBoneIndices(*i);
+        }
+    }
 }
 
+//tsuge add
+void Model3D::UpdateVertex(Bone* &pBone, Matrix& prm_MatrixPos) {
+    //_TRACE_("UpdateVertex pBone:_MeshName="<<(pBone->_MeshName)<<"");
+    //_TRACE_("UpdateVertex pBone:_Name="<<(pBone->_Name)<<"");
+    Matrix mat(prm_MatrixPos);
+    mat = ( pBone->_MatrixPos * mat);
+    Mesh* pBoneMesh = IsMeshName(pBone->_MeshName);
+    if (pBoneMesh != 0) {
+        int nVertices = pBoneMesh->_nVertices; //頂点数
+        int nNormals = pBoneMesh->_nNormals; //法線数
+        //頂点変換
+        for (int i = 0; i < nVertices; i++) {
+            Vertex* pV = &(pBoneMesh->_Vertices[i]);
+            Vertex v = mat * (*pV);
+            //_TRACE_("Vbefore ["<<i<<"]"<<(pV->data[0])<<","<<(pV->data[1])<<","<<(pV->data[2]));
+            pV->data[0] = v.data[0];
+            pV->data[1] = v.data[1];
+            pV->data[2] = v.data[2];
+            //_TRACE_("Vafter  ["<<i<<"]"<<(pV->data[0])<<","<<(pV->data[1])<<","<<(pV->data[2]))
+        }
+        //法線変換
+        Matrix mat_normals(mat);
+        //平行移動成分除去
+        mat_normals.data[12] = 0.0f;
+        mat_normals.data[13] = 0.0f;
+        mat_normals.data[14] = 0.0f;
+
+        for (int i = 0; i < nNormals; i++) {
+            //_TRACE_("Nbefore ["<<i<<"]"<<(pBoneMesh->_Normals[i].x)<<","<<(pBoneMesh->_Normals[i].y)<<","<<(pBoneMesh->_Normals[i].z));
+            vector<float> vecNormal( mat_normals * (pBoneMesh->_Normals[i]));
+            //正規化
+            double t = 1.0 / sqrt(vecNormal.x * vecNormal.x + vecNormal.y * vecNormal.y + vecNormal.z * vecNormal.z);
+            //vecNormal.Normalize();
+            pBoneMesh->_Normals[i].x = vecNormal.x * t;
+            pBoneMesh->_Normals[i].y = vecNormal.y * t;
+            pBoneMesh->_Normals[i].z = vecNormal.z * t;
+            //_TRACE_("Nafter ["<<i<<"]"<<(pBoneMesh->_Normals[i].x)<<","<<(pBoneMesh->_Normals[i].y)<<","<<(pBoneMesh->_Normals[i].z));
+        }
+    }
+    if (!pBone->_Bones.empty()) {
+        for (std::list<Bone*>::iterator iteBone = pBone->_Bones.begin(); iteBone != pBone->_Bones.end(); iteBone++) {
+            UpdateVertex(*iteBone, mat);
+        }
+    }
+}
 /*************************************************
  NEW- NEW- NEW- NEW- NEW- NEW- NEW- NEW- NEW- NEW*/
 

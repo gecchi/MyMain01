@@ -347,7 +347,7 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
         }
     }
 
-    //XファイルのFrameTransformMatrix(0フレーム目の初期化アニメーション)を考慮
+    //ベース変換行 _matBaseTransformMatrix を考慮
     int n = 0;
     int nVertices_begin = 0;
     int nVertices_end = 0;
@@ -357,33 +357,33 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
         _TRACE_("ModelManager : (*iteBone)->_Name="<<((*iteBone)->_Name));
 
         if ((*iteBone)) {
-            D3DXMATRIX FrameTransformMatrix;
-            D3DXMatrixIdentity(&FrameTransformMatrix);
-            Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
-            if (pMatPos == 0 || pMatPos== nullptr || pMatPos->isIdentity()) {
-                //FrameTransformMatrix は単位行列
-                _TRACE_("ModelManager : FrameTransformMatrix is Identity");
-            } else {
-                _TRACE_("ModelManager : Execute FrameTransform!");
-                FrameTransformMatrix._11 = pMatPos->data[0];
-                FrameTransformMatrix._12 = pMatPos->data[1];
-                FrameTransformMatrix._13 = pMatPos->data[2];
-                FrameTransformMatrix._14 = pMatPos->data[3];
-                FrameTransformMatrix._21 = pMatPos->data[4];
-                FrameTransformMatrix._22 = pMatPos->data[5];
-                FrameTransformMatrix._23 = pMatPos->data[6];
-                FrameTransformMatrix._24 = pMatPos->data[7];
-                FrameTransformMatrix._31 = pMatPos->data[8];
-                FrameTransformMatrix._32 = pMatPos->data[9];
-                FrameTransformMatrix._33 = pMatPos->data[10];
-                FrameTransformMatrix._34 = pMatPos->data[11];
-                FrameTransformMatrix._41 = pMatPos->data[12];
-                FrameTransformMatrix._42 = pMatPos->data[13];
-                FrameTransformMatrix._43 = pMatPos->data[14];
-                FrameTransformMatrix._44 = pMatPos->data[15];
-            }
+//            D3DXMATRIX FrameTransformMatrix;
+//            D3DXMatrixIdentity(&FrameTransformMatrix);
+//            Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
+//            if (pMatPos == 0 || pMatPos== nullptr || pMatPos->isIdentity()) {
+//                //FrameTransformMatrix は単位行列
+//                _TRACE_("ModelManager : FrameTransformMatrix is Identity");
+//            } else {
+//                _TRACE_("ModelManager : Execute FrameTransform!");
+//                FrameTransformMatrix._11 = pMatPos->data[0];
+//                FrameTransformMatrix._12 = pMatPos->data[1];
+//                FrameTransformMatrix._13 = pMatPos->data[2];
+//                FrameTransformMatrix._14 = pMatPos->data[3];
+//                FrameTransformMatrix._21 = pMatPos->data[4];
+//                FrameTransformMatrix._22 = pMatPos->data[5];
+//                FrameTransformMatrix._23 = pMatPos->data[6];
+//                FrameTransformMatrix._24 = pMatPos->data[7];
+//                FrameTransformMatrix._31 = pMatPos->data[8];
+//                FrameTransformMatrix._32 = pMatPos->data[9];
+//                FrameTransformMatrix._33 = pMatPos->data[10];
+//                FrameTransformMatrix._34 = pMatPos->data[11];
+//                FrameTransformMatrix._41 = pMatPos->data[12];
+//                FrameTransformMatrix._42 = pMatPos->data[13];
+//                FrameTransformMatrix._43 = pMatPos->data[14];
+//                FrameTransformMatrix._44 = pMatPos->data[15];
+//            }
 
-            D3DXMatrixMultiply(&FrameTransformMatrix, &FrameTransformMatrix, &_matBaseTransformMatrix);
+//            D3DXMatrixMultiply(&FrameTransformMatrix, &FrameTransformMatrix, &_matBaseTransformMatrix);
             if (n == 0) {
                 nVertices_begin = 0;
                 nVertices_end = paNumVertices[n];
@@ -401,11 +401,11 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                 vecVertex.x = pVtx->x;
                 vecVertex.y = pVtx->y;
                 vecVertex.z = pVtx->z;
-                D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
+                D3DXVec3TransformCoord(&vecVertex, &vecVertex, &_matBaseTransformMatrix);
                 vecNormal.x = pVtx->nx;
                 vecNormal.y = pVtx->ny;
                 vecNormal.z = pVtx->nz;
-                D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
+                D3DXVec3TransformNormal(&vecNormal, &vecNormal, &_matBaseTransformMatrix);
                 pVtx->x = vecVertex.x;
                 pVtx->y = vecVertex.y;
                 pVtx->z = vecVertex.z;
@@ -420,11 +420,11 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                     vecTangent.x = pVtx_ex->tan_x;
                     vecTangent.y = pVtx_ex->tan_y;
                     vecTangent.z = pVtx_ex->tan_z;
-                    D3DXVec3TransformNormal(&vecTangent, &vecTangent, &FrameTransformMatrix);
+                    D3DXVec3TransformNormal(&vecTangent, &vecTangent, &_matBaseTransformMatrix);
                     vecBinormal.x = pVtx_ex->bin_x;
                     vecBinormal.y = pVtx_ex->bin_y;
                     vecBinormal.z = pVtx_ex->bin_z;
-                    D3DXVec3TransformNormal(&vecBinormal, &vecBinormal, &FrameTransformMatrix);
+                    D3DXVec3TransformNormal(&vecBinormal, &vecBinormal, &_matBaseTransformMatrix);
 
                     pVtx_ex->tan_x = vecTangent.x;
                     pVtx_ex->tan_y = vecTangent.y;

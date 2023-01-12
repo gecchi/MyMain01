@@ -152,6 +152,7 @@ public:
     }
     ~Model3D(void);
     Mesh* IsMeshName(std::string &pText);
+    void ConcatenateMeshes_old(void);
     void ConcatenateMeshes(void);
     AnimationSet* FindAnimationSet(std::string &pText);
 //    Bone* _Skeletton;
@@ -160,10 +161,12 @@ public:
 
     //add tsuge begin
     std::list<Frm::Bone*> _toplevel_Skelettons;
-    //add tsuge end
+
 
 private:
     void UpdateBoneIndices(Bone* &pBone);
+    //add tsuge
+    void UpdateVertex(Bone* &pBone, Matrix& prm_MatrixPos);
 };
 
 }

@@ -62,8 +62,8 @@ private:
     //X File struct processing
     uint32_t _MaxKey; //Max animation key for a loaded animation set
     void ProcessFrameTransformMatrix(Frm::Bone* &pB);
-    void ProcessBone(Frm::Bone* pBone);
-    void ProcessMesh(void);
+    void ProcessBone(Frm::Bone* pBone, int dep);
+    void ProcessMesh(int dep);
     void ProcessMeshTextureCoords(void);
     void ProcessMeshMaterials(void);
     void ProcessMeshNormals(void);
