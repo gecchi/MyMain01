@@ -5,10 +5,10 @@
 
 namespace VioletVreath {
 
-DECLARE_HASHVAL(EVENT_STAGE02_01_WAS_FINISHED);
-DECLARE_HASHVAL(EVENT_STAGE02_02_WAS_FINISHED);
-DECLARE_HASHVAL(EVENT_STAGE02_03_WAS_FINISHED);
-DECLARE_HASHVAL(EVENT_STAGE02_CLIMAX_WAS_FINISHED);
+DECLARE_EVENT_VAL(EVENT_STAGE02_01_WAS_FINISHED);
+DECLARE_EVENT_VAL(EVENT_STAGE02_02_WAS_FINISHED);
+DECLARE_EVENT_VAL(EVENT_STAGE02_03_WAS_FINISHED);
+DECLARE_EVENT_VAL(EVENT_STAGE02_CLIMAX_WAS_FINISHED);
 
 /**
  * ステージ１コントローラー .
@@ -29,7 +29,7 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override;
+    virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override;
 
     virtual ~Stage02PartController();
 };

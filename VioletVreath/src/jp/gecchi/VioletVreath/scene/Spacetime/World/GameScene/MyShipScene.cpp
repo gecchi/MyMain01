@@ -193,9 +193,9 @@ void MyShipScene::processBehavior() {
 
 }
 
-void MyShipScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
+void MyShipScene::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
     ScenePhase* pPhase = getPhase();
-    if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
+    if (prm_event_val == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
         _TRACE_("MyShipScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
        pPhase->change(PHASE_DESTROY);
     }

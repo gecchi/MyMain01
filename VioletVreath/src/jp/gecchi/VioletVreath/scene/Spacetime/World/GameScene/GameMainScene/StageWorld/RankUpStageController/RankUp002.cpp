@@ -264,7 +264,7 @@ void RankUp002::processJudgement() {
 }
 
 
-void RankUp002::onCatchEvent(hashval prm_no, void* prm_pSource) {
+void RankUp002::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
 }
 
 

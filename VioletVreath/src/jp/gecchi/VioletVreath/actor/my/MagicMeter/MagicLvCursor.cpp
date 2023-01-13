@@ -1,6 +1,6 @@
 #include "MagicLvCursor.h"
 
-#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/util/RingLinkedList.hpp"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"

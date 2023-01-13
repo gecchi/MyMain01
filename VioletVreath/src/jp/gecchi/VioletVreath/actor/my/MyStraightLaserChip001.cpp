@@ -1,6 +1,6 @@
 #include "MyStraightLaserChip001.h"
 
-#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/util/RingLinkedList.hpp"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/manager/TextureConnection.h"

@@ -13,7 +13,7 @@
     #error pSTAGE_CTRLER isnt define
 #endif
 
-DECLARE_HASHVAL(EVENT_RANKUP_WAS_END);
+DECLARE_EVENT_VAL(EVENT_RANKUP_WAS_END);
 
 namespace VioletVreath {
 
@@ -42,7 +42,7 @@ public:
 
     void initialize() override;
     void processBehavior() override;
-    void onCatchEvent(hashval prm_no, void* prm_pSource) override;
+    void onCatchEvent(eventval prm_event_val, void* prm_pSource) override;
     /**
      * 配下のランクアップステージを全て開放(sayonara())する。
      */

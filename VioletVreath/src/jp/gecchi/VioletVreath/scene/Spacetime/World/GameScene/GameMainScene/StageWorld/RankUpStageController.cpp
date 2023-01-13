@@ -114,8 +114,8 @@ void RankUpStageController::processBehavior() {
     }
 
 }
-void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_RANKUP_WAS_END) {
+void RankUpStageController::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
+    if (prm_event_val == EVENT_RANKUP_WAS_END) {
         _TRACE_(FUNC_NAME<<" EVENT_RANKUP_WAS_END prm_pSource="<<prm_pSource);
         RankUpStage* pScene = (RankUpStage*)prm_pSource; //I—¹éŒ¾‚µ‚½RankUpStage
         pScene->fadeoutSceneWithBgm(SEC_F(4));

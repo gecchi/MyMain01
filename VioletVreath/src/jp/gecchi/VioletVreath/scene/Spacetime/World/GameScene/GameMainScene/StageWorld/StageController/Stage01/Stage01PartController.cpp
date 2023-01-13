@@ -81,21 +81,21 @@ void Stage01PartController::processBehavior() {
     }
 }
 
-void Stage01PartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
+void Stage01PartController::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
     ScenePhase* pPhase = getPhase();
-    if (prm_no == EVENT_STAGE01_PART_01_WAS_FINISHED) {
+    if (prm_event_val == EVENT_STAGE01_PART_01_WAS_FINISHED) {
         _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_01_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(SEC_F(60));
-    } else if (prm_no == EVENT_STAGE01_PART_02_WAS_FINISHED) {
+    } else if (prm_event_val == EVENT_STAGE01_PART_02_WAS_FINISHED) {
         _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_02_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(SEC_F(60));
-    } else if (prm_no == EVENT_STAGE01_PART_03_WAS_FINISHED) {
+    } else if (prm_event_val == EVENT_STAGE01_PART_03_WAS_FINISHED) {
         _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_03_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(SEC_F(60));
-    } else if (prm_no == EVENT_STAGE01_PART_WALL_WAS_FINISHED) {
+    } else if (prm_event_val == EVENT_STAGE01_PART_WALL_WAS_FINISHED) {
         _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_WALL_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(SEC_F(60));
-    } else if (prm_no == EVENT_STAGE01_PART_CLIMAX_WAS_FINISHED) {
+    } else if (prm_event_val == EVENT_STAGE01_PART_CLIMAX_WAS_FINISHED) {
         _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_CLIMAX_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(SEC_F(60));
         pPhase->change(PHASE_FAINAL); //フェーズをStage01PartController::PHASE_FAINALに切り替える

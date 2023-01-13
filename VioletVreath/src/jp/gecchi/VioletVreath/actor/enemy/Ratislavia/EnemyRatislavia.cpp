@@ -170,8 +170,8 @@ void EnemyRatislavia::onHit(const GgafCore::Actor* prm_pOtherActor) {
 
 }
 
-void EnemyRatislavia::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    if (prm_no == RATISLAVIA_EXPLOSION) {
+void EnemyRatislavia::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
+    if (prm_event_val == RATISLAVIA_EXPLOSION) {
         _TRACE_(FUNC_NAME<<" RATISLAVIA_EXPLOSION ƒLƒƒƒbƒ`");
         setHitAble(false);
         getPhase()->change(PHASE_EXPLOSION);

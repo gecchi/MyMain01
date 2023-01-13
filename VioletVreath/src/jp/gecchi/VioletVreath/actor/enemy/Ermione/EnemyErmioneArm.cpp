@@ -164,14 +164,14 @@ void EnemyErmioneArm::onInactive() {
     sayonara();
 }
 
-void EnemyErmioneArm::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    if ( prm_no == EVENT_ERMIONE_SAYONARA) {
+void EnemyErmioneArm::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
+    if ( prm_event_val == EVENT_ERMIONE_SAYONARA) {
         //本体破壊時
         setHitAble(false);
         UTIL::activateExplosionEffectOf(this);//爆発エフェ
         sayonara();
     }
-    if ( prm_no == EVENT_ERMIONE_ENTRY_DONE) {
+    if ( prm_event_val == EVENT_ERMIONE_ENTRY_DONE) {
         setHitAble(true);
         getPhase()->change(PHASE_NOTHING);
     }

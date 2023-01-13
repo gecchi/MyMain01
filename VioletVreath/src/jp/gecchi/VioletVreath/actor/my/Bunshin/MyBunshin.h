@@ -11,7 +11,7 @@
 
 namespace VioletVreath {
 
-DECLARE_HASHVAL(EVENT_MyBunshin_ChangeGeoFinal);
+DECLARE_EVENT_VAL(EVENT_MyBunshin_ChangeGeoFinal);
 
 #define MAX_LASER_CHIP_NUM (85)
 #define MAX_AIM_INFO_NUM (MAX_LASER_CHIP_NUM / 2)

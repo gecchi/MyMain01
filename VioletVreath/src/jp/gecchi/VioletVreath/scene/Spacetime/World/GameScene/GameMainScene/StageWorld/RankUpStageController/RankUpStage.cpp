@@ -137,7 +137,7 @@ void RankUpStage::processBehavior() {
 
 }
 
-void RankUpStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
+void RankUpStage::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
 }
 
 RankUpStage::~RankUpStage() {

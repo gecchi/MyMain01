@@ -12,7 +12,7 @@
 #include <iomanip>
 #include "jp/ggaf/core/exception/CriticalException.h"
 
-#define DECLARE_HASHVAL(X) const static hashval X = GgafCore::Util::easy_hash(#X)
+#define DECLARE_EVENT_VAL(X) const static eventval X = (eventval)GgafCore::Util::easy_hash(#X)
 #define HASHVAL(X) GgafCore::Util::easy_hash(#X)
 
 #define XTOS(X) (GgafCore::Util::_xtos_(X))

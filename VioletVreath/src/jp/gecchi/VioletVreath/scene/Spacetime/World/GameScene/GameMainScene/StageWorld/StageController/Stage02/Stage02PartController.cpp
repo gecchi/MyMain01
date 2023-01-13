@@ -87,12 +87,12 @@ void Stage02PartController::processBehavior() {
 }
 
 
-void Stage02PartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
+void Stage02PartController::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
     ScenePhase* pPhase = getPhase();
-    if (prm_no == EVENT_STAGE02_01_WAS_FINISHED) {
+    if (prm_event_val == EVENT_STAGE02_01_WAS_FINISHED) {
         _TRACE_(FUNC_NAME<<" EVENT_STAGE02_01_WAS_FINISHED");
         ((Stage*)prm_pSource)->sayonara(SEC_F(60));
-    } else if (prm_no == EVENT_STAGE02_CLIMAX_WAS_FINISHED) {
+    } else if (prm_event_val == EVENT_STAGE02_CLIMAX_WAS_FINISHED) {
         _TRACE_(FUNC_NAME<<" EVENT_STAGE02_CLIMAX_WAS_FINISHEDキャッチした。STAGE02PARTCONTROLLER_ENDINGを投げる");
         ((Stage*)prm_pSource)->sayonara(SEC_F(60));
         pPhase->change(PHASE_FAINAL); //フェーズをStage02PartController::PHASE_FAINALに切り替える

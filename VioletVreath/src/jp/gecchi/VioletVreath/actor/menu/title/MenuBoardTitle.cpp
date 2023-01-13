@@ -155,10 +155,10 @@ void MenuBoardTitle::processBehavior() {
 
 }
 
-void MenuBoardTitle::onCatchEvent(hashval prm_no, void* prm_pSource) {
+void MenuBoardTitle::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
     //デバッグ
     GgafCore::Phase* pPhase = getPhase();
-    if (prm_no == EVENT_MENU_NAMEENTRY_DONE) {
+    if (prm_event_val == EVENT_MENU_NAMEENTRY_DONE) {
         _TRACE_("MenuBoardTitle::onCatchEvent(EVENT_MENU_NAMEENTRY_DONE)");
         getSubMenu(MENU_NAME_ENTRY)->sinkMe(); //ネームエントリー板消去
     }

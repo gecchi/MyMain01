@@ -74,10 +74,10 @@ public:
 
     /**
      * 何かのイベント処理<BR>
-     * @param prm_no イベント番号
+     * @param prm_event_val イベント番号
      * @param prm_pSource イベント発生元
      */
-    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
+    virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override {
     }
 
     /**

@@ -99,22 +99,22 @@ void Scene::afterDraw() {
     _pSceneMediator->afterDraw();
 }
 
-void Scene::throwEventLowerTree(hashval prm_no, void* prm_pSource) {
-    Element<Scene>::throwEventLowerTree(prm_no, prm_pSource);
-    _pSceneMediator->throwEventLowerTree(prm_no, prm_pSource);
+void Scene::throwEventLowerTree(eventval prm_event_val, void* prm_pSource) {
+    Element<Scene>::throwEventLowerTree(prm_event_val, prm_pSource);
+    _pSceneMediator->throwEventLowerTree(prm_event_val, prm_pSource);
 }
 
-void Scene::throwEventLowerTree(hashval prm_no) {
-    Element<Scene>::throwEventLowerTree(prm_no);
-    _pSceneMediator->throwEventLowerTree(prm_no);
+void Scene::throwEventLowerTree(eventval prm_event_val) {
+    Element<Scene>::throwEventLowerTree(prm_event_val);
+    _pSceneMediator->throwEventLowerTree(prm_event_val);
 }
 
-void Scene::throwEventUpperTree(hashval prm_no, void* prm_pSource) {
-    Element<Scene>::throwEventUpperTree(prm_no, prm_pSource);
+void Scene::throwEventUpperTree(eventval prm_event_val, void* prm_pSource) {
+    Element<Scene>::throwEventUpperTree(prm_event_val, prm_pSource);
 }
 
-void Scene::throwEventUpperTree(hashval prm_no) {
-    Element<Scene>::throwEventUpperTree(prm_no);
+void Scene::throwEventUpperTree(eventval prm_event_val) {
+    Element<Scene>::throwEventUpperTree(prm_event_val);
 }
 
 void Scene::doFinally() {

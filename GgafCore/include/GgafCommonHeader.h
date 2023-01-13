@@ -340,7 +340,7 @@ typedef uint32_t kind_t;
 typedef uint_fast32_t frame;
 /** ハッシュ数値 */
 typedef uint64_t hashval;
-
+typedef hashval eventval;
 #define Obj_SceneBit              (0x8000000000000000ULL)       //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
 
 #define Obj_ggaf_Scene             ((0x1ULL) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
@@ -385,7 +385,7 @@ template<class T>
 class Element;
 
 template<class T>
-class LinkedListRing;
+class RingLinkedList;
 
 template<class VAL_TYPE>
 class TrapezoidalVeloValue;

@@ -144,9 +144,9 @@ void NameEntryScene::processBehavior() {
      }
 }
 
-void NameEntryScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
+void NameEntryScene::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
     GgafCore::Phase* pPhase = getPhase();
-    if (prm_no == EVENT_MENU_NAMEENTRY_DONE) {
+    if (prm_event_val == EVENT_MENU_NAMEENTRY_DONE) {
         _TRACE_("NameEntryScene::onCatchEvent(EVENT_MENU_NAMEENTRY_DONE)");
         pPhase->change(PHASE_DONE_DISP);
     }

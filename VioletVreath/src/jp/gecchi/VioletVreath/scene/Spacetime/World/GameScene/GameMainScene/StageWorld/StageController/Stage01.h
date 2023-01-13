@@ -5,7 +5,7 @@
 
 namespace VioletVreath {
 
-DECLARE_HASHVAL(EVENT_STAGE01_PART_CTRLER_WAS_END);
+DECLARE_EVENT_VAL(EVENT_STAGE01_PART_CTRLER_WAS_END);
 
 /**
  * ステージ01 .
@@ -32,7 +32,7 @@ public:
     virtual void initialize() override;
     virtual void processBehavior() override;
     virtual void processJudgement() override;
-    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override;
+    virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override;
     virtual ~Stage01();
 };
 

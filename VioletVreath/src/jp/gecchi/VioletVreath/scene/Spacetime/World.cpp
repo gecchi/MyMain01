@@ -223,7 +223,7 @@ void World::processBehavior() {
 #endif
 
 
-    DECLARE_HASHVAL(ASTER);
+    DECLARE_EVENT_VAL(ASTER);
     Caretaker* pCaretaker = (Caretaker*)askCaretaker();
     ScenePhase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {

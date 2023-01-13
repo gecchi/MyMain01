@@ -3,7 +3,7 @@
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/ex/Formation.h"
 
-#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/util/RingLinkedList.hpp"
 
 namespace GgafCore {
 
@@ -24,7 +24,7 @@ class DepositoryFormation : public Formation {
 
 public:
     /** [r]編隊要素として管理されているアクターのリスト */
-    LinkedListRing<Actor> _listFollower;
+    RingLinkedList<Actor> _listFollower;
     bool _can_called_up;
     /** [r]構成メンバーのストッカー（nullptrの場合構成メンバーは配下アクターのはず） */
     ActorDepository* _pDepo;

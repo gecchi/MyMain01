@@ -16,10 +16,10 @@ _pScene_platform(nullptr)
     setHitAble(false);
 }
 
-void SceneMediator::throwEventUpperTree(hashval prm_no, void* prm_pSource) {
+void SceneMediator::throwEventUpperTree(eventval prm_event_val, void* prm_pSource) {
     Scene* s = getPlatformScene();
     if (s) {
-        s->throwEventUpperTree(prm_no, this); //自分より上位は居ない。そこで所属シーンへ投げる
+        s->throwEventUpperTree(prm_event_val, this); //自分より上位は居ない。そこで所属シーンへ投げる
     }
 }
 

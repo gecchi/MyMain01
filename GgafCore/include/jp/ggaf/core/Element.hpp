@@ -340,54 +340,54 @@ public:
      * 自ノードと自ノードよりも親にあたるノード全てにイベントメッセージを通知(通知対象：ツリー全て) .
      * 但し、ノードは正しいツリーの一員でなければ通知されません。<BR>
      * 正しいツリーの一員とは、_can_live_flg と _was_initialize_flg が true である事です。<BR>
-     * イベントを受け取る側は、onCatchEvent(hashval, void) を実装が必要です。<BR>
-     * 自身の onCatchEvent(hashval, void) にも通知されるので注意して下さい。<BR>
-     * @param prm_no イベントメッセージ番号
+     * イベントを受け取る側は、onCatchEvent(eventval, void) を実装が必要です。<BR>
+     * 自身の onCatchEvent(eventval, void) にも通知されるので注意して下さい。<BR>
+     * @param prm_event_val イベントメッセージ番号
      * @param prm_pSource  イベント用汎用ポインタ
      */
-    virtual void throwEventUpperTree(hashval prm_no, void* prm_pSource);
+    virtual void throwEventUpperTree(eventval prm_event_val, void* prm_pSource);
 
     /**
      * 自ノードと自ノードよりも親にあたるノード全てにイベントメッセージを通知(通知対象：ツリー全て) .
      * 但し、ノードは正しいツリーの一員でなければ通知されません。<BR>
      * 正しいツリーの一員とは、_can_live_flg と _was_initialize_flg が true である事です。<BR>
-     * イベントを受け取る側は、onCatchEvent(hashval, void) を実装が必要です。<BR>
-     * 自身の onCatchEvent(hashval, void) にも通知されるので注意して下さい。<BR>
+     * イベントを受け取る側は、onCatchEvent(eventval, void) を実装が必要です。<BR>
+     * 自身の onCatchEvent(eventval, void) にも通知されるので注意して下さい。<BR>
      * 汎用引数 void* には、this が設定されます。<BR>
-     * @param prm_no イベントメッセージ番号
+     * @param prm_event_val イベントメッセージ番号
      */
-    virtual void throwEventUpperTree(hashval prm_no) {
-        throwEventUpperTree(prm_no, this);
+    virtual void throwEventUpperTree(eventval prm_event_val) {
+        throwEventUpperTree(prm_event_val, this);
     }
 
 
     /**
      * 自ノードとその配下ノード全てにイベントメッセージを通知します(通知対象：所属の親全て) .
-     * イベントを受け取る側は、onCatchEvent(hashval, void) を実装が必要である。<BR>
-     * 自身の onCatchEvent(hashval, void) にも通知されるので注意して下さい。<BR>
-     * @param prm_no イベントメッセージ番号
+     * イベントを受け取る側は、onCatchEvent(eventval, void) を実装が必要である。<BR>
+     * 自身の onCatchEvent(eventval, void) にも通知されるので注意して下さい。<BR>
+     * @param prm_event_val イベントメッセージ番号
      * @param prm_pSource  イベント用汎用ポインタ
      */
-    virtual void throwEventLowerTree(hashval prm_no, void* prm_pSource);
+    virtual void throwEventLowerTree(eventval prm_event_val, void* prm_pSource);
 
     /**
      * 自ノードとその配下ノード全てにイベントメッセージを通知します(通知対象：所属の親全て) .
-     * イベントを受け取る側は、onCatchEvent(hashval, void) を実装が必要である。<BR>
-     * 自身の onCatchEvent(hashval, void) にも通知されるので注意して下さい。<BR>
+     * イベントを受け取る側は、onCatchEvent(eventval, void) を実装が必要である。<BR>
+     * 自身の onCatchEvent(eventval, void) にも通知されるので注意して下さい。<BR>
      * 汎用引数 void* には、this が設定されます。<BR>
-     * @param prm_no イベントメッセージ番号
+     * @param prm_event_val イベントメッセージ番号
      */
-    virtual void throwEventLowerTree(hashval prm_no) {
-        throwEventLowerTree(prm_no, this);
+    virtual void throwEventLowerTree(eventval prm_event_val) {
+        throwEventLowerTree(prm_event_val, this);
     }
 
     /**
      * イベント発生時のコールバック .
      * throwEventUpperTree() throwEventLowerTree() で発した場合コールバックされます。<BR>
-     * @param prm_no イベントメッセージ番号
+     * @param prm_event_val イベントメッセージ番号
      * @param prm_pSource  イベント用汎用ポインタ
      */
-    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) {}
+    virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) {}
 
 
     virtual bool isDisappear();
@@ -1439,12 +1439,12 @@ void Element<T>::executeFuncLowerTree(void (*pFunc)(Object*, void*, void*, void*
 }
 
 template<class T>
-void Element<T>::throwEventLowerTree(hashval prm_no, void* prm_pSource) {
+void Element<T>::throwEventLowerTree(eventval prm_event_val, void* prm_pSource) {
     if (_can_live_flg) {
-        onCatchEvent(prm_no, prm_pSource);
+        onCatchEvent(prm_event_val, prm_pSource);
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
-            pElementTemp->throwEventLowerTree(prm_no, prm_pSource);
+            pElementTemp->throwEventLowerTree(prm_event_val, prm_pSource);
             if (pElementTemp->_is_last_flg) {
                 break;
             } else {
@@ -1455,12 +1455,12 @@ void Element<T>::throwEventLowerTree(hashval prm_no, void* prm_pSource) {
 }
 
 template<class T>
-void Element<T>::throwEventUpperTree(hashval prm_no, void* prm_pSource) {
+void Element<T>::throwEventUpperTree(eventval prm_event_val, void* prm_pSource) {
     if (_can_live_flg) {
-        onCatchEvent(prm_no, prm_pSource);
+        onCatchEvent(prm_event_val, prm_pSource);
         if (Node<T>::_pParent) {
             T* pElementTemp = Node<T>::_pParent;
-            pElementTemp->throwEventUpperTree(prm_no, prm_pSource);
+            pElementTemp->throwEventUpperTree(prm_event_val, prm_pSource);
         } else {
             //ツリーの頂点なので、再帰終了
         }

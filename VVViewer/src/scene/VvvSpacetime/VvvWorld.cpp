@@ -180,7 +180,7 @@ void VvvWorld::processBehavior() {
 
     //全部のアクターに対する定常的な処理
     if (listActorInfo_.length() > 0) {
-        GgafCore::LinkedListRing<ActorInfo>::Elem* pElem = listActorInfo_.getElemFirst();
+        GgafCore::RingLinkedList<ActorInfo>::Elem* pElem = listActorInfo_.getElemFirst();
         int n = listActorInfo_.length();
         for (int i = 0; i < n; i++) {
             ActorInfo* pActorInfo = pElem->getValue();

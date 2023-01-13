@@ -27,11 +27,11 @@ public:
         PHASE_BANPEI,
     };
 
-    hashval event_part_finish_;
+    eventval event_part_finish_;
     frame frame_of_last_event_;
     frame last_event_delay_frames_;
 public:
-    Stage01Part(const char* prm_name, hashval prm_event_part_finish = 0): VvScene<T>(prm_name, nullptr) {
+    Stage01Part(const char* prm_name, eventval prm_event_part_finish = 0): VvScene<T>(prm_name, nullptr) {
         event_part_finish_ = prm_event_part_finish;
         last_event_delay_frames_ = SEC_F(60);
         frame_of_last_event_ = MAX_FRAME - last_event_delay_frames_;

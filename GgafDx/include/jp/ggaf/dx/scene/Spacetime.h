@@ -58,7 +58,7 @@ public:
 
         void play(int index);
     };
-    GgafCore::LinkedListRing<SeArray>* _pRing_pSeArray;
+    GgafCore::RingLinkedList<SeArray>* _pRing_pSeArray;
 
 public:
     /** ƒJƒƒ‰ */

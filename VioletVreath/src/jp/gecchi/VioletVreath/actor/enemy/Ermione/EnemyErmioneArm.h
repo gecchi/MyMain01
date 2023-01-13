@@ -78,7 +78,7 @@ public:
         aiming_movable_limit_ang_ = prm_aiming_movable_limit_ang;
         aiming_ang_velo_ = prm_aiming_ang_velo;
     }
-    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override;
+    virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override;
 
     virtual ~EnemyErmioneArm();
 };

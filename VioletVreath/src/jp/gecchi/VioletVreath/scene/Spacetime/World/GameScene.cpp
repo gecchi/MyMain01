@@ -275,8 +275,8 @@ void GameScene::processBehavior() {
 
 }
 
-void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
-//    switch (prm_no) {
+void GameScene::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
+//    switch (prm_event_val) {
 //        case EVENT_CARETAKER_WILL_DEMISE:
 //
 //            break;
@@ -284,7 +284,7 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 //            break;
 //    }
     ScenePhase* pPhase = getPhase();
-    if (prm_no == EVENT_CARETAKER_WILL_DEMISE) {
+    if (prm_event_val == EVENT_CARETAKER_WILL_DEMISE) {
         _TRACE_("GameScene::onCatchEvent(EVENT_CARETAKER_WILL_DEMISE) CommonSceneを拾い上げて後に解放されるようにします。");
         //管理者が死んでしまう前に
         //CommonSceneを拾い上げ、解放順序が後になるように操作する。(共有デポジトリとかあるし)
@@ -295,32 +295,32 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         //moveFirst()する理由は、解放は末尾ノードから行われるため。
         //先にCommonSceneが解放されないようにするため。
         //template<class T> GgafCore::Node<T>::~GgafCore::Node() のコメントを参照
-    } else if (prm_no == EVENT_PREGAMETITLESCENE_FINISH) {
+    } else if (prm_event_val == EVENT_PREGAMETITLESCENE_FINISH) {
         //プレタイトルシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_PREGAMETITLESCENE_FINISH)");
         pPhase->changeWithSceneFlipping(PHASE_TITLE); //タイトルへ
 
-    } else if (prm_no == EVENT_GAMETITLESCENE_FINISH) {
+    } else if (prm_event_val == EVENT_GAMETITLESCENE_FINISH) {
         //タイトルシーンをボーっと見てたので時間切れ終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMETITLESCENE_FINISH)");
         pPhase->changeWithSceneCrossfading(PHASE_DEMO); //デモへ
 
-    } else if (prm_no == EVENT_GAMEDEMOSCENE_FINISH) {
+    } else if (prm_event_val == EVENT_GAMEDEMOSCENE_FINISH) {
         //デモシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMOSCENE_FINISH)");
         pPhase->changeWithSceneFadeoutFadein(PHASE_INIT,120,120); //最初へ
         getBgmConductor()->fadeoutStopAll(120);
 
-    } else if (prm_no == EVENT_GAMESTART) {
+    } else if (prm_event_val == EVENT_GAMESTART) {
         //スタート
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMESTART)");
         pPhase->changeWithSceneCrossfading(PHASE_BEGINNING); //オープニング（ゲームモードセレクト）へ
 
-    } else if (prm_no == EVENT_GAMEMODE_DECIDE) {
+    } else if (prm_event_val == EVENT_GAMEMODE_DECIDE) {
         //ゲームモードセレクト完了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEMODE_DECIDE)");
         pPhase->changeWithSceneCrossfading(PHASE_MAIN,600);//メインへ
-    } else if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
+    } else if (prm_event_val == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
         _TRACE_("GameScene::onCatchEvent(EVENT_ALL_MY_SHIP_WAS_DESTROYED)");
         if (pPhase->getCurrent() == PHASE_DEMO) {
             //もし万が一、デモシーン中の全機消滅ならば、デモシーン終了
@@ -329,10 +329,10 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         } else {
             pPhase->changeWithSceneCrossfading(PHASE_GAME_OVER); //ゲームオーバーへ
         }
-    } else if (prm_no == EVENT_GAMEOVERSCENE_FINISH) {
+    } else if (prm_event_val == EVENT_GAMEOVERSCENE_FINISH) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEOVERSCENE_FINISH)");
         pPhase->change(PHASE_FINISH);
-    } else if (prm_no == EVENT_GO_TO_TITLE) {
+    } else if (prm_event_val == EVENT_GO_TO_TITLE) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GO_TO_TITLE)");
         _TRACE_("UNPAUSE!(because EVENT_GO_TO_TITLE)");
         pCARETAKER->setVB(VB_PLAY);

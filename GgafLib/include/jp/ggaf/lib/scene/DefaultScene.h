@@ -52,7 +52,7 @@ public:
     virtual void processDraw() override {
     }
 
-    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
+    virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override {
     }
 
 

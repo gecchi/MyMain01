@@ -1,7 +1,7 @@
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/util/RingLinkedList.hpp"
 #include "jp/ggaf/core/util/RepeatSeq.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
@@ -103,7 +103,7 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
 
     bringSceneMediator()->appendGroupChild(_pCamera);
 
-    _pRing_pSeArray = NEW GgafCore::LinkedListRing<SeArray>();
+    _pRing_pSeArray = NEW GgafCore::RingLinkedList<SeArray>();
     for (int i = 0; i < SeTransmitterForActor::_se_delay_max_depth; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }

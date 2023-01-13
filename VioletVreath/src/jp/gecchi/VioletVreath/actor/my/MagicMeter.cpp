@@ -1,6 +1,6 @@
 #include "MagicMeter.h"
 
-#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/util/RingLinkedList.hpp"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/effect/MassBoardEffect.h"

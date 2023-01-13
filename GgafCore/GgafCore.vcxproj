@@ -90,12 +90,12 @@
     <ClInclude Include="include\jp\ggaf\core\util\lineartree\linearquadtreerounder.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\lineartree\lineartree.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\lineartree\lineartreerounder.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\linkedlistring.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\logger.h" />
     <ClInclude Include="include\jp\ggaf\core\util\RepeatSeq.h" />
     <ClInclude Include="include\jp\ggaf\core\util\resourceconnection.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\resourcemanager.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\rgb.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\ringlinkedlist.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\status.h" />
     <ClInclude Include="include\jp\ggaf\core\util\table.h" />
     <ClInclude Include="include\jp\ggaf\core\util\transitionvalue.hpp" />

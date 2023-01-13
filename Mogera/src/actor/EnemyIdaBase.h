@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
-#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/util/RingLinkedList.hpp"
 
 namespace Mogera {
 
@@ -20,7 +20,7 @@ class EnemyIdaBase : public GgafLib::DefaultMeshSetActor {
 public:
     GgafDx::CurveManufactureConnection* pConn_pCurveManuf_;
     GgafDx::VehicleLeader* pVehicleLeader_;
-    GgafCore::LinkedListRing<EnemyIda> _list_child;
+    GgafCore::RingLinkedList<EnemyIda> _list_child;
     std::ofstream* pOs_;
     /**
      * コンストラクタ
@@ -33,7 +33,7 @@ public:
     virtual void processBehavior() override;
     virtual void processJudgement() override;
     virtual void onInactive() override;
-    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override;
+    virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override;
     virtual ~EnemyIdaBase();
 };
 }

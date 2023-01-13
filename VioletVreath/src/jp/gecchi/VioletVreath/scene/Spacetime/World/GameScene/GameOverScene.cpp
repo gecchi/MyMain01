@@ -109,8 +109,8 @@ void GameOverScene::processBehavior() {
         }
      }
 }
-void GameOverScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_NAMEENTRYSCENE_FINISH) {
+void GameOverScene::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
+    if (prm_event_val == EVENT_NAMEENTRYSCENE_FINISH) {
         //ネームエントリーシーン終了時
         _TRACE_("GameOverScene::onCatchEvent(EVENT_NAMEENTRYSCENE_FINISH)");
         getPhase()->change(PHASE_FINISH);

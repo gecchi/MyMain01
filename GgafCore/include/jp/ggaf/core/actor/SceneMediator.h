@@ -77,12 +77,12 @@ public:
     }
 
 
-    void onCatchEvent(hashval prm_no, void* prm_pSource) override {
+    void onCatchEvent(eventval prm_event_val, void* prm_pSource) override {
     }
 
-    void throwEventUpperTree(hashval prm_no, void* prm_pSource) override;
-    void throwEventUpperTree(hashval prm_no) override {
-        throwEventUpperTree(prm_no, this);
+    void throwEventUpperTree(eventval prm_event_val, void* prm_pSource) override;
+    void throwEventUpperTree(eventval prm_event_val) override {
+        throwEventUpperTree(prm_event_val, this);
     }
     /**
      * “–‚½‚è”»’è•s—v‚Ì‚½‚ßí‚Éfalse‚ğ•Ô‚· .

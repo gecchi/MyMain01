@@ -43,20 +43,20 @@ enum {
     PHASE_BANPEI,
 };
 
-MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
+MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_bunshin_no) :
         DefaultGeometricActor(prm_name) {
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //DefaultGeometricActorでFKベースになるために必要
 
     trace_offset_.set(0,0,0);
-    no_ = prm_no; //１～
-    delay_r_ = RCNV(1,MAX_BUNSHIN_NUM,no_,0.4,1.0);
-    std::string bunshin_name = "Bunshin" + XTOS(no_);
+    bunshin_no_ = prm_bunshin_no; //１～
+    delay_r_ = RCNV(1,MAX_BUNSHIN_NUM,bunshin_no_,0.4,1.0);
+    std::string bunshin_name = "Bunshin" + XTOS(bunshin_no_);
     pBunshin_ = NEW MyBunshin(bunshin_name.c_str(), this);
     this->appendGroupChildAsFk(pBunshin_,
                           0, PX_C(80), 0,
                           D0ANG, D0ANG, D0ANG);
 
-    pPosTrace_ = NEW PosTrace(MyBunshinBase::BUNSHIN_D * prm_no);
+    pPosTrace_ = NEW PosTrace(MyBunshinBase::BUNSHIN_D * prm_bunshin_no);
     trace_mode_ = TRACE_GRADIUS;
     return_default_pos_frames_ = 0;
     GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
@@ -174,7 +174,7 @@ void MyBunshinBase::processBehavior() {
                 pBunshin_->effectFreeModeIgnited(); //点火エフェクト
             }
             if (is_pressed_VB_OPTION && is_pressed_VB_TURBO) {
-                if (pPhase->getFrame() >= (((MyBunshinBase::now_bunshin_num_ - (no_-1) )*5) + 10) ) { //おしりのオプションから
+                if (pPhase->getFrame() >= (((MyBunshinBase::now_bunshin_num_ - (bunshin_no_-1) )*5) + 10) ) { //おしりのオプションから
                     pPhase->change(PHASE_BUNSHIN_FREE_MODE_READY);
                 }
             } else {
@@ -191,7 +191,7 @@ void MyBunshinBase::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 pBunshin_->effectFreeModeReady(); //発射準備OKエフェクト
             }
-            if ( pPhase->getFrame() >= ((no_-1)*5) + 10 ) { //最後の分身が発射準備OKになったあと+10
+            if ( pPhase->getFrame() >= ((bunshin_no_-1)*5) + 10 ) { //最後の分身が発射準備OKになったあと+10
                 //強制発射
                 pPhase->change(PHASE_BUNSHIN_FREE_MODE_MOVE);
             } else {
@@ -249,7 +249,7 @@ void MyBunshinBase::processBehavior() {
             const coord tx = pTargetPos->x;
             const coord ty = pTargetPos->y;
             const coord tz = pTargetPos->z;
-            if (pPhase->getFrame() == 3*(no_-1)) { //ばらつかせ
+            if (pPhase->getFrame() == 3*(bunshin_no_-1)) { //ばらつかせ
 
                 // (0,1,0) × RxRzRy ＝ ( (cosRx*-sinRz*cosRy + sinRx*sinRy),  cosRx*cosRz, (cosRx*-sinRz*-sinRy + sinRx*cosRy) )
                 const double sinRx = ANG_SIN(_rx);
@@ -261,7 +261,7 @@ void MyBunshinBase::processBehavior() {
                 pAxisVehicle->setVeloXYZ( (cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
                                          (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
                                          (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
-            } else if (pPhase->getFrame() > 3*(no_-1)) { //ばらつかせ
+            } else if (pPhase->getFrame() > 3*(bunshin_no_-1)) { //ばらつかせ
                 pAxisVehicle->setAcceXYZ( (tx - (_x + pAxisVehicle->_velo_x*6)),
                                          (ty - (_y + pAxisVehicle->_velo_y*6)),
                                          (tz - (_z + pAxisVehicle->_velo_z*6)) );

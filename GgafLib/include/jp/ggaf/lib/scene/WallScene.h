@@ -3,7 +3,7 @@
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
-#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/util/RingLinkedList.hpp"
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 
 namespace GgafLib {
@@ -19,9 +19,9 @@ class WallScene : public DefaultScene {
 
 public:
     /** セクションシーンの保持リスト */
-    GgafCore::LinkedListRing<GgafLib::WallSectionScene> _ringHoldSection;
+    GgafCore::RingLinkedList<GgafLib::WallSectionScene> _ringHoldSection;
     /** 完了したセクションシーンの保持リスト */
-    GgafCore::LinkedListRing<GgafLib::WallSectionScene> _ringLoopEndSection;
+    GgafCore::RingLinkedList<GgafLib::WallSectionScene> _ringLoopEndSection;
     /** 壁ブロックを供給するデポジトリ(buildWallScene()で設定される) */
     GgafCore::ActorDepository* _pDepo_wall;
     WallSectionScene* _pLastSectionScene;

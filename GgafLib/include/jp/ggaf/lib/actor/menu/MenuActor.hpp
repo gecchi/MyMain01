@@ -2,7 +2,7 @@
 #define GGAF_LIB_MENUACTOR_H_
 #include "GgafLibCommonHeader.h"
 
-#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/util/RingLinkedList.hpp"
 #include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
@@ -175,21 +175,21 @@ protected:
 
 public:
     /** [r]メニューアイテムのリスト、アクティブはメインカーソルが選択されている */
-    GgafCore::LinkedListRing<GgafDx::FigureActor> _lstItems;
+    GgafCore::RingLinkedList<GgafDx::FigureActor> _lstItems;
     /** [r]その他表示メニューアイテムのリスト */
-    GgafCore::LinkedListRing<GgafDx::FigureActor> _lstLabelActors;
+    GgafCore::RingLinkedList<GgafDx::FigureActor> _lstLabelActors;
     /** [r]メインカーソルが移動したメニューアイテムインデックスのヒストリー(0～N、但し初期は全て -1 ) */
-    GgafCore::LinkedListRing<int> _lstMvCursorHistory;
+    GgafCore::RingLinkedList<int> _lstMvCursorHistory;
     /** [r]選択したメニューアイテムインデックスのヒストリー(0～N、但し初期は全て -1 ) */
-    GgafCore::LinkedListRing<int> _lstMvSelectHistory;
+    GgafCore::RingLinkedList<int> _lstMvSelectHistory;
     /** [r]メニューフェイドイン・アウト時のフレーム数 */
     frame _fade_frames;
     /** [r]メニューフェイドイン・アウト時のアルファ速度 */
     float _velo_alpha_fade;
     /** [r]サブメニューのリスト */
-    GgafCore::LinkedListRing<MenuActor<T> > _lstSubMenu;
+    GgafCore::RingLinkedList<MenuActor<T> > _lstSubMenu;
     /** [r]サブカーソルのリスト */
-    GgafCore::LinkedListRing<SubCursor> _lstSubCursor;
+    GgafCore::RingLinkedList<SubCursor> _lstSubCursor;
 
 public:
     /**
@@ -1061,9 +1061,9 @@ void MenuActor<T>::setPositionLabel(int prm_index_of_label, coord prm_x_local, c
 
 template<class T>
 void MenuActor<T>::relateItemToExNext(int prm_index_of_from_item, int prm_index_of_to_item) {
-    GgafCore::LinkedListRing<GgafDx::FigureActor>::Elem* pElemFrom =
+    GgafCore::RingLinkedList<GgafDx::FigureActor>::Elem* pElemFrom =
             _lstItems.getElemFromFirst(prm_index_of_from_item);
-    GgafCore::LinkedListRing<GgafDx::FigureActor>::Elem* pElemTo =
+    GgafCore::RingLinkedList<GgafDx::FigureActor>::Elem* pElemTo =
             _lstItems.getElemFromFirst(prm_index_of_to_item);
     pElemFrom->connect(ITEM_RELATION_EX_NEXT, pElemTo);
     pElemTo->connect(ITEM_RELATION_EX_PREV, pElemFrom);
@@ -1073,11 +1073,11 @@ template<class T>
 void MenuActor<T>::relateItemToExNext(int prm_index_of_item1,
                                       int prm_index_of_item2,
                                       int prm_index_of_item3 ) {
-    GgafCore::LinkedListRing<GgafDx::FigureActor>::Elem* pElem1 =
+    GgafCore::RingLinkedList<GgafDx::FigureActor>::Elem* pElem1 =
             _lstItems.getElemFromFirst(prm_index_of_item1);
-    GgafCore::LinkedListRing<GgafDx::FigureActor>::Elem* pElem2 =
+    GgafCore::RingLinkedList<GgafDx::FigureActor>::Elem* pElem2 =
             _lstItems.getElemFromFirst(prm_index_of_item2);
-    GgafCore::LinkedListRing<GgafDx::FigureActor>::Elem* pElem3 =
+    GgafCore::RingLinkedList<GgafDx::FigureActor>::Elem* pElem3 =
             _lstItems.getElemFromFirst(prm_index_of_item3);
     pElem1->connect(ITEM_RELATION_EX_NEXT, pElem2);
     pElem2->connect(ITEM_RELATION_EX_NEXT, pElem3);
@@ -1139,9 +1139,9 @@ void MenuActor<T>::relateItemToExPrev(int prm_index_of_fromitem, int prm_index_o
 
 template<class T>
 void MenuActor<T>::relateAllItemToCancel(int prm_index_of_cancel_item) {
-    GgafCore::LinkedListRing<GgafDx::FigureActor>::Elem* pCancelElem =
+    GgafCore::RingLinkedList<GgafDx::FigureActor>::Elem* pCancelElem =
             _lstItems.getElemFromFirst(prm_index_of_cancel_item);
-    GgafCore::LinkedListRing<GgafDx::FigureActor>::Elem* pElem =
+    GgafCore::RingLinkedList<GgafDx::FigureActor>::Elem* pElem =
             _lstItems.getElemFirst();
     int n = _lstItems.length();
     for (int i = 0; i < n; i++) {
@@ -1579,7 +1579,7 @@ void MenuActor<T>::riseMe() {
     T::activate();
     //メニューアイテム初期配置
     GgafDx::FigureActor* p;
-    GgafCore::LinkedListRing<GgafDx::FigureActor>::Elem* pElem = _lstItems.getElemFirst();
+    GgafCore::RingLinkedList<GgafDx::FigureActor>::Elem* pElem = _lstItems.getElemFirst();
     int n_i = _lstItems.length();
     for (int i = 0; i < n_i; i++) {
         p = pElem->getValue();
@@ -1685,7 +1685,7 @@ void MenuActor<T>::processBehavior() {
 
     //メニューアイテムをメニューに追従
     GgafDx::FigureActor* p;
-    GgafCore::LinkedListRing<GgafDx::FigureActor>::Elem* pElem = _lstItems.getElemFirst();
+    GgafCore::RingLinkedList<GgafDx::FigureActor>::Elem* pElem = _lstItems.getElemFirst();
     int n_i = _lstItems.length();
     for (int i = 0; i < n_i; i++) {
         p = pElem->getValue();

@@ -5,7 +5,7 @@
 
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
-#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/util/RingLinkedList.hpp"
 
 namespace VioletVreath {
 
@@ -16,7 +16,7 @@ namespace VioletVreath {
 #endif
 
 
-typedef GgafCore::LinkedListRing<Magic> MagicList;
+typedef GgafCore::RingLinkedList<Magic> MagicList;
 
 /**
  * 魔法メーター .

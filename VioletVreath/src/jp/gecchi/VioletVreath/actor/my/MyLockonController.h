@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/core/actor/ex/DestructActor.h"
 
-#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/util/RingLinkedList.hpp"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 
 namespace VioletVreath {
@@ -23,7 +23,7 @@ public:
     /** メインロックオンエフェクト */
     LockonCursor001_Main* pMainLockonEffect_;
     /** ロックオンターゲットリストリング */
-    GgafCore::LinkedListRing<GgafDx::GeometricActor> listTarget_;
+    GgafCore::RingLinkedList<GgafDx::GeometricActor> listTarget_;
 
 public:
     MyLockonController(const char* prm_name);

@@ -116,7 +116,7 @@ public:
     /** 自機トレースの座標からのオフセット(フリーでない場合は0) */
     GgafDx::GeoElem trace_offset_;
     /** 分身番号(1～) */
-    unsigned int no_;
+    unsigned int bunshin_no_;
     /** 分身番号1～MAXによって、バラける演出のための乗ずる割合が入る */
     double delay_r_;
     /** [r]自身を中心とした、分身の半径距離の位置(初期値) */
@@ -148,9 +148,9 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_no 分身番号 (1～)
+     * @param prm_event_val 分身番号 (1～)
      */
-    MyBunshinBase(const char* prm_name, unsigned int prm_no);
+    MyBunshinBase(const char* prm_name, unsigned int prm_bunshin_no);
 
     /**
      * 分身の設定 .
@@ -182,7 +182,7 @@ public:
 //GeometricActorの場合はコメントを外すこと
     //virtual void processDraw() override {}
 
-    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
+    virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override {}
 
     virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {}
 

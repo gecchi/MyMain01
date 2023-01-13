@@ -5,7 +5,7 @@
 #include "jp/ggaf/lib/actor/DefaultD3DXMeshActor.h"
 
 #include "jp/ggaf/lib/util/Quantity.hpp"
-#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/util/RingLinkedList.hpp"
 #include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
@@ -227,7 +227,7 @@ public:
     void moveTurbo();
 
 
-    void onCatchEvent(hashval prm_no, void* prm_pSource) override;
+    void onCatchEvent(eventval prm_event_val, void* prm_pSource) override;
 
     /**
      * é©ã@êÅÇ¡îÚÇ— .

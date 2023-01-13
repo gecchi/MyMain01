@@ -3,7 +3,7 @@
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
-#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/util/RingLinkedList.hpp"
 
 namespace GgafLib {
 
@@ -89,7 +89,7 @@ public:
     /** テーブル内の現在の敵(アクター)が出現してからのフレーム数 */
     frame _frame_of_current_part_began;
     /** 敵出現テーブル(TblElemオブジェクトの連結リスト) */
-    GgafCore::LinkedListRing<TblElem> _table;
+    GgafCore::RingLinkedList<TblElem> _table;
 
 public:
     /**
@@ -134,7 +134,7 @@ public:
     virtual void processDraw() override {
     }
 
-    virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
+    virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override {
     }
 
     virtual ~FormationTableScene();

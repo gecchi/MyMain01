@@ -113,8 +113,8 @@ void TransitStage::processJudgement() {
 void TransitStage::onInactive() {
 
 }
-void TransitStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    //if (prm_no == EVENT_STAGE01_CTRLER_WAS_END ) {
+void TransitStage::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
+    //if (prm_event_val == EVENT_STAGE01_CTRLER_WAS_END ) {
     //    _TRACE_("TransitStage::onCatchEvent(EVENT_STAGE01_CTRLER_WAS_END)");
     //    pPhase->change(Stage::PHASE_END);
     //} else {

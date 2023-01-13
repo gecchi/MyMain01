@@ -4,7 +4,7 @@
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "VvvCaretaker.h"
-#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/util/RingLinkedList.hpp"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 
 namespace VVViewer {
@@ -34,7 +34,7 @@ public:
         }
     };
 
-    GgafCore::LinkedListRing<ActorInfo> listActorInfo_;
+    GgafCore::RingLinkedList<ActorInfo> listActorInfo_;
     /** 入力受付 */
     GgafLib::VirtualButton* vb_;
     /** カーソル */

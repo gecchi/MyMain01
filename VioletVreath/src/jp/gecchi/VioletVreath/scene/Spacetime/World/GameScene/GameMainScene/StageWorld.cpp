@@ -59,8 +59,8 @@ void StageWorld::processBehavior() {
         //can_rank_up_ = false;
     }
 }
-void StageWorld::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_RANKUP_WAS_END) {
+void StageWorld::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
+    if (prm_event_val == EVENT_RANKUP_WAS_END) {
         _TRACE_(FUNC_NAME<<" EVENT_RANKUP_WAS_END");
         //スロー回復
         _TRACE_("pSTAGE_CTRLER をスロー回復");

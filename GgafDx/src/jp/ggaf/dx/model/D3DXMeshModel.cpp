@@ -146,7 +146,7 @@ void D3DXMeshModel::restore() {
     std::string model_def_file = std::string(_model_id) + ".meshx";
     std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
     pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-    _matBaseTransformMatrix = xdata.BaseTransformMatrix; //TODO:これは使われていない。どうやって適用しようか・・・
+    _matBaseTransformMatrix = xdata.BaseTransformMatrix;
     _draw_set_num = xdata.DrawSetNum;
     if (_draw_set_num != 1) {
         _TRACE_("D3DXMeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");

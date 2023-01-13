@@ -194,13 +194,13 @@ void StageController::processBehavior() {
 //    http://msdn.microsoft.com/en-us/library/cby9kycs.aspx
 
 }
-void StageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_PREPARE_TRANSIT_STAGE) {
+void StageController::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
+    if (prm_event_val == EVENT_PREPARE_TRANSIT_STAGE) {
         _TRACE_("StageController::onCatchEvent(EVENT_PREPARE_TRANSIT_STAGE)");
         pTransitStage_->ready(main_stage_);
     }
 
-    if (prm_no == EVENT_PREPARE_NEXT_STAGE) {
+    if (prm_event_val == EVENT_PREPARE_NEXT_STAGE) {
         _TRACE_("StageController::onCatchEvent(EVENT_PREPARE_NEXT_STAGE)");
         int next_stage = *((int*)(prm_pSource));
         readyStage(next_stage);//次のステージ準備
@@ -210,26 +210,26 @@ void StageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
 //        }
     }
     ScenePhase* pPhase = getPhase();
-    if (prm_no == EVENT_STAGEDEBUG_WAS_FINISHED) {
+    if (prm_event_val == EVENT_STAGEDEBUG_WAS_FINISHED) {
         _TRACE_("StageController::onCatchEvent(EVENT_STAGEDEBUG_WAS_FINISHED)");
         pStageMainCannel_->sayonara(SEC_F(3));
         pStageMainCannel_->fadeoutSceneWithBgmTree(SEC_F(3));
         pPhase->change(PHASE_PLAY_TRANSIT);
     }
 
-    if (prm_no == EVENT_STAGE01_WAS_FINISHED) {
+    if (prm_event_val == EVENT_STAGE01_WAS_FINISHED) {
         _TRACE_("StageController::onCatchEvent(EVENT_STAGE01_WAS_FINISHED)");
         pStageMainCannel_->sayonara(SEC_F(3));
         pStageMainCannel_->fadeoutSceneWithBgmTree(SEC_F(3));
         pPhase->change(PHASE_PLAY_TRANSIT);
     }
-    if (prm_no == EVENT_STAGE02_WAS_FINISHED) {
+    if (prm_event_val == EVENT_STAGE02_WAS_FINISHED) {
         _TRACE_("StageController::onCatchEvent(EVENT_STAGE02_WAS_FINISHED)");
         pStageMainCannel_->sayonara(SEC_F(3));
         pStageMainCannel_->fadeoutSceneWithBgmTree(SEC_F(3));
         pPhase->change(PHASE_PLAY_TRANSIT);
     }
-    if (prm_no == EVENT_TRANSIT_WAS_END) {
+    if (prm_event_val == EVENT_TRANSIT_WAS_END) {
         _TRACE_("StageController::onCatchEvent(EVENT_TRANSIT_WAS_END)");
         pTransitStage_->inactivateDelay(SEC_F(3));
         pTransitStage_->fadeoutSceneWithBgmTree(SEC_F(3));

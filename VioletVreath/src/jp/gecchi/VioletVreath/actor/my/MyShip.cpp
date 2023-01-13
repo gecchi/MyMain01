@@ -1007,7 +1007,7 @@ void MyShip::setMoveSpeed(velo prm_speed_velo) {
     veloBeginMT_ = mv_speed_ * 20;
 }
 
-void MyShip::onCatchEvent(hashval prm_no, void* prm_pSource) {
+void MyShip::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
 }
 
 void MyShip::setBlownVelo(velo prm_blown_veloX, velo prm_blown_veloY, velo prm_blown_veloZ, double prm_r_blown_velo_attenuate) {

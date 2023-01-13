@@ -18,7 +18,7 @@ namespace GgafCore {
  * Object* C = new Object();
  * Object* D = new Object();
  * Object* E = new Object();
- * LinkedListRing<Object> ring_list = LinkedListRing<Object>();
+ * RingLinkedList<Object> ring_list = RingLinkedList<Object>();
  * ring_list.addLast(A);
  * ring_list.addLast(B);
  * ring_list.addLast(C);
@@ -45,7 +45,7 @@ namespace GgafCore {
  * カレント要素 :[A]     (=getCurrent();)
  * </pre>
  * テンプレート引数は内部保持するポインタの型を指定します。<BR>
- * つまり、「LinkedListRing<Object*>();」ではなく「LinkedListRing<Object>();」とすることとします。<BR>
+ * つまり、「RingLinkedList<Object*>();」ではなく「RingLinkedList<Object>();」とすることとします。<BR>
  * 『[A]』の『 [ ] 』 は、『要素』と呼ばれる入れ物（コンテナ）を表し、『[A]』の『A』は要素が保持する『値』を表しています。<BR>
  * 図の『⇔』は、要素同士がお互いポインタを指しあっている事を示しています。<BR>
  * "!" はカレント要素(カーソルが指しているようなもの)で、本テンプレートメソッドによる機能の基準となる要素です。<BR>
@@ -64,7 +64,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 template<class T>
-class LinkedListRing: public Object {
+class RingLinkedList: public Object {
 
 public:
     /**
@@ -95,7 +95,7 @@ public:
          * コンストラクタ
          * @param prm_pValue 値（ポインタ）
          * @param prm_relation_num 追加確保する関連要素数
-         * @param prm_is_delete_value true  : LinkedListRingインスタンスdelete時に、要素(_pValue)もdeleteする。<BR>
+         * @param prm_is_delete_value true  : RingLinkedListインスタンスdelete時に、要素(_pValue)もdeleteする。<BR>
          *                            false : 要素(_pValue)をdeleteしない。
          */
         Elem(const T* prm_pValue, int prm_relation_num,
@@ -158,14 +158,14 @@ public:
      * 拡張関連要素数とは、next prev 以外にリレーションを行う枝数です。
      * @param prm_extend_relation_num 拡張関連要素数
      */
-    LinkedListRing(int prm_extend_relation_num = 0);
+    RingLinkedList(int prm_extend_relation_num = 0);
 
     /**
      * デストラクタ.
      * 内部保持する要素の値は、nullptrで無い場合、それぞれ delete により解放されます。<BR>
      * TODO:delete[] やその他の解放方法に対応
      */
-    virtual ~LinkedListRing();
+    virtual ~RingLinkedList();
 
     /**
      * 引数の値を、カレント要素の「次」に追加する。
@@ -708,7 +708,7 @@ public:
      * Object* C = new Object();
      * Object* D = new Object();
      * Object* E = new Object();
-     * LinkedListRing<Object> ring_list = LinkedListRing<Object>();
+     * RingLinkedList<Object> ring_list = RingLinkedList<Object>();
      * ring_list.addLast(A);
      * ring_list.addLast(B);
      * ring_list.addLast(C);
@@ -806,7 +806,7 @@ public:
      * prm1, prm2, prm3 は、引数関数ポインタの void*, void*, void* に渡ってきます。(キャプチャ的に使って！)<BR>
      * <BR>
      * ＜使用例＞<BR>
-     * フォーメーションの編隊メンバーのオブジェクト(Actor*)が、LinkedListRingリスト(listFollowers_)に
+     * フォーメーションの編隊メンバーのオブジェクト(Actor*)が、RingLinkedListリスト(listFollowers_)に
      * 管理されているとする。<BR>
      * この編隊メンバー全員に、加速命令(order1)を出す。加速の速度は int velo_mv_ とする。
      * といった場合、以下のような感になる。<BR>
@@ -816,7 +816,7 @@ public:
      * class FormationXXX : public DepositoryFormation {
      * public :
      *     int velo_mv_;
-     *     LinkedListRing<Actor> listFollowers_;
+     *     RingLinkedList<Actor> listFollowers_;
      *
      *     static void FormationXXX::order1(Actor* prm_pActor, void* p1, void* p2, void* p3) {
      *         //個々のメンバー加速
@@ -860,7 +860,7 @@ public:
  */
 
 template<class T>
-LinkedListRing<T>::LinkedListRing(int prm_extend_relation_num) :
+RingLinkedList<T>::RingLinkedList(int prm_extend_relation_num) :
         Object() {
     _num_elem = 0;
     _pElemActive = nullptr;
@@ -871,11 +871,11 @@ LinkedListRing<T>::LinkedListRing(int prm_extend_relation_num) :
 
 
 template<class T>
-void LinkedListRing<T>::addNext(const T* prm_pNew,
+void RingLinkedList<T>::addNext(const T* prm_pNew,
         bool prm_is_delete_value) {
 //#ifdef MY_DEBUG
 //    if (prm_pNew == nullptr) {
-//        throwCriticalException("[LinkedListRing::addNext()] Error! 引数がnullptrです");
+//        throwCriticalException("[RingLinkedList::addNext()] Error! 引数がnullptrです");
 //    }
 //#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
@@ -907,11 +907,11 @@ void LinkedListRing<T>::addNext(const T* prm_pNew,
 }
 
 template<class T>
-void LinkedListRing<T>::addPrev(const T* prm_pNew,
+void RingLinkedList<T>::addPrev(const T* prm_pNew,
         bool prm_is_delete_value) {
 //#ifdef MY_DEBUG
 //    if (prm_pNew == nullptr) {
-//        throwCriticalException("[LinkedListRing::addPrev()] Error! 引数がnullptrです");
+//        throwCriticalException("[RingLinkedList::addPrev()] Error! 引数がnullptrです");
 //    }
 //#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
@@ -944,11 +944,11 @@ void LinkedListRing<T>::addPrev(const T* prm_pNew,
 }
 
 template<class T>
-void LinkedListRing<T>::addLast(const T* prm_pNew,
+void RingLinkedList<T>::addLast(const T* prm_pNew,
         bool prm_is_delete_value) {
 //#ifdef MY_DEBUG
 //    if (prm_pNew == nullptr) {
-//        throwCriticalException("[LinkedListRing::addLast()] Error! 引数がnullptrです");
+//        throwCriticalException("[RingLinkedList::addLast()] Error! 引数がnullptrです");
 //    }
 //#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
@@ -979,11 +979,11 @@ void LinkedListRing<T>::addLast(const T* prm_pNew,
 }
 
 template<class T>
-void LinkedListRing<T>::addFirst(const T* prm_pNew,
+void RingLinkedList<T>::addFirst(const T* prm_pNew,
         bool prm_is_delete_value) {
 //#ifdef MY_DEBUG
 //    if (prm_pNew == nullptr) {
-//        throwCriticalException("[LinkedListRing::addFirst()] Error! 引数がnullptrです");
+//        throwCriticalException("[RingLinkedList::addFirst()] Error! 引数がnullptrです");
 //    }
 //#endif
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
@@ -1015,31 +1015,31 @@ void LinkedListRing<T>::addFirst(const T* prm_pNew,
 }
 
 template<class T>
-T* LinkedListRing<T>::next() {
+T* RingLinkedList<T>::next() {
     _pElemActive = _pElemActive->_pNext;
     return (T*) _pElemActive->_pValue;
 }
 
 template<class T>
-T* LinkedListRing<T>::prev() {
+T* RingLinkedList<T>::prev() {
     _pElemActive = _pElemActive->_pPrev;
     return (T*) _pElemActive->_pValue;
 }
 
 template<class T>
-T* LinkedListRing<T>::first() {
+T* RingLinkedList<T>::first() {
     _pElemActive = _pElem_first;
     return (T*) _pElemActive->_pValue;
 }
 
 template<class T>
-T* LinkedListRing<T>::last() {
+T* RingLinkedList<T>::last() {
     _pElemActive = _pElem_first->_pPrev; //環状なので、先頭の一つ前は末尾
     return (T*) _pElemActive->_pValue;
 }
 
 template<class T>
-T* LinkedListRing<T>::current(int n) {
+T* RingLinkedList<T>::current(int n) {
     Elem* pElem = _pElem_first;
     for (int i = 0; i < n; i++) {
         pElem = pElem->_pNext;
@@ -1049,31 +1049,31 @@ T* LinkedListRing<T>::current(int n) {
 }
 
 template<class T>
-T* LinkedListRing<T>::gotoRelation(int prm_connection_index) {
+T* RingLinkedList<T>::gotoRelation(int prm_connection_index) {
 #ifdef MY_DEBUG
     if (_relation_num-1 < prm_connection_index) {
-        throwCriticalException("LinkedListRing<T>::gotoRelation 接続要素番号の範囲外です。prm_connection_index="<<prm_connection_index);
+        throwCriticalException("RingLinkedList<T>::gotoRelation 接続要素番号の範囲外です。prm_connection_index="<<prm_connection_index);
     }
 #endif
     _pElemActive = _pElemActive->_papRelation[prm_connection_index];
 #ifdef MY_DEBUG
     if (_pElemActive == nullptr) {
-        throwCriticalException("LinkedListRing<T>::gotoRelation 接続要素番号の要素が未設定です。prm_connection_index="<<prm_connection_index);
+        throwCriticalException("RingLinkedList<T>::gotoRelation 接続要素番号の要素が未設定です。prm_connection_index="<<prm_connection_index);
     }
 #endif
     return (T*) _pElemActive->_pValue;
 }
 
 template<class T>
-T* LinkedListRing<T>::getNext() const {
+T* RingLinkedList<T>::getNext() const {
     return (T*) _pElemActive->_pNext->_pValue;
 }
 
 template<class T>
-T* LinkedListRing<T>::getNext(int n) const {
+T* RingLinkedList<T>::getNext(int n) const {
 #ifdef MY_DEBUG
     if (n < 0) {
-        throwCriticalException("LinkedListRing<T>::getNext 引数には正の整数を設定する必要があります n="<<n);
+        throwCriticalException("RingLinkedList<T>::getNext 引数には正の整数を設定する必要があります n="<<n);
     }
 #endif
     if (_papLinearVal) { //インデックスあり
@@ -1090,7 +1090,7 @@ T* LinkedListRing<T>::getNext(int n) const {
 }
 
 //template<class T>
-//T* LinkedListRing<T>::getFromCurrent(int n) const {
+//T* RingLinkedList<T>::getFromCurrent(int n) const {
 //    if (_papLinearVal) { //インデックスあり
 //      int i = _pElemActive->_idx + n;
 //      if (i >= _num_elem) {
@@ -1122,10 +1122,10 @@ T* LinkedListRing<T>::getNext(int n) const {
 //}
 
 template<class T>
-T* LinkedListRing<T>::getFromFirst(int n) const {
+T* RingLinkedList<T>::getFromFirst(int n) const {
 #ifdef MY_DEBUG
     if (n < 0) {
-        throwCriticalException("LinkedListRing<T>::getFromFirst 引数には正の整数を設定する必要があります n="<<n);
+        throwCriticalException("RingLinkedList<T>::getFromFirst 引数には正の整数を設定する必要があります n="<<n);
     }
 #endif
     Elem* pElem = _pElem_first;
@@ -1144,15 +1144,15 @@ T* LinkedListRing<T>::getFromFirst(int n) const {
 }
 
 template<class T>
-T* LinkedListRing<T>::getPrev() const {
+T* RingLinkedList<T>::getPrev() const {
     return (T*) _pElemActive->_pPrev->_pValue;
 }
 
 template<class T>
-T* LinkedListRing<T>::getPrev(int n) const {
+T* RingLinkedList<T>::getPrev(int n) const {
 #ifdef MY_DEBUG
     if (n < 0) {
-        throwCriticalException("LinkedListRing<T>::getPrev 引数には正の整数を設定する必要があります n="<<n);
+        throwCriticalException("RingLinkedList<T>::getPrev 引数には正の整数を設定する必要があります n="<<n);
     }
 #endif
     if (_papLinearVal) { //インデックスあり
@@ -1169,17 +1169,17 @@ T* LinkedListRing<T>::getPrev(int n) const {
 }
 
 template<class T>
-T* LinkedListRing<T>::getFirst() const {
+T* RingLinkedList<T>::getFirst() const {
     return (T*) _pElem_first->_pValue;
 }
 
 template<class T>
-T* LinkedListRing<T>::getLast() const {
+T* RingLinkedList<T>::getLast() const {
     return (T*) _pElem_first->_pPrev->_pValue; //環状なので、先頭の一つ前は末尾
 }
 
 template<class T>
-T* LinkedListRing<T>::getCurrent() const {
+T* RingLinkedList<T>::getCurrent() const {
     if (_pElemActive == nullptr) {
         return nullptr;
     } else {
@@ -1188,10 +1188,10 @@ T* LinkedListRing<T>::getCurrent() const {
 }
 
 template<class T>
-T* LinkedListRing<T>::getRelation(int prm_connection_index) const {
+T* RingLinkedList<T>::getRelation(int prm_connection_index) const {
 #ifdef MY_DEBUG
     if (_relation_num-1 < prm_connection_index) {
-        throwCriticalException("LinkedListRing<T>::getRelation 接続要素番号の範囲外です。prm_connection_index="<<prm_connection_index);
+        throwCriticalException("RingLinkedList<T>::getRelation 接続要素番号の範囲外です。prm_connection_index="<<prm_connection_index);
     }
 #endif
     Elem* pE = _pElemActive->_papRelation[prm_connection_index];
@@ -1203,7 +1203,7 @@ T* LinkedListRing<T>::getRelation(int prm_connection_index) const {
 }
 
 template<class T>
-int LinkedListRing<T>::getCurrentIndex() const {
+int RingLinkedList<T>::getCurrentIndex() const {
     if (_pElemActive == nullptr) {
         return -1;
     } else {
@@ -1226,20 +1226,20 @@ int LinkedListRing<T>::getCurrentIndex() const {
 }
 
 template<class T>
-bool LinkedListRing<T>::isLast() const {
+bool RingLinkedList<T>::isLast() const {
     return _pElemActive->_is_last_flg;
 }
 
 template<class T>
-bool LinkedListRing<T>::isFirst() const {
+bool RingLinkedList<T>::isFirst() const {
     return _pElemActive->_is_first_flg;
 }
 
 template<class T>
-T* LinkedListRing<T>::replace(const T* prm_pVal) {
+T* RingLinkedList<T>::replace(const T* prm_pVal) {
 #ifdef MY_DEBUG
     if (_pElemActive == nullptr) {
-        throwCriticalException("LinkedListRing<T>::replace カレント要素が存在しません");
+        throwCriticalException("RingLinkedList<T>::replace カレント要素が存在しません");
     }
 #endif
     const T* pValue = _pElemActive->_pValue;
@@ -1260,7 +1260,7 @@ T* LinkedListRing<T>::replace(const T* prm_pVal) {
 }
 
 template<class T>
-T* LinkedListRing<T>::remove() {
+T* RingLinkedList<T>::remove() {
     Elem* pMy = _pElemActive;
     if (pMy) {
         if (_papLinearVal) {
@@ -1304,7 +1304,7 @@ T* LinkedListRing<T>::remove() {
 }
 
 template<class T>
-void LinkedListRing<T>::removeAll() {
+void RingLinkedList<T>::removeAll() {
     if (_papLinearVal) {
         //要素数が変更されるのでインデックスは無効にする
         GGAF_DELETEARR(_papLinearVal);
@@ -1327,7 +1327,7 @@ void LinkedListRing<T>::removeAll() {
 }
 
 template<class T>
-int LinkedListRing<T>::indexOf(const T* prm_pVal) const {
+int RingLinkedList<T>::indexOf(const T* prm_pVal) const {
     if (_pElem_first == nullptr) {
         return -1;
     }
@@ -1349,12 +1349,12 @@ int LinkedListRing<T>::indexOf(const T* prm_pVal) const {
 }
 
 template<class T>
-int LinkedListRing<T>::length() const {
+int RingLinkedList<T>::length() const {
     return _num_elem;
 }
 
 template<class T>
-void LinkedListRing<T>::createIndex() {
+void RingLinkedList<T>::createIndex() {
     if (_papLinearVal) {
         GGAF_DELETEARR(_papLinearVal);
     }
@@ -1369,8 +1369,8 @@ void LinkedListRing<T>::createIndex() {
 }
 
 template<class T>
-LinkedListRing<T>::~LinkedListRing() {
-    _TRACE_("LinkedListRing<T>::~LinkedListRing() _num_elem="<<_num_elem);
+RingLinkedList<T>::~RingLinkedList() {
+    _TRACE_("RingLinkedList<T>::~RingLinkedList() _num_elem="<<_num_elem);
     //自分に子がある場合
     if (_pElem_first) {
         //まず子をdelete

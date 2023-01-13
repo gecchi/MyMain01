@@ -5,7 +5,7 @@
 
 namespace Mogera {
 
-DECLARE_HASHVAL(EVENT_START_MOVING);
+DECLARE_EVENT_VAL(EVENT_START_MOVING);
 
 class ParallelCurveTestScene : public GgafLib::DefaultScene {
 

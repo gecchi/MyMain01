@@ -37,7 +37,7 @@ void Stage::processBehavior() {
 
     }
 }
-void Stage::onCatchEvent(hashval prm_no, void* prm_pSource) {
+void Stage::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
 }
 
 Stage::~Stage() {

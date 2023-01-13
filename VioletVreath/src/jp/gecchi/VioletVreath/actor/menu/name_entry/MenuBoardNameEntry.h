@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/menu/MenuBoard.h"
 
-DECLARE_HASHVAL(EVENT_MENU_NAMEENTRY_DONE);
+DECLARE_EVENT_VAL(EVENT_MENU_NAMEENTRY_DONE);
 
 namespace VioletVreath {
 

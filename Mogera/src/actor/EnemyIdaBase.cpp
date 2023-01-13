@@ -86,8 +86,8 @@ void EnemyIdaBase::processJudgement() {
 void EnemyIdaBase::onInactive() {
 }
 
-void EnemyIdaBase::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    if (prm_no == EVENT_START_MOVING) {
+void EnemyIdaBase::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
+    if (prm_event_val == EVENT_START_MOVING) {
         _TRACE_(FUNC_NAME<<" EVENT_START_PLOT !!");
         GgafCore::Phase* pPhase = getPhase();
         pPhase->change(PHASE_MOVE);

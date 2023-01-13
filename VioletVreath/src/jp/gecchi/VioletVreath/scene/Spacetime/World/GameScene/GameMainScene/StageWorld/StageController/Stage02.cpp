@@ -77,9 +77,9 @@ void Stage02::processBehavior() {
 void Stage02::processJudgement() {
 }
 
-void Stage02::onCatchEvent(hashval prm_no, void* prm_pSource) {
+void Stage02::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
     ScenePhase* pPhase = getPhase();
-    if (prm_no == EVENT_STAGE02_CTRLER_WAS_END ) {
+    if (prm_event_val == EVENT_STAGE02_CTRLER_WAS_END ) {
         _TRACE_(FUNC_NAME<<" STAGEXXCONTROLLER_ENDING をキャッチ。ステータスをStage::PHASE_ENDへ");
         pScene_StagePartCtrler_->sayonara(SEC_F(60));
         pPhase->change(Stage::PHASE_END);
