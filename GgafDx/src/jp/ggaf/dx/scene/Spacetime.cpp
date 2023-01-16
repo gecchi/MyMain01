@@ -85,6 +85,18 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
     _TRACE_("Spacetime World  Bound = X("<<_x_bound_left<<" ~ "<<_x_bound_right<<") Y("<<_y_bound_bottom<<" ~ "<<_y_bound_top<<") Z("<<_z_bound_near<<" ~ "<<_z_bound_far<<")");
     _TRACE_("Spacetime Screen Bound = X("<<_x_bound_left_b<<" ~ "<<_x_bound_right_b<<") Y("<<_y_bound_top_b<<" ~ "<<_y_bound_bottom_b<<")");
 
+    _w_r =  1.0 * CONFIG::GAME_BUFFER_WIDTH / CONFIG::RENDER_TARGET_BUFFER_WIDTH;
+    _h_r =  1.0 * CONFIG::GAME_BUFFER_HEIGHT / CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
+
+    _buffer_left1 = CONFIG::RENDER_BUFFER_SOURCE1_LEFT*_w_r;
+    _buffer_top1 = CONFIG::RENDER_BUFFER_SOURCE1_TOP*_h_r;
+    _buffer_width1 = CONFIG::RENDER_BUFFER_SOURCE1_WIDTH*_w_r;
+    _buffer_height1 = CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT*_h_r;
+
+    _buffer_left2 = CONFIG::RENDER_BUFFER_SOURCE2_LEFT*_w_r;
+    _buffer_top2 = CONFIG::RENDER_BUFFER_SOURCE2_TOP*_h_r;
+    _buffer_width2 = CONFIG::RENDER_BUFFER_SOURCE2_WIDTH*_w_r;
+    _buffer_height2 = CONFIG::RENDER_BUFFER_SOURCE2_HEIGHT*_h_r;
 
 //TODO:フォグいつか
 //    _colFog.r = 0.0;
@@ -438,6 +450,60 @@ int Spacetime::registerFigureActor3D(FigureActor* prm_pActor) {
         }
     }
     return render_depth_index;
+}
+
+void Spacetime::cnvViewCoordToWorld(coord prm_view_x, coord prm_view_y, coord prm_depth,
+                                    coord& out_world_x, coord& out_world_y, coord& out_world_z) {
+    Camera* pCam = getCamera();
+    dxcoord target_dep_d = C_DX(prm_depth); //オブジェクトの距離
+    dxcoord zt_rate = RCNV_to_0_1(pCam->_zn, pCam->_zf, target_dep_d);
+    D3DXMATRIX matScreen = D3DXMATRIX(
+        0.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 0.0f,
+        C_PX(prm_view_x), C_PX(prm_view_y), 0, 1.0f,  //Near Z=0
+        C_PX(prm_view_x), C_PX(prm_view_y), 1, 1.0f   //Far  Z=1
+    );
+    D3DXMATRIX matWorldCoords = matScreen * pCam->_matInvViewPort_Proj_View;
+
+    //下記を計算最適化
+    //    const float near_W = out._34;
+    //    const float far_W = out._44;
+    //    const float MinZ = pCam->_viewport.MinZ; // = 0
+    //    const float MaxZ = pCam->_viewport.MaxZ; // = 1
+    //    dxcoord x = RCNV(MinZ, MaxZ, zt_rate, out._31 / near_W, out._41 / far_W);
+    //    dxcoord y = RCNV(MinZ, MaxZ, zt_rate, out._32 / near_W, out._42 / far_W);
+    //    dxcoord z = RCNV(MinZ, MaxZ, zt_rate, out._33 / near_W, out._43 / far_W);
+    const float near_W = matWorldCoords._34;
+    const float far_W = matWorldCoords._44;
+    const float W = (far_W*near_W);
+    const float near_W_zt_rate = (near_W * zt_rate);
+    dxcoord x = (near_W_zt_rate*matWorldCoords._41 - ((zt_rate - 1) * (far_W*matWorldCoords._31))) / W;
+    dxcoord y = (near_W_zt_rate*matWorldCoords._42 - ((zt_rate - 1) * (far_W*matWorldCoords._32))) / W;
+    dxcoord z = (near_W_zt_rate*matWorldCoords._43 - ((zt_rate - 1) * (far_W*matWorldCoords._33))) / W;
+    out_world_x = DX_C(x);
+    out_world_y = DX_C(y);
+    out_world_z = DX_C(z);
+}
+
+void Spacetime::cnvWorldCoordToView(coord prm_world_x, coord prm_world_y, coord prm_world_z,
+                                    coord& out_view_x, coord& out_view_y) {
+    //視錐台面からの距離を更新
+    const dxcoord fX = C_DX(prm_world_x);
+    const dxcoord fY = C_DX(prm_world_y);
+    const dxcoord fZ = C_DX(prm_world_z);
+    Camera *pCam = pCARETAKER->getSpacetime()->getCamera();
+    const D3DXPLANE *pPlnTop = &(pCam->_plnTop);
+    dxcoord len_top = -(pPlnTop->a*fX + pPlnTop->b*fY + pPlnTop->c*fZ + pPlnTop->d);
+    const D3DXPLANE *pPlnBottom = &(pCam->_plnBottom);
+    dxcoord len_bottom = -(pPlnBottom->a*fX + pPlnBottom->b*fY + pPlnBottom->c*fZ + pPlnBottom->d);
+    const D3DXPLANE *pPlnLeft = &(pCam->_plnLeft);
+    dxcoord len_left = -(pPlnLeft->a*fX + pPlnLeft->b*fY + pPlnLeft->c*fZ + pPlnLeft->d);
+    const D3DXPLANE *pPlnRight = &(pCam->_plnRight);
+    dxcoord len_rigth = -(pPlnRight->a*fX + pPlnRight->b*fY + pPlnRight->c*fZ + pPlnRight->d);
+    dxcoord x = ( PX_DX(_buffer_width1 ) / (len_left+len_rigth) ) * len_left;
+    dxcoord y = ( PX_DX(_buffer_height1) / (len_top+len_bottom) ) * len_top;
+    out_view_x = DX_C(x);
+    out_view_y = DX_C(y);
 }
 
 Spacetime::~Spacetime() {

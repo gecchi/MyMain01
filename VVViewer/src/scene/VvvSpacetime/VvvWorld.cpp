@@ -34,7 +34,6 @@
 #include "actor/VvvMousePointer.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 
-
 using namespace GgafLib;
 using namespace VVViewer;
 using namespace std;
@@ -62,19 +61,7 @@ public:
     }
 
     virtual void processBehavior() override {
-        dxcoord len_left = (-T::_dest_from_vppln_left);
-        dxcoord len_rigth = (-T::_dest_from_vppln_right);
-
-        dxcoord width = len_left  +  len_rigth;
-
-        dxcoord len_top = (-T::_dest_from_vppln_top);
-        dxcoord len_bottom = (-T::_dest_from_vppln_bottom);
-
-        dxcoord height = len_top  +  len_bottom;
-
-        dxcoord x = ( PX_DX(pWorld_->_buffer_width1) / width) * len_left;
-        dxcoord y = PX_DX(pWorld_->_buffer_height1) - (( PX_DX(pWorld_->_buffer_height1) / height)* len_top);
-        pHitActor_->setPosition(DX_C(x), DX_C(y));
+        pHitActor_->setPositionByWorldCoord(T::_x, T::_y, T::_z);
     }
 
     virtual ~VvvActor() {
@@ -837,6 +824,7 @@ void VvvWorld::processDragAndDrop() {
 
         //アクター表示
         if (pActor) {
+            //当たり判定設定
             dxcoord bound = pActor->getModel()->_bounding_sphere_radius * pActor->_rate_of_bounding_sphere_radius;
             pChecker->createCollisionArea(1);
             pChecker->setColliSphere(0, DX_C(bound));

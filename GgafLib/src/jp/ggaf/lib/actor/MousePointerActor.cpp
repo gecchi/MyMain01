@@ -13,24 +13,25 @@ using namespace GgafLib;
 MousePointerActor::MousePointerActor(const char* prm_name, const char* prm_model)
       : DefaultBoardActor(prm_name, prm_model) {
 
-    _w_r =  1.0 * CONFIG::GAME_BUFFER_WIDTH / CONFIG::RENDER_TARGET_BUFFER_WIDTH;
-    _h_r =  1.0 * CONFIG::GAME_BUFFER_HEIGHT / CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
+//    _w_r =  1.0 * CONFIG::GAME_BUFFER_WIDTH / CONFIG::RENDER_TARGET_BUFFER_WIDTH;
+//    _h_r =  1.0 * CONFIG::GAME_BUFFER_HEIGHT / CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
+//
+//    _buffer_left1 = CONFIG::RENDER_BUFFER_SOURCE1_LEFT*_w_r;
+//    _buffer_top1 = CONFIG::RENDER_BUFFER_SOURCE1_TOP*_h_r;
+//    _buffer_width1 = CONFIG::RENDER_BUFFER_SOURCE1_WIDTH*_w_r;
+//    _buffer_height1 = CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT*_h_r;
+//
+//    _buffer_left2 = CONFIG::RENDER_BUFFER_SOURCE2_LEFT*_w_r;
+//    _buffer_top2 = CONFIG::RENDER_BUFFER_SOURCE2_TOP*_h_r;
+//    _buffer_width2 = CONFIG::RENDER_BUFFER_SOURCE2_WIDTH*_w_r;
+//    _buffer_height2 = CONFIG::RENDER_BUFFER_SOURCE2_HEIGHT*_h_r;
+    DefaultSpacetime* pSpacetime = pCARETAKER->getSpacetime();
 
-    _buffer_left1 = CONFIG::RENDER_BUFFER_SOURCE1_LEFT*_w_r;
-    _buffer_top1 = CONFIG::RENDER_BUFFER_SOURCE1_TOP*_h_r;
-    _buffer_width1 = CONFIG::RENDER_BUFFER_SOURCE1_WIDTH*_w_r;
-    _buffer_height1 = CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT*_h_r;
+    _coord_buffer_left1 = PX_C(pSpacetime->_buffer_left1);
+    _coord_buffer_top1 = PX_C(pSpacetime->_buffer_top1);
 
-    _buffer_left2 = CONFIG::RENDER_BUFFER_SOURCE2_LEFT*_w_r;
-    _buffer_top2 = CONFIG::RENDER_BUFFER_SOURCE2_TOP*_h_r;
-    _buffer_width2 = CONFIG::RENDER_BUFFER_SOURCE2_WIDTH*_w_r;
-    _buffer_height2 = CONFIG::RENDER_BUFFER_SOURCE2_HEIGHT*_h_r;
-
-    _coord_buffer_left1 = PX_C(_buffer_left1);
-    _coord_buffer_top1 = PX_C(_buffer_top1);
-
-    _coord_buffer_left2 = PX_C(_buffer_left2);
-    _coord_buffer_top2 = PX_C(_buffer_top2);
+    _coord_buffer_left2 = PX_C(pSpacetime->_buffer_left2);
+    _coord_buffer_top2 = PX_C(pSpacetime->_buffer_top2);
     _last_hWnd = pCARETAKER->_pHWndPrimary;
 //    _pSelectActor_prev = nullptr;
     _pHitActor = nullptr;
@@ -38,6 +39,7 @@ MousePointerActor::MousePointerActor(const char* prm_name, const char* prm_model
 }
 
 void MousePointerActor::processSettlementBehavior() {
+    DefaultSpacetime* pSpacetime = pCARETAKER->getSpacetime();
     //マウスの座標を取得
     GetCursorPos(&_mouse_point);
     // カーソル位置からウィンドウハンドル取得
@@ -51,16 +53,16 @@ void MousePointerActor::processSettlementBehavior() {
         RECT& rect_Present = pCARETAKER->_aRect_Present[pCARETAKER->_secondary_adapter_no];
         pixcoord cPresent_w = rect_Present.right - rect_Present.left;
         pixcoord cPresent_h = rect_Present.bottom - rect_Present.top;
-        pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* _buffer_width2) / (1.0* cPresent_w));
-        pixcoord y = (_mouse_point.y - rect_Present.top)  * ((1.0* _buffer_height2) / (1.0* cPresent_h));
+        pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* pSpacetime->_buffer_width2) / (1.0* cPresent_w));
+        pixcoord y = (_mouse_point.y - rect_Present.top)  * ((1.0* pSpacetime->_buffer_height2) / (1.0* cPresent_h));
         _x = PX_C(x) + _coord_buffer_left2;
         _y = PX_C(y) + _coord_buffer_top2;
     } else if (_last_hWnd == pCARETAKER->_pHWndPrimary) {
         RECT& rect_Present = pCARETAKER->_aRect_Present[pCARETAKER->_primary_adapter_no];
         pixcoord cPresent_w = rect_Present.right - rect_Present.left;
         pixcoord cPresent_h = rect_Present.bottom - rect_Present.top;
-        pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* _buffer_width1) / (1.0* cPresent_w));
-        pixcoord y = (_mouse_point.y - rect_Present.top)  * ((1.0* _buffer_height1) / (1.0* cPresent_h));
+        pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* pSpacetime->_buffer_width1) / (1.0* cPresent_w));
+        pixcoord y = (_mouse_point.y - rect_Present.top)  * ((1.0* pSpacetime->_buffer_height1) / (1.0* cPresent_h));
         _x = PX_C(x) + _coord_buffer_left1;
         _y = PX_C(y) + _coord_buffer_top1;
     } else {

@@ -20,6 +20,9 @@ AroundViewCamWorker::AroundViewCamWorker(const char* prm_name, DefaultCamera* pr
     _mdz_flg = false;
     _mdz_vx = _mdz_vy = _mdz_vz = _mdz_t = 0.0;
     _mdz_total = 0;
+    _isPressed0 = _isPressed1 =_isPressed2 = false;
+    _onScreen = false;
+    _hWnd_last = nullptr;
 }
 
 void AroundViewCamWorker::initialize() {

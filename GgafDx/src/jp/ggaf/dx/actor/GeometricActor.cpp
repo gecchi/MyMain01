@@ -494,6 +494,55 @@ void GeometricActor::setPositionAroundAt(const GeometricActor* prm_pActor, coord
 void GeometricActor::setPositionAroundAt(const GeoElem* prm_pGeoElem, coord r) {
     setPositionAround(prm_pGeoElem->x, prm_pGeoElem->y, prm_pGeoElem->z, r);
 }
+
+void GeometricActor::setPositionByViewCoord(coord prm_view_x, coord prm_view_y, coord prm_depth) {
+#ifdef MY_DEBUG
+    if (_is_fix_2D) {
+        throwCriticalException("GeometricActor::setPositionByViewCoord() : "<<
+                "this="<<NODE_INFO<<" は、FIX2Dアクターのため、本メソッドの使用は変ではないですか？（ViewCoordを持っています）");
+    }
+#endif
+    pCARETAKER->getSpacetime()->
+            cnvViewCoordToWorld(prm_view_x, prm_view_y, prm_depth,
+                                _x, _y, _z);
+}
+
+void GeometricActor::getWorldPosition(coord prm_depth, coord& out_world_x, coord& out_world_y, coord& out_world_z) {
+#ifdef MY_DEBUG
+    if (!_is_fix_2D) {
+        throwCriticalException("GeometricActor::getWorldPosition() : "<<
+                "this="<<NODE_INFO<<" は、3Dアクターのため、本メソッドの使用は変ではないですか？（WorldCoordを持っています）");
+    }
+#endif
+    pCARETAKER->getSpacetime()->
+            cnvViewCoordToWorld(_x, _y, prm_depth,
+                    out_world_x, out_world_y, out_world_z);
+}
+
+void GeometricActor::setPositionByWorldCoord(coord prm_world_x, coord prm_world_y, coord prm_world_z) {
+#ifdef MY_DEBUG
+    if (!_is_fix_2D) {
+        throwCriticalException("GeometricActor::setPositionByWorldCoord() : "<<
+                "this="<<NODE_INFO<<" は、3Dアクターのため、本メソッドの使用は変ではないですか？（WorldCoordを持っています）");
+    }
+#endif
+    pCARETAKER->getSpacetime()->
+            cnvWorldCoordToView(prm_world_x, prm_world_y, prm_world_z,
+                                _x, _y);
+}
+
+void GeometricActor::getViewPosition(coord& out_view_x, coord& out_view_y) {
+#ifdef MY_DEBUG
+    if (_is_fix_2D) {
+        throwCriticalException("GeometricActor::getViewPosition() : "<<
+                "this="<<NODE_INFO<<" は、FIX2Dアクターのため、本メソッドの使用は変ではないですか？（ViewCoordを持っています）");
+    }
+#endif
+    pCARETAKER->getSpacetime()->
+            cnvWorldCoordToView(_x, _y, _z,
+                    out_view_x, out_view_y);
+}
+
 void GeometricActor::setFaceAngAs(const GeometricActor* prm_pActor) {
     setRxFaceAng(prm_pActor->_rx);
     setRyFaceAng(prm_pActor->_ry);

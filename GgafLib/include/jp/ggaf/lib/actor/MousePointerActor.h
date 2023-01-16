@@ -17,18 +17,18 @@ class MousePointerActor : public DefaultBoardActor {
 protected:
 
     POINT _mouse_point;
-
-    double _w_r;
-    double _h_r;
-    pixcoord _buffer_left1;
-    pixcoord _buffer_top1;
-    pixcoord _buffer_width1;
-    pixcoord _buffer_height1;
-
-    pixcoord _buffer_left2;
-    pixcoord _buffer_top2;
-    pixcoord _buffer_width2;
-    pixcoord _buffer_height2;
+//
+//    double _w_r;
+//    double _h_r;
+//    pixcoord _buffer_left1;
+//    pixcoord _buffer_top1;
+//    pixcoord _buffer_width1;
+//    pixcoord _buffer_height1;
+//
+//    pixcoord _buffer_left2;
+//    pixcoord _buffer_top2;
+//    pixcoord _buffer_width2;
+//    pixcoord _buffer_height2;
 
     coord _coord_buffer_left1;
     coord _coord_buffer_top1;

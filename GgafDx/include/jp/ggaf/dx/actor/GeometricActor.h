@@ -300,7 +300,7 @@ public:
     virtual bool isOutOfSpacetime() const;
 
     /**
-     * ワールド座標を設定 .
+     * 座標を設定 .
      * @param x
      * @param y
      * @param z
@@ -312,7 +312,7 @@ public:
     }
 
     /**
-     * ワールド座標を設定 .
+     * 座標を設定 .
      * z座標は更新しない。
      * @param x
      * @param y
@@ -339,6 +339,37 @@ public:
      */
     virtual void setPositionAround(coord x, coord y, coord r);
 
+    /**
+     * 3Dアクターについて、ビュー座標で指定により、自身を対応するワールド座標に配置する .
+     * @param prm_view_x ビュー座標X軸要素
+     * @param prm_view_y ビュー座標Y軸要素
+     * @param prm_depth カメラ視点からの距離
+     */
+    void setPositionByViewCoord(coord prm_view_x, coord prm_view_y, coord prm_depth);
+
+    /**
+     * 2Dアクターについて、自身のビュー座標より、対応するワールド座標を取得する .
+     * @param prm_depth 取得したいワールド座標のカメラ視点からの距離を指定
+     * @param out_world_x 対応するワールド座標X軸要素
+     * @param out_world_y 対応するワールド座標Y軸要素
+     * @param out_world_z 対応するワールド座標Z軸要素
+     */
+    void getWorldPosition(coord prm_depth, coord& out_world_x, coord& out_world_y, coord& out_world_z);
+
+    /**
+     * 2Dアクターについて、ワールド座標で指定により、自身を対応するビュー座標に配置する .
+     * @param prm_world_x ワールド座標X軸要素
+     * @param prm_world_y ワールド座標Y軸要素
+     * @param prm_world_z ワールド座標Z軸要素
+     */
+    void setPositionByWorldCoord(coord prm_world_x, coord prm_world_y, coord prm_world_z);
+
+    /**
+     * 3Dアクターについて、自身のワールド座標より、対応するビュー座標を取得する .
+     * @param out_view_x 対応するビュー座標X軸要素
+     * @param out_view_y 対応するビュー座標Y軸要素
+     */
+    void getViewPosition(coord& out_view_x, coord& out_view_y);
     /**
      * X軸Y軸Z軸各軸スケール _sx, _sy, _sz を同じ値で設定 .
      * 【注意】

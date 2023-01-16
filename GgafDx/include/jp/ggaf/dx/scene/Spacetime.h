@@ -103,6 +103,18 @@ public:
     dxcoord _dep_resolution;
 
 
+    double _w_r;
+    double _h_r;
+    pixcoord _buffer_left1;
+    pixcoord _buffer_top1;
+    pixcoord _buffer_width1;
+    pixcoord _buffer_height1;
+
+    pixcoord _buffer_left2;
+    pixcoord _buffer_top2;
+    pixcoord _buffer_width2;
+    pixcoord _buffer_height2;
+
 public:
     Spacetime(const char* prm_name, Camera* prm_pCamera);
 
@@ -150,6 +162,30 @@ public:
                     int prm_delay,
                     bool prm_can_looping,
                     GeometricActor* prm_pActor);
+
+    /**
+     * ビュー座標をワールド座標に変換する .
+     * @param prm_view_x ビュー座標X軸要素
+     * @param prm_view_y ビュー座標Y軸要素
+     * @param prm_depth カメラ視点からの距離
+     * @param out_world_x 対応するワールド座標X軸要素
+     * @param out_world_y 対応するワールド座標Y軸要素
+     * @param out_world_z 対応するワールド座標Z軸要素
+     */
+    void cnvViewCoordToWorld(coord prm_view_x, coord prm_view_y, coord prm_depth,
+                             coord& out_world_x, coord& out_world_y, coord& out_world_z);
+
+    /**
+     * ワールド座標をビュー座標変換する .
+     * @param prm_world_x ワールド座標X軸要素
+     * @param prm_world_y ワールド座標Y軸要素
+     * @param prm_world_z ワールド座標Z軸要素
+     * @param out_view_x 対応するビュー座標X軸要素
+     * @param out_view_y 対応するビュー座標Y軸要素
+     */
+    void cnvWorldCoordToView(coord prm_world_x, coord prm_world_y, coord prm_world_z,
+                             coord& out_view_x, coord& out_view_y);
+
 };
 
 }
