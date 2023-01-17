@@ -265,6 +265,31 @@ void FigureActor::setSpecialRenderDepthIndex(int prm_drawdepth) {
         _specal_render_depth_index = prm_drawdepth;
     }
 }
+
+void FigureActor::setSpecialRenderDepthNear(int prm_near_index) {
+    // 0, 1, 2, 3, 4 で指定
+    //0(最前面の中でも最も手前) ～ 4(最前面の中でも最も背面)
+    if (prm_near_index < 0) {
+            throwCriticalException("setSpecialRenderDepthNear() 不正な深度指定です（0,1,2,3,4… で指定してください） prm_near_index="<<prm_near_index);
+    } else if (prm_near_index > CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_NEAR-1) {
+        setSpecialRenderDepthIndex(CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_NEAR-1);
+    } else {
+        setSpecialRenderDepthIndex(prm_near_index);
+    }
+}
+
+void FigureActor::setSpecialRenderDepthFar(int prm_far_index) {
+    //0,-1,-2,-3,-4
+    //0(最背面の中でも最も背面) ～ -4(最背面の中でも最も手前)
+    if (prm_far_index > 0) {
+        throwCriticalException("setSpecialRenderDepthFar() 不正な深度指定です（0,-1,-2,-3,-4… で指定してください） prm_far_index="<<prm_far_index);
+    } else if (-prm_far_index > CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_FAR-1) {
+        setSpecialRenderDepthIndex(CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_FAR + CONFIG::RENDER_DEPTH_INDEXS_NUM);
+    } else {
+        setSpecialRenderDepthIndex(ALL_RENDER_DEPTH_INDEXS_NUM-1 + prm_far_index);
+    }
+}
+
 void FigureActor::resetSpecialRenderDepthIndex() {
     _specal_render_depth_index = -1;
 }

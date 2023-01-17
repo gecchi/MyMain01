@@ -12,6 +12,8 @@ pixcoord Config::GAME_BUFFER_WIDTH = 1600;
 pixcoord Config::GAME_BUFFER_HEIGHT = 450;
 double Config::GAME_SPACE_DEPTH = 15.0;
 int Config::RENDER_DEPTH_INDEXS_NUM = 256;
+int Config::RENDER_DEPTH_INDEXS_NUM_EX_NEAR = 5;
+int Config::RENDER_DEPTH_INDEXS_NUM_EX_FAR = 5;
 double Config::RENDER_DEPTH_STAGE_RATIO = 0.6;
 bool Config::PRJ_2D_MODE = false;
 pixcoord Config::RENDER_TARGET_BUFFER_WIDTH = Config::GAME_BUFFER_WIDTH;
@@ -156,6 +158,12 @@ void Config::loadProperties(std::string prm_properties_filename) {
     }
     if (GgafCore::Config::_properties.isExistKey("RENDER_DEPTH_INDEXS_NUM")) {
         Config::RENDER_DEPTH_INDEXS_NUM = GgafCore::Config::_properties.getInt("RENDER_DEPTH_INDEXS_NUM");
+    }
+    if (GgafCore::Config::_properties.isExistKey("RENDER_DEPTH_INDEXS_NUM_EX_NEAR")) {
+        Config::RENDER_DEPTH_INDEXS_NUM_EX_NEAR = GgafCore::Config::_properties.getInt("RENDER_DEPTH_INDEXS_NUM_EX_NEAR");
+    }
+    if (GgafCore::Config::_properties.isExistKey("RENDER_DEPTH_INDEXS_NUM_EX_FAR")) {
+        Config::RENDER_DEPTH_INDEXS_NUM_EX_FAR = GgafCore::Config::_properties.getInt("RENDER_DEPTH_INDEXS_NUM_EX_FAR");
     }
     if (GgafCore::Config::_properties.isExistKey("RENDER_DEPTH_STAGE_RATIO")) {
         Config::RENDER_DEPTH_STAGE_RATIO = GgafCore::Config::_properties.getDouble("RENDER_DEPTH_STAGE_RATIO");
@@ -478,6 +486,8 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::GAME_BUFFER_HEIGHT=" << Config::GAME_BUFFER_HEIGHT);
     _TRACE_("Config::GAME_SPACE_DEPTH=" << Config::GAME_SPACE_DEPTH);
     _TRACE_("Config::RENDER_DEPTH_INDEXS_NUM=" << Config::RENDER_DEPTH_INDEXS_NUM);
+    _TRACE_("Config::RENDER_DEPTH_INDEXS_NUM_EX_NEAR=" << Config::RENDER_DEPTH_INDEXS_NUM_EX_NEAR);
+    _TRACE_("Config::RENDER_DEPTH_INDEXS_NUM_EX_FAR=" << Config::RENDER_DEPTH_INDEXS_NUM_EX_FAR);
     _TRACE_("Config::RENDER_DEPTH_STAGE_RATIO=" << Config::RENDER_DEPTH_STAGE_RATIO);
     _TRACE_("Config::PRJ_2D_MODE=" << Config::PRJ_2D_MODE);
     _TRACE_("Config::RENDER_TARGET_BUFFER_WIDTH=" << Config::RENDER_TARGET_BUFFER_WIDTH);

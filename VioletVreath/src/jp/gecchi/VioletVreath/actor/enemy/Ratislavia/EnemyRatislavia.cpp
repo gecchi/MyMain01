@@ -75,7 +75,7 @@ void EnemyRatislavia::createCollisionAreaArea(int prm_nSphere) {
                     false, true, true
                     );
     }
-    setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_BACK-2);
+    setSpecialRenderDepthIndex(RENDER_DEPTH_FAR_INDEX-2);
     GGAF_DELETE(paAngRadial);
 }
 

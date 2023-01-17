@@ -17,7 +17,7 @@ SpriteMeshWorldBoundActor::SpriteMeshWorldBoundActor(const char* prm_name,
 
     _class_name = "SpriteMeshWorldBoundActor";
     changeEffectTechnique("NoLight"); //NoLightでベタ塗りテクニック
-    setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_SP_BACK(1));
+    setSpecialRenderDepthFar(0);
 }
 
 void SpriteMeshWorldBoundActor::processSettlementBehavior() {
@@ -44,7 +44,7 @@ void SpriteMeshWorldBoundActor::processSettlementBehavior() {
 //        onCreateModel(); //モデル作成時の初期処理
 //        _pModel->_is_init_model = true;
 //    }
-//    GgafDx::Spacetime::registerFigureActor(REGULAR_RENDER_DEPTH_INDEXS_NUM,this); //最深部
+//    GgafDx::Spacetime::registerFigureActor(CONFIG::RENDER_DEPTH_INDEXS_NUM,this); //最深部
 //}
 
 SpriteMeshWorldBoundActor::~SpriteMeshWorldBoundActor() {

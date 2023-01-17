@@ -21,11 +21,15 @@ Planet001::Planet001(const char* prm_name) :
     setHitAble(false);
     setZEnableDraw(true);        //Zバッファは考慮
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
-    setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_HOSHIBOSHI-2);
+
     drawAnyFar(true);//遠くても表示
     //大気圏エフェクトスプライト
     pAtmosphere_ = NEW Planet001Atmosphere("P001ATMOS");
     appendChild(pAtmosphere_);
+
+    pAtmosphere_->setSpecialRenderDepthFar(-2);
+    setSpecialRenderDepthFar(-3);
+
 }
 
 void Planet001::onCreateModel() {

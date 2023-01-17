@@ -7,19 +7,19 @@
 #include "jp/ggaf/dx/actor/camera/Camera.h"
 
 
-#define EX_RENDER_DEPTH_INDEXS_FRONT_NUM   (5)
-#define REGULAR_RENDER_DEPTH_INDEXS_NUM    (CONFIG::RENDER_DEPTH_INDEXS_NUM)  //段階レンダー分解能
-#define EX_RENDER_DEPTH_INDEXS_BACK_NUM    (5)
-#define ALL_RENDER_DEPTH_INDEXS_NUM        (EX_RENDER_DEPTH_INDEXS_FRONT_NUM+REGULAR_RENDER_DEPTH_INDEXS_NUM+EX_RENDER_DEPTH_INDEXS_BACK_NUM)
+//#define EX_RENDER_DEPTH_INDEXS_FRONT_NUM   (5)
+//#define REGULAR_RENDER_DEPTH_INDEXS_NUM    (CONFIG::RENDER_DEPTH_INDEXS_NUM)  //段階レンダー分解能
+//#define EX_RENDER_DEPTH_INDEXS_BACK_NUM    (5)
+#define ALL_RENDER_DEPTH_INDEXS_NUM        (CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_NEAR + CONFIG::RENDER_DEPTH_INDEXS_NUM + CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_FAR)
 
-#define RENDER_DEPTH_INDEX_FRONT      (EX_RENDER_DEPTH_INDEXS_FRONT_NUM)  //通常の最前面
-#define RENDER_DEPTH_INDEX_BACK       (EX_RENDER_DEPTH_INDEXS_FRONT_NUM + REGULAR_RENDER_DEPTH_INDEXS_NUM - 1) //通常の最背面
+#define RENDER_DEPTH_NEAR_INDEX      (CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_NEAR)  //通常の最前面
+#define RENDER_DEPTH_FAR_INDEX       (CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_FAR + CONFIG::RENDER_DEPTH_INDEXS_NUM - 1) //通常の最背面
 
- /** 最前面より手前の特別な表示深度レベル(0～5  0:RENDER_DEPTH_INDEX_FRONTと同じ、5:最前面) */
-#define RENDER_DEPTH_INDEX_SP_FRONT(X)  (RENDER_DEPTH_INDEX_FRONT - (X))
+ /** 最前面より手前の特別な表示深度レベル(0～5  0:RENDER_DEPTH_NEAR_INDEXと同じ、5:最前面) */
+#define RENDER_DEPTH_INDEX_SP_FRONT(X)  (RENDER_DEPTH_NEAR_INDEX - (X))
 
- /** 最前面より奥の特別な表示深度レベル(0～5  0:RENDER_DEPTH_INDEX_BACKと同じ、5:最背面) */
-#define RENDER_DEPTH_INDEX_SP_BACK(X)  (RENDER_DEPTH_INDEX_BACK + (X))
+ /** 最前面より奥の特別な表示深度レベル(0～5  0:RENDER_DEPTH_FAR_INDEXと同じ、5:最背面) */
+#define RENDER_DEPTH_INDEX_SP_BACK(X)  (RENDER_DEPTH_FAR_INDEX + (X))
 
 namespace GgafDx {
 
@@ -65,9 +65,27 @@ public:
     Camera* _pCamera;
 
     /** レンダリング順序配列に登録されている各アクターリストの先頭のアクターの配列 */
-    FigureActor** _papFirstActor_in_render_depth;
+    FigureActor** _papFirstRenderActor;
     /** レンダリング順序配列に登録されている各アクターリストの末尾のアクターの配列 */
-    FigureActor** _papLastActor_in_render_depth;
+    FigureActor** _papLastRenderActor;
+    // イメージ
+    // ○ は アクター
+    // [0]～[3] は レンダリング順序 [0]：手前 ～ [3]：奥 (最大：ALL_RENDER_DEPTH_INDEXS_NUM)
+    //
+    // [0] -> ① -> ② -> ③ -> ④ -> ⑤ -> nullptr
+    // [1] -> nullptr
+    // [2] -> ⑥ -> ⑦ -> nullptr
+    // [3] -> ⑧ -> nullptr
+    //
+    //  _papFirstRenderActor[0] = ①
+    //  _papLastRenderActor[0]  = ⑤
+    //  _papFirstRenderActor[1] = nullptr
+    //  _papLastRenderActor[1]  = nullptr
+    //  _papFirstRenderActor[2] = ⑥
+    //  _papLastRenderActor[2]  = ⑦
+    //  _papFirstRenderActor[3] = ⑧
+    //  _papLastRenderActor[3]  = ⑧
+    //  ① -> ② の連結はメンバ変数 _pNextRenderActor による単方向連結リスト
 
     /** 描画アクターのカーソル */
     static FigureActor* _pActor_draw_active;

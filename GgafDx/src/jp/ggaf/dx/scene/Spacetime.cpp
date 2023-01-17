@@ -103,11 +103,11 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
 //    _colFog.g = 0.0;
 //    _colFog.b = 0.0;
 //    _colFog.a = 1.0;
-    _papFirstActor_in_render_depth = NEW FigureActor*[ALL_RENDER_DEPTH_INDEXS_NUM];
-    _papLastActor_in_render_depth = NEW FigureActor*[ALL_RENDER_DEPTH_INDEXS_NUM];
+    _papFirstRenderActor = NEW FigureActor*[ALL_RENDER_DEPTH_INDEXS_NUM];
+    _papLastRenderActor = NEW FigureActor*[ALL_RENDER_DEPTH_INDEXS_NUM];
     for (int i = 0; i < ALL_RENDER_DEPTH_INDEXS_NUM; i++) {
-        _papFirstActor_in_render_depth[i] = nullptr;
-        _papLastActor_in_render_depth[i] = nullptr;
+        _papFirstRenderActor[i] = nullptr;
+        _papLastRenderActor[i] = nullptr;
     }
     //先にカメラはNEWしておかないといけない。
     _pCamera = prm_pCamera;
@@ -140,7 +140,7 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
     _paDep2Lv[0] = 0;
     for (int z = 1; z <= px_dep_resolution; z++) {
         double ang = RCNV(0, px_dep_resolution, z, 0, period);
-        _paDep2Lv[z] = (int) ( sin( pow(ang, e/PI) ) * (REGULAR_RENDER_DEPTH_INDEXS_NUM-1) );
+        _paDep2Lv[z] = (int) ( sin( pow(ang, e/PI) ) * (CONFIG::RENDER_DEPTH_INDEXS_NUM-1) );
     }
     //ハマったことメモ
     //pow(x,y)は
@@ -149,7 +149,7 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
     //VCは 0 になった。
     //powを使うときは気をつけよう。
 
-    _TRACE_("通常の段階レンダリング深度数："<<REGULAR_RENDER_DEPTH_INDEXS_NUM);
+    _TRACE_("通常の段階レンダリング深度数："<<CONFIG::RENDER_DEPTH_INDEXS_NUM);
     _TRACE_("通常の段階レンダリング距離範囲："<<DX_C(prm_pCamera->getZFar())<<" * "<<CONFIG::RENDER_DEPTH_STAGE_RATIO <<
                                              " = "<< DX_C(_dep_resolution)   );
     _TRACE_("カメラからの距離  0 ~ "<<DX_C(_dep_resolution)<< " のActorは、 深度が考慮されて遠くのオブジェクトから順にレンダリングを行います。");
@@ -216,16 +216,17 @@ void Spacetime::draw() {
     FigureActor* pDrawNextActor_in_render_depth = nullptr;
     FigureActor* pDrawActor = nullptr; //リストの先頭アクターが入る
     for (int i = ALL_RENDER_DEPTH_INDEXS_NUM - 1; i >= 0; i--) { //奥から
-        pDrawLastActor_in_render_depth = _papLastActor_in_render_depth[i];
+        pDrawLastActor_in_render_depth = _papLastRenderActor[i];
         if (pDrawLastActor_in_render_depth) {
             if (!pDrawActor) {
-                pDrawActor = _papFirstActor_in_render_depth[i];  //一番最初に表示するアクター
+                pDrawActor = _papFirstRenderActor[i];  //一番最初に表示するアクター
             }
-            _papFirstActor_in_render_depth[i] = nullptr;   //次回のためにリセット
-            _papLastActor_in_render_depth[i]  = nullptr;   //次回のためにリセット
+            _papFirstRenderActor[i] = nullptr;   //次回のためにリセット
+            _papLastRenderActor[i]  = nullptr;   //次回のためにリセット
             for (i-- ; i >= 0; i--) {
-                pDrawNextActor_in_render_depth = _papFirstActor_in_render_depth[i];
+                pDrawNextActor_in_render_depth = _papFirstRenderActor[i];
                 if (pDrawNextActor_in_render_depth) {
+                    //奥の最後のアクターを、直近の手前のアクターの先頭にリンク
                     pDrawLastActor_in_render_depth->_pNextRenderActor = pDrawNextActor_in_render_depth;
                     i++;
                     break;
@@ -337,39 +338,39 @@ int Spacetime::registerFigureActor2D(FigureActor* prm_pActor) {
     int specal_render_depth_index = prm_pActor->_specal_render_depth_index;
     if (specal_render_depth_index < 0) {
         //＊＊＊ 2Dで特別な描画深度指定無し ＊＊＊
-        render_depth_index = EX_RENDER_DEPTH_INDEXS_FRONT_NUM + prm_pActor->_z; //_z値がプライオリティ件描画深度。
+        render_depth_index = CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_NEAR + prm_pActor->_z; //_z値がプライオリティ兼描画深度。
         //上限下限カット
-        if (render_depth_index > RENDER_DEPTH_INDEX_BACK) {
-            render_depth_index = RENDER_DEPTH_INDEX_BACK;
-        } else if (render_depth_index < RENDER_DEPTH_INDEX_FRONT) {
-            render_depth_index = RENDER_DEPTH_INDEX_FRONT;
+        if (render_depth_index > RENDER_DEPTH_FAR_INDEX) {
+            render_depth_index = RENDER_DEPTH_FAR_INDEX;
+        } else if (render_depth_index < RENDER_DEPTH_NEAR_INDEX) {
+            render_depth_index = RENDER_DEPTH_NEAR_INDEX;
         }
-        if (_papFirstActor_in_render_depth[render_depth_index] == nullptr) {
+        if (_papFirstRenderActor[render_depth_index] == nullptr) {
             //2Dでそのprm_render_depth_indexで最初のアクターの場合
             prm_pActor->_pNextRenderActor = nullptr;
-            _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
-            _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
+            _papFirstRenderActor[render_depth_index] = prm_pActor;
+            _papLastRenderActor[render_depth_index] = prm_pActor;
         } else {
             //2Dで同一深度で2Dの場合、連結リストのお尻に追加していく
             //つまり、最後に appendChild() すればするほど、描画順が後になり、プライオリティが高いくなる。
-            FigureActor* pActorTmp = _papLastActor_in_render_depth[render_depth_index];
+            FigureActor* pActorTmp = _papLastRenderActor[render_depth_index];
             pActorTmp->_pNextRenderActor = prm_pActor;
             prm_pActor->_pNextRenderActor = nullptr;
-            _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
+            _papLastRenderActor[render_depth_index] = prm_pActor;
         }
     } else {
         //＊＊＊ 2Dで特別な描画深度指定有り ＊＊＊
         render_depth_index = specal_render_depth_index;
-        if (_papFirstActor_in_render_depth[render_depth_index] == nullptr) {
+        if (_papFirstRenderActor[render_depth_index] == nullptr) {
             //そのprm_render_depth_indexで最初のアクターの場合
             prm_pActor->_pNextRenderActor = nullptr;
-            _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
-            _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
+            _papFirstRenderActor[render_depth_index] = prm_pActor;
+            _papLastRenderActor[render_depth_index] = prm_pActor;
         } else {
             //手前に追加
-            FigureActor* pActorTmp = _papFirstActor_in_render_depth[render_depth_index];
+            FigureActor* pActorTmp = _papFirstRenderActor[render_depth_index];
             prm_pActor->_pNextRenderActor = pActorTmp;
-            _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
+            _papFirstRenderActor[render_depth_index] = prm_pActor;
         }
     }
     return render_depth_index;
@@ -388,17 +389,17 @@ int Spacetime::registerFigureActor3D(FigureActor* prm_pActor) {
             //＊＊＊ 3Dで特別な描画深度指定無し ＊＊＊
             dxcoord dep = -prm_pActor->_dest_from_vppln_infront; //オブジェクトの視点からの距離(DIRECTX距離)
             if (dep < 0.0) {
-                render_depth_index = RENDER_DEPTH_INDEX_FRONT;
+                render_depth_index = RENDER_DEPTH_NEAR_INDEX;
             } else if (0.0 <= dep && dep < _dep_resolution) {
-                render_depth_index = RENDER_DEPTH_INDEX_FRONT + _paDep2Lv[DX_PX(dep)];
+                render_depth_index = RENDER_DEPTH_NEAR_INDEX + _paDep2Lv[DX_PX(dep)];
             } else {
-                render_depth_index = RENDER_DEPTH_INDEX_BACK;
+                render_depth_index = RENDER_DEPTH_FAR_INDEX;
             }
-            if (_papFirstActor_in_render_depth[render_depth_index] == nullptr) {
+            if (_papFirstRenderActor[render_depth_index] == nullptr) {
                 //そのprm_render_depth_indexで最初のアクターの場合
                 prm_pActor->_pNextRenderActor = nullptr;
-                _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
-                _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
+                _papFirstRenderActor[render_depth_index] = prm_pActor;
+                _papLastRenderActor[render_depth_index] = prm_pActor;
             } else {
                 if (!prm_pActor->_zwriteenable) {
                     //Z値を書き込ま無いオブジェクトはお尻に追加。
@@ -406,13 +407,14 @@ int Spacetime::registerFigureActor3D(FigureActor* prm_pActor) {
                     //同一の深度の「前」に追加   ＝ その深度で始めに描画される
                     //同一の深度の「お尻」に追加 ＝ その深度で後に描画される
                     //となっていることに注意。
-                    //Z値を書き込むのアクターは始めの方に描画するほうがいいかなぁ～と思って。
+                    //Z値を書き込むアクターは始めの方に描画するほうがいいかなぁ～と思って。
                     //レーザー等が綺麗に描画される可能性が高い。
-                    FigureActor* pActorTmp = _papLastActor_in_render_depth[render_depth_index];
+                    FigureActor* pActorTmp = _papLastRenderActor[render_depth_index];
                     pActorTmp->_pNextRenderActor = prm_pActor;
                     prm_pActor->_pNextRenderActor = nullptr;
-                    _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
+                    _papLastRenderActor[render_depth_index] = prm_pActor;
                 } else {
+                    //Z値を書き込むオブジェクト
                     //同一深度で3Dの場合、前に追加と、お尻に追加を交互に行う。
                     //何故そんなことをするかというと、Zバッファ有りのオブジェクトに半透明オブジェクトと交差した場合、
                     //同一深度なので、プライオリティ（描画順）によって透けない部分が生じてしまう。
@@ -420,15 +422,15 @@ int Spacetime::registerFigureActor3D(FigureActor* prm_pActor) {
                     //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
                     if ((_frame_of_behaving & 1) == 1) { //奇数
                         //前に追加
-                        FigureActor* pActorTmp = _papFirstActor_in_render_depth[render_depth_index];
+                        FigureActor* pActorTmp = _papFirstRenderActor[render_depth_index];
                         prm_pActor->_pNextRenderActor = pActorTmp;
-                        _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
+                        _papFirstRenderActor[render_depth_index] = prm_pActor;
                     } else {
                         //お尻に追加
-                        FigureActor* pActorTmp = _papLastActor_in_render_depth[render_depth_index];
+                        FigureActor* pActorTmp = _papLastRenderActor[render_depth_index];
                         pActorTmp->_pNextRenderActor = prm_pActor;
                         prm_pActor->_pNextRenderActor = nullptr;
-                        _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
+                        _papLastRenderActor[render_depth_index] = prm_pActor;
                     }
                 }
             }
@@ -436,16 +438,16 @@ int Spacetime::registerFigureActor3D(FigureActor* prm_pActor) {
         } else {
             //＊＊＊ 3Dで特別な描画深度指定有り
             render_depth_index = specal_render_depth_index;
-            if (_papFirstActor_in_render_depth[render_depth_index] == nullptr) {
+            if (_papFirstRenderActor[render_depth_index] == nullptr) {
                 //そのprm_render_depth_indexで最初のアクターの場合
                 prm_pActor->_pNextRenderActor = nullptr;
-                _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
-                _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
+                _papFirstRenderActor[render_depth_index] = prm_pActor;
+                _papLastRenderActor[render_depth_index] = prm_pActor;
             } else {
                 //前に追加
-                FigureActor* pActorTmp = _papFirstActor_in_render_depth[render_depth_index];
+                FigureActor* pActorTmp = _papFirstRenderActor[render_depth_index];
                 prm_pActor->_pNextRenderActor = pActorTmp;
-                _papFirstActor_in_render_depth[render_depth_index] = prm_pActor;
+                _papFirstRenderActor[render_depth_index] = prm_pActor;
             }
         }
     }
@@ -464,7 +466,6 @@ void Spacetime::cnvViewCoordToWorld(coord prm_view_x, coord prm_view_y, coord pr
         C_PX(prm_view_x), C_PX(prm_view_y), 1, 1.0f   //Far  Z=1
     );
     D3DXMATRIX matWorldCoords = matScreen * pCam->_matInvViewPort_Proj_View;
-
     //下記を計算最適化
     //    const float near_W = out._34;
     //    const float far_W = out._44;
@@ -487,11 +488,11 @@ void Spacetime::cnvViewCoordToWorld(coord prm_view_x, coord prm_view_y, coord pr
 
 void Spacetime::cnvWorldCoordToView(coord prm_world_x, coord prm_world_y, coord prm_world_z,
                                     coord& out_view_x, coord& out_view_y) {
-    //視錐台面からの距離を更新
+    //視錐台面からの距離の割合で求める
     const dxcoord fX = C_DX(prm_world_x);
     const dxcoord fY = C_DX(prm_world_y);
     const dxcoord fZ = C_DX(prm_world_z);
-    Camera *pCam = pCARETAKER->getSpacetime()->getCamera();
+    Camera *pCam = getCamera();
     const D3DXPLANE *pPlnTop = &(pCam->_plnTop);
     dxcoord len_top = -(pPlnTop->a*fX + pPlnTop->b*fY + pPlnTop->c*fZ + pPlnTop->d);
     const D3DXPLANE *pPlnBottom = &(pCam->_plnBottom);
@@ -500,8 +501,8 @@ void Spacetime::cnvWorldCoordToView(coord prm_world_x, coord prm_world_y, coord 
     dxcoord len_left = -(pPlnLeft->a*fX + pPlnLeft->b*fY + pPlnLeft->c*fZ + pPlnLeft->d);
     const D3DXPLANE *pPlnRight = &(pCam->_plnRight);
     dxcoord len_rigth = -(pPlnRight->a*fX + pPlnRight->b*fY + pPlnRight->c*fZ + pPlnRight->d);
-    dxcoord x = ( PX_DX(_buffer_width1 ) / (len_left+len_rigth) ) * len_left;
-    dxcoord y = ( PX_DX(_buffer_height1) / (len_top+len_bottom) ) * len_top;
+    dxcoord x =  PX_DX(_buffer_width1 ) * (len_left / (len_left+len_rigth ) );
+    dxcoord y =  PX_DX(_buffer_height1) * (len_top  / (len_top +len_bottom) );
     out_view_x = DX_C(x);
     out_view_y = DX_C(y);
 }
@@ -509,6 +510,6 @@ void Spacetime::cnvWorldCoordToView(coord prm_world_x, coord prm_world_y, coord 
 Spacetime::~Spacetime() {
     GGAF_DELETE(_pRing_pSeArray);
     GGAF_DELETEARR(_paDep2Lv);
-    GGAF_DELETEARR(_papFirstActor_in_render_depth);
-    GGAF_DELETEARR(_papLastActor_in_render_depth);
+    GGAF_DELETEARR(_papFirstRenderActor);
+    GGAF_DELETEARR(_papLastRenderActor);
 }

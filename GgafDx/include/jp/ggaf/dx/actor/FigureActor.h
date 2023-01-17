@@ -69,7 +69,7 @@ public:
     /** [r/w]現在のマテリアル別カラー(TODO:Diffuse のみ使用） */
     D3DMATERIAL9* _paMaterial;
 
-    /** [r/w]現在の描画深度 */
+    /** [r]現在の描画深度 */
     int _now_drawdepth;
     /** [r/w]特別な固定描画深度、-1でなければ _now_drawdepth より優先でこの深度が適用される */
     int _specal_render_depth_index;
@@ -186,6 +186,24 @@ public:
      * 特別な描画深度指定を解除する .
      */
     void resetSpecialRenderDepthIndex();
+
+    /**
+     * 特別な最前面描画深度の順序を強制する。(0, 1, 2, 3, 4 で指定) .
+     * 通常の段階レンダリングよりも、前面に位置する特別な描画深度が5段階用意されている。
+     * （この段階数は CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_NEAR で変更可）
+     * この前面に位置する特別な描画深度に登録を強制する。
+     * @param prm_near_index 0(最前面の中でも最も手前) ～ 4(最前面の中でも最も背面)
+     */
+    void setSpecialRenderDepthNear(int prm_near_index);
+
+    /**
+     * 特別な最背面描画深度の順序を強制する。(0, -1, -2, -3, -4 で指定) .
+     * 通常の段階レンダリングよりも、背面に位置する特別な描画深度が5段階用意されている。
+     * （この段階数は CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_FAR で変更可）
+     *  この背面面に位置する特別な描画深度に登録を強制する。
+     * @param prm_far_index 0(最背面の中でも最も背面) ～ -4(最背面の中でも最も手前)
+     */
+    void setSpecialRenderDepthFar(int prm_far_index);
 
     /**
      * 共通の描画事前処理 .

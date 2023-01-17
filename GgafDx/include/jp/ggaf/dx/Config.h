@@ -24,6 +24,9 @@ public:
     static double GAME_SPACE_DEPTH;
     /** [r] 段階レンダリング深度の数 */
     static int RENDER_DEPTH_INDEXS_NUM;
+    static int RENDER_DEPTH_INDEXS_NUM_EX_NEAR;
+    static int RENDER_DEPTH_INDEXS_NUM_EX_FAR;
+
     /** [r] 段階レンダリングを行うカメラから最遠点の距離の割合 */
     static double RENDER_DEPTH_STAGE_RATIO;
     /** [r] 射影変換を正射影で行う場合はtrue。デフォルトはfalse */

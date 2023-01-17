@@ -17,7 +17,6 @@ Planet001Atmosphere::Planet001Atmosphere(const char* prm_name) :
     setHitAble(false);
     setZEnableDraw(true);        //Zバッファは考慮
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
-    setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_HOSHIBOSHI-1);
     defineRotMvWorldMatrix_Billboard(); //XYZ軸ビルボード
     drawAnyFar(true); //遠くても表示
 }

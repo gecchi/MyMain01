@@ -18,7 +18,7 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
 
     _class_name = "WorldBoundActor";
     _offset_frames = 0;
-    setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_WORLDBOUND);
+    setSpecialRenderDepthFar(0);
     setHitAble(false);
     setZEnableDraw(false);   //Zバッファは考慮無し
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
@@ -58,7 +58,7 @@ void WorldBoundActor::processSettlementBehavior() {
 //        onCreateModel(); //モデル作成時の初期処理
 //        _pModel->_is_init_model = true;
 //    }
-//    GgafDx::Spacetime::registerFigureActor(REGULAR_RENDER_DEPTH_INDEXS_NUM,this); //最深部
+//    GgafDx::Spacetime::registerFigureActor(CONFIG::RENDER_DEPTH_INDEXS_NUM,this); //最深部
 //}
 
 WorldBoundActor::~WorldBoundActor() {

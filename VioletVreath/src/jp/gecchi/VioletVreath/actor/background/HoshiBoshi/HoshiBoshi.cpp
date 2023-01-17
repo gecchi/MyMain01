@@ -27,7 +27,7 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model) :
 
     //独自ワールド変換
     defineRotMvWorldMatrix(HoshiBoshi::setWorldMatrix_HoshiBoshi);
-    setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_HOSHIBOSHI);
+    setSpecialRenderDepthFar(-1); //setSpecialRenderDepthFar(0) は WorldBoundActor
     pCriteria_ = pCARETAKER->getSpacetime()->getCamera();
     setFarRate(1.0);
     static volatile bool is_init = HoshiBoshi::initStatic(this); //静的メンバ初期化
