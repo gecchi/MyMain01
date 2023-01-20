@@ -95,10 +95,12 @@ public:
     frame _prev_visualize_frames;
 #ifdef MY_DEBUG
     /** [r] 1フレームの描画回数 */
-    static unsigned int _num_drawing;
+    static unsigned int _num_draw;
+    static unsigned int _num_draw_actors;
+
 #endif
     /** [r] 1フレームの活動中アクター */
-    static unsigned int _num_active_actor;
+    static unsigned int _num_active_actors;
 
     /** [r] 描画処理、最高スキップフレーム数 */
     int _max_skip_frames;

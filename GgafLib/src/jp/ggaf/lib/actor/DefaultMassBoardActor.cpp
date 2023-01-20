@@ -110,18 +110,17 @@ void DefaultMassBoardActor::processDraw() {
             memcpy(&(paInstancedata->r), &(pDefaultMassBoardActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
             ++paInstancedata;
 
+            pDrawActor = pDrawActor->_pNextRenderActor;
             draw_set_num++;
-            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_draw_set_num) {
                 break;
-            } else {
-                pDrawActor = pDrawActor->_pNextRenderActor;
             }
         } else {
             break;
         }
     }
     _pMassBoardModel->GgafDx::MassBoardModel::draw(this, draw_set_num);
+    _pNextRenderActor = pDrawActor;
 }
 
 DefaultMassBoardActor::~DefaultMassBoardActor() {

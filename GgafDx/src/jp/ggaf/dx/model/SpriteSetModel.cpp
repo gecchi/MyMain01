@@ -108,6 +108,9 @@ HRESULT SpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
                                   idxparam.NumVertices,
                                   idxparam.StartIndex,
                                   idxparam.PrimitiveCount);
+#ifdef MY_DEBUG
+    GgafCore::Caretaker::_num_draw++;
+#endif
     if (_num_pass >= 2) { //‚QƒpƒX–ÚˆÈ~‚ª‘¶Ý
         hr = pID3DXEffect->EndPass();
         checkDxException(hr, D3D_OK, "EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -121,6 +124,9 @@ HRESULT SpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
                                           idxparam.NumVertices,
                                           idxparam.StartIndex,
                                           idxparam.PrimitiveCount);
+#ifdef MY_DEBUG
+            GgafCore::Caretaker::_num_draw++;
+#endif
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         }
@@ -133,9 +139,6 @@ HRESULT SpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
     ModelManager::_pModelLastDraw = this;
     EffectManager::_pEffect_active = pSpriteSetEffect;
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
-#ifdef MY_DEBUG
-        GgafCore::Caretaker::_num_drawing++;
-#endif
     return D3D_OK;
 }
 

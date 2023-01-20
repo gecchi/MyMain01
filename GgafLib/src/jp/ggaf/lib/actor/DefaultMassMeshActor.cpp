@@ -98,18 +98,18 @@ void DefaultMassMeshActor::processDraw() {
             memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX);
             memcpy(&(paInstancedata->r), &(pDrawActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
             ++paInstancedata;
+
+            pDrawActor = pDrawActor->_pNextRenderActor;
             draw_set_num++;
-            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_draw_set_num) {
                 break;
-            } else {
-                pDrawActor = pDrawActor->_pNextRenderActor;
             }
         } else {
             break;
         }
     }
     ((GgafDx::MassMeshModel*)_pMassMeshModel)->GgafDx::MassMeshModel::draw(this, draw_set_num);
+    _pNextRenderActor = pDrawActor;
 }
 
 DefaultMassMeshActor::~DefaultMassMeshActor() {

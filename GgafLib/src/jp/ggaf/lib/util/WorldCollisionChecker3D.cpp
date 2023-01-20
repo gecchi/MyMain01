@@ -13,8 +13,6 @@
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
-
-
 using namespace GgafLib;
 
 WorldCollisionChecker3D::WorldCollisionChecker3D(GgafDx::GeometricActor* prm_pActor) : WorldCollisionChecker(prm_pActor)
@@ -40,6 +38,9 @@ void WorldCollisionChecker3D::updateHitArea() {
                                                               pActor->_x + pCollisionArea->_aabb_x2,
                                                               pActor->_y + pCollisionArea->_aabb_y2,
                                                               pActor->_z + pCollisionArea->_aabb_z2);
+#ifdef MY_DEBUG
+        WorldCollisionChecker::_num_check_actors++;
+#endif
     }
 }
 

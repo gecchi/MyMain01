@@ -112,7 +112,6 @@ void DefaultMassMorphMeshActor::processDraw() {
 
             ++paInstancedata;
             draw_set_num++;
-            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_draw_set_num) {
                 break;
             } else {
@@ -123,6 +122,7 @@ void DefaultMassMorphMeshActor::processDraw() {
         }
     }
     ((GgafDx::MassMorphMeshModel*)_pMassMorphMeshModel)->GgafDx::MassMorphMeshModel::draw(this, draw_set_num);
+    _pNextRenderActor = pDrawActor;
 }
 void DefaultMassMorphMeshActor::drawHitArea() {
 #ifdef MY_DEBUG

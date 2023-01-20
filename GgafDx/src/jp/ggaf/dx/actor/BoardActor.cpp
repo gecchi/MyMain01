@@ -39,9 +39,9 @@ _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
     _alpha = 1.0f;
     _is_fix_2D = true;
     _pFunc_calc_rot_mv_world_matrix = nullptr;
-    _z = 0;
     setZEnableDraw(false);
     setZWriteEnable(false);
+    setSpecialRenderDepthNear(0); //特別な最前面レンダリング（一番最後に描画）
 }
 
 void BoardActor::processDraw() {

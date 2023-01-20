@@ -129,10 +129,10 @@ HRESULT D3DXAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
                 hr = pID3DXEffect->CommitChanges();
                 checkDxException(hr, D3D_OK, "["<<i<<"],D3DXAniMeshModel::draw() CommitChanges() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
                 (*it)->pMeshContainer->MeshData.pMesh->DrawSubset(j);
-                n++;
 #ifdef MY_DEBUG
-        GgafCore::Caretaker::_num_drawing++;
+                GgafCore::Caretaker::_num_draw++;
 #endif
+                n++;
             }
         }
     }

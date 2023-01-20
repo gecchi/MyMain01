@@ -38,6 +38,9 @@ void WorldCollisionChecker2D::updateHitArea() {
                                                                 pActor->_y + pCollisionArea->_aabb_y1,
                                                                 pActor->_x + pCollisionArea->_aabb_x2,
                                                                 pActor->_y + pCollisionArea->_aabb_y2);
+#ifdef MY_DEBUG
+        WorldCollisionChecker::_num_check_actors++;
+#endif
 
     }
 }

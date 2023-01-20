@@ -312,6 +312,9 @@ HRESULT MassPointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_
     _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMassPointSpriteEffect->_effect_name);
     hr = pDevice->DrawPrimitive(D3DPT_POINTLIST, 0, _nVertices*prm_draw_set_num);
     checkDxException(hr, D3D_OK, " pass=1 Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+#ifdef MY_DEBUG
+    GgafCore::Caretaker::_num_draw++;
+#endif
     if (_num_pass >= 2) { //ÇQÉpÉXñ⁄à»ç~Ç™ë∂ç›
         hr = pID3DXEffect->EndPass();
         checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -320,16 +323,15 @@ HRESULT MassPointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_
             checkDxException(hr, D3D_OK, i+1<<"ÉpÉXñ⁄ BeginPass("<<i<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pDevice->DrawPrimitive(D3DPT_POINTLIST, 0, _nVertices*prm_draw_set_num);
             checkDxException(hr, D3D_OK, " pass="<<(i+1)<<" Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+#ifdef MY_DEBUG
+            GgafCore::Caretaker::_num_draw++;
+#endif
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
         hr = pID3DXEffect->BeginPass(0);
         checkDxException(hr, D3D_OK, "ÇPÉpÉXñ⁄ BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
-#ifdef MY_DEBUG
-        GgafCore::Caretaker::_num_drawing++;
-#endif
-
     ModelManager::_pModelLastDraw = this;
     EffectManager::_pEffect_active = pMassPointSpriteEffect;
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;

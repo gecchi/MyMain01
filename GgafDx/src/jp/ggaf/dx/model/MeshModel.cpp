@@ -138,6 +138,9 @@ HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, vo
                                       idxparam.NumVertices,
                                       idxparam.StartIndex,
                                       idxparam.PrimitiveCount);
+#ifdef MY_DEBUG
+        GgafCore::Caretaker::_num_draw++;
+#endif
         if (_num_pass >= 2) { //ÇQÉpÉXñ⁄à»ç~Ç™ë∂ç›
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -150,15 +153,15 @@ HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, vo
                                               idxparam.NumVertices,
                                               idxparam.StartIndex,
                                               idxparam.PrimitiveCount);
+#ifdef MY_DEBUG
+                GgafCore::Caretaker::_num_draw++;
+#endif
                 hr = pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             }
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "ÇPÉpÉXñ⁄ BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
-#ifdef MY_DEBUG
-        GgafCore::Caretaker::_num_drawing++;
-#endif
     }
     ModelManager::_pModelLastDraw = this;
     EffectManager::_pEffect_active = pMeshEffect;

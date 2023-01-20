@@ -86,16 +86,17 @@ void PointSpriteSetActor::processDraw() {
             checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) に失敗しました。");
             hr = pID3DXEffect->SetValue(_pPointSpriteSetEffect->_ah_colMaterialDiffuse[draw_set_num], &(pPointSpriteSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
             checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) に失敗しました。");
+
+            pDrawActor = pDrawActor->_pNextRenderActor;
             draw_set_num++;
             if (draw_set_num >= model_draw_set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNextRenderActor;
         } else {
             break;
         }
     }
-    Spacetime::_pActor_draw_active = pPointSpriteSetActor; //描画セットの最後アクターをセット
+    _pNextRenderActor = pDrawActor;
 
     //ポイントスプライトON
     pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);

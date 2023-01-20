@@ -86,7 +86,7 @@ public:
 
         void dump() {
             if (_pNodeValueList == nullptr) {
-                _TRACE_N_("x");
+                _TRACE_N_(""); //ÉmÅ[ÉhÇ»Çµ
             } else {
                 ITreeNodeElem* pElem = _pNodeValueList;
                 while (pElem) {

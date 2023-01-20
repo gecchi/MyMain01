@@ -356,6 +356,9 @@ HRESULT MassMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
                                        _nVertices,
                                        0,
                                        _nFaces);
+#ifdef MY_DEBUG
+    GgafCore::Caretaker::_num_draw++;
+#endif
     //checkDxException(hr, D3D_OK, " pass=1 ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     if (_num_pass >= 2) { //‚QƒpƒX–ÚˆÈ~‚ª‘¶Ý
         hr = pID3DXEffect->EndPass();
@@ -370,15 +373,15 @@ HRESULT MassMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
                                                0,
                                                _nFaces);
             checkDxException(hr, D3D_OK, " pass="<<(i+1)<<" ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+#ifdef MY_DEBUG
+            GgafCore::Caretaker::_num_draw++;
+#endif
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         }
         hr = pID3DXEffect->BeginPass(0);
         checkDxException(hr, D3D_OK, "‚PƒpƒX–Ú BeginPass(0) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
-#ifdef MY_DEBUG
-        GgafCore::Caretaker::_num_drawing++;
-#endif
     ModelManager::_pModelLastDraw = this;
     EffectManager::_pEffect_active = pMassMeshEffect;
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;

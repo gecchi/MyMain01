@@ -102,6 +102,9 @@ HRESULT RegularPolygonSpriteModel::draw(FigureActor* prm_pActor_target, int prm_
     }
     _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pSpriteEffect->_effect_name);
     pDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, pTargetActor->_draw_fan_num);
+#ifdef MY_DEBUG
+    GgafCore::Caretaker::_num_draw++;
+#endif
     if (_num_pass >= 2) { //‚QƒpƒX–ÚˆÈ~‚ª‘¶Ý
         hr = pID3DXEffect->EndPass();
         checkDxException(hr, D3D_OK, "EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -110,6 +113,9 @@ HRESULT RegularPolygonSpriteModel::draw(FigureActor* prm_pActor_target, int prm_
             hr = pID3DXEffect->BeginPass(pass);
             checkDxException(hr, D3D_OK, pass+1<<"ƒpƒX–Ú BeginPass("<<pass<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
             pDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, pTargetActor->_draw_fan_num);
+#ifdef MY_DEBUG
+            GgafCore::Caretaker::_num_draw++;
+#endif
             hr = pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         }
@@ -122,9 +128,6 @@ HRESULT RegularPolygonSpriteModel::draw(FigureActor* prm_pActor_target, int prm_
     ModelManager::_pModelLastDraw = this;
     EffectManager::_pEffect_active = pSpriteEffect;
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
-#ifdef MY_DEBUG
-        GgafCore::Caretaker::_num_drawing++;
-#endif
     return D3D_OK;
 }
 

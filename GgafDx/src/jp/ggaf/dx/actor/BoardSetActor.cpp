@@ -46,11 +46,9 @@ _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
 
     _is_fix_2D = true;
     _pFunc_calc_rot_mv_world_matrix = nullptr;
-
     setZEnableDraw(false);
     setZWriteEnable(false);
-
-    _z = 0;
+    setSpecialRenderDepthNear(0); //特別な最前面レンダリング（一番最後に描画）
 }
 
 void BoardSetActor::processDraw() {
@@ -95,17 +93,17 @@ void BoardSetActor::processDraw() {
             hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_v[draw_set_num], v);
             checkDxException(hr, D3D_OK, "SetFloat(_h_offset_v) に失敗しました。");
 
+            pDrawActor = pDrawActor->_pNextRenderActor;
             draw_set_num++;
             if (draw_set_num >= model_draw_set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNextRenderActor;
         } else {
             break;
         }
     }
-    Spacetime::_pActor_draw_active = pBoardSetActor; //描画セットの最後アクターをセット
     _pBoardSetModel->BoardSetModel::draw(this, draw_set_num);
+    _pNextRenderActor = pDrawActor;
 }
 
 void BoardSetActor::setPositionAt(const GeometricActor* prm_pActor) {

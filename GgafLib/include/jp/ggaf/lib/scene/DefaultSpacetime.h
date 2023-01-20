@@ -70,6 +70,8 @@ public:
 
     virtual void processPreJudgement() override;
 
+    virtual void processJudgement() override;
+
     virtual void processFinal() override;
 
     virtual ~DefaultSpacetime();

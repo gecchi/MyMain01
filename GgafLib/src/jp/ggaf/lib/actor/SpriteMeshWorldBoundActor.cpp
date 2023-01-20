@@ -44,7 +44,7 @@ void SpriteMeshWorldBoundActor::processSettlementBehavior() {
 //        onCreateModel(); //ÉÇÉfÉãçÏê¨éûÇÃèâä˙èàóù
 //        _pModel->_is_init_model = true;
 //    }
-//    GgafDx::Spacetime::registerFigureActor(CONFIG::RENDER_DEPTH_INDEXS_NUM,this); //ç≈ê[ïî
+//    GgafDx::Spacetime::registerDrawActor(CONFIG::RENDER_DEPTH_INDEXS_NUM,this); //ç≈ê[ïî
 //}
 
 SpriteMeshWorldBoundActor::~SpriteMeshWorldBoundActor() {

@@ -16,9 +16,10 @@ CRITICAL_SECTION Caretaker::CS1;
 CRITICAL_SECTION Caretaker::CS2;
 
 #ifdef MY_DEBUG
-unsigned int Caretaker::_num_drawing = 0;
+unsigned int Caretaker::_num_draw = 0;
+unsigned int Caretaker::_num_draw_actors = 0;
 #endif
-unsigned int Caretaker::_num_active_actor = 0;
+unsigned int Caretaker::_num_active_actors = 0;
 
 Caretaker* Caretaker::_pCaretaker = nullptr;
 
@@ -257,17 +258,18 @@ void Caretaker::presentJudge() {
 }
 
 void Caretaker::presentMaterialize() {
-    if (Caretaker::_num_active_actor > CONFIG::OBJNUM_TO_SLOWDOWN2) {
+    if (Caretaker::_num_active_actors > CONFIG::OBJNUM_TO_SLOWDOWN2) {
         _slowdown_mode = SLOWDOWN_MODE_30FPS;
-    } else if (Caretaker::_num_active_actor > CONFIG::OBJNUM_TO_SLOWDOWN1) {
+    } else if (Caretaker::_num_active_actors > CONFIG::OBJNUM_TO_SLOWDOWN1) {
         _slowdown_mode = SLOWDOWN_MODE_40FPS;
     } else {
         _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
     }
 #ifdef MY_DEBUG
-    Caretaker::_num_drawing = 0;
+    Caretaker::_num_draw = 0;
+    Caretaker::_num_draw_actors = 0;
 #endif
-    Caretaker::_num_active_actor = 0;
+    Caretaker::_num_active_actors = 0;
     Spacetime* pSpacetime = _pSpacetime;
     pSpacetime->preDraw();
     pSpacetime->draw();
@@ -325,7 +327,7 @@ void Caretaker::clean() {
 #ifdef MY_DEBUG
             _TRACE_("Dumping GarbageBox::_pGarbageBox->_pDisusedScene ...");
             GarbageBox::_pGarbageBox->_pDisusedScene->dump();
-            _TRACE_("GarbageBox::_pGarbageBox->_pDisusedActor ...");
+            _TRACE_("Dumping GarbageBox::_pGarbageBox->_pDisusedActor ...");
             GarbageBox::_pGarbageBox->_pDisusedActor->dump();
 #endif
             _TRACE_("GGAF_DELETE(GarbageBox::_pGarbageBox);");

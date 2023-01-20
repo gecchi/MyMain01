@@ -13,7 +13,6 @@ namespace GgafDx {
  * @author Masatoshi Tsuge
  */
 class CollisionChecker : public GgafCore::Object {
-
 public:
     /** 対象アクター */
     GeometricActor* const _pActor;

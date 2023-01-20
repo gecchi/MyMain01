@@ -82,17 +82,17 @@ void SpriteMeshSetActor::processDraw() {
             hr = pID3DXEffect->SetFloat(_pMeshSetEffect->_ah_offset_v[draw_set_num], v);
             checkDxException(hr, D3D_OK, "SetMatrix(_h_offset_v) に失敗しました。");
 
+            pDrawActor = pDrawActor->_pNextRenderActor;
             draw_set_num++;
             if (draw_set_num >= model_draw_set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNextRenderActor;
         } else {
             break;
         }
     }
-    Spacetime::_pActor_draw_active = pSpriteMeshSetActor; //描画セットの最後アクターをセット
     _pMeshSetModel->MeshSetModel::draw(this, draw_set_num);
+    _pNextRenderActor = pDrawActor;
 }
 
 

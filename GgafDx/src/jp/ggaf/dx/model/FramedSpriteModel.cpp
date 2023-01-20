@@ -119,15 +119,13 @@ HRESULT FramedSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set
                                     _indexParam.NumVertices,
                                     _indexParam.StartIndex,
                                     _indexParam.PrimitiveCount);
-
+#ifdef MY_DEBUG
+    GgafCore::Caretaker::_num_draw++;
+#endif
     //‘O‰ñ•`‰æƒ‚ƒfƒ‹•ÛŽ
     ModelManager::_pModelLastDraw = this;
     EffectManager::_pEffect_active = pFramedSpriteEffect;
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
-#ifdef MY_DEBUG
-        GgafCore::Caretaker::_num_drawing++;
-#endif
-
     return D3D_OK;
 }
 

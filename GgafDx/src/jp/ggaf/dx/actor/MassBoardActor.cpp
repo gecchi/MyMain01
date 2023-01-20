@@ -43,11 +43,9 @@ _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek()))
 
     _is_fix_2D = true;
     _pFunc_calc_rot_mv_world_matrix = nullptr;
-
     setZEnableDraw(false);
     setZWriteEnable(false);
-
-    _z = 0;
+    setSpecialRenderDepthNear(0); //特別な最前面レンダリング（一番最後に描画）
 }
 
 void MassBoardActor::setPositionAt(const GeometricActor* prm_pActor) {

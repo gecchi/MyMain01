@@ -150,7 +150,7 @@ HRESULT MorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
                                       _paIndexParam[i].StartIndex,
                                       _paIndexParam[i].PrimitiveCount);
 #ifdef MY_DEBUG
-        GgafCore::Caretaker::_num_drawing++;
+        GgafCore::Caretaker::_num_draw++;
 #endif
     }
     ModelManager::_pModelLastDraw = this;

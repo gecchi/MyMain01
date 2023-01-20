@@ -6,11 +6,8 @@
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/actor/camera/Camera.h"
 
-
-//#define EX_RENDER_DEPTH_INDEXS_FRONT_NUM   (5)
-//#define REGULAR_RENDER_DEPTH_INDEXS_NUM    (CONFIG::RENDER_DEPTH_INDEXS_NUM)  //段階レンダー分解能
-//#define EX_RENDER_DEPTH_INDEXS_BACK_NUM    (5)
-#define ALL_RENDER_DEPTH_INDEXS_NUM        (CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_NEAR + CONFIG::RENDER_DEPTH_INDEXS_NUM + CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_FAR)
+/** 段階レンダリングの段階総数 */
+#define ALL_RENDER_DEPTH_INDEXS_NUM  (CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_NEAR + CONFIG::RENDER_DEPTH_INDEXS_NUM + CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_FAR)
 
 #define RENDER_DEPTH_NEAR_INDEX      (CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_NEAR)  //通常の最前面
 #define RENDER_DEPTH_FAR_INDEX       (CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_FAR + CONFIG::RENDER_DEPTH_INDEXS_NUM - 1) //通常の最背面
@@ -68,27 +65,7 @@ public:
     FigureActor** _papFirstRenderActor;
     /** レンダリング順序配列に登録されている各アクターリストの末尾のアクターの配列 */
     FigureActor** _papLastRenderActor;
-    // イメージ
-    // ○ は アクター
-    // [0]～[3] は レンダリング順序 [0]：手前 ～ [3]：奥 (最大：ALL_RENDER_DEPTH_INDEXS_NUM)
-    //
-    // [0] -> ① -> ② -> ③ -> ④ -> ⑤ -> nullptr
-    // [1] -> nullptr
-    // [2] -> ⑥ -> ⑦ -> nullptr
-    // [3] -> ⑧ -> nullptr
-    //
-    //  _papFirstRenderActor[0] = ①
-    //  _papLastRenderActor[0]  = ⑤
-    //  _papFirstRenderActor[1] = nullptr
-    //  _papLastRenderActor[1]  = nullptr
-    //  _papFirstRenderActor[2] = ⑥
-    //  _papLastRenderActor[2]  = ⑦
-    //  _papFirstRenderActor[3] = ⑧
-    //  _papLastRenderActor[3]  = ⑧
-    //  ① -> ② の連結はメンバ変数 _pNextRenderActor による単方向連結リスト
 
-    /** 描画アクターのカーソル */
-    static FigureActor* _pActor_draw_active;
     static int render_depth_index_active;
     /** [r]アプリケーション領域、X座標の最小値 */
     const coord _x_bound_left;
@@ -145,21 +122,12 @@ public:
     }
 
     /**
-     * この世にアクターを登録(2Dオブジェクト用) .
+     * この世にアクターを登録 .
      * 登録すると、この世に描画されることとなる。
      * @param prm_pActor 対象アクター
      * @return 登録された描画順序深度レベル
      */
-    int registerFigureActor2D(FigureActor* prm_pActor);
-
-    /**
-     * この世にアクターを登録(3Dオブジェクト用) .
-     * 登録すると、この世に描画されることとなる。
-     * αなど半透明はこちらに登録した方が、ある程度前後関係が正しく表示される。
-     * @param prm_pActor 対象アクター
-     * @return 登録された描画順序深度レベル
-     */
-    int registerFigureActor3D(FigureActor* prm_pActor);
+    int registerDrawActor(FigureActor* prm_pActor);
 
     /**
      * この世に効果音オブジェクトを登録する .
@@ -203,6 +171,12 @@ public:
      */
     void cnvWorldCoordToView(coord prm_world_x, coord prm_world_y, coord prm_world_z,
                              coord& out_view_x, coord& out_view_y);
+
+    /**
+     * デバッグ：描画順表示
+     */
+    void dumpRenderDepthOrder();
+
 
 };
 

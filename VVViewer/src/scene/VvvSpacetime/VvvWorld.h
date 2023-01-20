@@ -57,6 +57,7 @@ public:
     pixcoord _buffer_width1;
     pixcoord _buffer_height1;
     std::map<int, int> mapNumDik_;
+    char aBufDebug_[256];
     /**
      * コンストラクタ .
      * @param prm_name 名称

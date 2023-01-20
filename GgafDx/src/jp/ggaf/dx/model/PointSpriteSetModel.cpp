@@ -118,9 +118,8 @@ HRESULT PointSpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_s
     hr = pDevice->DrawPrimitive(D3DPT_POINTLIST, 0, _nVertices*prm_draw_set_num);
     checkDxException(hr, D3D_OK, " pass=1 ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 #ifdef MY_DEBUG
-        GgafCore::Caretaker::_num_drawing++;
+        GgafCore::Caretaker::_num_draw++;
 #endif
-
     ModelManager::_pModelLastDraw = this;
     EffectManager::_pEffect_active = pPointSpriteSetEffect;
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;

@@ -78,17 +78,17 @@ void SpriteSetActor::processDraw() {
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_alpha[draw_set_num], pSpriteSetActor->_alpha);
             checkDxException(hr, D3D_OK, "SetFloat(_alpha) に失敗しました。");
 
+            pDrawActor = pDrawActor->_pNextRenderActor;
             draw_set_num++;
             if (draw_set_num >= model_draw_set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNextRenderActor;
         } else {
             break;
         }
     }
-    Spacetime::_pActor_draw_active = pSpriteSetActor; //描画セットの最後アクターをセット
     _pSpriteSetModel->SpriteSetModel::draw(this, draw_set_num);
+    _pNextRenderActor = pDrawActor;
 }
 
 //void SpriteSetActor::setAlign(Align prm_align, Valign prm_valign) {

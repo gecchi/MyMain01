@@ -8,7 +8,7 @@ DefaultRegularPolygonBoardActor::DefaultRegularPolygonBoardActor(const char* prm
         GgafDx::RegularPolygonBoardActor(prm_name,
                                        prm_model,
                                        "DefaultRegularPolygonBoardEffect",
-                                       "DefaultRegularPolygonBoardTechnique") {  
+                                       "DefaultRegularPolygonBoardTechnique") {
     _class_name = "DefaultRegularPolygonBoardActor";
 }
 

@@ -71,7 +71,7 @@ public:
 
     /** [r]現在の描画深度 */
     int _now_drawdepth;
-    /** [r/w]特別な固定描画深度、-1でなければ _now_drawdepth より優先でこの深度が適用される */
+    /** [r/w]特別な固定描画深度(負の数の場合は無効) _now_drawdepth より優先でこの深度が適用される */
     int _specal_render_depth_index;
     /** [r]一時テクニック適用中の場合 true */
     bool _is_temp_technique;
@@ -188,7 +188,7 @@ public:
     void resetSpecialRenderDepthIndex();
 
     /**
-     * 特別な最前面描画深度の順序を強制する。(0, 1, 2, 3, 4 で指定) .
+     * 特別な最前面描画深度の順序を強制する。(0, 1, 2, 3, … 10 で指定) .
      * 通常の段階レンダリングよりも、前面に位置する特別な描画深度が5段階用意されている。
      * （この段階数は CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_NEAR で変更可）
      * この前面に位置する特別な描画深度に登録を強制する。
@@ -197,7 +197,7 @@ public:
     void setSpecialRenderDepthNear(int prm_near_index);
 
     /**
-     * 特別な最背面描画深度の順序を強制する。(0, -1, -2, -3, -4 で指定) .
+     * 特別な最背面描画深度の順序を強制する。(0, -1, -2, -3, … -10 で指定) .
      * 通常の段階レンダリングよりも、背面に位置する特別な描画深度が5段階用意されている。
      * （この段階数は CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_FAR で変更可）
      *  この背面面に位置する特別な描画深度に登録を強制する。

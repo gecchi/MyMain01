@@ -18,14 +18,12 @@
 #include "jp/ggaf/lib/actor/debug/ColliSphereActor.h"
 #endif
 
-
-
 using namespace GgafLib;
 
 #ifdef MY_DEBUG
 unsigned int WorldCollisionChecker::_num_check = 0;
+unsigned int WorldCollisionChecker::_num_check_actors = 0;
 #endif
-
 WorldCollisionChecker::WorldCollisionChecker(GgafDx::GeometricActor* prm_pActor) : GgafDx::CollisionChecker(prm_pActor) {
 }
 

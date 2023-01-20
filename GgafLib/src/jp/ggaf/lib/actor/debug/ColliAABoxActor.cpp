@@ -52,7 +52,7 @@ void ColliAABoxActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
                             pActor->_y + box->_y2,
                             pActor->_z + box->_z2);
 #ifdef MY_DEBUG
-                    GgafCore::Caretaker::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
+                    GgafCore::Caretaker::_num_draw--; //当たり判定表示は表示オブジェクト数にカウントしない
 #endif
                 }
             }

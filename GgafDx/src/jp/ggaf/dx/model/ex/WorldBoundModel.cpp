@@ -111,9 +111,8 @@ HRESULT WorldBoundModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_n
                                       _paIndexParam[i].StartIndex,
                                       _paIndexParam[i].PrimitiveCount);
 #ifdef MY_DEBUG
-        GgafCore::Caretaker::_num_drawing++;
+        GgafCore::Caretaker::_num_draw++;
 #endif
-
     }
     ModelManager::_pModelLastDraw = this;
     EffectManager::_pEffect_active = pWorldBoundEffect;

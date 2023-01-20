@@ -51,11 +51,12 @@ void CubeMapMeshSetActor::processDraw() {
                 checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) に失敗しました。");
                 hr = pID3DXEffect->SetValue(_pCubeMapMeshSetEffect->_ah_materialDiffuse[draw_set_num], &(pCubeMapMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
                 checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) に失敗しました。");
+
+                pDrawActor = pDrawActor->_pNextRenderActor;
                 draw_set_num++;
                 if (draw_set_num >= model_draw_set_num) {
                     break;
                 }
-                pDrawActor = pDrawActor->_pNextRenderActor;
             } else {
                 break;
             }
@@ -63,8 +64,8 @@ void CubeMapMeshSetActor::processDraw() {
             break;
         }
     }
-    Spacetime::_pActor_draw_active = pCubeMapMeshSetActor; //描画セットの最後アクターをセット
     ((MeshSetModel*)_pCubeMapMeshSetModel)->MeshSetModel::draw(this, draw_set_num);
+    _pNextRenderActor = pDrawActor;
 }
 
 CubeMapMeshSetActor::~CubeMapMeshSetActor() {

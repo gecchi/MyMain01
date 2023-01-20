@@ -19,23 +19,6 @@ namespace GgafDx {
  */
 class BoardSetActor : public FigureActor , public IAlignAbleActor {
 private:
-    /**
-     * 使用不可のため、privateでoverride
-     * @return
-     */
-    int isOutOfView() override {
-        throwCriticalException("使用不可です。");
-        return 0;
-    }
-
-    /**
-     * 使用不可のため、privateでoverride
-     * @return
-     */
-    bool isOutOfSpacetime() const override {
-        throwCriticalException("使用不可です。");
-        return false;
-    }
 
     /**
      * 使用不可のため、privateでoverride
@@ -159,6 +142,14 @@ public:
     }
 //    float getModelWidth();
 //    float getModelHeight();
+
+    int isOutOfView() override {
+        return 0;
+    }
+
+    bool isOutOfSpacetime() const override {
+        return false;
+    }
 };
 
 }

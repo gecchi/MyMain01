@@ -6,6 +6,7 @@
 #include "jp/ggaf/dx/sound/Sound.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
+#include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/menu/MousePointer.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi8Font.h"
@@ -322,17 +323,23 @@ void World::processBehavior() {
 
 
 #ifdef MY_DEBUG
-    sprintf(aBufDebug_, "%07uF, %06u/%06uACT, %06uDRAW, %06uCHK, %03.1fFPS(SLOW%d), V%03d",
+
+    sprintf(aBufDebug_, "%07uF, %05u/%05uACT, %04u/%04uDRAW, %06uCHK3D(%05uACT), %02uCHK2D(%02uACT), %03.1fFPS(SLOW%d), V%03d",
                             pCaretaker->_frame_of_Caretaker,
-                            GgafCore::Caretaker::_num_active_actor,
+                            GgafCore::Caretaker::_num_active_actors,
                             GgafCore::Actor::_num_actors,
-                            GgafCore::Caretaker::_num_drawing,
+                            GgafCore::Caretaker::_num_draw,
+                            GgafCore::Caretaker::_num_draw_actors,
                             WorldCollisionChecker::_num_check,
+                            WorldCollisionChecker::_num_check_actors,
+                            ViewCollisionChecker::_num_check,
+                            ViewCollisionChecker::_num_check_actors,
                             pCaretaker->_fps,
                             pCaretaker->_slowdown_mode,
                             (GgafDx::Sound::getAppMasterVolume())
                             );
     pLabel_debug_->update(aBufDebug_);
+
     if (getActiveFrame() % CONFIG::FPS == 0) {
         _TRACE_("***** "<<aBufDebug_);
     }

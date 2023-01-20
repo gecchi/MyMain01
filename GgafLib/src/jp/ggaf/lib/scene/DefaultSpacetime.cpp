@@ -81,8 +81,18 @@ void DefaultSpacetime::processPreJudgement() {
     GgafDx::Spacetime::processPreJudgement();
 #ifdef MY_DEBUG
     _is_done_processPreJudgement = true;
+    ViewCollisionChecker::_num_check_actors = 0;
+    WorldCollisionChecker::_num_check_actors = 0;
 #endif
 }
+void DefaultSpacetime::processJudgement() {
+    GgafDx::Spacetime::processJudgement();
+#ifdef MY_DEBUG
+        WorldCollisionChecker::_num_check = 0;
+        ViewCollisionChecker::_num_check = 0;
+#endif
+}
+
 void DefaultSpacetime::processFinal() {
     if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
         DefaultSpacetime::_pWorldQuadtree->clearAllElem();

@@ -87,7 +87,6 @@ void FontBoardActor::processDraw() {
             pixcoord z = C_PX(pFontBoardActor->_z);
             InstancePart* pInstancePart = pFontBoardActor->_paInstancePart;
             float alpha = pFontBoardActor->_alpha;
-            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
 
             for (int i = 0; i < n; i++) {
                 paInstancedata->px_x = (float)(x + pInstancePart->px_local_x);
@@ -114,6 +113,7 @@ void FontBoardActor::processDraw() {
     if (draw_set_num > 0) {
         _pMassBoardModel->GgafDx::MassBoardModel::draw(this, draw_set_num);
     }
+    _pNextRenderActor = pDrawActor;
 }
 
 void FontBoardActor::drawHitArea() {

@@ -169,10 +169,17 @@ void FigureActor::processPreDraw() {
     }
     _pNextRenderActor = nullptr;
     if (isActiveInTheTree()) {
-        GgafCore::Caretaker::_num_active_actor++;
-        if (_alpha > 0.0f &&  ((GgafDx::Scene*)pPlatformScene)->_scene_alpha > 0.0f) { //isActiveInTheTree() で判定すること
-            _now_drawdepth = _is_fix_2D ? pSpacetime->registerFigureActor2D(this) : pSpacetime->registerFigureActor3D(this);
+        GgafCore::Caretaker::_num_active_actors++;
+        if (!isOutOfView()) {
+            if (_alpha > 0.0f &&  ((GgafDx::Scene*)pPlatformScene)->_scene_alpha > 0.0f) { //isActiveInTheTree() で判定すること
+                //レンダリング対象として登録
+                _now_drawdepth = pSpacetime->registerDrawActor(this);
+#ifdef MY_DEBUG
+                GgafCore::Caretaker::_num_draw_actors++;
+#endif
+            }
         }
+
     }
 
     //一時テクニック期間チェック
@@ -267,8 +274,8 @@ void FigureActor::setSpecialRenderDepthIndex(int prm_drawdepth) {
 }
 
 void FigureActor::setSpecialRenderDepthNear(int prm_near_index) {
-    // 0, 1, 2, 3, 4 で指定
-    //0(最前面の中でも最も手前) ～ 4(最前面の中でも最も背面)
+    // 0, 1, 2, 3, … 10 で指定
+    //0(最前面の中でも最も手前) ～ 10(最前面の中でも最も背面)
     if (prm_near_index < 0) {
             throwCriticalException("setSpecialRenderDepthNear() 不正な深度指定です（0,1,2,3,4… で指定してください） prm_near_index="<<prm_near_index);
     } else if (prm_near_index > CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_NEAR-1) {
@@ -279,8 +286,8 @@ void FigureActor::setSpecialRenderDepthNear(int prm_near_index) {
 }
 
 void FigureActor::setSpecialRenderDepthFar(int prm_far_index) {
-    //0,-1,-2,-3,-4
-    //0(最背面の中でも最も背面) ～ -4(最背面の中でも最も手前)
+    //0,-1,-2,-3, … -10
+    //0(最背面の中でも最も背面) ～ -10(最背面の中でも最も手前)
     if (prm_far_index > 0) {
         throwCriticalException("setSpecialRenderDepthFar() 不正な深度指定です（0,-1,-2,-3,-4… で指定してください） prm_far_index="<<prm_far_index);
     } else if (-prm_far_index > CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_FAR-1) {

@@ -114,14 +114,13 @@ HRESULT RegularPolygonBoardModel::draw(FigureActor* prm_pActor_target, int prm_d
     }
     _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pRegularPolygonBoardEffect->_effect_name<<"("<<pRegularPolygonBoardEffect<<")");
     pDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, pTargetActor->_draw_fan_num);
+#ifdef MY_DEBUG
+        GgafCore::Caretaker::_num_draw++;
+#endif
     //‘O‰ñ•`‰æƒ‚ƒfƒ‹•ÛŽ
     ModelManager::_pModelLastDraw = this;
     EffectManager::_pEffect_active = pRegularPolygonBoardEffect;
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
-#ifdef MY_DEBUG
-        GgafCore::Caretaker::_num_drawing++;
-#endif
-
     return D3D_OK;
 }
 

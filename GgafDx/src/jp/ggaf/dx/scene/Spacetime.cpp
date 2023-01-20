@@ -17,12 +17,11 @@
 #include "jp/ggaf/dx/sound/Sound.h"
 #include "jp/ggaf/dx/sound/Se.h"
 #include "jp/ggaf/dx/util/Util.h"
-
+#include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/dx/model/MassModel.h"
 
 using namespace GgafDx;
 
-FigureActor* Spacetime::_pActor_draw_active = nullptr;
 int Spacetime::render_depth_index_active = 0;
 std::string Spacetime::_seqkey_se_delay = "_SE_D_";
 
@@ -212,6 +211,31 @@ void Spacetime::draw() {
 
     //段階レンダリング描画
     //描画順アクターリストを構築
+    // データイメージ
+    // ○ は アクター
+    // [0]～[3] は レンダリング深度（ [0]：手前 ～ [3]：奥）※全要素数は：ALL_RENDER_DEPTH_INDEXS_NUM
+    //
+    // [0] => [ ① -> ② -> ③ -> ④ -> ⑤ -> nullptr ]
+    // [1] => [ nullptr ]
+    // [2] => [ ⑥ -> ⑦ -> nullptr ]
+    // [3] => [ ⑧ -> nullptr ]
+    //
+    // 上図のような場合、下記のようにアクター（のポインタ）が設定されている
+    //  _papFirstRenderActor[0] = ①     , _papLastRenderActor[0]  = ⑤
+    //  _papFirstRenderActor[1] = nullptr, _papLastRenderActor[1]  = nullptr
+    //  _papFirstRenderActor[2] = ⑥     , _papLastRenderActor[2]  = ⑦
+    //  _papFirstRenderActor[3] = ⑧     , _papLastRenderActor[3]  = ⑧
+    //  「->」 の連結はメンバ変数 _pNextRenderActor による単方向連結リスト
+    //【描画時順序】
+    // 最後の _papLastRenderActor[n] が、ひとつ手前の _papFirstRenderActor[n-1] のアクターに連結されて描画
+    // ⑧ -> ⑥ -> ⑦ -> ① -> ② -> ③ -> ④ -> ⑤
+#ifdef MY_DEBUG
+    if (GgafDx::Input::isPushedDownKey(DIK_R)) {
+        _TRACE_("段階レンダリング状態 ---->");
+        dumpRenderDepthOrder();
+        _TRACE_("<---- 段階レンダリング状態");
+    }
+#endif
     FigureActor* pDrawLastActor_in_render_depth = nullptr;
     FigureActor* pDrawNextActor_in_render_depth = nullptr;
     FigureActor* pDrawActor = nullptr; //リストの先頭アクターが入る
@@ -236,14 +260,13 @@ void Spacetime::draw() {
     }
 
     while (pDrawActor) {
-        Spacetime::_pActor_draw_active = pDrawActor;
         GgafCore::Scene* pPlatformScene = pDrawActor->getSceneMediator()->getPlatformScene();
 
 #ifdef MY_DEBUG
         if (pPlatformScene->instanceOf(Obj_GgafDx_Scene)) {
             //OK
         } else {
-            throwCriticalException("err2. 描画アクターの所属シーン _pActor_draw_active["<<(pDrawActor->getName())<<"->getPlatformScene()["<<(pPlatformScene->getName())<<"]が、Scene に変換不可です。this="<<getName()<<" \n"
+            throwCriticalException("err2. 描画アクターの所属シーン pDrawActor["<<(pDrawActor->getName())<<"->getPlatformScene()["<<(pPlatformScene->getName())<<"]が、Scene に変換不可です。this="<<getName()<<" \n"
                     "pDrawActor->getPlatformScene()->_obj_class="<<pPlatformScene->_obj_class<< " Obj_GgafDx_Scene="<<Obj_GgafDx_Scene<<" \n"
                     "(pDrawActor->getPlatformScene()->_obj_class & Obj_GgafDx_Scene)="<<((pPlatformScene->_obj_class) & Obj_GgafDx_Scene) <<" ==?? Obj_GgafDx_Scene("<<Obj_GgafDx_Scene<<")");
         }
@@ -301,9 +324,9 @@ void Spacetime::draw() {
             pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
         }
 
-        pDrawActor = Spacetime::_pActor_draw_active->_pNextRenderActor;
+        pDrawActor = pDrawActor->_pNextRenderActor;
         //set系描画の場合は、pDrawActor->processDraw() 処理内で、
-        //Spacetime::_pActor_draw_active が、set系の最終描画アクターに更新されている。
+        //pDrawActor->_pNextRenderActor が、最終描画アクターに更新されている。
         //_pNextRenderActor で表示が飛ばされることはない。
     }
 
@@ -333,58 +356,44 @@ void Spacetime::draw() {
     }
 }
 
-int Spacetime::registerFigureActor2D(FigureActor* prm_pActor) {
-    int render_depth_index;
+int Spacetime::registerDrawActor(FigureActor* prm_pActor) {
+    int render_depth_index = -1;
     int specal_render_depth_index = prm_pActor->_specal_render_depth_index;
-    if (specal_render_depth_index < 0) {
-        //＊＊＊ 2Dで特別な描画深度指定無し ＊＊＊
-        render_depth_index = CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_NEAR + prm_pActor->_z; //_z値がプライオリティ兼描画深度。
-        //上限下限カット
-        if (render_depth_index > RENDER_DEPTH_FAR_INDEX) {
-            render_depth_index = RENDER_DEPTH_FAR_INDEX;
-        } else if (render_depth_index < RENDER_DEPTH_NEAR_INDEX) {
-            render_depth_index = RENDER_DEPTH_NEAR_INDEX;
+    if (prm_pActor->_is_fix_2D) {
+        if (specal_render_depth_index < 0) {
+            //＊＊＊ 2Dで特別な描画深度指定無し ＊＊＊
+            render_depth_index = RENDER_DEPTH_NEAR_INDEX + prm_pActor->_z; //_z値がプライオリティ兼描画深度。
+            //上限下限カット
+            if (render_depth_index > RENDER_DEPTH_FAR_INDEX) {
+                render_depth_index = RENDER_DEPTH_FAR_INDEX;
+            } else if (render_depth_index < RENDER_DEPTH_NEAR_INDEX) {
+                render_depth_index = RENDER_DEPTH_NEAR_INDEX;
+            }
+        } else {
+            //＊＊＊ 2Dで特別な描画深度指定有り ＊＊＊
+            render_depth_index = specal_render_depth_index + prm_pActor->_z; //_z値がプライオリティ兼描画深度;
+            //下限カット
+            if (render_depth_index > ALL_RENDER_DEPTH_INDEXS_NUM-1) {
+                render_depth_index = ALL_RENDER_DEPTH_INDEXS_NUM-1;
+            }
         }
+
         if (_papFirstRenderActor[render_depth_index] == nullptr) {
             //2Dでそのprm_render_depth_indexで最初のアクターの場合
             prm_pActor->_pNextRenderActor = nullptr;
             _papFirstRenderActor[render_depth_index] = prm_pActor;
             _papLastRenderActor[render_depth_index] = prm_pActor;
         } else {
-            //2Dで同一深度で2Dの場合、連結リストのお尻に追加していく
-            //つまり、最後に appendChild() すればするほど、描画順が後になり、プライオリティが高いくなる。
+            //2Dで同一深度で2Dの場合、連結リストのお尻に追加していく(その深度で後に描画される)
+            //つまり、最後に appendChild() すればするほど、描画順が後になり、プライオリティが高いくなる設計
             FigureActor* pActorTmp = _papLastRenderActor[render_depth_index];
             pActorTmp->_pNextRenderActor = prm_pActor;
             prm_pActor->_pNextRenderActor = nullptr;
             _papLastRenderActor[render_depth_index] = prm_pActor;
         }
-    } else {
-        //＊＊＊ 2Dで特別な描画深度指定有り ＊＊＊
-        render_depth_index = specal_render_depth_index;
-        if (_papFirstRenderActor[render_depth_index] == nullptr) {
-            //そのprm_render_depth_indexで最初のアクターの場合
-            prm_pActor->_pNextRenderActor = nullptr;
-            _papFirstRenderActor[render_depth_index] = prm_pActor;
-            _papLastRenderActor[render_depth_index] = prm_pActor;
-        } else {
-            //手前に追加
-            FigureActor* pActorTmp = _papFirstRenderActor[render_depth_index];
-            prm_pActor->_pNextRenderActor = pActorTmp;
-            _papFirstRenderActor[render_depth_index] = prm_pActor;
-        }
-    }
-    return render_depth_index;
-}
 
-int Spacetime::registerFigureActor3D(FigureActor* prm_pActor) {
-    int render_depth_index;
-    int specal_render_depth_index = prm_pActor->_specal_render_depth_index;
-    //＊＊＊３Dの場合
-    if (prm_pActor->isOutOfView()) {
-        //描画しないので登録なし
-        render_depth_index = -1;
     } else {
-
+        //＊＊＊３Dの場合
         if (specal_render_depth_index < 0) { //特別な描画深度指定無し
             //＊＊＊ 3Dで特別な描画深度指定無し ＊＊＊
             dxcoord dep = -prm_pActor->_dest_from_vppln_infront; //オブジェクトの視点からの距離(DIRECTX距離)
@@ -404,10 +413,8 @@ int Spacetime::registerFigureActor3D(FigureActor* prm_pActor) {
                 if (!prm_pActor->_zwriteenable) {
                     //Z値を書き込ま無いオブジェクトはお尻に追加。
                     //深度の深い順に表示は行われるが。
-                    //同一の深度の「前」に追加   ＝ その深度で始めに描画される
-                    //同一の深度の「お尻」に追加 ＝ その深度で後に描画される
-                    //となっていることに注意。
-                    //Z値を書き込むアクターは始めの方に描画するほうがいいかなぁ～と思って。
+                    //同一の深度の「先頭」に追加 ＝ その深度で始めに描画される => 背面に描画される
+                    //同一の深度の「お尻」に追加 ＝ その深度で後に描画される   => 手前に描画される
                     //レーザー等が綺麗に描画される可能性が高い。
                     FigureActor* pActorTmp = _papLastRenderActor[render_depth_index];
                     pActorTmp->_pNextRenderActor = prm_pActor;
@@ -415,22 +422,42 @@ int Spacetime::registerFigureActor3D(FigureActor* prm_pActor) {
                     _papLastRenderActor[render_depth_index] = prm_pActor;
                 } else {
                     //Z値を書き込むオブジェクト
-                    //同一深度で3Dの場合、前に追加と、お尻に追加を交互に行う。
-                    //何故そんなことをするかというと、Zバッファ有りのオブジェクトに半透明オブジェクトと交差した場合、
-                    //同一深度なので、プライオリティ（描画順）によって透けない部分が生じてしまう。
-                    //これを描画順を毎フレーム変化させることで、交互表示でちらつかせ若干のごまかしを行う。
-                    //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
-                    if ((_frame_of_behaving & 1) == 1) { //奇数
-                        //前に追加
-                        FigureActor* pActorTmp = _papFirstRenderActor[render_depth_index];
-                        prm_pActor->_pNextRenderActor = pActorTmp;
-                        _papFirstRenderActor[render_depth_index] = prm_pActor;
+                    //Z値を書き込むアクターは基本は「先頭」に追加したい。
+                    //透明でない場合は、背後に隠れるオブジェクトの描画処理が省略さ、描画効率が上がるため。
+                    //しかし、半透明の場合は、自然に見えるためには、より「お尻」に追加するべきなのか
+                    if (prm_pActor->getAlpha() < 1.0f) {
+                        //同一深度で半透明の場合、前に追加と、お尻に追加を交互に行う。
+                        //なんでまたそんなことをするかというと、Zバッファ有りのオブジェクトに半透明オブジェクトと交差した場合、
+                        //同一深度なので、プライオリティ（描画順）によって透けない部分が生じてしまう。
+                        //これを描画順を毎フレーム変化させることで、交互表示でちらつかせ若干のごまかしを行う。
+                        //TODO:(課題)２、３のオブジェクトの交差は場合は見た目にも許容できるが、たくさん固まると本当にチラチラする。
+                        if ((_frame_of_behaving & 1) == 1) { //奇数
+                            //前に追加
+                            FigureActor* pActorTmp = _papFirstRenderActor[render_depth_index];
+                            prm_pActor->_pNextRenderActor = pActorTmp;
+                            _papFirstRenderActor[render_depth_index] = prm_pActor;
+                        } else {
+                            //お尻に追加
+                            FigureActor* pActorTmp = _papLastRenderActor[render_depth_index];
+                            pActorTmp->_pNextRenderActor = prm_pActor;
+                            prm_pActor->_pNextRenderActor = nullptr;
+                            _papLastRenderActor[render_depth_index] = prm_pActor;
+                        }
                     } else {
-                        //お尻に追加
-                        FigureActor* pActorTmp = _papLastRenderActor[render_depth_index];
-                        pActorTmp->_pNextRenderActor = prm_pActor;
-                        prm_pActor->_pNextRenderActor = nullptr;
-                        _papLastRenderActor[render_depth_index] = prm_pActor;
+                        //半透明ではない場合、深度を＋１して「先頭」に追加。
+                        //CONFIG::RENDER_DEPTH_INDEXS_NUM_EX_FAR > 0 が保証されているので、
+                        //_papFirstRenderActor[render_depth_index+1] は要素オーバーにならない
+                        render_depth_index++;
+                        if (_papFirstRenderActor[render_depth_index] == nullptr) {
+                            //そのprm_render_depth_indexで最初のアクターの場合
+                            prm_pActor->_pNextRenderActor = nullptr;
+                            _papFirstRenderActor[render_depth_index] = prm_pActor;
+                            _papLastRenderActor[render_depth_index] = prm_pActor;
+                        } else {
+                            FigureActor* pActorTmp = _papFirstRenderActor[render_depth_index];
+                            prm_pActor->_pNextRenderActor = pActorTmp;
+                            _papFirstRenderActor[render_depth_index] = prm_pActor;
+                        }
                     }
                 }
             }
@@ -444,10 +471,15 @@ int Spacetime::registerFigureActor3D(FigureActor* prm_pActor) {
                 _papFirstRenderActor[render_depth_index] = prm_pActor;
                 _papLastRenderActor[render_depth_index] = prm_pActor;
             } else {
-                //前に追加
-                FigureActor* pActorTmp = _papFirstRenderActor[render_depth_index];
-                prm_pActor->_pNextRenderActor = pActorTmp;
-                _papFirstRenderActor[render_depth_index] = prm_pActor;
+                //お尻に追加
+                FigureActor* pActorTmp = _papLastRenderActor[render_depth_index];
+                pActorTmp->_pNextRenderActor = prm_pActor;
+                prm_pActor->_pNextRenderActor = nullptr;
+                _papLastRenderActor[render_depth_index] = prm_pActor;
+//                    //前に追加
+//                    FigureActor* pActorTmp = _papFirstRenderActor[render_depth_index];
+//                    prm_pActor->_pNextRenderActor = pActorTmp;
+//                    _papFirstRenderActor[render_depth_index] = prm_pActor;
             }
         }
     }
@@ -505,6 +537,27 @@ void Spacetime::cnvWorldCoordToView(coord prm_world_x, coord prm_world_y, coord 
     dxcoord y =  PX_DX(_buffer_height1) * (len_top  / (len_top +len_bottom) );
     out_view_x = DX_C(x);
     out_view_y = DX_C(y);
+}
+
+void Spacetime::dumpRenderDepthOrder() {
+    for (int i = 0; i < ALL_RENDER_DEPTH_INDEXS_NUM; i++) {
+        FigureActor* pDrawActor = _papFirstRenderActor[i];
+        if (!pDrawActor) {
+            continue;
+        }
+        if (i < RENDER_DEPTH_NEAR_INDEX) {
+            _TRACE_N_("EX_NEAR_DEP["<<i<<"]");
+        } else if (RENDER_DEPTH_NEAR_INDEX <= i && i <= RENDER_DEPTH_FAR_INDEX) {
+            _TRACE_N_("NORMAL_DEP ["<<i<<"]");
+        } else if (i > RENDER_DEPTH_FAR_INDEX) {
+            _TRACE_N_("EX_FAR_DEP ["<<i<<"]");
+        }
+        while(pDrawActor) {
+            _TRACE_N_("->["<<pDrawActor->getName()<<"]"<<(pDrawActor->_id)<<"");
+            pDrawActor = pDrawActor->_pNextRenderActor;
+        }
+        _TRACE_N_("\n");
+    }
 }
 
 Spacetime::~Spacetime() {

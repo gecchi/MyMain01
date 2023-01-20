@@ -99,7 +99,6 @@ HRESULT BoardSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
             pBoardSetEffect->_begin = true;
         }
 #endif
-
     } else {
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "CommitChanges() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -112,14 +111,13 @@ HRESULT BoardSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
                                   idxparam.NumVertices,
                                   idxparam.StartIndex,
                                   idxparam.PrimitiveCount);
-
+#ifdef MY_DEBUG
+        GgafCore::Caretaker::_num_draw++;
+#endif
     //‘O‰ñ•`‰æƒ‚ƒfƒ‹•ÛŽ
     ModelManager::_pModelLastDraw = this;
     EffectManager::_pEffect_active = pBoardSetEffect;
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
-#ifdef MY_DEBUG
-        GgafCore::Caretaker::_num_drawing++;
-#endif
     return D3D_OK;
 }
 

@@ -5,6 +5,8 @@
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker3D.h"
+#include "jp/ggaf/lib/util/WorldCollisionChecker2D.h"
+#include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/camera/VVCameraWorkerChanger.h"
@@ -37,9 +39,6 @@ void Spacetime::processJudgement() {
     DefaultSpacetime::processJudgement();
 
     if (getBehaveingFrame() >= 120) {
-#ifdef MY_DEBUG
-        WorldCollisionChecker::_num_check = 0;
-#endif
         //本シーンの所属シーンの所属アクター全てについて当たり判定チェックを行う。
         //空間分割(八分木)アルゴリズムにより、チェック回数の最適化を行っています。
         //詳細は 「種別相関定義コピペツール.xls」 の 「種別相関」 シート参照

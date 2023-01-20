@@ -16,6 +16,13 @@ namespace GgafLib {
 class ViewCollisionChecker : public GgafDx::CollisionChecker {
 
 public:
+#ifdef MY_DEBUG
+    /** １フレームの当たり判定要素同士の判定回数 */
+    static unsigned int _num_check;
+
+    static unsigned int _num_check_actors;
+#endif
+
     /**
      * コンストラクタ<BR>
      * @param   prm_pActor  当たり判定機能を追加するActor
@@ -37,7 +44,7 @@ public:
      * @return true:当たっている / false:当たっていない
      */
     bool isHit(const GgafDx::CollisionChecker* const prm_pOppChecker) override;
-
+    bool isHit_old(const GgafDx::CollisionChecker* const prm_pOppChecker) ;
 
     /**
      * 当たり判定領域要素を軸平行直方体として定義 .

@@ -75,17 +75,18 @@ void MeshSetActor::processDraw() {
             //もともと本クラスは、同一モデル複数オブジェクトを、同時に一回で描画しスピードアップを図ることを目的としたクラスで、たくさんマテリアルグループがあるオブジェクトには不向というか無意味である。
             //１枚テクスチャで頑張れば問題ない・・・という方針。マテリアル色で色分けしたい場合は MeshActor を使うしかない。
             checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) に失敗しました。");
+
+            pDrawActor = pDrawActor->_pNextRenderActor;
             draw_set_num++;
             if (draw_set_num >= model_draw_set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNextRenderActor;
         } else {
             break;
         }
     }
-    Spacetime::_pActor_draw_active = pMeshSetActor; //描画セットの最後アクターをセット
     ((MeshSetModel*)_pMeshSetModel)->MeshSetModel::draw(this, draw_set_num);
+    _pNextRenderActor = pDrawActor;
 }
 
 MeshSetActor::~MeshSetActor() {

@@ -49,7 +49,7 @@ void ColliSphereActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
                                pActor->_z + sphere->_cz,
                                sphere->_r);
 #ifdef MY_DEBUG
-                    GgafCore::Caretaker::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
+                    GgafCore::Caretaker::_num_draw--; //当たり判定表示は表示オブジェクト数にカウントしない
 #endif
                 }
             }

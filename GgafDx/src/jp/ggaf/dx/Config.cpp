@@ -12,8 +12,8 @@ pixcoord Config::GAME_BUFFER_WIDTH = 1600;
 pixcoord Config::GAME_BUFFER_HEIGHT = 450;
 double Config::GAME_SPACE_DEPTH = 15.0;
 int Config::RENDER_DEPTH_INDEXS_NUM = 256;
-int Config::RENDER_DEPTH_INDEXS_NUM_EX_NEAR = 5;
-int Config::RENDER_DEPTH_INDEXS_NUM_EX_FAR = 5;
+int Config::RENDER_DEPTH_INDEXS_NUM_EX_NEAR = 10;
+int Config::RENDER_DEPTH_INDEXS_NUM_EX_FAR = 10;
 double Config::RENDER_DEPTH_STAGE_RATIO = 0.6;
 bool Config::PRJ_2D_MODE = false;
 pixcoord Config::RENDER_TARGET_BUFFER_WIDTH = Config::GAME_BUFFER_WIDTH;
@@ -162,9 +162,19 @@ void Config::loadProperties(std::string prm_properties_filename) {
     if (GgafCore::Config::_properties.isExistKey("RENDER_DEPTH_INDEXS_NUM_EX_NEAR")) {
         Config::RENDER_DEPTH_INDEXS_NUM_EX_NEAR = GgafCore::Config::_properties.getInt("RENDER_DEPTH_INDEXS_NUM_EX_NEAR");
     }
+    if (Config::RENDER_DEPTH_INDEXS_NUM_EX_NEAR < 1) {
+        throwCriticalException("Config::RENDER_DEPTH_INDEXS_NUM_EX_NEAR("<<Config::RENDER_DEPTH_INDEXS_NUM_EX_NEAR<<")は、1 以上で設定が必要です");
+    }
+
     if (GgafCore::Config::_properties.isExistKey("RENDER_DEPTH_INDEXS_NUM_EX_FAR")) {
         Config::RENDER_DEPTH_INDEXS_NUM_EX_FAR = GgafCore::Config::_properties.getInt("RENDER_DEPTH_INDEXS_NUM_EX_FAR");
     }
+
+    if (Config::RENDER_DEPTH_INDEXS_NUM_EX_FAR < 1) {
+        throwCriticalException("Config::RENDER_DEPTH_INDEXS_NUM_EX_FAR("<<Config::RENDER_DEPTH_INDEXS_NUM_EX_FAR<<")は、1 以上で設定が必要です");
+    }
+
+
     if (GgafCore::Config::_properties.isExistKey("RENDER_DEPTH_STAGE_RATIO")) {
         Config::RENDER_DEPTH_STAGE_RATIO = GgafCore::Config::_properties.getDouble("RENDER_DEPTH_STAGE_RATIO");
     }

@@ -149,11 +149,10 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
                                       idxparam.NumVertices,
                                       idxparam.StartIndex,
                                       idxparam.PrimitiveCount);
-    }
-
 #ifdef MY_DEBUG
-    GgafCore::Caretaker::_num_drawing++;
+        GgafCore::Caretaker::_num_draw++;
 #endif
+    }
     //‘O‰ñ•`‰æƒ‚ƒfƒ‹–¼”½‰f
     ModelManager::_pModelLastDraw = this;
     EffectManager::_pEffect_active = pSkinAniMeshEffect;

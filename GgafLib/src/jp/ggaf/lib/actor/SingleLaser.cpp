@@ -42,17 +42,18 @@ void SingleLaser::processDraw() {
             pSingleLaserChip = (SingleLaser*)pDrawActor;
             hr = pID3DXEffect->SetMatrix(pSingleLaserEffect->_ah_matWorld[draw_set_num], &(pSingleLaserChip->_matWorld));
             checkDxException(hr, D3D_OK, "pDrawActor->_matWorld="<<pDrawActor->_matWorld<<" pDrawActor="<<pDrawActor->getName()<<" draw_set_num="<<draw_set_num<<" に失敗しました。");
+
+            pDrawActor = pDrawActor->_pNextRenderActor;
             draw_set_num++;
             if (draw_set_num >= model_Set_num) {
                 break;
             }
-            pDrawActor = pDrawActor->_pNextRenderActor;
         } else {
             break;
         }
     }
-    GgafDx::Spacetime::_pActor_draw_active = pSingleLaserChip; //描画セットの最後アクターをセット
     _pMeshSetModel->GgafDx::MeshSetModel::draw(this, draw_set_num);
+    _pNextRenderActor = pDrawActor;
 }
 
 void SingleLaser::drawHitArea() {

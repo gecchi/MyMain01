@@ -24,8 +24,10 @@ public:
 #ifdef MY_DEBUG
     /** １フレームの当たり判定要素同士の判定回数 */
     static unsigned int _num_check;
+
+    static unsigned int _num_check_actors;
 #endif
-public:
+
     /**
      * コンストラクタ<BR>
      * @param   prm_pActor  当たり判定機能を追加するActor

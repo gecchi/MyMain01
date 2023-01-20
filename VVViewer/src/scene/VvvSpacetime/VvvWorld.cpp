@@ -11,6 +11,7 @@
 #include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
 #include "jp/ggaf/dx/util/XFile/framework/Frm_Mesh.h"
 #include "jp/ggaf/dx/util/XFile/Toolbox/IOModel_X.h"
+#include "jp/ggaf/dx/sound/Sound.h"
 #include "jp/ggaf/lib/actor/CubeMapMeshActor.h"
 #include "jp/ggaf/lib/actor/CubeMapMorphMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultSkinAniMeshActor.h"
@@ -237,6 +238,26 @@ void VvvWorld::processBehavior() {
         }
 
     } else {
+    }
+    VvvCaretaker* pCaretaker = (VvvCaretaker*)askCaretaker();
+
+
+    if (getActiveFrame() % CONFIG::FPS == 0) {
+        sprintf(aBufDebug_, "%07uF, %05u/%05uACT, %04u/%04uDRAW, %06uCHK3D(%05uACT), %02uCHK2D(%02uACT), %03.1fFPS(SLOW%d), V%03d",
+                                pCaretaker->_frame_of_Caretaker,
+                                GgafCore::Caretaker::_num_active_actors,
+                                GgafCore::Actor::_num_actors,
+                                GgafCore::Caretaker::_num_draw,
+                                GgafCore::Caretaker::_num_draw_actors,
+                                WorldCollisionChecker::_num_check,
+                                WorldCollisionChecker::_num_check_actors,
+                                ViewCollisionChecker::_num_check,
+                                ViewCollisionChecker::_num_check_actors,
+                                pCaretaker->_fps,
+                                pCaretaker->_slowdown_mode,
+                                (GgafDx::Sound::getAppMasterVolume())
+                                );
+        _TRACE_("***** "<<aBufDebug_);
     }
 }
 

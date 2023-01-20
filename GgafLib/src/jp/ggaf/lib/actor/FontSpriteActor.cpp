@@ -135,8 +135,6 @@ void FontSpriteActor::processDraw() {
             pFontSpriteActor = (FontSpriteActor*)pDrawActor;
             int n = pFontSpriteActor->_draw_chr_num;
             InstancePart* pInstancePart = pFontSpriteActor->_paInstancePart;
-            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
-
             for (int i = 0; i < n; i++) {
                 memcpy(paInstancedata, &(pFontSpriteActor->_matWorld), size_of_D3DXMATRIX);
                 paInstancedata->local_x = PX_DX(  (pInstancePart->px_local_x ) + (pFontSpriteActor->_chr_base_width_px /2) );
@@ -163,6 +161,7 @@ void FontSpriteActor::processDraw() {
     if (draw_set_num > 0) {
         _pMassSpriteModel->GgafDx::MassSpriteModel::draw(this, draw_set_num);
     }
+    _pNextRenderActor = pDrawActor;
 }
 
 FontSpriteActor::~FontSpriteActor() {

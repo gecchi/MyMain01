@@ -55,11 +55,9 @@ _lim_center_sy(R_SC( (_model_frame_height_px * 2.0) / _model_total_height_px )) 
 
     _is_fix_2D = true;
     _pFunc_calc_rot_mv_world_matrix = nullptr;
-
     setZEnableDraw(false);
     setZWriteEnable(false);
-
-    _z = 0;
+    setSpecialRenderDepthNear(0); //特別な最前面レンダリング（一番最後に描画）
 }
 
 void FramedBoardActor::processDraw() {

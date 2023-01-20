@@ -16,6 +16,7 @@ namespace GgafLib {
 class WorldCollisionChecker2D : public WorldCollisionChecker {
 
 public:
+
     /**
      * コンストラクタ<BR>
      * @param   prm_pActor  当たり判定機能を追加するActor

@@ -480,7 +480,6 @@ void LaserChip::processDraw() {
             } else {
                 //前方チップが無い場合
             }
-            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_draw_set_num) {
                 break;
             } else {
@@ -491,6 +490,7 @@ void LaserChip::processDraw() {
         }
     }
     ((GgafDx::MassMeshModel*)_pMassMeshModel)->GgafDx::MassMeshModel::draw(this, draw_set_num);
+    _pNextRenderActor = pDrawActor;
 }
 
 

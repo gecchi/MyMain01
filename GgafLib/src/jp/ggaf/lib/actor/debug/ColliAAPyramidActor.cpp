@@ -56,7 +56,7 @@ void ColliAAPyramidActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
                                     pyramid->_pos_info);
                     }
 #ifdef MY_DEBUG
-                    GgafCore::Caretaker::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
+                    GgafCore::Caretaker::_num_draw--; //当たり判定表示は表示オブジェクト数にカウントしない
 #endif
                 }
             }
