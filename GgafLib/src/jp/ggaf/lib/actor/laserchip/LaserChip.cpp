@@ -1,5 +1,6 @@
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
+#include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/model/MeshSetModel.h"
 #include "jp/ggaf/dx/effect/MeshSetEffect.h"
@@ -81,6 +82,12 @@ void LaserChip::onActive() {
 }
 
 void LaserChip::processSettlementBehavior() {
+//    if (getSceneMediator()->getPlatformScene()->_was_paused_flg) {
+//        GgafDx::MassMeshActor::processSettlementBehavior();
+//        return;
+//    }
+    //‚±‚±‚¾‚ß_was_paused_flg
+
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     const LaserChip* pChip_infront = _pChip_infront;
     const LaserChip* pChip_behind = _pChip_behind;

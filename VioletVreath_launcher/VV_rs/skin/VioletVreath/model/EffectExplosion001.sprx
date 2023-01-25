@@ -6,7 +6,7 @@ SpriteModelDef EffectExplosion001 {
    "EffectExplosion001.png";  #TextureFile
    4;                         #TextureSplitRows
    4;                         #TextureSplitCols
-   1;                         #DrawSetNum
+   0;                         #DrawSetNum
   1.000000, 0.000000, 0.000000, 0.000000, 
   0.000000, 1.000000, 0.000000, 0.000000, 
   0.000000, 0.000000, 1.000000, 0.000000, 

@@ -793,9 +793,9 @@ public:
 
     /**
      * 状態フラグ更新を追加のためオーバーライド .
-     * 内部で T::nextFrame(); もコールしています。
+     * 内部で T::processNextFrame(); もコールしています。
      */
-    virtual void nextFrame() override;
+    virtual void processNextFrame() override;
 
     /**
      * メニューの振る舞い .
@@ -976,8 +976,8 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
 }
 
 template<class T>
-void MenuActor<T>::nextFrame() {
-    T::nextFrame();
+void MenuActor<T>::processNextFrame() {
+    T::processNextFrame();
     if (T::_can_live_flg) {
         _is_just_risen = false;
         if (_will_be_rising_next_frame) {

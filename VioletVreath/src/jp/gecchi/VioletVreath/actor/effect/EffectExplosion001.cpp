@@ -1,11 +1,11 @@
 #include "EffectExplosion001.h"
 
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/scene/Scene.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-
-
 
 using namespace GgafLib;
 using namespace VioletVreath;

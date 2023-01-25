@@ -1792,6 +1792,15 @@ void Caretaker::backToNomalWindow(HWND prm_pHWnd) {
 }
 
 void Caretaker::presentMoment() {
+#ifdef MY_DEBUG
+    if (GgafDx::Input::isPushedDownKey(DIK_T)) {
+        _TRACE_("ツリー構造 -->");
+        _pSpacetime->dump();
+        _TRACE_("<-- ツリー構造");
+    }
+
+#endif
+
     if (pCARETAKER->_is_device_lost_flg) {
         return;
     } else {

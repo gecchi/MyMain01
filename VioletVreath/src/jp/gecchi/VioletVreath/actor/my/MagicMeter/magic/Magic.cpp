@@ -420,8 +420,8 @@ int Magic::effect(int prm_level) {
 
     return last_effect_;
 }
-void Magic::nextFrame() {
-    GgafCore::MainActor::nextFrame();
+void Magic::processNextFrame() {
+    GgafCore::MainActor::processNextFrame();
     prev_frame_level_ = level_;
 
     level_ = level_nextframe_;

@@ -38,6 +38,7 @@ public:
             T::nextFrame();
         }
     }
+
     void behave() override {
         if (_is_next_frame) {
             T::behave();

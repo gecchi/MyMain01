@@ -56,9 +56,18 @@ void EnemyDelheid::onCreateModel() {
     GgafDx::Model* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
 }
+//‚±‚±‚¾‚ß_was_paused_flgHHH
 
-void EnemyDelheid::nextFrame() {
-    DefaultMassMorphMeshActor::nextFrame();
+//void EnemyDelheid::nextFrame() {
+//    DefaultMassMorphMeshActor::nextFrame();
+//    if (!_was_paused_flg && _is_active_in_the_tree_flg) {
+//        pProg2_->update();
+//    }
+//}
+void EnemyDelheid::processNextFrame() {
+    DefaultMassMorphMeshActor::processNextFrame();
+
+//    if (!_was_paused_flg && _is_active_in_the_tree_flg) {
     if (_is_active_in_the_tree_flg) {
         pPhase2_->update();
     }

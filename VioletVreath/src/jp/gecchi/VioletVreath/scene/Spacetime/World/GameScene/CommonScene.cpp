@@ -84,6 +84,7 @@ void CommonScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3)
 
     if (pThat->instanceOf(Obj_GgafDx_GeometricActor)) {
         GgafDx::GeometricActor* pActor = (GgafDx::GeometricActor*)pThat;
+
         if (pActor->lookUpKind() & KIND_ITEM) {
             //Itemはスクロールの影響を受けない
         } else {
@@ -94,6 +95,21 @@ void CommonScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3)
                 pVehicleLeader->_x_start_in_loop -= (*((coord*)p1));
             }
         }
+
+
+        //ここだめ_was_paused_flg
+//        if (pActor->getSceneMediator()->getPlatformScene()->_was_paused_flg == false) {
+//            if (pActor->lookUpKind() & KIND_ITEM) {
+//                //Itemはスクロールの影響を受けない
+//            } else {
+//                pActor->_x -= (*((coord*)p1));
+//                //setVehicleLeader() されていたら、スクロールの影響を受ける
+//                GgafDx::VehicleLeader* pVehicleLeader = pActor->getVehicleLeader();
+//                if (pVehicleLeader) {
+//                    pVehicleLeader->_x_start_in_loop -= (*((coord*)p1));
+//                }
+//            }
+//        }
     }
 }
 

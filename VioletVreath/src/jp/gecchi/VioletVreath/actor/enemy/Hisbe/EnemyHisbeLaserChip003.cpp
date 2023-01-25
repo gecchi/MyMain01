@@ -61,8 +61,14 @@ void EnemyHisbeLaserChip003::processBehavior() {
     WateringLaserChip::processBehavior();
 }
 void EnemyHisbeLaserChip003::processSettlementBehavior() {
+    //ここだめ_was_paused_flg
+//    if (getSceneMediator()->getPlatformScene()->_was_paused_flg) {
+//        GgafDx::GeometricActor::processSettlementBehavior();
+//    } else {
+//        LaserChip::processSettlementBehavior();
+//    }
     //角を丸めたくないのでオーバーライド
-        LaserChip::processSettlementBehavior();
+    LaserChip::processSettlementBehavior();
 }
 
 void EnemyHisbeLaserChip003::processJudgement() {

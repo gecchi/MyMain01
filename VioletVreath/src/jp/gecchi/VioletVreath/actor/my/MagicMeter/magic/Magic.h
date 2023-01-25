@@ -265,7 +265,7 @@ public:
 
     virtual void onReset() override;
 
-    virtual void nextFrame() override;
+    virtual void processNextFrame() override;
 
     virtual void processBehavior() override;
 

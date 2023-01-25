@@ -214,16 +214,6 @@ void World::initialize() {
 }
 
 void World::processBehavior() {
-
-#ifdef MY_DEBUG
-    if (GgafDx::Input::isPushedDownKey(DIK_T)) {
-        _TRACE_("-------------------- World dump() start --------------------------------");
-        dump();
-        _TRACE_("-------------------- World dump() end   --------------------------------");
-    }
-#endif
-
-
     DECLARE_EVENT_VAL(ASTER);
     Caretaker* pCaretaker = (Caretaker*)askCaretaker();
     ScenePhase* pPhase = getPhase();

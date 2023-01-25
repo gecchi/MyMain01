@@ -114,6 +114,7 @@ public:
     virtual void appendChild(Scene* prm_pScene) override;
 
     virtual void nextFrame() override;
+    virtual void processNextFrame() override;
 //    virtual void update_last_frame_of_god() override;
     virtual void behave() override;
     virtual void settleBehavior() override;

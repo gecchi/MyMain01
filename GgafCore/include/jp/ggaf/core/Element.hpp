@@ -160,6 +160,8 @@ public:
      */
     virtual void nextFrame();
 
+    virtual void processNextFrame();
+
     /**
      * ノードのフレーム毎の振る舞い処理(実行対象：自ツリー全て) .
      * この処理では、全ノード座標移動処理を行うこととする。<BR>
@@ -271,6 +273,7 @@ public:
      */
     virtual void onInactive() {
     }
+
 
     /**
      * フレーム毎の個別振る舞い処理を実装。(ユーザー実装用) .
@@ -837,6 +840,38 @@ Element<T>::Element(const char* prm_name) :
 
 template<class T>
 void Element<T>::nextFrame() {
+    //フレーム更新処理（各種フラグ処理）
+    processNextFrame();
+    //再帰
+    //配下の全ノードに再帰的にnextFrame()実行
+    T* p = Node<T>::_pChildFirst; //一つ配下の先頭ノード。潜れる場合は先に潜る。
+    if (p) {
+        while (!p->_is_last_flg) {
+            //配下の先頭 ～ 末尾-1 ノードに nextFrame()
+            p->nextFrame();  //再帰
+            if (p->_can_live_flg) {
+                p = p->_pNext;
+            } else {
+                p->onEnd();
+                p = p->_pNext; //先に一個進ませて退避させてから
+                GarbageBox::_pGarbageBox->add(p->_pPrev); //一個前をゴミ箱へ(連結が切れる)
+            }
+        }
+        //配下の最後の末尾ノードに nextFrame()
+        p->nextFrame(); //再帰
+        if (p->_can_live_flg) {
+            //OK 次は無し→親ノードの処理へ
+        } else {
+            p->onEnd();
+            GarbageBox::_pGarbageBox->add(p); //ゴミ箱へ
+        }
+    }
+}
+
+
+template<class T>
+void Element<T>::processNextFrame() {
+    //フレーム更新処理（各種フラグ処理）
     const frame frame_of_life = (++_frame_of_life);
     _is_already_reset = false;
     if (frame_of_life == _frame_of_life_when_end) {
@@ -879,30 +914,6 @@ void Element<T>::nextFrame() {
                 _on_change_to = 0;
                 _is_active_in_the_tree_flg = false;
             }
-        }
-    }
-    //再帰
-    //配下の全ノードに再帰的にnextFrame()実行
-    T* p = Node<T>::_pChildFirst; //一つ配下の先頭ノード。潜れる場合は先に潜る。
-    if (p) {
-        while (!p->_is_last_flg) {
-            //配下の先頭 ～ 末尾-1 ノードに nextFrame()
-            p->nextFrame();  //再帰
-            if (p->_can_live_flg) {
-                p = p->_pNext;
-            } else {
-                p->onEnd();
-                p = p->_pNext; //先に一個進ませて退避させてから
-                GarbageBox::_pGarbageBox->add(p->_pPrev); //一個前をゴミ箱へ(連結が切れる)
-            }
-        }
-        //配下の最後の末尾ノードに nextFrame()
-        p->nextFrame(); //再帰
-        if (p->_can_live_flg) {
-            //OK 次は無し→親ノードの処理へ
-        } else {
-            p->onEnd();
-            GarbageBox::_pGarbageBox->add(p); //ゴミ箱へ
         }
     }
 }
@@ -1050,6 +1061,7 @@ void Element<T>::doFinally() {
         }
     }
 }
+
 
 template<class T>
 void Element<T>::reset() {

@@ -42,19 +42,23 @@ void Scene::appendChild(Scene* prm_pScene) {
 }
 
 void Scene::nextFrame() {
-    _was_paused_flg = _was_paused_flg_in_next_frame;
-    if (!_was_paused_flg) {
-        Element<Scene>::nextFrame();
-    }
-
-
+    Element<Scene>::nextFrame();
     frame f = _pSceneMediator->_frame_of_life;
     if (_is_active_in_the_tree_flg ||
         f <= _pSceneMediator->_frame_of_life_when_activation ||
         f <= _pSceneMediator->_frame_of_life_when_inactivation ||
         f <= _pSceneMediator->_frame_of_life_when_end)
     {
-        _pSceneMediator->nextFrame();
+        if (!_was_paused_flg) {
+            _pSceneMediator->nextFrame();
+        }
+    }
+}
+
+void Scene::processNextFrame() {
+    _was_paused_flg = _was_paused_flg_in_next_frame;
+    if (!_was_paused_flg) {
+        Element<Scene>::processNextFrame();
     }
 }
 
@@ -66,15 +70,17 @@ void Scene::behave() {
 }
 
 void Scene::settleBehavior() {
-    //_was_paused_flg ‚Í–Y‚ê‚Ä‚¢‚Ü‚¹‚ñ
-    Element<Scene>::settleBehavior();
-    _pSceneMediator->settleBehavior();
+    if (!_was_paused_flg) {
+        Element<Scene>::settleBehavior();
+        _pSceneMediator->settleBehavior();
+    }
 }
 
 void Scene::preJudge() {
-    //_was_paused_flg ‚Í–Y‚ê‚Ä‚¢‚Ü‚¹‚ñ
-    Element<Scene>::preJudge();
-    _pSceneMediator->preJudge();
+   if (!_was_paused_flg) {
+        Element<Scene>::preJudge();
+        _pSceneMediator->preJudge();
+   }
 }
 
 void Scene::judge() {

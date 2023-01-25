@@ -35,7 +35,7 @@ public:
 
     void onCreateModel() override;
 
-    void nextFrame() override;
+    void processNextFrame() override;
 
     void config(GgafDx::CurveManufacture* prm_pCurveManufacture,
                 GgafCore::ActorDepository* prm_pDepoShot);

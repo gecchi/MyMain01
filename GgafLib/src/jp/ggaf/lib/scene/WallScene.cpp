@@ -150,6 +150,10 @@ void WallScene::processFinal() {
 void WallScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3) {
     if (pThat->instanceOf(Obj_GgafDx_GeometricActor)) {
         GgafDx::GeometricActor* pActor = (GgafDx::GeometricActor*)pThat;
+//        //‚±‚±‚¾‚ß_was_paused_flg
+//        if (pActor->getSceneMediator()->getPlatformScene()->_was_paused_flg == false) {
+//            pActor->_x -= (*((coord*)p1));
+//        }
         pActor->_x -= (*((coord*)p1));
     }
 }

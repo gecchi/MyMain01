@@ -602,7 +602,7 @@ GeometricActor::~GeometricActor() {
 }
 
 void GeometricActor::dump() {
-    _TRACE_("\t\t\t\t\t\t\t\t"<<NODE_INFO<<"("<<_x<<","<<_y<<","<<_z<<")"<<DUMP_FLGS);
+    _TRACE_("\t\t\t\t\t\t\t\t"<<NODE_INFO<<"("<<_x<<","<<_y<<","<<_z<<")"<<isOutOfView()<<"/"<<isOutOfSpacetime()<<""<<DUMP_FLGS);
     GgafCore::Actor* pActor_tmp = _pChildFirst;
     while (pActor_tmp) {
         pActor_tmp->dump("\t\t\t\t\t\t\t\tÅb");
@@ -620,7 +620,7 @@ void GeometricActor::dump() {
 }
 
 void GeometricActor::dump(std::string prm_parent) {
-    _TRACE_(prm_parent <<NODE_INFO<<"("<<_x<<","<<_y<<","<<_z<<")"<<DUMP_FLGS);
+    _TRACE_(prm_parent <<NODE_INFO<<"("<<_x<<","<<_y<<","<<_z<<")"<<isOutOfView()<<"/"<<isOutOfSpacetime()<<""<<DUMP_FLGS);
     GgafCore::Actor* pActor_tmp = _pChildFirst;
     while (pActor_tmp) {
         pActor_tmp->dump(prm_parent + "Åb");
