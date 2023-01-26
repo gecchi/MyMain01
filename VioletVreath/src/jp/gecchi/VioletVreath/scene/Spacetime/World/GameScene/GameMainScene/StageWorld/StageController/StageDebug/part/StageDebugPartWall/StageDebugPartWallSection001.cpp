@@ -21,6 +21,9 @@ StageDebugPartWallSection001::StageDebugPartWallSection001(const char* prm_name,
 
 void StageDebugPartWallSection001::processBehavior() {
     WallSectionScene::processBehavior();
+}
+
+void StageDebugPartWallSection001::processPreDraw() {
     MyShip* pMyShip = pMYSHIP;
     if (pMyShip && pMyShip->isActiveInTheTree()) {
         if (bound_alpha_ - (-(pMyShip->_dest_from_vppln_infront)) < 0) {
@@ -31,7 +34,6 @@ void StageDebugPartWallSection001::processBehavior() {
     } else {
         enableInfrontAlpha(nullptr); //背面カメラの近さならアルファ無し
     }
-
 
 //    if (getActiveFrame() == 300) {
 //        P_SPACETIME->changeCameraWork("TestCamWorker");

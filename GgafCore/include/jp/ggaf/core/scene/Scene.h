@@ -123,9 +123,6 @@ public:
     virtual void preDraw() override;
     virtual void draw() override;
     virtual void afterDraw() override;
-    /**
-     * doFinally()‚Í_once_in_n_time‚Ì‰e‹¿‚ğó‚¯‚È‚¢B
-     */
     virtual void doFinally() override;
     virtual void throwEventLowerTree(eventval prm_event_val, void* prm_pSource) override;
     virtual void throwEventLowerTree(eventval prm_event_val) override;

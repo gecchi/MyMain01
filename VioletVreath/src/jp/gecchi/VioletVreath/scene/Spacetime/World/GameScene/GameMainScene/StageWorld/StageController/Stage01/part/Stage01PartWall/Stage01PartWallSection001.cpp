@@ -21,6 +21,10 @@ Stage01PartWallSection001::Stage01PartWallSection001(const char* prm_name, WallS
 
 void Stage01PartWallSection001::processBehavior() {
     WallSectionScene::processBehavior();
+
+
+}
+void Stage01PartWallSection001::processPreDraw() {
     MyShip* pMyShip = pMYSHIP;
     if (pMyShip && pMyShip->isActiveInTheTree()) {
         if (bound_alpha_ - (-(pMyShip->_dest_from_vppln_infront)) < 0) {
@@ -32,7 +36,6 @@ void Stage01PartWallSection001::processBehavior() {
         enableInfrontAlpha(nullptr); //背面カメラの近さならアルファ無し
     }
 
-
 //    if (getActiveFrame() == 300) {
 //        P_SPACETIME->changeCameraWork("TestCamWorker");
 //    }
@@ -40,9 +43,7 @@ void Stage01PartWallSection001::processBehavior() {
 //    if (getActiveFrame() == 1200) {
 //        P_SPACETIME->undoCameraWork();
 //    }
-
 }
-
 void Stage01PartWallSection001::onBlockLaunch(int prm_loop_count, int prm_wall_count, coord prm_wall_x) {
 //    if (prm_wall_count == 1) {
 //        EnemyHisbe* p = desireActor(EnemyHisbe);

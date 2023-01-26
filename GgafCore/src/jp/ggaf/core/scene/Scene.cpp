@@ -125,8 +125,6 @@ void Scene::throwEventUpperTree(eventval prm_event_val) {
 
 void Scene::doFinally() {
     if (!_was_paused_flg) {
-        //doFinally()は_once_in_n_timeの影響を受けない。
-        //必ず毎フレーム実行したい処理はprocessFinal()に書くことができることとする。
         Element<Scene>::doFinally();
         _pSceneMediator->doFinally();
     }

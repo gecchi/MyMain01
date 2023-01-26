@@ -17,7 +17,6 @@ public:
     /** シーンの現在イベント(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
     int _cnt_event;
 
-
     /** 何フレームに１回動作するか */
     frame _once_in_n_time;
     bool _is_next_frame;

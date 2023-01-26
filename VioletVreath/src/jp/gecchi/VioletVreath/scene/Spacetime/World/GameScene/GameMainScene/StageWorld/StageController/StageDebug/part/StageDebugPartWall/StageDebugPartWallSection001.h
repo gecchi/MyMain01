@@ -23,6 +23,8 @@ public:
 
     void processBehavior() override;
 
+    void processPreDraw() override;
+
     virtual void onBlockLaunch(int prm_loop_count, int prm_wall_count, coord prm_wall_x) override;
 
     virtual ~StageDebugPartWallSection001();
