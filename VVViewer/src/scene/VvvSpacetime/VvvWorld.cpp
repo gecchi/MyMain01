@@ -241,7 +241,7 @@ void VvvWorld::processBehavior() {
     }
     VvvCaretaker* pCaretaker = (VvvCaretaker*)askCaretaker();
 
-
+#ifdef MY_DEBUG
     if (getActiveFrame() % CONFIG::FPS == 0) {
         sprintf(aBufDebug_, "%07uF, %05u/%05uACT, %04u/%04uDRAW, %06u(%06u/%03u)CHK3D(%05uACT), %02uCHK2D(%02uACT), %03.1fFPS(SLOW%d), V%03d",
                                     pCaretaker->_frame_of_Caretaker,
@@ -261,6 +261,7 @@ void VvvWorld::processBehavior() {
                                     );
         _TRACE_("***** "<<aBufDebug_);
     }
+#endif
 }
 
 
