@@ -1319,20 +1319,21 @@ void Util::setWorldMatrix_BxyzScMv(const GeometricActor* const prm_pActor, D3DXM
     const float sx = SC_R(prm_pActor->_sx);
     const float sy = SC_R(prm_pActor->_sy);
     const float sz = SC_R(prm_pActor->_sz);
+    const D3DXMATRIX& matView = _pCam->_matView;
 
-    out_matWorld._11 = _pCam->_matView._11 * sx;
-    out_matWorld._12 = _pCam->_matView._21 * sy;
-    out_matWorld._13 = _pCam->_matView._31 * sz;
+    out_matWorld._11 = matView._11 * sx;
+    out_matWorld._12 = matView._21 * sy;
+    out_matWorld._13 = matView._31 * sz;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = _pCam->_matView._12 * sx;
-    out_matWorld._22 = _pCam->_matView._22 * sy;
-    out_matWorld._23 = _pCam->_matView._32 * sz;
+    out_matWorld._21 = matView._12 * sx;
+    out_matWorld._22 = matView._22 * sy;
+    out_matWorld._23 = matView._32 * sz;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = _pCam->_matView._13 * sx;
-    out_matWorld._32 = _pCam->_matView._23 * sy;
-    out_matWorld._33 = _pCam->_matView._33 * sz;
+    out_matWorld._31 = matView._13 * sx;
+    out_matWorld._32 = matView._23 * sy;
+    out_matWorld._33 = matView._33 * sz;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -1342,20 +1343,20 @@ void Util::setWorldMatrix_BxyzScMv(const GeometricActor* const prm_pActor, D3DXM
 }
 
 void Util::setWorldMatrix_BxyzMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
-
-    out_matWorld._11 = _pCam->_matView._11;
-    out_matWorld._12 = _pCam->_matView._21;
-    out_matWorld._13 = _pCam->_matView._31;
+    const D3DXMATRIX& matView = _pCam->_matView;
+    out_matWorld._11 = matView._11;
+    out_matWorld._12 = matView._21;
+    out_matWorld._13 = matView._31;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = _pCam->_matView._12;
-    out_matWorld._22 = _pCam->_matView._22;
-    out_matWorld._23 = _pCam->_matView._32;
+    out_matWorld._21 = matView._12;
+    out_matWorld._22 = matView._22;
+    out_matWorld._23 = matView._32;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = _pCam->_matView._13;
-    out_matWorld._32 = _pCam->_matView._23;
-    out_matWorld._33 = _pCam->_matView._33;
+    out_matWorld._31 = matView._13;
+    out_matWorld._32 = matView._23;
+    out_matWorld._33 = matView._33;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;
@@ -1367,25 +1368,26 @@ void Util::setWorldMatrix_BxyzMv(const GeometricActor* const prm_pActor, D3DXMAT
 
 
 void Util::setWorldMatrix_ScRzBxyzMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
+    const D3DXMATRIX& matView = _pCam->_matView;
     const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
     const float cosRz = (float)ANG_COS(prm_pActor->_rz);
     const float sx = SC_R(prm_pActor->_sx);
     const float sy = SC_R(prm_pActor->_sy);
     const float sz = SC_R(prm_pActor->_sz);
 
-    out_matWorld._11 = sx*cosRz*_pCam->_matView._11 + sx*sinRz*_pCam->_matView._12;
-    out_matWorld._12 = sx*cosRz*_pCam->_matView._21 + sx*sinRz*_pCam->_matView._22;
-    out_matWorld._13 = sx*cosRz*_pCam->_matView._31 + sx*sinRz*_pCam->_matView._32;
+    out_matWorld._11 = sx*cosRz*matView._11 + sx*sinRz*matView._12;
+    out_matWorld._12 = sx*cosRz*matView._21 + sx*sinRz*matView._22;
+    out_matWorld._13 = sx*cosRz*matView._31 + sx*sinRz*matView._32;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = sy*-sinRz*_pCam->_matView._11 + sy*cosRz*_pCam->_matView._12;
-    out_matWorld._22 = sy*-sinRz*_pCam->_matView._21 + sy*cosRz*_pCam->_matView._22;
-    out_matWorld._23 = sy*-sinRz*_pCam->_matView._31 + sy*cosRz*_pCam->_matView._32;
+    out_matWorld._21 = sy*-sinRz*matView._11 + sy*cosRz*matView._12;
+    out_matWorld._22 = sy*-sinRz*matView._21 + sy*cosRz*matView._22;
+    out_matWorld._23 = sy*-sinRz*matView._31 + sy*cosRz*matView._32;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = sz*_pCam->_matView._13;
-    out_matWorld._32 = sz*_pCam->_matView._32;
-    out_matWorld._33 = sz*_pCam->_matView._33;
+    out_matWorld._31 = sz*matView._13;
+    out_matWorld._32 = sz*matView._32;
+    out_matWorld._33 = sz*matView._33;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = prm_pActor->_fX;

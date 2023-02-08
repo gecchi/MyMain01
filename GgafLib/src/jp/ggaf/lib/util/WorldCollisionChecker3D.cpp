@@ -20,8 +20,8 @@ WorldCollisionChecker3D::WorldCollisionChecker3D(GgafDx::GeometricActor* prm_pAc
 }
 
 void WorldCollisionChecker3D::updateHitArea() {
-    GgafDx::CollisionArea* const pCollisionArea = _pCollisionArea;
-    if (pCollisionArea == nullptr) {
+    GgafDx::CollisionArea* const pActiveCollisionArea = _pActiveCollisionArea;
+    if (pActiveCollisionArea == nullptr) {
         return;
     }
     GgafDx::GeometricActor* const pActor = _pActor;
@@ -31,13 +31,13 @@ void WorldCollisionChecker3D::updateHitArea() {
             _TRACE_("【警告】 WorldCollisionChecker3D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
         }
 #endif
-        pCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //最外域の境界AABB更新
-        DefaultSpacetime::_pWorldOctree->registerElem(pActor, pActor->_x + pCollisionArea->_aabb_x1,
-                                                              pActor->_y + pCollisionArea->_aabb_y1,
-                                                              pActor->_z + pCollisionArea->_aabb_z1,
-                                                              pActor->_x + pCollisionArea->_aabb_x2,
-                                                              pActor->_y + pCollisionArea->_aabb_y2,
-                                                              pActor->_z + pCollisionArea->_aabb_z2);
+        pActiveCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //最外域の境界AABB更新
+        DefaultSpacetime::_pWorldOctree->registerElem(pActor, pActor->_x + pActiveCollisionArea->_aabb_x1,
+                                                              pActor->_y + pActiveCollisionArea->_aabb_y1,
+                                                              pActor->_z + pActiveCollisionArea->_aabb_z1,
+                                                              pActor->_x + pActiveCollisionArea->_aabb_x2,
+                                                              pActor->_y + pActiveCollisionArea->_aabb_y2,
+                                                              pActor->_z + pActiveCollisionArea->_aabb_z2);
 #ifdef MY_DEBUG
         WorldCollisionChecker::_num_check_actors++;
 #endif
@@ -45,12 +45,12 @@ void WorldCollisionChecker3D::updateHitArea() {
 }
 
 bool WorldCollisionChecker3D::isHit(const GgafDx::CollisionChecker* const prm_pOppChecker) {
-    GgafDx::CollisionArea* const pCollisionArea = _pCollisionArea;
-    GgafDx::CollisionArea* const pOppCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
+    GgafDx::CollisionArea* const pActiveCollisionArea = _pActiveCollisionArea;
+    GgafDx::CollisionArea* const pOppActiveCollisionArea = prm_pOppChecker->_pActiveCollisionArea; //相手の当たり判定領域
     const GgafDx::GeometricActor* const pActor = _pActor;                //相手のアクター
     const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
-    const int colli_part_num = pCollisionArea->_colli_part_num;
-    const int opp_colli_part_num = pOppCollisionArea->_colli_part_num; //相手の当たり判定要素数
+    const int colli_part_num = pActiveCollisionArea->_colli_part_num;
+    const int opp_colli_part_num = pOppActiveCollisionArea->_colli_part_num; //相手の当たり判定要素数
     const coord pActor_x = pActor->_x;
     const coord pActor_y = pActor->_y;
     const coord pActor_z = pActor->_z;
@@ -63,12 +63,15 @@ bool WorldCollisionChecker3D::isHit(const GgafDx::CollisionChecker* const prm_pO
 #ifdef MY_DEBUG
         WorldCollisionChecker::_num_check++;
 #endif
-        if (pActor_x + pCollisionArea->_aabb_x2 >= pOppActor_x + pOppCollisionArea->_aabb_x1) {
-            if (pActor_x + pCollisionArea->_aabb_x1 <= pOppActor_x + pOppCollisionArea->_aabb_x2) {
-                if (pActor_z + pCollisionArea->_aabb_z2 >= pOppActor_z + pOppCollisionArea->_aabb_z1) {
-                    if (pActor_z + pCollisionArea->_aabb_z1 <= pOppActor_z + pOppCollisionArea->_aabb_z2) {
-                        if (pActor_y + pCollisionArea->_aabb_y2 >= pOppActor_y + pOppCollisionArea->_aabb_y1) {
-                            if (pActor_y + pCollisionArea->_aabb_y1 <= pOppActor_y + pOppCollisionArea->_aabb_y2) {
+        if (pActor_x + pActiveCollisionArea->_aabb_x2 >= pOppActor_x + pOppActiveCollisionArea->_aabb_x1) {
+            if (pActor_x + pActiveCollisionArea->_aabb_x1 <= pOppActor_x + pOppActiveCollisionArea->_aabb_x2) {
+                if (pActor_z + pActiveCollisionArea->_aabb_z2 >= pOppActor_z + pOppActiveCollisionArea->_aabb_z1) {
+                    if (pActor_z + pActiveCollisionArea->_aabb_z1 <= pOppActor_z + pOppActiveCollisionArea->_aabb_z2) {
+                        if (pActor_y + pActiveCollisionArea->_aabb_y2 >= pOppActor_y + pOppActiveCollisionArea->_aabb_y1) {
+                            if (pActor_y + pActiveCollisionArea->_aabb_y1 <= pOppActor_y + pOppActiveCollisionArea->_aabb_y2) {
+#ifdef MY_DEBUG
+                                WorldCollisionChecker::_num_zannen_check++;
+#endif
                                 goto CNT;
                             }
                         }
@@ -76,6 +79,9 @@ bool WorldCollisionChecker3D::isHit(const GgafDx::CollisionChecker* const prm_pO
                 }
             }
         }
+#ifdef MY_DEBUG
+        WorldCollisionChecker::_num_otoku_check++;
+#endif
         return false;
     }
 
@@ -125,14 +131,14 @@ CNT:
 
 
     for (int i = 0; i < colli_part_num; i++) {
-        const GgafDx::CollisionPart* const pColliPart = pCollisionArea->_papColliPart[i];
+        const GgafDx::CollisionPart* const pColliPart = pActiveCollisionArea->_papColliPart[i];
         if (!pColliPart->_is_valid_flg) { continue; }
         const int shape_kind = pColliPart->_shape_kind;
 
         if (shape_kind == COLLI_AABOX) {
 
             for (int j = 0; j < opp_colli_part_num; j++) {
-                const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
+                const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
                 if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 
@@ -155,40 +161,40 @@ CNT:
                         if ((ucoord)( (pOppActor_z + pOppColliPart->_cz) - (pActor_z + pColliPart->_cz) + max_dz ) < (ucoord)(2*max_dz)) {
                             coord max_dy = pColliPart->_hdy + pOppColliPart->_hdy;
                             if ((ucoord)( (pOppActor_y + pOppColliPart->_cy) - (pActor_y + pColliPart->_cy) + max_dy ) < (ucoord)(2*max_dy)) {
-                                pCollisionArea->_hit_colli_part_index = i;
-                                pOppCollisionArea->_hit_colli_part_index = j;
+                                pActiveCollisionArea->_hit_colli_part_index = i;
+                                pOppActiveCollisionArea->_hit_colli_part_index = j;
                                 return true;
                             }
                         }
                     }
 //                    if (UTIL::isHit3D(pActor   , (ColliAABox*)pColliPart,
 //                                      pOppActor, (ColliAABox*)pOppColliPart)) {
-//                        pCollisionArea->_hit_colli_part_index = i;
-//                        pOppCollisionArea->_hit_colli_part_index = j;
+//                        pActiveCollisionArea->_hit_colli_part_index = i;
+//                        pOppActiveCollisionArea->_hit_colli_part_index = j;
 //                        return true;
 //                    }
                  } else if (opp_shape_kind == COLLI_SPHERE) {
                      //＜AAB と 球＞
                      if (UTIL::isHit3D(pActor   , (ColliAABox*)pColliPart,
                                        pOppActor, (ColliSphere*)pOppColliPart)) {
-                         pCollisionArea->_hit_colli_part_index = i;
-                         pOppCollisionArea->_hit_colli_part_index = j;
+                         pActiveCollisionArea->_hit_colli_part_index = i;
+                         pOppActiveCollisionArea->_hit_colli_part_index = j;
                          return true;
                      }
                  } else if (opp_shape_kind == COLLI_AAPRISM) {
                      //＜AAB と AAPrism＞
                      if (UTIL::isHit3D(pOppActor, (ColliAAPrism*)pOppColliPart,
                                        pActor   , (ColliAABox*)pColliPart        )) {
-                         pCollisionArea->_hit_colli_part_index = i;
-                         pOppCollisionArea->_hit_colli_part_index = j;
+                         pActiveCollisionArea->_hit_colli_part_index = i;
+                         pOppActiveCollisionArea->_hit_colli_part_index = j;
                          return true;
                      }
                  } else if (opp_shape_kind == COLLI_AAPYRAMID) {
                      //＜AAB と AAPyramid＞
                      if (UTIL::isHit3D(pOppActor, (ColliAAPyramid*)pOppColliPart,
                                        pActor   , (ColliAABox*)pColliPart        )) {
-                         pCollisionArea->_hit_colli_part_index = i;
-                         pOppCollisionArea->_hit_colli_part_index = j;
+                         pActiveCollisionArea->_hit_colli_part_index = i;
+                         pOppActiveCollisionArea->_hit_colli_part_index = j;
                          return true;
                      }
                  }
@@ -197,7 +203,7 @@ CNT:
         } else if (shape_kind == COLLI_SPHERE) {
 
             for (int j = 0; j < opp_colli_part_num; j++) {
-                const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
+                const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
                 if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
@@ -207,8 +213,8 @@ CNT:
                     //＜球 と AAB＞
                     if (UTIL::isHit3D(pOppActor, (ColliAABox*)pOppColliPart,
                                       pActor   , (ColliSphere*)pColliPart )) {
-                        pCollisionArea->_hit_colli_part_index = i;
-                        pOppCollisionArea->_hit_colli_part_index = j;
+                        pActiveCollisionArea->_hit_colli_part_index = i;
+                        pOppActiveCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 } else if (opp_shape_kind == COLLI_SPHERE) {
@@ -223,30 +229,30 @@ CNT:
                     if (dd <= (double)(((ColliSphere*)pColliPart)->_r + ((ColliSphere*)pOppColliPart)->_r) *
                               (double)(((ColliSphere*)pColliPart)->_r + ((ColliSphere*)pOppColliPart)->_r)
                     ) {
-                        pCollisionArea->_hit_colli_part_index = i;
-                        pOppCollisionArea->_hit_colli_part_index = j;
+                        pActiveCollisionArea->_hit_colli_part_index = i;
+                        pOppActiveCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
 //                    if (UTIL::isHit3D(pActor  , (ColliSphere*)pColliPart,
 //                                      pOppActor, (ColliSphere*)pOppColliPart)) {
-//                        pCollisionArea->_hit_colli_part_index = i;
-//                        pOppCollisionArea->_hit_colli_part_index = j;
+//                        pActiveCollisionArea->_hit_colli_part_index = i;
+//                        pOppActiveCollisionArea->_hit_colli_part_index = j;
 //                        return true;
 //                    }
                 } else if (opp_shape_kind == COLLI_AAPRISM) {
                     //＜球 と AAPrism＞
                     if (UTIL::isHit3D(pOppActor, (ColliAAPrism*)pOppColliPart,
                                       pActor   , (ColliSphere*)pColliPart     )) {
-                        pCollisionArea->_hit_colli_part_index = i;
-                        pOppCollisionArea->_hit_colli_part_index = j;
+                        pActiveCollisionArea->_hit_colli_part_index = i;
+                        pOppActiveCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 } else if (opp_shape_kind == COLLI_AAPYRAMID) {
                     //＜球 と AAPyramid＞
                     if (UTIL::isHit3D(pOppActor, (ColliAAPyramid*)pOppColliPart,
                                       pActor   , (ColliSphere*)pColliPart     )) {
-                        pCollisionArea->_hit_colli_part_index = i;
-                        pOppCollisionArea->_hit_colli_part_index = j;
+                        pActiveCollisionArea->_hit_colli_part_index = i;
+                        pOppActiveCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 }
@@ -255,7 +261,7 @@ CNT:
         } else if (shape_kind == COLLI_AAPRISM) {
 
             for (int j = 0; j < opp_colli_part_num; j++) {
-                const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
+                const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
                 if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
@@ -265,16 +271,16 @@ CNT:
                     //＜AAPrism と AAB＞
                     if (UTIL::isHit3D(pActor   , (ColliAAPrism*)pColliPart,
                                       pOppActor, (ColliAABox*)pOppColliPart  )) {
-                        pCollisionArea->_hit_colli_part_index = i;
-                        pOppCollisionArea->_hit_colli_part_index = j;
+                        pActiveCollisionArea->_hit_colli_part_index = i;
+                        pOppActiveCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 } else if (opp_shape_kind == COLLI_SPHERE) {
                     //＜AAPrism と 球＞
                     if (UTIL::isHit3D(pActor   , (ColliAAPrism*)pColliPart,
                                       pOppActor, (ColliSphere*)pOppColliPart)) {
-                        pCollisionArea->_hit_colli_part_index = i;
-                        pOppCollisionArea->_hit_colli_part_index = j;
+                        pActiveCollisionArea->_hit_colli_part_index = i;
+                        pOppActiveCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 }  else if (opp_shape_kind == COLLI_AAPRISM) {
@@ -296,7 +302,7 @@ CNT:
         } else if (shape_kind == COLLI_AAPYRAMID) {
 
             for (int j = 0; j < opp_colli_part_num; j++) {
-                const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
+                const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
                 if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
@@ -306,16 +312,16 @@ CNT:
                     //＜AAPyramid と AAB＞
                     if (UTIL::isHit3D(pActor  , (ColliAAPyramid*)pColliPart,
                                       pOppActor, (ColliAABox*)pOppColliPart  )) {
-                        pCollisionArea->_hit_colli_part_index = i;
-                        pOppCollisionArea->_hit_colli_part_index = j;
+                        pActiveCollisionArea->_hit_colli_part_index = i;
+                        pOppActiveCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 } else if (opp_shape_kind == COLLI_SPHERE) {
                     //＜AAPyramid と 球＞
                     if (UTIL::isHit3D(pActor  , (ColliAAPyramid*)pColliPart,
                                       pOppActor, (ColliSphere*)pOppColliPart)) {
-                        pCollisionArea->_hit_colli_part_index = i;
-                        pOppCollisionArea->_hit_colli_part_index = j;
+                        pActiveCollisionArea->_hit_colli_part_index = i;
+                        pOppActiveCollisionArea->_hit_colli_part_index = j;
                         return true;
                     }
                 } else if (opp_shape_kind == COLLI_AAPRISM) {

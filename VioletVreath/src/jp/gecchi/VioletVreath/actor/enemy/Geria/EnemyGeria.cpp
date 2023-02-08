@@ -52,7 +52,7 @@ void EnemyGeria::onCreateModel() {
 void EnemyGeria::initialize() {
     setHitAble(false);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 45000);
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setFaceAngVelo(AXIS_Z, -7000);

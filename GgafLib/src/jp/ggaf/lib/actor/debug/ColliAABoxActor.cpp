@@ -32,16 +32,16 @@ void ColliAABoxActor::release() {
 
 void ColliAABoxActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
     if (prm_pChecker != nullptr &&
-        prm_pChecker->_pCollisionArea != nullptr &&
+        prm_pChecker->_pActiveCollisionArea != nullptr &&
         prm_pChecker->getTargetActor()->canHit() &&
         prm_pChecker->getTargetActor()->isActiveInTheTree()) {
 
         GgafDx::GeometricActor* pActor = prm_pChecker->getTargetActor();
-        GgafDx::CollisionArea* pCollisionArea = prm_pChecker->_pCollisionArea;
-        int iAreaNum = pCollisionArea->_colli_part_num;
+        GgafDx::CollisionArea* pActiveCollisionArea = prm_pChecker->_pActiveCollisionArea;
+        int iAreaNum = pActiveCollisionArea->_colli_part_num;
         if (iAreaNum > 0) {
             getEffect()->setAlphaMaster(1.0); //シーンに所属しないので固定値の設定が必要
-            GgafDx::CollisionPart** papColliPart = pCollisionArea->_papColliPart;
+            GgafDx::CollisionPart** papColliPart = pActiveCollisionArea->_papColliPart;
             for (int i = 0; i < iAreaNum; i++) {
                 if (papColliPart[i]->_is_valid_flg && papColliPart[i]->_shape_kind == COLLI_AABOX) {
                     ColliAABox* box = (ColliAABox*)papColliPart[i];

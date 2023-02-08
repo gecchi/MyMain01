@@ -206,8 +206,8 @@ int ResourceConnection<T>::close() {
     _is_closing_resource = true;
 
     if (_num_connection <= 0) {
-        _TRACE3_(" [" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  【警告】既にコネクションは無いにもかかわらず、close() しようとしてます。");
-        _TRACE3_("何も行なわずreturnしますが、意図的でない場合は何かがおかしいでしょう。リークの可能性が大。調査すべし！");
+        _TRACE_("【警告】 [" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  既にコネクションは無いにもかかわらず、close() しようとしてます。");
+        _TRACE_("【警告】何も行なわずreturnしますが、意図的でない場合は何かがおかしいでしょう。リークの可能性が大。調査すべし！");
         return _num_connection;
     }
 
@@ -246,7 +246,7 @@ int ResourceConnection<T>::close() {
                 _num_connection--;
             } else if (rnum < 0) {
                 //ココは通らない・・・
-                _TRACE_(FUNC_NAME<<"[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  "
+                _TRACE_("【警告】"<<FUNC_NAME<<"[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  "
                         "解放しすぎ！、どないやねん。アホー(>_<)。とりあえずスルー。");
                 _num_connection = 0; //とりあえず解放
             }

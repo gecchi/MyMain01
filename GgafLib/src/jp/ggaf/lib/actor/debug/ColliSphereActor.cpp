@@ -32,18 +32,18 @@ void ColliSphereActor::release() {
 
 void ColliSphereActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
     if (prm_pChecker != nullptr &&
-        prm_pChecker->_pCollisionArea != nullptr &&
+        prm_pChecker->_pActiveCollisionArea != nullptr &&
         prm_pChecker->getTargetActor()->canHit() &&
         prm_pChecker->getTargetActor()->isActiveInTheTree()) {
         GgafDx::GeometricActor* pActor = prm_pChecker->getTargetActor();
-        GgafDx::CollisionArea* pCollisionArea = prm_pChecker->_pCollisionArea;
+        GgafDx::CollisionArea* pActiveCollisionArea = prm_pChecker->_pActiveCollisionArea;
 
-        int iAreaNum = pCollisionArea->_colli_part_num;
+        int iAreaNum = pActiveCollisionArea->_colli_part_num;
         if (iAreaNum > 0) {
             getEffect()->setAlphaMaster(1.0); //シーンに所属しないので固定値の設定が必要
             for (int i = 0; i < iAreaNum; i++) {
-                if (pCollisionArea->_papColliPart[i]->_is_valid_flg && pCollisionArea->_papColliPart[i]->_shape_kind == COLLI_SPHERE) {
-                    ColliSphere* sphere = (ColliSphere*)pCollisionArea->_papColliPart[i];
+                if (pActiveCollisionArea->_papColliPart[i]->_is_valid_flg && pActiveCollisionArea->_papColliPart[i]->_shape_kind == COLLI_SPHERE) {
+                    ColliSphere* sphere = (ColliSphere*)pActiveCollisionArea->_papColliPart[i];
                     drawSphere(pActor->_x + sphere->_cx,
                                pActor->_y + sphere->_cy,
                                pActor->_z + sphere->_cz,

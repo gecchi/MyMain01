@@ -108,7 +108,7 @@ void EnemyHisbe::onCreateModel() {
 void EnemyHisbe::initialize() {
 //    getVecVehicle()->linkFaceAngByMvAng(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliSphere(0, 40000);
 
 //    if (pConn_pDepoStore_laser_set->chkFirstConnectionIs(this)) {

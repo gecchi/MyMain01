@@ -25,7 +25,7 @@ void MyWave001::initialize() {
     //setRzFaceAng(0);
     pVecVehicle->setMvVelo(20000);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(7);
+    pChecker->addCollisionArea(7);
     pChecker->setColliAABox(0,  -10000,  -10000,  -10000,   10000,   10000,   10000, true, true, true);
     pChecker->setColliAABox(1,  -10000, -140000,  -10000,   10000, -120000,   10000, true, true, true);
     pChecker->setColliAABox(2,  -10000,  120000,  -10000,   10000,  140000,   10000, true, true, true);

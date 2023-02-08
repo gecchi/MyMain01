@@ -13,6 +13,8 @@ double Config::FRAME_SEC = 1.0 / Config::FPS;
 uint32_t Config::MAX_SKIP_FRAME = 20;
 uint32_t Config::OBJNUM_TO_SLOWDOWN1 = 1000;
 uint32_t Config::OBJNUM_TO_SLOWDOWN2 = 1500;
+double Config::RATE_OF_SLOWDOWN1 = 1.5;
+double Config::RATE_OF_SLOWDOWN2 = 2.0;
 float Config::FPS_TO_CLEAN_GARBAGE_BOX = 30.0f;
 std::string Config::DIR_RESOURCE = "./";
 std::string Config::DIRNAME_RESOURCE_SKIN = ".";
@@ -56,6 +58,13 @@ void Config::loadProperties(std::string prm_properties_filename) {
     if (_properties.isExistKey("OBJNUM_TO_SLOWDOWN2")) {
         Config::OBJNUM_TO_SLOWDOWN2 = _properties.getUInt("OBJNUM_TO_SLOWDOWN2");
     }
+    if (_properties.isExistKey("RATE_OF_SLOWDOWN1")) {
+        Config::RATE_OF_SLOWDOWN1 = _properties.getDouble("RATE_OF_SLOWDOWN1");
+    }
+    if (_properties.isExistKey("RATE_OF_SLOWDOWN2")) {
+        Config::RATE_OF_SLOWDOWN2 = _properties.getDouble("RATE_OF_SLOWDOWN2");
+    }
+
     if (_properties.isExistKey("FPS_TO_CLEAN_GARBAGE_BOX")) {
         Config::FPS_TO_CLEAN_GARBAGE_BOX = _properties.getFloat("FPS_TO_CLEAN_GARBAGE_BOX");
     }
@@ -109,6 +118,8 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::MAX_SKIP_FRAME="<<Config::MAX_SKIP_FRAME);
     _TRACE_("Config::OBJNUM_TO_SLOWDOWN1="<<Config::OBJNUM_TO_SLOWDOWN1);
     _TRACE_("Config::OBJNUM_TO_SLOWDOWN2="<<Config::OBJNUM_TO_SLOWDOWN2);
+    _TRACE_("Config::RATE_OF_SLOWDOWN1="<<Config::RATE_OF_SLOWDOWN1);
+    _TRACE_("Config::RATE_OF_SLOWDOWN2="<<Config::RATE_OF_SLOWDOWN2);
     _TRACE_("Config::FPS_TO_CLEAN_GARBAGE_BOX="<<Config::FPS_TO_CLEAN_GARBAGE_BOX);
     _TRACE_("Config::DIR_RESOURCE="<<Config::DIR_RESOURCE);
     _TRACE_("Config::DIRNAME_RESOURCE_SKIN="<<Config::DIRNAME_RESOURCE_SKIN);

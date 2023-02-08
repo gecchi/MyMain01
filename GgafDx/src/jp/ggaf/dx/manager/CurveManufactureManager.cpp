@@ -25,7 +25,7 @@ CurveManufacture* CurveManufactureManager::processCreateResource(const char* prm
     double rate_z = 1.0f;
 
     std::string id_str = std::string(prm_idstr);
-	    _TRACE_(FUNC_NAME<<" id_str="<<id_str<<"");
+        _TRACE_(FUNC_NAME<<" id_str="<<id_str<<"");
     std::vector<std::string> curve_id = UTIL::split(id_str, ","); // "FormationUrydike001,3"のようにスラッシュ区切りがあるか
 
 
@@ -39,16 +39,16 @@ CurveManufacture* CurveManufactureManager::processCreateResource(const char* prm
             std::string ldr_data_file_csv = propCurve.getStr("SPLINE");
             std::vector<std::string> vecCurveData = UTIL::split(ldr_data_file_csv, ",");
 #ifdef MY_DEBUG
-            if (0 < vecCurveData.size()) {
-                _TRACE_("【警告】 CurveManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] はカンマ区切りの配列ですが、呼び出し側はインデックス指定していません。意図していますか？");
+            if (1 < vecCurveData.size()) {
+                _TRACE_("【警告】 CurveManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] はカンマ区切りの配列ですが、呼び出し側はインデックス指定していません。意図していますか？ ldr_data_file_csv="<<ldr_data_file_csv);
             }
 #endif
             spl_file = vecCurveData[0];
         } else {
             //prm_idstr = "FormationUrydike001,3"
             //のように、区切りがある場合、
-            //ldrファイルの CURVEは
-            //CURVE=mobius1.spl,mobius2.spl,mobius3.spl,mobius4.spl
+            //ldrファイルの SPLINEは
+            //SPLINE=mobius1.spl,mobius2.spl,mobius3.spl,mobius4.spl
             //のようにCSVで複数指定していて、スラッシュの後の数値がインデックス(0～)とする。
             std::string ldr_data_file_csv = propCurve.getStr("SPLINE");
             std::vector<std::string> vecCurveData = UTIL::split(ldr_data_file_csv, ",");

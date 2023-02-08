@@ -213,7 +213,7 @@ void GeometricActor::processSettlementBehavior() {
         //-------------------------------------------------
         //面：a x + b y + c z + d = 0
         //点：(x0, y0, z0)
-        //において、面と点の距離は     _______________
+        //において、面と点の距離は        _______________
         //D = (a x0 + b y0 + cz0 + d) / √a^2 +b^2 + c^2
         //であるが
         //面方程式の法線正規化済みなので、分母＝1 となる
@@ -403,6 +403,11 @@ bool GeometricActor::processHitChkLogic(GgafCore::Actor* prm_pOtherActor) {
 }
 
 int GeometricActor::isOutOfView() {
+    //TODO:アイディア
+    //前回の isOutOfView() 値を覚えておき
+    //判定する視錐台の面の優先順位を変えると、はやくならるかも。
+    //前回視錐台外の面は、今回も視錐台外の面である確率が高いため
+
     //境界半径（モデル自体が無い）ので、PX_DX(1) が画面内にあるかどうかを判定する。
     //モデルが画面内にあるかどうか判定は、FigureActor でオーバーライドされてた方で行う。
     if (_offscreen_kind == -1) {

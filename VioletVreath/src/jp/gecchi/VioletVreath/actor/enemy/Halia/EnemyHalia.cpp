@@ -76,7 +76,7 @@ void EnemyHalia::initialize() {
     setHitAble(true);
     getVecVehicle()->linkFaceAngByMvAng(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliSphere(0, 90000);
     setScaleR(0.3);
 }

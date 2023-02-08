@@ -42,7 +42,7 @@ void EnemyRis::initialize() {
     pVecVehicle->linkFaceAngByMvAng(true);
     pVecVehicle->setRollFaceAngVelo(5000);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAABox(0, -30000, -30000, -30000, 30000, 30000, 30000);
 }
 

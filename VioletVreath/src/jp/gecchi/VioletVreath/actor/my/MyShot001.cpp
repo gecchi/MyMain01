@@ -21,7 +21,7 @@ void MyShot001::initialize() {
     setBoundingSphereRadiusRate(45.0f);
     setCullingDraw(false);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(50), -PX_C(50), -PX_C(50),
                               PX_C(50),  PX_C(50),  PX_C(50));
     getVecVehicle()->setRollFaceAngVelo(D_ANG(12));

@@ -737,8 +737,8 @@ BoneAniMeshModel::~BoneAniMeshModel() {
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames); //Model::~Model() Ç≈é¿çsÇ≥ÇÍÇƒÇÈÇÕÇ∏
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR(_paVtxBuffer_data);
-    GGAF_DELETEARR(_paIndex16Buffer_data);
-    GGAF_DELETEARR(_paIndex32Buffer_data);
+    GGAF_DELETEARR_NULLABLE(_paIndex16Buffer_data);
+    GGAF_DELETEARR_NULLABLE(_paIndex32Buffer_data);
     GGAF_DELETEARR(_paIndexBuffer_frame_no);
     GGAF_DELETEARR(_paIndexParam);
 //    GGAF_DELETE(_pFrameRoot); //_pAllocHierarchyÇè¡Ç∑Ç∆_pFrameRootÇÕè¡Ç≥Ç»Ç≠Çƒó«Ç¢Ç∆évÇ§

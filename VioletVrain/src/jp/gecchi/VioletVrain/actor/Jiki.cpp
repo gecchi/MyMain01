@@ -37,12 +37,12 @@ void Jiki::initialize() {
     pUvFlipper->setFlipPtnRange(0, 3);   //ƒAƒjƒ”ÍˆÍ‚ð‚O`‚P‚T
     pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //ƒAƒjƒ‡˜
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-//    pChecker->createCollisionArea(1);
+//    pChecker->addCollisionArea(1);
 ////    pChecker->set2DColliSquare(0, PX_C(128));
 ////    pChecker->set2DColliCircle(0, PX_C(32));
 //    pChecker->set2DColliRightTriangle_WH(0, PX_C(60), PX_C(70), PX_C(250), PX_C(150), POS_R_TRIANGLE_NN);
 
-    pChecker->createCollisionArea(4);
+    pChecker->addCollisionArea(4);
     coord ox = PX_C(30);
     coord oy = PX_C(40);
     coord w = PX_C(50);

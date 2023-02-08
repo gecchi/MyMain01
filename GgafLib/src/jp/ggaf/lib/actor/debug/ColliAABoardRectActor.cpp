@@ -32,18 +32,18 @@ void ColliAABoardRectActor::release() {
 
 void ColliAABoardRectActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
     if (prm_pChecker != nullptr &&
-        prm_pChecker->_pCollisionArea != nullptr &&
+        prm_pChecker->_pActiveCollisionArea != nullptr &&
         prm_pChecker->getTargetActor()->canHit() &&
         prm_pChecker->getTargetActor()->isActiveInTheTree()) {
 
         GgafDx::GeometricActor* pActor = prm_pChecker->getTargetActor();
-        GgafDx::CollisionArea* pCollisionArea = prm_pChecker->_pCollisionArea;
+        GgafDx::CollisionArea* pActiveCollisionArea = prm_pChecker->_pActiveCollisionArea;
 
         if (pActor->_is_fix_2D) {
-            drawRect(pActor->_x + pCollisionArea->_aabb_x1,
-                     pActor->_y + pCollisionArea->_aabb_y1,
-                     pActor->_x + pCollisionArea->_aabb_x2,
-                     pActor->_y + pCollisionArea->_aabb_y2);
+            drawRect(pActor->_x + pActiveCollisionArea->_aabb_x1,
+                     pActor->_y + pActiveCollisionArea->_aabb_y1,
+                     pActor->_x + pActiveCollisionArea->_aabb_x2,
+                     pActor->_y + pActiveCollisionArea->_aabb_y2);
         }
     }
 }

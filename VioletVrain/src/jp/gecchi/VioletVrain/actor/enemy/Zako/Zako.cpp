@@ -38,13 +38,13 @@ void Zako::initialize() {
     pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //ƒAƒjƒ‡˜
 
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-//    pChecker->createCollisionArea(1);
+//    pChecker->addCollisionArea(1);
 //    pChecker->set2DColliRightTriangle_WH(0, PX_C(-10), PX_C(-20), PX_C(50), PX_C(100), POS_R_TRIANGLE_PP);
 //    pChecker->setColliSphere(0, PX_C(64));
 //    pChecker->setColliAABox(1, PX_C(-128), PX_C(-128), PX_C(-1), PX_C(-64), PX_C(-64), PX_C(1), false, false, true);
 //    pChecker->setColli2DRectangle(0, PX_C(-128), PX_C(-128), PX_C(-64), PX_C(-64), true);
 
-    pChecker->createCollisionArea(4);
+    pChecker->addCollisionArea(4);
     coord ox = PX_C(10);
     coord oy = PX_C(20);
     coord w = PX_C(70);

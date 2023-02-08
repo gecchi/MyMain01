@@ -62,7 +62,7 @@ void MassWallActor::init() {
     setHitAble(true);
 
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(3);
+    pChecker->addCollisionArea(3);
     pChecker->setColliAABox(0, 0,0,0, 0,0,0);
     pChecker->setColliAAPrism(1, 0,0,0, 0,0,0, 0);
     pChecker->setColliAAPyramid(2, 0,0,0, 0,0,0, POS_PYRAMID_NNN);

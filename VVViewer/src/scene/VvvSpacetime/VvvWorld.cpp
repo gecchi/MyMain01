@@ -55,7 +55,7 @@ public:
         pHitActor_ = desireActor(GgafLib::DefaultBoardActor, "HitArea", "HitBoard");
         pHitActor_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
         ViewCollisionChecker* pChecker = pHitActor_->getViewCollisionChecker();
-        pChecker->createCollisionArea(1);
+        pChecker->addCollisionArea(1);
         pChecker->setColliAABox(0, 0.5);
         pHitActor_->setHitAble(true);
         T::appendGroupChild(KIND_ACTOR, pHitActor_);
@@ -243,20 +243,22 @@ void VvvWorld::processBehavior() {
 
 
     if (getActiveFrame() % CONFIG::FPS == 0) {
-        sprintf(aBufDebug_, "%07uF, %05u/%05uACT, %04u/%04uDRAW, %06uCHK3D(%05uACT), %02uCHK2D(%02uACT), %03.1fFPS(SLOW%d), V%03d",
-                                pCaretaker->_frame_of_Caretaker,
-                                GgafCore::Caretaker::_num_active_actors,
-                                GgafCore::Actor::_num_actors,
-                                GgafCore::Caretaker::_num_draw,
-                                GgafCore::Caretaker::_num_draw_actors,
-                                WorldCollisionChecker::_num_check,
-                                WorldCollisionChecker::_num_check_actors,
-                                ViewCollisionChecker::_num_check,
-                                ViewCollisionChecker::_num_check_actors,
-                                pCaretaker->_fps,
-                                pCaretaker->_slowdown_mode,
-                                (GgafDx::Sound::getAppMasterVolume())
-                                );
+        sprintf(aBufDebug_, "%07uF, %05u/%05uACT, %04u/%04uDRAW, %06u(%06u/%03u)CHK3D(%05uACT), %02uCHK2D(%02uACT), %03.1fFPS(SLOW%d), V%03d",
+                                    pCaretaker->_frame_of_Caretaker,
+                                    GgafCore::Caretaker::_num_active_actors,
+                                    GgafCore::Actor::_num_actors,
+                                    GgafCore::Caretaker::_num_draw,
+                                    GgafCore::Caretaker::_num_draw_actors,
+                                    WorldCollisionChecker::_num_check,
+                                    WorldCollisionChecker::_num_otoku_check,
+                                    WorldCollisionChecker::_num_zannen_check,
+                                    WorldCollisionChecker::_num_check_actors,
+                                    ViewCollisionChecker::_num_check,
+                                    ViewCollisionChecker::_num_check_actors,
+                                    pCaretaker->_fps,
+                                    pCaretaker->_slowdown_mode,
+                                    (GgafDx::Sound::getAppMasterVolume())
+                                    );
         _TRACE_("***** "<<aBufDebug_);
     }
 }
@@ -847,7 +849,7 @@ void VvvWorld::processDragAndDrop() {
         if (pActor) {
             //“–‚½‚è”»’èÝ’è
             dxcoord bound = pActor->getModel()->_bounding_sphere_radius * pActor->_rate_of_bounding_sphere_radius;
-            pChecker->createCollisionArea(1);
+            pChecker->addCollisionArea(1);
             pChecker->setColliSphere(0, DX_C(bound));
             pActor->setHitAble(true);
             bringSceneMediator()->appendGroupChild(KIND_ACTOR, pActor);
@@ -909,7 +911,7 @@ void VvvWorld::processDragAndDrop() {
             bringSceneMediator()->appendGroupChild(KIND_ACTOR, pNewActor);
 
             dxcoord new_bound = pNewActor->getModel()->_bounding_sphere_radius * pNewActor->_rate_of_bounding_sphere_radius;
-            pNewChecker->createCollisionArea(1);
+            pNewChecker->addCollisionArea(1);
             pNewChecker->setColliSphere(0, DX_C(new_bound));
             pNewActor->setHitAble(true);
 

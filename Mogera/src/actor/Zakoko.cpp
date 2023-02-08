@@ -27,7 +27,7 @@ void Zakoko::initialize() {
     pVecVehicle->linkFaceAngByMvAng(true);
 
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, PX_C(128));
 }
 

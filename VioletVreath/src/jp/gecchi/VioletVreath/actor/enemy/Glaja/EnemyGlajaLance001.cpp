@@ -36,7 +36,7 @@ EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
 void EnemyGlajaLance001::initialize() {
     setHitAble(false);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(3);
+    pChecker->addCollisionArea(3);
     pChecker->setColliAACube(0, PX_C(20));
     pChecker->setColliAACube(1, -PX_C(80), 0, 0,
                                         PX_C(10),

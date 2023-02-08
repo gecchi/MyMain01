@@ -14,6 +14,7 @@ using namespace GgafCore;
 
 CRITICAL_SECTION Caretaker::CS1;
 CRITICAL_SECTION Caretaker::CS2;
+//CRITICAL_SECTION Caretaker::CS3;
 
 #ifdef MY_DEBUG
 unsigned int Caretaker::_num_draw = 0;
@@ -32,12 +33,23 @@ Caretaker::Caretaker() : Object(),
     _handle_god_love01 = (HANDLE)_beginthreadex(nullptr, 0, Caretaker::love, nullptr, CREATE_SUSPENDED, &_th_id01);
 
     if (_handle_god_love01 == 0) {
-        throwCriticalException("Error! スレッド作成失敗！");
+        throwCriticalException("Error! Caretaker::love() スレッド作成失敗！");
     }
+
+//    _handle_god_send03 = (HANDLE)_beginthreadex(nullptr, 0, Caretaker::send, nullptr, CREATE_SUSPENDED, &_th_id03);
+//    if (_handle_god_send03 == 0) {
+//        throwCriticalException("Error!  Caretaker::send() スレッド作成失敗！");
+//    }
+
     ::InitializeCriticalSection(&(Caretaker::CS1));
     ::InitializeCriticalSection(&(Caretaker::CS2));
+//    ::InitializeCriticalSection(&(Caretaker::CS3));
     ::ResumeThread(_handle_god_love01);
-    ::SetThreadPriority(_handle_god_love01, THREAD_PRIORITY_IDLE);
+    ::SetThreadPriority(_handle_god_love01, BELOW_NORMAL_PRIORITY_CLASS );
+//    ::ResumeThread(_handle_god_send03);
+//    ::SetThreadPriority(_handle_god_send03, NORMAL_PRIORITY_CLASS );
+
+
     DWORD time_now = timeGetTime();
     _time_of_next_view = time_now;
     _time_calc_fps_next = time_now + 1;
@@ -59,15 +71,18 @@ Caretaker::Caretaker() : Object(),
     _is_loving_flg   = true;
     _have_to_rest_flg = false;
     _is_resting_flg   = false;
-    _was_finished_flg = false;
-
+    _was_finished_loving_flg = false;
+    _is_sending_flg   = false;
+    _was_finished_sending_flg = false;
     //_base_fps = CONFIG::FPS;
-    _apaTime_offset_of_next_view[0] = getArrTimeOffset(1000, CONFIG::FPS);
-    _apaTime_offset_of_next_view[1] = getArrTimeOffset(1500, CONFIG::FPS);
-    _apaTime_offset_of_next_view[2] = getArrTimeOffset(2000, CONFIG::FPS);
     _aTime_offset_of_next_view[0] = 1.0 / CONFIG::FPS;
-    _aTime_offset_of_next_view[1] = 1.5 / CONFIG::FPS;
-    _aTime_offset_of_next_view[2] = 2.0 / CONFIG::FPS;
+    _aTime_offset_of_next_view[1] = CONFIG::RATE_OF_SLOWDOWN1 / CONFIG::FPS;
+    _aTime_offset_of_next_view[2] = CONFIG::RATE_OF_SLOWDOWN2 / CONFIG::FPS;
+
+    _apaTime_offset_of_next_view[0] = getArrTimeOffset(1.0 * 1000, CONFIG::FPS); // 1フレームを、(1000 / CONFIG::FPS) ミリ秒とする
+    _apaTime_offset_of_next_view[1] = getArrTimeOffset(CONFIG::RATE_OF_SLOWDOWN1 * 1000, CONFIG::FPS); // 1フレームを、(1500 / CONFIG::FPS) ミリ秒とする
+    _apaTime_offset_of_next_view[2] = getArrTimeOffset(CONFIG::RATE_OF_SLOWDOWN2 * 1000, CONFIG::FPS); // 1フレームを、(2000 / CONFIG::FPS) ミリ秒とする
+
 }
 
 
@@ -178,7 +193,7 @@ void Caretaker::present() {
     }
 
     if (_is_behaved_flg == false) {
-        BEGIN_SYNCHRONIZED1; // ----->排他開始
+        //BEGIN_SYNCHRONIZED1; // ----->排他開始
         _frame_of_Caretaker++;
         presentMoment(); //①
         presentJudge();  //②
@@ -198,13 +213,14 @@ void Caretaker::present() {
             //但し ③ によりオーバーしたかもしれない。
         }
         _is_behaved_flg = true;
-        END_SYNCHRONIZED1;  // <-----排他終了
+        //END_SYNCHRONIZED1;  // <-----排他終了
     }
 
     DWORD time_now = timeGetTime();
     if (time_now >= _time_of_next_view) {
         //描画タイミングフレームになった、或いは過ぎている場合
-        BEGIN_SYNCHRONIZED1;  // ----->排他開始
+//TODO:要確認
+//        BEGIN_SYNCHRONIZED1;  // ----->排他開始
         if (_is_materialized_flg) {
             //描画有り（スキップなし）（①②③ 実行済みの場合）
             presentVisualize();  _visualize_frames++; //④
@@ -224,7 +240,8 @@ void Caretaker::present() {
         }
         presentClosing(); //⑤
         _is_behaved_flg = false;
-        END_SYNCHRONIZED1;    // <-----排他終了
+//TODO:要確認
+//        END_SYNCHRONIZED1;    // <-----排他終了
 
         //fps計算
         if (time_now >= _time_calc_fps_next) {
@@ -259,9 +276,9 @@ void Caretaker::presentJudge() {
 
 void Caretaker::presentMaterialize() {
     if (Caretaker::_num_active_actors > CONFIG::OBJNUM_TO_SLOWDOWN2) {
-        _slowdown_mode = SLOWDOWN_MODE_30FPS;
+        _slowdown_mode = SLOWDOWN_MODE2;
     } else if (Caretaker::_num_active_actors > CONFIG::OBJNUM_TO_SLOWDOWN1) {
-        _slowdown_mode = SLOWDOWN_MODE_40FPS;
+        _slowdown_mode = SLOWDOWN_MODE1;
     } else {
         _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
     }
@@ -293,7 +310,7 @@ void Caretaker::clean() {
             Sleep(10);
             _is_loving_flg = false;
             _TRACE_("Caretaker::~Caretaker() 管理者が落ち着くまで待つ・・・");
-            for (int i = 0; _was_finished_flg == false; i++) {
+            for (int i = 0; _was_finished_loving_flg == false; i++) {
                 Sleep(10); //管理者が落ち着くまで待つ
                 if (i > 5*100*60) {
                     _TRACE_("Caretaker::~Caretaker() 5分待機しましたが、管理者から反応がありません。もう知りません！、強制 break します。要調査");
@@ -305,13 +322,25 @@ void Caretaker::clean() {
             _TRACE_("Caretaker::~Caretaker()  WaitForSingleObject(_handle_god_love01, 120*1000) .....");
             DWORD r = WaitForSingleObject(_handle_god_love01, 120*1000);  //DeleteCriticalSectionを行うために必要
             if (r == WAIT_TIMEOUT) {
-                throwCriticalException("終わったはずなのに、たぶん管理者がまだ終わっていません・・・・（涙）。デバッグ放置しましたか？");
+                throwCriticalException("終わったはずなのに、たぶん管理者の愛がまだ終わっていません・・・・（涙）。デバッグ放置しましたか？");
             }
             _TRACE_("Caretaker::~Caretaker()  CloseHandle(_handle_god_love01) .....");
             CloseHandle(_handle_god_love01);
             _TRACE_("Caretaker::~Caretaker()  DeleteCriticalSection(&(Caretaker::CS1)); .....");
             DeleteCriticalSection(&(Caretaker::CS1));
             _handle_god_love01 = nullptr;
+
+//            _TRACE_("Caretaker::~Caretaker()  WaitForSingleObject(_handle_god_send03, 120*1000) .....");
+//            r = WaitForSingleObject(_handle_god_send03, 120*1000);  //DeleteCriticalSectionを行うために必要
+//            if (r == WAIT_TIMEOUT) {
+//                throwCriticalException("終わったはずなのに、たぶん管理者の異界送りがまだ終わっていません・・・・（涙）。デバッグ放置しましたか？");
+//            }
+//            _TRACE_("Caretaker::~Caretaker()  CloseHandle(_handle_god_send03) .....");
+//            CloseHandle(_handle_god_send03);
+//            _TRACE_("Caretaker::~Caretaker()  DeleteCriticalSection(&(Caretaker::CS3)); .....");
+//            DeleteCriticalSection(&(Caretaker::CS3));
+//            _handle_god_send03 = nullptr;
+
             _TRACE_("Caretaker::~Caretaker() 無事に管理者スレッドを終了。クリティカルセクション解除");
 
 #ifdef MY_DEBUG
@@ -439,6 +468,13 @@ int Caretaker::chkCradle(uint64_t prm_cradle_no) {
 
 void* Caretaker::takeOutObject(uint64_t prm_cradle_no, Object* prm_pReceiver) {
     _TRACE2_("＜受取人:"<< (prm_pReceiver ? prm_pReceiver->toString() : "nullptr") <<"("<<prm_pReceiver<<")＞ まいど、["<<prm_cradle_no<<"-"<<prm_pReceiver<<"]を取りに来ましたよっと。");
+#ifdef _DEBUG
+    if (_is_behaved_flg) {
+        throwCriticalException("Error! prm_cradle_no="<<prm_cradle_no<<" presentMoment()、presentJudge() で受け取ってほしいです。\n"
+                               " たぶん今は クリティカルセクション外ではないだろうか・・・それは困る。\n"
+                                   "受取人(receive呼び元)="<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<")");
+    }
+#endif
     Cradle* pCradle= _pCradleRoot;
     Cradle* pCradle_my_next;
     Cradle* pCradle_my_prev;
@@ -455,6 +491,7 @@ void* Caretaker::takeOutObject(uint64_t prm_cradle_no, Object* prm_pReceiver) {
     }
 
     //receiveメインループ
+    BEGIN_SYNCHRONIZED1;
     while (_is_loving_flg) {
         if (pCradle->_cradle_no == prm_cradle_no && (pCradle->_pReceiver == nullptr || pCradle->_pReceiver == prm_pReceiver) ) {
             while (_is_loving_flg) {
@@ -509,6 +546,7 @@ void* Caretaker::takeOutObject(uint64_t prm_cradle_no, Object* prm_pReceiver) {
                         _pCradleRoot = nullptr;
                         _pCradleBlessing = nullptr;
                         _TRACE2_("＜受取人:"<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<")＞ あ、ところでもう管理者は空ですね。暇になったん？、ねぇ？");
+                        END_SYNCHRONIZED1;
                         return (void*)objectCreation;
                     } else {
                         //中間をreceive、鎖を繋ぎ直す。
@@ -530,7 +568,7 @@ void* Caretaker::takeOutObject(uint64_t prm_cradle_no, Object* prm_pReceiver) {
                         pCradle->_pObject_creation = nullptr;
                         GGAF_DELETE(pCradle);
                         pCradle = nullptr;
-
+                        END_SYNCHRONIZED1;
                         return (void*)objectCreation;
                     }
                 }
@@ -539,6 +577,7 @@ void* Caretaker::takeOutObject(uint64_t prm_cradle_no, Object* prm_pReceiver) {
             if (pCradle->_is_last_cradle_flg) {
                 _TRACE_(FUNC_NAME<<" ゆりかごの形跡が無い、取得出来ないエラー発生！");
                 Caretaker::debuginfo();
+                END_SYNCHRONIZED1;
                 //ゆりかごの形跡が無い、取得出来ないエラー発生！、エラーメッセージを作る。
                 throwCriticalException("＜管理者＞全部探しましたけど、そんなゆりかご("<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"さんへの ゆりかご番号:"<<prm_cradle_no<<"-"<<prm_pReceiver<<")は、ありません。\n"
                                            "addCradle() と Caretaker::takeOutObject() の対応が取れていません。addCradle()漏れ、或いは同じ Caretaker::takeOutObject() を２回以上してませんか？。\n"
@@ -554,6 +593,7 @@ void* Caretaker::takeOutObject(uint64_t prm_cradle_no, Object* prm_pReceiver) {
         throw *(_pException_god);
     }
 #endif
+    END_SYNCHRONIZED1;
     return nullptr;
 }
 
@@ -587,12 +627,12 @@ void Caretaker::desert() {
         return;
     }
     uint64_t cnt = 0;
-    while (_is_loving_flg || _was_finished_flg == false) {
+    while (_is_loving_flg || _was_finished_loving_flg == false) {
         Sleep(10);
-        _TRACE_(FUNC_NAME<<" ＜管理者＞ 実はまだ愛してます・・・");
+        _TRACE_(FUNC_NAME<<" ＜管理者の愛＞ 実はまだ愛してます・・・");
         cnt++;
         if (cnt > 100*60*5) {
-            _TRACE_(FUNC_NAME<<" ＜管理者＞ まだ愛してます・・・が、もういいか。強制だ");
+            _TRACE_(FUNC_NAME<<" ＜管理者の愛＞ まだ愛してます・・・が、もういいか。限界です");
             break;
         }
     }
@@ -706,25 +746,25 @@ BEGIN_SYNCHRONIZED1; // ----->排他開始
             Cradle* pCradleBlessing = _pCradleBlessing;
             if (pCradleBlessing) {
                 if (pCradleBlessing->_progress_no == 0) { //未着手ならまず作る
-                    _TRACE2_("＜管理者＞ よし、ゆりかご["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]は未着手(_phase_no == "<<pCradleBlessing->_progress_no<<")だな。ゆえに今から作ります！");
+                    _TRACE2_("＜管理者の愛＞ よし、ゆりかご["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]は未着手(_phase_no == "<<pCradleBlessing->_progress_no<<")だな。ゆえに今から作ります！");
                     pCradleBlessing->_progress_no = 1; //ステータスを祝福中へ
                     pCradleBlessing->_time_of_create_begin = timeGetTime();
                     funcBlessing = pCradleBlessing->_pFunc;
                     void* arg1 = pCradleBlessing->_pArg1;
                     void* arg2 = pCradleBlessing->_pArg2;
                     void* arg3 = pCradleBlessing->_pArg3;
-                    _TRACE2_("＜管理者＞ 祝福開始！["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]");
-                    Sleep(2);
+                    _TRACE2_("＜管理者の愛＞ 祝福開始！["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]");
+//                    Sleep(2);
                     END_SYNCHRONIZED1; // <----- 排他終了
 
                     pObject = (*funcBlessing)(arg1, arg2, arg3); //祝福、命が誕生。
 
                     BEGIN_SYNCHRONIZED1; // ----->排他開始
-                    Sleep(2);
-                    _TRACE2_("＜管理者＞ 祝福完了！生まれたのは["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"] (^_^)v");
+//                    Sleep(2);
+                    _TRACE2_("＜管理者の愛＞ 祝福完了！生まれたのは["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"] (^_^)v");
                     if (_pCradleBlessing == nullptr) {
                         //_pCradleBlessing が祝福後 nullptr になってしまっている場合キャンセル。
-                        _TRACE2_("＜管理者＞ ガーン！。せっかく祝福したのにキャンセルっすか・・・。破棄します。pObjectをdelete!");
+                        _TRACE2_("＜管理者の愛＞ ガーン！。せっかく祝福したのにキャンセルっすか・・・。破棄します。pObjectをdelete!");
                         GGAF_DELETE(pObject);
 END_SYNCHRONIZED1; // <----- 排他終了
                         continue;
@@ -733,39 +773,39 @@ END_SYNCHRONIZED1; // <----- 排他終了
                         pCradleBlessing->_pObject_creation = pObject; //ゆりかごに乗せる
                         pCradleBlessing->_progress_no = 2; //ステータスを祝福済みへ
                         pCradleBlessing->_time_of_create_finish = timeGetTime();
-                        _TRACE2_("＜管理者＞ 祝福したゆりかごの命["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]を、棚に置いときます。");
+                        _TRACE2_("＜管理者の愛＞ 祝福したゆりかごの命["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]を、棚に置いときます。");
                     }  else if (_pCradleBlessing != pCradleBlessing) {
-                        _TRACE2_("＜管理者＞ 警告、ゆりかごの命["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]を作っている間に、"
+                        _TRACE2_("＜管理者の愛＞ 警告、ゆりかごの命["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]を作っている間に、"
                                  "_pCradleBlessing が、別のゆりかご["<<_pCradleBlessing->_cradle_no<<"-"<<_pCradleBlessing->_pReceiver<<"]を指していました！壊れてるかもしれません！強制的に元に戻します！要調査！");
                         _pCradleBlessing = pCradleBlessing; //ポインタ強制戻し
                         pCradleBlessing->_pObject_creation = pObject; //ゆりかごに乗せる
                         pCradleBlessing->_progress_no = 2; //ステータスを祝福済みへ
                         pCradleBlessing->_time_of_create_finish = timeGetTime();
-                        _TRACE2_("＜管理者＞ 祝福したゆりかごの命["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]を、棚に置いときます・・・。");
+                        _TRACE2_("＜管理者の愛＞ 祝福したゆりかごの命["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]を、棚に置いときます・・・。");
                     }
                 } else {
-                    _TRACE2_("＜管理者＞ ゆりかご["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]の命は、もう祝福済みでストックしてるし・・・(_phase_no == "<<pCradleBlessing->_progress_no<<")。");
+                    _TRACE2_("＜管理者の愛＞ ゆりかご["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]の命は、もう祝福済みでストックしてるし・・・(_phase_no == "<<pCradleBlessing->_progress_no<<")。");
                 }
             }
             if (_pCradleRoot == nullptr) {
                 //無条件待機
-                _TRACE2_("＜管理者＞ 何～んもありません。ゆりかご来い来い！！・・・ないのん？。（待機）");
+                _TRACE2_("＜管理者の愛＞ 何～んもありません。ゆりかご来い来い！！・・・ないのん？。（待機）");
 END_SYNCHRONIZED1; // <----- 排他終了
                 if (_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) {
-                    _TRACE2_("＜管理者＞ さほど忙しくないので、ゴミ箱のゴミを出しとこう。");
+                    _TRACE2_("＜管理者の愛＞ さほど忙しくないので、ゴミ箱のゴミを出しとこう。");
                     GarbageBox::_pGarbageBox->clean(5); //暇なので、ゴミ箱掃除
                     GarbageBox::_cnt_cleaned = 0;
                 }
             } else {
                 if (_pCradleRoot != nullptr && _pCradleRoot->_pCradle_prev->_progress_no == 0) {
-                    _TRACE2_("＜管理者＞ ・・・！、未祝福のゆりかごがある気配。最終目標のゆりかごは["<<_pCradleRoot->_pCradle_prev->_cradle_no<<"/受取人="<<_pCradleRoot->_pCradle_prev->_pReceiver<<"]なのか？。");
+                    _TRACE2_("＜管理者の愛＞ ・・・！、未祝福のゆりかごがある気配。最終目標のゆりかごは["<<_pCradleRoot->_pCradle_prev->_cradle_no<<"/受取人="<<_pCradleRoot->_pCradle_prev->_pReceiver<<"]なのか？。");
                     _pCradleBlessing = _pCradleBlessing->_pCradle_next;
 END_SYNCHRONIZED1; // <----- 排他終了
                 } else {
-                    _TRACE2_("＜管理者＞ さて、未祝福ゆりかごは無し。棚にたまってるのを早く取りに来い来い！。（待機）");
+                    _TRACE2_("＜管理者の愛＞ さて、未祝福ゆりかごは無し。棚にたまってるのを早く取りに来い来い！。（待機）");
 END_SYNCHRONIZED1; // <----- 排他終了
                     if (_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) {
-                        _TRACE2_("＜管理者＞ さほど忙しくないさそうなので、ゴミ箱のゴミを出しとこうか…。");
+                        _TRACE2_("＜管理者の愛＞ さほど忙しくないさそうなので、ゴミ箱のゴミを出しとこうか…。");
                         GarbageBox::_pGarbageBox->clean(5); //暇なので、ゴミ箱掃除
                         GarbageBox::_cnt_cleaned = 0;
                     }
@@ -773,13 +813,44 @@ END_SYNCHRONIZED1; // <----- 排他終了
             }
             Sleep(2);
         } // <-- while (_is_loving_flg)
-        _TRACE2_("＜管理者＞ さようなら、また会いましょう。");
-        _was_finished_flg = true;
+        _TRACE2_("＜管理者の愛＞ さようなら、また会いましょう。");
+        _was_finished_loving_flg = true;
     } catch (CriticalException& e) {
         debuginfo();
-        _TRACE_("＜管理者例外＞ 私としたことがすみません；"<<e.getMsg());
+        _TRACE_("＜管理者例外の愛＞ 私としたことがすみません；"<<e.getMsg());
         _is_loving_flg = false;
-        _was_finished_flg = true;
+        _was_finished_loving_flg = true;
+        _pException_god = NEW CriticalException(e.getMsg());
+        return 1;
+    }
+    return 0;
+}
+
+unsigned __stdcall Caretaker::send(void* prm_arg) {
+    return pCARETAKER->sending(prm_arg);
+}
+
+unsigned Caretaker::sending(void* prm_arg) {
+    try {
+        Object* (*funcBlessing)(void*, void*, void*) = nullptr;
+        Object* pObject = nullptr;
+        Sleep(1000); //crtkr のインスタンスが完成するまでほんのちょっと待つ必要があるかもしれない
+
+        //ゴミ掃除しまくる管理者の異界送りループ！
+        while (_is_sending_flg) {
+BEGIN_SYNCHRONIZED1; // ----->排他開始
+            GarbageBox::_pGarbageBox->clean(5); //天国へ
+            GarbageBox::_cnt_cleaned = 0;
+END_SYNCHRONIZED1; // <----- 排他終了
+            Sleep(2);
+        } // <-- while (_is_loving_flg)
+        _TRACE2_("＜管理者の異界送り＞ さようなら、また会いましょう。");
+        _was_finished_sending_flg = true;
+    } catch (CriticalException& e) {
+        debuginfo();
+        _TRACE_("＜管理者例外の異界送り＞ 私としたことがすみません；"<<e.getMsg());
+        _is_sending_flg = false;
+        _was_finished_sending_flg = true;
         _pException_god = NEW CriticalException(e.getMsg());
         return 1;
     }

@@ -41,7 +41,7 @@ void MyStraightLaserChip001::initialize() {
     pOrg_ = pMYSHIP;
     getVecVehicle()->setRzRyMvAng(0,0);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAABox_WHD(0,PX_C(300),PX_C(80),PX_C(80));
 
     setHitAble(true);

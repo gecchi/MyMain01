@@ -32,18 +32,18 @@ void ColliAAPyramidActor::release() {
 
 void ColliAAPyramidActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
     if (prm_pChecker != nullptr &&
-        prm_pChecker->_pCollisionArea != nullptr &&
+        prm_pChecker->_pActiveCollisionArea != nullptr &&
         prm_pChecker->getTargetActor()->canHit() &&
         prm_pChecker->getTargetActor()->isActiveInTheTree()) {
 
         GgafDx::GeometricActor* pActor = prm_pChecker->getTargetActor();
-        GgafDx::CollisionArea* pCollisionArea = prm_pChecker->_pCollisionArea;
-        int iAreaNum = pCollisionArea->_colli_part_num;
+        GgafDx::CollisionArea* pActiveCollisionArea = prm_pChecker->_pActiveCollisionArea;
+        int iAreaNum = pActiveCollisionArea->_colli_part_num;
         if (iAreaNum > 0) {
             getEffect()->setAlphaMaster(1.0); //シーンに所属しないので固定値の設定が必要
             for (int i = 0; i < iAreaNum; i++) {
-                if (pCollisionArea->_papColliPart[i]->_is_valid_flg && pCollisionArea->_papColliPart[i]->_shape_kind == COLLI_AAPYRAMID) {
-                    ColliAAPyramid* pyramid = (ColliAAPyramid*)pCollisionArea->_papColliPart[i];
+                if (pActiveCollisionArea->_papColliPart[i]->_is_valid_flg && pActiveCollisionArea->_papColliPart[i]->_shape_kind == COLLI_AAPYRAMID) {
+                    ColliAAPyramid* pyramid = (ColliAAPyramid*)pActiveCollisionArea->_papColliPart[i];
                     if (pyramid->_pos_info < 0) {
                         _TRACE_("【警告】ColliAAPyramidActor::drawHitarea BADPOS i="<<i<<" Target="<<pActor->getName()<<" 要調査");
                     } else {

@@ -16,7 +16,7 @@ SmpActor1::SmpActor1(const char* prm_name) :
     //À•WÝ’è
 //    setMaterialColor(0.0, 1.0, 1.0);
 //    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-//    pChecker->createCollisionArea(1);
+//    pChecker->addCollisionArea(1);
 ////    pChecker->setColliAABox_WHD(0, PX_C(100),PX_C(100),PX_C(100));
 //    pChecker->setColliSphere(0, PX_C(20));
 //    setHitAble(true);

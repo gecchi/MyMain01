@@ -58,7 +58,7 @@ void EnemyHisbe002::initialize() {
     pVecVehicle->setFaceAngVelo(AXIS_Y, 500);
     pVecVehicle->linkFaceAngByMvAng(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliSphere(0, 40000);
 }
 

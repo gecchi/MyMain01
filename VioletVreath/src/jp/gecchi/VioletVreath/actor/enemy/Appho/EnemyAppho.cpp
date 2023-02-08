@@ -41,7 +41,7 @@ void EnemyAppho::onCreateModel() {
 void EnemyAppho::initialize() {
     setScale(100);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
 }
 

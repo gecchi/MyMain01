@@ -32,7 +32,7 @@ void EnemyEmiliaFragment::initialize() {
     setHitAble(true);
     setScaleR(0.3);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(80));
     getVecVehicle()->setRollPitchYawFaceAngVelo(D_ANG(2), D_ANG(4), D_ANG(8));
 }

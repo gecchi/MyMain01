@@ -107,7 +107,7 @@ void EnemyOzartia::onCreateModel() {
 
 void EnemyOzartia::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->forceMvVeloRange(PX_C(1), PX_C(30));

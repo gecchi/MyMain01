@@ -24,9 +24,11 @@ namespace GgafCore {
 #define  END_SYNCHRONIZED1     ::LeaveCriticalSection(&(GgafCore::Caretaker::CS1))
 #define  BEGIN_SYNCHRONIZED2   ::EnterCriticalSection(&(GgafCore::Caretaker::CS2))
 #define  END_SYNCHRONIZED2     ::LeaveCriticalSection(&(GgafCore::Caretaker::CS2))
+//#define  BEGIN_SYNCHRONIZED3   ::EnterCriticalSection(&(GgafCore::Caretaker::CS3))
+//#define  END_SYNCHRONIZED3     ::LeaveCriticalSection(&(GgafCore::Caretaker::CS3))
 #define  SLOWDOWN_MODE_DEFAULT 0
-#define  SLOWDOWN_MODE_40FPS 1
-#define  SLOWDOWN_MODE_30FPS 2
+#define  SLOWDOWN_MODE1 1
+#define  SLOWDOWN_MODE2 2
 /**
  * 管理者 .
  * 主にこの世(Spacetime)を管理し操作することを目的とするクラスです。たぶん一番えらい。<BR>
@@ -52,6 +54,8 @@ public:
     static CRITICAL_SECTION CS1;
     /** [r] クリティカルセクションその２ */
     static CRITICAL_SECTION CS2;
+//    /** [r] クリティカルセクションその３ */
+//    static CRITICAL_SECTION CS3;
     /** [r] 自身 */
     static Caretaker* _pCaretaker;
     /** [r] 次にこの世を活動させる時間のオフセット */
@@ -70,6 +74,12 @@ public:
     HANDLE _handle_god_love01;
     /** [r] GgafCore::Caretaker::love スレッドID  */
     unsigned int _th_id01;
+
+    /** [r] GgafCore::Caretaker::send スレッドハンドル  */
+    HANDLE _handle_god_send03;
+    /** [r] GgafCore::Caretaker::send スレッドID  */
+    unsigned int _th_id03;
+
 //    /** [r] 管理者のフレーム開始システム時間 */
 //    DWORD _time_at_beginning_frame;
     /** [r] 次にこの世を活動させるシステム時間 */
@@ -263,7 +273,11 @@ public:
     /** [r]休でいるフラグ */
     volatile bool _is_resting_flg;
     /** [r]愛のおわり */
-    volatile bool _was_finished_flg;
+    volatile bool _was_finished_loving_flg;
+    /** [r]異界送り中フフラグ */
+    volatile bool _is_sending_flg;
+    /** [r]異界送のおわり */
+    volatile bool _was_finished_sending_flg;
 #else
     /** [r]愛してるフラグ */
     volatile std::atomic<bool> _is_loving_flg;
@@ -272,7 +286,11 @@ public:
     /** [r]休でいるフラグ */
     volatile std::atomic<bool> _is_resting_flg;
     /** [r]愛のおわり */
-    volatile std::atomic<bool> _was_finished_flg;
+    volatile std::atomic<bool> _was_finished_loving_flg;
+    /** [r]異界送り中フラグ */
+    volatile std::atomic<bool> _is_sending_flg;
+    /** [r]異界送のおわり */
+    volatile std::atomic<bool> _was_finished_sending_flg;
 #endif
 public:
     /**
@@ -423,11 +441,23 @@ public:
     static unsigned __stdcall love(void* prm_arg);
 
     /**
+     * 現在未使用 .
+     * @param prm_arg
+     */
+    static unsigned __stdcall send(void* prm_arg);
+
+    /**
      * 永遠の愛 .
      * ゆりかごを受付て祝福し命を誕生させます。
      * @param prm_arg
      */
     unsigned loving(void* prm_arg);
+
+    /**
+     * 現在未使用 .
+     * @param prm_arg
+     */
+    unsigned sending(void* prm_arg);
 
     /**
      * 管理者一時休止を指示 （メインスレッドが使用） .
@@ -543,9 +573,9 @@ public:
     #define desireScene(...) selectDesireSceneMacro(__VA_ARGS__,desireScene4,desireScene3,desireScene2,desireScene1)(__VA_ARGS__)
 #endif
 
-/** 望まれ祝福されたアクターを受け取る */
+/** 望まれ祝福されたアクターを受け取る。presentMoment()、presentJudge() の間のみ使用可能 */
 #define receiveActor(ID) (GgafCore::Caretaker::_pCaretaker->takeOutActor((ID),this))
-/** 望まれ祝福されたシーンを受け取る */
+/** 望まれ祝福されたシーンを受け取る。 presentMoment()、presentJudge() の間のみ使用可能 */
 #define receiveScene(ID) (GgafCore::Caretaker::_pCaretaker->takeOutScene((ID),this))
 }
 #endif /*GGAF_CORE_CARETAKER_H_*/

@@ -23,7 +23,7 @@ ItemBoardTest::ItemBoardTest(const char* prm_name) :
         DefaultBoardSetActor(prm_name, "_chk_TestDefaultBoardActorModel") {
     _class_name = "ItemBoardTest";
     ViewCollisionChecker* pChecker = getViewCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAABox(0, 1.0);
     setHitAble(true);
 }

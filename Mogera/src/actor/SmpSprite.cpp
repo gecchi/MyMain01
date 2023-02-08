@@ -17,7 +17,7 @@ SmpSprite::SmpSprite(const char* prm_name) :
         GgafLib::DefaultFramedSpriteActor(prm_name, "_chk_TestDefaultFramedSpriteActorModel") {
     //À•WÝ’è
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(20));
     setHitAble(true);
 

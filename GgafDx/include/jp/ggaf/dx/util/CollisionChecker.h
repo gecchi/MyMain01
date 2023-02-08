@@ -2,6 +2,7 @@
 #define GGAF_DX_COLLISIONCHECKER_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
+#include <vector>
 
 namespace GgafDx {
 
@@ -17,7 +18,10 @@ public:
     /** 対象アクター */
     GeometricActor* const _pActor;
     /** 当たり判定領域 */
-    CollisionArea* _pCollisionArea;
+    CollisionArea* _pActiveCollisionArea;
+
+    std::vector<CollisionArea*> _vecCollisionArea;
+
 public:
     /**
      * コンストラクタ<BR>
@@ -36,7 +40,9 @@ public:
      * 最初に必ず実行してください。
      * @param prm_colli_part_num 当たり判定領域の当たり判定領域要素数(1～n)
      */
-    virtual void createCollisionArea(int prm_colli_part_num);
+    virtual void addCollisionArea(int prm_colli_part_num);
+
+    virtual void changeActiveCollisionArea(int prm_index);
 
     /**
      * ヒットしているかどうか
@@ -53,7 +59,7 @@ public:
     }
 
     inline CollisionArea* getArea() {
-        return _pCollisionArea;
+        return _pActiveCollisionArea;
     }
 
     /**

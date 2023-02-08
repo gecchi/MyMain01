@@ -48,7 +48,7 @@ void EnemyAlisana::onCreateModel() {
 
 void EnemyAlisana::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 200000);
 
     setHitAble(true);

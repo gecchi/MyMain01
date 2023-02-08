@@ -327,7 +327,7 @@ void MyShip::initialize() {
 
     setHitAble(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
 //    pChecker->setColliSphere(0, -100000, -50000, 20000, 100000);
 // pChecker->setColliAABox(0, -100000, -50000, 20000, 10000, 40000, 80000);
 //    pChecker->setColliSphere(1, 0,-100000,0, 30000, true, true, true);
@@ -775,7 +775,7 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
         double vx2, vy2, vz2;
         coord dX2,dY2,dZ2;
         if ( pOther->instanceOf(Obj_MassWallActor)) {
-            GgafDx::CollisionPart** papColli = pOther->_pChecker->_pCollisionArea->_papColliPart;
+            GgafDx::CollisionPart** papColli = pOther->_pChecker->_pActiveCollisionArea->_papColliPart;
 
             ColliAABox* pBox = (ColliAABox*)(papColli[0]); //[0]BOX,[1]プリズム,[2]ピラミッド
             ColliAAPrism* pPrism = (ColliAAPrism*)(papColli[1]); //[0]BOX,[1]プリズム,[2]ピラミッド
@@ -965,9 +965,9 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
             }
         } else {
             //壁じゃない場合は中心座標で吹っ飛ぶ方向決定
-            GgafDx::CollisionArea* pCollisionArea = pOther->_pChecker->_pCollisionArea;
-            if (pCollisionArea->_hit_colli_part_index >= 0) {
-                GgafDx::CollisionPart* pPart = pCollisionArea->_papColliPart[pCollisionArea->_hit_colli_part_index];
+            GgafDx::CollisionArea* pActiveCollisionArea = pOther->_pChecker->_pActiveCollisionArea;
+            if (pActiveCollisionArea->_hit_colli_part_index >= 0) {
+                GgafDx::CollisionPart* pPart = pActiveCollisionArea->_papColliPart[pActiveCollisionArea->_hit_colli_part_index];
                 dX2 = (_x - (pOther->_x + pPart->_cx));
                 dY2 = (_y - (pOther->_y + pPart->_cy));
                 dZ2 = (_z - (pOther->_z + pPart->_cz));

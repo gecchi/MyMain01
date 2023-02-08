@@ -21,7 +21,7 @@ void Shot003::initialize() {
     setZWriteEnable(false); //自身のZバッファを書き込みしない
     effectBlendOne();       //加算合成
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, PX_C(16));
 }
 

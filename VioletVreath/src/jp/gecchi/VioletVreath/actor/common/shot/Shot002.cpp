@@ -23,7 +23,7 @@ Shot002::Shot002(const char* prm_name) :
 
 void Shot002::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAABox(0, -50000, -50000, -50000, 50000, 50000, 50000);
 }
 

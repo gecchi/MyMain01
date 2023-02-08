@@ -95,7 +95,7 @@ void EnemyStraea::onCreateModel() {
 
 void EnemyStraea::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(200));
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setRzRyMvAng(0, D180ANG);

@@ -31,7 +31,7 @@ void Horizon001::initialize() {
     setCullingDraw(false);
     setPosition(0, PX_C(-100), 0);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     Spacetime* pSpacetime =  pCARETAKER->getSpacetime();
     pChecker->setColliAABox(0, pSpacetime->_x_bound_left  + (chip_width_*2),
                                   0,

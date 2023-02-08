@@ -20,7 +20,7 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
 
 void MyTorpedoBlast::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     getVecVehicle()->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(0), D_ANG(6));
     setHitAble(true);
 }

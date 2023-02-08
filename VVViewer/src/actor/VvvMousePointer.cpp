@@ -28,7 +28,7 @@ VvvMousePointer::VvvMousePointer(const char* prm_name) :
 
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     ViewCollisionChecker* pChecker = getViewCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliSquare(0, PX_C(16));
     setHitAble(true);
 }
@@ -40,7 +40,7 @@ void VvvMousePointer::initialize() {
 
     pI_ = desireActor(GgafLib::DefaultMeshActor, "Guruguru", "Guruguru");
     WorldCollisionChecker* pChecker = pI_->getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(100));
     pI_->setScaleR(3.0);
     pI_->setHitAble(true);

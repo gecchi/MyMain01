@@ -28,7 +28,7 @@ SmpPieGraphSprite::SmpPieGraphSprite(const char* prm_name) :
     linkVariable(&_x);
     scale(-PX_C(50), PX_C(50), 0, angle_num); //Œ»Ý’l‚Å‰æ–Ê•\Ž¦‚Í600px‚Æ‚·‚éB
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(20));
     setHitAble(true);
 }

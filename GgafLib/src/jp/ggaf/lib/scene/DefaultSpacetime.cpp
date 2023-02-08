@@ -82,6 +82,8 @@ void DefaultSpacetime::processPreJudgement() {
 #ifdef MY_DEBUG
     _is_done_processPreJudgement = true;
     ViewCollisionChecker::_num_check_actors = 0;
+    WorldCollisionChecker::_num_otoku_check = 0;
+    WorldCollisionChecker::_num_zannen_check = 0;
     WorldCollisionChecker::_num_check_actors = 0;
 #endif
 }

@@ -35,7 +35,7 @@ ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, void* prm_pFun
     kDX_ = kDY_ = kDZ_ = 0;
     setHitAble(true, false); //画面外当たり判定は無効
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 400000);
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(0, "SE_GET_ITEM_001");
@@ -56,7 +56,7 @@ void ScoreItem::onActive() {
     //初期方向設定
     MyShip* pMyShip = pMYSHIP;
 //    //散らばり範囲正方形１辺の長さ
-//    int scattered_renge    = pChecker->_pCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
+//    int scattered_renge    = pChecker->_pActiveCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
 //    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
 ////    int scattered_distance = scattered_renge/2 + 400000;
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。

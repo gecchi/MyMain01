@@ -50,7 +50,7 @@ void EnemyTamago01::initialize() {
     pVecVehicle->setMvAngTwd(900000, 300000, 300000);
     pVecVehicle->setMvVelo(3000);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
 //    pChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_PP);
 //        pChecker->setColliAAPrism_WHD(0,0,0,300000,100000,200000,100000,POS_PRISM_YZ_PN);
 

@@ -51,7 +51,7 @@ void EnemyGlaja::onCreateModel() {
 
 void EnemyGlaja::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
 }
 

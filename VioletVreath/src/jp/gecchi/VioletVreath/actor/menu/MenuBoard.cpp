@@ -195,7 +195,7 @@ void MenuBoard::addItem(GgafDx::FigureActor* prm_pItem,
                         coord prm_x_local, coord prm_y_local, coord prm_z_local) {
     if (prm_pItem->instanceOf(Obj_FontBoardActor)) {
         FontBoardActor* pItem = (FontBoardActor*)prm_pItem;
-        pItem->getViewCollisionChecker()->createCollisionArea(1);
+        pItem->getViewCollisionChecker()->addCollisionArea(1);
         pItem->getViewCollisionChecker()->setColliAABox(0, 0.95, 1.0); //‰¡95%Ac100%
         pItem->setHitAble(true);
         pItem->setDefaultKind(KIND_2DFIX_MENU_ITEM);

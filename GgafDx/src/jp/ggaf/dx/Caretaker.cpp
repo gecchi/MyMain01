@@ -1907,13 +1907,19 @@ void Caretaker::presentVisualize() {
                 hr = pDevice->Present(&_rectRenderTargetBuffer, &_aRect_Present[_primary_adapter_no], nullptr, nullptr);
             }
         }
+        if (hr == S_PRESENT_OCCLUDED) {
+            _TRACE_("【情報】HRESULT = S_PRESENT_OCCLUDED ");
+        }
 
-        if (hr != D3D_OK) { //hr は Present の戻り値
+        //S_PRESENT_OCCLUDEDは除外？
+        if (hr != S_PRESENT_OCCLUDED && hr != D3D_OK) { //hr は Present の戻り値
              //出刃異素露巣斗？
 //            _TRACE_("【警告】デバイス異常発生!!" <<DXGetErrorString(hr) << " "<< DXGetErrorDescription(hr));
             _TRACE_("【警告】デバイス異常発生!! HRESULT="<<hr);
             if (hr == D3DERR_DEVICELOST) {
                 _TRACE_("通常の正常デバイスロスト！");
+            } else {
+                _TRACE_("通常のデバイスロストではないかも！");
             }
 
             Sleep(100);
@@ -1921,8 +1927,8 @@ void Caretaker::presentVisualize() {
 
             //愛休止
             _TRACE_("【デバイスロスト処理】愛停止 BEGIN ------>");
+
             GgafCore::Caretaker::beginRest();
-            END_SYNCHRONIZED1; // <----- 排他終了
             for (int i = 0; GgafCore::Caretaker::isResting() == false; i++) {
                 Sleep(10); //愛が落ち着くまで待つ
                 if (i > 10*60*100) {
@@ -1940,16 +1946,27 @@ void Caretaker::presentVisualize() {
                 releaseFullScreenRenderTarget();
             }
             //環境マップテクスチャ、デバイスロスト処理
+            _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->releaseAll() BEGIN ------>");
             _pCubeMapTextureManager->releaseAll();
+            _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->releaseAll() <-------- END");
+            _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->releaseAll() BEGIN ------>");
             _pBumpMapTextureManager->releaseAll();
+            _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->releaseAll() <-------- END");
             //エフェクト、デバイスロスト処理
+            _TRACE_("【デバイスロスト処理】_pEffectManager->onDeviceLostAll() BEGIN ------>");
             _pEffectManager->onDeviceLostAll();
+            _TRACE_("【デバイスロスト処理】_pEffectManager->onDeviceLostAll() <-------- END");
             //モデル解放
+            _TRACE_("【デバイスロスト処理】_pModelManager->onDeviceLostAll() BEGIN ------>");
             _pModelManager->onDeviceLostAll();
+            _TRACE_("【デバイスロスト処理】_pModelManager->onDeviceLostAll() <-------- END");
             //全ノードに解放しなさいイベント発令
+            _TRACE_("【デバイスロスト処理】getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST) BEGIN ------>");
             getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST);
+            _TRACE_("【デバイスロスト処理】getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST) <-------- END");
             _TRACE_("【デバイスロスト処理】リソース解放 <-------- END");
             pCARETAKER->_is_device_lost_flg = true;
+            END_SYNCHRONIZED1; // <----- 排他終了
         }
     }
 
@@ -1960,14 +1977,14 @@ void Caretaker::presentVisualize() {
             if (_can_wddm) {
                 hr = ((IDirect3DDevice9Ex*)pDevice)->CheckDeviceState(_paPresetPrm[_primary_adapter_no].hDeviceWindow);
                 if (hr == D3DERR_DEVICELOST || hr == S_PRESENT_OCCLUDED) {
-                    return;
+                    return; //D3DERR_DEVICELOST じゃなくなるまで待つ
                 } else {
                     break;
                 }
             } else {
                 hr = pDevice->TestCooperativeLevel();
                 if (hr == D3DERR_DEVICELOST) {
-                    return;
+                    return; //D3DERR_DEVICELOST じゃなくなるまで待つ
                 } else {
                     break;
                 }
@@ -1975,8 +1992,7 @@ void Caretaker::presentVisualize() {
         }
         _TRACE_("【デバイスロスト処理/リソース解放】協調性レベルチェック <-------- END");
 
-
-
+        BEGIN_SYNCHRONIZED1; // ----->排他開始
         //解像度変更を考慮
         if (CONFIG::FULL_SCREEN) {
             //一旦戻す
@@ -2065,19 +2081,29 @@ void Caretaker::presentVisualize() {
         //リソース再構築
         _TRACE_("【デバイスロスト処理】リソース再構築 BEGIN ------>");
         //環境マップテクスチャ、復帰処理
+        _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->restoreAll() BEGIN ------>");
         _pCubeMapTextureManager->restoreAll();
+        _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->restoreAll() <-------- END");
+        _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->restoreAll() BEGIN ------>");
         _pBumpMapTextureManager->restoreAll();
+        _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->restoreAll() <-------- END");
         //エフェクトリセット
+        _TRACE_("【デバイスロスト処理】_pEffectManager->restoreAll() BEGIN ------>");
         _pEffectManager->restoreAll();
+        _TRACE_("【デバイスロスト処理】_pEffectManager->restoreAll() <-------- END");
         //モデル再設定
+        _TRACE_("【デバイスロスト処理】_pModelManager->restoreAll() BEGIN ------>");
         _pModelManager->restoreAll();
+        _TRACE_("【デバイスロスト処理】_pModelManager->restoreAll() <-------- END");
         //全ノードに再設定しなさいイベント発令
+        _TRACE_("【デバイスロスト処理】getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST_RESTORE) BEGIN ------>");
         getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST_RESTORE);
+        _TRACE_("【デバイスロスト処理】getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST_RESTORE) <-------- END");
         //前回描画モデル情報を無効にする
         ModelManager::_pModelLastDraw = nullptr;
         pCARETAKER->_is_device_lost_flg = false;
         _TRACE_("【デバイスロスト処理】リソース再構築 <-------- END");
-
+        END_SYNCHRONIZED1; // <----- 排他終了
         //愛再開
         _TRACE_("【デバイスロスト処理】愛再起動 BEGIN ------>");
         GgafCore::Caretaker::finishRest();
@@ -2086,6 +2112,8 @@ void Caretaker::presentVisualize() {
         _TRACE_("【デバイスロスト処理】<-------- END");
 
         Sleep(100);
+
+
         hr = pDevice->Clear(0,    // クリアする矩形領域の数
                             nullptr, // 矩形領域
                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
@@ -2093,6 +2121,7 @@ void Caretaker::presentVisualize() {
                             1.0f, // Zバッファのクリア値
                             0     // ステンシルバッファのクリア値
                            );
+
     }
 }
 

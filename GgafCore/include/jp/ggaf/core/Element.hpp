@@ -1172,7 +1172,7 @@ void Element<T>::activateDelay(frame prm_offset_frames) {
     if (_can_live_flg) {
 #ifdef MY_DEBUG
         if (_is_active_flg) {
-            _TRACE_("ÅyåxçêÅzactivateDelay("<<prm_offset_frames<<") ÇµÇ‹ÇµÇΩÇØÇ«ÅAä˘Ç…äàìÆèÛë‘Ç≈Ç∑ÇÊÅBà”ê}ÇµÇƒÇ‹Ç∑Ç©ÅH name="<<Node<T>::_name<<" this="<<this);
+            _TRACE_("ÅyèÓïÒÅzactivateDelay("<<prm_offset_frames<<") ÇµÇ‹ÇµÇΩÇØÇ«ÅAä˘Ç…äàìÆèÛë‘Ç≈Ç∑ÇÃÇ≈ïœâªÇ†ÇËÇ‹ÇπÇÒÅEÅEÅEÅB name="<<Node<T>::_name<<" this="<<this);
         }
 #endif
         //ä˘Ç…inactivateDelay()é¿çsçœÇ›ÇÃèÍçáÇÕ

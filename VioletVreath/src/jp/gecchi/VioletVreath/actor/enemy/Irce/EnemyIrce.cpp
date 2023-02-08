@@ -41,7 +41,7 @@ void EnemyIrce::initialize() {
     pVecVehicle->linkFaceAngByMvAng(true);
     pVecVehicle->setMvVelo(3000);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAABox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     _x = PX_C(200);
 }

@@ -18,7 +18,7 @@ namespace GgafDx {
 class CollisionArea : public GgafCore::Object {
 
 public:
-    /** 8分木登録のための全当たり判定要素含む全体の外側の軸平行境界直方体 */
+    /** 8分木登録のための全当たり判定要素含む全体の外側の軸平行境界直方体(Actorローカル座標) */
     coord _aabb_x1, _aabb_y1, _aabb_z1, _aabb_x2, _aabb_y2, _aabb_z2;
     //AABB(軸平行境界直方体:Axis-Aligned Bounding Box)
 

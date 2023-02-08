@@ -19,7 +19,7 @@ SmpActor2::SmpActor2(const char* prm_name) :
     //À•WÝ’è
     setMaterialColor(1.0, 1.0, 0.0);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(8);
+    pChecker->addCollisionArea(8);
     coord ox = PX_C(20);
     coord oy = PX_C(30);
     coord oz = PX_C(40);
@@ -41,7 +41,7 @@ SmpActor2::SmpActor2(const char* prm_name) :
 //    coord w = PX_C(100);
 //    coord h = PX_C(100);
 //    coord d = PX_C(100);
-//    pChecker->createCollisionArea(1);
+//    pChecker->addCollisionArea(1);
 //    pChecker->setColliAAPyramid_WHD(0, ox + (w/2), oy + (h/2), oz + (d/2), w, h, d, POS_PYRAMID_NNN);
 
 //    coord ox = PX_C(-50);
@@ -50,7 +50,7 @@ SmpActor2::SmpActor2(const char* prm_name) :
 //    coord w = PX_C(100);
 //    coord h = PX_C(100);
 //    coord d = PX_C(100);
-//    pChecker->createCollisionArea(1);
+//    pChecker->addCollisionArea(1);
 //    pChecker->setColliAAPrism_WHD(0, ox + (w/2), oy + (h/2), oz + (d/2), w, h, d, POS_PRISM_XY_NN);
 
     setHitAble(true);

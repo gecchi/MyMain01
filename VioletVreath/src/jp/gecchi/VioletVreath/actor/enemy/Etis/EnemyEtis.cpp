@@ -40,7 +40,7 @@ void EnemyEtis::initialize() {
         nArea++;
     }
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(nArea);
+    pChecker->addCollisionArea(nArea);
     for (int i = 0, n = 0; i < width_x_-depth_y_; i += depth_y_, n++) {
         pChecker->setColliAABox(n,
                              i - ((depth_y_/2.0)/1.5)-(width_x_/2.0 - depth_y_/2.0), -((depth_y_/2.0)/1.5), -(height_z_/2.0),

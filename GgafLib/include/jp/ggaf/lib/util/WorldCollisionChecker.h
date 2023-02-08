@@ -24,8 +24,10 @@ public:
 #ifdef MY_DEBUG
     /** ‚PƒtƒŒ[ƒ€‚Ì“–‚½‚è”»’è—v‘f“¯m‚Ì”»’è‰ñ” */
     static unsigned int _num_check;
-
+    static unsigned int _num_otoku_check;
+    static unsigned int _num_zannen_check;
     static unsigned int _num_check_actors;
+
 #endif
 
     /**

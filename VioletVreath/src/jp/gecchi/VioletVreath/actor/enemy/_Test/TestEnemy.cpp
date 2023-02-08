@@ -21,7 +21,7 @@ TestEnemy::TestEnemy(const char* prm_name, const char* prm_model, void* prm_pSta
 void TestEnemy::initialize() {
     setHitAble(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->createCollisionArea(8);
+    pChecker->addCollisionArea(8);
 //    pChecker->setColliAABox(0, -30000, -30000, -30000, 30000, 30000, 30000);
 //    pChecker->setColliSphere(0, 30000);
 /////////////TEST
