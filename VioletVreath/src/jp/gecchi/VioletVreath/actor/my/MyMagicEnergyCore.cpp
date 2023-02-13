@@ -49,10 +49,11 @@ void MyMagicEnergyCore::processBehavior() {
     getScaler()->setRange(s*MAX_SCALSE_MagicEnergyCore*0.7, s*MAX_SCALSE_MagicEnergyCore);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     if (s > 0.0) {
-        pChecker->enable(0);
+        setHitAble(true);
         pChecker->changeColliSphereR(0, s*PX_C(100));
     } else {
-        pChecker->disable(0);
+        setHitAble(false);
+//        pChecker->disable(0);
     }
     getScaler()->behave();
     getAxisVehicle()->behave();

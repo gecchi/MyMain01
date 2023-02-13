@@ -39,8 +39,8 @@ public:
     static ViewQuadtree* _pViewQuadtree;
     static ViewQuadtreeRounder* _pViewQuadtreeRounder;
 #ifdef MY_DEBUG
-    /** processPreJudgement() 実行済み判定 */
-    bool _is_done_processPreJudgement;
+    /** processSettlementBehavior() 実行済み判定 */
+    bool _is_done_processSettlementBehavior;
 #endif
 
 public:
@@ -49,7 +49,7 @@ public:
     /**
      * ワールド座標上のアクターの「種別Aグループ 対 種別Bグループ」の ヒットチェック を行う  .
      * ３次元（８分木） or ２次元（４分木）
-     * processJudgement() で呼ぶ必要あり。（processPreJudgement() で ツリーに登録している為）<BR>
+     * processJudgement() で呼ぶ必要あり。（processSettlementBehavior() で ツリーに登録している為）<BR>
      * @param prm_kind_groupA アクター種別Aグループ
      * @param prm_kind_groupB アクター種別Bグループ
      */
@@ -57,7 +57,7 @@ public:
 
     /**
      * ビュー座標上のアクターの「種別Aグループ 対 種別Bグループ」の ヒットチェック を行う  .
-     * processJudgement() で呼ぶ必要あり。（processPreJudgement() で ツリーに登録している為）<BR>
+     * processJudgement() で呼ぶ必要あり。（processSettlementBehavior() で ツリーに登録している為）<BR>
      * @param prm_kind_groupA アクター種別Aグループ
      * @param prm_kind_groupB アクター種別Bグループ
      */
@@ -68,7 +68,7 @@ public:
         return (DefaultCamera*)_pCamera;
     }
 
-    virtual void processPreJudgement() override;
+    virtual void processSettlementBehavior() override;
 
     virtual void processJudgement() override;
 

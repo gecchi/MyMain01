@@ -63,7 +63,7 @@ public:
         return _pCurtain;
     }
 
-    virtual void processPreJudgement() override;
+    virtual void processSettlementBehavior() override;
 
     virtual void pause() override;
 

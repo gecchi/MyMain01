@@ -42,7 +42,7 @@ void ColliSphereActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
         if (iAreaNum > 0) {
             getEffect()->setAlphaMaster(1.0); //シーンに所属しないので固定値の設定が必要
             for (int i = 0; i < iAreaNum; i++) {
-                if (pActiveCollisionArea->_papColliPart[i]->_is_valid_flg && pActiveCollisionArea->_papColliPart[i]->_shape_kind == COLLI_SPHERE) {
+                if (pActiveCollisionArea->_papColliPart[i]->_shape_kind == COLLI_SPHERE) {
                     ColliSphere* sphere = (ColliSphere*)pActiveCollisionArea->_papColliPart[i];
                     drawSphere(pActor->_x + sphere->_cx,
                                pActor->_y + sphere->_cy,

@@ -79,9 +79,6 @@ public:
 
     virtual void processDraw() override;
 
-    virtual void processSettlementBehavior() override {
-    }
-
     virtual ~RegularPolygonBoardActor(); //デストラクタ
 
 //    virtual void setAlign(Align prm_align, Valign prm_valign);

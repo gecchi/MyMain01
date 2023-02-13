@@ -59,7 +59,7 @@ bool WorldCollisionChecker3D::isHit(const GgafDx::CollisionChecker* const prm_pO
     const coord pOppActor_z = pOppActor->_z;
     //複数の当たり判定要素をもつアクター同士の場合、
     //まず最外境界AABoxで当たり判定を行って、ヒットすれば厳密に当たり判定を行う。
-    if (colli_part_num > 2 || opp_colli_part_num > 2) {
+    if (colli_part_num > 1 || opp_colli_part_num > 1) {
 #ifdef MY_DEBUG
         WorldCollisionChecker::_num_check++;
 #endif
@@ -132,14 +132,12 @@ CNT:
 
     for (int i = 0; i < colli_part_num; i++) {
         const GgafDx::CollisionPart* const pColliPart = pActiveCollisionArea->_papColliPart[i];
-        if (!pColliPart->_is_valid_flg) { continue; }
         const int shape_kind = pColliPart->_shape_kind;
 
         if (shape_kind == COLLI_AABOX) {
 
             for (int j = 0; j < opp_colli_part_num; j++) {
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
-                if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 
 
@@ -204,7 +202,6 @@ CNT:
 
             for (int j = 0; j < opp_colli_part_num; j++) {
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
-                if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
                 WorldCollisionChecker::_num_check++;
@@ -262,7 +259,6 @@ CNT:
 
             for (int j = 0; j < opp_colli_part_num; j++) {
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
-                if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
                 WorldCollisionChecker::_num_check++;
@@ -303,7 +299,6 @@ CNT:
 
             for (int j = 0; j < opp_colli_part_num; j++) {
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
-                if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
                 WorldCollisionChecker::_num_check++;

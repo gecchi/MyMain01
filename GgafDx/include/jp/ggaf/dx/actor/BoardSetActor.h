@@ -123,10 +123,6 @@ public:
 
     virtual void processDraw() override;
 
-
-    virtual void processSettlementBehavior() override {
-    }
-
     virtual ~BoardSetActor(); //デストラクタ
 
     virtual void setPositionAt(const GeometricActor* prm_pActor) override;

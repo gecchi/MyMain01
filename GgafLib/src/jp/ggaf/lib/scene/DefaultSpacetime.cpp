@@ -21,7 +21,7 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
         GgafDx::Spacetime(prm_name, prm_pCamera) {
     _class_name = "DefaultSpacetime";
 #ifdef MY_DEBUG
-    _is_done_processPreJudgement = false;
+    _is_done_processSettlementBehavior = false;
 #endif
 
     if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
@@ -56,7 +56,7 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
 
 void DefaultSpacetime::executeWorldHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
 #ifdef MY_DEBUG
-    if (!_is_done_processPreJudgement) {
+    if (!_is_done_processSettlementBehavior) {
         throwCriticalException("DefaultSpacetime::executeWorldHitCheck() ツリーに要素がまだ登録されていません。本メソッドは processJudgement() で実行してください。");
     }
 #endif
@@ -70,17 +70,17 @@ void DefaultSpacetime::executeWorldHitCheck(kind_t prm_kind_groupA, kind_t prm_k
 
 void DefaultSpacetime::executeViewHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
 #ifdef MY_DEBUG
-    if (!_is_done_processPreJudgement) {
+    if (!_is_done_processSettlementBehavior) {
         throwCriticalException("DefaultSpacetime::executeViewHitCheck() ツリーに要素がまだ登録されていません。本メソッドは processJudgement() で実行してください。");
     }
 #endif
     DefaultSpacetime::_pViewQuadtreeRounder->executeAll(prm_kind_groupA, prm_kind_groupB);
 }
 
-void DefaultSpacetime::processPreJudgement() {
-    GgafDx::Spacetime::processPreJudgement();
+void DefaultSpacetime::processSettlementBehavior() {
+    GgafDx::Spacetime::processSettlementBehavior();
 #ifdef MY_DEBUG
-    _is_done_processPreJudgement = true;
+    _is_done_processSettlementBehavior = true;
     ViewCollisionChecker::_num_check_actors = 0;
     WorldCollisionChecker::_num_otoku_check = 0;
     WorldCollisionChecker::_num_zannen_check = 0;
@@ -103,7 +103,7 @@ void DefaultSpacetime::processFinal() {
     }
     DefaultSpacetime::_pViewQuadtree->clearAllElem();
 #ifdef MY_DEBUG
-    _is_done_processPreJudgement = false;
+    _is_done_processSettlementBehavior = false;
 #endif
 }
 

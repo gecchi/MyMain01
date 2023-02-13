@@ -5,7 +5,7 @@ using namespace GgafDx;
 
 CollisionPart::CollisionPart() : GgafCore::Object() {
     _shape_kind = 0;
-    _is_valid_flg = false;
+//    _is_valid_flg = false;
     _dx = _dy = _dz = 0;
     _cx = _cy = _cz = 0;
     _base_cx = _base_cy = _base_cz = 0;

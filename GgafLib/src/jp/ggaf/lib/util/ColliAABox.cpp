@@ -56,7 +56,6 @@ void ColliAABox::set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2,
     } else {
         _rot = false;
     }
-    _is_valid_flg = true;
 }
 
 void ColliAABox::movePos(coord cx, coord cy, coord cz) {
@@ -75,7 +74,6 @@ void ColliAABox::movePos(coord cx, coord cy, coord cz) {
     _base_cx = cx;
     _base_cy = cy;
     _base_cz = cz;
-    _is_valid_flg = true;
 }
 
 void ColliAABox::rotateRxRzRy(angle rx, angle ry, angle rz) {

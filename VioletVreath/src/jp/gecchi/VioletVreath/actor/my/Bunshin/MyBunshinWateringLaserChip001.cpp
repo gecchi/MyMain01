@@ -61,6 +61,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
 void MyBunshinWateringLaserChip001::initialize() {
     getVecVehicle()->linkFaceAngByMvAng(true);
     registerHitAreaCube_AutoGenMidColli(MAX_VELO_RENGE/4);
+//    registerHitAreaCube_AutoGenMidColli(PX_C(10));
     setHitAble(true);
     setScaleR(6.0);
     setCullingDraw(false);

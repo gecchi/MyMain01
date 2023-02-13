@@ -28,9 +28,6 @@ public:
     void processSettlementBehavior() override {
     }
 
-    void processPreJudgement() override {
-    }
-
     void processJudgement() override {
     }
 

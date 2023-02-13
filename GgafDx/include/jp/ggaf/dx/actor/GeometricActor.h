@@ -242,8 +242,10 @@ public:
      */
     virtual void processSettlementBehavior() override;
 
-    virtual void processPreJudgement() override;
-
+    /**
+     * 当たり判定の為に八分木（四分木）に登録する .
+     */
+    virtual void updateHitArea();
     /**
      * 共通の描画事後処理 .
      * 俺デバッグモード (MY_DEBUG が 1)の場合は

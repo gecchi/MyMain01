@@ -75,9 +75,6 @@ public:
                    const char* prm_technique,
                    CollisionChecker* prm_pChecker = nullptr);
 
-    virtual void processSettlementBehavior() override {
-    }
-
     virtual void setPositionAt(const GeometricActor* prm_pActor) override;
 
     virtual void setPositionAt(const GeoElem* prm_pGeoElem) override;

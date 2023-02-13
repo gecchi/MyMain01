@@ -22,8 +22,8 @@ class CollisionPart : public GgafCore::Object {
 public:
     /** 当たり判定種別(COLLI_AABOX / COLLI_AAPRISM / COLLI_AAPYRAMID / COLLI_SPHERE) */
     int _shape_kind;
-    /** 有効フラグ */
-    bool _is_valid_flg;
+//    /** 有効フラグ */
+//    bool _is_valid_flg;
     /** 当たり判定境界直方体のローカル座標 */
     coord _x1, _y1, _z1, _x2, _y2, _z2;
     /** 当たり判定境界直方体のX軸方向幅 */

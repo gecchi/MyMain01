@@ -58,29 +58,29 @@ public:
         return _pActor;
     }
 
-    inline CollisionArea* getArea() {
+    inline CollisionArea* getActiveCollisionArea() {
         return _pActiveCollisionArea;
     }
 
-    /**
-     * 当たり判定領域の要素を有効にする。
-     * デフォルトは有効状態になっています。
-     * @param prm_index 有効にする当たり判定領域の要素番号
-     */
-    virtual void enable(int prm_index);
-
-    /**
-     * 当たり判定領域の要素を無効にする。
-     * @param prm_index 無効にする当たり判定領域の要素番号
-     */
-    virtual void disable(int prm_index);
-
-    /**
-     * 当たり判定領域の要素が有効か調べる。
-     * @param prm_index 調べたい当たり判定領域の要素番号
-     * @return true:有効 / false:無効
-     */
-    virtual bool isEnable(int prm_index);
+//    /**
+//     * 当たり判定領域の要素を有効にする。
+//     * デフォルトは有効状態になっています。
+//     * @param prm_index 有効にする当たり判定領域の要素番号
+//     */
+//    virtual void enable(int prm_index);
+//
+//    /**
+//     * 当たり判定領域の要素を無効にする。
+//     * @param prm_index 無効にする当たり判定領域の要素番号
+//     */
+//    virtual void disable(int prm_index);
+//
+//    /**
+//     * 当たり判定領域の要素が有効か調べる。
+//     * @param prm_index 調べたい当たり判定領域の要素番号
+//     * @return true:有効 / false:無効
+//     */
+//    virtual bool isEnable(int prm_index);
 
     virtual ~CollisionChecker();
 };

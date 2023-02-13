@@ -11,6 +11,7 @@
 #include "jp/ggaf/dx/util/CollisionPart.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
+#include "jp/ggaf/lib/actor/wall/MassWallActor.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/DamageDispBar.h"
@@ -775,20 +776,23 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
         double vx2, vy2, vz2;
         coord dX2,dY2,dZ2;
         if ( pOther->instanceOf(Obj_MassWallActor)) {
-            GgafDx::CollisionPart** papColli = pOther->_pChecker->_pActiveCollisionArea->_papColliPart;
-
-            ColliAABox* pBox = (ColliAABox*)(papColli[0]); //[0]BOX,[1]プリズム,[2]ピラミッド
-            ColliAAPrism* pPrism = (ColliAAPrism*)(papColli[1]); //[0]BOX,[1]プリズム,[2]ピラミッド
-            ColliAAPyramid* pPyramid = (ColliAAPyramid*)(papColli[2]); //[0]BOX,[1]プリズム,[2]ピラミッド
-            if (pBox->_is_valid_flg) {
-                //プリズム以外の壁
+            GgafLib::MassWallActor* pOtherWall = (GgafLib::MassWallActor*)pOther;
+            pos_t pos_info = pOtherWall->_pos_info;
+//            GgafDx::CollisionPart** papColli = pOther->_pChecker->_pActiveCollisionArea->_papColliPart;
+//            ColliAABox* pBox = (ColliAABox*)(papColli[0]); //[0]BOX,[1]プリズム,[2]ピラミッド
+//            ColliAAPrism* pPrism = (ColliAAPrism*)(papColli[1]); //[0]BOX,[1]プリズム,[2]ピラミッド
+//            ColliAAPyramid* pPyramid = (ColliAAPyramid*)(papColli[2]); //[0]BOX,[1]プリズム,[2]ピラミッド
+//            if (pBox->_is_valid_flg) {
+            if (pos_info == 0) {
+                //BOX
                 dX2 = (_x - pOther->_x);
                 dY2 = (_y - pOther->_y);
                 dZ2 = (_z - pOther->_z);
-            } else if (pPrism->_is_valid_flg) {
+//            } else if (pPrism->_is_valid_flg) {
+            } else if (POS_PRISM_XY_NN <= pos_info && pos_info <= POS_PRISM_ZX_PP) {
                 //プリズム壁
+                ColliAAPrism* pPrism = (ColliAAPrism*)(pOtherWall->_pChecker->_pActiveCollisionArea->_papColliPart[0]);
                 //吹っ飛ぶ重心座標を補正
-                pos_t pos_info = pPrism->_pos_info;
                 if (pos_info & POS_PRISM_XY_xx) {
                     if (pos_info & POS_PRISM_xx_PP) {
                         //            ↑ y+
@@ -954,7 +958,8 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
                         dY2 = (_y - (pOther->_y                ));
                         dZ2 = (_z - (pOther->_z - pPrism->_hdz));
                     }
-                } else if (pPyramid->_is_valid_flg) {
+                } else {
+                    //ピラミッド
                     //TODO:ピラミッドふっとぶ重心
                     dX2 = (_x - pOther->_x);
                     dY2 = (_y - pOther->_y);

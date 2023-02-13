@@ -118,7 +118,6 @@ public:
 //    virtual void update_last_frame_of_god() override;
     virtual void behave() override;
     virtual void settleBehavior() override;
-    virtual void preJudge() override;
     virtual void judge() override;
     virtual void preDraw() override;
     virtual void draw() override;

@@ -52,8 +52,8 @@ void Scene::chengeCurtain(SceneCurtain* prm_pCurtain_new) {
     }
 }
 
-void Scene::processPreJudgement() {
-    GgafCore::MainScene::processPreJudgement();
+void Scene::processSettlementBehavior() {
+    GgafCore::MainScene::processSettlementBehavior();
     if (!_was_paused_flg) {
         _pCurtain->behave();
         _pConductor->behave();

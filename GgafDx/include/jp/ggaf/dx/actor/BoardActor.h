@@ -77,11 +77,7 @@ public:
                const char* prm_technique,
                CollisionChecker* prm_pChecker = nullptr);
 
-
     virtual void processDraw() override;
-
-    virtual void processSettlementBehavior() override {
-    }
 
     virtual ~BoardActor(); //デストラクタ
 

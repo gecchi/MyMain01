@@ -42,7 +42,7 @@ void ColliAAPrismActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
         if (iAreaNum > 0) {
             getEffect()->setAlphaMaster(1.0); //シーンに所属しないので固定値の設定が必要
             for (int i = 0; i < iAreaNum; i++) {
-                if (pActiveCollisionArea->_papColliPart[i]->_is_valid_flg && pActiveCollisionArea->_papColliPart[i]->_shape_kind == COLLI_AAPRISM) {
+                if (pActiveCollisionArea->_papColliPart[i]->_shape_kind == COLLI_AAPRISM) {
                     ColliAAPrism* prism = (ColliAAPrism*)pActiveCollisionArea->_papColliPart[i];
                     if (prism->_pos_info == 0) {
                         _TRACE_("【警告】ColliAAPrismActor::drawHitarea BADPOS i="<<i<<" Target="<<pActor->getName()<<" 要調査");

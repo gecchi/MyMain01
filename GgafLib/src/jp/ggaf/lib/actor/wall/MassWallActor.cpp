@@ -62,10 +62,16 @@ void MassWallActor::init() {
     setHitAble(true);
 
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->addCollisionArea(3);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAABox(0, 0,0,0, 0,0,0);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAAPrism(1, 0,0,0, 0,0,0, 0);
+    pChecker->addCollisionArea(1);
     pChecker->setColliAAPyramid(2, 0,0,0, 0,0,0, POS_PYRAMID_NNN);
+//    pChecker->addCollisionArea(3);
+//    pChecker->setColliAABox(0, 0,0,0, 0,0,0);
+//    pChecker->setColliAAPrism(1, 0,0,0, 0,0,0, 0);
+//    pChecker->setColliAAPyramid(2, 0,0,0, 0,0,0, POS_PYRAMID_NNN);
     _pMassMeshModel->registerCallback_VertexInstanceDataInfo(MassWallActor::createVertexInstanceData);
 
     static volatile bool is_init = MassWallActor::initStatic(this); //静的メンバ初期化
@@ -372,12 +378,12 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
 
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     if (prm_aColliBoxStretch[0] == 0) {
-        pChecker->disable(0);
-        pChecker->disable(1);
-        pChecker->disable(2);
+        setHitAble(false);
     } else {
+        setHitAble(true);
         if (prm_pos_info == 0) {
             //BOX
+            pChecker->changeActiveCollisionArea(0);
             pChecker->setColliAABox(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                        -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                        -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
@@ -385,11 +391,9 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
                                         (_wall_height/2) + (_wall_height * (prm_aColliBoxStretch[FACE_A_IDX]-1)),
                                         (_wall_width/2)  + (_wall_width  * (prm_aColliBoxStretch[FACE_C_IDX]-1))
                                  );
-            pChecker->enable(0);
-            pChecker->disable(1);
-            pChecker->disable(2);
         } else if (POS_PRISM_XY_NN <= prm_pos_info && prm_pos_info <= POS_PRISM_ZX_PP) {
             //プリズム
+            pChecker->changeActiveCollisionArea(1);
             pChecker->setColliAAPrism(1, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                          -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                          -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
@@ -397,11 +401,9 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
                                           (_wall_height/2) + (_wall_height * (prm_aColliBoxStretch[FACE_A_IDX]-1)),
                                           (_wall_width/2)  + (_wall_width  * (prm_aColliBoxStretch[FACE_C_IDX]-1)),
                                           _pos_info   );
-            pChecker->enable(1);
-            pChecker->disable(0);
-            pChecker->disable(2);
         } else {
             //ピラミッド
+            pChecker->changeActiveCollisionArea(2);
             pChecker->setColliAAPyramid(2, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                            -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                            -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
@@ -409,9 +411,6 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
                                             (_wall_height/2) + (_wall_height * (prm_aColliBoxStretch[FACE_A_IDX]-1)),
                                             (_wall_width/2)  + (_wall_width  * (prm_aColliBoxStretch[FACE_C_IDX]-1)),
                                             _pos_info   );
-            pChecker->enable(2);
-            pChecker->disable(0);
-            pChecker->disable(1);
         }
 
     }

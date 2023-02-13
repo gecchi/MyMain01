@@ -99,7 +99,6 @@ void GeometricActor::processSettlementBehavior() {
     if (_is_fix_2D) {
         // 実装中
     } else {
-
         _was_calculated_matInvWorldRotMv = false; //逆行列未計算にリセット
 
         if (_pActor_base) {
@@ -257,9 +256,11 @@ void GeometricActor::processSettlementBehavior() {
                                    pPlnBack->d;
         _offscreen_kind = -1;
     }
+    //八分木（四分木）に登録
+    updateHitArea();
 }
 
-void GeometricActor::processPreJudgement() {
+void GeometricActor::updateHitArea() {
     if (_pChecker) {
         if (_can_hit_flg) {
             if (_enable_out_of_view_hit_flg == false && isOutOfView()) {

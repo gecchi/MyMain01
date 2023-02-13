@@ -45,8 +45,6 @@ public:
 
     virtual void processSettlementBehavior() override;
 
-    virtual void processPreJudgement() override;
-
     virtual bool processHitChkLogic(Actor* prm_pOtherActor);
 
     virtual void onHit(const Actor* prm_pOtherActor);

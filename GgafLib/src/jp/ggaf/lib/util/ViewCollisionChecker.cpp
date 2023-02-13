@@ -84,14 +84,12 @@ bool ViewCollisionChecker::isHit(const GgafDx::CollisionChecker* const prm_pOppC
 
     for (int i = 0; i < colli_part_num; i++) {
         const GgafDx::CollisionPart* const pColliPart = pActiveCollisionArea->_papColliPart[i];
-        if (!pColliPart->_is_valid_flg) { continue; }
         const int shape_kind = pColliPart->_shape_kind;
 
         if (shape_kind == COLLI_AABOX) {
 
             for (int j = 0; j < opp_colli_part_num; j++) {
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
-                if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
                 ViewCollisionChecker::_num_check++;
@@ -130,7 +128,6 @@ bool ViewCollisionChecker::isHit(const GgafDx::CollisionChecker* const prm_pOppC
         } else if (shape_kind == COLLI_SPHERE) {
             for (int j = 0; j < opp_colli_part_num; j++) {
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
-                if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
                 ViewCollisionChecker::_num_check++;
@@ -169,7 +166,6 @@ bool ViewCollisionChecker::isHit(const GgafDx::CollisionChecker* const prm_pOppC
         } else if (shape_kind == COLLI_AAPRISM) {
             for (int j = 0; j < opp_colli_part_num; j++) {
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
-                if (!pOppColliPart->_is_valid_flg) { continue; }
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
                 ViewCollisionChecker::_num_check++;
@@ -259,7 +255,6 @@ void ViewCollisionChecker::setColliAABox(int prm_index,
 #endif
     ColliAABox* pAABox = (ColliAABox*)_pActiveCollisionArea->_papColliPart[prm_index];
     pAABox->_shape_kind = COLLI_AABOX;
-    pAABox->_is_valid_flg = true;
     pAABox->set(x1, y1, 0, x2, y2, 0, false, false, false);
 //    _is_enable = true;
 }

@@ -75,8 +75,9 @@ void LaserChip::onActive() {
     }
     _force_alpha = 1.00; //最初は奥でもハッキリ映る。
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    GgafDx::CollisionArea* pArea = pChecker->getArea();
+    GgafDx::CollisionArea* pArea = pChecker->getActiveCollisionArea();
     if (pArea) {
+        pChecker->changeActiveCollisionArea(0);
         pChecker->moveColliAABoxPos(0, 0, 0, 0);
     }
 }
@@ -99,17 +100,17 @@ void LaserChip::processSettlementBehavior() {
     //
     //      -= === === === <>        こんなふうに分断されています。
     //                               縦に区切られている線の箇所が LaserChip オブジェクトです。
-    //    | -=|===|===|===|<> |      左図はレーザーをオブジェクトで区切ったつもりの図
+    //    | -=|===|===|===|<> ||      左図はレーザーをオブジェクトで区切ったつもりの図
     //
-    //    <--><--><--><--><-->^
-    //    ^   ^   ^   ^   ^   |
-    //    |   |   |   |   |   |
-    //    |   |   |   |   |    `----- 5:先端チップ(非表示で、中間先頭チップを表示するためだけに存在)
-    //    |   |   |   |    `----- 4:中間先頭チップ(表示される実質の先頭)
-    //    |   |   |    `----- 3:中間チップ
-    //    |   |    `----- 3:中間チップ
-    //    |    `----- 3:中間チップ
-    //     `----- 1:末尾チップ(ただし、前方にチップが5の場合は 2)
+    //    <--><--><--><--><--><>
+    //     ^   ^   ^   ^   ^   ^
+    //     |   |   |   |   |   |
+    //     |   |   |   |   |    `----- 5:先端チップ(非表示で、中間先頭チップを表示するためだけに存在)
+    //     |   |   |   |    `----- 4:中間先頭チップ(表示される実質の先頭)
+    //     |   |   |    `----- 3:中間チップ
+    //     |   |    `----- 3:中間チップ
+    //     |    `----- 3:中間チップ
+    //      `----- 1:末尾チップ(ただし、前方にチップが5の場合は 2)
     //
     //先頭と先端という言葉で区別しています。
     if (pChip_infront) {
@@ -164,14 +165,15 @@ void LaserChip::processSettlementBehavior() {
             setHitAble(true);
         }
     }
-
-    if (pChecker->getArea() && _can_hit_flg) {
-        if (_chip_kind == 5) {
-            if (_middle_colli_able) {
-                pChecker->disable(1);
-                pChecker->disable(2);
-                pChecker->disable(3);
-            }
+    //      ｜          ｜          ｜          ｜
+    // [0] -□----------□----------□----------□-
+    //      ｜          ｜          ｜          ｜
+    // [1] -□----□----□----□----□----□----□-
+    //      ｜          ｜          ｜          ｜
+    // [2] -□-□-□-□-□-□-□-□-□-□-□-□-□-
+    //      ｜          ｜          ｜          ｜
+    if (pChecker->getActiveCollisionArea() && _can_hit_flg) {
+        if (_chip_kind == 5) { //5:先端チップ
             //先端チップの当たり判定を、後ろチップとの中間の位置に凹ませる。
             if (pChip_behind) {
                 coord dX =  pChip_behind->_x - _x;
@@ -180,9 +182,8 @@ void LaserChip::processSettlementBehavior() {
                 coord cX = dX * 0.25;
                 coord cY = dY * 0.25;
                 coord cZ = dZ * 0.25;
+                pChecker->changeActiveCollisionArea(0);
                 pChecker->moveColliAABoxPos(0, cX, cY, cZ);
-            } else {
-                setHitAble(false);
             }
         } else { //if (_chip_kind != 5)
             //この処理はprocessBehavior()で行えない。なぜならば、_pChip_infront が座標移動済みの保証がないため。
@@ -205,66 +206,60 @@ void LaserChip::processSettlementBehavior() {
                 //         _hitarea_edge_length
                 //
 
-//                if (_chip_kind != 0) {
-                    coord dX = pChip_infront->_x - _x;
-                    coord dY = pChip_infront->_y - _y;
-                    coord dZ = pChip_infront->_z - _z;
+                coord dX = pChip_infront->_x - _x;
+                coord dY = pChip_infront->_y - _y;
+                coord dZ = pChip_infront->_z - _z;
 
-    //                if (ABS(dX) < _hitarea_edge_length &&
-    //                    ABS(dY) < _hitarea_edge_length &&
-    //                    ABS(dZ) < _hitarea_edge_length)
-    //                {
-    //              ↓の意味は、↑と同じ。ちょっと最適化。
-                    if ((ucoord)(dX+_hitarea_edge_length) < _hitarea_edge_length_2 &&
-                        (ucoord)(dY+_hitarea_edge_length) < _hitarea_edge_length_2 &&
-                        (ucoord)(dZ+_hitarea_edge_length) < _hitarea_edge_length_2)
-                    {
-                        //前方チップとくっつきすぎた場合に、判定領域を一時的に無効化
-                        if (_chip_kind != 1) { //近くても末端だけは当たり判定あり
-                            setHitAble(false);
-                        }
+//                if (ABS(dX) < _hitarea_edge_length &&
+//                    ABS(dY) < _hitarea_edge_length &&
+//                    ABS(dZ) < _hitarea_edge_length)
+//                {
+//              ↓の意味は、↑と同じ。ちょっと最適化。
+                if ((ucoord)(dX+_hitarea_edge_length) < _hitarea_edge_length_2 &&
+                    (ucoord)(dY+_hitarea_edge_length) < _hitarea_edge_length_2 &&
+                    (ucoord)(dZ+_hitarea_edge_length) < _hitarea_edge_length_2)
+                {
+                    //前方チップとくっつきすぎた場合に、判定領域を一時的に無効化
+                    if (_chip_kind != 1) { //近くても末端だけは当たり判定あり
+                        setHitAble(false);
                     } else {
-                        if ((ucoord)(dX+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
-                            (ucoord)(dY+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
-                            (ucoord)(dZ+_hitarea_edge_length_3) < _hitarea_edge_length_3_2)
+                        pChecker->changeActiveCollisionArea(0);  // [0] -□----------
+                    }
+                } else {
+                    if ((ucoord)(dX+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
+                        (ucoord)(dY+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
+                        (ucoord)(dZ+_hitarea_edge_length_3) < _hitarea_edge_length_3_2)
+                    {
+                        pChecker->changeActiveCollisionArea(0);  // [0] -□----------
+                        _rate_of_length = 4.0f;
+                    } else {
+                        //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
+                        //自身と前方チップの中間に当たり判定を作り出す
+                        coord cX = dX / 2;
+                        coord cY = dY / 2;
+                        coord cZ = dZ / 2;
+                        if ((ucoord)(dX+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
+                            (ucoord)(dY+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
+                            (ucoord)(dZ+_hitarea_edge_length_6) < _hitarea_edge_length_6_2)
                         {
-                            pChecker->disable(1);
-                            pChecker->disable(2);
-                            pChecker->disable(3);
-                            _rate_of_length = 4.0f;
+                            pChecker->changeActiveCollisionArea(1); // [1] -□----□----
+                            pChecker->moveColliAABoxPos(1, cX, cY, cZ);
+                            _rate_of_length = 8.0f;
                         } else {
-                            //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
-                            //自身と前方チップの中間に当たり判定を作り出す
-                            coord cX = dX / 2;
-                            coord cY = dY / 2;
-                            coord cZ = dZ / 2;
+                            pChecker->changeActiveCollisionArea(2); // [2] -□-□-□-□-
                             pChecker->moveColliAABoxPos(2, cX, cY, cZ);
-                            if ((ucoord)(dX+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
-                                (ucoord)(dY+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
-                                (ucoord)(dZ+_hitarea_edge_length_6) < _hitarea_edge_length_6_2)
-                            {
-                                pChecker->disable(1);
-                                pChecker->disable(3);
-                                _rate_of_length = 8.0f;
-                            } else {
-                                coord cX2 = cX / 2;
-                                coord cY2 = cY / 2;
-                                coord cZ2 = cZ / 2;
-                                pChecker->moveColliAABoxPos(1, cX2, cY2, cZ2);
-                                coord cX3 = cX2 + cX;
-                                coord cY3 = cY2 + cY;
-                                coord cZ3 = cZ2 + cZ;
-                                pChecker->moveColliAABoxPos(3, cX3, cY3, cZ3);
-                                _rate_of_length = 16.0f;
-                            }
+                            coord cX2 = cX / 2;
+                            coord cY2 = cY / 2;
+                            coord cZ2 = cZ / 2;
+                            pChecker->moveColliAABoxPos(1, cX2, cY2, cZ2);
+                            coord cX3 = cX2 + cX;
+                            coord cY3 = cY2 + cY;
+                            coord cZ3 = cZ2 + cZ;
+                            pChecker->moveColliAABoxPos(3, cX3, cY3, cZ3);
+                            _rate_of_length = 16.0f;
                         }
                     }
-//                } else { //if (_chip_kind == 1 || _chip_kind == 2 || _chip_kind == 3 || _chip_kind = 4) 以外
-//                    pChecker->disable(1);
-//                    pChecker->disable(2);
-//                    pChecker->disable(3);
-//                    _rate_of_length = 4.0f;
-//                }
+                }
             } else { //if (_middle_colli_able) 以外
             }
 
@@ -364,15 +359,22 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     _hitarea_edge_length_6   = _hitarea_edge_length_3 * 2;
     _hitarea_edge_length_6_2 = _hitarea_edge_length_6 * 2;
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
+    pChecker->addCollisionArea(1);
+    pChecker->setColliAACube(0, prm_edge_length);
+
+    pChecker->addCollisionArea(2);
+    pChecker->setColliAACube(0, prm_edge_length);
+    pChecker->setColliAACube(1, prm_edge_length);
+
     pChecker->addCollisionArea(4);
     pChecker->setColliAACube(0, prm_edge_length);
     pChecker->setColliAACube(1, prm_edge_length);
     pChecker->setColliAACube(2, prm_edge_length);
     pChecker->setColliAACube(3, prm_edge_length);
-    pChecker->enable(0);
-    pChecker->disable(1);
-    pChecker->disable(2);
-    pChecker->disable(3);
+//    pChecker->enable(0);
+//    pChecker->disable(1);
+//    pChecker->disable(2);
+//    pChecker->disable(3);
     setHitAble(true);
 }
 

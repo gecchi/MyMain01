@@ -82,12 +82,8 @@ void MousePointerActor::processSettlementBehavior() {
             _is_select_able = true;
         }
     }
-}
-
-
-void MousePointerActor::processPreJudgement() {
+    DefaultBoardActor::processSettlementBehavior(); //–Ø“o˜^
     _pHitActor = nullptr;
-    DefaultBoardActor::processPreJudgement(); //–Ø“o˜^
 }
 
 bool MousePointerActor::processHitChkLogic(Actor* prm_pOtherActor) {

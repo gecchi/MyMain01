@@ -43,8 +43,6 @@ void ColliSphere::set(coord x, coord y, coord z, coord r, bool rot_x, bool rot_y
     _x2 = _cx + _r;
     _y2 = _cy + _r;
     _z2 = _cz + _r;
-
-    _is_valid_flg = true;
 }
 
 void ColliSphere::changeR(coord r) {
@@ -63,7 +61,6 @@ void ColliSphere::changeR(coord r) {
     _x2 = _cx + _r;
     _y2 = _cy + _r;
     _z2 = _cz + _r;
-    _is_valid_flg = true;
 }
 
 void ColliSphere::rotateRxRzRy(angle rx, angle ry, angle rz) {

@@ -76,13 +76,6 @@ void Scene::settleBehavior() {
     }
 }
 
-void Scene::preJudge() {
-   if (!_was_paused_flg) {
-        Element<Scene>::preJudge();
-        _pSceneMediator->preJudge();
-   }
-}
-
 void Scene::judge() {
     if (!_was_paused_flg) {
         Element<Scene>::judge();

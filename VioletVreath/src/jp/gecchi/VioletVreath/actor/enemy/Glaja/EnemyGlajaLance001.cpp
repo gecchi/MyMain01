@@ -36,6 +36,9 @@ EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
 void EnemyGlajaLance001::initialize() {
     setHitAble(false);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
+    pChecker->addCollisionArea(1);
+    pChecker->setColliAACube(0, PX_C(20));
+
     pChecker->addCollisionArea(3);
     pChecker->setColliAACube(0, PX_C(20));
     pChecker->setColliAACube(1, -PX_C(80), 0, 0,
@@ -59,8 +62,9 @@ void EnemyGlajaLance001::onActive() {
     pVecVehicle->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(20), D_ANG(15));
     pVecVehicle->linkFaceAngByMvAng(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->disable(1);
-    pChecker->disable(2);
+    pChecker->changeActiveCollisionArea(0);
+//    pChecker->disable(1);
+//    pChecker->disable(2);
     setScale(R_SC(1));
     GgafDx::Scaler* const pScaler = getScaler();
     pScaler->reset();
@@ -103,8 +107,9 @@ void EnemyGlajaLance001::processBehavior() {
             if (!pScaler->isTransitioning()) {
                 //‘„‚Ì—¼’[“–‚½‚è”»’èoŒ»
                 WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-                pChecker->enable(1);
-                pChecker->enable(2);
+                pChecker->changeActiveCollisionArea(1);
+//                pChecker->enable(1);
+//                pChecker->enable(2);
                 pPhase->changeNext();
              }
 

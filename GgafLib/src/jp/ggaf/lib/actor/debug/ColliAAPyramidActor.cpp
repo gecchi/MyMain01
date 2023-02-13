@@ -42,7 +42,7 @@ void ColliAAPyramidActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
         if (iAreaNum > 0) {
             getEffect()->setAlphaMaster(1.0); //シーンに所属しないので固定値の設定が必要
             for (int i = 0; i < iAreaNum; i++) {
-                if (pActiveCollisionArea->_papColliPart[i]->_is_valid_flg && pActiveCollisionArea->_papColliPart[i]->_shape_kind == COLLI_AAPYRAMID) {
+                if (pActiveCollisionArea->_papColliPart[i]->_shape_kind == COLLI_AAPYRAMID) {
                     ColliAAPyramid* pyramid = (ColliAAPyramid*)pActiveCollisionArea->_papColliPart[i];
                     if (pyramid->_pos_info < 0) {
                         _TRACE_("【警告】ColliAAPyramidActor::drawHitarea BADPOS i="<<i<<" Target="<<pActor->getName()<<" 要調査");

@@ -43,7 +43,7 @@ void ColliAABoxActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
             getEffect()->setAlphaMaster(1.0); //シーンに所属しないので固定値の設定が必要
             GgafDx::CollisionPart** papColliPart = pActiveCollisionArea->_papColliPart;
             for (int i = 0; i < iAreaNum; i++) {
-                if (papColliPart[i]->_is_valid_flg && papColliPart[i]->_shape_kind == COLLI_AABOX) {
+                if (papColliPart[i]->_shape_kind == COLLI_AABOX) {
                     ColliAABox* box = (ColliAABox*)papColliPart[i];
                     drawBox(pActor->_x + box->_x1,
                             pActor->_y + box->_y1,

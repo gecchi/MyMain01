@@ -270,7 +270,6 @@ void Caretaker::presentMoment() {
 }
 
 void Caretaker::presentJudge() {
-    _pSpacetime->preJudge();
     _pSpacetime->judge();
 }
 

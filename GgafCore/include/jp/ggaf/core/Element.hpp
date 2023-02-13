@@ -187,8 +187,6 @@ public:
      */
     virtual void settleBehavior();
 
-
-    virtual void preJudge();
     /**
      * ノードのフレーム毎の判定処理(実行対象：自ツリー全て) .
      * この処理では、ノード間の様々な判定処理を行う事とする設計。<BR>
@@ -289,8 +287,6 @@ public:
      */
     virtual void processSettlementBehavior() {}
 
-
-    virtual void processPreJudgement() {}
     /**
      * フレーム毎の個別判断処理を実装。(ユーザー実装用) .
      * judge() 時の処理先頭でコールバックされる。<BR>
@@ -945,24 +941,6 @@ void Element<T>::settleBehavior() {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->settleBehavior();
-            if (pElementTemp->_is_last_flg) {
-                break;
-            } else {
-                pElementTemp = pElementTemp->_pNext;
-            }
-        }
-    }
-}
-
-template<class T>
-void Element<T>::preJudge() {
-    if (_is_active_in_the_tree_flg) {
-        processPreJudgement();    //フレームワーク用
-        //callRecursive(&Element<T>::preJudge); //再帰
-        //再帰
-        T* pElementTemp = Node<T>::_pChildFirst;
-        while (pElementTemp) {
-            pElementTemp->preJudge();
             if (pElementTemp->_is_last_flg) {
                 break;
             } else {

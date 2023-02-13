@@ -60,8 +60,6 @@ public:
 
     void processBehavior() override {
     }
-    void processPreJudgement() override {
-    }
     /**
      * 毎フレームのGroupHead判定処理 .
      * 子が無ければ自動的に死亡する処理になっている。
