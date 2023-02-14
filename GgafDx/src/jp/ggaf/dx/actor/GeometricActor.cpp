@@ -256,7 +256,6 @@ void GeometricActor::processSettlementBehavior() {
                                    pPlnBack->d;
         _offscreen_kind = -1;
     }
-    //”ª•ª–Øil•ª–Øj‚É“o˜^
     updateHitArea();
 }
 

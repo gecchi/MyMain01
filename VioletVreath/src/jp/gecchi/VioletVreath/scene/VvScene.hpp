@@ -44,11 +44,12 @@ public:
         }
     }
 
-    void settleBehavior() override {
-        if (_is_next_frame) {
-            T::settleBehavior();
-        }
-    }
+//    void settleBehavior() override {
+//        if (_is_next_frame) {
+//            T::settleBehavior();
+//        }
+//    }
+
     void resetTree() override {
         _once_in_n_time = 1;
         T::resetTree();

@@ -160,8 +160,6 @@ public:
      */
     virtual void nextFrame();
 
-    virtual void processNextFrame();
-
     /**
      * ノードのフレーム毎の振る舞い処理(実行対象：自ツリー全て) .
      * この処理では、全ノード座標移動処理を行うこととする。<BR>
@@ -272,6 +270,7 @@ public:
     virtual void onInactive() {
     }
 
+    virtual void processNextFrame();
 
     /**
      * フレーム毎の個別振る舞い処理を実装。(ユーザー実装用) .

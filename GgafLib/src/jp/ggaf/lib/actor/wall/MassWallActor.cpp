@@ -65,9 +65,9 @@ void MassWallActor::init() {
     pChecker->addCollisionArea(1);
     pChecker->setColliAABox(0, 0,0,0, 0,0,0);
     pChecker->addCollisionArea(1);
-    pChecker->setColliAAPrism(1, 0,0,0, 0,0,0, 0);
+    pChecker->setColliAAPrism(0, 0,0,0, 0,0,0, 0);
     pChecker->addCollisionArea(1);
-    pChecker->setColliAAPyramid(2, 0,0,0, 0,0,0, POS_PYRAMID_NNN);
+    pChecker->setColliAAPyramid(0, 0,0,0, 0,0,0, POS_PYRAMID_NNN);
 //    pChecker->addCollisionArea(3);
 //    pChecker->setColliAABox(0, 0,0,0, 0,0,0);
 //    pChecker->setColliAAPrism(1, 0,0,0, 0,0,0, 0);
@@ -394,7 +394,7 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
         } else if (POS_PRISM_XY_NN <= prm_pos_info && prm_pos_info <= POS_PRISM_ZX_PP) {
             //プリズム
             pChecker->changeActiveCollisionArea(1);
-            pChecker->setColliAAPrism(1, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
+            pChecker->setColliAAPrism(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                          -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                          -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
                                           (_wall_dep/2)    + (_wall_dep    * (prm_aColliBoxStretch[FACE_F_IDX]-1)),
@@ -404,7 +404,7 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
         } else {
             //ピラミッド
             pChecker->changeActiveCollisionArea(2);
-            pChecker->setColliAAPyramid(2, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
+            pChecker->setColliAAPyramid(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                            -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                            -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
                                             (_wall_dep/2)    + (_wall_dep    * (prm_aColliBoxStretch[FACE_F_IDX]-1)),
