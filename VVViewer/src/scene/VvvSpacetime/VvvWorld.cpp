@@ -767,10 +767,10 @@ void VvvWorld::processDragAndDrop() {
         std::string modelfile = "";
         if (ext == "MESHX") {
             GgafDx::ModelManager* pModelManager = pCARETAKER->_pModelManager;
-            GgafDx::ModelManager::MeshXFileFmt xdata;
+            GgafDx::ModelManager::ModelXFileFmt xdata;
             std::string model_def_filepath = std::string(VvvCaretaker::dropfiles_);
-            pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-            std::string xfilepath = GgafDx::Model::getXFilePath(xdata.XFileNames[0]);
+            pModelManager->obtainMetaModelInfo(&xdata, model_def_filepath);
+            std::string xfilepath = GgafDx::Model::getMeshXFilePath(xdata.XFileNames[0]);
 
             std::ifstream ifs(xfilepath.c_str());
             if (ifs.fail()) {

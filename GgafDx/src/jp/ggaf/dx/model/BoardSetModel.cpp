@@ -19,10 +19,6 @@ DWORD BoardSetModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_TEX1);
 BoardSetModel::BoardSetModel(const char* prm_model_id) : Model(prm_model_id), IPlaneModel() {
     _TRACE3_("_model_id="<<_model_id);
     _obj_class |= Obj_GgafDx_BoardSetModel | Obj_GgafDx_IPlaneModel;
-//    _model_width_px = 32.0f;
-//    _model_height_px = 32.0f;
-//    _row_texture_split = 1;
-//    _col_texture_split = 1;
     _paVertexBuffer = nullptr;
     _paIndexBuffer = nullptr;
     _paVertexBuffer_data = nullptr;
@@ -125,27 +121,24 @@ void BoardSetModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVertexBuffer_data == nullptr) {
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
-        ModelManager::SpriteXFileFmt xdata;
-        std::string model_def_file = std::string(_model_id) + ".sprx";
-        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-        if (model_def_filepath == "") {
-            throwCriticalException("BoardSetModel::restore() "+model_def_file+" が見つかりません");
-        }
-        pModelManager->obtainSpriteModelInfo(&xdata, model_def_filepath);
-
-        _model_width_px  = xdata.Width;
-        _model_height_px = xdata.Height;
-        _row_texture_split = xdata.TextureSplitRows;
-        _col_texture_split = xdata.TextureSplitCols;
-        _pa_texture_filenames = NEW std::string[1];
-        _pa_texture_filenames[0] = std::string(xdata.TextureFile);
-        _draw_set_num = xdata.DrawSetNum;
+        ModelManager::ModelXFileFmt xdata;
+        obtainMetaModelInfo(&xdata);
+        std::string sprx_filepath = Model::getSpriteXFilePath(xdata.XFileNames[0]);
         if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
             _TRACE_("BoardSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
             _draw_set_num = _max_draw_set_num;
         } else {
             _TRACE_("BoardSetModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }
+        ModelManager::SpriteXFileFmt xdata_spr;
+        pModelManager->obtainSpriteModelInfo(&xdata_spr, sprx_filepath);
+        _model_width_px  = xdata_spr.Width;
+        _model_height_px = xdata_spr.Height;
+        _row_texture_split = xdata_spr.TextureSplitRows;
+        _col_texture_split = xdata_spr.TextureSplitCols;
+        _pa_texture_filenames = NEW std::string[1];
+        _pa_texture_filenames[0] = std::string(xdata_spr.TextureFile);
+
         //オーバーしないのでコメント
 //        if (2 * 3 * _draw_set_num > 65535) { // 2 = nFace (板ポリゴンの数）
 //            _TRACE_("【警告】SpriteSetModel::restore() 頂点インデックスが 65535 を超えたかもしれません。しらんけど。\n対象Model："<<getName()<<" インデックス:3*2(faces) セット数:"<<(_draw_set_num));
@@ -168,25 +161,25 @@ void BoardSetModel::restore() {
             _paVertexBuffer_data[i*4 + 0].tv = (float)dv;
             _paVertexBuffer_data[i*4 + 0].index = (float)i;
             //右上
-            _paVertexBuffer_data[i*4 + 1].x = xdata.Width;
+            _paVertexBuffer_data[i*4 + 1].x = xdata_spr.Width;
             _paVertexBuffer_data[i*4 + 1].y = 0.0f;
             _paVertexBuffer_data[i*4 + 1].z = 0.0f;
-            _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
+            _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata_spr.TextureSplitCols) - du);
             _paVertexBuffer_data[i*4 + 1].tv = (float)dv;
             _paVertexBuffer_data[i*4 + 1].index = (float)i;
             //左下
             _paVertexBuffer_data[i*4 + 2].x = 0.0f;
-            _paVertexBuffer_data[i*4 + 2].y = xdata.Height;
+            _paVertexBuffer_data[i*4 + 2].y = xdata_spr.Height;
             _paVertexBuffer_data[i*4 + 2].z = 0.0f;
             _paVertexBuffer_data[i*4 + 2].tu = (float)du;
-            _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
+            _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata_spr.TextureSplitRows) - dv);
             _paVertexBuffer_data[i*4 + 2].index = (float)i;
             //右下
-            _paVertexBuffer_data[i*4 + 3].x = xdata.Width;
-            _paVertexBuffer_data[i*4 + 3].y = xdata.Height;
+            _paVertexBuffer_data[i*4 + 3].x = xdata_spr.Width;
+            _paVertexBuffer_data[i*4 + 3].y = xdata_spr.Height;
             _paVertexBuffer_data[i*4 + 3].z = 0.0f;
-            _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
-            _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
+            _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata_spr.TextureSplitCols) - du);
+            _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata_spr.TextureSplitRows) - dv);
             _paVertexBuffer_data[i*4 + 3].index = (float)i;
         }
 

@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef Font32x64 {
+  16.0;              # FLOAT  Width
+  32.0;              # FLOAT  Height
+  "Font32x64.png";   # STRING TextureFile
+  8;                 # DWORD  TextureSplitRows
+  16;                # DWORD  TextureSplitCols
+}
+

@@ -194,31 +194,13 @@ void MeshModel::restore() {
         //      ・テクスチャ配列(要素数＝マテリアル数)
         //      ・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
-        ModelManager::MeshXFileFmt xdata;
-
-        std::string model_def_file = std::string(_model_id) + ".meshx";
-        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-
-        std::string xfile = std::string(_model_id) + ".x";
-        std::string xfilepath = "";
-
-        if (model_def_filepath != "") {
-            pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-            _matBaseTransformMatrix = xdata.BaseTransformMatrix;
-            _draw_set_num = xdata.DrawSetNum;
-            if (_draw_set_num != 1) {
-                _TRACE_("MeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
-                _draw_set_num = 1;
-            }
-        } else {
-            xdata.XFileNum = 1;
-            xdata.XFileNames = NEW std::string[1];
-            xdata.XFileNames[0] = xfile;
-            xdata.DrawSetNum = 1;
-            D3DXMatrixIdentity(&(xdata.BaseTransformMatrix));
-            _TRACE_("MeshModel::restore() model_def_file="<<model_def_file<<" が読めません！。特別に予想して xfile="<<xfile<<" を読みこんだげる！（べ、別にあんたの /// … 略）");
+        ModelManager::ModelXFileFmt xdata;
+        obtainMetaModelInfo(&xdata);
+        if (_draw_set_num != 1) {
+            _TRACE_("MeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
+            _draw_set_num = 1;
         }
-        xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
+        std::string xfilepath = Model::getMeshXFilePath(xdata.XFileNames[0]);
         HRESULT hr;
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X iox;
@@ -255,7 +237,7 @@ void MeshModel::restore() {
         UINT nTextureCoords = pMeshesFront->_nTextureCoords;
         if (_nVertices < nTextureCoords) {
             _TRACE3_("nTextureCoords="<<nTextureCoords<<"/_nVertices="<<_nVertices);
-            _TRACE3_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
+            _TRACE3_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<< xfilepath);
         }
         if (_nFaces * 3 > 65535) {
             _TRACE_("【警告】頂点インデックスが 65535 を超えたかもしれません。しらんけど。\n対象Model："<<getName()<<" インデックス:3*"<<_nFaces<<"(faces) _nVertices:"<<_nVertices);

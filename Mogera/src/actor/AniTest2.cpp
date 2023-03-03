@@ -8,6 +8,7 @@
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
 #include "jp/ggaf/dx/util/Input.h"
+#include "jp/ggaf/dx/model/Model.h"
 
 using namespace GgafLib;
 using namespace Mogera;

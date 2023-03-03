@@ -12,7 +12,6 @@
 #include "jp/ggaf/dx/model/MassModel.h"
 #include "jp/ggaf/dx/texture/Texture.h"
 
-
 using namespace GgafDx;
 
 DWORD FramedSpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1);
@@ -132,28 +131,28 @@ HRESULT FramedSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set
 void FramedSpriteModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVertexBuffer_data == nullptr) {
-        _draw_set_num = 9;
         _papTextureConnection = nullptr;
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
-
-        std::string model_def_file = std::string(_model_id) + ".fsprx";
-        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-        if (model_def_filepath == "") {
-            throwCriticalException("FramedSpriteModel::restore() "+model_def_file+" が見つかりません");
+        ModelManager::ModelXFileFmt xdata;
+        obtainMetaModelInfo(&xdata);
+        if (_draw_set_num != 9) {
+            _TRACE_("FramedSpriteModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 9 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
+            _draw_set_num = 9;
         }
-        ModelManager::FramedSpriteXFileFmt xdata;
-        pModelManager->obtainFramedSpriteModelInfo(&xdata, model_def_filepath);
-        _model_width_px  = xdata.Width;
-        _model_height_px = xdata.Height;
-        _row_texture_split = xdata.TextureSplitRows;
-        _col_texture_split = xdata.TextureSplitCols;
-        _model_frame_width_px  = xdata.FrameWidth;
-        _model_frame_height_px = xdata.FrameHeight;
-        _row_frame_texture_split = xdata.FrameTextureSplitRows;
-        _col_frame_texture_split = xdata.FrameTextureSplitCols;
+        std::string fsprx_filepath = Model::getSpriteXFilePath(xdata.XFileNames[0]);
+        ModelManager::FramedSpriteXFileFmt xdata_fspr;
+        pModelManager->obtainFramedSpriteModelInfo(&xdata_fspr, fsprx_filepath);
+        _model_width_px  = xdata_fspr.Width;
+        _model_height_px = xdata_fspr.Height;
+        _row_texture_split = xdata_fspr.TextureSplitRows;
+        _col_texture_split = xdata_fspr.TextureSplitCols;
+        _model_frame_width_px  = xdata_fspr.FrameWidth;
+        _model_frame_height_px = xdata_fspr.FrameHeight;
+        _row_frame_texture_split = xdata_fspr.FrameTextureSplitRows;
+        _col_frame_texture_split = xdata_fspr.FrameTextureSplitCols;
         _pa_texture_filenames = NEW std::string[2];
-        _pa_texture_filenames[0] = std::string(xdata.TextureFile);
-        _pa_texture_filenames[1] = std::string(xdata.FrameTextureFile);
+        _pa_texture_filenames[0] = std::string(xdata_fspr.TextureFile);
+        _pa_texture_filenames[1] = std::string(xdata_fspr.FrameTextureFile);
 
         _size_vertices = sizeof(FramedSpriteModel::VERTEX)*4;
         _size_vertex_unit = sizeof(FramedSpriteModel::VERTEX);
@@ -170,8 +169,8 @@ void FramedSpriteModel::restore() {
             if (i == 4) {
                 //中心
                 //左上
-                _paVertexBuffer_data[i*4 + 0].x = PX_DX(xdata.Width)  / -2.0;
-                _paVertexBuffer_data[i*4 + 0].y = PX_DX(xdata.Height) /  2.0;
+                _paVertexBuffer_data[i*4 + 0].x = PX_DX(xdata_fspr.Width)  / -2.0;
+                _paVertexBuffer_data[i*4 + 0].y = PX_DX(xdata_fspr.Height) /  2.0;
                 _paVertexBuffer_data[i*4 + 0].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 0].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 0].ny = 0.0f;
@@ -181,19 +180,19 @@ void FramedSpriteModel::restore() {
                 _paVertexBuffer_data[i*4 + 0].tu = 0.0f;
                 _paVertexBuffer_data[i*4 + 0].tv = 0.0f;
                 //右上
-                _paVertexBuffer_data[i*4 + 1].x = PX_DX(xdata.Width)  /  2.0;
-                _paVertexBuffer_data[i*4 + 1].y = PX_DX(xdata.Height) /  2.0;
+                _paVertexBuffer_data[i*4 + 1].x = PX_DX(xdata_fspr.Width)  /  2.0;
+                _paVertexBuffer_data[i*4 + 1].y = PX_DX(xdata_fspr.Height) /  2.0;
                 _paVertexBuffer_data[i*4 + 1].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].ny = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].nz = -1.0f;
                 _paVertexBuffer_data[i*4 + 1].index = (float)i;
                 _paVertexBuffer_data[i*4 + 1].color = D3DCOLOR_ARGB(255,255,255,255);
-                _paVertexBuffer_data[i*4 + 1].tu = (float)(1.0 / xdata.TextureSplitCols);
+                _paVertexBuffer_data[i*4 + 1].tu = (float)(1.0 / xdata_fspr.TextureSplitCols);
                 _paVertexBuffer_data[i*4 + 1].tv = 0.0f;
                 //左下
-                _paVertexBuffer_data[i*4 + 2].x = PX_DX(xdata.Width)  / -2.0;
-                _paVertexBuffer_data[i*4 + 2].y = PX_DX(xdata.Height) / -2.0;
+                _paVertexBuffer_data[i*4 + 2].x = PX_DX(xdata_fspr.Width)  / -2.0;
+                _paVertexBuffer_data[i*4 + 2].y = PX_DX(xdata_fspr.Height) / -2.0;
                 _paVertexBuffer_data[i*4 + 2].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 2].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 2].ny = 0.0f;
@@ -201,24 +200,24 @@ void FramedSpriteModel::restore() {
                 _paVertexBuffer_data[i*4 + 2].index = (float)i;
                 _paVertexBuffer_data[i*4 + 2].color = D3DCOLOR_ARGB(255,255,255,255);
                 _paVertexBuffer_data[i*4 + 2].tu = 0.0f;
-                _paVertexBuffer_data[i*4 + 2].tv = (float)(1.0 / xdata.TextureSplitRows);
+                _paVertexBuffer_data[i*4 + 2].tv = (float)(1.0 / xdata_fspr.TextureSplitRows);
                 //右下
-                _paVertexBuffer_data[i*4 + 3].x = PX_DX(xdata.Width)  /  2.0;
-                _paVertexBuffer_data[i*4 + 3].y = PX_DX(xdata.Height) / -2.0;
+                _paVertexBuffer_data[i*4 + 3].x = PX_DX(xdata_fspr.Width)  /  2.0;
+                _paVertexBuffer_data[i*4 + 3].y = PX_DX(xdata_fspr.Height) / -2.0;
                 _paVertexBuffer_data[i*4 + 3].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 3].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 3].ny = 0.0f;
                 _paVertexBuffer_data[i*4 + 3].nz = -1.0f;
                 _paVertexBuffer_data[i*4 + 3].index = (float)i;
                 _paVertexBuffer_data[i*4 + 3].color = D3DCOLOR_ARGB(255,255,255,255);
-                _paVertexBuffer_data[i*4 + 3].tu = (float)(1.0 / xdata.TextureSplitCols);
-                _paVertexBuffer_data[i*4 + 3].tv = (float)(1.0 / xdata.TextureSplitRows);
+                _paVertexBuffer_data[i*4 + 3].tu = (float)(1.0 / xdata_fspr.TextureSplitCols);
+                _paVertexBuffer_data[i*4 + 3].tv = (float)(1.0 / xdata_fspr.TextureSplitRows);
 
             } else if (i == 0 || i == 2 || i == 6 || i == 8 ) {
                 //４角
                 //左上
-                _paVertexBuffer_data[i*4 + 0].x = PX_DX(xdata.FrameWidth)  / -2.0;
-                _paVertexBuffer_data[i*4 + 0].y = PX_DX(xdata.FrameHeight) /  2.0;
+                _paVertexBuffer_data[i*4 + 0].x = PX_DX(xdata_fspr.FrameWidth)  / -2.0;
+                _paVertexBuffer_data[i*4 + 0].y = PX_DX(xdata_fspr.FrameHeight) /  2.0;
                 _paVertexBuffer_data[i*4 + 0].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 0].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 0].ny = 0.0f;
@@ -228,19 +227,19 @@ void FramedSpriteModel::restore() {
                 _paVertexBuffer_data[i*4 + 0].tu = 0.0f;
                 _paVertexBuffer_data[i*4 + 0].tv = 0.0f;
                 //右上
-                _paVertexBuffer_data[i*4 + 1].x = PX_DX(xdata.FrameWidth)  /  2.0;
-                _paVertexBuffer_data[i*4 + 1].y = PX_DX(xdata.FrameHeight) /  2.0;
+                _paVertexBuffer_data[i*4 + 1].x = PX_DX(xdata_fspr.FrameWidth)  /  2.0;
+                _paVertexBuffer_data[i*4 + 1].y = PX_DX(xdata_fspr.FrameHeight) /  2.0;
                 _paVertexBuffer_data[i*4 + 1].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].ny = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].nz = -1.0f;
                 _paVertexBuffer_data[i*4 + 1].index = (float)i;
                 _paVertexBuffer_data[i*4 + 1].color = D3DCOLOR_ARGB(255,255,255,255);
-                _paVertexBuffer_data[i*4 + 1].tu = (float)(1.0 / xdata.FrameTextureSplitCols);
+                _paVertexBuffer_data[i*4 + 1].tu = (float)(1.0 / xdata_fspr.FrameTextureSplitCols);
                 _paVertexBuffer_data[i*4 + 1].tv = 0.0f;
                 //左下
-                _paVertexBuffer_data[i*4 + 2].x = PX_DX(xdata.FrameWidth)  / -2.0;
-                _paVertexBuffer_data[i*4 + 2].y = PX_DX(xdata.FrameHeight) / -2.0;
+                _paVertexBuffer_data[i*4 + 2].x = PX_DX(xdata_fspr.FrameWidth)  / -2.0;
+                _paVertexBuffer_data[i*4 + 2].y = PX_DX(xdata_fspr.FrameHeight) / -2.0;
                 _paVertexBuffer_data[i*4 + 2].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 2].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 2].ny = 0.0f;
@@ -248,24 +247,24 @@ void FramedSpriteModel::restore() {
                 _paVertexBuffer_data[i*4 + 2].index = (float)i;
                 _paVertexBuffer_data[i*4 + 2].color = D3DCOLOR_ARGB(255,255,255,255);
                 _paVertexBuffer_data[i*4 + 2].tu = 0.0f;
-                _paVertexBuffer_data[i*4 + 2].tv = (float)(1.0 / xdata.FrameTextureSplitRows);
+                _paVertexBuffer_data[i*4 + 2].tv = (float)(1.0 / xdata_fspr.FrameTextureSplitRows);
                 //右下
-                _paVertexBuffer_data[i*4 + 3].x = PX_DX(xdata.FrameWidth)  /  2.0;
-                _paVertexBuffer_data[i*4 + 3].y = PX_DX(xdata.FrameHeight) / -2.0;
+                _paVertexBuffer_data[i*4 + 3].x = PX_DX(xdata_fspr.FrameWidth)  /  2.0;
+                _paVertexBuffer_data[i*4 + 3].y = PX_DX(xdata_fspr.FrameHeight) / -2.0;
                 _paVertexBuffer_data[i*4 + 3].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 3].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 3].ny = 0.0f;
                 _paVertexBuffer_data[i*4 + 3].nz = -1.0f;
                 _paVertexBuffer_data[i*4 + 3].index = (float)i;
                 _paVertexBuffer_data[i*4 + 3].color = D3DCOLOR_ARGB(255,255,255,255);
-                _paVertexBuffer_data[i*4 + 3].tu = (float)(1.0 / xdata.FrameTextureSplitCols);
-                _paVertexBuffer_data[i*4 + 3].tv = (float)(1.0 / xdata.FrameTextureSplitRows);
+                _paVertexBuffer_data[i*4 + 3].tu = (float)(1.0 / xdata_fspr.FrameTextureSplitCols);
+                _paVertexBuffer_data[i*4 + 3].tv = (float)(1.0 / xdata_fspr.FrameTextureSplitRows);
 
             } else if (i == 1 || i == 7) {
                 //縦の真ん中
                 //左上
-                _paVertexBuffer_data[i*4 + 0].x = PX_DX(xdata.Width)  / -2.0;
-                _paVertexBuffer_data[i*4 + 0].y = PX_DX(xdata.FrameHeight) /  2.0;
+                _paVertexBuffer_data[i*4 + 0].x = PX_DX(xdata_fspr.Width)  / -2.0;
+                _paVertexBuffer_data[i*4 + 0].y = PX_DX(xdata_fspr.FrameHeight) /  2.0;
                 _paVertexBuffer_data[i*4 + 0].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 0].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 0].ny = 0.0f;
@@ -275,19 +274,19 @@ void FramedSpriteModel::restore() {
                 _paVertexBuffer_data[i*4 + 0].tu = 0.0f;
                 _paVertexBuffer_data[i*4 + 0].tv = 0.0f;
                 //右上
-                _paVertexBuffer_data[i*4 + 1].x = PX_DX(xdata.Width)  /  2.0;
-                _paVertexBuffer_data[i*4 + 1].y = PX_DX(xdata.FrameHeight) /  2.0;
+                _paVertexBuffer_data[i*4 + 1].x = PX_DX(xdata_fspr.Width)  /  2.0;
+                _paVertexBuffer_data[i*4 + 1].y = PX_DX(xdata_fspr.FrameHeight) /  2.0;
                 _paVertexBuffer_data[i*4 + 1].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].ny = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].nz = -1.0f;
                 _paVertexBuffer_data[i*4 + 1].index = (float)i;
                 _paVertexBuffer_data[i*4 + 1].color = D3DCOLOR_ARGB(255,255,255,255);
-                _paVertexBuffer_data[i*4 + 1].tu = (float)(1.0 / xdata.FrameTextureSplitCols);
+                _paVertexBuffer_data[i*4 + 1].tu = (float)(1.0 / xdata_fspr.FrameTextureSplitCols);
                 _paVertexBuffer_data[i*4 + 1].tv = 0.0f;
                 //左下
-                _paVertexBuffer_data[i*4 + 2].x = PX_DX(xdata.Width)  / -2.0;
-                _paVertexBuffer_data[i*4 + 2].y = PX_DX(xdata.FrameHeight) / -2.0;
+                _paVertexBuffer_data[i*4 + 2].x = PX_DX(xdata_fspr.Width)  / -2.0;
+                _paVertexBuffer_data[i*4 + 2].y = PX_DX(xdata_fspr.FrameHeight) / -2.0;
                 _paVertexBuffer_data[i*4 + 2].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 2].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 2].ny = 0.0f;
@@ -295,24 +294,24 @@ void FramedSpriteModel::restore() {
                 _paVertexBuffer_data[i*4 + 2].index = (float)i;
                 _paVertexBuffer_data[i*4 + 2].color = D3DCOLOR_ARGB(255,255,255,255);
                 _paVertexBuffer_data[i*4 + 2].tu = 0.0f;
-                _paVertexBuffer_data[i*4 + 2].tv = (float)(1.0 / xdata.FrameTextureSplitRows);
+                _paVertexBuffer_data[i*4 + 2].tv = (float)(1.0 / xdata_fspr.FrameTextureSplitRows);
                 //右下
-                _paVertexBuffer_data[i*4 + 3].x = PX_DX(xdata.Width)  /  2.0;
-                _paVertexBuffer_data[i*4 + 3].y = PX_DX(xdata.FrameHeight) / -2.0;
+                _paVertexBuffer_data[i*4 + 3].x = PX_DX(xdata_fspr.Width)  /  2.0;
+                _paVertexBuffer_data[i*4 + 3].y = PX_DX(xdata_fspr.FrameHeight) / -2.0;
                 _paVertexBuffer_data[i*4 + 3].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 3].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 3].ny = 0.0f;
                 _paVertexBuffer_data[i*4 + 3].nz = -1.0f;
                 _paVertexBuffer_data[i*4 + 3].index = (float)i;
                 _paVertexBuffer_data[i*4 + 3].color = D3DCOLOR_ARGB(255,255,255,255);
-                _paVertexBuffer_data[i*4 + 3].tu = (float)(1.0 / xdata.FrameTextureSplitCols);
-                _paVertexBuffer_data[i*4 + 3].tv = (float)(1.0 / xdata.FrameTextureSplitRows);
+                _paVertexBuffer_data[i*4 + 3].tu = (float)(1.0 / xdata_fspr.FrameTextureSplitCols);
+                _paVertexBuffer_data[i*4 + 3].tv = (float)(1.0 / xdata_fspr.FrameTextureSplitRows);
 
             } else if (i == 3 || i == 5) {
                 //横の真ん中
                 //左上
-                _paVertexBuffer_data[i*4 + 0].x = PX_DX(xdata.FrameWidth)  / -2.0;
-                _paVertexBuffer_data[i*4 + 0].y = PX_DX(xdata.Height) /  2.0;
+                _paVertexBuffer_data[i*4 + 0].x = PX_DX(xdata_fspr.FrameWidth)  / -2.0;
+                _paVertexBuffer_data[i*4 + 0].y = PX_DX(xdata_fspr.Height) /  2.0;
                 _paVertexBuffer_data[i*4 + 0].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 0].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 0].ny = 0.0f;
@@ -322,19 +321,19 @@ void FramedSpriteModel::restore() {
                 _paVertexBuffer_data[i*4 + 0].tu = 0.0f;
                 _paVertexBuffer_data[i*4 + 0].tv = 0.0f;
                 //右上
-                _paVertexBuffer_data[i*4 + 1].x = PX_DX(xdata.FrameWidth)  /  2.0;
-                _paVertexBuffer_data[i*4 + 1].y = PX_DX(xdata.Height) /  2.0;
+                _paVertexBuffer_data[i*4 + 1].x = PX_DX(xdata_fspr.FrameWidth)  /  2.0;
+                _paVertexBuffer_data[i*4 + 1].y = PX_DX(xdata_fspr.Height) /  2.0;
                 _paVertexBuffer_data[i*4 + 1].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].ny = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].nz = -1.0f;
                 _paVertexBuffer_data[i*4 + 1].index = (float)i;
                 _paVertexBuffer_data[i*4 + 1].color = D3DCOLOR_ARGB(255,255,255,255);
-                _paVertexBuffer_data[i*4 + 1].tu = (float)(1.0 / xdata.FrameTextureSplitCols);
+                _paVertexBuffer_data[i*4 + 1].tu = (float)(1.0 / xdata_fspr.FrameTextureSplitCols);
                 _paVertexBuffer_data[i*4 + 1].tv = 0.0f;
                 //左下
-                _paVertexBuffer_data[i*4 + 2].x = PX_DX(xdata.FrameWidth)  / -2.0;
-                _paVertexBuffer_data[i*4 + 2].y = PX_DX(xdata.Height) / -2.0;
+                _paVertexBuffer_data[i*4 + 2].x = PX_DX(xdata_fspr.FrameWidth)  / -2.0;
+                _paVertexBuffer_data[i*4 + 2].y = PX_DX(xdata_fspr.Height) / -2.0;
                 _paVertexBuffer_data[i*4 + 2].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 2].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 2].ny = 0.0f;
@@ -342,18 +341,18 @@ void FramedSpriteModel::restore() {
                 _paVertexBuffer_data[i*4 + 2].index = (float)i;
                 _paVertexBuffer_data[i*4 + 2].color = D3DCOLOR_ARGB(255,255,255,255);
                 _paVertexBuffer_data[i*4 + 2].tu = 0.0f;
-                _paVertexBuffer_data[i*4 + 2].tv = (float)(1.0 / xdata.FrameTextureSplitRows);
+                _paVertexBuffer_data[i*4 + 2].tv = (float)(1.0 / xdata_fspr.FrameTextureSplitRows);
                 //右下
-                _paVertexBuffer_data[i*4 + 3].x = PX_DX(xdata.FrameWidth)  /  2.0;
-                _paVertexBuffer_data[i*4 + 3].y = PX_DX(xdata.Height) / -2.0;
+                _paVertexBuffer_data[i*4 + 3].x = PX_DX(xdata_fspr.FrameWidth)  /  2.0;
+                _paVertexBuffer_data[i*4 + 3].y = PX_DX(xdata_fspr.Height) / -2.0;
                 _paVertexBuffer_data[i*4 + 3].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 3].nx = 0.0f;
                 _paVertexBuffer_data[i*4 + 3].ny = 0.0f;
                 _paVertexBuffer_data[i*4 + 3].nz = -1.0f;
                 _paVertexBuffer_data[i*4 + 3].index = (float)i;
                 _paVertexBuffer_data[i*4 + 3].color = D3DCOLOR_ARGB(255,255,255,255);
-                _paVertexBuffer_data[i*4 + 3].tu = (float)(1.0 / xdata.FrameTextureSplitCols);
-                _paVertexBuffer_data[i*4 + 3].tv = (float)(1.0 / xdata.FrameTextureSplitRows);
+                _paVertexBuffer_data[i*4 + 3].tu = (float)(1.0 / xdata_fspr.FrameTextureSplitCols);
+                _paVertexBuffer_data[i*4 + 3].tv = (float)(1.0 / xdata_fspr.FrameTextureSplitRows);
             }
         }
 

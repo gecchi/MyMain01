@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef Turbo002 {
+  64.0;
+  64.0;
+  "Turbo002.png";
+  1;
+  1;
+}
+

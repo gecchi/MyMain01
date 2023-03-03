@@ -18,7 +18,7 @@ class MassMeshActor : public MassActor {
 
 public:
     /** [r]モデル資源 */
-    MassMeshModel* const _pMassMeshModel;
+    MassMeshModel* _pMassMeshModel;
     /** [r]エフェクト資源 */
     MassMeshEffect* const _pMassMeshEffect;
 
@@ -57,6 +57,25 @@ public:
                   const char prm_effect_type,
                   const char* prm_technique,
                   CollisionChecker* prm_pChecker);
+
+    /**
+     * モデル資源(TYPE_MASSMESH_MODEL)を１つ生成して追加する。.
+     * 初めて本メソッドを実行すると、内部リストに保持され、そのモデル資源が有効になります。
+     * ２回目以降の実行は、生成したモデル資源を内部リストの末尾に追加します。（有効になりません）
+     * @param prm_model モデル定義名
+     * @return 生成された（＝リストの末尾に追加された）モデル資源
+     */
+    virtual MassMeshModel* addModel(const char* prm_model);
+
+    /**
+     * モデル資源(MassMeshModel)を切り替える（表示が切り替わります） .
+     * @param prm_model_index モデル資源保持リストのインデックス。
+     *                        最初の   addModel() に切り替え => 0 を設定
+     *                        ２回目の addModel() に切り替え => 1 を設定
+     *                        ３回目の addModel() に切り替え => 2 を設定
+     *                         …
+     */
+    virtual void changeModel(int prm_model_index) override;
 
     virtual ~MassMeshActor(); //デストラクタ
 };

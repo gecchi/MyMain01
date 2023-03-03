@@ -12,6 +12,7 @@ LockonCursor001::LockonCursor001(const char* prm_name, const char* prm_model) :
         DefaultMassSpriteActor(prm_name, prm_model) {
     _class_name = "LockonCursor001";
     pTarget_ = nullptr;
+    pTarget_prev_ = nullptr;
     inactivate();
     defineRotMvWorldMatrix_Billboard(); //ワールド変換はビルボードでRz回転に強制
     effectBlendOne(); //エフェクトテクニックは加算合成に強制
@@ -41,7 +42,7 @@ void LockonCursor001::onActive() {
 }
 
 void LockonCursor001::processBehavior() {
-
+    pTarget_prev_ = pTarget_;
 }
 
 void LockonCursor001::processJudgement() {

@@ -32,12 +32,12 @@ void ColliAABoardRectActor::release() {
 
 void ColliAABoardRectActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
     if (prm_pChecker != nullptr &&
-        prm_pChecker->_pActiveCollisionArea != nullptr &&
+        prm_pChecker->_pCollisionArea != nullptr &&
         prm_pChecker->getTargetActor()->canHit() &&
         prm_pChecker->getTargetActor()->isActiveInTheTree()) {
 
         GgafDx::GeometricActor* pActor = prm_pChecker->getTargetActor();
-        GgafDx::CollisionArea* pActiveCollisionArea = prm_pChecker->_pActiveCollisionArea;
+        GgafDx::CollisionArea* pActiveCollisionArea = prm_pChecker->_pCollisionArea;
 
         if (pActor->_is_fix_2D) {
             drawRect(pActor->_x + pActiveCollisionArea->_aabb_x1,

@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef MagicMeter {
+  128.0;             # FLOAT  Width
+  32.0;              # FLOAT  Height
+  "MagicMeter.png";  # STRING TextureFile
+  32;                # DWORD  TextureSplitRows
+  8;                 # DWORD  TextureSplitCols
+}
+

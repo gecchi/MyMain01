@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef _chk_TestDefaultMassBoardActorModel {
+  32.0;            # FLOAT  Width
+  32.0;            # FLOAT  Height
+  "test_tile.png";  # STRING TextureFile
+  8;                # DWORD  TextureSplitRows
+  8;                # DWORD  TextureSplitCols
+}
+

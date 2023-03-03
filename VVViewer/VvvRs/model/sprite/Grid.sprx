@@ -1,0 +1,9 @@
+xof 0303txt 0032
+
+SpriteModelDef Grid {
+ 1024.0;            # FLOAT  Width
+ 1024.0;            # FLOAT  Height
+ "Grid.png";  # STRING TextureFile
+ 1;                # DWORD  TextureSplitRows
+ 1;                # DWORD  TextureSplitCols
+}

@@ -1,0 +1,12 @@
+xof 0303txt 0032
+
+RegularPolygonModelDef Mogera-to {
+  128.0;
+  128.0;
+  "test_tile.png";
+  2;
+  2;
+   
+  6;   # DWORD  FanNum 
+  1;   # DWORD  IsCW
+} 

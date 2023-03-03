@@ -130,21 +130,16 @@ void PointSpriteSetModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data == nullptr) {
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
-
-        std::string model_def_file = std::string(_model_id) + ".psprx";
-        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-        if (model_def_filepath == "") {
-            throwCriticalException("PointSpriteSetModel::restore() "+model_def_file+" が見つかりません");
-        }
-        ModelManager::PointSpriteXFileFmt xdata;
-        pModelManager->obtainPointSpriteModelInfo(&xdata, model_def_filepath);
-        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
-
+        ModelManager::ModelXFileFmt xdata;
+        obtainMetaModelInfo(&xdata);
+        std::string psprx_filepath = Model::getPointSpriteXFilePath(xdata.XFileNames[0]);
+        ModelManager::PointSpriteXFileFmt xdata_pspr;
+        pModelManager->obtainPointSpriteModelInfo(&xdata_pspr, psprx_filepath);
         //マテリアル定義が１つも無いので、描画のために無理やり１つマテリアルを作成。
 //        _num_materials = 1; ////setMaterial();で実行済み
         setMaterial();
 //        _pa_texture_filenames = NEW std::string[1]; ////setMaterial();で実行済み
-        _pa_texture_filenames[0] = std::string(xdata.TextureFile);
+        _pa_texture_filenames[0] = std::string(xdata_pspr.TextureFile);
         //デバイスにテクスチャ作成 (下にも同じ処理があるが、下はデバイスロスト時実行)
         //頂点バッファのpsizeの算出に、テクスチャの長さが必要なため、ここで一旦求めている
         if (_papTextureConnection == nullptr) {
@@ -160,11 +155,11 @@ void PointSpriteSetModel::restore() {
             throwCriticalException("ポイントスプライト用テクスチャ["<<pTex->getName()<<"]("<<tex_width<<"x"<<tex_height<<")は、正方形である必要があります。");
         }
         _texture_size_px = tex_width;
-        _square_size_px = xdata.SquareSize;
-        _texture_split_rowcol = xdata.TextureSplitRowCol;
+        _square_size_px = xdata_pspr.SquareSize;
+        _texture_split_rowcol = xdata_pspr.TextureSplitRowCol;
         _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
-        _nVertices = xdata.VerticesNum;
-        _draw_set_num = xdata.DrawSetNum;
+        _nVertices = xdata_pspr.VerticesNum;
+        _draw_set_num = xdata_pspr.DrawSetNum;
         if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
             _TRACE_("PointSpriteSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
             _draw_set_num = _max_draw_set_num;
@@ -181,17 +176,17 @@ void PointSpriteSetModel::restore() {
         _size_vertices = sizeof(PointSpriteSetModel::VERTEX) * _nVertices*_draw_set_num;
 
         for (UINT i = 0; i < _nVertices; i++) {
-            _paVtxBuffer_data[i].x = xdata.paD3DVECTOR_Vertices[i].x;
-            _paVtxBuffer_data[i].y = xdata.paD3DVECTOR_Vertices[i].y;
-            _paVtxBuffer_data[i].z = xdata.paD3DVECTOR_Vertices[i].z;
+            _paVtxBuffer_data[i].x = xdata_pspr.paD3DVECTOR_Vertices[i].x;
+            _paVtxBuffer_data[i].y = xdata_pspr.paD3DVECTOR_Vertices[i].y;
+            _paVtxBuffer_data[i].z = xdata_pspr.paD3DVECTOR_Vertices[i].z;
 
-            _paVtxBuffer_data[i].psize = (_square_size_px*_texture_split_rowcol / _texture_size_px) * xdata.paFLOAT_InitScale[i]; //PSIZEにはピクセルサイズではなく倍率を埋め込む。
+            _paVtxBuffer_data[i].psize = (_square_size_px*_texture_split_rowcol / _texture_size_px) * xdata_pspr.paFLOAT_InitScale[i]; //PSIZEにはピクセルサイズではなく倍率を埋め込む。
             //シェーダーで拡大縮小ピクセルを計算
-            _paVtxBuffer_data[i].color = D3DCOLOR_COLORVALUE(xdata.paD3DVECTOR_VertexColors[i].r,
-                                                             xdata.paD3DVECTOR_VertexColors[i].g,
-                                                             xdata.paD3DVECTOR_VertexColors[i].b,
-                                                             xdata.paD3DVECTOR_VertexColors[i].a );
-            _paVtxBuffer_data[i].ini_ptn_no = (float)(xdata.paInt_InitUvPtnNo[i]); //頂点スプライトのUVパターン番号
+            _paVtxBuffer_data[i].color = D3DCOLOR_COLORVALUE(xdata_pspr.paD3DVECTOR_VertexColors[i].r,
+                                                             xdata_pspr.paD3DVECTOR_VertexColors[i].g,
+                                                             xdata_pspr.paD3DVECTOR_VertexColors[i].b,
+                                                             xdata_pspr.paD3DVECTOR_VertexColors[i].a );
+            _paVtxBuffer_data[i].ini_ptn_no = (float)(xdata_pspr.paInt_InitUvPtnNo[i]); //頂点スプライトのUVパターン番号
             _paVtxBuffer_data[i].index = 0; //頂点番号（むりやり埋め込み）
         }
         transformPosVtx(_paVtxBuffer_data, _size_vertex_unit, _nVertices);

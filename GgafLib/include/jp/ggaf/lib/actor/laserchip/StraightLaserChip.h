@@ -31,6 +31,7 @@ private:
     angle _tmp_source_rz;
     /** [r/w]移動速度 */
     velo _velo_mv;
+
     dxcoord _view_bound;
 public:
     /** レーザーの位置を同期するための、X座標変数場所 */
@@ -99,7 +100,17 @@ public:
         _pSourceActor = prm_pGeoActor;
     }
     virtual int isOutOfView() override;
+
+    /**
+     * レーザーチップの移動速度を指定する .
+     * @param prm_velo 移動速度
+     */
     void setMvVelo(coord prm_velo);
+
+    /**
+     * レーザーチップの移動速度を取得 .
+     * @return
+     */
     coord getMvVelo() {
         return _velo_mv;
     }

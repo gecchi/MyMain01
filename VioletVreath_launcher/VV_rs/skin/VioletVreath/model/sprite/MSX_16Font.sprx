@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef MSX_16Font {
+  16.0;
+  16.0;
+  "MSX_16Font.png";
+  8;
+  8;
+}
+

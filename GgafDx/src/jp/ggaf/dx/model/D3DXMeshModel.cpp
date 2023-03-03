@@ -142,29 +142,19 @@ void D3DXMeshModel::restore() {
     //1)D3DXLoadMeshFromXを使用してXファイルを読み込む
     //2)D3DXMeshModelのメンバにセット
 
-    ModelManager::MeshXFileFmt xdata;
-    std::string model_def_file = std::string(_model_id) + ".meshx";
-    std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-    pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-    _matBaseTransformMatrix = xdata.BaseTransformMatrix;
-    _draw_set_num = xdata.DrawSetNum;
+    ModelManager::ModelXFileFmt xdata;
+    obtainMetaModelInfo(&xdata);
     if (_draw_set_num != 1) {
         _TRACE_("D3DXMeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
         _draw_set_num = 1;
     }
-    std::string xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
+    std::string xfilepath = Model::getMeshXFilePath(xdata.XFileNames[0]);
 
     //Xファイルのロードして必要な内容をD3DXMeshModelメンバに設定しインスタンスとして完成させたい
     LPD3DXMESH pID3DXMesh; //メッシュ(ID3DXMeshインターフェイスへのポインタ）
     D3DMATERIAL9* paMaterial; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     TextureConnection** papTextureConnection; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD num_materials;
-
-//    std::string xfile_name = Model::getModelDefineFilePath(_model_id, "meshx");
-//    if (xfile_name == "") {
-//         throwCriticalException("メッシュファイル(*.x)が見つかりません。model_id="<<(_model_id));
-//    }
-
     LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
     HRESULT hr;
     //Xファイルのファイルロード

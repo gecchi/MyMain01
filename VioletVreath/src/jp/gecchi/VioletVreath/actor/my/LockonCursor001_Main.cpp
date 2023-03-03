@@ -48,7 +48,6 @@ void LockonCursor001_Main::onActive() {
 }
 
 void LockonCursor001_Main::processBehavior() {
-    LockonCursor001::processBehavior();
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::Scaler* const pScaler = getScaler();
     GgafCore::Phase* pPhase = getPhase();
@@ -95,6 +94,7 @@ void LockonCursor001_Main::processBehavior() {
     getUvFlipper()->behave();
     pVecVehicle->behave();
     pScaler->behave();
+    LockonCursor001::processBehavior();
 }
 
 void LockonCursor001_Main::processJudgement() {

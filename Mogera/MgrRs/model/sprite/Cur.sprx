@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef Cur {
+  128.0;
+  128.0;
+  "Cur.png";
+  1;
+  1;
+}
+

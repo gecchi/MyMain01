@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef background04 {
+  512.0;            #Width(px)
+  512.0;            #Height(px)
+  "spacebg04.png";  #TextureFile
+  1;                #TextureSplitRows
+  1;                #TextureSplitCols
+}
+

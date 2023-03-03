@@ -3,7 +3,6 @@
 #include <Shlwapi.h>
 #include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/Config.h"
-#include "jp/ggaf/dx/manager/ModelManager.h"
 #include "jp/ggaf/dx/manager/TextureConnection.h"
 #include "jp/ggaf/dx/manager/TextureManager.h"
 #include "jp/ggaf/dx/model/MeshModel.h"
@@ -18,6 +17,7 @@ _pTexBlinker(new TextureBlinker(this)) {
     _TRACE3_("_model_id=" << prm_model_id << " _id=" << _id);
     int len = (int)strlen(prm_model_id);
     _model_id = NEW char[len+1];
+    _model_type = TYPE_UNKNOWN_MODEL;
     strcpy(_model_id, prm_model_id);
     _paMaterial_default = nullptr;
     _num_materials = 0;
@@ -38,45 +38,6 @@ _pTexBlinker(new TextureBlinker(this)) {
     _TRACE3_("_model_id="<<_model_id<<" _id="<<_id);
 }
 
-//void Model::setMaterialTexture(int prm_material_no, const char* prm_texture) {
-//    TextureManager* pModelTextureManager = ModelManager::_pModelTextureManager;
-//    TextureConnection* pTexCon = (TextureConnection*)pModelTextureManager->connect(prm_texture, this);
-//    _papTextureConnection[prm_material_no]->close();
-//    _papTextureConnection[prm_material_no] = pTexCon;
-//}
-
-//TextureConnection* Model::setMaterialTexture(int prm_material_no, TextureConnection* prm_pTexCon) {
-//    if (prm_material_no > _num_materials) {
-//        throwCriticalException("マテリアルINDEXが範囲外です。_model_id="<<_model_id<<" _num_materials="<<_num_materials<<" prm_material_no="<<prm_material_no)
-//    } else {
-//        TextureConnection* r = _papTextureConnection[prm_material_no];
-//        _papTextureConnection[prm_material_no] = prm_pTexCon;
-//        return r;
-//    }
-//}
-//void Model::swapTopTextureOrder(const char* prm_texture0) {
-//    int idx = -1;
-//    for (DWORD i = 0; i < _num_materials; i++) {
-//        if (strcmp(_papTextureConnection[i]->peek()->getName(), prm_texture0) == 0) {
-//            if (i == 0) {
-//                return; //swap不要すでにTop
-//            } else {
-//                idx = i;
-//                break;
-//            }
-//        }
-//    }
-//    if (idx < 0) {
-//        throwCriticalException("指定テクスチャは見つかりません。prm_texture0="<<prm_texture0);
-//    }
-//    TextureConnection* top = _papTextureConnection[idx];
-//    for (int i = _num_materials-1; i >= 1; i--) {
-//        if (i <= idx) {
-//            _papTextureConnection[i] = _papTextureConnection[i-1];
-//        }
-//    }
-//    _papTextureConnection[0] = top;
-//}
 void Model::transformPosVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num) {
     byte* paVtxBuffer = (byte*)prm_paVtxBuffer;
     VERTEX_POS* pVtx;
@@ -645,26 +606,26 @@ void Model::setDefaultMaterial(D3DMATERIAL9* pMateria) {
     pMateria->Emissive.a = 1.0f;
 }
 
-std::string Model::getXFilePath(std::string prm_xfile) {
+std::string Model::getMeshXFilePath(std::string prm_xfile) {
     std::string xfile_path2 = CONFIG::DIR_MESH[2] + "/" + prm_xfile;
     UTIL::strReplace(xfile_path2, "//", "/");
     if (PathFileExists(xfile_path2.c_str()) ) {
-        _TRACE_("Model::getXFilePath() xfile_path2="<<xfile_path2);
+        _TRACE_("Model::getMeshXFilePath() xfile_path2="<<xfile_path2);
         return xfile_path2; //カレントに存在すればそれを優先
     } else {
         std::string xfile_path1 = CONFIG::DIR_MESH[1] + "/" + prm_xfile;
         UTIL::strReplace(xfile_path1, "//", "/");
-        _TRACE_("Model::getXFilePath() xfile_path1="<<xfile_path1);
+        _TRACE_("Model::getMeshXFilePath() xfile_path1="<<xfile_path1);
         if (PathFileExists(xfile_path1.c_str()) ) {
             return xfile_path1; //ユーザースキンに存在すればそれを優先
         } else {
             std::string xfile_path0 = CONFIG::DIR_MESH[0] + "/" + prm_xfile;
             UTIL::strReplace(xfile_path0, "//", "/");
-            _TRACE_("Model::getXFilePath() xfile_path0="<<xfile_path0);
+            _TRACE_("Model::getMeshXFilePath() xfile_path0="<<xfile_path0);
             if (PathFileExists(xfile_path0.c_str()) ) {
                 return xfile_path0;
             } else {
-                throwCriticalException("Model::getXFilePath() Xファイルが以下から見つかりません。prm_xfile="<<prm_xfile<<"\n"<<
+                throwCriticalException("Model::getMeshXFilePath() Xファイルが以下から見つかりません。prm_xfile="<<prm_xfile<<"\n"<<
                         "xfile_path2="<<xfile_path2<<"\n"
                         "xfile_path1="<<xfile_path1<<"\n"
                         "xfile_path0="<<xfile_path0<<"\n"
@@ -674,26 +635,83 @@ std::string Model::getXFilePath(std::string prm_xfile) {
     }
 }
 
-std::string Model::getModelDefineFilePath(std::string prm_model_name) {
-    std::string model_define_path2 = CONFIG::DIR_MODEL[2] + "/" + prm_model_name;
+std::string Model::getPointSpriteXFilePath(std::string prm_xfile) {
+    std::string xfile_path2 = CONFIG::DIR_POINT_SPRITE3D[2] + "/" + prm_xfile;
+    UTIL::strReplace(xfile_path2, "//", "/");
+    if (PathFileExists(xfile_path2.c_str()) ) {
+        _TRACE_("Model::getPointSpriteXFilePath() xfile_path2="<<xfile_path2);
+        return xfile_path2; //カレントに存在すればそれを優先
+    } else {
+        std::string xfile_path1 = CONFIG::DIR_POINT_SPRITE3D[1] + "/" + prm_xfile;
+        UTIL::strReplace(xfile_path1, "//", "/");
+        _TRACE_("Model::getPointSpriteXFilePath() xfile_path1="<<xfile_path1);
+        if (PathFileExists(xfile_path1.c_str()) ) {
+            return xfile_path1; //ユーザースキンに存在すればそれを優先
+        } else {
+            std::string xfile_path0 = CONFIG::DIR_POINT_SPRITE3D[0] + "/" + prm_xfile;
+            UTIL::strReplace(xfile_path0, "//", "/");
+            _TRACE_("Model::getPointSpriteXFilePath() xfile_path0="<<xfile_path0);
+            if (PathFileExists(xfile_path0.c_str()) ) {
+                return xfile_path0;
+            } else {
+                throwCriticalException("Model::getPointSpriteXFilePath() Xファイルが以下から見つかりません。prm_xfile="<<prm_xfile<<"\n"<<
+                        "xfile_path2="<<xfile_path2<<"\n"
+                        "xfile_path1="<<xfile_path1<<"\n"
+                        "xfile_path0="<<xfile_path0<<"\n"
+                        );
+            }
+        }
+    }
+}
+std::string Model::getSpriteXFilePath(std::string prm_sprxfile) {
+    std::string sprxfile_path2 = CONFIG::DIR_SPRITE[2] + "/" + prm_sprxfile;
+    UTIL::strReplace(sprxfile_path2, "//", "/");
+    if (PathFileExists(sprxfile_path2.c_str()) ) {
+        _TRACE_("Model::getSpriteXFilePath() sprxfile_path2="<<sprxfile_path2);
+        return sprxfile_path2; //カレントに存在すればそれを優先
+    } else {
+        std::string sprxfile_path1 = CONFIG::DIR_SPRITE[1] + "/" + prm_sprxfile;
+        UTIL::strReplace(sprxfile_path1, "//", "/");
+        _TRACE_("Model::getSpriteXFilePath() sprxfile_path1="<<sprxfile_path1);
+        if (PathFileExists(sprxfile_path1.c_str()) ) {
+            return sprxfile_path1; //ユーザースキンに存在すればそれを優先
+        } else {
+            std::string sprxfile_path0 = CONFIG::DIR_SPRITE[0] + "/" + prm_sprxfile;
+            UTIL::strReplace(sprxfile_path0, "//", "/");
+            _TRACE_("Model::getSpriteXFilePath() xfile_path0="<<sprxfile_path0);
+            if (PathFileExists(sprxfile_path0.c_str()) ) {
+                return sprxfile_path0;
+            } else {
+                throwCriticalException("Model::getSpriteXFilePath() sprx ファイルが以下から見つかりません。prm_xfile="<<prm_sprxfile<<"\n"<<
+                        "xfile_path2="<<sprxfile_path2<<"\n"
+                        "xfile_path1="<<sprxfile_path1<<"\n"
+                        "xfile_path0="<<sprxfile_path0<<"\n"
+                        );
+            }
+        }
+    }
+}
+
+std::string Model::getMetaModelInfoPath(std::string prm_modelfile) {
+    std::string model_define_path2 = CONFIG::DIR_MODEL[2] + "/" + prm_modelfile;
     UTIL::strReplace(model_define_path2, "//", "/");
     if (PathFileExists(model_define_path2.c_str()) ) {
-        _TRACE_("Model::getModelDefineFilePath() model_define_path2.c_str()="<<model_define_path2.c_str());
+        _TRACE_("Model::getMetaModelInfoPath() model_define_path2.c_str()="<<model_define_path2.c_str());
         return model_define_path2;
     } else {
-        std::string model_define_path1 = CONFIG::DIR_MODEL[1] + "/" +  prm_model_name;
+        std::string model_define_path1 = CONFIG::DIR_MODEL[1] + "/" +  prm_modelfile;
         UTIL::strReplace(model_define_path1, "//", "/");
         if (PathFileExists(model_define_path1.c_str()) ) {
-            _TRACE_("Model::getModelDefineFilePath() model_define_path1.c_str()="<<model_define_path1.c_str());
+            _TRACE_("Model::getMetaModelInfoPath() model_define_path1.c_str()="<<model_define_path1.c_str());
             return model_define_path1; //ユーザースキンに存在すればそれを優先
         } else {
-            std::string model_define_path0 = CONFIG::DIR_MODEL[0] + "/" +  prm_model_name;
+            std::string model_define_path0 = CONFIG::DIR_MODEL[0] + "/" +  prm_modelfile;
             UTIL::strReplace(model_define_path0, "//", "/");
             if (PathFileExists(model_define_path0.c_str()) ) {
-                _TRACE_("Model::getModelDefineFilePath() model_define_path3.c_str()="<<model_define_path0.c_str());
+                _TRACE_("Model::getMetaModelInfoPath() model_define_path3.c_str()="<<model_define_path0.c_str());
                 return model_define_path0;
             } else {
-                _TRACE_("Model::getModelDefineFilePath() モデル定義ファイルが以下から見つかりません。prm_model_name="<<prm_model_name<<"\n"<<
+                _TRACE_("【警告】Model::getMetaModelInfoPath() modelx ファイルが以下から見つかりません。prm_model_name="<<prm_modelfile<<"\n"<<
                         "model_define_path2="<<model_define_path2<<"\n"
                         "model_define_path1="<<model_define_path1<<"\n"
                         "model_define_path0="<<model_define_path0<<"\n"
@@ -701,6 +719,27 @@ std::string Model::getModelDefineFilePath(std::string prm_model_name) {
                 return "";
             }
         }
+    }
+}
+
+bool Model::obtainMetaModelInfo(ModelManager::ModelXFileFmt* prm_pModelDefineXFileFmt_out) {
+    _TRACE_("ModelManager::getMetaModelInfo() prm_model_id="<<_model_id);
+    std::string model_def_file = std::string(_model_id) + ".modelx";
+    std::string model_def_filepath = Model::getMetaModelInfoPath(model_def_file);
+    ModelManager* pModelManager = pCARETAKER->_pModelManager;
+    if (model_def_filepath != "") {
+        pModelManager->obtainMetaModelInfo(prm_pModelDefineXFileFmt_out, model_def_filepath);
+        _draw_set_num = prm_pModelDefineXFileFmt_out->DrawSetNum;
+        _matBaseTransformMatrix = prm_pModelDefineXFileFmt_out->BaseTransformMatrix;
+        return true;
+    } else {
+        std::string ext = ModelManager::type_ext[_model_type];
+        std::string xfile = std::string(_model_id) + ext;
+        prm_pModelDefineXFileFmt_out->XFileNum = 1;
+        prm_pModelDefineXFileFmt_out->XFileNames = NEW std::string[1];
+        prm_pModelDefineXFileFmt_out->XFileNames[0] = std::string(_model_id) + "." + ext;
+        _TRACE_("【警告】modelx ファイルが無いので、特別に予測で設定してあげます。べ、べつにあんたの・・・(略) XFileNames[0]="<<prm_pModelDefineXFileFmt_out->XFileNames[0]);
+        return false;
     }
 }
 

@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef EffectRatislaviaEye001 {
+  128.0;
+  128.0;
+  "EffectTorusEye001.png";
+  1;
+  1;
+}
+

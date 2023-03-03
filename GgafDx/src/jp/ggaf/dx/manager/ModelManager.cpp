@@ -18,7 +18,7 @@
     #undef __in
     #undef __out
 #endif
-
+#include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
@@ -55,33 +55,55 @@
 #include "jp/ggaf/dx/texture/Texture.h"
 #include "jp/ggaf/dx/manager/ModelConnection.h"
 
-
 using namespace GgafDx;
 
 Model* ModelManager::_pModelLastDraw = nullptr;
+std::map<char, std::string> ModelManager::type_ext;
 
 ModelManager::ModelManager(const char* prm_manager_name) :
     GgafCore::ResourceManager<Model> (prm_manager_name) {
+
+    static volatile bool is_init = ModelManager::initStatic(); //静的メンバ初期化
     //テクスチャマネジャー
     _pModelTextureManager = NEW TextureManager("TextureManager");
     HRESULT hr;
-    D3DXFileCreate( &_pID3DXFile_meshx );
 
-    static const char* meshx_template =
+    D3DXFileCreate( &_pID3DXFile_modelx );
+
+    static const char* modelx_template =
         "xof 0303txt 0032 \n" \
-        "template MeshModelDef { " \
+        "template MetaModelInfo { " \
         "   <02ED1962-4073-44FB-9BC3-BFC40F8BC537> " \
         "   DWORD XFileNum; " \
         "   array STRING XFileNames[XFileNum]; " \
         "   DWORD DrawSetNum; " \
         "   array FLOAT BaseTransformMatrix[16]; " \
         "}\n";
-    hr = _pID3DXFile_meshx->RegisterTemplates(meshx_template, (DWORD)(strlen(meshx_template)));
+    hr = _pID3DXFile_modelx->RegisterTemplates(modelx_template, (DWORD)(strlen(modelx_template)));
 #ifdef MY_DEBUG
     if(hr != S_OK) {
-        throwCriticalException("RegisterTemplatesに失敗しました。meshx_template を確認して下さい。");
+        throwCriticalException("RegisterTemplatesに失敗しました。modelx_template を確認して下さい。");
     }
 #endif
+
+//
+//    D3DXFileCreate( &_pID3DXFile_meshx );
+//
+//    static const char* meshx_template =
+//        "xof 0303txt 0032 \n" \
+//        "template MeshModelDef { " \
+//        "   <02ED1962-4073-44FB-9BC3-BFC40F8BC537> " \
+//        "   DWORD XFileNum; " \
+//        "   array STRING XFileNames[XFileNum]; " \
+//        "   DWORD DrawSetNum; " \
+//        "   array FLOAT BaseTransformMatrix[16]; " \
+//        "}\n";
+//    hr = _pID3DXFile_meshx->RegisterTemplates(meshx_template, (DWORD)(strlen(meshx_template)));
+//#ifdef MY_DEBUG
+//    if(hr != S_OK) {
+//        throwCriticalException("RegisterTemplatesに失敗しました。meshx_template を確認して下さい。");
+//    }
+//#endif
 
     //板ポリゴンモデル定義ファイル(拡張子sprx)のフォーマット定義
     D3DXFileCreate( &_pID3DXFile_sprx );
@@ -94,8 +116,6 @@ ModelManager::ModelManager(const char* prm_manager_name) :
         "   STRING TextureFile;" \
         "   DWORD  TextureSplitRows;" \
         "   DWORD  TextureSplitCols;" \
-        "   DWORD  DrawSetNum; " \
-        "   array FLOAT BaseTransformMatrix[16]; " \
         "}\n";
     hr = _pID3DXFile_sprx->RegisterTemplates(sprx_template, (DWORD)(strlen(sprx_template)));
 #ifdef MY_DEBUG
@@ -142,7 +162,6 @@ ModelManager::ModelManager(const char* prm_manager_name) :
         "   DWORD  TextureSplitCols;" \
         "   DWORD  FanNum;" \
         "   DWORD  IsCW;" \
-        "   array FLOAT BaseTransformMatrix[16]; " \
         "}\n";
     hr = _pID3DXFile_rsprx->RegisterTemplates(rsprx_template, (DWORD)(strlen(rsprx_template)));
 #ifdef MY_DEBUG
@@ -179,8 +198,6 @@ ModelManager::ModelManager(const char* prm_manager_name) :
             "  array  ColorRGBA VertexColors[VerticesNum];\n" \
             "  array  DWORD     InitUvPtnNo[VerticesNum];\n" \
             "  array  FLOAT     InitScale[VerticesNum];\n" \
-            "  DWORD  DrawSetNum;\n" \
-            "  array  FLOAT     BaseTransformMatrix[16];\n" \
             "}\n" \
             "\n";
     hr = _pID3DXFile_psprx->RegisterTemplates(psprx_template, (DWORD)(strlen(psprx_template)));
@@ -189,6 +206,38 @@ ModelManager::ModelManager(const char* prm_manager_name) :
         throwCriticalException("RegisterTemplatesに失敗しました。psprx_template を確認して下さい。");
     }
 #endif
+}
+
+bool ModelManager::initStatic() {
+    ModelManager::type_ext[TYPE_UNKNOWN_MODEL              ] = "x";
+    ModelManager::type_ext[TYPE_D3DXMESH_MODEL             ] = "x";
+    ModelManager::type_ext[TYPE_DYNAD3DXMESH_MODEL         ] = "x";
+    ModelManager::type_ext[TYPE_D3DXANIMESH_MODEL          ] = "x";
+    ModelManager::type_ext[TYPE_MESH_MODEL                 ] = "x";
+    ModelManager::type_ext[TYPE_MESHSET_MODEL              ] = "x";
+    ModelManager::type_ext[TYPE_MASSMESH_MODEL             ] = "x";
+    ModelManager::type_ext[TYPE_CUBEMAPMESH_MODEL          ] = "x";
+    ModelManager::type_ext[TYPE_CUBEMAPMESHSET_MODEL       ] = "x";
+    ModelManager::type_ext[TYPE_MORPHMESH_MODEL            ] = "x";
+    ModelManager::type_ext[TYPE_MASSMORPHMESH_MODEL        ] = "x";
+    ModelManager::type_ext[TYPE_CUBEMAPMORPHMESH_MODEL     ] = "x";
+    ModelManager::type_ext[TYPE_WORLDBOUND_MODEL           ] = "x";
+    ModelManager::type_ext[TYPE_SPRITE_MODEL               ] = "sprx";
+    ModelManager::type_ext[TYPE_SPRITESET_MODEL            ] = "sprx";
+    ModelManager::type_ext[TYPE_MASSSPRITE_MODEL           ] = "sprx";
+    ModelManager::type_ext[TYPE_BOARD_MODEL                ] = "sprx";
+    ModelManager::type_ext[TYPE_BOARDSET_MODEL             ] = "sprx";
+    ModelManager::type_ext[TYPE_MASSBOARD_MODEL            ] = "sprx";
+    ModelManager::type_ext[TYPE_POINTSPRITE_MODEL          ] = "psprx";
+    ModelManager::type_ext[TYPE_MASSPOINTSPRITE_MODEL      ] = "psprx";
+    ModelManager::type_ext[TYPE_POINTSPRITESET_MODEL       ] = "psprx";
+    ModelManager::type_ext[TYPE_FRAMEDBOARD_MODEL          ] = "fsprx";
+    ModelManager::type_ext[TYPE_FRAMEDSPRITE_MODEL         ] = "fsprx";
+    ModelManager::type_ext[TYPE_REGULARPOLYGONSPRITE_MODEL ] = "rsprx";
+    ModelManager::type_ext[TYPE_REGULARPOLYGONBOARD_MODEL  ] = "rsprx";
+    ModelManager::type_ext[TYPE_BONEANIMESH_MODEL          ] = "x";
+    ModelManager::type_ext[TYPE_SKINANIMESH_MODEL          ] = "x";
+    return true;
 }
 
 Model* ModelManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
@@ -203,115 +252,121 @@ Model* ModelManager::processCreateResource(const char* prm_idstr, void* prm_pCon
     Model* pResourceModel;
     switch (model_type) {
         case TYPE_D3DXMESH_MODEL:
-            pResourceModel = createD3DXMeshModel(model_id, D3DXMESH_SYSTEMMEM);
+            pResourceModel = createD3DXMeshModel(model_type, model_id, D3DXMESH_SYSTEMMEM);
             break;
         case TYPE_DYNAD3DXMESH_MODEL:
-            pResourceModel = createD3DXMeshModel(model_id, D3DXMESH_DYNAMIC);
+            pResourceModel = createD3DXMeshModel(model_type, model_id, D3DXMESH_DYNAMIC);
             break;
         case TYPE_D3DXANIMESH_MODEL:
-            pResourceModel = createModel<D3DXAniMeshModel>(model_id);
+            pResourceModel = createModel<D3DXAniMeshModel>(model_type, model_id);
             break;
         case TYPE_MESH_MODEL:
-            pResourceModel = createModel<MeshModel>(model_id);
+            pResourceModel = createModel<MeshModel>(model_type, model_id);
             break;
         case TYPE_MESHSET_MODEL:
-            pResourceModel = createModel<MeshSetModel>(model_id);
+            pResourceModel = createModel<MeshSetModel>(model_type, model_id);
             break;
         case TYPE_MASSMESH_MODEL:
-            pResourceModel = createModel<MassMeshModel>(model_id);
+            pResourceModel = createModel<MassMeshModel>(model_type, model_id);
             break;
         case TYPE_CUBEMAPMESH_MODEL:
-            pResourceModel = createModel<CubeMapMeshModel>(model_id);
+            pResourceModel = createModel<CubeMapMeshModel>(model_type, model_id);
             break;
         case TYPE_CUBEMAPMESHSET_MODEL:
-            pResourceModel = createModel<CubeMapMeshSetModel>(model_id);
+            pResourceModel = createModel<CubeMapMeshSetModel>(model_type, model_id);
             break;
         case TYPE_MORPHMESH_MODEL:
-            pResourceModel = createModel<MorphMeshModel>(model_id);
+            pResourceModel = createModel<MorphMeshModel>(model_type, model_id);
             break;
         case TYPE_MASSMORPHMESH_MODEL:
-            pResourceModel = createModel<MassMorphMeshModel>(model_id);
+            pResourceModel = createModel<MassMorphMeshModel>(model_type, model_id);
             break;
         case TYPE_CUBEMAPMORPHMESH_MODEL:
-            pResourceModel = createModel<CubeMapMorphMeshModel>(model_id);
+            pResourceModel = createModel<CubeMapMorphMeshModel>(model_type, model_id);
             break;
         case TYPE_WORLDBOUND_MODEL:
-            pResourceModel = createModel<WorldBoundModel>(model_id);
+            pResourceModel = createModel<WorldBoundModel>(model_type, model_id);
             break;
         case TYPE_SPRITE_MODEL:
-            pResourceModel = createModel<SpriteModel>(model_id);
+            pResourceModel = createModel<SpriteModel>(model_type, model_id);
             break;
         case TYPE_SPRITESET_MODEL:
-            pResourceModel = createModel<SpriteSetModel>(model_id);
+            pResourceModel = createModel<SpriteSetModel>(model_type, model_id);
             break;
         case TYPE_MASSSPRITE_MODEL:
-            pResourceModel = createModel<MassSpriteModel>(model_id);
+            pResourceModel = createModel<MassSpriteModel>(model_type, model_id);
             break;
         case TYPE_BOARD_MODEL:
-            pResourceModel = createModel<BoardModel>(model_id);
+            pResourceModel = createModel<BoardModel>(model_type, model_id);
             break;
         case TYPE_BOARDSET_MODEL:
-            pResourceModel = createModel<BoardSetModel>(model_id);
+            pResourceModel = createModel<BoardSetModel>(model_type, model_id);
             break;
         case TYPE_MASSBOARD_MODEL:
-            pResourceModel = createModel<MassBoardModel>(model_id);
-            break;
-        case TYPE_CUBE_MODEL:
-            pResourceModel = createD3DXMeshModel(const_cast<char*>("cube"), D3DXMESH_SYSTEMMEM);
+            pResourceModel = createModel<MassBoardModel>(model_type, model_id);
             break;
         case TYPE_POINTSPRITE_MODEL:
-            pResourceModel = createModel<PointSpriteModel>(model_id);
+            pResourceModel = createModel<PointSpriteModel>(model_type, model_id);
             break;
         case TYPE_MASSPOINTSPRITE_MODEL:
-            pResourceModel = createModel<MassPointSpriteModel>(model_id);
+            pResourceModel = createModel<MassPointSpriteModel>(model_type, model_id);
             break;
         case TYPE_POINTSPRITESET_MODEL:
-            pResourceModel = createModel<PointSpriteSetModel>(model_id);
+            pResourceModel = createModel<PointSpriteSetModel>(model_type, model_id);
             break;
         case TYPE_FRAMEDBOARD_MODEL:
-            pResourceModel = createModel<FramedBoardModel>(model_id);
+            pResourceModel = createModel<FramedBoardModel>(model_type, model_id);
             break;
         case TYPE_FRAMEDSPRITE_MODEL:
-            pResourceModel = createModel<FramedSpriteModel>(model_id);
+            pResourceModel = createModel<FramedSpriteModel>(model_type, model_id);
             break;
         case TYPE_REGULARPOLYGONSPRITE_MODEL:
-            pResourceModel = createModel<RegularPolygonSpriteModel>(model_id);
+            pResourceModel = createModel<RegularPolygonSpriteModel>(model_type, model_id);
             break;
         case TYPE_REGULARPOLYGONBOARD_MODEL:
-            pResourceModel = createModel<RegularPolygonBoardModel>(model_id);
+            pResourceModel = createModel<RegularPolygonBoardModel>(model_type, model_id);
             break;
         case TYPE_BONEANIMESH_MODEL:
-            pResourceModel = createModel<BoneAniMeshModel>(model_id);
+            pResourceModel = createModel<BoneAniMeshModel>(model_type, model_id);
             break;
         case TYPE_SKINANIMESH_MODEL:
-            pResourceModel = createModel<SkinAniMeshModel>(model_id);
+            pResourceModel = createModel<SkinAniMeshModel>(model_type, model_id);
             break;
         default:
             throwCriticalException("prm_idstr="<<prm_idstr<<" の '"<<model_type<<"' ・・・そんなモデル種別は知りません");
             pResourceModel = nullptr;
             break;
     }
+
     return pResourceModel;
 }
 
 template <typename T>
-T* ModelManager::createModel(const char* prm_model_id) {
+T* ModelManager::createModel(char prm_model_type, const char* prm_model_id) {
     T* pModel_new = NEW T(prm_model_id);
+    pModel_new->_model_type = prm_model_type;
     pModel_new->restore();
     return pModel_new;
 }
 
-D3DXMeshModel* ModelManager::createD3DXMeshModel(const char* prm_model_id, DWORD prm_dwOptions) {
+D3DXMeshModel* ModelManager::createD3DXMeshModel(char prm_model_type, const char* prm_model_id, DWORD prm_dwOptions) {
     D3DXMeshModel* pD3DXMeshModel_new = NEW D3DXMeshModel(prm_model_id, prm_dwOptions);
+    pD3DXMeshModel_new->_model_type = prm_model_type;
     pD3DXMeshModel_new->restore();
     return pD3DXMeshModel_new;
 }
 
 
-void ModelManager::obtainMeshModelInfo(MeshXFileFmt* prm_pMeshXFileFmt_out, std::string prm_meshx_filepath) {
-    _TRACE_("ModelManager::obtainMeshModelInfo() prm_meshx_filepath="<<prm_meshx_filepath);
+//void ModelManager::obtainMetaModelInfo(ModelXFileFmt* prm_pModelDefineXFileFmt_out, char* prm_model_id) {
+//    _TRACE_("ModelManager::getMetaModelInfo() prm_model_id="<<prm_model_id);
+//    std::string model_def_file = std::string(prm_model_id) + ".modelx";
+//    std::string model_def_filepath = Model::getMetaModelInfoPath(model_def_file);
+//    obtainMetaModelInfo(prm_pModelDefineXFileFmt_out, model_def_filepath);
+//}
+
+void ModelManager::obtainMetaModelInfo(ModelXFileFmt* prm_pModelDefineXFileFmt_out, std::string prm_modelfile_filepath) {
     //    "xof 0303txt 0032 \n" \
-    //    "template MeshModelDef { " \
+    //    "template MetaModelInfo { " \
     //    "   <02ED1962-4073-44FB-9BC3-BFC40F8BC537> " \
     //    "   DWORD XFileNum; " \
     //    "   array STRING XFileNames[XFileNum]; " \
@@ -320,11 +375,11 @@ void ModelManager::obtainMeshModelInfo(MeshXFileFmt* prm_pMeshXFileFmt_out, std:
     //    "}\n";
 
     ID3DXFileEnumObject* pID3DXFileEnumObject;
-    HRESULT hr = _pID3DXFile_meshx->CreateEnumObject(
-                                     (void*)prm_meshx_filepath.c_str(),
+    HRESULT hr = _pID3DXFile_modelx->CreateEnumObject(
+                                     (void*)prm_modelfile_filepath.c_str(),
                                      D3DXF_FILELOAD_FROMFILE,
                                      &pID3DXFileEnumObject);
-    checkDxException(hr, S_OK, "ModelManager::obtainMeshModelInfo() '"<<prm_meshx_filepath<<"' のCreateEnumObjectに失敗しました。meshxファイルのフォーマットを確認して下さい。");
+    checkDxException(hr, S_OK, "ModelManager::obtainMetaModelInfo() '"<<prm_modelfile_filepath<<"' のCreateEnumObjectに失敗しました。modelx ファイルのフォーマットを確認して下さい。");
     ID3DXFileData* pID3DXFileData = nullptr;
     SIZE_T nChildren;
     pID3DXFileEnumObject->GetChildren(&nChildren);
@@ -332,52 +387,124 @@ void ModelManager::obtainMeshModelInfo(MeshXFileFmt* prm_pMeshXFileFmt_out, std:
         pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     } //ループしているが、child は一つだけです。
     if (pID3DXFileData == nullptr) {
-        throwCriticalException("ModelManager::obtainMeshModelInfo() "<<prm_meshx_filepath<<" のフォーマットエラー。 MeshModelDef { ... }  の MeshModelDef が見つからないです。");
+        throwCriticalException("ModelManager::obtainMetaModelInfo() "<<prm_modelfile_filepath<<" のフォーマットエラー。 MeshModelDef { ... }  の MeshModelDef が見つからないです。");
     }
     SIZE_T xsize = 0;
     char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
     if (pXData == nullptr) {
-        throwCriticalException("ModelManager::obtainMeshModelInfo() "<<prm_meshx_filepath<<" のフォーマットエラー。");
+        throwCriticalException("ModelManager::obtainMetaModelInfo() "<<prm_modelfile_filepath<<" のフォーマットエラー。");
     }
-    memcpy(&(prm_pMeshXFileFmt_out->XFileNum), pXData, sizeof(DWORD));
+    memcpy(&(prm_pModelDefineXFileFmt_out->XFileNum), pXData, sizeof(DWORD));
     pXData += sizeof(DWORD);
-    int xfile_num = prm_pMeshXFileFmt_out->XFileNum;
-    prm_pMeshXFileFmt_out->XFileNames = NEW std::string[xfile_num];
+    int xfile_num = prm_pModelDefineXFileFmt_out->XFileNum;
+    prm_pModelDefineXFileFmt_out->XFileNames = NEW std::string[xfile_num];
     char tmp_filename[256];
     for (int i = 0; i < xfile_num; i++) {
         strcpy(tmp_filename, pXData);
         size_t len = strlen(tmp_filename);
         pXData += sizeof(char) * len;
         pXData += sizeof(char); // '\0'
-        prm_pMeshXFileFmt_out->XFileNames[i] = std::string(tmp_filename);
+        prm_pModelDefineXFileFmt_out->XFileNames[i] = std::string(tmp_filename);
     }
-    memcpy(&(prm_pMeshXFileFmt_out->DrawSetNum), pXData, sizeof(DWORD));
+    memcpy(&(prm_pModelDefineXFileFmt_out->DrawSetNum), pXData, sizeof(DWORD));
     pXData += sizeof(DWORD);
     FLOAT aMat[16];
     memcpy(aMat, pXData, sizeof(FLOAT)*16);
     pXData += sizeof(FLOAT)*16;
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._11 = aMat[0];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._12 = aMat[1];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._13 = aMat[2];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._14 = aMat[3];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._21 = aMat[4];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._22 = aMat[5];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._23 = aMat[6];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._24 = aMat[7];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._31 = aMat[8];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._32 = aMat[9];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._33 = aMat[10];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._34 = aMat[11];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._41 = aMat[12];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._42 = aMat[13];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._43 = aMat[14];
-    prm_pMeshXFileFmt_out->BaseTransformMatrix._44 = aMat[15];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._11 = aMat[0];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._12 = aMat[1];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._13 = aMat[2];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._14 = aMat[3];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._21 = aMat[4];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._22 = aMat[5];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._23 = aMat[6];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._24 = aMat[7];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._31 = aMat[8];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._32 = aMat[9];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._33 = aMat[10];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._34 = aMat[11];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._41 = aMat[12];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._42 = aMat[13];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._43 = aMat[14];
+    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._44 = aMat[15];
 
     pID3DXFileData->Unlock();
     GGAF_RELEASE_BY_FROCE(pID3DXFileData);
     GGAF_RELEASE(pID3DXFileEnumObject);
 }
+
+//void ModelManager::obtainMeshModelInfo(ModelXFileFmt* prm_pModelXFileFmt_out, std::string prm_meshx_filepath) {
+//    _TRACE_("ModelManager::obtainMeshModelInfo() prm_meshx_filepath="<<prm_meshx_filepath);
+//    //    "xof 0303txt 0032 \n" \
+//    //    "template MeshModelDef { " \
+//    //    "   <02ED1962-4073-44FB-9BC3-BFC40F8BC537> " \
+//    //    "   DWORD XFileNum; " \
+//    //    "   array STRING XFileNames[XFileNum]; " \
+//    //    "   DWORD DrawSetNum; " \
+//    //    "   array FLOAT BaseTransformMatrix[16]; " \
+//    //    "}\n";
+//
+//    ID3DXFileEnumObject* pID3DXFileEnumObject;
+//    HRESULT hr = _pID3DXFile_meshx->CreateEnumObject(
+//                                     (void*)prm_meshx_filepath.c_str(),
+//                                     D3DXF_FILELOAD_FROMFILE,
+//                                     &pID3DXFileEnumObject);
+//    checkDxException(hr, S_OK, "ModelManager::obtainMeshModelInfo() '"<<prm_meshx_filepath<<"' のCreateEnumObjectに失敗しました。meshxファイルのフォーマットを確認して下さい。");
+//    ID3DXFileData* pID3DXFileData = nullptr;
+//    SIZE_T nChildren;
+//    pID3DXFileEnumObject->GetChildren(&nChildren);
+//    for (SIZE_T childCount = 0; childCount < nChildren; childCount++) {
+//        pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
+//    } //ループしているが、child は一つだけです。
+//    if (pID3DXFileData == nullptr) {
+//        throwCriticalException("ModelManager::obtainMeshModelInfo() "<<prm_meshx_filepath<<" のフォーマットエラー。 MeshModelDef { ... }  の MeshModelDef が見つからないです。");
+//    }
+//    SIZE_T xsize = 0;
+//    char* pXData = nullptr;
+//    pID3DXFileData->Lock(&xsize, (const void**)&pXData);
+//    if (pXData == nullptr) {
+//        throwCriticalException("ModelManager::obtainMeshModelInfo() "<<prm_meshx_filepath<<" のフォーマットエラー。");
+//    }
+//    memcpy(&(prm_pModelXFileFmt_out->XFileNum), pXData, sizeof(DWORD));
+//    pXData += sizeof(DWORD);
+//    int xfile_num = prm_pModelXFileFmt_out->XFileNum;
+//    prm_pModelXFileFmt_out->XFileNames = NEW std::string[xfile_num];
+//    char tmp_filename[256];
+//    for (int i = 0; i < xfile_num; i++) {
+//        strcpy(tmp_filename, pXData);
+//        size_t len = strlen(tmp_filename);
+//        pXData += sizeof(char) * len;
+//        pXData += sizeof(char); // '\0'
+//        prm_pModelXFileFmt_out->XFileNames[i] = std::string(tmp_filename);
+//    }
+//    memcpy(&(prm_pModelXFileFmt_out->DrawSetNum), pXData, sizeof(DWORD));
+//    pXData += sizeof(DWORD);
+//    FLOAT aMat[16];
+//    memcpy(aMat, pXData, sizeof(FLOAT)*16);
+//    pXData += sizeof(FLOAT)*16;
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._11 = aMat[0];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._12 = aMat[1];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._13 = aMat[2];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._14 = aMat[3];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._21 = aMat[4];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._22 = aMat[5];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._23 = aMat[6];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._24 = aMat[7];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._31 = aMat[8];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._32 = aMat[9];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._33 = aMat[10];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._34 = aMat[11];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._41 = aMat[12];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._42 = aMat[13];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._43 = aMat[14];
+//    prm_pModelXFileFmt_out->BaseTransformMatrix._44 = aMat[15];
+//
+//    pID3DXFileData->Unlock();
+//    GGAF_RELEASE_BY_FROCE(pID3DXFileData);
+//    GGAF_RELEASE(pID3DXFileEnumObject);
+//}
+
 void ModelManager::obtainSpriteModelInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std::string prm_sprx_filepath) {
     _TRACE_("ModelManager::obtainSpriteModelInfo() prm_sprx_filepath="<<prm_sprx_filepath);
     //    "xof 0303txt 0032 \n" \
@@ -426,28 +553,28 @@ void ModelManager::obtainSpriteModelInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std
     pXData += sizeof(DWORD);
     memcpy(&(prm_pSpriteFmt_out->TextureSplitCols), pXData, sizeof(DWORD));
     pXData += sizeof(DWORD);
-    memcpy(&(prm_pSpriteFmt_out->DrawSetNum), pXData, sizeof(DWORD));
-    pXData += sizeof(DWORD);
-
-    FLOAT aMat[16];
-    memcpy(aMat, pXData, sizeof(FLOAT)*16);
-    pXData += sizeof(FLOAT)*16;
-    prm_pSpriteFmt_out->BaseTransformMatrix._11 = aMat[0];
-    prm_pSpriteFmt_out->BaseTransformMatrix._12 = aMat[1];
-    prm_pSpriteFmt_out->BaseTransformMatrix._13 = aMat[2];
-    prm_pSpriteFmt_out->BaseTransformMatrix._14 = aMat[3];
-    prm_pSpriteFmt_out->BaseTransformMatrix._21 = aMat[4];
-    prm_pSpriteFmt_out->BaseTransformMatrix._22 = aMat[5];
-    prm_pSpriteFmt_out->BaseTransformMatrix._23 = aMat[6];
-    prm_pSpriteFmt_out->BaseTransformMatrix._24 = aMat[7];
-    prm_pSpriteFmt_out->BaseTransformMatrix._31 = aMat[8];
-    prm_pSpriteFmt_out->BaseTransformMatrix._32 = aMat[9];
-    prm_pSpriteFmt_out->BaseTransformMatrix._33 = aMat[10];
-    prm_pSpriteFmt_out->BaseTransformMatrix._34 = aMat[11];
-    prm_pSpriteFmt_out->BaseTransformMatrix._41 = aMat[12];
-    prm_pSpriteFmt_out->BaseTransformMatrix._42 = aMat[13];
-    prm_pSpriteFmt_out->BaseTransformMatrix._43 = aMat[14];
-    prm_pSpriteFmt_out->BaseTransformMatrix._44 = aMat[15];
+//    memcpy(&(prm_pSpriteFmt_out->DrawSetNum), pXData, sizeof(DWORD));
+//    pXData += sizeof(DWORD);
+//
+//    FLOAT aMat[16];
+//    memcpy(aMat, pXData, sizeof(FLOAT)*16);
+//    pXData += sizeof(FLOAT)*16;
+//    prm_pSpriteFmt_out->BaseTransformMatrix._11 = aMat[0];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._12 = aMat[1];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._13 = aMat[2];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._14 = aMat[3];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._21 = aMat[4];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._22 = aMat[5];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._23 = aMat[6];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._24 = aMat[7];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._31 = aMat[8];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._32 = aMat[9];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._33 = aMat[10];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._34 = aMat[11];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._41 = aMat[12];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._42 = aMat[13];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._43 = aMat[14];
+//    prm_pSpriteFmt_out->BaseTransformMatrix._44 = aMat[15];
 
     pID3DXFileData->Unlock();
     GGAF_RELEASE_BY_FROCE(pID3DXFileData);
@@ -534,7 +661,6 @@ void ModelManager::obtainRegPolySpriteModelInfo(RegPolySpriteXFileFmt* prm_pRegP
     //    "   DWORD  TextureSplitCols;" \
     //    "   DWORD  FanNum;" \
     //    "   DWORD  IsCW;" \
-    //    "   array FLOAT BaseTransformMatrix[16]; " \
     //    "}\n";
     ID3DXFileEnumObject* pID3DXFileEnumObject;
     HRESULT hr = _pID3DXFile_rsprx->CreateEnumObject(
@@ -575,26 +701,6 @@ void ModelManager::obtainRegPolySpriteModelInfo(RegPolySpriteXFileFmt* prm_pRegP
     memcpy(&(prm_pRegPolySpriteFmt_out->IsCW), pXData, sizeof(DWORD));
     pXData += sizeof(DWORD);
 
-    FLOAT aMat[16];
-    memcpy(aMat, pXData, sizeof(FLOAT)*16);
-    pXData += sizeof(FLOAT)*16;
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._11 = aMat[0];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._12 = aMat[1];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._13 = aMat[2];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._14 = aMat[3];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._21 = aMat[4];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._22 = aMat[5];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._23 = aMat[6];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._24 = aMat[7];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._31 = aMat[8];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._32 = aMat[9];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._33 = aMat[10];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._34 = aMat[11];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._41 = aMat[12];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._42 = aMat[13];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._43 = aMat[14];
-    prm_pRegPolySpriteFmt_out->BaseTransformMatrix._44 = aMat[15];
-
     pID3DXFileData->Unlock();
     GGAF_RELEASE_BY_FROCE(pID3DXFileData);
     GGAF_RELEASE(pID3DXFileEnumObject);
@@ -625,8 +731,6 @@ void ModelManager::obtainPointSpriteModelInfo(PointSpriteXFileFmt* prm_pPointSpr
     //    "  array  ColorRGBA VertexColors[VerticesNum];\n" \
     //    "  array  DWORD     InitUvPtnNo[VerticesNum];\n" \
     //    "  array  FLOAT     InitScale[VerticesNum];\n" \
-    //    "  DWORD  DrawSetNum;\n" \
-    //    "  array  FLOAT     BaseTransformMatrix[16];\n" \
     //    "}\n" \
     //    "\n";
 
@@ -686,29 +790,6 @@ void ModelManager::obtainPointSpriteModelInfo(PointSpriteXFileFmt* prm_pPointSpr
     prm_pPointSpriteFmt_out->paFLOAT_InitScale = NEW FLOAT[vaetexs_num];
     memcpy(prm_pPointSpriteFmt_out->paFLOAT_InitScale, pXData, sizeof(FLOAT)*vaetexs_num);
     pXData += sizeof(FLOAT)*vaetexs_num;
-    //"  DWORD  DrawSetNum; "
-    memcpy(&(prm_pPointSpriteFmt_out->DrawSetNum), pXData, sizeof(DWORD));
-    pXData += sizeof(DWORD);
-
-    FLOAT aMat[16];
-    memcpy(aMat, pXData, sizeof(FLOAT)*16);
-    pXData += sizeof(FLOAT)*16;
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._11 = aMat[0];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._12 = aMat[1];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._13 = aMat[2];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._14 = aMat[3];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._21 = aMat[4];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._22 = aMat[5];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._23 = aMat[6];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._24 = aMat[7];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._31 = aMat[8];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._32 = aMat[9];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._33 = aMat[10];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._34 = aMat[11];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._41 = aMat[12];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._42 = aMat[13];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._43 = aMat[14];
-    prm_pPointSpriteFmt_out->BaseTransformMatrix._44 = aMat[15];
 
     pID3DXFileData->Unlock();
     GGAF_RELEASE_BY_FROCE(pID3DXFileData);
@@ -724,6 +805,9 @@ GgafCore::ResourceConnection<Model>* ModelManager::processCreateConnection(const
 
 ModelManager::~ModelManager() {
     _TRACE3_("start-->");
+    GGAF_RELEASE(_pID3DXFile_modelx);
+//    GGAF_RELEASE(_pID3DXFile_meshx);
+
     GGAF_RELEASE(_pID3DXFile_sprx);
     GGAF_RELEASE(_pID3DXFile_psprx);
     GGAF_RELEASE(_pID3DXFile_fsprx);

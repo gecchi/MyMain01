@@ -27,7 +27,7 @@ ViewCollisionChecker::ViewCollisionChecker(GgafDx::GeometricActor* prm_pActor) :
 }
 
 void ViewCollisionChecker::updateHitArea() {
-    GgafDx::CollisionArea* const pActiveCollisionArea = _pActiveCollisionArea;
+    GgafDx::CollisionArea* const pActiveCollisionArea = _pCollisionArea;
     if (pActiveCollisionArea == nullptr) {
         return;
     }
@@ -53,8 +53,8 @@ void ViewCollisionChecker::updateHitArea() {
 
 bool ViewCollisionChecker::isHit(const GgafDx::CollisionChecker* const prm_pOppChecker) {
     //TODO:WorldCollisionChecker2D::isHit() のコピペ、２重管理を何とかする
-    GgafDx::CollisionArea* const pActiveCollisionArea = _pActiveCollisionArea;
-    GgafDx::CollisionArea* const pOppActiveCollisionArea = prm_pOppChecker->_pActiveCollisionArea; //相手の当たり判定領域
+    GgafDx::CollisionArea* const pActiveCollisionArea = _pCollisionArea;
+    GgafDx::CollisionArea* const pOppActiveCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
     const GgafDx::GeometricActor* const pActor = _pActor;                //相手のアクター
     const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
     const int colli_part_num = pActiveCollisionArea->_colli_part_num;
@@ -212,8 +212,8 @@ bool ViewCollisionChecker::isHit(const GgafDx::CollisionChecker* const prm_pOppC
 
 
 bool ViewCollisionChecker::isHit_old(const GgafDx::CollisionChecker* const prm_pOppChecker) {
-    GgafDx::CollisionArea* const pActiveCollisionArea = _pActiveCollisionArea;
-    GgafDx::CollisionArea* const pOppActiveCollisionArea = prm_pOppChecker->_pActiveCollisionArea; //相手の当たり判定領域
+    GgafDx::CollisionArea* const pActiveCollisionArea = _pCollisionArea;
+    GgafDx::CollisionArea* const pOppActiveCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
     const GgafDx::GeometricActor* const pActor = _pActor;                //相手のアクター
     const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
 
@@ -238,22 +238,22 @@ void ViewCollisionChecker::setColliAABox(int prm_index,
                                          coord x2,
                                          coord y2) {
 #ifdef MY_DEBUG
-    if (_pActiveCollisionArea == nullptr) {
+    if (_pCollisionArea == nullptr) {
         throwCriticalException("["<<getTargetActor()->getName()<<"]  まず addCollisionArea を実行して、要素数を宣言してください。");
     }
-    if (prm_index > _pActiveCollisionArea->_colli_part_num) {
+    if (prm_index > _pCollisionArea->_colli_part_num) {
         throwCriticalException("["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"は範囲外。");
     }
 #endif
-    if (_pActiveCollisionArea->_papColliPart[prm_index] == nullptr) {
-        _pActiveCollisionArea->_papColliPart[prm_index] = NEW ColliAABox();
+    if (_pCollisionArea->_papColliPart[prm_index] == nullptr) {
+        _pCollisionArea->_papColliPart[prm_index] = NEW ColliAABox();
     }
 #ifdef MY_DEBUG
-    if (_pActiveCollisionArea->_papColliPart[prm_index]->_shape_kind != COLLI_AABOX) {
+    if (_pCollisionArea->_papColliPart[prm_index]->_shape_kind != COLLI_AABOX) {
         throwCriticalException("["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"はAABBでなかったため、更新はできません。");
     }
 #endif
-    ColliAABox* pAABox = (ColliAABox*)_pActiveCollisionArea->_papColliPart[prm_index];
+    ColliAABox* pAABox = (ColliAABox*)_pCollisionArea->_papColliPart[prm_index];
     pAABox->_shape_kind = COLLI_AABOX;
     pAABox->set(x1, y1, 0, x2, y2, 0, false, false, false);
 //    _is_enable = true;

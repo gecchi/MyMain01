@@ -15,12 +15,12 @@ CubeMapMeshActor::CubeMapMeshActor(const char* prm_name,
                                    const char* prm_technique,
                                    CollisionChecker* prm_pChecker) :
                                            MeshActor(prm_name,
-                                                           prm_model,
-                                                           TYPE_CUBEMAPMESH_MODEL,
-                                                           prm_effect_id,
-                                                           TYPE_CUBEMAPMESH_EFFECT,
-                                                           prm_technique,
-                                                           prm_pChecker) ,
+                                                     prm_model,
+                                                     TYPE_CUBEMAPMESH_MODEL,
+                                                     prm_effect_id,
+                                                     TYPE_CUBEMAPMESH_EFFECT,
+                                                     prm_technique,
+                                                     prm_pChecker) ,
                                            ICubeMapActor() {
     _obj_class |= Obj_GgafDx_CubeMapMeshActor;
     _class_name = "CubeMapMeshActor";
@@ -45,6 +45,15 @@ void CubeMapMeshActor::processDraw() {
         //getInvMatWorldRotMv() なので、拡大縮小が考慮されてない。軸ごとに拡大率が違う場合、バンプマップはちょっとおかしくなる。
     }
     ((MeshModel*)_pCubeMapMeshModel)->MeshModel::draw(this);
+}
+
+MeshModel* CubeMapMeshActor::addModel(const char* prm_model) {
+    Model* pModel = FigureActor::addModel(TYPE_CUBEMAPMESH_MODEL, prm_model);
+    return (MeshModel*)pModel;
+}
+void CubeMapMeshActor::changeModel(int prm_model_index) {
+    MeshActor::changeModel(prm_model_index);
+    _pCubeMapMeshModel = (CubeMapMeshModel*)_pModel;
 }
 
 CubeMapMeshActor::~CubeMapMeshActor() {

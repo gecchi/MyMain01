@@ -98,24 +98,19 @@ void MassMorphMeshModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data_model == nullptr) {
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
-        ModelManager::MeshXFileFmt xdata;
-        std::string model_def_file = std::string(_model_id) + ".meshx";
-        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-        pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
-        _draw_set_num = xdata.DrawSetNum;
+        ModelManager::ModelXFileFmt xdata;
+        obtainMetaModelInfo(&xdata);
         if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
             _TRACE_("MassMorphMeshModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
             _draw_set_num = _max_draw_set_num;
         } else {
             _TRACE_("MassMorphMeshModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }
-
         _morph_target_num = xdata.XFileNum - 1;
         int morph_target_num = _morph_target_num;
         std::string* paXfilepath = NEW std::string[morph_target_num+1];
         for (int i = 0; i < morph_target_num+1; i++) {
-            paXfilepath[i] = Model::getXFilePath(xdata.XFileNames[i]);
+            paXfilepath[i] = Model::getMeshXFilePath(xdata.XFileNames[i]);
         }
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X iox;

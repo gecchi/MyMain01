@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef GECCHI_8FONT {
+  8.0;
+  8.0;
+  "Gecchi_8Font.png";
+  8;
+  8;
+}
+

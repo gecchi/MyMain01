@@ -64,19 +64,22 @@ _pColorist(nullptr)
     _specal_render_depth_index = -1;
     _zenable = true;
     _zwriteenable = true;
-    if (_pModelCon->chkFirstConnectionIs(this) ) {
-        _is_first_model_connector = true;
-    } else {
-        _is_first_model_connector = false;
-    }
-    if (_pEffectCon->chkFirstConnectionIs(this) ) {
-        _is_first_effect_connector = true;
-    } else {
-        _is_first_effect_connector = false;
-    }
+//    if (_pModelCon->chkFirstConnectionIs(this) ) {
+//        _is_first_model_connector = true;
+//    } else {
+//        _is_first_model_connector = false;
+//    }
+//    if (_pEffectCon->chkFirstConnectionIs(this) ) {
+//        _is_first_effect_connector = true;
+//    } else {
+//        _is_first_effect_connector = false;
+//    }
     _cull_enable = true;
     _cull_mode_default = D3DCULL_CCW;
     _cull_mode = _cull_mode_default;
+
+    _lstModelCon.push_back(_pModelCon);
+    _lstModel.push_back(_pModel);
 }
 
 FigureActor::FigureActor(const char* prm_name,
@@ -131,16 +134,37 @@ _pColorist(nullptr)
     _specal_render_depth_index = -1;
     _zenable = true;
     _zwriteenable = true;
-    if (_pModelCon->chkFirstConnectionIs(this) ) {
-        _is_first_model_connector = true;
-    } else {
-        _is_first_model_connector = false;
+//    if (_pModelCon->chkFirstConnectionIs(this) ) {
+//        _is_first_model_connector = true;
+//    } else {
+//        _is_first_model_connector = false;
+//    }
+//    if (_pEffectCon->chkFirstConnectionIs(this) ) {
+//        _is_first_effect_connector = true;
+//    } else {
+//        _is_first_effect_connector = false;
+//    }
+    _lstModelCon.push_back(_pModelCon);
+    _lstModel.push_back(_pModel);
+}
+
+Model* FigureActor::addModel(const char prm_model_type, const char* prm_model) {
+   std::string model_id = std::string(1, prm_model_type) + "," + std::string(prm_model);
+   ModelConnection* pModelCon =  (ModelConnection*)pCARETAKER->_pModelManager->connect(model_id.c_str(), this);
+   Model* pModel = ((Model*)pModelCon->peek());
+   _lstModelCon.push_back(pModelCon);
+   _lstModel.push_back(pModel);
+   return pModel;
+}
+
+void FigureActor::changeModel(int prm_model_index) {
+#ifdef MY_DEBUG
+    if (_lstModel.size() < prm_model_index+1) {
+        throwCriticalException("—v‘f”‚ª•s³Bprm_model_index="<<prm_model_index);
     }
-    if (_pEffectCon->chkFirstConnectionIs(this) ) {
-        _is_first_effect_connector = true;
-    } else {
-        _is_first_effect_connector = false;
-    }
+#endif
+    _pModel = _lstModel.at(prm_model_index);
+    _pModelCon = _lstModelCon.at(prm_model_index);
 }
 
 AlphaFader* FigureActor::getAlphaFader() {
@@ -390,5 +414,9 @@ FigureActor::~FigureActor() {
     GGAF_DELETE_NULLABLE(_pAlphaFader);
     GGAF_DELETE_NULLABLE(_pColorist);
     _pEffectCon->close();
-    _pModelCon->close();
+    for (int i = 0; i < _lstModelCon.size(); i++) {
+        ModelConnection* pModelCon = _lstModelCon.at(i);
+        pModelCon->close();
+    }
+    _pModelCon = nullptr;
 }

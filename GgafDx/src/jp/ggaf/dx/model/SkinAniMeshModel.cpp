@@ -164,16 +164,12 @@ void SkinAniMeshModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data == nullptr) {
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
-        ModelManager::MeshXFileFmt xdata;
-        std::string model_def_file = std::string(_model_id) + ".meshx";
-        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-        pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-        _draw_set_num = xdata.DrawSetNum;
+        ModelManager::ModelXFileFmt xdata;
+        obtainMetaModelInfo(&xdata);
         if (_draw_set_num != 1) {
             _TRACE_("SkinAniMeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は常に 1 です。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
             _draw_set_num = 1;
         }
-        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
 
         struct VERTEX_EX {
             float bone_combi_grp_index; //ボーンコンビネーションのグループのインデックス
@@ -185,7 +181,7 @@ void SkinAniMeshModel::restore() {
         };
 
         HRESULT hr;
-        std::string xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
+        std::string xfilepath = Model::getMeshXFilePath(xdata.XFileNames[0]);
         TextureManager* pTextureManager = pCARETAKER->_pModelManager->_pModelTextureManager;
         //Xファイルのファイルロード
         _pAllocHierarchy = NEW SkinAniMeshAllocHierarchy(); // CAllocHierarchyBaseの派生クラス
@@ -259,7 +255,6 @@ void SkinAniMeshModel::restore() {
                 _pa_texture_filenames[0] = CONFIG::WHITE_TEXTURE;
             }
         } //  if (!_paMaterial_default)
-
 
         //モデル保持用マテリアル、テクスチャ作成のため、もう一度回す
         _vec_bone_combi_grp_info.clear();

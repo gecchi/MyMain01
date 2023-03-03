@@ -1,8 +1,6 @@
 #include "jp/ggaf/lib/actor/laserchip/StraightLaserChip.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
-
-
 using namespace GgafLib;
 
 StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model) :

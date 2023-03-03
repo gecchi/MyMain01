@@ -113,10 +113,14 @@ public:
     /** [r/w] ゲーム空間でカメラからの最遠距離(zf)のに位置したアクターのSE発声ボリュームの減衰割合 */
     static double SE_VOLUME_RATE_MAX_DEPTH;
 
-    /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SKIN_XXX_MESH;
-    /** [r] 2Dスプライトモデルの定義ファイル(sprx)の格納ディレクトリ名 */
+    /** [r] 3Dモデルの定義ファイル(modelxファイル)の格納ディレクトリ名 */
     static std::string DIRNAME_RESOURCE_SKIN_XXX_MODEL;
+    /** [r] 3Dメッシュモ定義ファイル(Xファイル)の格納ディレクトリ名 */
+    static std::string DIRNAME_RESOURCE_SKIN_XXX_MESH;
+    /** [r] 3Dポイントスプライト定義ファイル(Xファイル)の格納ディレクトリ名 */
+    static std::string DIRNAME_RESOURCE_SKIN_XXX_POINT_SPRITE3D;
+    /** [r] 2Dスプライトモデルの定義ファイル(sprx)の格納ディレクトリ名 */
+    static std::string DIRNAME_RESOURCE_SKIN_XXX_SPRITE;
     /** [r] テクスチャファイルの格納ディレクトリ名 */
     static std::string DIRNAME_RESOURCE_SKIN_XXX_TEXTURE;
     /** [r] エフェクトファイル(fxファイル)の格納ディレクトリ名 */
@@ -145,11 +149,14 @@ public:
     static std::string COLI_SPHERE_MODEL;
     static std::string COLI_AABOARDRECT_MODEL;
     ////// 以下は、上記プロパティから生成される読み出し専用プロパティ ////////
-
-    /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:直下) */
-    static std::string DIR_MESH[3];
-    /** [r] アクターの定義ファイルの格納ディレクトリ(0:システム/1:ユーザー/2:直下) */
+    /** [r] 3Dモデル定義ファイル(modelxファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:直下) */
     static std::string DIR_MODEL[3];
+    /** [r] 3Dメッシュ定義ファイル(Xファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:直下) */
+    static std::string DIR_MESH[3];
+    /** [r] 3Dメッシュ定義ファイル(Xファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:直下) */
+    static std::string DIR_POINT_SPRITE3D[3];
+    /** [r] 2Dスプライト定義ファイル(sprxファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:直下) */
+    static std::string DIR_SPRITE[3];
     /** [r] テクスチャファイルの格納ディレクトリ(0:システム/1:ユーザー/2:直下) */
     static std::string DIR_TEXTURE[3];
     /** [r] エフェクトファイル(fxファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:直下) */

@@ -3,27 +3,30 @@
 #include "MyBunshinBase.h"
 #include "MyBunshinShot001.h"
 #include "MyBunshinSnipeShot001.h"
+#include "MyBunshinWateringLaserChip001.h"
+#include "MyBunshinStraightLaserChip001.h"
 
-#include "jp/gecchi/VioletVreath/Caretaker.h"
-#include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinWateringLaserChip001.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
-#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/Scaler.h"
-#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/model/Model.h"
-#include "jp/ggaf/lib/util/Quaternion.hpp"
+
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
+#include "jp/ggaf/lib/util/Quaternion.hpp"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Colorist.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
+#include "jp/gecchi/VioletVreath/actor/my/LockonCursor001_Main.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
+#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -42,6 +45,8 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
     _class_name = "MyBunshin";
     pBase_ = prm_pBase;
 
+    _laser_kind = LASER_KOANYA;
+
     //自弾ストック
     pDepo_MyBunshinShot_ = NEW GgafCore::ActorDepository("Depo_MyBunshinShot");
     for (int i = 0; i < 40; i++) {
@@ -57,15 +62,26 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
 //        pDepo_MySnipeBunshinShot_->put(NEW MyBunshinSnipeShot001(name.c_str()));
 //    }
 //    appendGroupChild(pDepo_MySnipeBunshinShot_);
-
     //レーザーストック
-    pLaserChipDepo_ = NEW LaserChipDepository("DepoBunshinLaser");
-    for (int i = 0; i < MAX_LASER_CHIP_NUM; i++) {
-        std::string name = std::string(getName()) + "'s LaserChip(" + XTOS(i) + ")";
-        pLaserChipDepo_->put(NEW MyBunshinWateringLaserChip001(name.c_str()));
+    if (_laser_kind == LASER_KOANYA) {
+        pLaserChipDepo_ = NEW LaserChipDepository("DepoBunshinLaser");
+        for (int i = 0; i < MAX_LASER_CHIP_NUM; i++) {
+            std::string name = std::string(getName()) + "'s LaserChip(" + XTOS(i) + ")";
+            pLaserChipDepo_->put(NEW MyBunshinWateringLaserChip001(name.c_str()));
+        }
+        pLaserChipDepo_->config(MAX_LASER_CHIP_NUM, MAX_LASER_CHIP_NUM/3);
+        appendGroupChild(pLaserChipDepo_);
+    } else if (_laser_kind == LASER_THUNDER) {
+        pLaserChipDepo_ = NEW LaserChipDepository("DepoBunshinLaser");
+        for (int i = 0; i < MAX_LASER_CHIP_NUM; i++) {
+            std::string name = std::string(getName()) + "'s LaserChip(" + XTOS(i) + ")";
+            MyBunshinStraightLaserChip001* pChip = NEW MyBunshinStraightLaserChip001(name.c_str());
+            pChip->setSource(this);
+            pLaserChipDepo_->put(pChip);
+        }
+        pLaserChipDepo_->config(MAX_LASER_CHIP_NUM, MAX_LASER_CHIP_NUM/3);
+        appendGroupChild(pLaserChipDepo_);
     }
-    pLaserChipDepo_->config(MAX_LASER_CHIP_NUM, MAX_LASER_CHIP_NUM/3);
-    appendGroupChild(pLaserChipDepo_);
 
     //ロックオンコントローラー
     pLockonCtrler_ = NEW MyLockonController("LockonController");
@@ -81,6 +97,10 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
     pSeTx->set(SE_FIRE_TORPEDO, "SE_MY_FIRE_TORPEDO_002");
 
     pass_p_seq_ = 0;
+    std::string name2 = std::string(prm_name) + "'s Geo2";
+    pGeo2_ = NEW GgafLib::DefaultGeometricActor(name2.c_str());
+    rz_local_copy_ = _rz_local;
+    _is_thunder_lock = false;
 }
 
 void MyBunshin::onCreateModel() {
@@ -108,13 +128,45 @@ void MyBunshin::onActive() {
 
 void MyBunshin::processBehavior() {
     changeGeoLocal(); //ローカル座標の操作とする。
-
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+
+    //ロックオン対象へ方向を向ける
+    _is_thunder_lock = false;
+    if (_laser_kind == LASER_THUNDER) {
+        //絶対座標系で通常のロックオン対象狙う方向ベクトル
+        GgafDx::GeometricActor* pTargetActor = pLockonCtrler_->pMainLockonEffect_->pTarget_;
+        if (pTargetActor) {
+            _is_thunder_lock = true;
+            int mvx = pTargetActor->_x - _x_final; //ここで自身の _x, _y, _z は絶対座標(_x_final)であることがポイント
+            int mvy = pTargetActor->_y - _y_final; //自機のやや上を狙う
+            int mvz = pTargetActor->_z - _z_final;
+            int tvx, tvy, tvz;
+            cnvDirectionWorldToLocal(mvx, mvy, mvz,
+                                     tvx, tvy, tvz);
+            //ロックオン対象方向向きシークエンス開始
+            angle rz_target, ry_target;
+            UTIL::convVectorToRzRy(tvx, tvy, tvz, rz_target, ry_target);
+            //計算の結果、rz_target ry_target に向けば、ロックオン対象に向ける
+            pVecVehicle->turnRzRyFaceAngTo(
+                            rz_target, ry_target,
+                            D_ANG(10), D_ANG(0),
+                            TURN_CLOSE_TO, false);
+        }
+
+        if (pLockonCtrler_->pMainLockonEffect_->hasJustReleaseLockon()) {
+            pVecVehicle->turnRzRyFaceAngTo(
+                            0, rz_local_copy_,
+                            D_ANG(10), D_ANG(0),
+                            TURN_CLOSE_TO, false);
+        }
+    }
 
     pVecVehicle->behave();
     getScaler()->behave();
     getAlphaFader()->behave();
     getColorist()->behave();
+
+
     changeGeoFinal();
 }
 
@@ -178,19 +230,30 @@ void MyBunshin::processChangeGeoFinal() {
                 }
             }
         }
-
-        //レーザー発射。
         if (pMyShip->is_shooting_laser_ && pVbPlay->isPressed(VB_SHOT1)) {
-            MyBunshinWateringLaserChip001* pLaserChip = (MyBunshinWateringLaserChip001*)pLaserChipDepo_->dispatch();
-            if (pLaserChip) {
-                pLaserChip->setOrg(this);
-                if (pLaserChip->getInfrontChip() == nullptr) {
-                    getSeTransmitter()->play3D(SE_FIRE_LASER);
+            if (_laser_kind == LASER_KOANYA) {
+                //レーザー発射。
+                MyBunshinWateringLaserChip001* pLaserChip = (MyBunshinWateringLaserChip001*)pLaserChipDepo_->dispatch();
+                if (pLaserChip) {
+                    pLaserChip->setOrg(this);
+                    if (pLaserChip->getInfrontChip() == nullptr) {
+                        getSeTransmitter()->play3D(SE_FIRE_LASER);
+                    }
+                }
+            } else if (_laser_kind == LASER_THUNDER) {
+                //TEST
+                MyBunshinStraightLaserChip001* pLaserChip = (MyBunshinStraightLaserChip001*)pLaserChipDepo_->dispatch();
+                if (pLaserChip) {
+                    pLaserChip->setOrg(this);
+                    if (pLaserChip->getInfrontChip() == nullptr) {
+                        getSeTransmitter()->play3D(SE_FIRE_LASER);
+                    }
                 }
             }
         } else {
             pLockonCtrler_->releaseAllLockon(); //ロックオン解除
         }
+
         //光子魚雷発射
         if (pVbPlay->isPushedDown(VB_SHOT2)) {
             if (pTorpedoCtrler_->fire()) {
@@ -280,19 +343,35 @@ void MyBunshin::slideMvRadiusPosition(coord prm_target_radius_pos, frame prm_spe
     if (!is_local) { changeGeoFinal(); }  //座標系を戻す
 }
 
-void MyBunshin::setExpanse(angvelo prm_ang_expanse) {
-    if (_is_local) {
-        _rz = UTIL::simplifyAng(prm_ang_expanse);
-    } else {
-        _rz_local = UTIL::simplifyAng(prm_ang_expanse);
-    }
-}
+//void MyBunshin::setExpanse(angvelo prm_ang_expanse) {
+//    if (_is_thunder_lock) {
+//        rz_local_copy_ = UTIL::simplifyAng(prm_ang_expanse);
+//    } else {
+//
+//        if (_is_local) {
+//            _rz = UTIL::simplifyAng(prm_ang_expanse);
+//        } else {
+//            _rz_local = UTIL::simplifyAng(prm_ang_expanse);
+//            rz_local_copy_ = _rz_local;
+//        }
+//    }
+//}
 
 void MyBunshin::addExpanse(angvelo prm_ang_expanse) {
-    if (_is_local) {
-        _rz = UTIL::simplifyAng(_rz+prm_ang_expanse);
+    if (_is_thunder_lock) {
+        rz_local_copy_ = UTIL::simplifyAng(rz_local_copy_+prm_ang_expanse);
     } else {
-        _rz_local = UTIL::simplifyAng(_rz_local+prm_ang_expanse);
+        if (_is_local) {
+            _rz = UTIL::simplifyAng(_rz+prm_ang_expanse);
+        } else {
+            GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+            if (pVecVehicle->isTurningFaceAng()) {
+                pVecVehicle->_target_face[AXIS_Z] = UTIL::simplifyAng(pVecVehicle->_target_face[AXIS_Z]+prm_ang_expanse);
+            } else {
+                _rz_local = UTIL::simplifyAng(_rz_local+prm_ang_expanse);
+            }
+            rz_local_copy_ = _rz_local;
+        }
     }
 }
 
@@ -301,13 +380,32 @@ angvelo MyBunshin::getExpanse() {
 }
 
 void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames) {
-    bool is_local = _is_local;
-    if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
-    getVecVehicle()->asstFaceAng()->turnRzByDtTo(prm_target_ang_expanse, TURN_CLOSE_TO,
-                                                    prm_spent_frames, 0.3, 0.5, 0, true);
-    if (!is_local) { changeGeoFinal(); }  //座標系を戻す
+    if (_is_thunder_lock) {
+        rz_local_copy_ = prm_target_ang_expanse;
+    } else {
+        bool is_local = _is_local;
+        if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
+        getVecVehicle()->asstFaceAng()->turnRzRyByDtTo(prm_target_ang_expanse, D_ANG(0), TURN_CLOSE_TO, true,
+                                                        prm_spent_frames, 0.3, 0.5, 0, true);
+        if (!is_local) { changeGeoFinal(); }  //座標系を戻す
+    }
 }
+//
+//bool MyBunshin::setFaceAngAsMainLockon() {
+//    bool is_local = _is_local;
+//    if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
+//    GgafDx::GeometricActor* pTargetActor = pLockonCtrler_->pMainLockonEffect_->pTarget_;
+//    bool r = false;
+//    if (pTargetActor) {
+//        r = true;
+//        setFaceAngAs(pTargetActor);
+//    }
+//    if (!is_local) { changeGeoFinal(); }  //座標系を戻す
+//    return r;
+//
+//}
 
 MyBunshin::~MyBunshin() {
+    GGAF_DELETE(pGeo2_);
 }
 

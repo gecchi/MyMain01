@@ -5,8 +5,6 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

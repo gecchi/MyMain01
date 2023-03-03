@@ -34,14 +34,17 @@ enum {
     PHASE_WAIT ,
     PHASE_BANPEI,
 };
-
+#define NN 500
 
 TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "TrialAndErrScene";
-    requestActor(2000, SmpActor2, "SmpActor2");
-    requestActor(3000, ItemBoardTest, "ItemBoardTest");
-    requestActor(4000, LabelMenuItemFont01, "LabelMenuItemFont01");
-    requestActor(5000, AniTest, "AniTest1-1");
+
+    for (int i = 0; i < NN; i++) {
+        requestActor(1000+i, SmpActor2, "SmpActor2");
+    }
+//    requestActor(3000, ItemBoardTest, "ItemBoardTest");
+//    requestActor(4000, LabelMenuItemFont01, "LabelMenuItemFont01");
+//    requestActor(5000, AniTest, "AniTest1-1");
 }
 
 
@@ -51,35 +54,40 @@ void TrialAndErrScene::initialize() {
 }
 
 void TrialAndErrScene::processBehavior() {
-    static SmpActor2* pSmpActor2 = nullptr;
-    static ItemBoardTest* pItemBoardTest = nullptr;
-    static LabelMenuItemFont01* pLabelMenuItemFont01 = nullptr;
+//    static ItemBoardTest* pItemBoardTest = nullptr;
+//    static LabelMenuItemFont01* pLabelMenuItemFont01 = nullptr;
 
-    static AniTest* p1 = nullptr;
+//    static AniTest* p1 = nullptr;
 
-
+    static SmpActor2* aA[NN];
 
     if (hasJustChangedToActive()) {
-        p1 = (AniTest*)receiveActor(5000);
-        bringSceneMediator()->appendGroupChild(p1);
+//        p1 = (AniTest*)receiveActor(5000);
+//        bringSceneMediator()->appendGroupChild(p1);
 
-        pSmpActor2 = (SmpActor2*)receiveActor(2000);
-        bringSceneMediator()->appendGroupChild(MGR_MIKATA, pSmpActor2);
-        pSmpActor2->setPosition(0, 0, 0);
+        for (int i = 0; i < NN; i++) {
+            aA[i] = (SmpActor2*)receiveActor(1000+i);
+            bringSceneMediator()->appendGroupChild(MGR_MIKATA, aA[i]);
+            aA[i]->setPosition(PX_C(-200) + PX_C(i), 0, 0);
+        }
 
 
-        pItemBoardTest = (ItemBoardTest*)receiveActor(3000);
-        bringSceneMediator()->appendGroupChild(MGR_MIKATA, pItemBoardTest);
-        pItemBoardTest->setPosition(PX_C(100), PX_C(200));
-
-        pLabelMenuItemFont01 = (LabelMenuItemFont01*)receiveActor(4000);
-        pLabelMenuItemFont01->update("AAAAAA\r\nBBBBBBB");
-        pLabelMenuItemFont01->getViewCollisionChecker()->addCollisionArea(1);
-        pLabelMenuItemFont01->getViewCollisionChecker()->setColliAABox(0, 0.8);
-        pLabelMenuItemFont01->setHitAble(true);
-        bringSceneMediator()->appendGroupChild(MGR_MIKATA, pLabelMenuItemFont01);
-        pLabelMenuItemFont01->setPosition(PX_C(300), PX_C(250));
+//        pItemBoardTest = (ItemBoardTest*)receiveActor(3000);
+//        bringSceneMediator()->appendGroupChild(MGR_MIKATA, pItemBoardTest);
+//        pItemBoardTest->setPosition(PX_C(100), PX_C(200));
+//
+//        pLabelMenuItemFont01 = (LabelMenuItemFont01*)receiveActor(4000);
+//        pLabelMenuItemFont01->update("AAAAAA\r\nBBBBBBB");
+//        pLabelMenuItemFont01->getViewCollisionChecker()->addCollisionArea(1);
+//        pLabelMenuItemFont01->getViewCollisionChecker()->setColliAABox(0, 0.8);
+//        pLabelMenuItemFont01->setHitAble(true);
+//        bringSceneMediator()->appendGroupChild(MGR_MIKATA, pLabelMenuItemFont01);
+//        pLabelMenuItemFont01->setPosition(PX_C(300), PX_C(250));
     }
+    if (GgafDx::Input::isPressedKey(DIK_C)) {
+         aA[0]->changeModel(1);
+    }
+
 }
 
 TrialAndErrScene::~TrialAndErrScene() {

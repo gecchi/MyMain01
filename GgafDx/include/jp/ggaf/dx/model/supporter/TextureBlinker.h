@@ -21,7 +21,7 @@ class TextureBlinker : public GgafCore::TransitionValueSet<float, 1 > {
 
 public:
     /** 対象アクター */
-    Model* const _pModel;
+    Model* _pModel;
 
 public:
     /**

@@ -25,7 +25,7 @@ public:
 
 
     GgafDx::GeometricActor* pTarget_;
-
+    GgafDx::GeometricActor* pTarget_prev_;
 public:
     LockonCursor001(const char* prm_name, const char* prm_model);
 
@@ -44,6 +44,23 @@ public:
     virtual void releaseLockon() = 0;
 
     virtual void lockon(GgafDx::GeometricActor* prm_pTarget) = 0;
+
+
+    bool hasJustLockon() {
+        if (pTarget_prev_ != pTarget_ && pTarget_ != nullptr) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    bool hasJustReleaseLockon() {
+        if (pTarget_prev_ && pTarget_ == nullptr) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     virtual ~LockonCursor001();
 

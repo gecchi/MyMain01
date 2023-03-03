@@ -9,9 +9,8 @@ namespace GgafDx {
 
 /**
  * アクターを乗せる力車 .
- * GeometricActor のメンバの<BR>
- * _x, _y, _z  ・・・ アクターの座標<BR>
- * を、各成分毎に簡単に操作するために作成。<BR>
+ * 分身光牙レーザーのホーミング計算を、汎用的に切り出し。<BR>
+ * setAcceByVc() がやりたかった事<BR>
  * @version 1.00
  * @since 2022/05/09
  * @author Masatoshi Tsuge

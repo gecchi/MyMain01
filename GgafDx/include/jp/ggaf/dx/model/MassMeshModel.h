@@ -38,6 +38,8 @@ public:
 
     virtual void restore() override;
 
+
+    void addAnotherModel(const char* prm_model_id);
     /**
      * デストラクタ<BR>
      */

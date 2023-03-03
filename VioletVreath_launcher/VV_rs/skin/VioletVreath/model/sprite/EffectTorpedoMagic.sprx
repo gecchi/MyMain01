@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef EffectTorpedoMagic {
+  128.0;            # FLOAT  Width
+  128.0;            # FLOAT  Height
+  "LockOn001.png";  # STRING TextureFile
+  2;                # DWORD  TextureSplitRows
+  2;                # DWORD  TextureSplitCols
+}
+

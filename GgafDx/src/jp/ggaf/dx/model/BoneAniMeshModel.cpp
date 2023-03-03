@@ -167,22 +167,14 @@ void BoneAniMeshModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data == nullptr) {
         HRESULT hr;
-
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
-        ModelManager::MeshXFileFmt xdata;
-        std::string model_def_file = std::string(_model_id) + ".meshx";
-        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-        pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-        _draw_set_num = xdata.DrawSetNum;
+        ModelManager::ModelXFileFmt xdata;
+        obtainMetaModelInfo(&xdata);
         if (_draw_set_num != 1) {
             _TRACE_("BoneAniMeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は常に 1 です。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
             _draw_set_num = 1;
         }
-        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
-
-//        std::string xfile_name = Model::getXFilePath(_model_id);
-        std::string xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
-        TextureManager* pTextureManager = pCARETAKER->_pModelManager->_pModelTextureManager;
+        std::string xfilepath = Model::getMeshXFilePath(xdata.XFileNames[0]);
         //AnimTicksPerSecondを独自に取り出す。デフォルトは4800
         _anim_ticks_per_second = BoneAniMeshModel::getAnimTicksPerSecond(xfilepath);
         if (_anim_ticks_per_second < 0) {

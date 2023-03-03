@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef moji {
+  16.0;
+  16.0;
+  "ANONYMOUS_KAI.png";
+  8;
+  8;
+}
+

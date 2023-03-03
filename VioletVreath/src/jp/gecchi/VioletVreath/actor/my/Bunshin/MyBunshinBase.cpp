@@ -3,6 +3,8 @@
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshin.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
+#include "jp/gecchi/VioletVreath/actor/my/LockonCursor001_Main.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
@@ -14,11 +16,8 @@
 #include "jp/ggaf/lib/util/Quaternion.hpp"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 const frame MyBunshinBase::BUNSHIN_D = 16;                  //トレース時の分身と分身の間隔
 const angvelo MyBunshinBase::ANGVELO_TURN = D_ANG(2.7);     //分身の向きの角速度
@@ -76,6 +75,7 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_bunshin_no) 
     c_ax_x_ = 0.0f;
     c_ax_y_ = 0.0f;
     c_ax_z_ = 0.0f;
+
 }
 
 void MyBunshinBase::config(
@@ -259,11 +259,11 @@ void MyBunshinBase::processBehavior() {
                 const double sinRz = ANG_SIN(_rz);
                 const double cosRz = ANG_COS(_rz);
                 pAxisVehicle->setVeloXYZ( (cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
-                                         (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
-                                         (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
+                                          (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
+                                          (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
             } else if (pPhase->getFrame() > 3*(bunshin_no_-1)) { //ばらつかせ
                 pAxisVehicle->setAcceXYZ( (tx - (_x + pAxisVehicle->_velo_x*6)),
-                                         (ty - (_y + pAxisVehicle->_velo_y*6)),
+                                          (ty - (_y + pAxisVehicle->_velo_y*6)),
                                          (tz - (_z + pAxisVehicle->_velo_z*6)) );
             }
             if (ABS(_x - tx) < 10000 &&
@@ -432,6 +432,7 @@ void MyBunshinBase::processBehavior() {
             }
         }
     }
+
     pVecVehicle->behave();
     pAxisVehicle->behave();
 }
@@ -483,7 +484,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
         //後はreturn_default_pos_frames_ が0になるまで
         //trace_mode_ = TRACE_TWINBEE;
         //が行われる
-        pPhase->change(PHASE_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS); //分身元に戻る
+        pPhase->change(PHASE_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS); //分身の位置が元に戻るフェーズへ移行
     } else {
         //VB_OPTION ダブルプッシュ、VB_TURBOを押していないと、
         //チョットリセット

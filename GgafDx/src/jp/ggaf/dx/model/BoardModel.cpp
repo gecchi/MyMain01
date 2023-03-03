@@ -114,23 +114,19 @@ void BoardModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVertexBuffer_data == nullptr) {
         _papTextureConnection = nullptr;
-
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
-        std::string model_def_file = std::string(_model_id) + ".sprx";
-        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-        if (model_def_filepath == "") {
-            throwCriticalException("BoardModel::restore() "+model_def_file+" が見つかりません");
-        }
-        ModelManager::SpriteXFileFmt xdata;
-        pModelManager->obtainSpriteModelInfo(&xdata, model_def_filepath);
+        ModelManager::ModelXFileFmt xdata;
+        obtainMetaModelInfo(&xdata);
+        std::string sprx_filepath = Model::getSpriteXFilePath(xdata.XFileNames[0]);
+        ModelManager::SpriteXFileFmt xdata_spr;
+        pModelManager->obtainSpriteModelInfo(&xdata_spr, sprx_filepath);
 
-        _model_width_px  = xdata.Width;
-        _model_height_px = xdata.Height;
-        _row_texture_split = xdata.TextureSplitRows;
-        _col_texture_split = xdata.TextureSplitCols;
+        _model_width_px  = xdata_spr.Width;
+        _model_height_px = xdata_spr.Height;
+        _row_texture_split = xdata_spr.TextureSplitRows;
+        _col_texture_split = xdata_spr.TextureSplitCols;
         _pa_texture_filenames = NEW std::string[1];
-        _pa_texture_filenames[0] = std::string(xdata.TextureFile);
-        _draw_set_num = xdata.DrawSetNum;
+        _pa_texture_filenames[0] = std::string(xdata_spr.TextureFile);
         if (_draw_set_num != 1) {
             _TRACE_("BoardModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
             _draw_set_num = 1;
@@ -151,23 +147,23 @@ void BoardModel::restore() {
         _paVertexBuffer_data[0].tu = (float)du;
         _paVertexBuffer_data[0].tv = (float)dv;
         //右上
-        _paVertexBuffer_data[1].x = xdata.Width;
+        _paVertexBuffer_data[1].x = xdata_spr.Width;
         _paVertexBuffer_data[1].y = 0.0f;
         _paVertexBuffer_data[1].z = 0.0f;
-        _paVertexBuffer_data[1].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
+        _paVertexBuffer_data[1].tu = (float)((1.0 / xdata_spr.TextureSplitCols) - du);
         _paVertexBuffer_data[1].tv = (float)dv;
         //左下
         _paVertexBuffer_data[2].x = 0.0f;
-        _paVertexBuffer_data[2].y = xdata.Height;
+        _paVertexBuffer_data[2].y = xdata_spr.Height;
         _paVertexBuffer_data[2].z = 0.0f;
         _paVertexBuffer_data[2].tu = (float)du;
-        _paVertexBuffer_data[2].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
+        _paVertexBuffer_data[2].tv = (float)((1.0 / xdata_spr.TextureSplitRows) - dv);
         //右下
-        _paVertexBuffer_data[3].x = xdata.Width;
-        _paVertexBuffer_data[3].y = xdata.Height;
+        _paVertexBuffer_data[3].x = xdata_spr.Width;
+        _paVertexBuffer_data[3].y = xdata_spr.Height;
         _paVertexBuffer_data[3].z = 0.0f;
-        _paVertexBuffer_data[3].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
-        _paVertexBuffer_data[3].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
+        _paVertexBuffer_data[3].tu = (float)((1.0 / xdata_spr.TextureSplitCols) - du);
+        _paVertexBuffer_data[3].tv = (float)((1.0 / xdata_spr.TextureSplitRows) - dv);
 
         transformPosVtx(_paVertexBuffer_data, _size_vertex_unit, _nVertices);
 

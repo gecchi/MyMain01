@@ -12,7 +12,6 @@
 #include "jp/ggaf/dx/model/MassModel.h"
 #include "jp/ggaf/dx/texture/Texture.h"
 
-
 using namespace GgafDx;
 
 DWORD RegularPolygonBoardModel::FVF = (D3DFVF_XYZ | D3DFVF_TEX1);
@@ -129,23 +128,24 @@ void RegularPolygonBoardModel::restore() {
     if (_paVertexBuffer_data == nullptr) {
         _papTextureConnection = nullptr;
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
-        std::string model_def_file = std::string(_model_id) + ".rsprx";
-        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-        if (model_def_filepath == "") {
-            throwCriticalException("RegularPolygonBoardModel::restore() "+model_def_file+" が見つかりません");
+        ModelManager::ModelXFileFmt xdata;
+        obtainMetaModelInfo(&xdata);
+        if (_draw_set_num != 1) {
+            _TRACE_("RegularPolygonBoardModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
+            _draw_set_num = 1;
         }
-        ModelManager::RegPolySpriteXFileFmt xdata;
-        pModelManager->obtainRegPolySpriteModelInfo(&xdata, model_def_filepath);
+        std::string rsprx_filepath = Model::getSpriteXFilePath(xdata.XFileNames[0]);
+        ModelManager::RegPolySpriteXFileFmt xdata_rspr;
+        pModelManager->obtainRegPolySpriteModelInfo(&xdata_rspr, rsprx_filepath);
 
-        _angle_num = xdata.FanNum;
-        _drawing_order = xdata.IsCW;
-        _model_width_px  = xdata.Width;
-        _model_height_px = xdata.Height;
-        _row_texture_split = xdata.TextureSplitRows;
-        _col_texture_split = xdata.TextureSplitCols;
+        _angle_num = xdata_rspr.FanNum;
+        _drawing_order = xdata_rspr.IsCW;
+        _model_width_px  = xdata_rspr.Width;
+        _model_height_px = xdata_rspr.Height;
+        _row_texture_split = xdata_rspr.TextureSplitRows;
+        _col_texture_split = xdata_rspr.TextureSplitCols;
         _pa_texture_filenames = NEW std::string[1];
-        _pa_texture_filenames[0] = std::string(xdata.TextureFile);
-        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
+        _pa_texture_filenames[0] = std::string(xdata_rspr.TextureFile);
 
         _paVertexBuffer_data = NEW RegularPolygonBoardModel::VERTEX[_angle_num+2];
         _size_vertices = sizeof(RegularPolygonBoardModel::VERTEX)*(_angle_num+2);

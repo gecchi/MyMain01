@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef GECCHI_32FONT {
+  32.0;
+  32.0;
+  "GECCHI_32FONT.png";
+  8;
+  8;
+}
+

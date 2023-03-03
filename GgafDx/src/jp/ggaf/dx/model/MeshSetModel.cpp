@@ -179,21 +179,15 @@ void MeshSetModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data == nullptr) {
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
-        ModelManager::MeshXFileFmt xdata;
-        std::string model_def_file = std::string(_model_id) + ".meshx";
-        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-        pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
-        _draw_set_num = xdata.DrawSetNum;
+        ModelManager::ModelXFileFmt xdata;
+        obtainMetaModelInfo(&xdata);
         if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
             _TRACE_("MeshSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
             _draw_set_num = _max_draw_set_num;
         } else {
             _TRACE_("MeshSetModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }
-
-        std::string xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
-
+        std::string xfilepath = Model::getMeshXFilePath(xdata.XFileNames[0]);
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X iox;
 

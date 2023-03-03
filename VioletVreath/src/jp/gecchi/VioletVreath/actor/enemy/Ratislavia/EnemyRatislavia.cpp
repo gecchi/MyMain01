@@ -119,7 +119,7 @@ void EnemyRatislavia::processBehavior() {
                 GgafDx::FigureActor* pE;
                 WorldCollisionChecker* pChecker = getWorldCollisionChecker();
                 for (int j = 0; j < colli_part_num_; j++) {
-                    pPart = pChecker->getActiveCollisionArea()->getPart(j);
+                    pPart = pChecker->getCollisionArea()->getPart(j);
                     pE = CommonScene_dispatchDelay(EffectExplosion004, RND(1,10));
                     if (pE) {
                         pE->setPosition(_x + pPart->_cx + RND(-r2_, +r2_),
@@ -137,7 +137,7 @@ void EnemyRatislavia::processBehavior() {
                 GgafDx::FigureActor* pE;
                 WorldCollisionChecker* pChecker = getWorldCollisionChecker();
                 for (int j = 0; j < colli_part_num_; j++) {
-                    pPart = pChecker->getActiveCollisionArea()->getPart(j);
+                    pPart = pChecker->getCollisionArea()->getPart(j);
                     pE = CommonScene_dispatch(EffectExplosion004);
                     if (pE) {
                         pE->setPosition(_x + pPart->_cx,

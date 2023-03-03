@@ -16,6 +16,8 @@ DECLARE_EVENT_VAL(EVENT_MyBunshin_ChangeGeoFinal);
 #define MAX_LASER_CHIP_NUM (85)
 #define MAX_AIM_INFO_NUM (MAX_LASER_CHIP_NUM / 2)
 
+#define LASER_KOANYA 0
+#define LASER_THUNDER 1
 //class MyBunshin : public GgafLib::DefaultMorphMeshActor {
 class MyBunshin : public VvEffectActor<GgafLib::DefaultMeshSetActor> {
 
@@ -31,6 +33,12 @@ public:
     MyLockonController* pLockonCtrler_;
     /** [r]魚雷コントローラー */
     MyTorpedoController* pTorpedoCtrler_;
+
+    int _laser_kind;
+
+    angle rz_local_copy_;
+    bool _is_thunder_lock;
+    GgafLib::DefaultGeometricActor* pGeo2_;
 public:
     struct AimInfo {
         MyBunshinWateringLaserChip001* pLeaderChip;
@@ -116,10 +124,12 @@ public:
 
     void slideMvRadiusPosition(coord prm_target_radius_pos, frame prm_spent_frames);
 
-    void setExpanse(angvelo prm_ang_expanse);
+//    void setExpanse(angvelo prm_ang_expanse);
     void addExpanse(angvelo prm_ang_expanse);
     angvelo getExpanse();
     void turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames);
+
+//    bool setFaceAngAsMainLockon();
 };
 
 }

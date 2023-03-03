@@ -68,5 +68,15 @@ void CubeMapMeshSetActor::processDraw() {
     _pNextRenderActor = pDrawActor;
 }
 
+MeshSetModel* CubeMapMeshSetActor::addModel(const char* prm_model) {
+    Model* pModel = FigureActor::addModel(TYPE_CUBEMAPMESHSET_MODEL, prm_model);
+    return (MeshSetModel*)pModel;
+}
+
+void CubeMapMeshSetActor::changeModel(int prm_model_index) {
+    MeshSetActor::changeModel(prm_model_index);
+    _pCubeMapMeshSetModel = (CubeMapMeshSetModel*)_pModel;
+}
+
 CubeMapMeshSetActor::~CubeMapMeshSetActor() {
 }

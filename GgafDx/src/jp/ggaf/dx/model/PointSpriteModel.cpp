@@ -121,30 +121,25 @@ void PointSpriteModel::restore() {
     if (_paVtxBuffer_data == nullptr) {
 
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
-        std::string model_def_file = std::string(_model_id) + ".psprx";
-        _TRACE_("model_def_file="<<model_def_file);
-        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-        if (model_def_filepath == "") {
-            throwCriticalException("PointSpriteModel::restore() "+model_def_file+" が見つかりません");
-        }
-        ModelManager::PointSpriteXFileFmt xdata;
-        pModelManager->obtainPointSpriteModelInfo(&xdata, model_def_filepath);
-        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
-        _draw_set_num = xdata.DrawSetNum;
+        ModelManager::ModelXFileFmt xdata;
+        obtainMetaModelInfo(&xdata);
+        std::string psprx_filepath = Model::getPointSpriteXFilePath(xdata.XFileNames[0]);
+        ModelManager::PointSpriteXFileFmt xdata_pspr;
+        pModelManager->obtainPointSpriteModelInfo(&xdata_pspr, psprx_filepath);
         if (_draw_set_num != 1) {
             _TRACE_("PointSpriteModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
             _draw_set_num = 1;
         }
         //退避
-        float square_size_px = xdata.SquareSize;
-        int texture_split_rowcol = xdata.TextureSplitRowCol;
-        int vertices_num = xdata.VerticesNum;
+        float square_size_px = xdata_pspr.SquareSize;
+        int texture_split_rowcol = xdata_pspr.TextureSplitRowCol;
+        int vertices_num = xdata_pspr.VerticesNum;
         _TRACE3_("vertices_num="<<vertices_num);
         UINT size_vertices = sizeof(PointSpriteModel::VERTEX)*vertices_num;
         UINT size_vertex_unit = sizeof(PointSpriteModel::VERTEX);
 
         _pa_texture_filenames = NEW std::string[1];
-        _pa_texture_filenames[0] = std::string(xdata.TextureFile);
+        _pa_texture_filenames[0] = std::string(xdata_pspr.TextureFile);
         if (_papTextureConnection == nullptr) {
             //テクスチャ取得しモデルに保持させる
             _papTextureConnection = NEW TextureConnection*[1];
@@ -161,16 +156,16 @@ void PointSpriteModel::restore() {
         PointSpriteModel::VERTEX* paVtxBuffer_data = NEW PointSpriteModel::VERTEX[vertices_num];
 
         for (int i = 0; i < vertices_num; i++) {
-            paVtxBuffer_data[i].x = xdata.paD3DVECTOR_Vertices[i].x;
-            paVtxBuffer_data[i].y = xdata.paD3DVECTOR_Vertices[i].y;
-            paVtxBuffer_data[i].z = xdata.paD3DVECTOR_Vertices[i].z;
-            paVtxBuffer_data[i].psize = (square_size_px*texture_split_rowcol / tex_width) * xdata.paFLOAT_InitScale[i]; //PSIZEにはピクセルサイズではなく倍率を埋め込む。
+            paVtxBuffer_data[i].x = xdata_pspr.paD3DVECTOR_Vertices[i].x;
+            paVtxBuffer_data[i].y = xdata_pspr.paD3DVECTOR_Vertices[i].y;
+            paVtxBuffer_data[i].z = xdata_pspr.paD3DVECTOR_Vertices[i].z;
+            paVtxBuffer_data[i].psize = (square_size_px*texture_split_rowcol / tex_width) * xdata_pspr.paFLOAT_InitScale[i]; //PSIZEにはピクセルサイズではなく倍率を埋め込む。
                                                                                                     //シェーダーで拡大縮小ピクセルを計算
-            paVtxBuffer_data[i].color = D3DCOLOR_COLORVALUE(xdata.paD3DVECTOR_VertexColors[i].r,
-                                                            xdata.paD3DVECTOR_VertexColors[i].g,
-                                                            xdata.paD3DVECTOR_VertexColors[i].b,
-                                                            xdata.paD3DVECTOR_VertexColors[i].a );
-            paVtxBuffer_data[i].tu = (float)(xdata.paInt_InitUvPtnNo[i]);
+            paVtxBuffer_data[i].color = D3DCOLOR_COLORVALUE(xdata_pspr.paD3DVECTOR_VertexColors[i].r,
+                                                            xdata_pspr.paD3DVECTOR_VertexColors[i].g,
+                                                            xdata_pspr.paD3DVECTOR_VertexColors[i].b,
+                                                            xdata_pspr.paD3DVECTOR_VertexColors[i].a );
+            paVtxBuffer_data[i].tu = (float)(xdata_pspr.paInt_InitUvPtnNo[i]);
             paVtxBuffer_data[i].tv = 0;
 
 

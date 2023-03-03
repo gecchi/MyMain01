@@ -62,7 +62,7 @@ void EnemyGlajaLance001::onActive() {
     pVecVehicle->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(20), D_ANG(15));
     pVecVehicle->linkFaceAngByMvAng(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->changeActiveCollisionArea(0);
+    pChecker->changeCollisionArea(0);
 //    pChecker->disable(1);
 //    pChecker->disable(2);
     setScale(R_SC(1));
@@ -107,7 +107,7 @@ void EnemyGlajaLance001::processBehavior() {
             if (!pScaler->isTransitioning()) {
                 //‘„‚Ì—¼’[“–‚½‚è”»’èoŒ»
                 WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-                pChecker->changeActiveCollisionArea(1);
+                pChecker->changeCollisionArea(1);
 //                pChecker->enable(1);
 //                pChecker->enable(2);
                 pPhase->changeNext();

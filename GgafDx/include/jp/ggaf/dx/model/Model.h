@@ -3,8 +3,10 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
+
 #include "jp/ggaf/dx/util/XFile/framework/Frm_Mesh.h"
 #include "jp/ggaf/dx/util/XFile/ToolBox/IOModel_X.h"
+#include "jp/ggaf/dx/manager/ModelManager.h"
 
 #include <d3d9.h>
 #include <d3dx9.h>
@@ -12,7 +14,6 @@
     #undef __in
     #undef __out
 #endif
-
 //#define Obj_GgafDx_DynaD3DXMeshModel      (0x1U)          //0b 00000000 00000000 00000000 00000001
 #define Obj_GgafDx_D3DXAniMeshModel            (0x2U)            //0b 00000000 00000000 00000000 00000010
 #define Obj_GgafDx_D3DXMeshModel               (0x4U)            //0b 00000000 00000000 00000000 00000100
@@ -69,7 +70,8 @@ public:
     int _max_draw_set_num;
     /** [r]モデル定義の識別名。(50文字まで) */
     char* _model_id;
-
+    /** [r]モデルタイプ(TYPE_XXXX_MODEL) */
+    char  _model_type;
 
     /** [r]マテリアル配列 */
     D3DMATERIAL9* _paMaterial_default;
@@ -113,9 +115,10 @@ public:
 public:
     /**
      * コンストラクタ<BR>
-     * @param prm_model_id モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
+     * @param prm_model_type
+     * @param prm_model_id
      */
-    explicit Model(const char* prm_model_id);
+    Model(const char* prm_model_id);
 
     char* getName() {
         return _model_id;
@@ -275,8 +278,14 @@ public:
     virtual void onDeviceLost() = 0;
 
 
-    static std::string getXFilePath(std::string prm_xfile);
-    static std::string getModelDefineFilePath(std::string prm_model_name);
+    static std::string getMeshXFilePath(std::string prm_xfile);
+    static std::string getPointSpriteXFilePath(std::string prm_xfile);
+    static std::string getSpriteXFilePath(std::string prm_sprxfile);
+
+    static std::string getMetaModelInfoPath(std::string prm_modelfile);
+    virtual bool obtainMetaModelInfo(ModelManager::ModelXFileFmt* prm_pModelDefineXFileFmt_out);
+
+
     /**
      * デストラクタ<BR>
      * deleteするのはModelManagerである<BR>

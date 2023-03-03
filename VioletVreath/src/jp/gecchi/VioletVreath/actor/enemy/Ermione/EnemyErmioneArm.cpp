@@ -68,24 +68,6 @@ void EnemyErmioneArm::processBehavior() {
         case PHASE_AIMING: {
             if (pPhase->hasJustChanged() ) {
                 if (aiming_movable_limit_ang_ > 0) {
-                    //自機へ方向を向ける
-                    //考え方：ローカル座標系で予めどの方向に向いておけば、最終的に自機に向くことになるかを求める
-                    //
-                    //自機への向くための変換前状態で、
-                    //ローカル座標で「向いておけばいいのではないか」の方向のベクトルを(tvx, tvy, tvz) とおき、
-                    //「土台まで」の行列の積（_pActor_base->_matWorldRotMv) を b_mat_xx とする。
-                    //現在の最終座標から自機への向きのベクトルを、(mvx, mvy, mvz) とすると、
-                    //
-                    // | b_mat_11 b_mat_12 b_mat_13 | |tvx|   |mvx|
-                    // | b_mat_21 b_mat_22 b_mat_23 | |tvy| = |mvy|
-                    // | b_mat_31 b_mat_32 b_mat_33 | |tvz|   |mvz|
-                    //
-                    //となるはずだ。(tvx, tvy, tvz)について解く。逆行列を掛けて求めれば良い。
-                    //
-                    // |tvx|   | b_mat_11 b_mat_12 b_mat_13 | -1  |mvx|
-                    // |tvy| = | b_mat_21 b_mat_22 b_mat_23 |     |mvy|
-                    // |tvz|   | b_mat_31 b_mat_32 b_mat_33 |     |mvz|
-                    //
                     //mvx mvy mvz は、自機への方向ベクトルである
                     int mvx,mvy,mvz;
                     if (RND(1, 1000) < 960 || arm_part_no_ >= 9) {
@@ -101,12 +83,10 @@ void EnemyErmioneArm::processBehavior() {
                         mvy = _y_final - pTargetActor->_y;
                         mvz = _z_final - pTargetActor->_z;
                     }
-                    //逆行列取得
-                    D3DXMATRIX* pBaseInvMatRM = getBaseActor()->getInvMatWorldRotMv();
                     //ローカル座標でのターゲットとなる方向ベクトル計算
-                    int tvx = mvx*pBaseInvMatRM->_11 + mvy*pBaseInvMatRM->_21 + mvz*pBaseInvMatRM->_31;
-                    int tvy = mvx*pBaseInvMatRM->_12 + mvy*pBaseInvMatRM->_22 + mvz*pBaseInvMatRM->_32;
-                    int tvz = mvx*pBaseInvMatRM->_13 + mvy*pBaseInvMatRM->_23 + mvz*pBaseInvMatRM->_33;
+                    int tvx, tvy, tvz;
+                    cnvDirectionWorldToLocal(mvx, mvy, mvz,
+                                             tvx, tvy, tvz);
                     //自動方向向きシークエンス開始
                     angle rz_target, ry_target;
                     UTIL::convVectorToRzRy(tvx, tvy, tvz, rz_target, ry_target);
@@ -123,7 +103,6 @@ void EnemyErmioneArm::processBehavior() {
                     } else if (D180ANG <= ry_target && ry_target <= D360ANG - aiming_movable_limit_ang_) {
                         ry_target = D360ANG - aiming_movable_limit_ang_;
                     }
-
                     pVecVehicle->turnRzRyFaceAngTo(
                                     rz_target, ry_target,
                                     aiming_ang_velo_, aiming_ang_velo_*0.01,

@@ -85,23 +85,38 @@ int Config::MAX_SE_AT_ONCE = 16;
 int Config::SE_DELAY_MSEC_MAX_DEPTH = 3000;
 double Config::SE_VOLUME_RATE_MAX_DEPTH=0.2;
 
-std::string Config::DIRNAME_RESOURCE_SKIN_XXX_MESH = "mesh";
 std::string Config::DIRNAME_RESOURCE_SKIN_XXX_MODEL = "model";
+std::string Config::DIRNAME_RESOURCE_SKIN_XXX_MESH = "mesh";
+std::string Config::DIRNAME_RESOURCE_SKIN_XXX_POINT_SPRITE3D = "psprite3d";
+std::string Config::DIRNAME_RESOURCE_SKIN_XXX_SPRITE = "sprite";
 std::string Config::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE = "texture";
 std::string Config::DIRNAME_RESOURCE_SKIN_XXX_EFFECT = "effect";
 std::string Config::DIRNAME_RESOURCE_SKIN_XXX_BGM = "bgm";
 std::string Config::DIRNAME_RESOURCE_SKIN_XXX_SE = "se";
 
-std::string Config::DIR_MESH[] = {
-                GgafCore::Config::DIR_SKIN_KIND[0] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_MESH,
-                GgafCore::Config::DIR_SKIN_KIND[1] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_MESH,
-                GgafCore::Config::DIR_SKIN_KIND[2] + "/"
-            };
 std::string Config::DIR_MODEL[] = {
                 GgafCore::Config::DIR_SKIN_KIND[0] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_MODEL + "/",
                 GgafCore::Config::DIR_SKIN_KIND[1] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_MODEL + "/",
                 GgafCore::Config::DIR_SKIN_KIND[2] + "/"
             };
+
+std::string Config::DIR_MESH[] = {
+                Config::DIR_MODEL[0] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/",
+                Config::DIR_MODEL[1] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/",
+                Config::DIR_MODEL[2] + "/"
+            };
+std::string Config::DIR_POINT_SPRITE3D[] = {
+                Config::DIR_MODEL[0] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_POINT_SPRITE3D + "/",
+                Config::DIR_MODEL[1] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_POINT_SPRITE3D + "/",
+                Config::DIR_MODEL[2] + "/"
+            };
+
+std::string Config::DIR_SPRITE[] = {
+                Config::DIR_MODEL[0] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_SPRITE + "/",
+                Config::DIR_MODEL[1] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_SPRITE + "/",
+                Config::DIR_MODEL[2] + "/"
+            };
+
 std::string Config::DIR_TEXTURE[] = {
                 GgafCore::Config::DIR_SKIN_KIND[0] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/",
                 GgafCore::Config::DIR_SKIN_KIND[1] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/",
@@ -344,11 +359,14 @@ void Config::loadProperties(std::string prm_properties_filename) {
     if (GgafCore::Config::_properties.isExistKey("SE_VOLUME_RATE_MAX_DEPTH")) {
         Config::SE_VOLUME_RATE_MAX_DEPTH = GgafCore::Config::_properties.getDouble("SE_VOLUME_RATE_MAX_DEPTH");
     }
+    if (GgafCore::Config::_properties.isExistKey("DIRNAME_RESOURCE_SKIN_XXX_MODEL")) {
+        Config::DIRNAME_RESOURCE_SKIN_XXX_MODEL = GgafCore::Config::_properties.getStr("DIRNAME_RESOURCE_SKIN_XXX_MODEL");
+    }
     if (GgafCore::Config::_properties.isExistKey("DIRNAME_RESOURCE_SKIN_XXX_MESH")) {
         Config::DIRNAME_RESOURCE_SKIN_XXX_MESH = GgafCore::Config::_properties.getStr("DIRNAME_RESOURCE_SKIN_XXX_MESH");
     }
-    if (GgafCore::Config::_properties.isExistKey("DIRNAME_RESOURCE_SKIN_XXX_MODEL")) {
-        Config::DIRNAME_RESOURCE_SKIN_XXX_MODEL = GgafCore::Config::_properties.getStr("DIRNAME_RESOURCE_SKIN_XXX_MODEL");
+    if (GgafCore::Config::_properties.isExistKey("DIRNAME_RESOURCE_SKIN_XXX_SPRITE")) {
+        Config::DIRNAME_RESOURCE_SKIN_XXX_SPRITE = GgafCore::Config::_properties.getStr("DIRNAME_RESOURCE_SKIN_XXX_SPRITE");
     }
     if (GgafCore::Config::_properties.isExistKey("DIRNAME_RESOURCE_SKIN_XXX_TEXTURE")) {
         Config::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE = GgafCore::Config::_properties.getStr("DIRNAME_RESOURCE_SKIN_XXX_TEXTURE");
@@ -396,73 +414,68 @@ void Config::loadProperties(std::string prm_properties_filename) {
         Config::COLI_AABOARDRECT_MODEL = GgafCore::Config::_properties.getStr("COLI_AABOARDRECT_MODEL");
     }
 
-    Config::DIR_MESH[0] = GgafCore::Config::DIR_SKIN_KIND[0] + "/"
-            + Config::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/";
-    Config::DIR_MODEL[0] = GgafCore::Config::DIR_SKIN_KIND[0] + "/"
-            + Config::DIRNAME_RESOURCE_SKIN_XXX_MODEL + "/";
-    Config::DIR_TEXTURE[0] = GgafCore::Config::DIR_SKIN_KIND[0] + "/"
-            + Config::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-    Config::DIR_EFFECT[0] = GgafCore::Config::DIR_SKIN_KIND[0] + "/"
-            + Config::DIRNAME_RESOURCE_SKIN_XXX_EFFECT + "/";
-    Config::DIR_BGM[0] = GgafCore::Config::DIR_SKIN_KIND[0] + "/"
-            + Config::DIRNAME_RESOURCE_SKIN_XXX_BGM + "/";
-    Config::DIR_SE[0] = GgafCore::Config::DIR_SKIN_KIND[0] + "/"
-            + Config::DIRNAME_RESOURCE_SKIN_XXX_SE + "/";
+    Config::DIR_MODEL[0] = GgafCore::Config::DIR_SKIN_KIND[0] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_MODEL + "/";
+      Config::DIR_MESH[0] = Config::DIR_MODEL[0] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/";
+      Config::DIR_POINT_SPRITE3D[0] = Config::DIR_MODEL[0] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_POINT_SPRITE3D + "/";
+      Config::DIR_SPRITE[0] = Config::DIR_MODEL[0] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_SPRITE + "/";
+    Config::DIR_TEXTURE[0] = GgafCore::Config::DIR_SKIN_KIND[0] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+    Config::DIR_EFFECT[0] = GgafCore::Config::DIR_SKIN_KIND[0] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_EFFECT + "/";
+    Config::DIR_BGM[0] = GgafCore::Config::DIR_SKIN_KIND[0] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_BGM + "/";
+    Config::DIR_SE[0] = GgafCore::Config::DIR_SKIN_KIND[0] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_SE + "/";
 
-    Config::DIR_MESH[1] = GgafCore::Config::DIR_SKIN_KIND[1] + "/"
-            + Config::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/";
-    Config::DIR_MODEL[1] = GgafCore::Config::DIR_SKIN_KIND[1] + "/"
-            + Config::DIRNAME_RESOURCE_SKIN_XXX_MODEL + "/";
-    Config::DIR_TEXTURE[1] = GgafCore::Config::DIR_SKIN_KIND[1] + "/"
-            + Config::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-    Config::DIR_EFFECT[1] = GgafCore::Config::DIR_SKIN_KIND[1] + "/"
-            + Config::DIRNAME_RESOURCE_SKIN_XXX_EFFECT + "/";
-    Config::DIR_BGM[1] = GgafCore::Config::DIR_SKIN_KIND[1] + "/"
-            + Config::DIRNAME_RESOURCE_SKIN_XXX_BGM + "/";
-    Config::DIR_SE[1] = GgafCore::Config::DIR_SKIN_KIND[1] + "/"
-            + Config::DIRNAME_RESOURCE_SKIN_XXX_SE + "/";
+    Config::DIR_MODEL[1] = GgafCore::Config::DIR_SKIN_KIND[1] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_MODEL + "/";
+      Config::DIR_MESH[1] = Config::DIR_MODEL[1] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/";
+      Config::DIR_POINT_SPRITE3D[1] = Config::DIR_MODEL[1] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_POINT_SPRITE3D + "/";
+      Config::DIR_SPRITE[1] = Config::DIR_MODEL[1] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_SPRITE + "/";
+    Config::DIR_TEXTURE[1] = GgafCore::Config::DIR_SKIN_KIND[1] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+    Config::DIR_EFFECT[1] = GgafCore::Config::DIR_SKIN_KIND[1] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_EFFECT + "/";
+    Config::DIR_BGM[1] = GgafCore::Config::DIR_SKIN_KIND[1] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_BGM + "/";
+    Config::DIR_SE[1] = GgafCore::Config::DIR_SKIN_KIND[1] + "/" + Config::DIRNAME_RESOURCE_SKIN_XXX_SE + "/";
 
-    Config::DIR_MESH[2] = GgafCore::Config::DIR_SKIN_KIND[2] + "/";
+
     Config::DIR_MODEL[2] = GgafCore::Config::DIR_SKIN_KIND[2] + "/";
+      Config::DIR_MESH[2] = Config::DIR_MODEL[2] + "/";
+      Config::DIR_POINT_SPRITE3D[2] = Config::DIR_MODEL[2] + "/";
+      Config::DIR_SPRITE[2] = Config::DIR_MODEL[2] + "/";
     Config::DIR_TEXTURE[2] = GgafCore::Config::DIR_SKIN_KIND[2] + "/";
     Config::DIR_EFFECT[2] = GgafCore::Config::DIR_SKIN_KIND[2] + "/";
     Config::DIR_BGM[2] = GgafCore::Config::DIR_SKIN_KIND[2] + "/";
     Config::DIR_SE[2] = GgafCore::Config::DIR_SKIN_KIND[2] + "/";
 
-
     Config::DIR_CURVE = GgafCore::Config::DIR_RESOURCE + "/" + Config::DIRNAME_RESOURCE_CURVE + "/";
 
-
-    UTIL::strReplace(Config::DIR_MESH[0]  , "//", "/");
-    UTIL::strReplace(Config::DIR_MODEL[0]  , "//", "/");
-    UTIL::strReplace(Config::DIR_TEXTURE[0], "//", "/");
-    UTIL::strReplace(Config::DIR_EFFECT[0] , "//", "/");
-    UTIL::strReplace(Config::DIR_BGM[0]    , "//", "/");
-    UTIL::strReplace(Config::DIR_SE[0]     , "//", "/");
-    UTIL::strReplace(Config::DIR_MESH[1]  , "//", "/");
-    UTIL::strReplace(Config::DIR_MODEL[1]  , "//", "/");
-    UTIL::strReplace(Config::DIR_TEXTURE[1], "//", "/");
-    UTIL::strReplace(Config::DIR_EFFECT[1] , "//", "/");
-    UTIL::strReplace(Config::DIR_BGM[1]    , "//", "/");
-    UTIL::strReplace(Config::DIR_SE[1]     , "//", "/");
-    UTIL::strReplace(Config::DIR_MESH[2]  , "//", "/");
-    UTIL::strReplace(Config::DIR_MODEL[2]  , "//", "/");
-    UTIL::strReplace(Config::DIR_TEXTURE[2], "//", "/");
-    UTIL::strReplace(Config::DIR_EFFECT[2] , "//", "/");
-    UTIL::strReplace(Config::DIR_BGM[2]    , "//", "/");
-    UTIL::strReplace(Config::DIR_SE[2]     , "//", "/");
-
-    UTIL::strReplace(Config::DIR_CURVE     , "//", "/");
+    for (int n = 0; n < 2; n++) { //何回かして重複削除
+        UTIL::strReplace(Config::DIR_CURVE     , "//", "/");
+        for (int i = 0; i < 3; i++) {
+            UTIL::strReplace(Config::DIR_MODEL[i]  , "//", "/");
+            UTIL::strReplace(Config::DIR_MESH[i]  , "//", "/");
+            UTIL::strReplace(Config::DIR_SPRITE[i]  , "//", "/");
+            UTIL::strReplace(Config::DIR_TEXTURE[i], "//", "/");
+            UTIL::strReplace(Config::DIR_EFFECT[i] , "//", "/");
+            UTIL::strReplace(Config::DIR_BGM[i]    , "//", "/");
+            UTIL::strReplace(Config::DIR_SE[i]     , "//", "/");
+        }
+    }
 
     //リソースディレクトリ名指定があるのならば、デフォルトのスキンディレクトリのリソースディレクトリ存在チェック
+    if (GgafCore::Config::_properties.isExistKey("DIRNAME_RESOURCE_SKIN_XXX_MODEL")) {
+        if (!PathFileExists(Config::DIR_MODEL[0].c_str()) ) {
+            throwCriticalException("prm_properties_filename="<<prm_properties_filename<<" DIR_MODEL[0]("<<Config::DIR_MODEL[0]<<") のディレクトリが見つかりません。");
+        }
+    }
     if (GgafCore::Config::_properties.isExistKey("DIRNAME_RESOURCE_SKIN_XXX_MESH")) {
         if (!PathFileExists(Config::DIR_MESH[0].c_str()) ) {
             throwCriticalException("prm_properties_filename="<<prm_properties_filename<<" DIR_MESH[0]("<<Config::DIR_MESH[0]<<") のディレクトリが見つかりません。");
         }
     }
-    if (GgafCore::Config::_properties.isExistKey("DIRNAME_RESOURCE_SKIN_XXX_MODEL")) {
-        if (!PathFileExists(Config::DIR_MODEL[0].c_str()) ) {
-            throwCriticalException("prm_properties_filename="<<prm_properties_filename<<" DIR_MODEL[0]("<<Config::DIR_MODEL[0]<<") のディレクトリが見つかりません。");
+    if (GgafCore::Config::_properties.isExistKey("DIRNAME_RESOURCE_SKIN_XXX_POINT_SPRITE3D")) {
+        if (!PathFileExists(Config::DIR_POINT_SPRITE3D[0].c_str()) ) {
+            throwCriticalException("prm_properties_filename="<<prm_properties_filename<<" DIR_POINT_SPRITE3D[0]("<<Config::DIR_POINT_SPRITE3D[0]<<") のディレクトリが見つかりません。");
+        }
+    }
+    if (GgafCore::Config::_properties.isExistKey("DIRNAME_RESOURCE_SKIN_XXX_SPRITE")) {
+        if (!PathFileExists(Config::DIR_SPRITE[0].c_str()) ) {
+            throwCriticalException("prm_properties_filename="<<prm_properties_filename<<" DIR_SPRITE[0]("<<Config::DIR_SPRITE[0]<<") のディレクトリが見つかりません。");
         }
     }
     if (GgafCore::Config::_properties.isExistKey("DIRNAME_RESOURCE_SKIN_XXX_TEXTURE")) {
@@ -549,37 +562,24 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::SE_DELAY_MSEC_MAX_DEPTH=" << Config::SE_DELAY_MSEC_MAX_DEPTH);
     _TRACE_("Config::SE_VOLUME_RATE_MAX_DEPTH=" << Config::SE_VOLUME_RATE_MAX_DEPTH);
 
-    _TRACE_("Config::DIRNAME_RESOURCE_SKIN_XXX_MESH=" << Config::DIRNAME_RESOURCE_SKIN_XXX_MESH);
     _TRACE_("Config::DIRNAME_RESOURCE_SKIN_XXX_MODEL=" << Config::DIRNAME_RESOURCE_SKIN_XXX_MODEL);
+    _TRACE_("Config::DIRNAME_RESOURCE_SKIN_XXX_MESH=" << Config::DIRNAME_RESOURCE_SKIN_XXX_MESH);
+    _TRACE_("Config::DIRNAME_RESOURCE_SKIN_XXX_SPRITE=" << Config::DIRNAME_RESOURCE_SKIN_XXX_SPRITE);
     _TRACE_("Config::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE=" << Config::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE);
     _TRACE_("Config::DIRNAME_RESOURCE_SKIN_XXX_EFFECT=" << Config::DIRNAME_RESOURCE_SKIN_XXX_EFFECT);
     _TRACE_("Config::DIRNAME_RESOURCE_SKIN_XXX_BGM=" << Config::DIRNAME_RESOURCE_SKIN_XXX_BGM);
     _TRACE_("Config::DIRNAME_RESOURCE_SKIN_XXX_SE=" << Config::DIRNAME_RESOURCE_SKIN_XXX_SE);
     _TRACE_("Config::DIRNAME_RESOURCE_CURVE=" << Config::DIRNAME_RESOURCE_CURVE);
-
-    _TRACE_("Config::DIR_MESH[0]=" << Config::DIR_MESH[0]);
-    _TRACE_("Config::DIR_MODEL[0]=" << Config::DIR_MODEL[0]);
-    _TRACE_("Config::DIR_TEXTURE[0]=" << Config::DIR_TEXTURE[0]);
-    _TRACE_("Config::DIR_EFFECT[0]=" << Config::DIR_EFFECT[0]);
-    _TRACE_("Config::DIR_BGM[0]=" << Config::DIR_BGM[0]);
-    _TRACE_("Config::DIR_SE[0]=" << Config::DIR_SE[0]);
-
-    _TRACE_("Config::DIR_MESH[1]=" << Config::DIR_MESH[1]);
-    _TRACE_("Config::DIR_MODEL[1]=" << Config::DIR_MODEL[1]);
-    _TRACE_("Config::DIR_TEXTURE[1]=" << Config::DIR_TEXTURE[1]);
-    _TRACE_("Config::DIR_EFFECT[1]=" << Config::DIR_EFFECT[1]);
-    _TRACE_("Config::DIR_BGM[1]=" << Config::DIR_BGM[1]);
-    _TRACE_("Config::DIR_SE[1]=" << Config::DIR_SE[1]);
-
-    _TRACE_("Config::DIR_MESH[2]=" << Config::DIR_MESH[2]);
-    _TRACE_("Config::DIR_MODEL[2]=" << Config::DIR_MODEL[2]);
-    _TRACE_("Config::DIR_TEXTURE[2]=" << Config::DIR_TEXTURE[2]);
-    _TRACE_("Config::DIR_EFFECT[2]=" << Config::DIR_EFFECT[2]);
-    _TRACE_("Config::DIR_BGM[2]=" << Config::DIR_BGM[2]);
-    _TRACE_("Config::DIR_SE[2]=" << Config::DIR_SE[2]);
-
+    for (int i = 0; i < 3; i++) {
+        _TRACE_("Config::DIR_MODEL["<<i<<"]=" << Config::DIR_MODEL[i]);
+        _TRACE_("Config::DIR_MESH["<<i<<"]=" << Config::DIR_MESH[i]);
+        _TRACE_("Config::DIR_SPRITE["<<i<<"]=" << Config::DIR_SPRITE[i]);
+        _TRACE_("Config::DIR_TEXTURE["<<i<<"]=" << Config::DIR_TEXTURE[i]);
+        _TRACE_("Config::DIR_EFFECT["<<i<<"]=" << Config::DIR_EFFECT[i]);
+        _TRACE_("Config::DIR_BGM["<<i<<"]=" << Config::DIR_BGM[i]);
+        _TRACE_("Config::DIR_SE["<<i<<"]=" << Config::DIR_SE[i]);
+    }
     _TRACE_("Config::DIR_CURVE=" << Config::DIR_CURVE);
-
     _TRACE_("Config::REALTIME_EFFECT_COMPILE="<<Config::REALTIME_EFFECT_COMPILE);
 
 }

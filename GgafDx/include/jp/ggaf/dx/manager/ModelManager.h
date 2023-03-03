@@ -2,13 +2,19 @@
 #define GGAF_DX_MODELMANAGER_H_
 #include "GgafDxCommonHeader.h"
 
+
 #include "jp/ggaf/core/util/ResourceManager.hpp"
-#include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/util/XFile/framework/Frm_Mesh.h"
 #include "jp/ggaf/dx/util/XFile/ToolBox/IOModel_X.h"
-
+#include <d3d9.h>
+#include <d3dx9.h>
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
 #define connectToModelTextureManager(X) ((GgafDx::TextureConnection*)pCARETAKER->_pModelManager->_pModelTextureManager->connect((X), this))
 
+#define TYPE_UNKNOWN_MODEL                '?'
 #define TYPE_D3DXMESH_MODEL               'D'
 #define TYPE_DYNAD3DXMESH_MODEL           'd'
 #define TYPE_D3DXANIMESH_MODEL            'A'
@@ -27,7 +33,6 @@
 #define TYPE_BOARD_MODEL                  'B'
 #define TYPE_BOARDSET_MODEL               'b'
 #define TYPE_MASSBOARD_MODEL              'w'
-#define TYPE_CUBE_MODEL                   'C'
 #define TYPE_POINTSPRITE_MODEL            'P'
 #define TYPE_MASSPOINTSPRITE_MODEL        'p'
 #define TYPE_POINTSPRITESET_MODEL         'o'
@@ -53,24 +58,24 @@ namespace GgafDx {
 class ModelManager : public GgafCore::ResourceManager<Model> {
 
 private:
-    D3DXMeshModel*     createD3DXMeshModel(const char* prm_model_id, DWORD prm_dwOptions);
+    D3DXMeshModel* createD3DXMeshModel(char prm_model_type, const char* prm_model_id, DWORD prm_dwOptions);
 
 protected:
-    template <typename T> T* createModel(const char* prm_model_id);
+    template <typename T> T* createModel(char prm_model_type, const char* prm_model_id);
 
 public:
-    struct MeshXFileFmt {
+    struct ModelXFileFmt {
         DWORD XFileNum;
         std::string* XFileNames;
         DWORD DrawSetNum; //0の場合は最大
         D3DXMATRIX BaseTransformMatrix;
-        MeshXFileFmt() {
+        ModelXFileFmt() {
             XFileNum = 0;
             XFileNames = nullptr;
-            DrawSetNum = 1;
+            DrawSetNum = 0;
             D3DXMatrixIdentity(&BaseTransformMatrix);
         }
-        ~MeshXFileFmt() {
+        ~ModelXFileFmt() {
             GGAF_DELETEARR_NULLABLE(XFileNames);
         }
     };
@@ -81,8 +86,6 @@ public:
         char TextureFile[256];
         DWORD TextureSplitRows;
         DWORD TextureSplitCols;
-        DWORD DrawSetNum;
-        D3DXMATRIX BaseTransformMatrix;
     };
 
     struct FramedSpriteXFileFmt {
@@ -105,20 +108,13 @@ public:
         char TextureFile[256];
         DWORD TextureSplitRows;
         DWORD TextureSplitCols;
-
         DWORD  FanNum;
         DWORD  IsCW; //1:時計回り / 0:反時計回り
-        D3DXMATRIX BaseTransformMatrix;
-
         RegPolySpriteXFileFmt() {
-            D3DXMatrixIdentity(&BaseTransformMatrix);
         }
         ~RegPolySpriteXFileFmt() {
         }
     };
-
-
-
 
     class PointSpriteXFileFmt {
     public:
@@ -131,7 +127,6 @@ public:
         DWORD* paInt_InitUvPtnNo;
         FLOAT* paFLOAT_InitScale;
         DWORD DrawSetNum;
-        D3DXMATRIX BaseTransformMatrix;
         PointSpriteXFileFmt() {
             SquareSize = 1;
             TextureSplitRowCol = 1;
@@ -141,7 +136,6 @@ public:
             paInt_InitUvPtnNo = nullptr;
             paFLOAT_InitScale = nullptr;
             DrawSetNum = 1;
-            D3DXMatrixIdentity(&BaseTransformMatrix);
         }
         ~PointSpriteXFileFmt() {
             GGAF_DELETE_NULLABLE(paD3DVECTOR_Vertices);
@@ -152,18 +146,26 @@ public:
     };
 
     TextureManager* _pModelTextureManager;
+
+    ID3DXFile* _pID3DXFile_modelx;
     /** Xファイル読み込み用の ID3DXFile のポインタ（meshx モデル定義読み込んだあと） */
-    ID3DXFile* _pID3DXFile_meshx;
+//    ID3DXFile* _pID3DXFile_meshx;
     ID3DXFile* _pID3DXFile_sprx;
     ID3DXFile* _pID3DXFile_fsprx;
     ID3DXFile* _pID3DXFile_rsprx;
     ID3DXFile* _pID3DXFile_psprx;
 
-    void obtainMeshModelInfo(MeshXFileFmt* prm_pMeshXFileFmt_out, std::string prm_meshx_filepath);
+    static std::map<char, std::string> type_ext;
+    static bool initStatic();
+
+//    void obtainMeshModelInfo(ModelXFileFmt* prm_pModelXFileFmt_out, std::string prm_meshx_filepath);
     void obtainSpriteModelInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std::string prm_sprx_filepath);
     void obtainFramedSpriteModelInfo(FramedSpriteXFileFmt* prm_pFramedSpriteFmt_out, std::string prm_fsprx_filepath);
     void obtainRegPolySpriteModelInfo(RegPolySpriteXFileFmt* prm_pRegPolySpriteFmt_out, std::string prm_rsprx_filepath);
     void obtainPointSpriteModelInfo(PointSpriteXFileFmt* prm_pPointSpriteFmt_out, std::string prm_psprx_filepath);
+
+//    void obtainMetaModelInfo(ModelXFileFmt* prm_pModelDefineXFileFmt_out, char* prm_model_id);
+    void obtainMetaModelInfo(ModelXFileFmt* prm_pModelDefineXFileFmt_out, std::string prm_modelfile_filepath);
 public:
     /**
      * コンストラクタ
@@ -220,6 +222,9 @@ public:
     ModelConnection* getFirstConnection() const {
         return (ModelConnection*)_pConn_first;
     }
+
+
+
 
     virtual ~ModelManager();
 };

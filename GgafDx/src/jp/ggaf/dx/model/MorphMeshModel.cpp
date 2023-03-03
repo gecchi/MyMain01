@@ -175,13 +175,8 @@ void MorphMeshModel::restore() {
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数。プライマリメッシュのみ)
     if (_paVtxBuffer_data_primary == nullptr) {
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
-        ModelManager::MeshXFileFmt xdata;
-
-        std::string model_def_file = std::string(_model_id) + ".meshx";
-        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-        pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
-        _draw_set_num = xdata.DrawSetNum;
+        ModelManager::ModelXFileFmt xdata;
+        obtainMetaModelInfo(&xdata);
         if (_draw_set_num != 1) {
             _TRACE_("MorphMeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
             _draw_set_num = 1;
@@ -190,7 +185,7 @@ void MorphMeshModel::restore() {
         int morph_target_num = _morph_target_num;
         std::string* paXfilepath = NEW std::string[morph_target_num+1];
         for (int i = 0; i < morph_target_num+1; i++) {
-            paXfilepath[i] = Model::getXFilePath(xdata.XFileNames[i]);
+            paXfilepath[i] = Model::getMeshXFilePath(xdata.XFileNames[i]);
         }
 
         HRESULT hr;

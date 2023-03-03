@@ -44,7 +44,6 @@ void LockonCursor001_Sub::onActive() {
 }
 
 void LockonCursor001_Sub::processBehavior() {
-    LockonCursor001::processBehavior();
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
     if (pPhase->getCurrent() == LOCKON001_PHASE_LOCK) {
@@ -91,6 +90,7 @@ void LockonCursor001_Sub::processBehavior() {
 
     getUvFlipper()->behave();
     pVecVehicle->behave();
+    LockonCursor001::processBehavior();
 }
 
 void LockonCursor001_Sub::processJudgement() {

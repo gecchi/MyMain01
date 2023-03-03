@@ -20,7 +20,7 @@ WorldCollisionChecker2D::WorldCollisionChecker2D(GgafDx::GeometricActor* prm_pAc
 }
 
 void WorldCollisionChecker2D::updateHitArea() {
-    GgafDx::CollisionArea* const pActiveCollisionArea = _pActiveCollisionArea;
+    GgafDx::CollisionArea* const pActiveCollisionArea = _pCollisionArea;
     if (pActiveCollisionArea == nullptr) {
         return;
     }
@@ -46,8 +46,8 @@ void WorldCollisionChecker2D::updateHitArea() {
 }
 
 bool WorldCollisionChecker2D::isHit(const GgafDx::CollisionChecker* const prm_pOppChecker) {
-    GgafDx::CollisionArea* const pActiveCollisionArea = _pActiveCollisionArea;
-    GgafDx::CollisionArea* const pOppActiveCollisionArea = prm_pOppChecker->_pActiveCollisionArea; //相手の当たり判定領域
+    GgafDx::CollisionArea* const pActiveCollisionArea = _pCollisionArea;
+    GgafDx::CollisionArea* const pOppActiveCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
     const GgafDx::GeometricActor* const pActor = _pActor;                //相手のアクター
     const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
     const int colli_part_num = pActiveCollisionArea->_colli_part_num;

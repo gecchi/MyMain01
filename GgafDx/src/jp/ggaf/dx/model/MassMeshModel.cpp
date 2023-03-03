@@ -15,7 +15,7 @@
 using namespace GgafDx;
 
 MassMeshModel::MassMeshModel(const char* prm_model_id) : MassModel(prm_model_id) {
-    _TRACE3_("_model_id="<<_model_id);
+    _TRACE3_("_model_id=" << _model_id << " start");
     _obj_class |= Obj_GgafDx_MassMeshModel;
     _paVtxBuffer_data_model = nullptr;
     _paIndex16Buffer_data = nullptr;
@@ -23,10 +23,11 @@ MassMeshModel::MassMeshModel(const char* prm_model_id) : MassModel(prm_model_id)
     registerCallback_VertexModelInfo(MassMeshModel::createVertexModel); //頂点レイアウト情報作成コールバック関数
     _max_draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
     _is_65535 = false;
-    _TRACE_("MassMeshModel::MassMeshModel(" << _model_id << ") End");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void MassMeshModel::createVertexModel(void* prm, MassModel::VertexModelInfo* out_info) {
+    _TRACE3_("static void MassMeshModel::createVertexModel start");
     int element_num = 4;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     WORD  st0_offset_next = 0;
@@ -64,6 +65,7 @@ void MassMeshModel::createVertexModel(void* prm, MassModel::VertexModelInfo* out
     //st0_offset_next += sizeof(float)*2;
 
     out_info->element_num = element_num;
+    _TRACE3_("static void MassMeshModel::createVertexModel end");
 }
 
 void MassMeshModel::restore() {
@@ -71,12 +73,8 @@ void MassMeshModel::restore() {
     if (_paVtxBuffer_data_model == nullptr) {
         HRESULT hr;
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
-        ModelManager::MeshXFileFmt xdata;
-        std::string model_def_file = std::string(_model_id) + ".meshx";
-        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-        pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
-        _draw_set_num = xdata.DrawSetNum;
+        ModelManager::ModelXFileFmt xdata;
+        obtainMetaModelInfo(&xdata);
         if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
             _TRACE_("MassMeshModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
             _draw_set_num = _max_draw_set_num;
@@ -84,7 +82,7 @@ void MassMeshModel::restore() {
             _TRACE_("MassMeshModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }
 
-        std::string xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
+        std::string xfilepath = Model::getMeshXFilePath(xdata.XFileNames[0]);
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X iox;
         Frm::Model3D* pModel3D = NEW Frm::Model3D();
@@ -92,7 +90,6 @@ void MassMeshModel::restore() {
         if (r == false) {
             throwCriticalException("Xファイルの読込み失敗。対象="<<xfilepath);
         }
-
         //メッシュを結合する前に、情報を確保しておく
         int nMesh = (int)pModel3D->_Meshes.size();
         uint32_t* paNumVertices = NEW uint32_t[nMesh];

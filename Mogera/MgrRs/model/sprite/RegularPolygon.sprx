@@ -1,0 +1,9 @@
+xof 0303txt 0032
+
+SpriteModelDef RegularPolygon {
+  128.0;
+  128.0;
+  "wa.png";
+  2;
+  2;
+ 

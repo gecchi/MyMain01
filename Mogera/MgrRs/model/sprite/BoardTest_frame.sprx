@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef BoardTest_frame {
+  32.0;
+  32.0;
+  "test_tile.png";
+  8;
+  8;
+}
+ 

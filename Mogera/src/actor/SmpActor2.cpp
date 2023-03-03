@@ -16,6 +16,7 @@ using namespace Mogera;
 
 SmpActor2::SmpActor2(const char* prm_name) :
         GgafLib::DefaultMeshActor(prm_name, "Zako") { //Guruguru.x ‚ªŽQÆ‚³‚ê‚éB
+    addModel("donatu");
     //À•WÝ’è
     setMaterialColor(1.0, 1.0, 0.0);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
@@ -54,6 +55,8 @@ SmpActor2::SmpActor2(const char* prm_name) :
 //    pChecker->setColliAAPrism_WHD(0, ox + (w/2), oy + (h/2), oz + (d/2), w, h, d, POS_PRISM_XY_NN);
 
     setHitAble(true);
+
+
 }
 
 
@@ -71,11 +74,11 @@ void SmpActor2::processBehavior() {
     }
 
     if (GgafDx::Input::isPressedKey(DIK_A)) {
-        pGeoVehicle->forceVeloRange(0, PX_C(3));
-        pGeoVehicle->setAcceByVc(PX_C(0.01), PX_C(0.02), PX_C(0));
-
+        changeModel(0);
     }
-
+    if (GgafDx::Input::isPressedKey(DIK_B)) {
+        changeModel(1);
+    }
 
 
 

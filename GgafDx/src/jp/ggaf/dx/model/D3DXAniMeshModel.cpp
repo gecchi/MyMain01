@@ -168,23 +168,13 @@ void D3DXAniMeshModel::restore() {
     D3DMATERIAL9* model_paMaterial = nullptr; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     TextureConnection** model_papTextureConnection = nullptr; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
 //    DWORD _num_materials;
-    ModelManager::MeshXFileFmt xdata;
-    std::string model_def_file = std::string(_model_id) + ".meshx";
-    std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-    pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-    _matBaseTransformMatrix = xdata.BaseTransformMatrix;
-    _draw_set_num = xdata.DrawSetNum;
+    ModelManager::ModelXFileFmt xdata;
+    obtainMetaModelInfo(&xdata);
     if (_draw_set_num != 1) {
         _TRACE_("D3DXAniMeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
         _draw_set_num = 1;
     }
-
-    std::string xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
-
-//    std::string xfile_name = Model::getModelDefineFilePath(_model_id, "meshx");
-//    if (xfile_name == "") {
-//         throwCriticalException("メッシュファイル(*.x)が見つかりません。model_id="<<(_model_id));
-//    }
+    std::string xfilepath = Model::getMeshXFilePath(xdata.XFileNames[0]);
     //AnimTicksPerSecondの値を独自に取り出す
     std::ifstream ifs(xfilepath.c_str());
     if (ifs.fail()) {

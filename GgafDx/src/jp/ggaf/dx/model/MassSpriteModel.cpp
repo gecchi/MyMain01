@@ -203,27 +203,23 @@ void MassSpriteModel::restore() {
     if (_paVtxBuffer_data_model == nullptr) {
         HRESULT hr;
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
-        ModelManager::SpriteXFileFmt xdata;
-        std::string model_def_file = std::string(_model_id) + ".sprx";
-        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-        if (model_def_filepath == "") {
-            throwCriticalException("MassSpriteModel::restore() "+model_def_file+" が見つかりません");
-        }
-        pModelManager->obtainSpriteModelInfo(&xdata, model_def_filepath);
-        _model_width_px  = xdata.Width;
-        _model_height_px = xdata.Height;
-        _model_half_width_px = _model_width_px/2;
-        _model_half_height_px = _model_height_px/2;
-        _row_texture_split = xdata.TextureSplitRows;
-        _col_texture_split = xdata.TextureSplitCols;
-
-        _draw_set_num = xdata.DrawSetNum;
+        ModelManager::ModelXFileFmt xdata;
+        obtainMetaModelInfo(&xdata);
+        std::string sprx_filepath = Model::getSpriteXFilePath(xdata.XFileNames[0]);
         if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
             _TRACE_("MassSpriteModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
             _draw_set_num = _max_draw_set_num;
         } else {
             _TRACE_("MassSpriteModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }
+        ModelManager::SpriteXFileFmt xdata_spr;
+        pModelManager->obtainSpriteModelInfo(&xdata_spr, sprx_filepath);
+        _model_width_px  = xdata_spr.Width;
+        _model_height_px = xdata_spr.Height;
+        _model_half_width_px = _model_width_px/2;
+        _model_half_height_px = _model_height_px/2;
+        _row_texture_split = xdata_spr.TextureSplitRows;
+        _col_texture_split = xdata_spr.TextureSplitCols;
 
         _nVertices = 4;
         _nFaces = 2;
@@ -236,8 +232,8 @@ void MassSpriteModel::restore() {
         double du = 0.0;
         double dv = 0.0;
         //左上
-        _paVtxBuffer_data_model[0].x = PX_DX(xdata.Width)  / -2.0;
-        _paVtxBuffer_data_model[0].y = PX_DX(xdata.Height) /  2.0;
+        _paVtxBuffer_data_model[0].x = PX_DX(xdata_spr.Width)  / -2.0;
+        _paVtxBuffer_data_model[0].y = PX_DX(xdata_spr.Height) /  2.0;
         _paVtxBuffer_data_model[0].z = 0.0f;
         _paVtxBuffer_data_model[0].nx = 0.0f;
         _paVtxBuffer_data_model[0].ny = 0.0f;
@@ -245,32 +241,32 @@ void MassSpriteModel::restore() {
         _paVtxBuffer_data_model[0].tu = du;
         _paVtxBuffer_data_model[0].tv = dv;
         //右上
-        _paVtxBuffer_data_model[1].x = PX_DX(xdata.Width)  / 2.0;
-        _paVtxBuffer_data_model[1].y = PX_DX(xdata.Height) / 2.0;
+        _paVtxBuffer_data_model[1].x = PX_DX(xdata_spr.Width)  / 2.0;
+        _paVtxBuffer_data_model[1].y = PX_DX(xdata_spr.Height) / 2.0;
         _paVtxBuffer_data_model[1].z = 0.0f;
         _paVtxBuffer_data_model[1].nx = 0.0f;
         _paVtxBuffer_data_model[1].ny = 0.0f;
         _paVtxBuffer_data_model[1].nz = -1.0f;
-        _paVtxBuffer_data_model[1].tu = (1.0/xdata.TextureSplitCols) - du;
+        _paVtxBuffer_data_model[1].tu = (1.0/xdata_spr.TextureSplitCols) - du;
         _paVtxBuffer_data_model[1].tv = dv;
         //左下
-        _paVtxBuffer_data_model[2].x = PX_DX(xdata.Width)  / -2.0;
-        _paVtxBuffer_data_model[2].y = PX_DX(xdata.Height) / -2.0;
+        _paVtxBuffer_data_model[2].x = PX_DX(xdata_spr.Width)  / -2.0;
+        _paVtxBuffer_data_model[2].y = PX_DX(xdata_spr.Height) / -2.0;
         _paVtxBuffer_data_model[2].z = 0.0f;
         _paVtxBuffer_data_model[2].nx = 0.0f;
         _paVtxBuffer_data_model[2].ny = 0.0f;
         _paVtxBuffer_data_model[2].nz = -1.0f;
         _paVtxBuffer_data_model[2].tu = du;
-        _paVtxBuffer_data_model[2].tv = (1.0/xdata.TextureSplitRows) - dv;
+        _paVtxBuffer_data_model[2].tv = (1.0/xdata_spr.TextureSplitRows) - dv;
         //右下
-        _paVtxBuffer_data_model[3].x = PX_DX(xdata.Width)  /  2.0;
-        _paVtxBuffer_data_model[3].y = PX_DX(xdata.Height) / -2.0;
+        _paVtxBuffer_data_model[3].x = PX_DX(xdata_spr.Width)  /  2.0;
+        _paVtxBuffer_data_model[3].y = PX_DX(xdata_spr.Height) / -2.0;
         _paVtxBuffer_data_model[3].z = 0.0f;
         _paVtxBuffer_data_model[3].nx = 0.0f;
         _paVtxBuffer_data_model[3].ny = 0.0f;
         _paVtxBuffer_data_model[3].nz = -1.0f;
-        _paVtxBuffer_data_model[3].tu = 1.0/xdata.TextureSplitCols;
-        _paVtxBuffer_data_model[3].tv = 1.0/xdata.TextureSplitRows;
+        _paVtxBuffer_data_model[3].tu = 1.0/xdata_spr.TextureSplitCols;
+        _paVtxBuffer_data_model[3].tv = 1.0/xdata_spr.TextureSplitRows;
 
         _paIndexBuffer_data = NEW WORD[(_nFaces*3)];
         _paIndexBuffer_data[0] = 0;
@@ -289,7 +285,7 @@ void MassSpriteModel::restore() {
 
         setMaterial();
 //        _pa_texture_filenames = NEW std::string[1]; ////setMaterial();で実行済み
-        _pa_texture_filenames[0] = std::string(xdata.TextureFile);
+        _pa_texture_filenames[0] = std::string(xdata_spr.TextureFile);
     }
 
     //デバイスに頂点バッファ作成(モデル)

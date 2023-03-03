@@ -26,10 +26,16 @@ private:
     void draw() override {}
 
 protected:
-    /** [r]モデル資源接続 */
-    ModelConnection* const _pModelCon;
-    /** [r]モデル資源 */
-    Model* const _pModel;
+    /** [r]現在有効なモデル資源接続 */
+    ModelConnection* _pModelCon;
+    /** [r]現在有効なモデル資源 */
+    Model* _pModel;
+
+    /** [r]モデル資源接続リスト */
+    std::vector<ModelConnection*> _lstModelCon;
+    /** [r]モデル資源リスト */
+    std::vector<Model*> _lstModel;
+
     /** [r]エフェクト資源接続 */
     EffectConnection* const _pEffectCon;
     /** [r]エフェクト資源 */
@@ -75,10 +81,6 @@ public:
     int _specal_render_depth_index;
     /** [r]一時テクニック適用中の場合 true */
     bool _is_temp_technique;
-    /** [r]自身がモデルオブジェクトの最初のコネクターである場合true */
-    bool _is_first_model_connector;
-    /** [r]自身がエフェクトオブジェクトの最初のコネクターである場合true */
-    bool _is_first_effect_connector;
 
 public:
     /**
@@ -272,13 +274,42 @@ public:
      */
     virtual void resetMaterialColor();
 
+    /**
+     * モデル資源（現在有効となっているもの）を取得 .
+     * @return 現在有効なモデル資源
+     */
     inline Model* getModel() const {
         return _pModel;
     }
 
+    /**
+     * モデル資源を１つ生成して追加する。(下位クラスで hidden されてる) .
+     * 初めて本メソッドを実行すると、内部リストに保持され、そのモデル資源が有効になります。
+     * ２回目以降の実行は、生成したモデル資源を内部リストの末尾に追加します。（有効になりません）
+     * @param prm_model モデル定義名
+     * @param prm_model_type モデルタイプ
+     * @return 生成された（＝リストの末尾に追加された）モデル資源
+     */
+    Model* addModel(const char prm_model_type, const char* prm_model);
+
+    /**
+     * モデル資源を切り替える（表示が切り替わります） .
+     * @param prm_model_index モデル資源保持リストのインデックス。
+     *                        最初の   addModel() に切り替え => 0 を設定
+     *                        ２回目の addModel() に切り替え => 1 を設定
+     *                        ３回目の addModel() に切り替え => 2 を設定
+     *                         …
+     */
+    virtual void changeModel(int prm_model_index);
+
+    /**
+     * アクターのエフェクトを取得 .
+     * @return エフェクト
+     */
     virtual Effect* getEffect() const {
         return _pEffect;
     }
+
     /**
      * カリング描画するかどうか。
      * @param prm_bool true:カリング描画あり(default) / false:カリング無し、裏面も描画
@@ -332,14 +363,6 @@ public:
      *         ※判定優先順位順に並んでいます。（例：1 かつ 4 は 1 が返ります）
      */
     virtual int isOutOfView() override;
-
-    bool isFirstModelConnector() {
-        return _is_first_model_connector;
-    }
-
-    bool isFirstEffectConnector() {
-        return _is_first_effect_connector;
-    }
 
     virtual ~FigureActor(); //デストラクタ
 };

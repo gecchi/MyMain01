@@ -106,6 +106,7 @@ public:
      * @param prm_pFunc_getVertexInstanceData 頂点レイアウト（インスタンスデータ）情報取得コールバック関数
      */
     inline void registerCallback_VertexInstanceDataInfo(void (*prm_pFunc_getVertexInstanceData)(void*, VertexInstanceDataInfo*)) {
+        _TRACE3_("_model_id=" << _model_id << " start");
 #ifdef MY_DEBUG
         if (_pFunc_getVertexInstanceData && _pFunc_getVertexInstanceData != prm_pFunc_getVertexInstanceData) {
             throwCriticalException("既に頂点レイアウトは作成済みにもかかわらず、別の定義関数を設定しようとしました。(1)");
@@ -117,6 +118,7 @@ public:
                 createVertexElements();
             }
         }
+        _TRACE3_("_model_id=" << _model_id << " end");
     }
     /**
      * 頂点レイアウト（モデル）情報取得コールバック関数を登録する .
@@ -124,6 +126,7 @@ public:
      * @param prm_pFunc_getVertexModel  頂点レイアウト（モデルデータ）情報取得コールバック関数
      */
     inline void registerCallback_VertexModelInfo(void (*prm_pFunc_getVertexModel)(void*, VertexModelInfo*)) {
+        _TRACE3_("_model_id=" << _model_id << " start");
 #ifdef MY_DEBUG
         if (_pFunc_getVertexModel && _pFunc_getVertexModel != prm_pFunc_getVertexModel) {
             throwCriticalException("既に頂点レイアウトは作成済みにもかかわらず、別の定義関数を設定しようとしました。(2)");
@@ -135,6 +138,7 @@ public:
                 createVertexElements();
             }
         }
+        _TRACE3_("_model_id=" << _model_id << " end");
     }
 
     /**

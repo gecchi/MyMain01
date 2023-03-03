@@ -1,0 +1,259 @@
+メモ
+
+cd "C:\Users\tsuge\workspace\_git_repo_my_main"
+
+temp_dir=./tmp
+temp_file=${temp_dir}/work_list_file_finder_prefind
+base_dir=.
+find_ext=*.modelx
+
+find ${base_dir}/ -type f \( -name "${find_ext}" -or -name "${find_ext}" \) > ${temp_file}
+
+
+
+while read modelx
+do
+    sed -i -e  "s/MeshModelDef/ModelDefineInfo/g" ${modelx}
+done < ${temp_file}
+
+
+sed -e "s/MeshModelDef/ModelDefine/g" ./VioletVreath_launcher/VV_rs/skin/VioletVreath/model/_chk_TestWallAABActorModel.modelx
+
+
+temp_dir=./tmp
+temp_file=${temp_dir}/sprx_files
+base_dir=.
+find_ext=*.sprx
+find ${base_dir}/ -type f \( -name "${find_ext}" -or -name "${find_ext}" \) > ${temp_file}
+
+
+xof 0303txt 0032
+
+SpriteModelDef Cur {
+   128.0;
+   128.0;
+   "Cur.png";
+   1;
+   1;
+   1;
+  1.000000, 0.000000, 0.000000, 0.000000,
+  0.000000, 1.000000, 0.000000, 0.000000,
+  0.000000, 0.000000, 1.000000, 0.000000,
+  0.000000, 0.000000, 0.000000, 1.000000;
+}
+
+
+#７行目削除
+while read sprx
+do
+	sed -i '9d' ${sprx}
+	sed -i '9d' ${sprx}
+	sed -i '9d' ${sprx}
+	sed -i '9d' ${sprx}
+	sed -i '9d' ${sprx}
+done < ${temp_file}
+
+#sprx=./Mogera/MgrRs/sprite/BoardTest.sprx
+
+while read sprx
+do
+    filename_ext=`basename ${sprx}`
+    filename=`echo "${filename_ext}" | cut -f 1 -d '.' `
+    sed  -i -E  's/(SpriteModelDef )([^ ].+)( \{)/\1'$filename'\3/g' ${sprx}
+done < ${temp_file}
+
+
+while read sprx
+do
+    filename_ext=`basename ${sprx}`
+    filename=`echo "${filename_ext}" | cut -f 1 -d '.' `
+    sed  -i -E  's/(SpriteDef )([^ ].+)( \{)/SpriteModelDef '$filename'\3/g' ${sprx}
+done < ${temp_file}
+
+
+
+
+temp_dir=./tmp
+temp_file=${temp_dir}/sprx_files_model
+base_dir=.
+find_ext=*.modelx
+find ${base_dir}/ -type f \( -name "${find_ext}" -or -name "${find_ext}" \) > ${temp_file}
+
+sprite を含みディレクトリのみ抽出
+
+
+
+xof 0303txt 0032
+
+SpriteModelDef EffectSpeedMagic {
+   128.0;            # FLOAT  Width
+   128.0;            # FLOAT  Height
+   "LockOn001.png";  # STRING TextureFile
+   2;                # DWORD  TextureSplitRows
+   2;                # DWORD  TextureSplitCols
+   1;                #DrawSetNum
+  1.000000, 0.000000, 0.000000, 0.000000, 
+  0.000000, 1.000000, 0.000000, 0.000000, 
+  0.000000, 0.000000, 1.000000, 0.000000, 
+  0.000000, 0.000000, 0.000000, 1.000000; 
+}
+
+
+
+while read sprx_model
+do
+	sed -i '4d' ${sprx_model}
+	sed -i '6d' ${sprx_model}
+	sed -i '6d' ${sprx_model}
+done < ${temp_file}
+
+while read sprx_model
+do
+  sed -i -e "4 s/.*/  1;/g" ${sprx_model}
+done < ${temp_file}
+
+while read sprx_model
+do
+  sed -i -e "5 s/^ //g" ${sprx_model}
+done < ${temp_file}
+
+while read sprx_model
+do
+  sed -i -e "6 s/^ //g" ${sprx_model}
+done < ${temp_file}
+
+while read sprx_model
+do
+    filename_ext=`basename ${sprx_model}`
+    filename=`echo "${filename_ext}" | cut -f 1 -d '.' `
+    sed  -i -E  's/(SpriteModelDef )([^ ].+)( \{)/ModelDefineInfo '$filename'\3/g' ${sprx_model}
+done < ${temp_file}
+
+
+while read sprx_model
+do
+    filename_ext=`basename ${sprx_model}`
+    filename=`echo "${filename_ext}" | cut -f 1 -d '.' `
+    sed  -i -E  's/(SpriteDef )([^ ].+)( \{)/ModelDefineInfo '$filename'\3/g' ${sprx_model}
+done < ${temp_file}
+
+
+テクスチャファイル名→sprx
+while read sprx_model
+do
+    filename_ext=`basename ${sprx_model}`
+    filename=`echo "${filename_ext}" | cut -f 1 -d '.' `
+    sed  -i -e '5 s/.*/  "'$filename'\.sprx"/g' ${sprx_model}
+done < ${temp_file}
+
+
+
+インデント
+temp_file=${temp_dir}/sprx_files
+
+while read sprx
+do
+  sed -i -e "4 s/^ //g" ${sprx}
+  sed -i -e "5 s/^ //g" ${sprx}
+  sed -i -e "6 s/^ //g" ${sprx}
+  sed -i -e "7 s/^ //g" ${sprx}
+  sed -i -e "8 s/^ //g" ${sprx}
+done < ${temp_file}
+
+
+
+cd "C:\Users\tsuge\workspace\_git_repo_my_main"
+
+temp_dir=./tmp
+temp_file=${temp_dir}/modelx_files
+base_dir=.
+find_ext=*.modelx
+
+find ${base_dir}/ -type f \( -name "${find_ext}" -or -name "${find_ext}" \) > ${temp_file}
+
+
+while read modelx_files
+do
+    sed -i -e "s/ModelDefineInfo/MetaModelInfo/g" ${modelx_files}
+done < ${temp_file}
+
+
+ポイントスプライト
+temp_dir=./tmp
+temp_file=${temp_dir}/psprx_files
+base_dir=.
+find_ext=*.psprx
+find ${base_dir}/ -type f \( -name "${find_ext}" -or -name "${find_ext}" \) > ${temp_file}
+
+
+temp_dir=./tmp
+temp_file=${temp_dir}/fsprx_files
+base_dir=.
+find_ext=*.fsprx
+find ${base_dir}/ -type f \( -name "${find_ext}" -or -name "${find_ext}" \) > ${temp_file}
+
+
+
+temp_dir=./tmp
+temp_file=${temp_dir}/rsprx_files
+base_dir=.
+find_ext=*.rsprx
+find ${base_dir}/ -type f \( -name "${find_ext}" -or -name "${find_ext}" \) > ${temp_file}
+
+
+
+
+
+
+
+
+
+
+
+#!/bin/bash
+
+$(cd $(dirname $0))
+
+
+for xfile_path in `find ../xfile -type f -name "_chk*"`; do
+  #echo "xfile_path=${xfile_path}"
+  xfile=`basename ${xfile_path}`
+  echo "basename=${xfile}"
+  file_name=`basename ${xfile} .x`
+  file_name=`basename ${file_name} .X`
+  #echo "file_name=${file_name}"
+  
+  cp _TTTTTTT.meshx ${file_name}.meshx
+  sed -i -e "s/TTTTTTT/${file_name}/g" ${file_name}.meshx
+
+done
+
+
+
+xof 0303txt 0032
+
+MetaModelInfo GECCHI_32FONT {
+  1;
+  "GECCHI_32FONT.sprx"
+  0;                #DrawSetNum
+  1.000000, 0.000000, 0.000000, 0.000000, 
+  0.000000, 1.000000, 0.000000, 0.000000, 
+  0.000000, 0.000000, 1.000000, 0.000000, 
+  0.000000, 0.000000, 0.000000, 1.000000; 
+}
+
+
+
+
+cd "C:\Users\tsuge\workspace\_git_repo_my_main"
+
+temp_dir=./tmp
+temp_file=${temp_dir}/modelx_files
+base_dir=.
+find_ext=*.modelx
+find ${base_dir}/ -type f \( -name "${find_ext}" -or -name "${find_ext}" \) > ${temp_file}
+
+while read modelx
+do
+    sed -i -E  's/.sprx"/.sprx";/g' ${modelx}
+done < ${temp_file}

@@ -15,7 +15,7 @@
 using namespace GgafDx;
 
 MassModel::MassModel(const char* prm_model_id) : Model(prm_model_id) {
-    _TRACE3_("_model_id="<<_model_id);
+    _TRACE3_("_model_id=" << _model_id << " start");
     _draw_set_num = 0;
     _paVertexBuffer_model = nullptr;
     _paVertexBuffer_instancedata = nullptr;
@@ -31,9 +31,11 @@ MassModel::MassModel(const char* prm_model_id) : Model(prm_model_id) {
     _pInstancedata = nullptr;
     _max_draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
     _obj_class |= Obj_GgafDx_MassModel;
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void MassModel::createVertexElements() {
+    _TRACE3_("_model_id=" << _model_id << " start");
     HRESULT hr;
     //デバイスに頂点フォーマット登録
     //次のメンバも設定する
@@ -110,11 +112,14 @@ void MassModel::createVertexElements() {
 //    ZeroMemory(pDeviceMemory, size_instancedata);
 //    hr = _paVertexBuffer_instancedata->Unlock();
 //    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗2 model="<<_model_id);
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void MassModel::resetStreamSourceFreq() {
+    _TRACE3_("_model_id=" << _model_id << " start");
     pCARETAKER->_pID3DDevice9->SetStreamSourceFreq( 0, 1 );
     pCARETAKER->_pID3DDevice9->SetStreamSourceFreq( 1, 1 );
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void MassModel::onDeviceLost() {

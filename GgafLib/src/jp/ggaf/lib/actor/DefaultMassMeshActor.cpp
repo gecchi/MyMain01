@@ -3,8 +3,12 @@
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
-
-
+#include "jp/ggaf/lib/DefaultCaretaker.h"
+#include "jp/ggaf/dx/manager/ModelConnection.h"
+#include "jp/ggaf/dx/manager/ModelManager.h"
+#include "jp/ggaf/dx/model/MassMeshModel.h"
+#include "jp/ggaf/dx/model/MassModel.h"
+#include <string>
 
 using namespace GgafLib;
 
@@ -29,6 +33,7 @@ void DefaultMassMeshActor::drawHitArea() {
 }
 
 void DefaultMassMeshActor::createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info) {
+    _TRACE3_("static void DefaultMassMeshActor::createVertexInstanceData() start");
     int element_num = 5;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
@@ -78,6 +83,7 @@ void DefaultMassMeshActor::createVertexInstanceData(void* prm, GgafDx::MassModel
     out_info->element_num = element_num;
     out_info->size_vertex_unit_instancedata = sizeof(DefaultMassMeshActor::VERTEX_instancedata);
     out_info->pInstancedata = DefaultMassMeshActor::_aInstancedata;
+    _TRACE3_("static void DefaultMassMeshActor::createVertexInstanceData() end");
 }
 
 
@@ -110,6 +116,12 @@ void DefaultMassMeshActor::processDraw() {
     }
     ((GgafDx::MassMeshModel*)_pMassMeshModel)->GgafDx::MassMeshModel::draw(this, draw_set_num);
     _pNextRenderActor = pDrawActor;
+}
+
+GgafDx::MassMeshModel* DefaultMassMeshActor::addModel(const char* prm_model) {
+    GgafDx::MassMeshModel* pModel = MassMeshActor::addModel(prm_model);
+    pModel->registerCallback_VertexInstanceDataInfo(DefaultMassMeshActor::createVertexInstanceData);
+    return pModel;
 }
 
 DefaultMassMeshActor::~DefaultMassMeshActor() {

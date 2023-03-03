@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef InnerTitleBar {
+  16.0;
+  16.0;
+  "InnerTitleBar.png";
+  2;
+  2;
+}
+

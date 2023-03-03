@@ -35,7 +35,7 @@ public:
 public:
     /**
      * コンストラクタ .
-     * @param prm_colli_part_num 当たり判定領域要素数
+     * @param prm_colli_part_num 当たり判定要素数
      * @return
      */
     explicit CollisionArea(int prm_colli_part_num);

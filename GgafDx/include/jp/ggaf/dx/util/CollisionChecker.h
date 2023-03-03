@@ -18,7 +18,7 @@ public:
     /** 対象アクター */
     GeometricActor* const _pActor;
     /** 当たり判定領域 */
-    CollisionArea* _pActiveCollisionArea;
+    CollisionArea* _pCollisionArea;
 
     std::vector<CollisionArea*> _vecCollisionArea;
 
@@ -35,14 +35,30 @@ public:
     virtual void updateHitArea() = 0;
 
     /**
-     * 当たり判定領域を作成する（＝当たり判定領域要素の配列を作成する） .
-     * 内部で領域の配列を生成します。
-     * 最初に必ず実行してください。
-     * @param prm_colli_part_num 当たり判定領域の当たり判定領域要素数(1～n)
+     * 当たり判定領域（現在有効となっているもの）を取得 .
+     * @return 有効な当たり判定領域
+     */
+    inline CollisionArea* getCollisionArea() {
+        return _pCollisionArea;
+    }
+
+    /**
+     * 当たり判定領域を１つ生成して追加する。 .
+     * 初めて本メソッドを実行すると、内部リストに保持され、その当たり判定領域が有効になります。
+     * ２回目以降の実行は、生成した当たり判定領域を内部リストの末尾に追加します。（有効になりません）
+     * @param prm_colli_part_num 当たり判定領域内の、当たり判定要素数(1～n)
      */
     virtual void addCollisionArea(int prm_colli_part_num);
 
-    virtual void changeActiveCollisionArea(int prm_index);
+    /**
+     * 当たり判定領域を切り替える .
+     * @param prm_index 当たり判定領域リストのインデックス。
+     *                  最初の   addCollisionArea() に切り替え => 0 を設定
+     *                  ２回目の addCollisionArea() に切り替え => 1 を設定
+     *                  ３回目の addCollisionArea() に切り替え => 2 を設定
+     *                  …
+     */
+    virtual void changeCollisionArea(int prm_index);
 
     /**
      * ヒットしているかどうか
@@ -51,6 +67,10 @@ public:
      */
     virtual bool isHit(const CollisionChecker* const prm_pOtherCollisionChecker) = 0;
 
+    /**
+     * 当たり判定領域が適用されているアクターを取得 .
+     * @return 当たり判定領域が適用されているアクター
+     */
     virtual GeometricActor* getTargetActor() {
         if (_pActor == nullptr) {
             _TRACE_(FUNC_NAME<<" nullptrであるがよいのか！");
@@ -58,29 +78,7 @@ public:
         return _pActor;
     }
 
-    inline CollisionArea* getActiveCollisionArea() {
-        return _pActiveCollisionArea;
-    }
 
-//    /**
-//     * 当たり判定領域の要素を有効にする。
-//     * デフォルトは有効状態になっています。
-//     * @param prm_index 有効にする当たり判定領域の要素番号
-//     */
-//    virtual void enable(int prm_index);
-//
-//    /**
-//     * 当たり判定領域の要素を無効にする。
-//     * @param prm_index 無効にする当たり判定領域の要素番号
-//     */
-//    virtual void disable(int prm_index);
-//
-//    /**
-//     * 当たり判定領域の要素が有効か調べる。
-//     * @param prm_index 調べたい当たり判定領域の要素番号
-//     * @return true:有効 / false:無効
-//     */
-//    virtual bool isEnable(int prm_index);
 
     virtual ~CollisionChecker();
 };

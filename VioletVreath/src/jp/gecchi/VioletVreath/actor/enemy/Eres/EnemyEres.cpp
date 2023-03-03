@@ -9,6 +9,7 @@
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveAxisVehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveVecVehicleLeader.h"
+#include "jp/ggaf/dx/model/Model.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Eres/EnemyEresShot001.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"

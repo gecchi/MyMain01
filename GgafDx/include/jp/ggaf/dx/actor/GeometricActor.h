@@ -734,6 +734,47 @@ public:
     }
 
     /**
+     * ワールドの方向ベクトルを、ローカル方向ベクトルに変換。(_pActor_base が存在する場合のみ使用可能) .
+     * @tparam T ベクトル要素の数値型
+     * @param prm_final_target_vx 最終的に向きたい方向ベクトルX要素
+     * @param prm_final_target_vy 最終的に向きたい方向ベクトルY要素
+     * @param prm_final_target_vz 最終的に向きたい方向ベクトルZ要素
+     * @param out_local_vx その為に予め向いておくべきローカル座標の方向ベクトルX要素
+     * @param out_local_vy その為に予め向いておくべきローカル座標の方向ベクトルY要素
+     * @param out_local_vz その為に予め向いておくべきローカル座標の方向ベクトルZ要素
+     */
+    template<class T>
+    void cnvDirectionWorldToLocal(T prm_final_target_vx, T prm_final_target_vy, T prm_final_target_vz,
+                                  T& out_local_vx, T& out_local_vy, T& out_local_vz) {
+        //【例】ロックオン対象へ方向を向ける
+        //考え方：ローカル座標系で予めどの方向に向いておけば、最終的にロックオン対象に向くことになるかを求める
+        //
+        //ロックオン対象への向くための変換前状態で、
+        //ローカル座標で「向いておけばいいのではないか」の方向のベクトルを(tvx, tvy, tvz) とおき、
+        //「土台まで」の行列の積（_pActor_base->_matWorldRotMv) を b_mat_xx とする。
+        //現在の最終座標からロックオン対象への向きのベクトルを、(mvx, mvy, mvz) とすると、
+        //
+        // | b_mat_11 b_mat_12 b_mat_13 | |tvx|   |mvx|
+        // | b_mat_21 b_mat_22 b_mat_23 | |tvy| = |mvy|
+        // | b_mat_31 b_mat_32 b_mat_33 | |tvz|   |mvz|
+        //
+        //となるはずだ。(tvx, tvy, tvz)について解く。逆行列を掛けて求めれば良い。
+        //
+        // |tvx|   | b_mat_11 b_mat_12 b_mat_13 | -1  |mvx|
+        // |tvy| = | b_mat_21 b_mat_22 b_mat_23 |     |mvy|
+        // |tvz|   | b_mat_31 b_mat_32 b_mat_33 |     |mvz|
+        //
+        //mvx mvy mvz は、ロックオン対象への方向ベクトルである
+
+        //土台となるアクターの逆行列取得
+        D3DXMATRIX* pBaseInvMatRM = getBaseActor()->getInvMatWorldRotMv();
+        //ローカル座標でのターゲットとなる方向ベクトル計算
+        out_local_vx = (T)(prm_final_target_vx*pBaseInvMatRM->_11 + prm_final_target_vy*pBaseInvMatRM->_21 + prm_final_target_vz*pBaseInvMatRM->_31);
+        out_local_vy = (T)(prm_final_target_vx*pBaseInvMatRM->_12 + prm_final_target_vy*pBaseInvMatRM->_22 + prm_final_target_vz*pBaseInvMatRM->_32);
+        out_local_vz = (T)(prm_final_target_vx*pBaseInvMatRM->_13 + prm_final_target_vy*pBaseInvMatRM->_23 + prm_final_target_vz*pBaseInvMatRM->_33);
+    }
+
+    /**
      * デストラクタ
      */
     virtual ~GeometricActor();

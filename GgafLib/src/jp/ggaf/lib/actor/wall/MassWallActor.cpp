@@ -383,7 +383,7 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
         setHitAble(true);
         if (prm_pos_info == 0) {
             //BOX
-            pChecker->changeActiveCollisionArea(0);
+            pChecker->changeCollisionArea(0);
             pChecker->setColliAABox(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                        -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                        -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
@@ -393,7 +393,7 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
                                  );
         } else if (POS_PRISM_XY_NN <= prm_pos_info && prm_pos_info <= POS_PRISM_ZX_PP) {
             //プリズム
-            pChecker->changeActiveCollisionArea(1);
+            pChecker->changeCollisionArea(1);
             pChecker->setColliAAPrism(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                          -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                          -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
@@ -403,7 +403,7 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
                                           _pos_info   );
         } else {
             //ピラミッド
-            pChecker->changeActiveCollisionArea(2);
+            pChecker->changeCollisionArea(2);
             pChecker->setColliAAPyramid(0, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                            -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
                                            -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
