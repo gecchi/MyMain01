@@ -258,7 +258,6 @@ HRESULT Input::initJoyStick() {
 }
 
 BOOL CALLBACK Input::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInstance, VOID *pContext) {
-    _TRACE_("call back");
     HRESULT hr;
     // ゲームスティックデバイスを探す
     hr = Input::_pIDirectInput8->CreateDevice(
@@ -287,7 +286,6 @@ BOOL CALLBACK Input::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInsta
 }
 
 BOOL CALLBACK Input::enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef) {
-    _TRACE_("call back");
     DIPROPRANGE diproprange;
     ZeroMemory( &diproprange, sizeof(diproprange) );
     diproprange.diph.dwSize = sizeof(diproprange);

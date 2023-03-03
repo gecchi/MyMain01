@@ -148,7 +148,7 @@ public:
      * @param prm_model モデル定義名
      * @return 生成された（＝リストの末尾に追加された）モデル資源
      */
-    virtual GgafDx::MassMeshModel* addModel(const char* prm_model) override;
+    virtual void addModel(const char* prm_model) override;
 
     virtual ~LaserChip();
 

@@ -148,13 +148,12 @@ _pColorist(nullptr)
     _lstModel.push_back(_pModel);
 }
 
-Model* FigureActor::addModel(const char prm_model_type, const char* prm_model) {
-   std::string model_id = std::string(1, prm_model_type) + "," + std::string(prm_model);
+void FigureActor::addModel(const char* prm_model) {
+   std::string model_id = std::string(1, _pModel->_model_type) + "," + std::string(prm_model);
    ModelConnection* pModelCon =  (ModelConnection*)pCARETAKER->_pModelManager->connect(model_id.c_str(), this);
    Model* pModel = ((Model*)pModelCon->peek());
    _lstModelCon.push_back(pModelCon);
    _lstModel.push_back(pModel);
-   return pModel;
 }
 
 void FigureActor::changeModel(int prm_model_index) {

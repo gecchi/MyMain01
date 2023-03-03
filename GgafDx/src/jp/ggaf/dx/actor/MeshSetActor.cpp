@@ -89,10 +89,6 @@ void MeshSetActor::processDraw() {
     _pNextRenderActor = pDrawActor;
 }
 
-MeshSetModel* MeshSetActor::addModel(const char* prm_model) {
-    Model* pModel = FigureActor::addModel(TYPE_MESHSET_MODEL, prm_model);
-    return (MeshSetModel*)pModel;
-}
 void MeshSetActor::changeModel(int prm_model_index) {
     FigureActor::changeModel(prm_model_index);
     _pMeshSetModel = (MeshSetModel*)_pModel;

@@ -43,15 +43,6 @@ public:
     }
 
     /**
-     * モデル資源(TYPE_CUBEMAPMESHSET_MODEL)を１つ生成して追加する。.
-     * 初めて本メソッドを実行すると、内部リストに保持され、そのモデル資源が有効になります。
-     * ２回目以降の実行は、生成したモデル資源を内部リストの末尾に追加します。（有効になりません）
-     * @param prm_model モデル定義名
-     * @return 生成された（＝リストの末尾に追加された）モデル資源
-     */
-    virtual MeshModel* addModel(const char* prm_model) override;
-
-    /**
      * モデル資源(MeshModel)を切り替える（表示が切り替わります） .
      * @param prm_model_index モデル資源保持リストのインデックス。
      *                        最初の   addModel() に切り替え => 0 を設定

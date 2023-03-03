@@ -283,14 +283,12 @@ public:
     }
 
     /**
-     * モデル資源を１つ生成して追加する。(下位クラスで hidden されてる) .
+     * モデル資源を１つ生成して追加する。 .
      * 初めて本メソッドを実行すると、内部リストに保持され、そのモデル資源が有効になります。
      * ２回目以降の実行は、生成したモデル資源を内部リストの末尾に追加します。（有効になりません）
      * @param prm_model モデル定義名
-     * @param prm_model_type モデルタイプ
-     * @return 生成された（＝リストの末尾に追加された）モデル資源
      */
-    Model* addModel(const char prm_model_type, const char* prm_model);
+    virtual void addModel(const char* prm_model);
 
     /**
      * モデル資源を切り替える（表示が切り替わります） .

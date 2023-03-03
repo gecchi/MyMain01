@@ -502,10 +502,10 @@ void LaserChip::processDraw() {
     _pNextRenderActor = pDrawActor;
 }
 
-GgafDx::MassMeshModel* LaserChip::addModel(const char* prm_model) {
-    GgafDx::MassMeshModel* pModel = MassMeshActor::addModel(prm_model);
+void LaserChip::addModel(const char* prm_model) {
+    MassMeshActor::addModel(prm_model);
+    GgafDx::MassMeshModel* pModel = (GgafDx::MassMeshModel*)_lstModel.back(); //¡’Ç‰Á‚µ‚½ƒ‚ƒfƒ‹
     pModel->registerCallback_VertexInstanceDataInfo(LaserChip::createVertexInstanceData);
-    return pModel;
 }
 
 LaserChip::~LaserChip() {

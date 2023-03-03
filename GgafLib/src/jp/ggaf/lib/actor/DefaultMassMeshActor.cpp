@@ -118,10 +118,10 @@ void DefaultMassMeshActor::processDraw() {
     _pNextRenderActor = pDrawActor;
 }
 
-GgafDx::MassMeshModel* DefaultMassMeshActor::addModel(const char* prm_model) {
-    GgafDx::MassMeshModel* pModel = MassMeshActor::addModel(prm_model);
+void DefaultMassMeshActor::addModel(const char* prm_model) {
+    MassMeshActor::addModel(prm_model);
+    GgafDx::MassMeshModel* pModel = (GgafDx::MassMeshModel*)_lstModel.back(); //¡’Ç‰Á‚µ‚½ƒ‚ƒfƒ‹
     pModel->registerCallback_VertexInstanceDataInfo(DefaultMassMeshActor::createVertexInstanceData);
-    return pModel;
 }
 
 DefaultMassMeshActor::~DefaultMassMeshActor() {
