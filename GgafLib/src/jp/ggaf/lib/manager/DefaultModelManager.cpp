@@ -24,6 +24,7 @@ GgafDx::Model* DefaultModelManager::processCreateResource(const char* prm_idstr,
     switch (model_type) {
         case TYPE_SINGLELASER_MODEL: {
             SingleLaserModel* pModel_new = NEW SingleLaserModel(model_id);
+            pModel_new->_model_type = TYPE_SINGLELASER_MODEL;
             pModel_new->restore();
             pResourceModel = (Model*)pModel_new;
             break;
