@@ -111,6 +111,11 @@ void MassBoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_r
 //    return _pMassBoardModel->_model_height_px;
 //}
 
+void MassBoardActor::changeModel(int prm_model_index) {
+    MassActor::changeModel(prm_model_index);
+    _pMassBoardModel = (MassBoardModel*)_pModel;
+}
+
 MassBoardActor::~MassBoardActor() {
     delete _pUvFlipper;
 }

@@ -51,7 +51,7 @@ class RegularPolygonBoardActor : public FigureActor, public IAlignAbleActor {
 
 public:
     /** [r]モデルオブジェクトへのポインタ */
-    RegularPolygonBoardModel* const _pRegularPolygonBoardModel;
+    RegularPolygonBoardModel* _pRegularPolygonBoardModel;
     /** [r]エフェクト */
     RegularPolygonBoardEffect* const _pRegularPolygonBoardEffect;
     /** [r]UVフリッパー(パラパラアニメ) */
@@ -78,8 +78,6 @@ public:
                              const char* prm_technique );
 
     virtual void processDraw() override;
-
-    virtual ~RegularPolygonBoardActor(); //デストラクタ
 
 //    virtual void setAlign(Align prm_align, Valign prm_valign);
 //    virtual void setAlign(Align prm_align);
@@ -150,6 +148,17 @@ public:
         return false;
     }
 
+    /**
+     * モデル資源(MeshModel)を切り替える（表示が切り替わります） .
+     * @param prm_model_index モデル資源保持リストのインデックス。
+     *                        最初の   addModel() に切り替え => 0 を設定
+     *                        ２回目の addModel() に切り替え => 1 を設定
+     *                        ３回目の addModel() に切り替え => 2 を設定
+     *                         …
+     */
+    virtual void changeModel(int prm_model_index) override;
+
+    virtual ~RegularPolygonBoardActor(); //デストラクタ
 };
 
 }

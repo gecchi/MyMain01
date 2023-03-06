@@ -164,6 +164,13 @@ void FontSpriteActor::processDraw() {
     _pNextRenderActor = pDrawActor;
 }
 
+
+void FontSpriteActor::addModel(const char* prm_model) {
+    MassSpriteActor::addModel(prm_model);
+    GgafDx::MassSpriteModel* pModel = (GgafDx::MassSpriteModel*)_lstModel.back(); //¡’Ç‰Á‚µ‚½ƒ‚ƒfƒ‹
+    pModel->registerCallback_VertexInstanceDataInfo(FontSpriteActor::createVertexInstanceData);
+}
+
 FontSpriteActor::~FontSpriteActor() {
     GGAF_DELETE(_pColliCollisionChecker);
 }

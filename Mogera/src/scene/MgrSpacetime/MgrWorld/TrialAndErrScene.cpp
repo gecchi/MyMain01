@@ -34,13 +34,13 @@ enum {
     PHASE_WAIT ,
     PHASE_BANPEI,
 };
-#define NN 500
+#define NN 1
 
 TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "TrialAndErrScene";
 
     for (int i = 0; i < NN; i++) {
-        requestActor(1000+i, SmpActor2, "SmpActor2");
+        requestActor(1000+i, EffectExplosion004, "EffectExplosion004");
     }
 //    requestActor(3000, ItemBoardTest, "ItemBoardTest");
 //    requestActor(4000, LabelMenuItemFont01, "LabelMenuItemFont01");
@@ -59,16 +59,16 @@ void TrialAndErrScene::processBehavior() {
 
 //    static AniTest* p1 = nullptr;
 
-    static SmpActor2* aA[NN];
+    static EffectExplosion004* aA[NN];
 
     if (hasJustChangedToActive()) {
 //        p1 = (AniTest*)receiveActor(5000);
 //        bringSceneMediator()->appendGroupChild(p1);
 
         for (int i = 0; i < NN; i++) {
-            aA[i] = (SmpActor2*)receiveActor(1000+i);
+            aA[i] = (EffectExplosion004*)receiveActor(1000+i);
             bringSceneMediator()->appendGroupChild(MGR_MIKATA, aA[i]);
-            aA[i]->setPosition(PX_C(-200) + PX_C(i), 0, 0);
+            aA[i]->setPosition(PX_C(-200) + PX_C(i)*20, 0, 0);
         }
 
 

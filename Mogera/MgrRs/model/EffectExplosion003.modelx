@@ -1,12 +1,11 @@
 xof 0303txt 0032
 
-MetaModelInfo EffectExplosion004 {
+MetaModelInfo EffectExplosion003 {
   1;
-  "EffectExplosion004.sprx";
+  "EffectExplosion003.psprx";
   0;
   1.000000, 0.000000, 0.000000, 0.000000, 
   0.000000, 1.000000, 0.000000, 0.000000, 
   0.000000, 0.000000, 1.000000, 0.000000, 
   0.000000, 0.000000, 0.000000, 1.000000; 
 }
-

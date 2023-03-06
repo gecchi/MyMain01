@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef EffectExplosion001 {
+  64.0;                      #Width(px)
+  64.0;                      #Height(px)
+  "EffectExplosion001.png";  #TextureFile
+  4;                         #TextureSplitRows
+  4;                         #TextureSplitCols
+}
+

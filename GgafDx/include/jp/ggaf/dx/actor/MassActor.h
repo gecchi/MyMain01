@@ -18,7 +18,7 @@ class MassActor : public FigureActor {
 
 public:
     /** [r]モデル資源 */
-    MassModel* const _pMassModel;
+    MassModel* _pMassModel;
     /** [r]エフェクト資源 */
     MassEffect* const _pMassEffect;
 

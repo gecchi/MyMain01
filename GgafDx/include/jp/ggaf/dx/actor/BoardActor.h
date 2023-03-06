@@ -53,7 +53,7 @@ class BoardActor : public FigureActor, public IAlignAbleActor {
 
 public:
     /** [r]モデルオブジェクトへのポインタ */
-    BoardModel* const _pBoardModel;
+    BoardModel* _pBoardModel;
     /** [r]エフェクト */
     BoardEffect* const _pBoardEffect;
     /** [r]UVフリッパー(パラパラアニメ) */
@@ -78,8 +78,6 @@ public:
                CollisionChecker* prm_pChecker = nullptr);
 
     virtual void processDraw() override;
-
-    virtual ~BoardActor(); //デストラクタ
 
 //    virtual void setAlign(Align prm_align, Valign prm_valign);
 //    virtual void setAlign(Align prm_align);
@@ -117,6 +115,18 @@ public:
     bool isOutOfSpacetime() const override {
         return false;
     }
+
+    /**
+     * モデル資源(MeshModel)を切り替える（表示が切り替わります） .
+     * @param prm_model_index モデル資源保持リストのインデックス。
+     *                        最初の   addModel() に切り替え => 0 を設定
+     *                        ２回目の addModel() に切り替え => 1 を設定
+     *                        ３回目の addModel() に切り替え => 2 を設定
+     *                         …
+     */
+    virtual void changeModel(int prm_model_index) override;
+
+    virtual ~BoardActor(); //デストラクタ
 };
 
 }

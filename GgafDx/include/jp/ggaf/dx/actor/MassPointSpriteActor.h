@@ -16,7 +16,7 @@ class MassPointSpriteActor : public MassActor {
 
 public:
     /** [r]モデル資源 */
-    MassPointSpriteModel* const _pMassPointSpriteModel;
+    MassPointSpriteModel* _pMassPointSpriteModel;
     /** [r]エフェクト資源 */
     MassPointSpriteEffect* const _pMassPointSpriteEffect;
     /** [r]UVフリッパー(パラパラアニメ) */
@@ -41,6 +41,16 @@ public:
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }
+
+    /**
+     * モデル資源(MeshModel)を切り替える（表示が切り替わります） .
+     * @param prm_model_index モデル資源保持リストのインデックス。
+     *                        最初の   addModel() に切り替え => 0 を設定
+     *                        ２回目の addModel() に切り替え => 1 を設定
+     *                        ３回目の addModel() に切り替え => 2 を設定
+     *                         …
+     */
+    virtual void changeModel(int prm_model_index) override;
 
     virtual ~MassPointSpriteActor();
 };

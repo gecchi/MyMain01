@@ -422,6 +422,12 @@ void MassWallActor::drawHitArea() {
 #endif
 }
 
+void MassWallActor::addModel(const char* prm_model) {
+    MassMeshActor::addModel(prm_model);
+    GgafDx::MassMeshModel* pModel = (GgafDx::MassMeshModel*)_lstModel.back(); //¡’Ç‰Á‚µ‚½ƒ‚ƒfƒ‹
+    pModel->registerCallback_VertexInstanceDataInfo(MassWallActor::createVertexInstanceData);
+}
+
 MassWallActor::~MassWallActor() {
     GGAF_DELETE(_pColliCollisionChecker);
 }

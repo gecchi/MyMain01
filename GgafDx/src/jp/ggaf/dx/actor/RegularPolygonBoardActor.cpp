@@ -158,6 +158,12 @@ void RegularPolygonBoardActor::setScaleR(float prm_x_rate, float prm_y_rate, flo
 //    return _pRegularPolygonBoardModel->_model_height_px;
 //}
 
+void RegularPolygonBoardActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pRegularPolygonBoardModel = (RegularPolygonBoardModel*)_pModel;
+}
+
+
 RegularPolygonBoardActor::~RegularPolygonBoardActor() {
     delete _pUvFlipper;
 }

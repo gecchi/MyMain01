@@ -47,5 +47,10 @@ void WorldBoundActor::processDraw() {
     _pWorldBoundModel->draw(this);
 }
 
+void WorldBoundActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pWorldBoundModel = (WorldBoundModel*)_pModel;
+}
+
 WorldBoundActor::~WorldBoundActor() {
 }

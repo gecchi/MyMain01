@@ -39,6 +39,11 @@ _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek()))
     setZWriteEnable(false);
 }
 
+void MassPointSpriteActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pMassPointSpriteModel = (MassPointSpriteModel*)_pModel;
+}
+
 MassPointSpriteActor::~MassPointSpriteActor() {
     delete _pUvFlipper;
 }

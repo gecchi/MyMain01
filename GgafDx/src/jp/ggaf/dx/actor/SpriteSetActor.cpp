@@ -104,6 +104,11 @@ void SpriteSetActor::processDraw() {
 //    _valign = prm_valign;
 //}
 
+void SpriteSetActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pSpriteSetModel = (SpriteSetModel*)_pModel;
+}
+
 SpriteSetActor::~SpriteSetActor() {
     delete _pUvFlipper;
 }

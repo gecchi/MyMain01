@@ -137,6 +137,11 @@ void BoardSetActor::setPositionAt(const GeoElem* prm_pGeoElem) {
 //    return _pBoardSetModel->_model_height_px;
 //}
 
+void BoardSetActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pBoardSetModel = (BoardSetModel*)_pModel;
+}
+
 BoardSetActor::~BoardSetActor() {
     delete _pUvFlipper;
 }

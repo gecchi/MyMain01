@@ -37,5 +37,10 @@ void D3DXMeshActor::processDraw() {
     _pD3DXMeshModel->draw(this);
 }
 
+void D3DXMeshActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pD3DXMeshModel = (D3DXMeshModel*)_pModel;
+}
+
 D3DXMeshActor::~D3DXMeshActor() {
 }

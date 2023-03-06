@@ -122,6 +122,11 @@ void FontBoardActor::drawHitArea() {
 #endif
 }
 
+void FontBoardActor::addModel(const char* prm_model) {
+    MassBoardActor::addModel(prm_model);
+    GgafDx::MassBoardModel* pModel = (GgafDx::MassBoardModel*)_lstModel.back(); //¡’Ç‰Á‚µ‚½ƒ‚ƒfƒ‹
+    pModel->registerCallback_VertexInstanceDataInfo(FontBoardActor::createVertexInstanceData);
+}
 
 FontBoardActor::~FontBoardActor() {
     GGAF_DELETE(_pColliCollisionChecker);

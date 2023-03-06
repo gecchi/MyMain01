@@ -43,6 +43,13 @@ void SkinAniMeshActor::processDraw() {
     _pSkinAniMeshModel->draw(this);
 }
 
+
+void SkinAniMeshActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pSkinAniMeshModel = (SkinAniMeshModel*)_pModel;
+}
+
+
 SkinAniMeshActor::~SkinAniMeshActor() {
     GGAF_DELETE(_pPuppeteer);
 }

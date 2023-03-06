@@ -119,7 +119,7 @@ void UvFlipper::exec(UvFlippingMethod prm_method, int prm_interval) {
 }
 
 void UvFlipper::behave() {
-//    _TRACE_(getName()<<":_pattno_uvflip_now="<<_pattno_uvflip_now<<"/_pattno_uvflip_bottom="<<_pattno_uvflip_bottom<<"/_pattno_uvflip_top="<<_pattno_uvflip_top<<"/_is_reverse_order_in_oscillate_animation_flg="<<_is_reverse_order_in_oscillate_animation_flg<<"");
+//      _TRACE_("_pattno_uvflip_now="<<_pattno_uvflip_now<<"/_uvflip_interval_frames="<<_uvflip_interval_frames<<"/_frame_counter_uvflip="<<_frame_counter_uvflip<<"/_pattno_uvflip_top="<<_pattno_uvflip_top<<"/_is_reverse_order_in_oscillate_animation_flg="<<_is_reverse_order_in_oscillate_animation_flg<<"");
 #ifdef MY_DEBUG
     if (_paUV == nullptr) {
         throwCriticalException("事前にlocatePatternNo()でパターンしてください。_pTexture="<<_pTexture->getName());

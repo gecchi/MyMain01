@@ -307,6 +307,12 @@ coord FramedBoardActor::getWidth() {
 coord FramedBoardActor::getHeight() {
     return PX_C(_model_total_height_px * SC_R(_sy));
 }
+
+void FramedBoardActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pFramedBoardModel = (FramedBoardModel*)_pModel;
+}
+
 FramedBoardActor::~FramedBoardActor() {
     delete _pUvFlipper;
     delete _pUvFlipper_frame;

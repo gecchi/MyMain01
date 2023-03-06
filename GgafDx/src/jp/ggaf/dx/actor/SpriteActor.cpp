@@ -54,6 +54,11 @@ void SpriteActor::processDraw() {
     _pSpriteModel->SpriteModel::draw(this);
 }
 
+void SpriteActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pSpriteModel = (SpriteModel*)_pModel;
+}
+
 SpriteActor::~SpriteActor() {
     delete _pUvFlipper;
 }

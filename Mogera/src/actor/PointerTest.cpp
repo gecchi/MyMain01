@@ -42,7 +42,7 @@ void PointerTest::onActive() {
 
 void PointerTest::processBehavior() {
     VirtualButton* pVb = pCARETAKER->getSpacetime()->pVb_;
-    getUvFlipper()->behave();
+//    getUvFlipper()->behave();
 //    getScaler()->behave();
 }
 

@@ -123,6 +123,13 @@ void DefaultMassBoardActor::processDraw() {
     _pNextRenderActor = pDrawActor;
 }
 
+
+void DefaultMassBoardActor::addModel(const char* prm_model) {
+    MassBoardActor::addModel(prm_model);
+    GgafDx::MassBoardModel* pModel = (GgafDx::MassBoardModel*)_lstModel.back(); //¡’Ç‰Á‚µ‚½ƒ‚ƒfƒ‹
+    pModel->registerCallback_VertexInstanceDataInfo(DefaultMassBoardActor::createVertexInstanceData);
+}
+
 DefaultMassBoardActor::~DefaultMassBoardActor() {
 }
 

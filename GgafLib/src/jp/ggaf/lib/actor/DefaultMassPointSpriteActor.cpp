@@ -132,6 +132,12 @@ void DefaultMassPointSpriteActor::processDraw() {
     checkDxException(hr, D3D_OK, " D3DRS_POINTSPRITEENABLE FALSE ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 }
 
+void DefaultMassPointSpriteActor::addModel(const char* prm_model) {
+    MassPointSpriteActor::addModel(prm_model);
+    GgafDx::MassPointSpriteModel* pModel = (GgafDx::MassPointSpriteModel*)_lstModel.back(); //¡’Ç‰Á‚µ‚½ƒ‚ƒfƒ‹
+    pModel->registerCallback_VertexInstanceDataInfo(DefaultMassPointSpriteActor::createVertexInstanceData);
+}
+
 DefaultMassPointSpriteActor::~DefaultMassPointSpriteActor() {
     GGAF_DELETE(_pColliCollisionChecker);
 }

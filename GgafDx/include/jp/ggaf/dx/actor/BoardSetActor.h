@@ -90,7 +90,7 @@ private:
 
 public:
     /** [r]モデルオブジェクトへのポインタ */
-    BoardSetModel* const _pBoardSetModel;
+    BoardSetModel* _pBoardSetModel;
     /** [r]エフェクト */
     BoardSetEffect* const _pBoardSetEffect;
     /** [r]UVフリッパー(パラパラアニメ) */
@@ -123,8 +123,6 @@ public:
 
     virtual void processDraw() override;
 
-    virtual ~BoardSetActor(); //デストラクタ
-
     virtual void setPositionAt(const GeometricActor* prm_pActor) override;
 
     virtual void setPositionAt(const GeoElem* prm_pGeoElem) override;
@@ -146,6 +144,19 @@ public:
     bool isOutOfSpacetime() const override {
         return false;
     }
+
+    /**
+     * モデル資源(MeshModel)を切り替える（表示が切り替わります） .
+     * @param prm_model_index モデル資源保持リストのインデックス。
+     *                        最初の   addModel() に切り替え => 0 を設定
+     *                        ２回目の addModel() に切り替え => 1 を設定
+     *                        ３回目の addModel() に切り替え => 2 を設定
+     *                         …
+     */
+    virtual void changeModel(int prm_model_index) override;
+
+    virtual ~BoardSetActor(); //デストラクタ
+
 };
 
 }

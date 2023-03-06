@@ -46,6 +46,10 @@ void CubeMapMorphMeshActor::processDraw() {
     _pCubeMapMorphMeshModel->draw(this);
 }
 
+void CubeMapMorphMeshActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pCubeMapMorphMeshModel = (CubeMapMorphMeshModel*)_pModel;
+}
 
 CubeMapMorphMeshActor::~CubeMapMorphMeshActor() {
 }

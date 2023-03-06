@@ -28,7 +28,7 @@ public:
     /** [r]モーフターゲット数(モデルのコピーした値) */
     int _morph_target_num;
     /** [r]モデル資源 */
-    MassMorphMeshModel* const _pMassMorphMeshModel;
+    MassMorphMeshModel* _pMassMorphMeshModel;
     /** [r]エフェクト資源 */
     MassMorphMeshEffect* const _pMassMorphMeshEffect;
     /** [r/w]モーフターゲットの重み(0.0 ～ 1.0) */
@@ -102,6 +102,16 @@ public:
      * @param prm_technique テクニック名
      */
     virtual void changeEffectTechnique(const char* prm_technique) override;
+
+    /**
+     * モデル資源(MeshModel)を切り替える（表示が切り替わります） .
+     * @param prm_model_index モデル資源保持リストのインデックス。
+     *                        最初の   addModel() に切り替え => 0 を設定
+     *                        ２回目の addModel() に切り替え => 1 を設定
+     *                        ３回目の addModel() に切り替え => 2 を設定
+     *                         …
+     */
+    virtual void changeModel(int prm_model_index) override;
 
     virtual ~MassMorphMeshActor (); //デストラクタ
 };

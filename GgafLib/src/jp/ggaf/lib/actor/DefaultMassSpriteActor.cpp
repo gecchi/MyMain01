@@ -5,8 +5,6 @@
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
-
-
 using namespace GgafLib;
 
 DefaultMassSpriteActor::VERTEX_instancedata DefaultMassSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
@@ -143,6 +141,12 @@ void DefaultMassSpriteActor::processDraw() {
     }
     pMassSpriteModel->GgafDx::MassSpriteModel::draw(this, draw_set_num);
     _pNextRenderActor = pDrawActor;
+}
+
+void DefaultMassSpriteActor::addModel(const char* prm_model) {
+    MassSpriteActor::addModel(prm_model);
+    GgafDx::MassSpriteModel* pModel = (GgafDx::MassSpriteModel*)_lstModel.back(); //¡’Ç‰Á‚µ‚½ƒ‚ƒfƒ‹
+    pModel->registerCallback_VertexInstanceDataInfo(DefaultMassSpriteActor::createVertexInstanceData);
 }
 
 DefaultMassSpriteActor::~DefaultMassSpriteActor() {

@@ -67,6 +67,14 @@ public:
         return _pColliCollisionChecker;
     }
 
+    /**
+     * モデル資源を１つ生成して追加する。 .
+     * 初めて本メソッドを実行すると、内部リストに保持され、そのモデル資源が有効になります。
+     * ２回目以降の実行は、生成したモデル資源を内部リストの末尾に追加します。（有効になりません）
+     * @param prm_model モデル定義名
+     */
+    virtual void addModel(const char* prm_model) override;
+
     virtual ~DefaultMassSpriteActor();
 
 };

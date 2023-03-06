@@ -1,9 +1,9 @@
 xof 0303txt 0032
 
-MetaModelInfo EffectExplosion004 {
+MetaModelInfo EffectExplosion001 {
   1;
-  "EffectExplosion004.sprx";
-  0;
+  "EffectExplosion001.sprx";
+  0;                         #DrawSetNum
   1.000000, 0.000000, 0.000000, 0.000000, 
   0.000000, 1.000000, 0.000000, 0.000000, 
   0.000000, 0.000000, 1.000000, 0.000000, 

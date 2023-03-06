@@ -149,7 +149,6 @@ public:
 
     ID3DXFile* _pID3DXFile_modelx;
     /** Xファイル読み込み用の ID3DXFile のポインタ（meshx モデル定義読み込んだあと） */
-//    ID3DXFile* _pID3DXFile_meshx;
     ID3DXFile* _pID3DXFile_sprx;
     ID3DXFile* _pID3DXFile_fsprx;
     ID3DXFile* _pID3DXFile_rsprx;
@@ -157,14 +156,11 @@ public:
 
     static std::map<char, std::string> type_ext;
     static bool initStatic();
-
-//    void obtainMeshModelInfo(ModelXFileFmt* prm_pModelXFileFmt_out, std::string prm_meshx_filepath);
     void obtainSpriteModelInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std::string prm_sprx_filepath);
     void obtainFramedSpriteModelInfo(FramedSpriteXFileFmt* prm_pFramedSpriteFmt_out, std::string prm_fsprx_filepath);
     void obtainRegPolySpriteModelInfo(RegPolySpriteXFileFmt* prm_pRegPolySpriteFmt_out, std::string prm_rsprx_filepath);
     void obtainPointSpriteModelInfo(PointSpriteXFileFmt* prm_pPointSpriteFmt_out, std::string prm_psprx_filepath);
 
-//    void obtainMetaModelInfo(ModelXFileFmt* prm_pModelDefineXFileFmt_out, char* prm_model_id);
     void obtainMetaModelInfo(ModelXFileFmt* prm_pModelDefineXFileFmt_out, std::string prm_modelfile_filepath);
 public:
     /**
@@ -211,7 +207,6 @@ public:
 
     void releaseAll();
 
-
     /** 前回描画Model */
     static Model* _pModelLastDraw;
 
@@ -222,9 +217,6 @@ public:
     ModelConnection* getFirstConnection() const {
         return (ModelConnection*)_pConn_first;
     }
-
-
-
 
     virtual ~ModelManager();
 };

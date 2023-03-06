@@ -85,6 +85,11 @@ void PointSpriteActor::processDraw() {
     pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
 }
 
+void PointSpriteActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pPointSpriteModel = (PointSpriteModel*)_pModel;
+}
+
 PointSpriteActor::~PointSpriteActor() {
     delete _pUvFlipper;
 }

@@ -85,6 +85,12 @@ void RegularPolygonSpriteActor::processDraw() {
     _pRegularPolygonSpriteModel->RegularPolygonSpriteModel::draw(this);
 }
 
+void RegularPolygonSpriteActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pRegularPolygonSpriteModel = (RegularPolygonSpriteModel*)_pModel;
+}
+
+
 RegularPolygonSpriteActor::~RegularPolygonSpriteActor() {
     delete _pUvFlipper;
 }

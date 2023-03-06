@@ -39,6 +39,11 @@ void D3DXAniMeshActor::processDraw() {
     _pD3DXAniMeshModel->draw(this);
 }
 
+void D3DXAniMeshActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pD3DXAniMeshModel = (D3DXAniMeshModel*)_pModel;
+}
+
 D3DXAniMeshActor::~D3DXAniMeshActor() {
     GGAF_DELETE(_pPuppeteer);
 }

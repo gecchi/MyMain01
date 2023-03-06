@@ -295,6 +295,11 @@ coord FramedSpriteActor::getHeight() {
     return PX_C(_model_total_height_px * SC_R(_sy));
 }
 
+void FramedSpriteActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pFramedSpriteModel = (FramedSpriteModel*)_pModel;
+}
+
 FramedSpriteActor::~FramedSpriteActor() {
     delete _pUvFlipper;
     delete _pUvFlipper_frame;

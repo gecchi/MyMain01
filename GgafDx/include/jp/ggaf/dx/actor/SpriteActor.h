@@ -18,7 +18,7 @@ class SpriteActor : public FigureActor, public IAlignAbleActor {
 
 public:
     /** [r]モデル資源 */
-    SpriteModel* const _pSpriteModel;
+    SpriteModel* _pSpriteModel;
     /** [r]エフェクト資源 */
     SpriteEffect* const _pSpriteEffect;
     /** [r]UVフリッパー(パラパラアニメ) */
@@ -46,8 +46,6 @@ public:
 
     virtual void processDraw() override;
 
-    virtual ~SpriteActor();
-
     /**
      * 遠くの座標でも強制表示 .
      * @param prm_b
@@ -63,6 +61,18 @@ public:
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }
+
+    /**
+     * モデル資源(MeshModel)を切り替える（表示が切り替わります） .
+     * @param prm_model_index モデル資源保持リストのインデックス。
+     *                        最初の   addModel() に切り替え => 0 を設定
+     *                        ２回目の addModel() に切り替え => 1 を設定
+     *                        ３回目の addModel() に切り替え => 2 を設定
+     *                         …
+     */
+    virtual void changeModel(int prm_model_index) override;
+
+    virtual ~SpriteActor();
 };
 
 }

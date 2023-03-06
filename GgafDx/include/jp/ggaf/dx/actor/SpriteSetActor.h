@@ -18,7 +18,7 @@ class SpriteSetActor : public FigureActor {
 
 public:
     /** [r]モデル資源 */
-    SpriteSetModel* const _pSpriteSetModel;
+    SpriteSetModel* _pSpriteSetModel;
     /** [r]エフェクト資源 */
     SpriteSetEffect* const _pSpriteSetEffect;
     /** [r]UVフリッパー(パラパラアニメ) */
@@ -42,11 +42,21 @@ public:
 
     virtual void processDraw() override;
 
-    virtual ~SpriteSetActor();
-
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }
+    /**
+     * モデル資源(MeshModel)を切り替える（表示が切り替わります） .
+     * @param prm_model_index モデル資源保持リストのインデックス。
+     *                        最初の   addModel() に切り替え => 0 を設定
+     *                        ２回目の addModel() に切り替え => 1 を設定
+     *                        ３回目の addModel() に切り替え => 2 を設定
+     *                         …
+     */
+    virtual void changeModel(int prm_model_index) override;
+
+    virtual ~SpriteSetActor();
+
 };
 
 }

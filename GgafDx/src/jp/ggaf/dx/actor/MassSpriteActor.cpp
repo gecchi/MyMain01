@@ -37,6 +37,11 @@ _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek()))
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
 
+void MassSpriteActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pMassSpriteModel = (MassSpriteModel*)_pModel;
+}
+
 MassSpriteActor::~MassSpriteActor() {
     delete _pUvFlipper;
 }

@@ -10,12 +10,15 @@ using namespace GgafLib;
 using namespace Mogera;
 
 EffectExplosion004::EffectExplosion004(const char* prm_name) :
-        DefaultMassSpriteActor(prm_name, "EffectExplosion004") {
+        //DefaultMassSpriteActor(prm_name, "EffectExplosion004") {
+    DefaultSpriteActor(prm_name, "EffectExplosion004") {
     _class_name = "EffectExplosion004";
     //加算合成Technique指定
 //    effectBlendOne();
     //ワールド変換行列はビルボード指定
     defineRotMvWorldMatrix_Billboard();
+
+    addModel("EffectExplosion001");
 }
 
 void EffectExplosion004::initialize() {
@@ -25,25 +28,25 @@ void EffectExplosion004::initialize() {
 
 void EffectExplosion004::onActive() {
     GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
-    pUvFlipper->setActivePtnToTop();
-    pUvFlipper->exec(FLIP_ORDER_NOLOOP, 1);
-    setScale(500);
-    getScaler()->transitionLinearUntil(2000, 64);
+    //pUvFlipper->setActivePtnToTop();
+    pUvFlipper->exec(FLIP_ORDER_LOOP, 10);
+//    setScale(500);
+//    getScaler()->transitionLinearUntil(2000, 64);
     setCullingDraw(false);
     setAlpha(1.0);
 }
 
 void EffectExplosion004::processBehavior() {
-    _alpha -= 0.01;
+    //_alpha -= 0.01;
     getUvFlipper()->behave();
     getVecVehicle()->behave();
-    getScaler()->behave();
+//    getScaler()->behave();
 }
 
 void EffectExplosion004::processJudgement() {
-    if (getActiveFrame() > 120) {
-        sayonara();
-    }
+//    if (getActiveFrame() > 120) {
+//        sayonara();
+//    }
 }
 
 EffectExplosion004::~EffectExplosion004() {

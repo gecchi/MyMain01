@@ -49,7 +49,7 @@ private:
     }
 public:
     /** [r]モデルオブジェクトへのポインタ */
-    FramedBoardModel* const _pFramedBoardModel;
+    FramedBoardModel* _pFramedBoardModel;
     /** [r]エフェクト */
     FramedBoardEffect* const _pFramedBoardEffect;
     /** [r]UVフリッパー(中心のメイン) */
@@ -91,8 +91,6 @@ public:
                      const char* prm_technique );
 
     virtual void processDraw() override;
-
-    virtual ~FramedBoardActor(); //デストラクタ
 
     virtual void setPositionAt(const GeometricActor* prm_pActor) override;
 
@@ -139,6 +137,17 @@ public:
     bool isOutOfSpacetime() const override {
         return false;
     }
+    /**
+     * モデル資源(MeshModel)を切り替える（表示が切り替わります） .
+     * @param prm_model_index モデル資源保持リストのインデックス。
+     *                        最初の   addModel() に切り替え => 0 を設定
+     *                        ２回目の addModel() に切り替え => 1 を設定
+     *                        ３回目の addModel() に切り替え => 2 を設定
+     *                         …
+     */
+    virtual void changeModel(int prm_model_index) override;
+
+    virtual ~FramedBoardActor(); //デストラクタ
 };
 
 }

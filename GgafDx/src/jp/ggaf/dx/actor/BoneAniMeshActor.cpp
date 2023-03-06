@@ -42,6 +42,11 @@ void BoneAniMeshActor::processDraw() {
     _pBoneAniMeshModel->draw(this);
 }
 
+void BoneAniMeshActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pBoneAniMeshModel = (BoneAniMeshModel*)_pModel;
+}
+
 BoneAniMeshActor::~BoneAniMeshActor() {
     GGAF_DELETE(_pPuppeteer);
 }

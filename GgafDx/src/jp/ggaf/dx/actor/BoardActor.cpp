@@ -147,6 +147,11 @@ void BoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate)
 //    return _pBoardModel->_model_height_px;
 //}
 
+void BoardActor::changeModel(int prm_model_index) {
+    FigureActor::changeModel(prm_model_index);
+    _pBoardModel = (BoardModel*)_pModel;
+}
+
 BoardActor::~BoardActor() {
     delete _pUvFlipper;
 }
