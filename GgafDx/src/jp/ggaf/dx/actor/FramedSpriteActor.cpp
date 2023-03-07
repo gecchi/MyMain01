@@ -26,8 +26,8 @@ FramedSpriteActor::FramedSpriteActor(const char* prm_name,
                             IAlignAbleActor(),
 _pFramedSpriteModel( (FramedSpriteModel*)_pModel),
 _pFramedSpriteEffect( (FramedSpriteEffect*)_pEffect),
-_pUvFlipper(NEW UvFlipper(getModel()->_papTextureConnection[0]->peek())),
-_pUvFlipper_frame(NEW UvFlipper(getModel()->_papTextureConnection[1]->peek())),
+_pUvFlipper(NEW UvFlipper()),
+_pUvFlipper_frame(NEW UvFlipper()),
 _model_frame_width_px((pixcoord)(_pFramedSpriteModel->_model_frame_width_px)),
 _model_frame_height_px((pixcoord)(_pFramedSpriteModel->_model_frame_height_px)),
 _model_center_width_px((pixcoord)(_pFramedSpriteModel->_model_width_px)),
@@ -41,14 +41,8 @@ _lim_center_sy(R_SC( (_model_frame_height_px * 2.0) / _model_total_height_px )) 
     _class_name = "FramedSpriteActor";
     _pUvFlipper->locatePatternNo(_pFramedSpriteModel->_col_texture_split,
                                  _pFramedSpriteModel->_row_texture_split );
-    _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->exec(NOT_ANIMATED, 1);
-
     _pUvFlipper_frame->locatePatternNo(_pFramedSpriteModel->_col_frame_texture_split,
                                        _pFramedSpriteModel->_row_frame_texture_split );
-    _pUvFlipper_frame->setActivePtn(0);
-    _pUvFlipper_frame->exec(NOT_ANIMATED, 1);
-
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
     _far_rate = -1.0f;
 
@@ -295,8 +289,8 @@ coord FramedSpriteActor::getHeight() {
     return PX_C(_model_total_height_px * SC_R(_sy));
 }
 
-void FramedSpriteActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void FramedSpriteActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pFramedSpriteModel = (FramedSpriteModel*)_pModel;
 }
 

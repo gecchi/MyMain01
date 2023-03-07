@@ -26,14 +26,11 @@ BoardActor::BoardActor(const char* prm_name,
                            IAlignAbleActor(),
 _pBoardModel((BoardModel*)_pModel),
 _pBoardEffect((BoardEffect*)_pEffect) ,
-_pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
+_pUvFlipper(NEW UvFlipper()) {
 
     _obj_class |= Obj_GgafDx_BoardActor | Obj_GgafDx_IAlignAbleActor;
     _class_name = "BoardActor";
-    _pUvFlipper->locatePatternNo(_pBoardModel->_col_texture_split,
-                                 _pBoardModel->_row_texture_split );
-    _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->exec(NOT_ANIMATED, 1);
+    _pUvFlipper->locatePatternNo(_pBoardModel);
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
     _alpha = 1.0f;
@@ -147,8 +144,8 @@ void BoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate)
 //    return _pBoardModel->_model_height_px;
 //}
 
-void BoardActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void BoardActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pBoardModel = (BoardModel*)_pModel;
 }
 

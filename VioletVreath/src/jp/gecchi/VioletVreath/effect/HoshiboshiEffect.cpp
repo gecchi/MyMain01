@@ -1,7 +1,5 @@
 #include "HoshiboshiEffect.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

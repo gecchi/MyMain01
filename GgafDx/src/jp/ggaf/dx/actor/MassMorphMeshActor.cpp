@@ -115,8 +115,8 @@ void MassMorphMeshActor::changeEffectTechnique(const char* prm_technique) {
     strcpy(_technique, technique2.c_str());
 }
 
-void MassMorphMeshActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void MassMorphMeshActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pMassMorphMeshModel = (MassMorphMeshModel*)_pModel;
 }
 

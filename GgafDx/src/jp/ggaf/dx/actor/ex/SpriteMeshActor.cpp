@@ -23,11 +23,7 @@ SpriteMeshActor::SpriteMeshActor(const char* prm_name,
 
     _obj_class |= Obj_GgafDx_SpriteMeshActor;
     _class_name = "SpriteMeshActor";
-    Texture* pTexture = getModel()->getDefaultTextureConnection()->peek();
-    _pUvFlipper = NEW UvFlipper(pTexture);
-    _pUvFlipper->locatePatternNo(1, 1);
-    _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->exec(NOT_ANIMATED, 1);
+    _pUvFlipper = NEW UvFlipper();
 }
 
 void SpriteMeshActor::processDraw() {

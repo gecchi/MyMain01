@@ -26,16 +26,11 @@ BoardSetActor::BoardSetActor(const char* prm_name,
                                  IAlignAbleActor(),
 _pBoardSetModel((BoardSetModel*)_pModel),
 _pBoardSetEffect((BoardSetEffect*)_pEffect),
-_pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
+_pUvFlipper(NEW UvFlipper()) {
 
     _obj_class |= Obj_GgafDx_BoardSetActor | Obj_GgafDx_IAlignAbleActor;
     _class_name = "BoardSetActor";
-    _pUvFlipper->locatePatternNo(_pBoardSetModel->_col_texture_split,
-                             _pBoardSetModel->_row_texture_split
-                            );
-    _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->exec(NOT_ANIMATED, 1);
-
+    _pUvFlipper->locatePatternNo(_pBoardSetModel);
     _width_px = (int)(_pBoardSetModel->_model_width_px); //•(px)
     _height_px = (int)(_pBoardSetModel->_model_height_px); //‚‚³(px)
     _harf_width_px = _width_px/2;
@@ -137,8 +132,8 @@ void BoardSetActor::setPositionAt(const GeoElem* prm_pGeoElem) {
 //    return _pBoardSetModel->_model_height_px;
 //}
 
-void BoardSetActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void BoardSetActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pBoardSetModel = (BoardSetModel*)_pModel;
 }
 

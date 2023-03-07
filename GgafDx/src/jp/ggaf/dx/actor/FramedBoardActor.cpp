@@ -26,8 +26,8 @@ FramedBoardActor::FramedBoardActor(const char* prm_name,
                                        IAlignAbleActor(),
 _pFramedBoardModel((FramedBoardModel*)_pModel),
 _pFramedBoardEffect((FramedBoardEffect*)_pEffect),
-_pUvFlipper(NEW UvFlipper(getModel()->_papTextureConnection[0]->peek())),
-_pUvFlipper_frame(NEW UvFlipper(getModel()->_papTextureConnection[1]->peek())),
+_pUvFlipper(NEW UvFlipper()),
+_pUvFlipper_frame(NEW UvFlipper()),
 _model_frame_width_px((pixcoord)(_pFramedBoardModel->_model_frame_width_px)),
 _model_frame_height_px((pixcoord)(_pFramedBoardModel->_model_frame_height_px)),
 _model_center_width_px((pixcoord)(_pFramedBoardModel->_model_width_px)),
@@ -40,14 +40,10 @@ _lim_center_sy(R_SC( (_model_frame_height_px * 2.0) / _model_total_height_px )) 
     _obj_class |= Obj_GgafDx_FramedBoardActor | Obj_GgafDx_IAlignAbleActor;
     _class_name = "FramedBoardActor";
     _pUvFlipper->locatePatternNo(_pFramedBoardModel->_col_texture_split,
-                            _pFramedBoardModel->_row_texture_split );
-    _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->exec(NOT_ANIMATED, 1);
+                                 _pFramedBoardModel->_row_texture_split );
 
     _pUvFlipper_frame->locatePatternNo(_pFramedBoardModel->_col_frame_texture_split,
                                        _pFramedBoardModel->_row_frame_texture_split );
-    _pUvFlipper_frame->setActivePtn(0);
-    _pUvFlipper_frame->exec(NOT_ANIMATED, 1);
 
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
@@ -308,8 +304,8 @@ coord FramedBoardActor::getHeight() {
     return PX_C(_model_total_height_px * SC_R(_sy));
 }
 
-void FramedBoardActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void FramedBoardActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pFramedBoardModel = (FramedBoardModel*)_pModel;
 }
 

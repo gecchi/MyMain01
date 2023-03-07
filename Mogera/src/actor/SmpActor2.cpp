@@ -74,10 +74,10 @@ void SmpActor2::processBehavior() {
     }
 
     if (GgafDx::Input::isPressedKey(DIK_A)) {
-        changeModel(0);
+        changeModelByIndex(0);
     }
     if (GgafDx::Input::isPressedKey(DIK_B)) {
-        changeModel(1);
+		changeModelByIndex(1);
     }
 
 

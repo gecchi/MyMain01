@@ -120,8 +120,8 @@ int MorphMeshActor::getMorphTergetNum() {
     return _pMorphMeshModel->_morph_target_num;
 }
 
-void MorphMeshActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void MorphMeshActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pMorphMeshModel = (MorphMeshModel*)_pModel;
 }
 

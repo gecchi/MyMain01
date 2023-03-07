@@ -36,6 +36,8 @@ protected:
     /** [r]モデル資源リスト */
     std::vector<Model*> _lstModel;
 
+    std::map<std::string, int> _mapModel;
+
     /** [r]エフェクト資源接続 */
     EffectConnection* const _pEffectCon;
     /** [r]エフェクト資源 */
@@ -61,7 +63,7 @@ public:
 
     /** [r]同一描画レベルの次のアクター */
     FigureActor* _pNextRenderActor;
-    /** [r/w]現在のマテリアルのα値 (0.0 <= _alpha <= 1.0) */
+    /** [r]現在のマテリアルのα値 (0.0 <= _alpha <= 1.0) 設定は、setAlpha() addAlpha() を使用せよ */
     float _alpha;
     /** [r/w]カリング有り表示の場合 true */
     bool _cull_enable;
@@ -84,18 +86,18 @@ public:
 
 public:
     /**
-     * コンストラクタ .
-     * @param prm_name モデル名称（任意）
-     * @param prm_model モデル識別キー文字列
-     * @param prm_effect エフェクト識別キー文字列
-     * @param prm_technique エフェクトのテクニック
-     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
-     */
-    FigureActor(const char* prm_name,
-                const char* prm_model,
-                const char* prm_effect,
-                const char* prm_technique,
-                CollisionChecker* prm_pChecker);
+//     * コンストラクタ .
+//     * @param prm_name モデル名称（任意）
+//     * @param prm_model モデル識別キー文字列
+//     * @param prm_effect エフェクト識別キー文字列
+//     * @param prm_technique エフェクトのテクニック
+//     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
+//     */
+//    FigureActor(const char* prm_name,
+//                const char* prm_model,
+//                const char* prm_effect,
+//                const char* prm_technique,
+//                CollisionChecker* prm_pChecker);
 
     /**
      * コンストラクタ .
@@ -298,7 +300,11 @@ public:
      *                        ３回目の addModel() に切り替え => 2 を設定
      *                         …
      */
-    virtual void changeModel(int prm_model_index);
+    virtual void changeModelByIndex(int prm_model_index);
+
+    virtual void changeModel(const char* prm_model);
+
+    virtual void changeDefaultModel();
 
     /**
      * アクターのエフェクトを取得 .

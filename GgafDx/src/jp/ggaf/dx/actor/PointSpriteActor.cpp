@@ -26,15 +26,13 @@ PointSpriteActor::PointSpriteActor(const char* prm_name,
                                                    prm_pChecker),
 _pPointSpriteModel((PointSpriteModel*)_pModel),
 _pPointSpriteEffect((PointSpriteEffect*)_pEffect),
-_pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
+_pUvFlipper(NEW UvFlipper()) {
 
     _obj_class |= Obj_GgafDx_PointSpriteActor;
     _class_name = "PointSpriteActor";
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
     _pUvFlipper->locatePatternNo(_pPointSpriteModel->_texture_split_rowcol,
-                             _pPointSpriteModel->_texture_split_rowcol );
-    _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->exec(NOT_ANIMATED, 1);
+                                 _pPointSpriteModel->_texture_split_rowcol );
     setZEnableDraw(false);
     setZWriteEnable(false);
 }
@@ -56,15 +54,13 @@ PointSpriteActor::PointSpriteActor(const char* prm_name,
                                                    prm_pChecker),
 _pPointSpriteModel((PointSpriteModel*)_pModel),
 _pPointSpriteEffect((PointSpriteEffect*)_pEffect),
-_pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
+_pUvFlipper(NEW UvFlipper()) {
 
     _obj_class |= Obj_GgafDx_PointSpriteActor;
     _class_name = "PointSpriteActor";
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
     _pUvFlipper->locatePatternNo(_pPointSpriteModel->_texture_split_rowcol,
-                             _pPointSpriteModel->_texture_split_rowcol );
-    _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->exec(NOT_ANIMATED, 1);
+                                 _pPointSpriteModel->_texture_split_rowcol );
     setZEnableDraw(false);
     setZWriteEnable(false);
 }
@@ -85,8 +81,8 @@ void PointSpriteActor::processDraw() {
     pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
 }
 
-void PointSpriteActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void PointSpriteActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pPointSpriteModel = (PointSpriteModel*)_pModel;
 }
 

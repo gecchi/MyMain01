@@ -47,8 +47,8 @@ void CubeMapMeshActor::processDraw() {
     ((MeshModel*)_pCubeMapMeshModel)->MeshModel::draw(this);
 }
 
-void CubeMapMeshActor::changeModel(int prm_model_index) {
-    MeshActor::changeModel(prm_model_index);
+void CubeMapMeshActor::changeModelByIndex(int prm_model_index) {
+    MeshActor::changeModelByIndex(prm_model_index);
     _pCubeMapMeshModel = (CubeMapMeshModel*)_pModel;
 }
 

@@ -54,8 +54,8 @@ _pMassMeshEffect((MassMeshEffect*)_pEffect) {
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
 
-void MassMeshActor::changeModel(int prm_model_index) {
-    MassActor::changeModel(prm_model_index);
+void MassMeshActor::changeModelByIndex(int prm_model_index) {
+    MassActor::changeModelByIndex(prm_model_index);
     _pMassMeshModel = (MassMeshModel*)_pModel;
 }
 

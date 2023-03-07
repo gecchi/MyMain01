@@ -85,7 +85,10 @@ void TrialAndErrScene::processBehavior() {
 //        pLabelMenuItemFont01->setPosition(PX_C(300), PX_C(250));
     }
     if (GgafDx::Input::isPressedKey(DIK_C)) {
-         aA[0]->changeModel(1);
+         aA[0]->changeModel("EffectExplosion001");
+    }
+    if (GgafDx::Input::isPressedKey(DIK_B)) {
+         aA[0]->changeDefaultModel();
     }
 
 }

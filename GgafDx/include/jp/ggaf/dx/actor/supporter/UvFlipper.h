@@ -26,8 +26,6 @@ public:
         float _v;
     };
 
-    /** [r]アニメパターンテクスチャ */
-    Texture* const _pTexture;
     /** [r/w]アニメパターン0番の左上基準U座標(0.0～1.0) */
     float _base_u;
     /** [r/w]アニメパターン0番の左上基準V座標(0.0～1.0) */
@@ -63,7 +61,7 @@ public:
     UV* _paUV;
 
 public:
-    explicit UvFlipper(Texture* prm_pTexture);
+    UvFlipper();
 
     virtual ~UvFlipper();
 
@@ -139,7 +137,7 @@ public:
      *   PointSpriteActor について・・・
      *       コンストラクタで以下の初期処理を実行している。
      *       ----------------------------------------------------------
-     *       _pUvFlipper = NEW UvFlipper(this);
+     *       _pUvFlipper = NEW UvFlipper();
      *       _pUvFlipper->locatePatternNo(縦分割数, 横分割数);
      *       _pUvFlipper->setActivePtn(0);
      *       _pUvFlipper->exec(NOT_ANIMATED, 1);
@@ -150,7 +148,7 @@ public:
      *   SpriteMeshSetActor  について・・・
      *       コンストラクタで以下の初期処理を実行している。必要に応じて下位実装クラスで locatePatternNo() を再実行可能。
      *       ----------------------------------------------------------
-     *       _pUvFlipper = NEW UvFlipper(this);
+     *       _pUvFlipper = NEW UvFlipper();
      *       _pUvFlipper->locatePatternNo(1, 1);
      *       _pUvFlipper->setActivePtn(0);
      *       _pUvFlipper->exec(NOT_ANIMATED, 1);
@@ -203,7 +201,7 @@ public:
      * @param prm_ptn_row_num テクスチャ横分割数
      */
     virtual void locatePatternNo(int prm_ptn_col_num, int prm_ptn_row_num);
-
+    virtual void locatePatternNo(IPlaneModel* prm_pPlaneModel);
     void remapPatternNoUv(int prm_ptn_num, ...);
 
     virtual void setBaseUv(float prm_base_u, float prm_base_v) {

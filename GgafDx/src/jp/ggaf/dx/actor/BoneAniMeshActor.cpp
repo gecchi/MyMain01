@@ -42,8 +42,8 @@ void BoneAniMeshActor::processDraw() {
     _pBoneAniMeshModel->draw(this);
 }
 
-void BoneAniMeshActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void BoneAniMeshActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pBoneAniMeshModel = (BoneAniMeshModel*)_pModel;
 }
 

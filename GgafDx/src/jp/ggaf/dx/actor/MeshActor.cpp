@@ -59,8 +59,8 @@ _pMeshEffect((MeshEffect*)_pEffect)
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
 
-void MeshActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void MeshActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pMeshModel = (MeshModel*)_pModel;
 }
 

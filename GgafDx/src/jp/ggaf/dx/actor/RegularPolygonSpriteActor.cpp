@@ -26,14 +26,11 @@ RegularPolygonSpriteActor::RegularPolygonSpriteActor(const char* prm_name,
                                                                      prm_pChecker),
 _pRegularPolygonSpriteModel( (RegularPolygonSpriteModel*)_pModel),
 _pRegularPolygonSpriteEffect( (RegularPolygonSpriteEffect*)_pEffect),
-_pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
+_pUvFlipper(NEW UvFlipper()) {
 
     _obj_class |= Obj_GgafDx_RegularPolygonSpriteActor;
     _class_name = "RegularPolygonSpriteActor";
-    _pUvFlipper->locatePatternNo(_pRegularPolygonSpriteModel->_col_texture_split,
-                             _pRegularPolygonSpriteModel->_row_texture_split );
-    _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->exec(NOT_ANIMATED, 1);
+    _pUvFlipper->locatePatternNo(_pRegularPolygonSpriteModel);
 
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
     _far_rate = -1.0f;
@@ -85,8 +82,8 @@ void RegularPolygonSpriteActor::processDraw() {
     _pRegularPolygonSpriteModel->RegularPolygonSpriteModel::draw(this);
 }
 
-void RegularPolygonSpriteActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void RegularPolygonSpriteActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pRegularPolygonSpriteModel = (RegularPolygonSpriteModel*)_pModel;
 }
 

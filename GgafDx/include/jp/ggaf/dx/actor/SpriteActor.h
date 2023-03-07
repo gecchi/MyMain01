@@ -70,7 +70,7 @@ public:
      *                        ‚R‰ñ–Ú‚Ì addModel() ‚ÉØ‚è‘Ö‚¦ => 2 ‚ğİ’è
      *                         c
      */
-    virtual void changeModel(int prm_model_index) override;
+    virtual void changeModelByIndex(int prm_model_index) override;
 
     virtual ~SpriteActor();
 };

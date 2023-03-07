@@ -27,16 +27,11 @@ MassBoardActor::MassBoardActor(const char* prm_name,
                                    IAlignAbleActor(),
 _pMassBoardModel((MassBoardModel*)_pModel),
 _pMassBoardEffect((MassBoardEffect*)_pEffect),
-_pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek()))
+_pUvFlipper(NEW UvFlipper())
 {
     _obj_class |= Obj_GgafDx_MassBoardActor | Obj_GgafDx_IAlignAbleActor;
     _class_name = "MassBoardActor";
-    _pUvFlipper->locatePatternNo(_pMassBoardModel->_col_texture_split,
-                             _pMassBoardModel->_row_texture_split
-                            );
-    _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->exec(NOT_ANIMATED, 1);
-
+    _pUvFlipper->locatePatternNo(_pMassBoardModel);
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
     _alpha = 1.0f;
@@ -111,8 +106,8 @@ void MassBoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_r
 //    return _pMassBoardModel->_model_height_px;
 //}
 
-void MassBoardActor::changeModel(int prm_model_index) {
-    MassActor::changeModel(prm_model_index);
+void MassBoardActor::changeModelByIndex(int prm_model_index) {
+    MassActor::changeModelByIndex(prm_model_index);
     _pMassBoardModel = (MassBoardModel*)_pModel;
 }
 

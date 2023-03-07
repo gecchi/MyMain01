@@ -21,66 +21,66 @@ using namespace GgafDx;
 
 hashval FigureActor::_hash_technique_last_draw = 0;
 
-FigureActor::FigureActor(const char* prm_name,
-                         const char* prm_model,
-                         const char* prm_effect,
-                         const char* prm_technique,
-                         CollisionChecker* prm_pChecker) :
-
-                             GeometricActor(prm_name,
-                                            prm_pChecker),
-_pModelCon(
-    (ModelConnection*)(
-        pCARETAKER->_pModelManager->connect(prm_model, this)
-    )
-),
-_pModel((Model*)_pModelCon->peek()),
-_pEffectCon(
-    (EffectConnection*)(
-        pCARETAKER->_pEffectManager->connect(prm_effect, this)
-    )
-),
-_pEffect((Effect*)_pEffectCon->peek()),
-_pAlphaFader(nullptr),
-_pColorist(nullptr)
-{
-    _obj_class |= Obj_GgafDx_FigureActor;
-    _class_name = "FigureActor";
-    _technique = NEW char[256];
-    FigureActor::changeEffectTechnique(prm_technique);
-    _temp_technique = NEW char[256];
-    _hash_temp_technique = 0;
-    _frame_of_behaving_temp_technique_end = 0;
-    _is_temp_technique = false;
-    _pNextRenderActor = nullptr;
-    //マテリアルをコピー
-    _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
-    for (DWORD i = 0; i < _pModel->_num_materials; i++) {
-        _paMaterial[i] = _pModel->_paMaterial_default[i];
-    }
-    _alpha = 1.0f;
-    //最大距離頂点
-    _now_drawdepth = 0;
-    _specal_render_depth_index = -1;
-    _zenable = true;
-    _zwriteenable = true;
-//    if (_pModelCon->chkFirstConnectionIs(this) ) {
-//        _is_first_model_connector = true;
-//    } else {
-//        _is_first_model_connector = false;
+//FigureActor::FigureActor(const char* prm_name,
+//                         const char* prm_model,
+//                         const char* prm_effect,
+//                         const char* prm_technique,
+//                         CollisionChecker* prm_pChecker) :
+//
+//                             GeometricActor(prm_name,
+//                                            prm_pChecker),
+//_pModelCon(
+//    (ModelConnection*)(
+//        pCARETAKER->_pModelManager->connect(prm_model, this)
+//    )
+//),
+//_pModel((Model*)_pModelCon->peek()),
+//_pEffectCon(
+//    (EffectConnection*)(
+//        pCARETAKER->_pEffectManager->connect(prm_effect, this)
+//    )
+//),
+//_pEffect((Effect*)_pEffectCon->peek()),
+//_pAlphaFader(nullptr),
+//_pColorist(nullptr)
+//{
+//    _obj_class |= Obj_GgafDx_FigureActor;
+//    _class_name = "FigureActor";
+//    _technique = NEW char[256];
+//    FigureActor::changeEffectTechnique(prm_technique);
+//    _temp_technique = NEW char[256];
+//    _hash_temp_technique = 0;
+//    _frame_of_behaving_temp_technique_end = 0;
+//    _is_temp_technique = false;
+//    _pNextRenderActor = nullptr;
+//    //マテリアルをコピー
+//    _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
+//    for (DWORD i = 0; i < _pModel->_num_materials; i++) {
+//        _paMaterial[i] = _pModel->_paMaterial_default[i];
 //    }
-//    if (_pEffectCon->chkFirstConnectionIs(this) ) {
-//        _is_first_effect_connector = true;
-//    } else {
-//        _is_first_effect_connector = false;
-//    }
-    _cull_enable = true;
-    _cull_mode_default = D3DCULL_CCW;
-    _cull_mode = _cull_mode_default;
-
-    _lstModelCon.push_back(_pModelCon);
-    _lstModel.push_back(_pModel);
-}
+//    _alpha = 1.0f;
+//    //最大距離頂点
+//    _now_drawdepth = 0;
+//    _specal_render_depth_index = -1;
+//    _zenable = true;
+//    _zwriteenable = true;
+////    if (_pModelCon->chkFirstConnectionIs(this) ) {
+////        _is_first_model_connector = true;
+////    } else {
+////        _is_first_model_connector = false;
+////    }
+////    if (_pEffectCon->chkFirstConnectionIs(this) ) {
+////        _is_first_effect_connector = true;
+////    } else {
+////        _is_first_effect_connector = false;
+////    }
+//    _cull_enable = true;
+//    _cull_mode_default = D3DCULL_CCW;
+//    _cull_mode = _cull_mode_default;
+//
+//    _lstModelCon.push_back(_pModelCon);
+//    _lstModel.push_back(_pModel);
+//}
 
 FigureActor::FigureActor(const char* prm_name,
                          const char* prm_model,
@@ -146,17 +146,26 @@ _pColorist(nullptr)
 //    }
     _lstModelCon.push_back(_pModelCon);
     _lstModel.push_back(_pModel);
+
+    _mapModel[std::string(prm_model)] = 0;
 }
 
 void FigureActor::addModel(const char* prm_model) {
+    std::string model = std::string(prm_model);
+#ifdef MY_DEBUG
+    if (_mapModel.find(model) != _mapModel.end()) {
+        throwCriticalException("FigureActor::addModel() アクター "<<getName()<<" に、既に追加済みモデルです。 model="<<model<<"。");
+    }
+#endif
    std::string model_id = std::string(1, _pModel->_model_type) + "," + std::string(prm_model);
    ModelConnection* pModelCon =  (ModelConnection*)pCARETAKER->_pModelManager->connect(model_id.c_str(), this);
    Model* pModel = ((Model*)pModelCon->peek());
    _lstModelCon.push_back(pModelCon);
    _lstModel.push_back(pModel);
+   _mapModel[model] = (int)(_lstModel.size()-1);
 }
 
-void FigureActor::changeModel(int prm_model_index) {
+void FigureActor::changeModelByIndex(int prm_model_index) {
 #ifdef MY_DEBUG
     if (_lstModel.size() < prm_model_index+1) {
         throwCriticalException("要素数が不正。prm_model_index="<<prm_model_index);
@@ -164,6 +173,20 @@ void FigureActor::changeModel(int prm_model_index) {
 #endif
     _pModel = _lstModel.at(prm_model_index);
     _pModelCon = _lstModelCon.at(prm_model_index);
+}
+
+void FigureActor::changeModel(const char* prm_model) {
+    std::string model = std::string(prm_model);
+    if (_mapModel.find(model) == _mapModel.end()) {
+        _TRACE_("FigureActor::changeModel() アクター "<<getName()<<" に、紐づいていないモデル model="<<model<<" のため追加します。");
+        addModel(prm_model);
+    }
+    int model_index = _mapModel[model];
+    changeModelByIndex(model_index);
+}
+
+void FigureActor::changeDefaultModel() {
+    changeModelByIndex(0);
 }
 
 AlphaFader* FigureActor::getAlphaFader() {

@@ -39,8 +39,8 @@ void D3DXAniMeshActor::processDraw() {
     _pD3DXAniMeshModel->draw(this);
 }
 
-void D3DXAniMeshActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void D3DXAniMeshActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pD3DXAniMeshModel = (D3DXAniMeshModel*)_pModel;
 }
 

@@ -26,7 +26,7 @@ SpriteActor::SpriteActor(const char* prm_name,
                              IAlignAbleActor(),
 _pSpriteModel( (SpriteModel*)_pModel),
 _pSpriteEffect( (SpriteEffect*)_pEffect),
-_pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
+_pUvFlipper(NEW UvFlipper()) {
 
     _obj_class |= Obj_GgafDx_SpriteActor | Obj_GgafDx_IAlignAbleActor;
     _class_name = "SpriteActor";
@@ -54,8 +54,8 @@ void SpriteActor::processDraw() {
     _pSpriteModel->SpriteModel::draw(this);
 }
 
-void SpriteActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void SpriteActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pSpriteModel = (SpriteModel*)_pModel;
 }
 

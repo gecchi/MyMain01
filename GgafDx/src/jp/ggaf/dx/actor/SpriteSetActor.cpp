@@ -26,15 +26,11 @@ SpriteSetActor::SpriteSetActor(const char* prm_name,
                                                prm_pChecker) ,
 _pSpriteSetModel((SpriteSetModel*)_pModel),
 _pSpriteSetEffect((SpriteSetEffect*)_pEffect),
-_pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
+_pUvFlipper(NEW UvFlipper()) {
 
     _obj_class |= Obj_GgafDx_SpriteSetActor;
     _class_name = "SpriteSetActor";
-    _pUvFlipper->locatePatternNo(_pSpriteSetModel->_col_texture_split,
-                             _pSpriteSetModel->_row_texture_split );
-    _pUvFlipper->setActivePtn(0);
-    _pUvFlipper->exec(NOT_ANIMATED, 1);
-
+    _pUvFlipper->locatePatternNo(_pSpriteSetModel);
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
 
@@ -104,8 +100,8 @@ void SpriteSetActor::processDraw() {
 //    _valign = prm_valign;
 //}
 
-void SpriteSetActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void SpriteSetActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pSpriteSetModel = (SpriteSetModel*)_pModel;
 }
 

@@ -39,8 +39,8 @@ void DynaD3DXMeshActor::processDraw() {
     _pD3DXMeshModel->draw(this);
 }
 
-void DynaD3DXMeshActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void DynaD3DXMeshActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pD3DXMeshModel = (D3DXMeshModel*)_pModel;
 }
 

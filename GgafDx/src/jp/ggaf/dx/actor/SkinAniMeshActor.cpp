@@ -44,8 +44,8 @@ void SkinAniMeshActor::processDraw() {
 }
 
 
-void SkinAniMeshActor::changeModel(int prm_model_index) {
-    FigureActor::changeModel(prm_model_index);
+void SkinAniMeshActor::changeModelByIndex(int prm_model_index) {
+    FigureActor::changeModelByIndex(prm_model_index);
     _pSkinAniMeshModel = (SkinAniMeshModel*)_pModel;
 }
 

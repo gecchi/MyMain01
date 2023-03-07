@@ -83,7 +83,7 @@ public:
      *                        ３回目の addModel() に切り替え => 2 を設定
      *                         …
      */
-    virtual void changeModel(int prm_model_index) override;
+    virtual void changeModelByIndex(int prm_model_index) override;
 
     virtual ~MeshActor(); //デストラクタ
 };

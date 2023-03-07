@@ -2,18 +2,18 @@
 
 #include "jp/ggaf/core/exception/CriticalException.h"
 #include "jp/ggaf/dx/texture/Texture.h"
-
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/model/interface/IPlaneModel.h"
 
 using namespace GgafDx;
 
-UvFlipper::UvFlipper(Texture* prm_pTexture) : GgafCore::Object(),
-_pTexture(prm_pTexture) {
+UvFlipper::UvFlipper() : GgafCore::Object() {
     _pattno_uvflip_top = 0;
     _pattno_uvflip_max = 0;
     _pattno_uvflip_bottom = 0;
     _pattno_uvflip_now = 0;
     _uvflip_interval_frames = 1;
-    _uvflip_method = FLIP_ORDER_LOOP;
+    _uvflip_method = NOT_ANIMATED;
     _frame_counter_uvflip = 0;
     _is_reverse_order_in_oscillate_animation_flg = false;
     _one_ptn_tex_width = 1.0f;
@@ -25,7 +25,9 @@ _pTexture(prm_pTexture) {
     _cnt_customized = 0;
     _base_u = 0.0f;
     _base_v = 0.0f;
-    _paUV = nullptr;
+    _paUV = NEW UV[1];
+    _paUV[0]._u = 0.0f;
+    _paUV[0]._v = 0.0f;
 }
 
 void UvFlipper::locatePatternNo(float prm_base_u, float prm_base_v,
@@ -33,7 +35,7 @@ void UvFlipper::locatePatternNo(float prm_base_u, float prm_base_v,
                                 int prm_ptn_col_num, int prm_num_of_max_patterns) {
 #ifdef MY_DEBUG
     if (prm_ptn_col_num < 0) {
-        throwCriticalException("prm_ptn_col_numは0より大きい数で設定して下さい。Texture="<<_pTexture->_texture_name);
+        throwCriticalException("prm_ptn_col_numは0より大きい数で設定して下さい。");
     }
 #endif
     _base_u = prm_base_u;
@@ -64,7 +66,10 @@ void UvFlipper::locatePatternNo(int prm_ptn_col_num, int prm_ptn_row_num) {
                     1.0 / prm_ptn_col_num, 1.0 / prm_ptn_row_num,
                     prm_ptn_col_num, prm_ptn_col_num*prm_ptn_row_num);
 }
-
+void UvFlipper::locatePatternNo(IPlaneModel* prm_pPlaneModel) {
+    locatePatternNo(prm_pPlaneModel->_col_texture_split,
+                    prm_pPlaneModel->_row_texture_split );
+}
 void UvFlipper::remapPatternNoUv(int prm_ptn_num, ...) {
     UV* paUV_temp = NEW UV[_pattno_uvflip_max+1];
     for (int row = 0; row < _ptn_row_num; row++) {
@@ -86,7 +91,7 @@ void UvFlipper::remapPatternNoUv(int prm_ptn_num, ...) {
 void UvFlipper::setActivePtn(int prm_pattno_uvflip) {
 #ifdef MY_DEBUG
     if (prm_pattno_uvflip > _pattno_uvflip_max) {
-        throwCriticalException("【警告】UvFlipper::setActivePtn 引数のパターン番号="<<prm_pattno_uvflip<<"は、最大パターン番号（NOT 上限パターン番号）を超えています。_pattno_uvflip_max="<<_pattno_uvflip_max<<" Texture="<<_pTexture->_texture_name);
+        throwCriticalException("【警告】UvFlipper::setActivePtn 引数のパターン番号="<<prm_pattno_uvflip<<"は、最大パターン番号（NOT 上限パターン番号）を超えています。_pattno_uvflip_max="<<_pattno_uvflip_max<<"");
     }
 #endif
     _pattno_uvflip_now = prm_pattno_uvflip;
@@ -105,7 +110,7 @@ void UvFlipper::setFlipPtnRange(int prm_top, int prm_bottom) {
         _TRACE_(FUNC_NAME<<" prm_top="<<prm_top<<" TOPが負です。意図してますか？");
     }
     if (prm_top > prm_bottom) {
-        throwCriticalException("prm_top="<<prm_top<<",prm_bottom="<<prm_bottom<<" 大小がおかしいです。Texture="<<_pTexture->_texture_name);
+        throwCriticalException("prm_top="<<prm_top<<",prm_bottom="<<prm_bottom<<" 大小がおかしいです。");
     }
 #endif
     _pattno_uvflip_top = prm_top;
@@ -122,7 +127,7 @@ void UvFlipper::behave() {
 //      _TRACE_("_pattno_uvflip_now="<<_pattno_uvflip_now<<"/_uvflip_interval_frames="<<_uvflip_interval_frames<<"/_frame_counter_uvflip="<<_frame_counter_uvflip<<"/_pattno_uvflip_top="<<_pattno_uvflip_top<<"/_is_reverse_order_in_oscillate_animation_flg="<<_is_reverse_order_in_oscillate_animation_flg<<"");
 #ifdef MY_DEBUG
     if (_paUV == nullptr) {
-        throwCriticalException("事前にlocatePatternNo()でパターンしてください。_pTexture="<<_pTexture->getName());
+        throwCriticalException("事前にlocatePatternNo()でパターンしてください。");
     }
 #endif
     _frame_counter_uvflip++;
@@ -238,7 +243,7 @@ void UvFlipper::getUV(float& out_u, float& out_v) {
 void UvFlipper::getUV(int prm_pattno_uvflip, float& out_u, float& out_v) {
 #ifdef MY_DEBUG
     if (prm_pattno_uvflip > _pattno_uvflip_max) {
-        throwCriticalException("引数のパターン番号="<<prm_pattno_uvflip<<"は、範囲外です。_pattno_uvflip_max="<<_pattno_uvflip_max<<" Texture="<<_pTexture->_texture_name);
+        throwCriticalException("引数のパターン番号="<<prm_pattno_uvflip<<"は、範囲外です。_pattno_uvflip_max="<<_pattno_uvflip_max<<"");
     }
 #endif
     out_u = _base_u + _paUV[prm_pattno_uvflip]._u;
