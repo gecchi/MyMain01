@@ -1,4 +1,4 @@
-#include "GgafLibCommonHeader.h"
+#include "GgafLib.h"
 #include <windows.h>
 
 #ifdef __GNUG__
@@ -11,10 +11,10 @@
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/util/WMKeyInput.h"
 
-extern HINSTANCE WinMain_hInstance;
-extern HINSTANCE WinMain_hPrevInstance;
-extern LPTSTR WinMain_lpCmdLine;
-extern int WinMain_nCmdShow;
+HINSTANCE WinMain_hInstance;
+HINSTANCE WinMain_hPrevInstance;
+LPTSTR WinMain_lpCmdLine;
+int WinMain_nCmdShow;
 
 /**
  * メイン処理 .
@@ -22,25 +22,25 @@ extern int WinMain_nCmdShow;
  * @param argv
  * @return
  */
-int LibMain(int argc, char *argv[]) {
+void LibMain(int argc, char *argv[]) {
     STARTUPINFO StatUpInfo;
-    HINSTANCE hInstance;
-    HANDLE hPrevInstance;
-    LPSTR lpCmdLine;
-    int nCmdShow;
+//    HINSTANCE hInstance;
+//    HANDLE hPrevInstance;
+//    LPSTR lpCmdLine;
+//    int nCmdShow;
 
     GetStartupInfo(&StatUpInfo);
-    hInstance = GetModuleHandle(0);
-    hPrevInstance = 0;
-    lpCmdLine = GetCommandLine();
-    nCmdShow = (StatUpInfo.dwFlags & STARTF_USESHOWWINDOW) ? StatUpInfo.wShowWindow : SW_SHOWNORMAL;
+    WinMain_hInstance = GetModuleHandle(0);
+    WinMain_hPrevInstance = 0;
+    WinMain_lpCmdLine = GetCommandLine();
+    WinMain_nCmdShow = (StatUpInfo.dwFlags & STARTF_USESHOWWINDOW) ? StatUpInfo.wShowWindow : SW_SHOWNORMAL;
 
     //PG名除去
-    while (*lpCmdLine != ' ' && *lpCmdLine != '\0') { ++lpCmdLine; }
-    while (*lpCmdLine == ' ') { ++lpCmdLine; }
+    while (*WinMain_lpCmdLine != ' ' && *WinMain_lpCmdLine != '\0') { ++WinMain_lpCmdLine; }
+    while (*WinMain_lpCmdLine == ' ') { ++WinMain_lpCmdLine; }
 
     //本来のWinMainへ
-    return ::WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
+//    return ::WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
 }
 
 /**
@@ -50,14 +50,14 @@ int LibMain(int argc, char *argv[]) {
  * @param lpCmdLine
  * @param nCmdShow
  */
-void LibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
-    UNREFERENCED_PARAMETER(hPrevInstance);
-    UNREFERENCED_PARAMETER(lpCmdLine);
-    WinMain_hInstance = hInstance;
-    WinMain_hPrevInstance = hPrevInstance;
-    WinMain_lpCmdLine = lpCmdLine;
-    WinMain_nCmdShow = nCmdShow;
-}
+//void LibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
+//    UNREFERENCED_PARAMETER(hPrevInstance);
+//    UNREFERENCED_PARAMETER(lpCmdLine);
+//    WinMain_hInstance = hInstance;
+//    WinMain_hPrevInstance = hPrevInstance;
+//    WinMain_lpCmdLine = lpCmdLine;
+//    WinMain_nCmdShow = nCmdShow;
+//}
 
 /**
  * GgafCore::フレームワークのウィンドウプロシージャ処理 .

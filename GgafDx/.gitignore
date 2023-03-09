@@ -2,6 +2,7 @@
 /.settings
 /DebugCdt*
 /Release
+/Release(dll)
 /GprofCdt*
 /Debug
 /*.user

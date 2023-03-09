@@ -1,5 +1,5 @@
-#ifndef MYBUNSHINCONTROLLER_H_
-#define MYBUNSHINCONTROLLER_H_
+#ifndef MYBUNSHINBASE_H_
+#define MYBUNSHINBASE_H_
 #include "VioletVreath.h"
 
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
@@ -109,8 +109,8 @@ public:
     static int now_bunshin_num_;
 
 
-    /** [r]分身本体 */
-    MyBunshin* pBunshin_;
+    /** [r]分身本体操作 */
+    MyBunshinController* pMyBunshinController_;
     /** 分身用のトレース座標の歴史（絶対座標）。カレントが自機座標。 */
     PosTrace* pPosTrace_;
     /** 自機トレースの座標からのオフセット(フリーでない場合は0) */
@@ -202,5 +202,5 @@ public:
 };
 
 }
-#endif /*MYBUNSHINCONTROLLER_H_*/
+#endif /*MYBUNSHINBASE_H_*/
 

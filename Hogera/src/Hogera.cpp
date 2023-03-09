@@ -11,19 +11,11 @@ using namespace Hogera;
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-/**
- * GCC のエントリポイント
- */
-int main(int argc, char *argv[]) {
-    return LibMain(argc, argv); //直後に、この様に呼び出して下さい。
-}
 
 /**
  * MSVC のエントリポイント
  */
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
-    LibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow); //直後に、この様に呼び出して下さい。
-
     //プロパティファイル読込み
     GgafLib::LibConfig::loadProperties(".\\config.properties");
 
@@ -72,6 +64,15 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     }
     return (int)msg.wParam;
 }
+
+/**
+ * GCC のエントリポイント
+ */
+int main(int argc, char *argv[]) {
+    LibMain(argc, argv); //直後に、この様に呼び出して下さい。
+    return WinMain(WinMain_hInstance, WinMain_hPrevInstance, WinMain_lpCmdLine, WinMain_nCmdShow);
+}
+
 
 /**
  * ウィンドウプロシージャ

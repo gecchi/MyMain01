@@ -357,6 +357,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MousePointer.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinStraightLaserChip001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.h" />
@@ -729,5 +730,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\mousepointer.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\bunshin\mybunshinstraightlaserchip001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\bunshin\mybunshincontroller.h" />
   </ItemGroup>
 </Project>

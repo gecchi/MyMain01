@@ -1,7 +1,8 @@
 #include "MyBunshinBase.h"
 
+#include "MyBunshin.h"
+#include "MyBunshinController.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
-#include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshin.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/actor/my/LockonCursor001_Main.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
@@ -49,9 +50,9 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_bunshin_no) 
     trace_offset_.set(0,0,0);
     bunshin_no_ = prm_bunshin_no; //１～
     delay_r_ = RCNV(1,MAX_BUNSHIN_NUM,bunshin_no_,0.4,1.0);
-    std::string bunshin_name = "Bunshin" + XTOS(bunshin_no_);
-    pBunshin_ = NEW MyBunshin(bunshin_name.c_str(), this);
-    this->appendGroupChildAsFk(pBunshin_,
+    std::string bunshin_name = "BunshinController" + XTOS(bunshin_no_);
+    pMyBunshinController_ = NEW MyBunshinController(bunshin_name.c_str(), this);
+    this->appendGroupChildAsFk(pMyBunshinController_,
                           0, PX_C(80), 0,
                           D0ANG, D0ANG, D0ANG);
 
@@ -98,7 +99,7 @@ void MyBunshinBase::initialize() {
 }
 
 void MyBunshinBase::onReset() {
-    pBunshin_->setRadiusPosition(bunshin_default_radius_pos_);
+    pMyBunshinController_->setRadiusPosition(bunshin_default_radius_pos_);
     bunshin_radius_pos_ = bunshin_default_radius_pos_;
 
     setRollFaceAng(bunshin_default_ang_pos_);
@@ -116,17 +117,17 @@ void MyBunshinBase::onActive() {
     for (int i = 0; i < len; i++) {
         p[i].set(pMYSHIP);
     }
-    pBunshin_->setRadiusPosition(0);
+    pMyBunshinController_->setRadiusPosition(0);
     resetBunshin(0);
     //MyBunshinBaseは、activateTree() ではなく、activate() されるため
     //分身のonActive();を手動で呼び出す
-    pBunshin_->onActive();
+    pMyBunshinController_->onActive();
 }
 
 void MyBunshinBase::onInactive() {
     //MyBunshinBaseは、inactivateTree() ではなく、inactivate() されるため
     //分身のonInactive();を手動で呼び出す
-    pBunshin_->onInactive();
+    pMyBunshinController_->onInactive();
 }
 
 void MyBunshinBase::processBehavior() {
@@ -171,7 +172,7 @@ void MyBunshinBase::processBehavior() {
         }
         case PHASE_BUNSHIN_FREE_MODE_IGNITED: { //分身フリーモード、点火待ち！
             if (pPhase->hasJustChanged()) {
-                pBunshin_->effectFreeModeIgnited(); //点火エフェクト
+                pMyBunshinController_->effectFreeModeIgnited(); //点火エフェクト
             }
             if (is_pressed_VB_OPTION && is_pressed_VB_TURBO) {
                 if (pPhase->getFrame() >= (((MyBunshinBase::now_bunshin_num_ - (bunshin_no_-1) )*5) + 10) ) { //おしりのオプションから
@@ -189,7 +190,7 @@ void MyBunshinBase::processBehavior() {
         }
         case PHASE_BUNSHIN_FREE_MODE_READY: { //分身フリーモード発射準備OK
             if (pPhase->hasJustChanged()) {
-                pBunshin_->effectFreeModeReady(); //発射準備OKエフェクト
+                pMyBunshinController_->pBunshin_->effectFreeModeReady(); //発射準備OKエフェクト
             }
             if ( pPhase->getFrame() >= ((bunshin_no_-1)*5) + 10 ) { //最後の分身が発射準備OKになったあと+10
                 //強制発射
@@ -217,7 +218,7 @@ void MyBunshinBase::processBehavior() {
         case PHASE_BUNSHIN_FREE_MODE_MOVE: { //分身フリーモード、操作移動！
             if (pPhase->hasJustChanged()) {
                 //分身フリーモード移動開始
-                pBunshin_->effectFreeModeLaunch(); //発射エフェクト
+                pMyBunshinController_->pBunshin_->effectFreeModeLaunch(); //発射エフェクト
                 is_free_mode_ = true;
                 pAxisVehicle->setXYZZero();
                 pAxisVehicle->setAcceXYZZero();
@@ -225,9 +226,9 @@ void MyBunshinBase::processBehavior() {
             if (is_pressed_VB_OPTION) {
                 //分身フリーモードで移動中
                 //オプションの広がり角より、MyBunshinBaseの移動速度と、MyBunshin旋回半径増加速度にベクトル分解。
-                angvelo bunshin_angvelo_expance = pBunshin_->getExpanse();
+                angvelo bunshin_angvelo_expance = pMyBunshinController_->getExpanse();
                 pVecVehicle->setMvVelo(ANG_COS(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV); //MyBunshinBase
-                pBunshin_->addRadiusPosition(ANG_SIN(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV);
+                pMyBunshinController_->addRadiusPosition(ANG_SIN(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV);
                 // VB_OPTION を離すまで待つ・・・
             } else {
                 //分身フリーモード、中断待機
@@ -238,7 +239,7 @@ void MyBunshinBase::processBehavior() {
         }
         case PHASE_BUNSHIN_FREE_MODE_STOP: { //分身フリーモード、停止中！
             if (pPhase->hasJustChanged()) {
-                pBunshin_->effectFreeModePause();
+                pMyBunshinController_->effectFreeModePause();
             }
             break;
         }
@@ -315,23 +316,23 @@ void MyBunshinBase::processBehavior() {
             dir26 mv_way_sgn_z_MyShip = pMyShip->mv_way_sgn_z_;
             //分身広がり
             if (mv_way_sgn_x_MyShip == 1) {
-                pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
+                pMyBunshinController_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
             } else if (mv_way_sgn_x_MyShip == -1) {
-                pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
+                pMyBunshinController_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
             } else {
                 if (mv_way_sgn_z_MyShip == 1) {
-                    pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
+                    pMyBunshinController_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
                 } else if (mv_way_sgn_z_MyShip == -1) {
-                    pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
+                    pMyBunshinController_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
                 }
             }
             //半径位置制御
             if (mv_way_sgn_y_MyShip == 1) {
-                pBunshin_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
+                pMyBunshinController_->addRadiusPosition(+bunshin_velo_mv_radius_pos_);
             } else if (mv_way_sgn_y_MyShip == -1) {
-                pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
+                pMyBunshinController_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
             }
-            bunshin_radius_pos_ = pBunshin_->getRadiusPosition(); //標準半径位置を更新
+            bunshin_radius_pos_ = pMyBunshinController_->getRadiusPosition(); //標準半径位置を更新
         } else {  //if ( pVbPlay->isPressed(VB_TURBO) )  の else
             //分身の向き(this土台の向き)操作
             trace_mode_ = TRACE_FREEZE;
@@ -428,7 +429,7 @@ void MyBunshinBase::processBehavior() {
             //TRACE_GRADIUS で 土台が移動するならば、半径位置を土台の中心に寄せる
             Pos* p = pPosTrace_->get2Next();
             if (!(p->x == _x && p->y == _y && p->z == _z)) {
-                pBunshin_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
+                pMyBunshinController_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
             }
         }
     }
@@ -443,7 +444,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
 
     EffectTurbo002* pTurbo002 = CommonScene_dispatch(EffectTurbo002);
     if (pTurbo002) {
-        pTurbo002->setPositionAt(pBunshin_);
+        pTurbo002->setPositionAt(pMyBunshinController_);
     }
 
     is_isolate_mode_ = false;
@@ -462,7 +463,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
                                              0,
                                              true);
     //分身の向きが元に戻る（前方に向く）指示
-    pBunshin_->turnExpanse(
+    pMyBunshinController_->turnExpanse(
                    D_ANG(0),
                    return_default_pos_frames_ * delay_r_
                );
@@ -480,7 +481,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
         //オールリセット
         //分身の半径位置が元に戻る指示
         bunshin_radius_pos_ = bunshin_default_radius_pos_;
-        pBunshin_->slideMvRadiusPosition(bunshin_radius_pos_, return_default_pos_frames_ * delay_r_ );
+        pMyBunshinController_->slideMvRadiusPosition(bunshin_radius_pos_, return_default_pos_frames_ * delay_r_ );
         //後はreturn_default_pos_frames_ が0になるまで
         //trace_mode_ = TRACE_TWINBEE;
         //が行われる

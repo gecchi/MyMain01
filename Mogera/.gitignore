@@ -2,6 +2,7 @@
 /GprofCdt*
 /DebugCdt*
 /Release
+/Release(dll)
 /Debug
 /log
 /*settings
@@ -14,7 +15,6 @@ back.properties
 /ReleaseCdt
 /ReleaseCdt_x64
 /gmon.out
-/DebugCdt
 /DebugCdt
 *.dat
 /Debug_XP/

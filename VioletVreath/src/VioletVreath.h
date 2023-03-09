@@ -459,6 +459,7 @@ class MousePointer;
 class MpBar;
 class MyBunshin;
 class MyBunshinBase;
+class MyBunshinController;
 class MyBunshinShot001;
 class MyBunshinSnipeShot001;
 class MyBunshinWateringLaserChip001;

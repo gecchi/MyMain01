@@ -4,6 +4,7 @@
 /Debug
 /GprofCdt*
 /Release
+/Release(dll)
 /*.user
 /Release_XP/
 /Debug_XP/

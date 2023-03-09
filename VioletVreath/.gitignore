@@ -2,6 +2,7 @@
 /GprofCdt*
 /DebugCdt*
 /Release
+/Release(dll)
 /Debug
 /gmon.out
 /log

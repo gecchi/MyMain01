@@ -6,6 +6,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectBunshinMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
+#include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinController.h"
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinBase.h"
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshin.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
@@ -108,7 +109,7 @@ void BunshinMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
         //レベルアップ時はエフェクトが分身へ移動
         MyBunshinBase** papBunshinBase = pMYSHIP_SCENE->papBunshinBase_;
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-            MyBunshin* pMyBunshin = papBunshinBase[lv-1]->pBunshin_;
+            MyBunshin* pMyBunshin = papBunshinBase[lv-1]->pMyBunshinController_->pBunshin_;
             pMyBunshin->setAlpha(0); //操作不可に設定
             pMyBunshin->getAlphaFader()->stop();
             papEffect_[lv-1]->getAxisVehicle()->execGravitationMvSequenceTwd(
@@ -140,7 +141,7 @@ void BunshinMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
         //レベルアップ時、エフェクトの処理
         MyBunshinBase** papBunshinBase = pMYSHIP_SCENE->papBunshinBase_;
         for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
-            MyBunshin* pMyBunshin = papBunshinBase[lv-1]->pBunshin_;
+            MyBunshin* pMyBunshin = papBunshinBase[lv-1]->pMyBunshinController_->pBunshin_; //!!
             pMyBunshin->getAlphaFader()->transitionLinearUntil(1.0, 120);
             //操作可に
             papEffect_[lv-1]->getAxisVehicle()->stopGravitationMvSequence();

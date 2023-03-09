@@ -49,7 +49,7 @@ void MyBunshinStraightLaserChip001::initialize() {
 
 void MyBunshinStraightLaserChip001::setOrg(MyBunshin* prm_pOrg) {
     pOrg_ = prm_pOrg;
-    pLockonCursor_ = pOrg_->pLockonCtrler_->pMainLockonEffect_;
+    pLockonCursor_ = pOrg_->pLockonCtrler_->pMainLockonCursor_;
 }
 
 void MyBunshinStraightLaserChip001::onCreateModel() {

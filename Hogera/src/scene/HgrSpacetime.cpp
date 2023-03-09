@@ -1,7 +1,7 @@
 #include "HgrSpacetime.h"
 
 #include "scene/HgrSpacetime/HgrWorld.h"
-#include "jp/ggaf/lib/LibConfig.h"
+//#include "jp/ggaf/lib/LibConfig.h"
 #include "util/HgrUtil.h"
 #include "HgrCaretaker.h"
 #include "jp/ggaf/core/scene/Scene.h"

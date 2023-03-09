@@ -1,8 +1,8 @@
-#ifndef MYBUNSHIN_H_
-#define MYBUNSHIN_H_
+#ifndef MYBUNSHINCONTROLLER_H_
+#define MYBUNSHINCONTROLLER_H_
 #include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/VvEffectActor.hpp"
-#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+#include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
@@ -18,30 +18,30 @@ namespace VioletVreath {
 
 #define LASER_KOANYA 0
 #define LASER_THUNDER 1
-//class MyBunshin : public GgafLib::DefaultMorphMeshActor {
-class MyBunshin : public VvEffectActor<GgafLib::DefaultMeshSetActor> {
+//class MyBunshinController : public VvEffectActor<GgafLib::DefaultMeshSetActor> {
+class MyBunshinController : public GgafLib::DefaultGeometricActor {
 
 public:
     MyBunshinBase* pBase_;
 
-    MyBunshinController* pBunshinController_;
 
-    /** [r]ショットのデポジトリ */
-    GgafCore::ActorDepository* pDepo_MyBunshinShot_;
+    MyBunshin* pBunshin_;
+//    /** [r]ショットのデポジトリ */
+//    GgafCore::ActorDepository* pDepo_MyBunshinShot_;
 //    /** [r]スナイプショットのデポジトリ */
 //    GgafCore::ActorDepository* pDepo_MySnipeBunshinShot_;
-    /** [r]レーザーチップのデポジトリ */
-    GgafLib::LaserChipDepository* pLaserChipDepo_;
-    /** [r]ロックオンコントローラー */
-    MyLockonController* pLockonCtrler_;
-    /** [r]魚雷コントローラー */
-    MyTorpedoController* pTorpedoCtrler_;
+//    /** [r]レーザーチップのデポジトリ */
+//    GgafLib::LaserChipDepository* pLaserChipDepo_;
+//    /** [r]ロックオンコントローラー */
+//    MyLockonController* pLockonCtrler_;
+//    /** [r]魚雷コントローラー */
+//    MyTorpedoController* pTorpedoCtrler_;
 
-    int _laser_kind;
+//    int _laser_kind;
 
 //    angle rz_local_copy_;
 //    bool _is_thunder_lock;
-    GgafLib::DefaultGeometricActor* pGeo2_;
+//    GgafLib::DefaultGeometricActor* pGeo2_;
 public:
     struct AimInfo {
         MyBunshinWateringLaserChip001* pLeaderChip;
@@ -82,9 +82,9 @@ public:
     }
 
 public:
-    MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinController, MyBunshinBase* prm_pBase);
+    MyBunshinController(const char* prm_name, MyBunshinBase* prm_pBase);
 
-    void onCreateModel() override;
+//    void onCreateModel() override;
 
     void initialize() override;
 
@@ -94,18 +94,15 @@ public:
 
     void processBehavior() override;
 
-
-    void processSettlementBehavior() override;
-
-    void processChangeGeoFinal() override;
+//    void processChangeGeoFinal() override;
 
     void processJudgement() override;
 
     void onInactive() override;
 
-    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
+//    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
-    virtual ~MyBunshin();
+    virtual ~MyBunshinController();
 
     /**
      * フリーモードへ移行時の点火エフェクト .
@@ -114,30 +111,30 @@ public:
     /**
      * 点火エフェクト後の発射準備OKエフェクト .
      */
-    void effectFreeModeReady();
+//    void effectFreeModeReady();
     /**
      * 発射エフェクト
      */
-    void effectFreeModeLaunch();
+//    void effectFreeModeLaunch();
     /**
      * フリーモードへ一時停止時のエフェクト .
      */
     void effectFreeModePause();
 
-//    void setRadiusPosition(coord prm_radius_pos);
-//    void addRadiusPosition(coord prm_radius_pos);
-//    coord getRadiusPosition();
+    void setRadiusPosition(coord prm_radius_pos);
+    void addRadiusPosition(coord prm_radius_pos);
+    coord getRadiusPosition();
 
-//    void slideMvRadiusPosition(coord prm_target_radius_pos, frame prm_spent_frames);
+    void slideMvRadiusPosition(coord prm_target_radius_pos, frame prm_spent_frames);
 
 //    void setExpanse(angvelo prm_ang_expanse);
-//    void addExpanse(angvelo prm_ang_expanse);
-//    angvelo getExpanse();
-//    void turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames);
+    void addExpanse(angvelo prm_ang_expanse);
+    angvelo getExpanse();
+    void turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames);
 
 //    bool setFaceAngAsMainLockon();
 };
 
 }
-#endif /*MYBUNSHIN_H_*/
+#endif /*MYBUNSHINCONTROLLER_H_*/
 

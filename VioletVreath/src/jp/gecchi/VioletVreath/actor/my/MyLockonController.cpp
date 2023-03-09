@@ -13,9 +13,9 @@ int MyLockonController::lockon_num_ = 0;
 MyLockonController::MyLockonController(const char* prm_name) :
         GgafCore::DestructActor(prm_name) {
     _class_name = "MyLockonController";
-    pMainLockonEffect_ = NEW LockonCursor001_Main("MAIN");
-    pMainLockonEffect_->inactivate();
-    appendChild(pMainLockonEffect_);
+    pMainLockonCursor_ = NEW LockonCursor001_Main("MAIN");
+    pMainLockonCursor_->inactivate();
+    appendChild(pMainLockonCursor_);
     for (int i = 1; i < MAX_LOCKON_NUM; i++) {
         std::string name = "ChildLockon("+XTOS(i)+")";
         LockonCursor001_Sub* pLockonCursor_Sub = NEW LockonCursor001_Sub(name.c_str());
@@ -47,17 +47,17 @@ void MyLockonController::processBehavior() {
     //ロックオンターゲット生存確認
     GgafDx::GeometricActor* pMainLockonTarget = listTarget_.getCurrent(); //メインロックオンのターゲット
     GgafDx::GeometricActor* pTarget = listTarget_.getCurrent();  //ターゲットカーソル
-    GgafCore::MainActor* pLockonEffect_Active = (GgafCore::MainActor*)getChildFirst();         //ロックオンエフェクトカーソル
+    GgafCore::MainActor* pLockonCursor_Active = (GgafCore::MainActor*)getChildFirst();         //ロックオンエフェクトカーソル
     int n = listTarget_.length();
     for (int i = 0; i < n; i++) {
         if (pTarget->isActiveInTheTree() && pTarget->getStatus()->get(STAT_Stamina) > 0) {
             //ターゲットが存命ならば
             //エフェクトアクターのターゲット更新、エフェクトをズルっとします
-            ((LockonCursor001*)pLockonEffect_Active)->lockon(pTarget);
-            if (!pLockonEffect_Active->isActiveInTheTree()) {
-                pLockonEffect_Active->activate();
+            ((LockonCursor001*)pLockonCursor_Active)->lockon(pTarget);
+            if (!pLockonCursor_Active->isActiveInTheTree()) {
+                pLockonCursor_Active->activate();
             }
-            pLockonEffect_Active = pLockonEffect_Active->getNext(); //次回処理ロックオンエフェクトアクター次へ
+            pLockonCursor_Active = pLockonCursor_Active->getNext(); //次回処理ロックオンエフェクトアクター次へ
             pTarget = listTarget_.next();                         //次回処理ターゲットを次へ
         } else {
             //ターゲットが死亡時
@@ -66,7 +66,7 @@ void MyLockonController::processBehavior() {
                 if (listTarget_.length() == 1) {
                     //死亡ターゲットがメインロックオンのターゲットでリングの最後の一つの場合
                     listTarget_.remove();                                    //ターゲット抜き出し
-                    ((LockonCursor001*)pLockonEffect_Active)->releaseLockon(); //ロックオンエフェクトをリリース実行
+                    ((LockonCursor001*)pLockonCursor_Active)->releaseLockon(); //ロックオンエフェクトをリリース実行
                     pTarget = nullptr;
                     break;
                 } else {
@@ -76,17 +76,17 @@ void MyLockonController::processBehavior() {
                     pMainLockonTarget = pTarget;          //メインロックオンのターゲットを更新
                     //メインロックオンエフェクトを直近ロックオンへ戻すし
                     //メインロックオンエフェクトの次のエフェクトを解放するという動作をしたい
-                    ((LockonCursor001*)pLockonEffect_Active->getNext())->releaseLockon(); //「次」のロックオンエフェクトをリリース実行
-                    pLockonEffect_Active->getNext()->moveLast();               //次のロックオンエフェクトを末尾へ
+                    ((LockonCursor001*)pLockonCursor_Active->getNext())->releaseLockon(); //「次」のロックオンエフェクトをリリース実行
+                    pLockonCursor_Active->getNext()->moveLast();               //次のロックオンエフェクトを末尾へ
                     //「次回処理ロックオンエフェクトアクター次へ」の処理対象移動は不要。次に処理したいロックオンエフェクトアクターそのままであるため。
                 }
             } else {
                 //死亡ターゲットがサブロックオンのターゲットであった場合
                 listTarget_.remove();               //ターゲット抜き出し
                 pTarget = listTarget_.getCurrent(); //次回処理ターゲットを次へ（remove()により次のターゲットはgetCurrent()となる）
-                ((LockonCursor001*)pLockonEffect_Active)->releaseLockon(); //ロックオンエフェクトをリリース実行
-                pLockonEffect_Active = pLockonEffect_Active->getNext();    //次回処理ロックオンエフェクトアクター次へ
-                pLockonEffect_Active->getPrev()->moveLast();    //今回処理ロックオンエフェクトアクターを末尾へ
+                ((LockonCursor001*)pLockonCursor_Active)->releaseLockon(); //ロックオンエフェクトをリリース実行
+                pLockonCursor_Active = pLockonCursor_Active->getNext();    //次回処理ロックオンエフェクトアクター次へ
+                pLockonCursor_Active->getPrev()->moveLast();    //今回処理ロックオンエフェクトアクターを末尾へ
             }
         }
     }
@@ -120,9 +120,9 @@ void MyLockonController::lockon(GgafDx::GeometricActor* prm_pTarget) {
             //ロックオンエフェクト
             if (listTarget_.length() == 1) {
                 //最初のロックオンターゲット追加時（メインロックオンターゲット）
-                GgafCore::MainActor* pLockonEffect = (GgafCore::MainActor*)getChildFirst(); //メインロックオエフェクト
-                pLockonEffect->activate();
-                ((LockonCursor001*)pLockonEffect)->lockon(prm_pTarget);
+                GgafCore::MainActor* pLockonCursor = (GgafCore::MainActor*)getChildFirst(); //メインロックオエフェクト
+                pLockonCursor->activate();
+                ((LockonCursor001*)pLockonCursor)->lockon(prm_pTarget);
 
                 //最初のロックオンターゲット以外の追加時（サブロックオンターゲット追加時）
             } else if (listTarget_.length() > 1) {
@@ -131,28 +131,28 @@ void MyLockonController::lockon(GgafDx::GeometricActor* prm_pTarget) {
                     //３個目の以降ターゲット追加時（２個目以降のサブロックオンターゲット追加時）
                     //ロックオンエフェクトの特殊なローテートを行う。（※最後のコメント＜追加の場合＞参照）
                     //Lastを切り出す
-                    GgafCore::MainActor* pLockonEffect = (GgafCore::MainActor*)getChildFirst()->getPrev(); //Last
-                    GgafCore::MainActor* pLockonEffect_Next = pLockonEffect->getNext(); //Mainロックオンとなる
-                    GgafCore::MainActor* pLockonEffect_Prev = pLockonEffect->getPrev();
-                    pLockonEffect_Prev->_pNext = pLockonEffect_Next;
-                    pLockonEffect_Next->_pPrev = pLockonEffect_Prev;
-                    pLockonEffect_Prev->_is_last_flg = true;
-                    pLockonEffect->_is_last_flg = false;
+                    GgafCore::MainActor* pLockonCursor = (GgafCore::MainActor*)getChildFirst()->getPrev(); //Last
+                    GgafCore::MainActor* pLockonCursor_Next = pLockonCursor->getNext(); //Mainロックオンとなる
+                    GgafCore::MainActor* pLockonCursor_Prev = pLockonCursor->getPrev();
+                    pLockonCursor_Prev->_pNext = pLockonCursor_Next;
+                    pLockonCursor_Next->_pPrev = pLockonCursor_Prev;
+                    pLockonCursor_Prev->_is_last_flg = true;
+                    pLockonCursor->_is_last_flg = false;
                     //First->Next の間に入れる
-                    GgafCore::MainActor* pMainLockonEffect = (GgafCore::MainActor*)getChildFirst();
-                    GgafCore::MainActor* pMainLockonEffect_Next = (GgafCore::MainActor*)getChildFirst()->getNext();
-                    pMainLockonEffect->_pNext = pLockonEffect;
-                    pLockonEffect->_pPrev = pMainLockonEffect;
-                    pLockonEffect->_pNext = pMainLockonEffect_Next;
-                    pMainLockonEffect_Next->_pPrev = pLockonEffect;
-                    pLockonEffect->activate(); //サブロックオン有効に
+                    GgafCore::MainActor* pMainLockonCursor = (GgafCore::MainActor*)getChildFirst();
+                    GgafCore::MainActor* pMainLockonCursor_Next = (GgafCore::MainActor*)getChildFirst()->getNext();
+                    pMainLockonCursor->_pNext = pLockonCursor;
+                    pLockonCursor->_pPrev = pMainLockonCursor;
+                    pLockonCursor->_pNext = pMainLockonCursor_Next;
+                    pMainLockonCursor_Next->_pPrev = pLockonCursor;
+                    pLockonCursor->activate(); //サブロックオン有効に
                     //サブロックオンエフェクトロックオン！
-                    ((LockonCursor001*)pLockonEffect)->lockon(listTarget_.getNext());
+                    ((LockonCursor001*)pLockonCursor)->lockon(listTarget_.getNext());
                 } else {
                     //２個目のターゲット追加時（最初のサブロックオンターゲット追加時）
-                    GgafCore::MainActor* pLockonEffect = (GgafCore::MainActor*)getChildFirst()->getPrev(); //２つなので結局Nextの位置
-                    pLockonEffect->activate(); //サブロックオン有効に
-                    ((LockonCursor001*)pLockonEffect)->lockon(listTarget_.getNext());
+                    GgafCore::MainActor* pLockonCursor = (GgafCore::MainActor*)getChildFirst()->getPrev(); //２つなので結局Nextの位置
+                    pLockonCursor->activate(); //サブロックオン有効に
+                    ((LockonCursor001*)pLockonCursor)->lockon(listTarget_.getNext());
                 }
             }
         }
@@ -167,13 +167,13 @@ void MyLockonController::releaseAllLockon() {
     }
     listTarget_.removeAll();
     //ロックオンエフェクトをインアクティブにする
-    GgafCore::MainActor* pLockonEffect = (GgafCore::MainActor*)getChildFirst();
-    while (pLockonEffect) {
-        ((LockonCursor001*)pLockonEffect)->releaseLockon();
-        if (pLockonEffect->isLast()) {
+    GgafCore::MainActor* pLockonCursor = (GgafCore::MainActor*)getChildFirst();
+    while (pLockonCursor) {
+        ((LockonCursor001*)pLockonCursor)->releaseLockon();
+        if (pLockonCursor->isLast()) {
             break;
         } else {
-            pLockonEffect = pLockonEffect->getNext();
+            pLockonCursor = pLockonCursor->getNext();
         }
     }
 }

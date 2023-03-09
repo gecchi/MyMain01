@@ -3,6 +3,7 @@
 /.settings
 /Debug
 /Release
+/Release(dll)
 /GprofCdt*
 /*.user
 /Debug_XP/

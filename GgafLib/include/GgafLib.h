@@ -6,17 +6,19 @@
     #undef __in
     #undef __out
 #endif
-HINSTANCE WinMain_hInstance;
-HINSTANCE WinMain_hPrevInstance;
-LPTSTR WinMain_lpCmdLine;
-int WinMain_nCmdShow;
+
+extern HINSTANCE WinMain_hInstance;
+extern HINSTANCE WinMain_hPrevInstance;
+extern LPTSTR WinMain_lpCmdLine;
+extern int WinMain_nCmdShow;
+
 /**
  * ƒƒCƒ“ˆ— .
  * @param argc
  * @param argv
  * @return
  */
-int LibMain(int argc, char *argv[]);
+void LibMain(int argc, char *argv[]);
 
 /**
  * WinMain‚Ì‰Šúˆ— .

@@ -91,7 +91,7 @@ public:
     void (*_pFunc_calc_rot_mv_world_matrix)(const GeometricActor* const, D3DXMATRIX&);
     /** [r]自身の現在のWorld変換行列(通常は「拡大縮小×回転×移動」)。土台がある場合は、その土台と行列の積になっている。 */
     D3DXMATRIX _matWorld;
-    /** [r]自身の現在のWorld変換行列の「回転×移動」のみ。土台がある場合は、その土台と行列の積になっている。 */
+    /** [r]自身の現在のWorld変換行列の「回転×移動」のみ。土台がある場合は、その土台と行列の積になっている。processSettlementBehavior()で更新 */
     D3DXMATRIX _matWorldRotMv;
     /** [r]自身の現在のWorld変換行列の「回転×移動」の逆行列(回転×移動のインバース) */
     D3DXMATRIX _matInvWorldRotMv;
@@ -735,6 +735,7 @@ public:
 
     /**
      * ワールドの方向ベクトルを、ローカル方向ベクトルに変換。(_pActor_base が存在する場合のみ使用可能) .
+     * 土台の _matWorldRotMv は processSettlementBehavior() で更新されるため、processBehavior() からの呼び出しでは１フレーム前の座標となってしまう・・・
      * @tparam T ベクトル要素の数値型
      * @param prm_final_target_vx 最終的に向きたい方向ベクトルX要素
      * @param prm_final_target_vy 最終的に向きたい方向ベクトルY要素

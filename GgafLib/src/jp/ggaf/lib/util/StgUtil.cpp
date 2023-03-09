@@ -94,7 +94,7 @@ bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliA
     const coord bz1 = pActor01->_z + pAABox01->_z1;
     const coord bz2 = pActor01->_z + pAABox01->_z2;
 
-    double square_length = 0; //球の中心とAABの最短距離を二乗した値
+    double square_length = 0; //球の中心とAABの最短距離(を二乗)した値
     if(o_scx < bx1) {
         square_length += (double)(o_scx - bx1) * (o_scx - bx1);
     }
@@ -119,7 +119,7 @@ bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliA
     //球の中心が、BOX内にあるという意味になる。
 
     //square_lengthが球の半径（の二乗）よりも短ければ衝突している
-    if (square_length <= pSphere02->_rr) {
+    if (square_length <= pSphere02->_rr) { //あたり判定なので、ルートをとらず二乗のままの比較でよい
         return true;
     } else {
         return false;

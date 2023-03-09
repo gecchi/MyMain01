@@ -1,5 +1,5 @@
 #include "HgrUtil.h"
-#include "jp/ggaf/lib/LibConfig.h"
+//#include "jp/ggaf/lib/LibConfig.h"
 #include "HgrCaretaker.h"
 
 
