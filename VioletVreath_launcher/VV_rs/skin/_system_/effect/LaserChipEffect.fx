@@ -119,6 +119,12 @@ OUT_VS VS_LaserChip(
     OUT_VS out_vs = (OUT_VS)0;
 
     float4x4 matWorld = {prm_world0, prm_world1, prm_world2, prm_world3};
+    float offset_u = matWorld._14; //ワールド変換行列の._14 u,v座標の u オフセット
+    float offset_v = matWorld._24;  //ワールド変換行列の._14 u,v座標の u オフセット
+    //元の行列値に戻しておく
+    matWorld._14 = 0.0f;
+    matWorld._24 = 0.0f;
+
     float4x4 matWorld_infront = {prm_infront_world0, prm_infront_world1, prm_infront_world2, prm_infront_world3};
     int kind_t = (int)(prm_info.x);
     float force_alpha = prm_info.y;

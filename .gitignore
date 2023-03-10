@@ -2,7 +2,7 @@
 /GprofCdt*
 /DebugCdt*
 /Release
-/Release(dll)
+/ReleaseCdt_x64_DLL
 /Debug
 /.project
 .pydevproject

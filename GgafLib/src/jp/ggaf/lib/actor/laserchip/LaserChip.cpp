@@ -4,6 +4,7 @@
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/model/MeshSetModel.h"
 #include "jp/ggaf/dx/effect/MeshSetEffect.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
@@ -11,8 +12,6 @@
 #include "jp/ggaf/dx/util/CollisionPart.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/dx/util/CollisionChecker.h"
-
-
 
 using namespace GgafLib;
 
@@ -45,6 +44,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _middle_colli_able = false;
     _rate_of_length = 1.0f;
     _power = 1.0f;
+    _pUvFlipper = NEW GgafDx::UvFlipper();
     _pMassMeshModel->registerCallback_VertexInstanceDataInfo(LaserChip::createVertexInstanceData);
     //モデル単位でセットすれば事足りるのだが、めんどうなので、アクター毎にセット
     static volatile bool is_init = LaserChip::initStatic(this); //静的メンバ初期化
@@ -479,6 +479,7 @@ void LaserChip::processDraw() {
             pChip = (LaserChip*)pDrawActor;
             if (pChip->_pChip_infront) {
                 memcpy(paInstancedata, &(pChip->_matWorld), size_of_D3DXMATRIX);
+                _pUvFlipper->getUV(paInstancedata->_14, paInstancedata->_24); //_14 と _24 を u,v座標のオフセット埋め込み（使用時に 0 戻す）
                 memcpy(&(paInstancedata->_f_11), &(pChip->_pChip_infront->_matWorld), size_of_D3DXMATRIX);
                 paInstancedata->_chip_kind = pChip->_chip_kind;
                 paInstancedata->_force_alpha = pChip->_force_alpha;

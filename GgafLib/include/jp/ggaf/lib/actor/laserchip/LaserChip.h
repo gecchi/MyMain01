@@ -49,8 +49,8 @@ private:
 public:
 
     struct VERTEX_instancedata {
-        float _11, _12, _13, _14;   // : TEXCOORD1  World変換行列、１行目
-        float _21, _22, _23, _24;   // : TEXCOORD2  World変換行列、２行目
+        float _11, _12, _13, _14;   // : TEXCOORD1  World変換行列、１行目 ,  _14 u,v座標の u オフセット（埋め込み,使用時に 0 戻す）
+        float _21, _22, _23, _24;   // : TEXCOORD2  World変換行列、２行目 ,  _24 u,v座標の v オフセット（埋め込み,使用時に 0 戻す）
         float _31, _32, _33, _34;   // : TEXCOORD3  World変換行列、３行目
         float _41, _42, _43, _44;   // : TEXCOORD4  World変換行列、４行目
 
@@ -75,6 +75,8 @@ public:
     float _rate_of_length;
     /** [r] 火力率、攻撃力に乗じられる値 */
     float _power;
+
+    GgafDx::UvFlipper* _pUvFlipper;
 public:
     LaserChip(const char* prm_name, const char* prm_model);
 
