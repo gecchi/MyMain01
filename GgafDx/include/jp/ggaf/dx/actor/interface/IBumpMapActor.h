@@ -22,7 +22,7 @@ public:
     /** 環境マップテクスチャ資源 */
     TextureConnection* _pBumpMapTextureConnection;
 
-    const char* _bumpmap_tex;
+    char* _bumpmap_tex;
 
 public:
     IBumpMapActor();

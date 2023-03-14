@@ -14,14 +14,6 @@ template VertexDuplicationIndices {
  array DWORD indices[nIndices];
 }
 
-template SkinWeights {
- <6f0d123b-bad2-4167-a0d0-80224f25fabb>
- STRING transformNodeName;
- DWORD nWeights;
- array DWORD vertexIndices[nWeights];
- array FLOAT weights[nWeights];
- Matrix4x4 matrixOffset;
-}
 
 
 Frame Frame_SCENE_ROOT {

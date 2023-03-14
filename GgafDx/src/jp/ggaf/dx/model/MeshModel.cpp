@@ -269,7 +269,7 @@ void MeshModel::restore() {
         }
 
         //頂点バッファ作成
-        prepareVtx((void*)_paVtxBuffer_data, _size_vertex_unit,
+        prepareVtx3D((void*)_paVtxBuffer_data, _size_vertex_unit,
                     pModel3D, paNumVertices);
         GGAF_DELETE(paNumVertices);
 

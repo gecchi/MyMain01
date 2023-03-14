@@ -77,7 +77,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             HDROP hDrop = (HDROP)wParam;
             UINT uFileNo = DragQueryFile((HDROP)wParam, 0xFFFFFFFF, nullptr, 0);
             for (int i = 0; i < (int)uFileNo; i++) {
-                DragQueryFile(hDrop, i, VvvCaretaker::dropfiles_, sizeof(VvvCaretaker::dropfiles_));
+                DragQueryFile(hDrop, i, VvvCaretaker::dropfiles_, 2048);
                 _TRACE_("VvvCaretaker::dropfiles_="<<VvvCaretaker::dropfiles_);
             }
             DragFinish(hDrop);

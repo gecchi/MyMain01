@@ -360,7 +360,8 @@ void ModelManager::obtainMetaModelInfo(ModelXFileFmt* prm_pModelDefineXFileFmt_o
         pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     } //ループしているが、child は一つだけです。
     if (pID3DXFileData == nullptr) {
-        throwCriticalException("ModelManager::obtainMetaModelInfo() "<<prm_modelfile_filepath<<" のフォーマットエラー。 MeshModelDef { ... }  の MeshModelDef が見つからないです。");
+        throwCriticalException("ModelManager::obtainMetaModelInfo() "<<prm_modelfile_filepath<<" のフォーマットエラー。 \n"<<
+                " MetaModelInfo { ... }  の MetaModelInfo が見つからないです。たぶん");
     }
     SIZE_T xsize = 0;
     char* pXData = nullptr;

@@ -46,7 +46,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinCont
     _class_name = "MyBunshin";
     pBase_ = prm_pBase;
     pBunshinController_ = prm_pBunshinController;
-    _laser_kind = LASER_THUNDER; //LASER_THUNDER LASER_KOANYA
+    _laser_kind = LASER_KOANYA; //LASER_THUNDER LASER_KOANYA
 
     //自弾ストック
     pDepo_MyBunshinShot_ = NEW GgafCore::ActorDepository("Depo_MyBunshinShot");
@@ -136,7 +136,7 @@ void MyBunshin::processSettlementBehavior() {
 
     //ロックオン対象へ方向を向ける
 //    _is_thunder_lock = false;
-    if (_laser_kind == LASER_THUNDER) {
+    if (_laser_kind == LASER_KOANYA) {
         //絶対座標系で通常のロックオン対象狙う方向ベクトル
         GgafDx::GeometricActor* pTargetActor = pLockonCtrler_->pMainLockonCursor_->pTarget_;
         if (pTargetActor) {

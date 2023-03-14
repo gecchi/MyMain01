@@ -136,7 +136,7 @@ void MassMeshModel::restore() {
             _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfilepath);
         }
         //法線設定とFrameTransformMatrix適用
-        prepareVtx((void*)_paVtxBuffer_data_model, _size_vertex_unit_model,
+        prepareVtx3D((void*)_paVtxBuffer_data_model, _size_vertex_unit_model,
                    pModel3D, paNumVertices);
         GGAF_DELETE(paNumVertices);
 

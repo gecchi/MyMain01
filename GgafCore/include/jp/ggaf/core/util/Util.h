@@ -494,7 +494,7 @@ public:
     static std::string getFileDirName(const char* prm_filepath);
     static std::string getFileExt(const char* prm_filepath);
 
-    static char* reverseStr(char* str);
+    static void reverseStr(char* str);
     static void strReplace(std::string& str, const std::string& from, const std::string& to);
 
     /**

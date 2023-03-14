@@ -11,7 +11,8 @@ using namespace GgafDx;
 ICubeMapActor::ICubeMapActor() {
     _pCubeMapTextureConnection = nullptr;
     _reflectance = 0.0f;
-    _cubemap_tex = "alpha_zero_cubemap.dds";
+    _cubemap_tex = NEW char[2];
+    strcpy(_cubemap_tex, "?");
 }
 
 void ICubeMapActor::setCubeMap(const char* prm_cubemap_tex, float prm_reflectance) {
@@ -20,7 +21,10 @@ void ICubeMapActor::setCubeMap(const char* prm_cubemap_tex, float prm_reflectanc
 }
 
 void ICubeMapActor::setCubeMapTexture(const char* prm_cubemap_tex) {
-    _cubemap_tex = prm_cubemap_tex;
+    int len = (int)strlen(prm_cubemap_tex);
+    GGAF_DELETEARR_NULLABLE(_cubemap_tex);
+    _cubemap_tex = NEW char[len+1];
+    strcpy(_cubemap_tex, prm_cubemap_tex);
     if (_pCubeMapTextureConnection) {
         _pCubeMapTextureConnection->close();
     }
@@ -38,6 +42,7 @@ IDirect3DBaseTexture9* ICubeMapActor::getCubeMapTexture() {
 }
 
 ICubeMapActor::~ICubeMapActor() {
+    GGAF_DELETEARR_NULLABLE(_cubemap_tex);
     //資源取得の connet() はメインスレッドである。
     //しかし close() （デストラクタ）は愛スレッドで実行。
     //本当は避けるべきだが、GgafCore::ResourceConnection側のclose()を改良し、

@@ -17,23 +17,30 @@ Texture::Texture(const char* prm_texture_name) : GgafCore::Object() {
 }
 
 std::string Texture::getTextureFilePath(std::string prm_file) {
-    std::string texture_file = CONFIG::DIR_TEXTURE[2] + "/" + prm_file;
-    UTIL::strReplace(texture_file, "//", "/");
-    if (PathFileExists(texture_file.c_str()) ) {
-        return texture_file;
+    std::string texture_file2 = CONFIG::DIR_TEXTURE[2] + "/" + prm_file;
+    UTIL::strReplace(texture_file2, "//", "/");
+    if (PathFileExists(texture_file2.c_str()) ) {
+        _TRACE_("Texture::getTextureFilePath() texture_file2.c_str()="<<texture_file2.c_str());
+        return texture_file2;
     } else {
-        texture_file = CONFIG::DIR_TEXTURE[1] + "/" + prm_file;
-        UTIL::strReplace(texture_file, "//", "/");
-        if (PathFileExists(texture_file.c_str()) ) {
-            return texture_file;
+        std::string texture_file1 = CONFIG::DIR_TEXTURE[1] + "/" + prm_file;
+        UTIL::strReplace(texture_file1, "//", "/");
+        if (PathFileExists(texture_file1.c_str()) ) {
+            _TRACE_("Texture::getTextureFilePath() texture_file1.c_str()="<<texture_file1.c_str());
+            return texture_file1;
         } else {
-            texture_file = CONFIG::DIR_TEXTURE[0] + "/" + prm_file;
-            UTIL::strReplace(texture_file, "//", "/");
-            if (PathFileExists(texture_file.c_str()) ) {
-                return texture_file;
+            std::string texture_file0 = CONFIG::DIR_TEXTURE[0] + "/" + prm_file;
+            UTIL::strReplace(texture_file0, "//", "/");
+            if (PathFileExists(texture_file0.c_str()) ) {
+                _TRACE_("Texture::getTextureFilePath() texture_file0.c_str()="<<texture_file0.c_str());
+                return texture_file0;
             } else {
-                _TRACE_("【警告】Texture::getTextureFilePath テクスチャファイルが見つかりません。texture_file="<<texture_file);
-                return texture_file;
+                _TRACE_("【警告】Texture::getTextureFilePath テクスチャファイルが見つかりません。prm_file="<<prm_file<<"\n"<<
+                        "texture_file2="<<texture_file2<<"\n"
+                        "texture_file1="<<texture_file1<<"\n"
+                        "texture_file0="<<texture_file0<<"\n"
+                        );
+                return "";
             }
         }
     }

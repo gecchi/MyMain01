@@ -26,6 +26,7 @@ SpriteSetModel::SpriteSetModel(const char* prm_model_id) : Model(prm_model_id), 
     _paIndexBuffer = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
+    _nVertices = 4;
     _paIndexParam = nullptr;
     _max_draw_set_num = SPRITESETMODEL_MAX_DARW_SET_NUM;
 }
@@ -172,9 +173,10 @@ void SpriteSetModel::restore() {
 //        }
 
         //バッファ作成
-        _size_vertices = sizeof(SpriteSetModel::VERTEX)*4;
+        _nVertices = 4;
+        _size_vertices = sizeof(SpriteSetModel::VERTEX)*_nVertices;
         _size_vertex_unit = sizeof(SpriteSetModel::VERTEX);
-        _paVertexBuffer_data = NEW SpriteSetModel::VERTEX[4 * _draw_set_num];
+        _paVertexBuffer_data = NEW SpriteSetModel::VERTEX[_nVertices * _draw_set_num];
 
         double du = 0.0;
         double dv = 0.0;
@@ -225,6 +227,7 @@ void SpriteSetModel::restore() {
             _paVertexBuffer_data[i*4 + 3].index = (float)i;
 
         }
+        transformPosVtx(_paVertexBuffer_data, _size_vertex_unit, _nVertices*_draw_set_num);
 
         //距離
         FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(_paVertexBuffer_data[0].x * _paVertexBuffer_data[0].x +

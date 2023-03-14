@@ -42,6 +42,8 @@ public:
     UINT _size_vertices;
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
+
+    UINT _nVertices;
     INDEXPARAM* _paIndexParam;
 
     VERTEX* _paVertexBuffer_data;

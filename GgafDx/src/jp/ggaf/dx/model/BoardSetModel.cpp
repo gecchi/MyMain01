@@ -25,6 +25,7 @@ BoardSetModel::BoardSetModel(const char* prm_model_id) : Model(prm_model_id), IP
     _paIndexBuffer_data = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
+    _nVertices = 4;
     _paIndexParam = nullptr;
     _max_draw_set_num = BOARDSETMODEL_MAX_DARW_SET_NUM;
 }
@@ -143,9 +144,10 @@ void BoardSetModel::restore() {
 //        if (2 * 3 * _draw_set_num > 65535) { // 2 = nFace (板ポリゴンの数）
 //            _TRACE_("【警告】SpriteSetModel::restore() 頂点インデックスが 65535 を超えたかもしれません。しらんけど。\n対象Model："<<getName()<<" インデックス:3*2(faces) セット数:"<<(_draw_set_num));
 //        }
-        _size_vertices = sizeof(BoardSetModel::VERTEX)*4;
+        _nVertices = 4;
+        _size_vertices = sizeof(BoardSetModel::VERTEX)*_nVertices;
         _size_vertex_unit = sizeof(BoardSetModel::VERTEX);
-        _paVertexBuffer_data = NEW BoardSetModel::VERTEX[4 * _draw_set_num];
+        _paVertexBuffer_data = NEW BoardSetModel::VERTEX[_nVertices * _draw_set_num];
 
         //1pxあたりのuvの大きさを求める
 //        float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
@@ -182,6 +184,8 @@ void BoardSetModel::restore() {
             _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata_spr.TextureSplitRows) - dv);
             _paVertexBuffer_data[i*4 + 3].index = (float)i;
         }
+
+        transformPosVtx(_paVertexBuffer_data, _size_vertex_unit, _nVertices * _draw_set_num);
 
         //描画時パラメーター
         int nVertices = 4;

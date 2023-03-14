@@ -153,10 +153,10 @@ void FramedSpriteModel::restore() {
         _pa_texture_filenames = NEW std::string[2];
         _pa_texture_filenames[0] = std::string(xdata_fspr.TextureFile);
         _pa_texture_filenames[1] = std::string(xdata_fspr.FrameTextureFile);
-
-        _size_vertices = sizeof(FramedSpriteModel::VERTEX)*4;
+        _nVertices = 4;
+        _size_vertices = sizeof(FramedSpriteModel::VERTEX)*_nVertices;
         _size_vertex_unit = sizeof(FramedSpriteModel::VERTEX);
-        _paVertexBuffer_data = NEW FramedSpriteModel::VERTEX[4 * _draw_set_num];
+        _paVertexBuffer_data = NEW FramedSpriteModel::VERTEX[_nVertices * _draw_set_num];
         //    „¡„Ÿ„¦„Ÿ„¦„Ÿ„¢
         //    „ ‚O„ ‚P„ ‚Q„ 
         //    „¥„Ÿ„©„Ÿ„©„Ÿ„§
@@ -356,7 +356,7 @@ void FramedSpriteModel::restore() {
             }
         }
 
-        transformPosVtx(_paVertexBuffer_data, _size_vertex_unit, _nVertices);
+        transformPosVtx(_paVertexBuffer_data, _size_vertex_unit, _nVertices * _draw_set_num);
         //‹——£
         FLOAT l0 = (FLOAT)(sqrt(_paVertexBuffer_data[0].x * _paVertexBuffer_data[0].x +
                           _paVertexBuffer_data[0].y * _paVertexBuffer_data[0].y +

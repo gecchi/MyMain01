@@ -27,6 +27,7 @@ FramedBoardModel::FramedBoardModel(const char* prm_model_id) : Model(prm_model_i
     _paIndexBuffer = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
+    _nVertices = 4;
     _draw_set_num = 9;
     _max_draw_set_num = 9;
 }
@@ -152,10 +153,10 @@ void FramedBoardModel::restore() {
         _pa_texture_filenames = NEW std::string[2];
         _pa_texture_filenames[0] = std::string(xdata_fspr.TextureFile);
         _pa_texture_filenames[1] = std::string(xdata_fspr.FrameTextureFile);
-
-        _size_vertices = sizeof(FramedBoardModel::VERTEX)*4;
+        _nVertices = 4;
+        _size_vertices = sizeof(FramedBoardModel::VERTEX)*_nVertices;
         _size_vertex_unit = sizeof(FramedBoardModel::VERTEX);
-        _paVertexBuffer_data = NEW FramedBoardModel::VERTEX[4 * _draw_set_num];
+        _paVertexBuffer_data = NEW FramedBoardModel::VERTEX[_nVertices * _draw_set_num];
         //    „¡„Ÿ„¦„Ÿ„¦„Ÿ„¢
         //    „ ‚O„ ‚P„ ‚Q„ 
         //    „¥„Ÿ„©„Ÿ„©„Ÿ„§
@@ -290,6 +291,7 @@ void FramedBoardModel::restore() {
                 _paVertexBuffer_data[i*4 + 3].index = (float)i;
             }
         }
+        transformPosVtx(_paVertexBuffer_data, _size_vertex_unit, _nVertices * _draw_set_num);
 
         int nVertices = 4;
         int nFaces = 2;

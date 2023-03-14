@@ -23,8 +23,7 @@ public:
     TextureConnection* _pCubeMapTextureConnection;
     /** 環境マップテクスチャ映りこみ率 */
     float _reflectance;
-
-    const char* _cubemap_tex;
+    char* _cubemap_tex;
 
 public:
     ICubeMapActor();

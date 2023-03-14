@@ -228,18 +228,19 @@ public:
      * 頂点バッファ情報に共通事前処理を施す。
      * ・Xファイルの法線情報を設定。（※法線情報無い場合は生成して設定）
      * ・法線情報から、接ベクトル（Tangent）及び従法線（Binormal）を計算して設定。
-     * ・Xファイルの FrameTransformMatrix変換を適用
+     * ・modelx ファイルの _matBaseTransformMatrix 変換を適用
      * @param prm_paVtxBuffer 更新したい頂点バッファデータ（x,y,z,tu,tv は設定済みの前提）
      * @param prm_size_of_vtx_unit モデルの１頂点データのサイズ
      * @param model_pModel3D
      * @param paNumVertices 頂点連結前の頂点サブセット数の配列
      *        （モデルがサブセット単位で個別基準（位置、回転、拡大）を保持してる場合）
      */
-    void prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
+    void prepareVtx3D(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                     Frm::Model3D* model_pModel3D,
                     uint32_t* paNumVertices);
 
     void transformPosNomalVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num);
+
     void transformPosVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num);
 
     static void calcTangentAndBinormal(

@@ -268,6 +268,8 @@ void MassSpriteModel::restore() {
         _paVtxBuffer_data_model[3].tu = 1.0/xdata_spr.TextureSplitCols;
         _paVtxBuffer_data_model[3].tv = 1.0/xdata_spr.TextureSplitRows;
 
+        transformPosVtx(_paVtxBuffer_data_model, _size_vertex_unit_model, _nVertices);
+
         _paIndexBuffer_data = NEW WORD[(_nFaces*3)];
         _paIndexBuffer_data[0] = 0;
         _paIndexBuffer_data[1] = 1;

@@ -127,7 +127,8 @@ std::string Util::getFileBaseNameWithoutExt(const char* prm_filepath) {
         //ピリオドなしのファイル名
         return basename;
     } else {
-        return basename.substr(0, p);
+        std::string res = std::string(basename.substr(0, p));
+        return res;
     }
 }
 
@@ -141,10 +142,14 @@ std::string Util::getFileBaseName(const char* prm_filepath) {
         p--;
     }
     std::string res;
-    while (!(prm_filepath[p] == '/' || prm_filepath[p] == '\\')) {
+    while (! (p < 0 || prm_filepath[p] == '/' || prm_filepath[p] == '\\')) {
         res += prm_filepath[p--];
     }
-    Util::reverseStr((char*)res.c_str());
+    char* cstr = NEW char[res.size() + 1];
+    strcpy(cstr, res.c_str());
+    Util::reverseStr(cstr);
+    res = std::string(cstr);
+    GGAF_DELETEARR(cstr);
     return res;
 }
 
@@ -157,7 +162,7 @@ std::string Util::getFileDirName(const char* prm_filepath) {
         p--;
     }
     std::string res;
-    while (!(prm_filepath[p] == '/' || prm_filepath[p] == '\\')) {
+    while (!(p < 0 || prm_filepath[p] == '/' || prm_filepath[p] == '\\')) {
         p--;
     }
     res.assign(prm_filepath, p);
@@ -170,16 +175,19 @@ std::string Util::getFileExt(const char* prm_filepath) {
     if (epos < 0) {
         return "";
     }
-    return basename.substr(epos + 1, basename.length() - epos);
+    std::string res = basename.substr(epos + 1);
+    return res;
+//    return basename.substr(epos + 1, basename.length() - epos);
 }
 
-char* Util::reverseStr(char* str) {
+void Util::reverseStr(char* str) {
     std::string tmp = str;
     char* p = (char*)tmp.c_str();
-    for (int i = (int)strlen(str) - 1, j = 0; i >= 0; i--, j++)
+    for (int i = (int)strlen(str) - 1, j = 0; i >= 0; i--, j++) {
         str[i] = p[j];
-    return (&str[0]);
+    }
 }
+
 void Util::strReplace(std::string& str, const std::string& from, const std::string& to) {
     std::string::size_type pos = 0;
     while (pos = str.find(from, pos), pos != std::string::npos) {

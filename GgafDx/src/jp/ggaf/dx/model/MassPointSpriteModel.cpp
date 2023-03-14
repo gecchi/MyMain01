@@ -135,6 +135,7 @@ void MassPointSpriteModel::restore() {
 
         }
         transformPosVtx(_paVtxBuffer_data_model, _size_vertex_unit_model, _nVertices);
+
         //‹——£
         FLOAT model_bounding_sphere_radius;
         for (UINT i = 0; i < _nVertices; i++) {

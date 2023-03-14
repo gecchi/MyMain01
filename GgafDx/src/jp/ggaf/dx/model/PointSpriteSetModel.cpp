@@ -217,6 +217,8 @@ void PointSpriteSetModel::restore() {
             }
         }
 
+        transformPosVtx(_paVtxBuffer_data, _size_vertex_unit, _nVertices*_draw_set_num);
+
     }
 
     //デバイスに頂点バッファ作成(モデル)

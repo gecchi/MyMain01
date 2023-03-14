@@ -510,6 +510,7 @@ void LaserChip::addModel(const char* prm_model) {
 }
 
 LaserChip::~LaserChip() {
+    GGAF_DELETE(_pUvFlipper);
     GGAF_DELETE(_pColliCollisionChecker);
 }
 

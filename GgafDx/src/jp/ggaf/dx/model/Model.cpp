@@ -48,6 +48,9 @@ void Model::transformPosVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, in
         vecVertex.y = pVtx->y;
         vecVertex.z = pVtx->z;
         D3DXVec3TransformCoord(&vecVertex, &vecVertex, &_matBaseTransformMatrix);
+        pVtx->x = vecVertex.x;
+        pVtx->y = vecVertex.y;
+        pVtx->z = vecVertex.z;
     }
 }
 
@@ -149,7 +152,7 @@ void Model::transformPosNomalVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_uni
     }
 }
 
-void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
+void Model::prepareVtx3D(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                        Frm::Model3D* model_pModel3D,
                        uint32_t* paNumVertices) {
     //ƒ‘O’ñ„
@@ -318,33 +321,6 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
         _TRACE_("ModelManager : (*iteBone)->_Name="<<((*iteBone)->_Name));
 
         if ((*iteBone)) {
-//            D3DXMATRIX FrameTransformMatrix;
-//            D3DXMatrixIdentity(&FrameTransformMatrix);
-//            Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
-//            if (pMatPos == 0 || pMatPos== nullptr || pMatPos->isIdentity()) {
-//                //FrameTransformMatrix ‚Í’PˆÊs—ñ
-//                _TRACE_("ModelManager : FrameTransformMatrix is Identity");
-//            } else {
-//                _TRACE_("ModelManager : Execute FrameTransform!");
-//                FrameTransformMatrix._11 = pMatPos->data[0];
-//                FrameTransformMatrix._12 = pMatPos->data[1];
-//                FrameTransformMatrix._13 = pMatPos->data[2];
-//                FrameTransformMatrix._14 = pMatPos->data[3];
-//                FrameTransformMatrix._21 = pMatPos->data[4];
-//                FrameTransformMatrix._22 = pMatPos->data[5];
-//                FrameTransformMatrix._23 = pMatPos->data[6];
-//                FrameTransformMatrix._24 = pMatPos->data[7];
-//                FrameTransformMatrix._31 = pMatPos->data[8];
-//                FrameTransformMatrix._32 = pMatPos->data[9];
-//                FrameTransformMatrix._33 = pMatPos->data[10];
-//                FrameTransformMatrix._34 = pMatPos->data[11];
-//                FrameTransformMatrix._41 = pMatPos->data[12];
-//                FrameTransformMatrix._42 = pMatPos->data[13];
-//                FrameTransformMatrix._43 = pMatPos->data[14];
-//                FrameTransformMatrix._44 = pMatPos->data[15];
-//            }
-
-//            D3DXMatrixMultiply(&FrameTransformMatrix, &FrameTransformMatrix, &_matBaseTransformMatrix);
             if (n == 0) {
                 nVertices_begin = 0;
                 nVertices_end = paNumVertices[n];

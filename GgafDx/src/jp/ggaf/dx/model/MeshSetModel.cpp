@@ -265,7 +265,7 @@ void MeshSetModel::restore() {
             _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfilepath);
         }
         //法線設定とFrameTransformMatrix適用
-        prepareVtx((void*)unit_paVtxBuffer_data, _size_vertex_unit,
+        prepareVtx3D((void*)unit_paVtxBuffer_data, _size_vertex_unit,
                    pModel3D, paNumVertices);
         GGAF_DELETE(paNumVertices);
         //距離

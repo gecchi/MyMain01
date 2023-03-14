@@ -23,11 +23,13 @@ public:
     public:
         GgafDx::FigureActor* pActor_;
         GgafLib::WorldCollisionChecker* pCollisionChecker_;
-        std::string modelfile_;
-        ActorInfo(GgafDx::FigureActor* pActor, GgafLib::WorldCollisionChecker* pCollisionChecker, std::string modelfile) {
+        std::string dropfile_;
+        bool is_model_x_;
+        ActorInfo(GgafDx::FigureActor* pActor, GgafLib::WorldCollisionChecker* pCollisionChecker, std::string dropfile, bool is_model_x) {
             pActor_ = pActor;
             pCollisionChecker_ = pCollisionChecker;
-            modelfile_ = modelfile;
+            dropfile_ = dropfile;
+            is_model_x_=is_model_x;
         }
         ~ActorInfo() {
             pActor_->end();

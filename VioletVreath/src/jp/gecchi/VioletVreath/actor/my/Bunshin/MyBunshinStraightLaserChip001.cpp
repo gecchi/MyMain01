@@ -78,7 +78,16 @@ void MyBunshinStraightLaserChip001::processBehavior() {
         setPositionAt(pOrg_);
     }
 }
-
+void MyBunshinStraightLaserChip001::processSettlementBehavior() {
+    MyBunshinStraightLaserChip001* pF = (MyBunshinStraightLaserChip001*) getInfrontChip();
+    if (pF == nullptr) {
+        //先端チップ
+    } else {
+        //ひねってみよう
+        setRxFaceAng(pF->_rx + D_ANG(45));
+    }
+    VvMyActor<StraightLaserChip>::processSettlementBehavior();
+}
 void MyBunshinStraightLaserChip001::processJudgement() {
     if (isOutOfSpacetime()) {
         sayonara();

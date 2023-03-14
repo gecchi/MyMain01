@@ -9,11 +9,15 @@ using namespace GgafDx;
 
 IBumpMapActor::IBumpMapActor()  {
     _pBumpMapTextureConnection = nullptr;
-    _bumpmap_tex = "alpha_zero_cubemap.dds";
+    _bumpmap_tex = NEW char[2];
+    strcpy(_bumpmap_tex, "?");
 }
 
 void IBumpMapActor::setBumpMapTexture(const char* prm_bumpmap_tex) {
-    _bumpmap_tex = prm_bumpmap_tex;
+    int len = (int)strlen(prm_bumpmap_tex);
+    GGAF_DELETEARR_NULLABLE(_bumpmap_tex);
+    _bumpmap_tex = NEW char[len+1];
+    strcpy(_bumpmap_tex, prm_bumpmap_tex);
     if (_pBumpMapTextureConnection) {
         _pBumpMapTextureConnection->close();
     }
@@ -28,6 +32,7 @@ IDirect3DBaseTexture9* IBumpMapActor::getBumpMapTexture() {
 }
 
 IBumpMapActor::~IBumpMapActor() {
+    GGAF_DELETEARR_NULLABLE(_bumpmap_tex);
     //資源取得の connet() はメインスレッドである。
     //しかし close() （デストラクタ）は愛スレッドで実行。
     //本当は避けるべきだが、GgafCore::ResourceConnection側のclose()を改良し、

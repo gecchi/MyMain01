@@ -190,7 +190,7 @@ void MassMorphMeshModel::restore() {
 
             //法線設定とFrameTransformMatrix適用
             if (pattern == 0) { //プライマリメッシュ
-                prepareVtx((void*)_paVtxBuffer_data_model, _size_vertex_unit_model,
+                prepareVtx3D((void*)_paVtxBuffer_data_model, _size_vertex_unit_model,
                            papModel3D[pattern], paNumVertices);
                 //距離
                 FLOAT model_bounding_sphere_radius;
@@ -203,7 +203,7 @@ void MassMorphMeshModel::restore() {
                     }
                 }
             } else {            //ターゲットメッシュ
-                prepareVtx((void*)(_papaVtxBuffer_data_morph_model[pattern-1]), _size_vertex_unit_morph_model,
+                prepareVtx3D((void*)(_papaVtxBuffer_data_morph_model[pattern-1]), _size_vertex_unit_morph_model,
                            papModel3D[pattern], paNumVertices);
             }
             GGAF_DELETE(paNumVertices);

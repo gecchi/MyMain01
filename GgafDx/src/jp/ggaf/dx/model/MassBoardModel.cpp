@@ -262,6 +262,7 @@ void MassBoardModel::restore() {
         _paVtxBuffer_data_model[3].nz = -1.0f;
         _paVtxBuffer_data_model[3].tu = (1.0 / xdata_spr.TextureSplitCols) - du;
         _paVtxBuffer_data_model[3].tv = (1.0 / xdata_spr.TextureSplitRows) - dv;
+        transformPosVtx(_paVtxBuffer_data_model, _size_vertex_unit_model, _nVertices);
 
         _paIndexBuffer_data = NEW WORD[(_nFaces*3)];
         _paIndexBuffer_data[0] = 0;

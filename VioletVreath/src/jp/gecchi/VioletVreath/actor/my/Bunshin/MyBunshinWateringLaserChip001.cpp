@@ -80,7 +80,7 @@ void MyBunshinWateringLaserChip001::setOrg(MyBunshin* prm_pOrg) {
 void MyBunshinWateringLaserChip001::onActive() {
     getStatus()->reset();
     default_stamina_ = getStatus()->get(STAT_Stamina);
-    WateringLaserChip::onActive();
+    VvMyActor<WateringLaserChip>::onActive();
     pAimInfo_ = nullptr;
     inv_cnt_ = 0;
     sgn_vx0_ = 0;
@@ -292,7 +292,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 
     }
     pGeoVehicle->behave();
-    WateringLaserChip::processBehavior();
+    VvMyActor<WateringLaserChip>::processBehavior();
 
     tmp_x_ = _x;
     tmp_y_ = _y;
@@ -395,7 +395,7 @@ throwCriticalException("pAimInfo_ Ç™à¯Ç´åpÇ™ÇÍÇƒÇ¢Ç‹ÇπÇÒÅI"<<this<<
                                pGeoVehicle->_velo_vc_z,
                                _rz, _ry );
     }
-    WateringLaserChip::processSettlementBehavior();
+    VvMyActor<WateringLaserChip>::processSettlementBehavior();
 }
 
 void MyBunshinWateringLaserChip001::processJudgement() {
@@ -536,7 +536,7 @@ void MyBunshinWateringLaserChip001::onInactive() {
     pLockonCursor_ = nullptr;
     pAimInfo_ = nullptr;
 
-    WateringLaserChip::onInactive();
+    VvMyActor<WateringLaserChip>::onInactive();
 }
 
 void MyBunshinWateringLaserChip001::chengeTex(int prm_tex_no) {
