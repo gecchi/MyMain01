@@ -86,7 +86,7 @@ void FontBoardActor::processDraw() {
             pixcoord y = C_PX(pFontBoardActor->_y);
             pixcoord z = C_PX(pFontBoardActor->_z);
             InstancePart* pInstancePart = pFontBoardActor->_paInstancePart;
-            float alpha = pFontBoardActor->_alpha;
+            float alpha = pFontBoardActor->getAlpha();
 
             for (int i = 0; i < n; i++) {
                 paInstancedata->px_x = (float)(x + pInstancePart->px_local_x);

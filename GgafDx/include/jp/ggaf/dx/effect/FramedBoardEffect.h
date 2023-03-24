@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_FRAMEDBOARDEFFECT_H_
 #define GGAF_DX_FRAMEDBOARDEFFECT_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 
 namespace GgafDx {
@@ -64,7 +64,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはEffectManagerである<BR>
      */
-    virtual ~FramedBoardEffect(); //デストラクタ
+    virtual ~FramedBoardEffect();
 
 };
 

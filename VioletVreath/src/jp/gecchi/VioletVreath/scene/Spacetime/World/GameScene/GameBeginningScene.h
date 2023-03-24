@@ -1,6 +1,6 @@
 #ifndef GAMEBEGINNINGSCENE_H_
 #define GAMEBEGINNINGSCENE_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 
 #include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"

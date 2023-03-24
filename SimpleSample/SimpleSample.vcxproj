@@ -18,6 +18,22 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\actor\SmpActor.cpp" />
+    <ClCompile Include="src\actor\SmpCamera.cpp" />
+    <ClCompile Include="src\scene\SmpSpacetime.cpp" />
+    <ClCompile Include="src\scene\SmpSpacetime\SmpWorld.cpp" />
+    <ClCompile Include="src\SimpleSample.cpp" />
+    <ClCompile Include="src\SmpCaretaker.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\actor\SmpActor.h" />
+    <ClInclude Include="src\actor\SmpCamera.h" />
+    <ClInclude Include="src\scene\SmpSpacetime.h" />
+    <ClInclude Include="src\scene\SmpSpacetime\SmpWorld.h" />
+    <ClInclude Include="src\SimpleSample.h" />
+    <ClInclude Include="src\SmpCaretaker.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7F532FE9-8CFA-43D4-B219-8B775DC4C243}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -221,22 +237,6 @@
       <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(PlatformToolset)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(PlatformToolset)_$(Configuration).exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\actor\SmpActor.cpp" />
-    <ClCompile Include="src\actor\SmpCamera.cpp" />
-    <ClCompile Include="src\scene\SmpSpacetime.cpp" />
-    <ClCompile Include="src\scene\SmpSpacetime\SmpWorld.cpp" />
-    <ClCompile Include="src\SimpleSample.cpp" />
-    <ClCompile Include="src\SmpCaretaker.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\actor\SmpActor.h" />
-    <ClInclude Include="src\actor\SmpCamera.h" />
-    <ClInclude Include="src\scene\SmpSpacetime.h" />
-    <ClInclude Include="src\scene\SmpSpacetime\SmpWorld.h" />
-    <ClInclude Include="src\SimpleSample.h" />
-    <ClInclude Include="src\SmpCaretaker.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

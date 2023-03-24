@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_MASSBOARDMODEL_H_
 #define GGAF_DX_MASSBOARDMODEL_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 #include "jp/ggaf/dx/model/MassModel.h"
 #include "jp/ggaf/dx/model/interface/IPlaneModel.h"
@@ -49,7 +49,7 @@ public:
     /**
      * デストラクタ<BR>
      */
-    virtual ~MassBoardModel(); //デストラクタ
+    virtual ~MassBoardModel();
 };
 
 }

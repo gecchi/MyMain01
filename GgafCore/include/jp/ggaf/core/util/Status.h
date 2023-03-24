@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_STATUS_H_
 #define GGAF_CORE_STATUS_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include <vector>
 #include "jp/ggaf/core/Object.h"
 

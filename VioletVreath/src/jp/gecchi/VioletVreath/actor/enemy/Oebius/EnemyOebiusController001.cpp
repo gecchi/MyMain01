@@ -3,8 +3,6 @@
 #include "FormationOebius001.h"
 #include "EnemyOebiusCore.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -16,7 +14,6 @@ EnemyOebiusController001::EnemyOebiusController001(const char* prm_name) :
                               ) {
     _class_name = "EnemyOebiusController001";
 }
-
 
 EnemyOebiusController001::~EnemyOebiusController001() {
 }

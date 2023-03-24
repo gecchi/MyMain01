@@ -16,13 +16,6 @@ Phase::Phase(frame* prm_p_frame_counter) :
     _map_phase_no_changed_frame[_phase_no] = (*_p_frame_counter);
 }
 
-void Phase::reset() {
-    _phase_no_prev = GGAF_PHASE_NULL;
-    _phase_no = GGAF_PHASE_NOTHING;
-    _phase_no_next = GGAF_PHASE_NOTHING;
-    _map_phase_no_changed_frame[_phase_no] = (*_p_frame_counter);
-}
-
 void Phase::reset(int prm_phase_no) {
 #ifdef MY_DEBUG
     if (prm_phase_no < 0) {
@@ -32,6 +25,13 @@ void Phase::reset(int prm_phase_no) {
     _phase_no_prev = GGAF_PHASE_NULL;
     _phase_no = prm_phase_no;
     _phase_no_next = prm_phase_no;
+    _map_phase_no_changed_frame[_phase_no] = (*_p_frame_counter);
+}
+
+void Phase::reset() {
+    _phase_no_prev = GGAF_PHASE_NULL;
+    _phase_no = GGAF_PHASE_NOTHING;
+    _phase_no_next = GGAF_PHASE_NOTHING;
     _map_phase_no_changed_frame[_phase_no] = (*_p_frame_counter);
 }
 
@@ -109,7 +109,6 @@ void Phase::changeNext() {
 #endif
 }
 
-
 bool Phase::hasJustChangedTo(int prm_phase_no) const {
 #ifdef MY_DEBUG
     if (prm_phase_no < 0) {
@@ -177,7 +176,6 @@ int Phase::getPrevWillChangeNextFrame() const {
 }
 
 void Phase::update() {
-    //フェーズを反映する
     int ph_now = _phase_no;
     int ph_next = _phase_no_next;
     if (ph_now != ph_next) {

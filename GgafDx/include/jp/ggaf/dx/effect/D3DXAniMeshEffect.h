@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_D3DXANIMESHEFFECT_H_
 #define GGAF_DX_D3DXANIMESHEFFECT_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 
 namespace GgafDx {
@@ -36,7 +36,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはD3DXAniMeshEffectManagerである<BR>
      */
-    virtual ~D3DXAniMeshEffect(); //デストラクタ
+    virtual ~D3DXAniMeshEffect();
 
 };
 

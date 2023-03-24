@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_SPRITESETEFFECT_H_
 #define GGAF_DX_SPRITESETEFFECT_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 
 namespace GgafDx {
@@ -38,7 +38,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはEffectManagerである<BR>
      */
-    virtual ~SpriteSetEffect(); //デストラクタ
+    virtual ~SpriteSetEffect();
 
 };
 

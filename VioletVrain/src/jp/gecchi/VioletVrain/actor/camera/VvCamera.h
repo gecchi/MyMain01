@@ -1,6 +1,6 @@
 #ifndef VVCAMERA_H_
 #define VVCAMERA_H_
-#include "VioletVrain.h"
+#include "jp/gecchi/VioletVrain/VioletVrain.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
 namespace VioletVrain {
@@ -20,7 +20,7 @@ public:
 
     VvCamera(const char* prm_name);
 
-    virtual ~VvCamera(); //デストラクタ
+    virtual ~VvCamera();
 };
 
 }

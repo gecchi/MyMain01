@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_MASSPOINTSPRITEMODEL_H_
 #define GGAF_DX_MASSPOINTSPRITEMODEL_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/MassModel.h"
 
 namespace GgafDx {
@@ -53,7 +53,7 @@ public:
     /**
      * デストラクタ<BR>
      */
-    virtual ~MassPointSpriteModel(); //デストラクタ
+    virtual ~MassPointSpriteModel();
 };
 
 }

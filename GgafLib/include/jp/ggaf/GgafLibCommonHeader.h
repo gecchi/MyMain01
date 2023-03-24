@@ -1,6 +1,6 @@
 #ifndef GGAFLIBHEADER_H_
 #define GGAFLIBHEADER_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 #define DISP_HITAREA 1
 

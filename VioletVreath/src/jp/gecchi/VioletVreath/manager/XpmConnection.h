@@ -1,6 +1,6 @@
 #ifndef XPMCONNECTION_H_
 #define XPMCONNECTION_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/core/util/ResourceConnection.hpp"
 
 #include "jp/ggaf/core/util/Xpm.h"

@@ -1,6 +1,6 @@
 #ifndef VARIETYRATISLAVIA003_H_
 #define VARIETYRATISLAVIA003_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ratislavia/EnemyRatislavia.h"
 
 namespace VioletVreath {

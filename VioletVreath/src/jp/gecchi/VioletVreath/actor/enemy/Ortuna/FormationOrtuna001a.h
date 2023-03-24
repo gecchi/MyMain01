@@ -1,6 +1,6 @@
 #ifndef FORMATIONORTUNA001A_H_
 #define FORMATIONORTUNA001A_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ortuna/FormationOrtuna001.h"
 
 namespace VioletVreath {

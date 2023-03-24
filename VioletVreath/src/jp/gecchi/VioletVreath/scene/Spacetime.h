@@ -1,6 +1,6 @@
 #ifndef SPACETIME_H_
 #define SPACETIME_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/gecchi/VioletVreath/actor/camera/Camera.h"
@@ -32,6 +32,8 @@ public:
     void processBehavior() override;
 
     void processJudgement() override;
+
+    void processHitCheck() override;
 
     VVCameraWorkerChanger* getCameraWorkerChanger() {
         return pCameraWorkerChanger_;

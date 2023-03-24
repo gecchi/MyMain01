@@ -35,8 +35,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\GgafLib.h" />
-    <ClInclude Include="include\GgafLibCommonHeader.h" />
+    <ClInclude Include="include\jp\ggaf\GgafLib.h" />
+    <ClInclude Include="include\jp\ggaf\GgafLibCommonHeader.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\CameraWorkerChanger.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\DefaultCamera.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\DefaultCameraUpVector.h" />
@@ -136,7 +136,7 @@
     <ClInclude Include="include\jp\ggaf\lib\util\WorldCollisionChecker3D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\GgafLib.cpp" />
+    <ClCompile Include="src\jp\ggaf\GgafLib.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\CameraWorkerChanger.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\DefaultCamera.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\DefaultCameraUpVector.cpp" />

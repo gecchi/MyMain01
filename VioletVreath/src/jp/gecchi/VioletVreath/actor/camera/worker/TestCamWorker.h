@@ -1,6 +1,6 @@
 #ifndef TESTCAMWORKER_H_
 #define TESTCAMWORKER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
 namespace VioletVreath {
@@ -28,7 +28,7 @@ public:
 
     void onInactive() override;
 
-    virtual ~TestCamWorker(); //デストラクタ
+    virtual ~TestCamWorker();
 };
 
 }

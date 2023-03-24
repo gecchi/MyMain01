@@ -1,6 +1,6 @@
 #ifndef EFFECTCONDENSATION001_H_
 #define EFFECTCONDENSATION001_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteSetActor.h"
 
 namespace VioletVreath {

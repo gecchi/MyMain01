@@ -125,40 +125,41 @@ void Caretaker::present() {
     // １サイクル（１フレーム）の処理は以下の様に大きく５つに分け、順に実行するものとした。
     //
     // ①Mo = presentMoment();      ･･･ メイン処理・必須処理
-    // ②Ju = presentJudge();       ･･･ 判定処理・必須処理
-    // ③Ma = presentMaterialize(); ･･･ 描画処理(重い)・スキップ可
-    // ④Vi = presentVisualize();   ･･･ 描画フリップ処理・スキップ可(但し③と④はセット処理)
-    // ⑤Cl = presentClosing();     ･･･ 最終処理・必須処理
+    // ②Be = presentBehave();      ･･･ 移動処理・必須処理
+    // ③Ju = presentJudge();       ･･･ 判定処理・必須処理
+    // ④Ma = presentMaterialize(); ･･･ 描画処理(重い)・スキップ可
+    // ⑤Vi = presentVisualize();   ･･･ 描画フリップ処理・スキップ可(但し④と⑤はセット処理)
+    // ⑥Cl = presentClosing();     ･･･ 最終処理・必須処理
     //
-    // ここで行ないたいことは『できる限り、④Vi を 1/60 秒毎に安定して実行すること』とした。
+    // ここで行ないたいことは『できる限り、⑤Vi を 1/60 秒毎に安定して実行すること』とした。
     // そこで、次の様な設計を行った。
-    // ・先ず ④Vi を実行したいタイミングを予め決定する。これは、如何に処理が重くなろうとも変わらない。
+    // ・先ず ⑤Vi を実行したいタイミングを予め決定する。これは、如何に処理が重くなろうとも変わらない。
     //    _time_of_next_view = _time_of_next_view + (1/60秒)
     //   とする。
-    // ・②Ju を実行した時点で、③Ma、④Vi を実行するかどうかを残りの_time_of_next_view までの時間で判断する。
-    //   時間に余裕が有る場合、②Ju 実行後即座に ③Ma 実行、その後 _time_of_next_view まで待ち ④Vi 実行する。
-    //   もし ②Ju 実行後、次フレームにめり込んでいた場合 ③Ma、④Vi はスキップ。
-    // ・上記を基本ルールとしつつ、_max_skip_frames フレームに１回は必ず ③Ma、④Vi を実行する。
+    // ・③Ju を実行した時点で、④Ma、⑤Vi を実行するかどうかを残りの_time_of_next_view までの時間で判断する。
+    //   時間に余裕が有る場合、③Ju 実行後即座に ④Ma 実行、その後 _time_of_next_view まで待ち ④Vi 実行する。
+    //   もし ③Ju 実行後、次フレームにめり込んでいた場合 ④Ma、⑤Vi はスキップ。
+    // ・上記を基本ルールとしつつ、_max_skip_frames フレームに１回は必ず ④Ma、⑤Vi を実行する。
     //   これはどんなに処理が重たくなろうとも、プログラムが動いていることを視覚化するため。
     //
     //
     //【安定時の理想図】
-    //        _time_of_next_view                                              _time_of_next_view
-    //                 |              3frame begin(_frame_of_Caretaker++)                     |              4frame begin(_frame_of_Caretaker++)
-    //                 |                   |                                            |                   |
-    //                 v                   v                                            v                   v
-    // ==================================================================================================================================================> 時間
-    //  <--- wait ---> |(2f-④Vi)| 2f-⑤Cl | 3f-①Mo | 3f-②Ju |(3f-③Ma)|<--- wait --->|(3f-④Vi)| 3f-⑤Cl | 4f-①Mo | 4f-②Ju |(4f-③Ma)|<--- wait -
-    //                 |                   |                                            |                   |
-    // -- 2frame ------------------------->|<-------------------------- 3frame ---------------------------->|<----------------  4frame ---------
-    //                 |                                                                |
-    //                 |<----------------------- 1/60 sec ----------------------------->|
-    //                 |                                                 |
-    //                 |<--- 速く処理終われば、順次前詰めにできる ------>|
-    //                       その分waitが増え安定する。
+    //        _time_of_next_view                                        _time_of_next_view
+    //                 |        3frame begin(_frame_of_Caretaker++)               |        4frame begin(_frame_of_Caretaker++)
+    //                 |             |                                            |             |
+    //                 v             v                                            v             v
+    // ====================================================================================================================================> 時間
+    //  <--- wait ---> |(⑤Vi)| ⑥Cl | ①Mo | ②Be | ③Ju |(④Ma)|<---- wait ---->|(⑤Vi)| ⑥Cl | ①Mo | ②Be | ③Ju |(④Ma)|<--- wait -
+    //                 |             |                                            |             |
+    // -- 2frame ------------------->|<-------------------------- 3frame ---------------------->|<-------------  4frame -------------------
+    //                 |                                                          |
+    //                 |<----------------- 1/60 sec ----------------------------->|
+    //                 |                                         |
+    //                 |<----- 速く処理できれば前詰め処理    --->|
+    //                         その分waitが増え安定する。
     //
     // ＜留意＞
-    // ・あくまで ④Vi の 1/60 秒毎処理を優先で目指す仕組みであって、
+    // ・あくまで ⑤Vi の 1/60 秒毎のタイミングで処理する事を優先で目指す仕組みであって、
     //   内部フレームカウンタが 1/60 秒毎にカウントアップされるという仕組みでは無い（考慮していない）。
     //   _time_of_next_view ～ 次の _time_of_next_view は常に固定時間(1/60 sec)であるが、
     //   例えば上図での 3frame begin  ～ 4frame begin 間の時間は前処理により変動する。
@@ -196,21 +197,22 @@ void Caretaker::present() {
         //BEGIN_SYNCHRONIZED1; // ----->排他開始
         _frame_of_Caretaker++;
         presentMoment(); //①
-        presentJudge();  //②
+        presentBehave(); //②
+        presentJudge();  //③
         _time_of_next_view += _apaTime_offset_of_next_view[_slowdown_mode][_cnt_frame];
         _cnt_frame++;
         if (_cnt_frame >= CONFIG::FPS) { _cnt_frame = 0; }
-
+        //④を実行するか悩む
         if (timeGetTime() >= _time_of_next_view) {
             //描画タイミングフレームになった、或いは過ぎている場合
-            //描画無し（スキップ時）③はパスする。
+            //描画無し（スキップ時）④はパスする。
             _is_materialized_flg = false;
         } else {
             //描画タイミングフレームになっていない。余裕がある。
             //描画有り（スキップなし）
              _is_materialized_flg = true;
-            presentMaterialize(); //③
-            //但し ③ によりオーバーしたかもしれない。
+            presentMaterialize(); //④
+            //但し ④ によりオーバーしたかもしれない。
         }
         _is_behaved_flg = true;
         //END_SYNCHRONIZED1;  // <-----排他終了
@@ -222,23 +224,23 @@ void Caretaker::present() {
 //TODO:要確認
 //        BEGIN_SYNCHRONIZED1;  // ----->排他開始
         if (_is_materialized_flg) {
-            //描画有り（スキップなし）（①②③ 実行済みの場合）
-            presentVisualize();  _visualize_frames++; //④
+            //描画有り（スキップなし）（①②③④ 実行済みの場合）
+            presentVisualize();  _visualize_frames++; //⑤
         } else {
-            //描画無し（スキップ時）（①②実行済み、③実行していない）
+            //描画無し（スキップ時）（①②③実行済み、④実行していないので⑤もスキップしようかな）
             _skip_count_of_frame++;
 
             if (_skip_count_of_frame >= _max_skip_frames) {
                 //但し、スキップするといっても MAX_SKIP_FRAME フレームに１回は
-                //無理やり描画して、アプリが動作していることをアピール。（無理やり③を実行し、④を実行）
-                presentMaterialize(); //③
-                presentVisualize();  _visualize_frames++; //④
+                //無理やり描画して、アプリが動作していることをアピール。（無理やり④⑤を実行）
+                presentMaterialize(); //④
+                presentVisualize();  _visualize_frames++; //⑤
                 _skip_count_of_frame = 0;
             } else {
-                //③④をスキップとなる。
+                //④⑤をスキップとなる。
             }
         }
-        presentClosing(); //⑤
+        presentClosing(); //⑥
         _is_behaved_flg = false;
 //TODO:要確認
 //        END_SYNCHRONIZED1;    // <-----排他終了
@@ -263,14 +265,15 @@ void Caretaker::present() {
 }
 
 void Caretaker::presentMoment() {
-    Spacetime* pSpacetime = _pSpacetime;
-    pSpacetime->nextFrame();
-    pSpacetime->behave();
-    pSpacetime->settleBehavior();
+    _pSpacetime->nextFrame();
 }
-
+void Caretaker::presentBehave() {
+    _pSpacetime->behave();
+    _pSpacetime->settleBehavior();
+}
 void Caretaker::presentJudge() {
     _pSpacetime->judge();
+    _pSpacetime->processHitCheck(); //Spacetimeのみ
 }
 
 void Caretaker::presentMaterialize() {

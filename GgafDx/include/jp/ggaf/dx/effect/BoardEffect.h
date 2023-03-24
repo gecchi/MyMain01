@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_BOARDEFFECT_H_
 #define GGAF_DX_BOARDEFFECT_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 
 namespace GgafDx {
@@ -46,7 +46,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはBoardEffectManagerである<BR>
      */
-    virtual ~BoardEffect(); //デストラクタ
+    virtual ~BoardEffect();
 
 };
 

@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_CARETAKER_H_
 #define GGAF_CORE_CARETAKER_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
 #include <windows.h>
@@ -107,7 +107,6 @@ public:
     /** [r] 1フレームの描画回数 */
     static unsigned int _num_draw;
     static unsigned int _num_draw_actors;
-
 #endif
     /** [r] 1フレームの活動中アクター */
     static unsigned int _num_active_actors;
@@ -119,8 +118,6 @@ public:
     /** [r] 時間とフレームの同期調整モード中はtrue */
     bool _sync_frame_time;
     bool _was_cleaned;
-
-
 public:
     /**
      * コンストラクタ .
@@ -147,6 +144,11 @@ public:
      * この世の、最小時間単位の時間を流す .
      */
     virtual void presentMoment();
+
+    /**
+     * この世の、最小時間単位の振る舞いを行う .
+     */
+    virtual void presentBehave();
 
     /**
      * この世の、最小時間単位の瞬間について審判（チェック）する .

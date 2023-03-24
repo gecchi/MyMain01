@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_WORLDCOLLISIONCHECKER3D_H_
 #define GGAF_LIB_WORLDCOLLISIONCHECKER3D_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "WorldCollisionChecker.h"
 
 #include "jp/ggaf/core/util/lineartree/LinearOctree.hpp"

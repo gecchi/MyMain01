@@ -71,7 +71,7 @@ void SpriteSetActor::processDraw() {
             checkDxException(hr, D3D_OK, "SetFloat(_h_offset_u) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
             hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_offset_v[draw_set_num], v);
             checkDxException(hr, D3D_OK, "SetFloat(_h_offset_v) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-            hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_alpha[draw_set_num], pSpriteSetActor->_alpha);
+            hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_ah_alpha[draw_set_num], pSpriteSetActor->getAlpha());
             checkDxException(hr, D3D_OK, "SetFloat(_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
             pDrawActor = pDrawActor->_pNextRenderActor;

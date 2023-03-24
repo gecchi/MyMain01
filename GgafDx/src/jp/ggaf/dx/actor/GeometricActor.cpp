@@ -256,24 +256,35 @@ void GeometricActor::processSettlementBehavior() {
                                    pPlnBack->d;
         _offscreen_kind = -1;
     }
-    updateHitArea();
 }
 
-void GeometricActor::updateHitArea() {
-    if (_pChecker) {
-        if (_can_hit_flg) {
-            if (_enable_out_of_view_hit_flg == false && isOutOfView()) {
-                //視野外当たり判定無効の場合は登録しない
-            } else  {
-                //木登録
-                _kind = lookUpKind();
-                _pChecker->updateHitArea();
+void GeometricActor::judge() {
+    if (_is_active_in_the_tree_flg) {
+        processJudgement();    //ユーザー実装用
+        //当たり判定の為に八分木（四分木）に登録する .
+        if (_pChecker) {
+            if (_can_hit_flg) {
+                if (_enable_out_of_view_hit_flg == false && isOutOfView()) {
+                    //視野外当たり判定無効の場合は登録しない
+                } else  {
+                    //木登録
+                    _kind = lookUpKind();
+                    _pChecker->updateHitArea();
+                }
+            }
+        }
+        //再帰
+        GgafCore::Element<GgafCore::Actor>* pElementTemp = _pChildFirst;
+        while (pElementTemp) {
+            pElementTemp->judge();
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
             }
         }
     }
 }
-
-
 void GeometricActor::processAfterDraw() {
 #ifdef MY_DEBUG
 //    //各所属シーンのαカーテンを設定する。

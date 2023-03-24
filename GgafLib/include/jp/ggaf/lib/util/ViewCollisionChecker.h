@@ -1,6 +1,6 @@
 #ifndef GGAF_VIEWCOLLISIONCHECKER_H_
 #define GGAF_VIEWCOLLISIONCHECKER_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "WorldCollisionChecker.h"
 
 #include "jp/ggaf/core/util/lineartree/LinearQuadtree.hpp"

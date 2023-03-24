@@ -1,6 +1,6 @@
 #ifndef FORMATIONORTUNA001B_H_
 #define FORMATIONORTUNA001B_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ortuna/FormationOrtuna001.h"
 #include "jp/ggaf/dx/util/GeoElem.h"
 

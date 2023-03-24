@@ -15,7 +15,7 @@ MagicMeterCursor001::MagicMeterCursor001(const char* prm_name, MagicMeter* prm_p
         DefaultBoardActor(prm_name, "Cursor001") {
     _class_name = "MagicMeterCursor001";
     pMagicMeter_ = prm_pMagicMeter;
-    tmp_alpha_ = _alpha;
+    tmp_alpha_ = getAlpha();
     tx_ = 0;
     ty_ = 0;
 }

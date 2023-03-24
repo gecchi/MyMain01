@@ -1,6 +1,6 @@
 #ifndef IKD_DIX_PCMDECODER_H
 #define IKD_DIX_PCMDECODER_H
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include <windows.h>
 
 namespace IkdLib {

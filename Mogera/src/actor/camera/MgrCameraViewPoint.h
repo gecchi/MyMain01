@@ -16,7 +16,7 @@ class MgrCameraViewPoint : public GgafLib::DefaultCameraViewPoint {
 public:
     MgrCameraViewPoint(const char* prm_name);
 
-    virtual ~MgrCameraViewPoint(); //デストラクタ
+    virtual ~MgrCameraViewPoint();
 };
 
 }

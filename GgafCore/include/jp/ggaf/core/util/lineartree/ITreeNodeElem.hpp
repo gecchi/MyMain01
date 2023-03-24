@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_ITREENODEELEM_H_
 #define GGAF_CORE_ITREENODEELEM_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 
 namespace GgafCore {
 

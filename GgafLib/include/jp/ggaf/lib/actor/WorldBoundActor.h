@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_WORLDBOUNDACTOR_H_
 #define GGAF_LIB_WORLDBOUNDACTOR_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/actor/ex/WorldBoundActor.h"
 
 //#define RENDER_DEPTH_INDEX_WORLDBOUND (RENDER_DEPTH_INDEX_SP_BACK(4))

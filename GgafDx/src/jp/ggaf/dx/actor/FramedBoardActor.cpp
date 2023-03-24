@@ -47,8 +47,6 @@ _lim_center_sy(R_SC( (_model_frame_height_px * 2.0) / _model_total_height_px )) 
 
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
-    _alpha = 1.0f;
-
     _is_fix_2D = true;
     _pFunc_calc_rot_mv_world_matrix = nullptr;
     setZEnableDraw(false);
@@ -203,7 +201,7 @@ void FramedBoardActor::processDraw() {
     checkDxException(hr, D3D_OK, "SetFloat(_h_y) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_z, C_PX(_z));
     checkDxException(hr, D3D_OK, "SetFloat(_h_z) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_alpha, _alpha);
+    hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_alpha, getAlpha());
     checkDxException(hr, D3D_OK, "SetFloat(_h_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     int active_frame_ptn_no = _pUvFlipper_frame->getActivePtn();

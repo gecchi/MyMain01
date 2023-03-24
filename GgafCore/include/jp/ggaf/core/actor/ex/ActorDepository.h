@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_ACTORDEPOSITORY_H_
 #define GGAF_CORE_ACTORDEPOSITORY_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include <typeinfo>
 #include "jp/ggaf/core/actor/ex/DestructActor.h"
 

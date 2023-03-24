@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_DEPOSITORYFORMATION_H_
 #define GGAF_CORE_DEPOSITORYFORMATION_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/ex/Formation.h"
 
 #include "jp/ggaf/core/util/RingLinkedList.hpp"

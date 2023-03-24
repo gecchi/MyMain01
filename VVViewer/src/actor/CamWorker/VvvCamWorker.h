@@ -16,7 +16,7 @@ class VvvCamWorker : public GgafLib::AroundViewCamWorker {
 public:
     VvvCamWorker(const char* prm_name, VvvCamera* prm_pCamera);
 
-    virtual ~VvvCamWorker(); //デストラクタ
+    virtual ~VvvCamWorker();
 };
 
 }

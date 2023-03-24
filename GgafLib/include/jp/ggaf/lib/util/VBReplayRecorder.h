@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_VBREPLAYRECORDER_H_
 #define GGAF_LIB_VBREPLAYRECORDER_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"

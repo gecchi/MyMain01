@@ -2,7 +2,7 @@
 #define ZAKO_H_
 
 #include "jp/gecchi/VioletVrain/actor/kind/VvEnemyActor.h"
-#include "VioletVrain.h"
+#include "jp/gecchi/VioletVrain/VioletVrain.h"
 
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
 

@@ -1,6 +1,6 @@
 #ifndef HOSHIBOSHITITLE_H_
 #define HOSHIBOSHITITLE_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi.h"
 
 

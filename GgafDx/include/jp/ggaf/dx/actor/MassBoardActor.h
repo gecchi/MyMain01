@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_MASSBOARDACTOR_H_
 #define GGAF_DX_MASSBOARDACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/MassActor.h"
 #include "jp/ggaf/dx/model/MassBoardModel.h"
 #include "jp/ggaf/dx/actor/interface/IAlignAbleActor.h"
@@ -57,9 +57,6 @@ public:
     /** [r]UVフリッパー(パラパラアニメ) */
     UvFlipper* const _pUvFlipper;
 
-//    Align _align;
-//    Valign _valign;
-
 public:
     /**
      * コンストラクタ .
@@ -79,9 +76,6 @@ public:
 
     virtual void setPositionAt(const GeoElem* prm_pGeoElem) override;
 
-//    virtual void setAlign(Align prm_align, Valign prm_valign);
-//    virtual void setAlign(Align prm_align);
-//    virtual void setValign(Valign prm_valign);
     virtual void setScale(scale s) override;
     virtual void setScale(scale sx, scale sy) override;
     virtual void setScale(scale sx, scale sy, scale sz) override;
@@ -97,13 +91,9 @@ public:
     virtual void addScaleZ(scale dsz) override {
         _sz += dsz;
     }
-
-
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }
-//    float getModelWidth();
-//    float getModelHeight();
 
     int isOutOfView() override {
         return 0;
@@ -123,7 +113,7 @@ public:
      */
     virtual void changeModelByIndex(int prm_model_index) override;
 
-    virtual ~MassBoardActor(); //デストラクタ
+    virtual ~MassBoardActor();
 };
 
 }

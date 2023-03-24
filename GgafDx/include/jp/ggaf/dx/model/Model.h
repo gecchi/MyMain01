@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_MODEL_H_
 #define GGAF_DX_MODEL_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
 
@@ -291,7 +291,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはModelManagerである<BR>
      */
-    virtual ~Model(); //デストラクタ
+    virtual ~Model();
 };
 
 }

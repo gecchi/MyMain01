@@ -1,6 +1,6 @@
 #ifndef HOSHIBOSHITRANSIT_H_
 #define HOSHIBOSHITRANSIT_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi.h"
 
 namespace VioletVreath {

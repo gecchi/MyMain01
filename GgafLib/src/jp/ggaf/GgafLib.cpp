@@ -1,4 +1,4 @@
-#include "GgafLib.h"
+#include "jp/ggaf/GgafLib.h"
 #include <windows.h>
 
 #ifdef __GNUG__
@@ -16,51 +16,33 @@ HINSTANCE WinMain_hPrevInstance;
 LPTSTR WinMain_lpCmdLine;
 int WinMain_nCmdShow;
 
-/**
- * メイン処理 .
- * @param argc
- * @param argv
- * @return
- */
-void LibMain(int argc, char *argv[]) {
-    STARTUPINFO StatUpInfo;
-//    HINSTANCE hInstance;
-//    HANDLE hPrevInstance;
-//    LPSTR lpCmdLine;
-//    int nCmdShow;
-
-    GetStartupInfo(&StatUpInfo);
+HINSTANCE get_WinMain_hInstance() {
     WinMain_hInstance = GetModuleHandle(0);
-    WinMain_hPrevInstance = 0;
-    WinMain_lpCmdLine = GetCommandLine();
-    WinMain_nCmdShow = (StatUpInfo.dwFlags & STARTF_USESHOWWINDOW) ? StatUpInfo.wShowWindow : SW_SHOWNORMAL;
+    return WinMain_hInstance;
+}
 
+HINSTANCE get_WinMain_hPrevInstance() {
+    WinMain_hPrevInstance = 0;
+    return WinMain_hPrevInstance;
+}
+
+LPTSTR get_WinMain_lpCmdLine() {
+    WinMain_lpCmdLine = GetCommandLine();
     //PG名除去
     while (*WinMain_lpCmdLine != ' ' && *WinMain_lpCmdLine != '\0') { ++WinMain_lpCmdLine; }
     while (*WinMain_lpCmdLine == ' ') { ++WinMain_lpCmdLine; }
+    return WinMain_lpCmdLine;
+}
 
-    //本来のWinMainへ
-//    return ::WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
+int get_WinMain_nCmdShow() {
+    STARTUPINFO StatUpInfo;
+    GetStartupInfo(&StatUpInfo);
+    WinMain_nCmdShow = (StatUpInfo.dwFlags & STARTF_USESHOWWINDOW) ? StatUpInfo.wShowWindow : SW_SHOWNORMAL;
+    return WinMain_nCmdShow;
 }
 
 /**
- * WinMainの初期処理 .
- * @param hInstance
- * @param hPrevInstance
- * @param lpCmdLine
- * @param nCmdShow
- */
-//void LibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
-//    UNREFERENCED_PARAMETER(hPrevInstance);
-//    UNREFERENCED_PARAMETER(lpCmdLine);
-//    WinMain_hInstance = hInstance;
-//    WinMain_hPrevInstance = hPrevInstance;
-//    WinMain_lpCmdLine = lpCmdLine;
-//    WinMain_nCmdShow = nCmdShow;
-//}
-
-/**
- * GgafCore::フレームワークのウィンドウプロシージャ処理 .
+ * フレームワークのウィンドウプロシージャ処理 .
  * @param hWnd
  * @param message
  * @param wParam

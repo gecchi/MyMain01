@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_AABACTOR_H_
 #define GGAF_DX_AABACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/MeshActor.h"
 
 namespace GgafDx {
@@ -20,7 +20,7 @@ public:
 
     void drawBox(coord prm_x1, coord prm_y1, coord prm_z1, coord prm_x2, coord prm_y2, coord prm_z2);
 
-    virtual ~AABActor(); //デストラクタ
+    virtual ~AABActor();
 };
 
 }

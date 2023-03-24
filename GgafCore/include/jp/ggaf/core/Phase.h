@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_PHASE_H_
 #define GGAF_CORE_PHASE_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
 #ifdef _MSC_VER
@@ -51,8 +51,6 @@ public:
      */
     Phase(frame* prm_p_frame_counter);
 
-    void reset();
-
     /**
      * 現在のフェーズ番号取得 .
      * @return フェーズ番号(GGAF_PHASE_NOTHING or 0～)
@@ -74,7 +72,12 @@ public:
     void reset(int prm_phase_no);
 
     /**
-     * 現在のフェーズを無し GGAF_PHASE_NOTHING(-1) に設定する .
+     * 現在のフェーズを即座に無し(GGAF_PHASE_NOTHING(-1)) に設定する .
+     */
+    void reset();
+
+    /**
+     * 現在のフェーズを無し(GGAF_PHASE_NOTHING(-1)) に設定する .
      * 即座に反映される。
      */
     void setNothing();
@@ -173,6 +176,7 @@ public:
             return false;
         }
     }
+
     /**
      * 現在のフェーズ番号がGGAF_PHASE_NOTHINGが否か調べる。 .
      * @return
@@ -244,8 +248,8 @@ public:
     int getPrevWillChangeNextFrame() const;
 
     /**
-     * 時間に伴ってフェーズを更新 .
-     * 時間カウンターの増加処理で、この処理をコールしてください。
+     * フェーズを次の状態に更新 .
+     * 時間カウンターの増加処理等で、この処理をコールしてください。
      */
     virtual void update();
 

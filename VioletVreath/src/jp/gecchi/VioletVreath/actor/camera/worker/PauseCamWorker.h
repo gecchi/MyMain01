@@ -1,6 +1,6 @@
 #ifndef PAUSECAMWORKER_H_
 #define PAUSECAMWORKER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/camera/worker/AroundViewCamWorker.h"
 
 namespace VioletVreath {
@@ -19,7 +19,7 @@ public:
 public:
     PauseCamWorker(const char* prm_name, Camera* prm_pCamera);
 
-    virtual ~PauseCamWorker(); //デストラクタ
+    virtual ~PauseCamWorker();
 };
 
 }

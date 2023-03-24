@@ -1,6 +1,6 @@
 #ifndef CURSORCONFIG003_H_
 #define CURSORCONFIG003_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 
 namespace VioletVreath {

@@ -1,6 +1,6 @@
 #ifndef LOCKONCURSORMAGIC_H_
 #define LOCKONCURSORMAGIC_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
 
 namespace VioletVreath {

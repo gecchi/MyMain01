@@ -1,6 +1,6 @@
 #ifndef TESTDEPOSITORY_H_
 #define TESTDEPOSITORY_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 
 namespace VioletVreath {

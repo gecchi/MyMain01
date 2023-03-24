@@ -1,6 +1,6 @@
 #ifndef ENEMYERMIONEARMHEAD_H_
 #define ENEMYERMIONEARMHEAD_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArm.h"
 
 namespace VioletVreath {

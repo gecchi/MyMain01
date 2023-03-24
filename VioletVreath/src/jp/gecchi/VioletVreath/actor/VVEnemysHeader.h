@@ -1,6 +1,6 @@
 #ifndef VVENEMYSHEADER_H_
 #define VVENEMYSHEADER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"

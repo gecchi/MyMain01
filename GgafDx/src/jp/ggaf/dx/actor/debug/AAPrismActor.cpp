@@ -37,8 +37,8 @@ bool AAPrismActor::initStatic() {
     //           /     |
     //                 |
     //                 |
-
-//                                                             rx        rz       ry
+    //上図からどのように回転するかを表す
+    //                                                rx        rz       ry
     AAPrismActor::pos2r[POS_PRISM_XY_NN] = RotPosPrism(D0ANG  , D0ANG  , D0ANG  );
     AAPrismActor::pos2r[POS_PRISM_XY_NP] = RotPosPrism(D0ANG  , D270ANG, D0ANG  );
     AAPrismActor::pos2r[POS_PRISM_XY_PN] = RotPosPrism(D0ANG  , D90ANG , D0ANG  );
@@ -58,13 +58,8 @@ bool AAPrismActor::initStatic() {
     return true;
 }
 
-//void AAPrismActor::processDraw() {
-//    GeometricActor::setWorldTransformScRzMxyz(this);
-//    _pD3DXMeshModel->draw(this);
-//}
-
 void AAPrismActor::drawPrism(coord prm_x1, coord prm_y1, coord prm_z1,
-                                   coord prm_x2, coord prm_y2, coord prm_z2, pos_t pos_info) {
+                             coord prm_x2, coord prm_y2, coord prm_z2, pos_t pos_info) {
     _rx = AAPrismActor::pos2r[pos_info]._rx;
     _rz = AAPrismActor::pos2r[pos_info]._rz;
     _ry = AAPrismActor::pos2r[pos_info]._ry;
@@ -77,8 +72,6 @@ void AAPrismActor::drawPrism(coord prm_x1, coord prm_y1, coord prm_z1,
     _fX = C_DX(_x);
     _fY = C_DX(_y);
     _fZ = C_DX(_z);
-
-    //UTIL::setWorldMatrix_ScRzMv(this, _matWorld);
     UTIL::setWorldMatrix_RxRzRyScMv(this, _matWorld); //回転後にスケールがポイント
     processDraw();
 }

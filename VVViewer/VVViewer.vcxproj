@@ -18,6 +18,34 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\actor\CamWorker\VvvCamWorker.cpp" />
+    <ClCompile Include="src\actor\Font01.cpp" />
+    <ClCompile Include="src\actor\VvvCamera.cpp" />
+    <ClCompile Include="src\actor\VvvCameraUpVector.cpp" />
+    <ClCompile Include="src\actor\VvvCameraViewPoint.cpp" />
+    <ClCompile Include="src\actor\VvvCursor.cpp" />
+    <ClCompile Include="src\actor\VvvGrid.cpp" />
+    <ClCompile Include="src\actor\VvvMousePointer.cpp" />
+    <ClCompile Include="src\scene\VvvSpacetime.cpp" />
+    <ClCompile Include="src\scene\VvvSpacetime\VvvWorld.cpp" />
+    <ClCompile Include="src\VvvCaretaker.cpp" />
+    <ClCompile Include="src\VVViewer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\actor\CamWorker\VvvCamWorker.h" />
+    <ClInclude Include="src\actor\Font01.h" />
+    <ClInclude Include="src\actor\VvvCamera.h" />
+    <ClInclude Include="src\actor\VvvCameraUpVector.h" />
+    <ClInclude Include="src\actor\VvvCameraViewPoint.h" />
+    <ClInclude Include="src\actor\VvvCursor.h" />
+    <ClInclude Include="src\actor\VvvGrid.h" />
+    <ClInclude Include="src\actor\VvvMousePointer.h" />
+    <ClInclude Include="src\scene\VvvSpacetime.h" />
+    <ClInclude Include="src\scene\VvvSpacetime\VvvWorld.h" />
+    <ClInclude Include="src\VvvCaretaker.h" />
+    <ClInclude Include="src\VVViewer.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D0AA3334-D199-46AA-B70C-12EDEA1FBF7B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -225,34 +253,6 @@
       <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(PlatformToolset)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(PlatformToolset)_$(Configuration).exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\actor\CamWorker\VvvCamWorker.cpp" />
-    <ClCompile Include="src\actor\Font01.cpp" />
-    <ClCompile Include="src\actor\VvvCamera.cpp" />
-    <ClCompile Include="src\actor\VvvCameraUpVector.cpp" />
-    <ClCompile Include="src\actor\VvvCameraViewPoint.cpp" />
-    <ClCompile Include="src\actor\VvvCursor.cpp" />
-    <ClCompile Include="src\actor\VvvGrid.cpp" />
-    <ClCompile Include="src\actor\VvvMousePointer.cpp" />
-    <ClCompile Include="src\scene\VvvSpacetime.cpp" />
-    <ClCompile Include="src\scene\VvvSpacetime\VvvWorld.cpp" />
-    <ClCompile Include="src\VvvCaretaker.cpp" />
-    <ClCompile Include="src\VVViewer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\actor\CamWorker\VvvCamWorker.h" />
-    <ClInclude Include="src\actor\Font01.h" />
-    <ClInclude Include="src\actor\VvvCamera.h" />
-    <ClInclude Include="src\actor\VvvCameraUpVector.h" />
-    <ClInclude Include="src\actor\VvvCameraViewPoint.h" />
-    <ClInclude Include="src\actor\VvvCursor.h" />
-    <ClInclude Include="src\actor\VvvGrid.h" />
-    <ClInclude Include="src\actor\vvvmousepointer.h" />
-    <ClInclude Include="src\scene\VvvSpacetime.h" />
-    <ClInclude Include="src\scene\VvvSpacetime\VvvWorld.h" />
-    <ClInclude Include="src\VvvCaretaker.h" />
-    <ClInclude Include="src\VVViewer.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,6 +1,6 @@
 #ifndef MYBUNSHINCONTROLLER_H_
 #define MYBUNSHINCONTROLLER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/VvEffectActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"

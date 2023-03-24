@@ -1,6 +1,6 @@
 #ifndef MENUBOARDNAMEENTRY_H_
 #define MENUBOARDNAMEENTRY_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/menu/MenuBoard.h"
 
 DECLARE_EVENT_VAL(EVENT_MENU_NAMEENTRY_DONE);

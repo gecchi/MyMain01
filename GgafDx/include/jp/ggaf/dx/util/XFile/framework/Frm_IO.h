@@ -6,7 +6,7 @@
 
 #ifndef FRM_IO_H
 #define FRM_IO_H
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 #include "jp/ggaf/dx/util/XFile/framework/frm_types.h"
 #include <string>

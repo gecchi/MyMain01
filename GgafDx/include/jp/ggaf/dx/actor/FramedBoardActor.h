@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_FRAMEDBOARDACTOR_H_
 #define GGAF_DX_FRAMEDBOARDACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/actor/interface/IAlignAbleActor.h"
 
@@ -147,7 +147,7 @@ public:
      */
     virtual void changeModelByIndex(int prm_model_index) override;
 
-    virtual ~FramedBoardActor(); //デストラクタ
+    virtual ~FramedBoardActor();
 };
 
 }

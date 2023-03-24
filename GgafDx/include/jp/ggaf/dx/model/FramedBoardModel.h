@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_FRAMEDBOARDMODEL_H_
 #define GGAF_DX_FRAMEDBOARDMODEL_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/interface/IPlaneModel.h"
@@ -72,7 +72,7 @@ public:
     /**
      * デストラクタ<BR>
      */
-    virtual ~FramedBoardModel(); //デストラクタ
+    virtual ~FramedBoardModel();
 };
 
 }

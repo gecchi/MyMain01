@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_GEOELEM_H_
 #define GGAF_DX_GEOELEM_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
 #include "jp/ggaf/dx/actor/GeometricActor.h"

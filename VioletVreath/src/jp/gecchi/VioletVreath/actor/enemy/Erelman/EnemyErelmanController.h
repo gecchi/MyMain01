@@ -1,6 +1,6 @@
 #ifndef ENEMYERELMANCONTROLLER_H_
 #define ENEMYERELMANCONTROLLER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/core/actor/ex/DestructActor.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"

@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_FRAMEDSPRITEACTOR_H_
 #define GGAF_DX_FRAMEDSPRITEACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/actor/interface/IAlignAbleActor.h"
 

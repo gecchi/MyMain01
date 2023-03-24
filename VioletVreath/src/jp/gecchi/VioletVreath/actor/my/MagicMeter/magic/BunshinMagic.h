@@ -1,6 +1,6 @@
 #ifndef BUNSHINMAGIC_H_
 #define BUNSHINMAGIC_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
 
 namespace VioletVreath {

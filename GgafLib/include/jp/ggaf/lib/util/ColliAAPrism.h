@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_COLLIAAPRISM_H_
 #define GGAF_LIB_COLLIAAPRISM_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/util/ColliAABox.h"
 
 namespace GgafLib {

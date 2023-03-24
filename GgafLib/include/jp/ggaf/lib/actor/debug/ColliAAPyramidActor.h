@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_COLLIAAPYRAMIDACTOR_H_
 #define GGAF_LIB_COLLIAAPYRAMIDACTOR_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/actor/debug/AAPyramidActor.h"
 
 namespace GgafLib {

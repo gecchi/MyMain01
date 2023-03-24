@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_CONFIG_H_
 #define GGAF_DX_CONFIG_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Config.h"
 
 #ifdef CONFIG
@@ -48,11 +48,6 @@ public:
     static pixcoord RENDER_BUFFER_SOURCE2_WIDTH;
     static pixcoord RENDER_BUFFER_SOURCE2_HEIGHT;
 
-
-//    /** [r] １画面ウィンドウモードだった場合のウィンドウの初期幅サイズ */
-//    static pixcoord WINDOW1_WIDTH;
-//    /** [r] １画面ウィンドウモードだった場合のウィンドウの初期高さサイズ */
-//    static pixcoord WINDOW1_HEIGHT;
     /** [r] ２画面ウィンドウモードだった場合の１画面目のウィンドウの初期幅サイズ */
     static pixcoord WINDOW1_WIDTH;
     /** [r] ２画面ウィンドウモードだった場合の１画面目のウィンドウの初期高さサイズ */
@@ -61,10 +56,6 @@ public:
     static pixcoord WINDOW2_WIDTH;
     /** [r] ２画面ウィンドウモードだった場合の２画面目のウィンドウの初期高さサイズ */
     static pixcoord WINDOW2_HEIGHT;
-//    /** [r] １画面フルスクリーンモードだった場合のスクリーンの解像度(横) */
-//    static pixcoord FULL_SCREEN1_WIDTH;
-//    /** [r] １画面フルスクリーンモードだった場合のスクリーンの解像度(縦) */
-//    static pixcoord FULL_SCREEN1_HEIGHT;
     /** [r] ２画面フルスクリーンモードだった場合の１画面目スクリーンの解像度(横) */
     static pixcoord FULL_SCREEN1_WIDTH;
     /** [r] ２画面フルスクリーンモードだった場合の１画面目スクリーンの解像度(縦) */
@@ -81,8 +72,6 @@ public:
     static int SECONDARY_ADAPTER_NO;
     /** [r/w] ２画面モード時、１画面目と２画面目を入れ替えるかどうか */
     static bool SWAP_GAME_VIEW;
-//    /** [r] １画面モード時かつゲーム表示領域アスペクト比を固定時、表示領域場所を指定(場所＝テンキーの数値) */
-//    static int PRESENT_POSITION1;
     /** [r] ２画面モード時かつゲーム表示領域アスペクト比を固定時、１画面目の表示領域場所を指定(場所＝テンキーの数値) */
     static int PRESENT_POSITION1;
     /** [r] ２画面モード時かつゲーム表示領域アスペクト比を固定時、２画面目の表示領域場所を指定(場所＝テンキーの数値) */
@@ -183,6 +172,16 @@ public:
     static pixcoord FULL_SCREEN2_WIDTH_BK;
     /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの補正前解像度(縦) */
     static pixcoord FULL_SCREEN2_HEIGHT_BK;
+
+    /** [r] ワールドヒットチェックの八分木空間レベル数 */
+    static int WORLD_HIT_CHECK_OCTREE_LEVEL;
+    /** [r] ワールドヒットチェックの四分木空間レベル数 */
+    static int WORLD_HIT_CHECK_QUADTREE_LEVEL;
+    /** [r] ビューヒットチェックの四分木空間レベル数 */
+    static int VIEW_HIT_CHECK_QUADTREE_LEVEL;
+    /** [r] ヒットチェックに使用する空間分割、true：四分木場合／false：八分木（デフォルト） */
+    static bool ENABLE_WORLD_HIT_CHECK_2D;
+
 
 public:
     static void loadProperties(std::string prm_properties_filename); //shadows

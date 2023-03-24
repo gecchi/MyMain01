@@ -1,6 +1,6 @@
 #ifndef VVUTIL_H_
 #define VVUTIL_H_
-#include "VioletVrain.h"
+#include "jp/gecchi/VioletVrain/VioletVrain.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
 #ifdef UTIL

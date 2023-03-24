@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_SPACETIME_H_
 #define GGAF_CORE_SPACETIME_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/scene/MainScene.h"
 
 #include "jp/ggaf/core/Caretaker.h"
@@ -47,6 +47,11 @@ public:
      */
     virtual void processJudgement() override {
     }
+
+    /**
+     * フレーム毎の当たり判定実行処理<BR>
+     */
+    virtual void processHitCheck() = 0;
 
     /**
      * フレーム毎の描画事前処理<BR>

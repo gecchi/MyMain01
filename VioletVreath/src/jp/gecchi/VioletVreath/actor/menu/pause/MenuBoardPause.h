@@ -1,6 +1,6 @@
 #ifndef MENUBOARDPAUSE_H_
 #define MENUBOARDPAUSE_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/menu/MenuBoard.h"
 
 

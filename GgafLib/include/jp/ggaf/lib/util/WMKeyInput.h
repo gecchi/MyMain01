@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_WMKEYINPUT_H_
 #define GGAF_LIB_WMKEYINPUT_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 
 #include <windows.h>
 

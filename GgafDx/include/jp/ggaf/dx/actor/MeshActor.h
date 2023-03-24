@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_MESHACTOR_H_
 #define GGAF_DX_MESHACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/actor/interface/IBumpMapActor.h"
 
@@ -85,7 +85,7 @@ public:
      */
     virtual void changeModelByIndex(int prm_model_index) override;
 
-    virtual ~MeshActor(); //デストラクタ
+    virtual ~MeshActor();
 };
 
 }

@@ -1,6 +1,6 @@
 #ifndef VAMSYSCAMWORKER_H_
 #define VAMSYSCAMWORKER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
 #define VAM_POS_BEHIND_ZRIGHT_DOWN  DIR26(-1,-1,-1) // -13 カメラはこの方向は取らない
@@ -133,7 +133,7 @@ public:
     virtual void onSwitchCameraWork() override;
 
 
-    virtual ~VamSysCamWorker(); //デストラクタ
+    virtual ~VamSysCamWorker();
 
     /**
      * 方向ベクトルを、直近の18方向に変換した場合の、XYZ軸各要素の正負の符号を取得 .

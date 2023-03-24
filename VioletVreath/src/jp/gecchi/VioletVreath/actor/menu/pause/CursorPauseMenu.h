@@ -1,6 +1,6 @@
 #ifndef CURSORPAUSEMENU_H_
 #define CURSORPAUSEMENU_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 
 

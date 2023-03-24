@@ -1,6 +1,6 @@
 #ifndef LABELFONT16X32_H_
 #define LABELFONT16X32_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/FontBoardActor.h"
 
 namespace VioletVreath {

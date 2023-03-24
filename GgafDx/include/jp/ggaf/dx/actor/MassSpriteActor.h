@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_MASSSPRITEACTOR_H_
 #define GGAF_DX_MASSSPRITEACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/MassActor.h"
 #include "jp/ggaf/dx/model/MassSpriteModel.h"
 

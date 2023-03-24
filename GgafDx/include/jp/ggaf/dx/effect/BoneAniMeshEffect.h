@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_BONEANIMESHEFFECT_H_
 #define GGAF_DX_BONEANIMESHEFFECT_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 
 namespace GgafDx {
@@ -39,7 +39,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはBoneAniMeshEffectManagerである<BR>
      */
-    virtual ~BoneAniMeshEffect(); //デストラクタ
+    virtual ~BoneAniMeshEffect();
 
 };
 

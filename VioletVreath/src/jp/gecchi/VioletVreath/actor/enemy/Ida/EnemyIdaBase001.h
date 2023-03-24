@@ -1,6 +1,6 @@
 #ifndef ENEMYIDABASE001_H_
 #define ENEMYIDABASE001_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ida/EnemyIdaBase.h"
 
 namespace VioletVreath {

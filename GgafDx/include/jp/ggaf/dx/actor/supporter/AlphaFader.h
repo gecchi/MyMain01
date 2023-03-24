@@ -1,14 +1,13 @@
 #ifndef GGAF_DX_ALPHAFADER_H_
 #define GGAF_DX_ALPHAFADER_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/util/TransitionValueSet.hpp"
 
 namespace GgafDx {
 
 /**
  * フェーディング支援クラス .
- * FigureActor のメンバの
- * _alpha(アクターのα強度)をなめらかに変化させ、<BR>
+ * アクターのα強度をなめらかに変化させ、<BR>
  * フェーディングを行うことを主な目的<BR>
  * @version 1.00
  * @since 2010/07/28

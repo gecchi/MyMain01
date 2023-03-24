@@ -1,6 +1,6 @@
 #ifndef STAGE01PARTCONTROLLER_H_
 #define STAGE01PARTCONTROLLER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "../Stage/StagePartController.h"
 
 namespace VioletVreath {

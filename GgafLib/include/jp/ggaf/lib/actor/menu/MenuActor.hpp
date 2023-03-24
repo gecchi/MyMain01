@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_MENUACTOR_H_
 #define GGAF_LIB_MENUACTOR_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 
 #include "jp/ggaf/core/util/RingLinkedList.hpp"
 #include "jp/ggaf/core/actor/GroupHead.h"
@@ -1023,7 +1023,7 @@ void MenuActor<T>::addItem(GgafDx::FigureActor* prm_pItem,
     prm_pItem->_x_local = prm_x_local;
     prm_pItem->_y_local = prm_y_local;
     prm_pItem->_z_local = prm_z_local;
-    prm_pItem->setAlpha(T::_alpha); //半透明αを共有させる。
+    prm_pItem->setAlpha(T::getAlpha()); //半透明αを共有させる。
     prm_pItem->inactivate();
     _lstItems.addLast(prm_pItem, false);
 //    T::appendChild(prm_pItem);
@@ -1045,7 +1045,7 @@ void MenuActor<T>::addLabel(GgafDx::FigureActor* prm_pLabel,
     prm_pLabel->_x_local = prm_x_local;
     prm_pLabel->_y_local = prm_y_local;
     prm_pLabel->_z_local = prm_z_local;
-    prm_pLabel->setAlpha(T::_alpha); //半透明αを共有させる。
+    prm_pLabel->setAlpha(T::getAlpha()); //半透明αを共有させる。
     prm_pLabel->inactivate();
     _lstLabelActors.addLast(prm_pLabel, false);
     T::appendChild(prm_pLabel);
@@ -1250,7 +1250,7 @@ void MenuActor<T>::setMainCursor(GgafDx::FigureActor* prm_pCursorActor,
                                  float prm_cursor_move_p1,
                                  float prm_cursor_move_p2) {
     _pCursorActor = prm_pCursorActor;
-    _pCursorActor->setAlpha(T::_alpha);
+    _pCursorActor->setAlpha(T::getAlpha());
     _pCursorActor->inactivate();
     T::appendChild(_pCursorActor);
     _x_cursor_adjust = prm_x_cursor_adjust;
@@ -1272,7 +1272,7 @@ void MenuActor<T>::addSubCursor(GgafDx::FigureActor* prm_pCursorActor,
                                  float prm_cursor_move_p2) {
     MenuActor<T>::SubCursor* pSubCursor = NEW MenuActor<T>::SubCursor();
     pSubCursor->_pActor = prm_pCursorActor;
-    pSubCursor->_pActor->setAlpha(T::_alpha);
+    pSubCursor->_pActor->setAlpha(T::getAlpha());
     pSubCursor->_pActor->inactivate();
     pSubCursor->_select_index = 0;
     pSubCursor->_x_adjust = prm_x_cursor_adjust;

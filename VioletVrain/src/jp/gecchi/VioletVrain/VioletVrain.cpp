@@ -1,5 +1,5 @@
-#include "GgafLib.h"
-#include "VioletVrain.h"
+#include "jp/ggaf/GgafLib.h"
+#include "jp/gecchi/VioletVrain/VioletVrain.h"
 
 #include "jp/gecchi/VioletVrain/VvCaretaker.h"
 
@@ -46,11 +46,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     }
     return (int)msg.wParam;
 }
+
 /**
  * GCC のエントリポイント
  */
 int main(int argc, char *argv[]) {
-    LibMain(argc, argv); //直後に、この様に呼び出して下さい。
-    return WinMain(WinMain_hInstance, WinMain_hPrevInstance, WinMain_lpCmdLine, WinMain_nCmdShow);
+    return CALL_WinMain(); //直後に、この様に呼び出して下さい。
 }
 

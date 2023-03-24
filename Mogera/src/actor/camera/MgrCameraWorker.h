@@ -18,7 +18,7 @@ class MgrCameraWorker : public GgafLib::AroundViewCamWorker {
 public:
     MgrCameraWorker(const char* prm_name, MgrCamera* prm_pCamera);
 
-    virtual ~MgrCameraWorker(); //デストラクタ
+    virtual ~MgrCameraWorker();
 };
 
 }

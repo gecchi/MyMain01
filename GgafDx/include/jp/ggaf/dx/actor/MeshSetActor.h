@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_MESHSETACTOR_H_
 #define GGAF_DX_MESHSETACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 
 namespace GgafDx {
@@ -69,7 +69,7 @@ public:
      */
     virtual void changeModelByIndex(int prm_model_index) override;
 
-    virtual ~MeshSetActor(); //デストラクタ
+    virtual ~MeshSetActor();
 };
 
 }

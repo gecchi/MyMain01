@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_MASSWALLEFFECT_H_
 #define GGAF_LIB_MASSWALLEFFECT_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/effect/MassMeshEffect.h"
 
 namespace GgafLib {
@@ -35,7 +35,7 @@ public:
      */
     MassWallEffect(const char* prm_effect_name);
 
-    virtual ~MassWallEffect(); //デストラクタ
+    virtual ~MassWallEffect();
 
 };
 

@@ -1,6 +1,6 @@
 #ifndef ENEMYIDABASE_H_
 #define ENEMYIDABASE_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 
 namespace VioletVreath {

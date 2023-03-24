@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_ELEMENT_H_
 #define GGAF_CORE_ELEMENT_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/Node.hpp"
 
 #include "jp/ggaf/core/Config.h"

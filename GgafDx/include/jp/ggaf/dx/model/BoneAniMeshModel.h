@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_BONEANIMESHMODEL_H_
 #define GGAF_DX_BONEANIMESHMODEL_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include <map>
 #include <vector>
@@ -111,7 +111,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはBoneAniMeshModelManagerである<BR>
      */
-    virtual ~BoneAniMeshModel(); //デストラクタ
+    virtual ~BoneAniMeshModel();
 
 };
 

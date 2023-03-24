@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_DEFAULTSCENE_H_
 #define GGAF_LIB_DEFAULTSCENE_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/scene/Scene.h"
 
 #include "jp/ggaf/lib/util/ScenePhase.h"
@@ -48,10 +48,8 @@ public:
 
     virtual void processJudgement() override {
     }
-
     virtual void processDraw() override {
     }
-
     virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override {
     }
 

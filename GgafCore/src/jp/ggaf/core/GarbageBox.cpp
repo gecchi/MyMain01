@@ -47,9 +47,6 @@ void GarbageBox::add(Actor* prm_pActor) {
 }
 
 void GarbageBox::add(Scene* prm_pScene) {
-    if (strcmp(prm_pScene->_class_name, "Stage01") == 0) {
-        _TRACE_("kita---");
-    }
     for (int i = 0; i < Garbage_MAX_WAIT; i++) {
         if (GarbageBox::_wait) {
             Sleep(1);

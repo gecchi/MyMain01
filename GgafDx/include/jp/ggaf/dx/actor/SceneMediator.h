@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_SCENEMEDIATOR_H_
 #define GGAF_DX_SCENEMEDIATOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/actor/SceneMediator.h"
 
 namespace GgafDx {
@@ -16,7 +16,7 @@ class SceneMediator : public GgafCore::SceneMediator {
 public:
     SceneMediator(Scene* prm_pScene_platform);
 
-    virtual ~SceneMediator(); //デストラクタ
+    virtual ~SceneMediator();
 
 };
 

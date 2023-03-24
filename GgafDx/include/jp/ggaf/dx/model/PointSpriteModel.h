@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_POINTSPRITEMODEL_H_
 #define GGAF_DX_POINTSPRITEMODEL_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/Model.h"
 
 namespace GgafDx {
@@ -58,7 +58,7 @@ public:
     /**
      * デストラクタ<BR>
      */
-    virtual ~PointSpriteModel(); //デストラクタ
+    virtual ~PointSpriteModel();
 };
 
 }

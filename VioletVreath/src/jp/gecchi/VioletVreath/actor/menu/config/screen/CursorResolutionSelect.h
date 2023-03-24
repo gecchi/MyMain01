@@ -1,6 +1,6 @@
 #ifndef CURSORRESOLUTIONSELECT_H_
 #define CURSORRESOLUTIONSELECT_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 
 namespace VioletVreath {

@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_MASSWALLACTOR_H_
 #define GGAF_LIB_MASSWALLACTOR_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/actor/MassMeshActor.h"
 
 #define FACE_A_IDX 5

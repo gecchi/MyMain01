@@ -1,6 +1,6 @@
 #ifndef VVCAMERAWORKERCHANGER_H_
 #define VVCAMERAWORKERCHANGER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/camera/CameraWorkerChanger.h"
 
 namespace VioletVreath {
@@ -20,7 +20,7 @@ public:
 
     virtual GgafLib::CameraWorker* createCameraWorker(const char* prm_idstr, void* prm_pConnector) override;
 
-    virtual ~VVCameraWorkerChanger(); //デストラクタ
+    virtual ~VVCameraWorkerChanger();
 };
 
 }

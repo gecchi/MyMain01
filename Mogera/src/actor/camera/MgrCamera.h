@@ -24,7 +24,7 @@ public:
 
     GgafDx::CameraUpVector* createCameraUpVector() override;
 
-    virtual ~MgrCamera(); //デストラクタ
+    virtual ~MgrCamera();
 };
 
 }

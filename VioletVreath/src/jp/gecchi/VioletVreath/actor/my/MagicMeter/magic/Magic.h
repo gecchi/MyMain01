@@ -1,6 +1,6 @@
 #ifndef MAGIC_H_
 #define MAGIC_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/core/actor/MainActor.h"
 
 namespace VioletVreath {
@@ -270,6 +270,10 @@ public:
     virtual void processBehavior() override;
 
     virtual void processJudgement() override {}
+
+    virtual bool processHitChkLogic(Actor* prm_pOtherActor) override {
+        return false;
+    }
 
     virtual void processDraw() override {}
 

@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_INPUT_H_
 #define GGAF_DX_INPUT_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 #include <dinput.h>
 #ifdef __GNUG__

@@ -165,7 +165,7 @@
     <ClInclude Include="include\jp\ggaf\core\Properties.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\GgafCommonHeader.h">
+    <ClInclude Include="include\jp\ggaf\GgafCommonHeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

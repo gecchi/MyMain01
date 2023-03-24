@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_OBJECT_H_
 #define GGAF_CORE_OBJECT_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 
 #ifndef _MSC_VER
     #include <atomic>
@@ -18,20 +18,25 @@ namespace GgafCore {
 class Object {
 public:
 #ifdef _MSC_VER
-    //x86系VCならばアトミック性がある・・64bitでも？？・・・。
-    //まぁ_obj_seqが狂ってもDEBUGの時にちょっと不便なだけなので・・・；
+    //x86系VCならばアトミック性があるかも・・64bitでも？？・・・。
+    /** インスタンスIDのシークエンス */
     static uint64_t _obj_seq;
 #else
+    /** インスタンスIDのシークエンス */
     static std::atomic<uint64_t> _obj_seq;
 #endif
+    /** [r]インスタンスID(シークエンス) */
     uint64_t _id;
-
-
     /** [r]インスタンス種類 */
     uint64_t _obj_class;
 
 public:
     Object();
+
+    /**
+     * インスタンスIDを取得 .
+     * @return インスタンスID
+     */
     inline uint64_t getId() {
         return _id;
     }

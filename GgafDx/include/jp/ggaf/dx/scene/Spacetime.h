@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_SPACETIME_H_
 #define GGAF_DX_SPACETIME_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/scene/Spacetime.h"
 
 #include "jp/ggaf/dx/Config.h"
@@ -19,6 +19,14 @@
 #define RENDER_DEPTH_INDEX_SP_BACK(X)  (RENDER_DEPTH_FAR_INDEX + (X))
 
 namespace GgafDx {
+
+typedef GgafCore::LinearOctree<GgafCore::Actor> WorldOctree;
+typedef GgafCore::LinearOctreeRounder<GgafCore::Actor> WorldOctreeRounder;
+typedef GgafCore::LinearQuadtree<GgafCore::Actor> WorldQuadtree;
+typedef GgafCore::LinearQuadtreeRounder<GgafCore::Actor> WorldQuadtreeRounder;
+
+typedef GgafCore::LinearQuadtree<GgafCore::Actor> ViewQuadtree;
+typedef GgafCore::LinearQuadtreeRounder<GgafCore::Actor> ViewQuadtreeRounder;
 
 /**
  * Core名前空間のこの世クラス.
@@ -110,6 +118,14 @@ public:
     pixcoord _buffer_width2;
     pixcoord _buffer_height2;
 
+    static WorldOctree* _pWorldOctree;
+    static WorldOctreeRounder* _pWorldOctreeRounder;
+    static WorldQuadtree* _pWorldQuadtree;
+    static WorldQuadtreeRounder* _pWorldQuadtreeRounder;
+
+    static ViewQuadtree* _pViewQuadtree;
+    static ViewQuadtreeRounder* _pViewQuadtreeRounder;
+
 public:
     Spacetime(const char* prm_name, Camera* prm_pCamera);
 
@@ -171,6 +187,26 @@ public:
      */
     void cnvWorldCoordToView(coord prm_world_x, coord prm_world_y, coord prm_world_z,
                              coord& out_view_x, coord& out_view_y);
+
+
+    /**
+      * ワールド座標上のアクターの「種別Aグループ 対 種別Bグループ」の ヒットチェック を行う  .
+      * ３次元（８分木） or ２次元（４分木）
+      * processJudgement() で呼ぶ必要あり。（processSettlementBehavior() で ツリーに登録している為）<BR>
+      * @param prm_kind_groupA アクター種別Aグループ
+      * @param prm_kind_groupB アクター種別Bグループ
+      */
+     virtual void executeWorldHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB);
+
+     /**
+      * ビュー座標上のアクターの「種別Aグループ 対 種別Bグループ」の ヒットチェック を行う  .
+      * processJudgement() で呼ぶ必要あり。（processSettlementBehavior() で ツリーに登録している為）<BR>
+      * @param prm_kind_groupA アクター種別Aグループ
+      * @param prm_kind_groupB アクター種別Bグループ
+      */
+     virtual void executeViewHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB);
+
+     virtual void processFinal() override;
 
     /**
      * デバッグ：描画順表示

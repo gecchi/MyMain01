@@ -6,7 +6,7 @@
 
 #ifndef FRM_TYPES_H
 #define FRM_TYPES_H
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 //#include "jp/ggaf/dx/util/XFile/ToolBox/MyTrace.h"
 
 //del tsuge ‘S•” C99 ‚ÌŒ^‚É“ˆê

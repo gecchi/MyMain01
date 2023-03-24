@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_POINTSPRITESETACTOR_H_
 #define GGAF_DX_POINTSPRITESETACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 
 namespace GgafDx {
@@ -74,7 +74,7 @@ public:
      */
     virtual void changeModelByIndex(int prm_model_index) override;
 
-    virtual ~PointSpriteSetActor(); //デストラクタ
+    virtual ~PointSpriteSetActor();
 };
 
 }

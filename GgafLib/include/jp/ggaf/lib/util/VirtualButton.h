@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_VIRTUALBUTTON_H_
 #define GGAF_LIB_VIRTUALBUTTON_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
 #include <string>

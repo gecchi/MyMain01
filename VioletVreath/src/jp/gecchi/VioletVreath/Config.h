@@ -1,6 +1,6 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/LibConfig.h"
 
 #ifdef CONFIG

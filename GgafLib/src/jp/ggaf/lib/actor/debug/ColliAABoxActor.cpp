@@ -15,7 +15,7 @@ ColliAABoxActor* ColliAABoxActor::_pObj = nullptr;
 
 ColliAABoxActor::ColliAABoxActor(const char* prm_name) : GgafDx::AABActor(prm_name, nullptr) {
     _class_name = "ColliAABoxActor";
-    setAlpha(0.98);
+    setAlpha(0.8);
 }
 
 ColliAABoxActor* ColliAABoxActor::get() {

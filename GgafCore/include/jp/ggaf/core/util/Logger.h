@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_LOGGER_H_
 #define GGAF_CORE_LOGGER_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 
 #include <sstream>
 

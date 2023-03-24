@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_GROUPHEAD_H_
 #define GGAF_CORE_GROUPHEAD_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/Actor.h"
 
 namespace GgafCore {
@@ -70,7 +70,9 @@ public:
             sayonara();
         }
     }
-
+    bool processHitChkLogic(Actor* prm_pOtherActor) override {
+        return false;
+    }
     void processPreDraw() override {
     }
 
@@ -85,16 +87,6 @@ public:
 
     void processFinal() override {
     }
-
-    /**
-     * ìñÇΩÇËîªíËïsóvÇÃÇΩÇﬂèÌÇ…falseÇï‘Ç∑ .
-     * @param prm_pOtherActor
-     * @return false
-     */
-    bool processHitChkLogic(Actor* prm_pOtherActor) override {
-        return false;
-    }
-
     void onHit(const Actor* prm_pOtherActor) override {
     }
 

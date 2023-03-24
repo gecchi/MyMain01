@@ -1,6 +1,6 @@
 #ifndef EFFECTENTRY_H_
 #define EFFECTENTRY_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 
 namespace VioletVreath {

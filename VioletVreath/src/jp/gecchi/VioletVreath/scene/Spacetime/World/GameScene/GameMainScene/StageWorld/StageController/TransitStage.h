@@ -1,6 +1,6 @@
 #ifndef TRANSITSTAGE_H_
 #define TRANSITSTAGE_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage.h"
 

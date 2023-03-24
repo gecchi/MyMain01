@@ -15,7 +15,7 @@ ColliAABoardRectActor* ColliAABoardRectActor::_pObj = nullptr;
 
 ColliAABoardRectActor::ColliAABoardRectActor(const char* prm_name) : GgafDx::AABoardRectActor(prm_name, nullptr) {
     _class_name = "ColliAABoardRectActor";
-    setAlpha(0.7);
+    setAlpha(0.8);
 }
 
 ColliAABoardRectActor* ColliAABoardRectActor::get() {

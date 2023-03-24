@@ -1,6 +1,6 @@
 #ifndef COSTDISPBAR_H_
 #define COSTDISPBAR_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/FramedHorizontalBarActor.h"
 
 namespace VioletVreath {

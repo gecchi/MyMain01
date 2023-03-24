@@ -1,6 +1,6 @@
 #ifndef SPRITEFONT32X64_H_
 #define SPRITEFONT32X64_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/FontSpriteActor.h"
 
 namespace VioletVreath {

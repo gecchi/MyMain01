@@ -34,10 +34,11 @@ void Spacetime::initialize() {
 void Spacetime::processBehavior() {
     DefaultSpacetime::processBehavior();
 }
-
 void Spacetime::processJudgement() {
     DefaultSpacetime::processJudgement();
+}
 
+void Spacetime::processHitCheck() {
     if (getBehaveingFrame() >= 120) {
         //本シーンの所属シーンの所属アクター全てについて当たり判定チェックを行う。
         //空間分割(八分木)アルゴリズムにより、チェック回数の最適化を行っています。

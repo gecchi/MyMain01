@@ -306,10 +306,10 @@
     <ClInclude Include="include\jp\ggaf\lib\LibConfig.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\GgafLib.h">
+    <ClInclude Include="include\jp\ggaf\GgafLib.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\GgafLibCommonHeader.h">
+    <ClInclude Include="include\jp\ggaf\GgafLibCommonHeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -593,7 +593,7 @@
     <ClCompile Include="src\jp\ggaf\lib\LibConfig.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\GgafLib.cpp">
+    <ClCompile Include="src\jp\ggaf\GgafLib.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

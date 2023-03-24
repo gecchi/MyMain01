@@ -27,15 +27,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\VioletVreath_launcher.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="src\VioletVreath_launcher.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\VioletVreath_launcher.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico" />
     <Image Include="VioletVreath.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\VioletVreath_launcher.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VioletVreath_launcher.rc" />

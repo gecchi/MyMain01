@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_CARETAKER_H_
 #define GGAF_DX_CARETAKER_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 #include "jp/ggaf/core/Caretaker.h"
 #include "jp/ggaf/dx/util/Util.h"
@@ -358,6 +358,7 @@ public:
      */
     virtual HRESULT initDevice();
     virtual void presentMoment() override;
+    virtual void presentBehave() override;
     virtual void presentJudge() override;
     virtual void presentMaterialize() override;
     virtual void presentVisualize() override;

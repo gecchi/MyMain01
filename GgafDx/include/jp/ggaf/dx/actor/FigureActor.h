@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_FIGUREACTOR_H_
 #define GGAF_DX_FIGUREACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 #include "jp/ggaf/dx/manager/ModelManager.h"
 #include "jp/ggaf/dx/manager/EffectManager.h"
@@ -63,8 +63,6 @@ public:
 
     /** [r]同一描画レベルの次のアクター */
     FigureActor* _pNextRenderActor;
-    /** [r]現在のマテリアルのα値 (0.0 <= _alpha <= 1.0) 設定は、setAlpha() addAlpha() を使用せよ */
-    float _alpha;
     /** [r/w]カリング有り表示の場合 true */
     bool _cull_enable;
     /** [r/w]カリング有り表示の場合のカリング方向 D3DCULL_CCW(default) or D3DCULL_CW */
@@ -243,7 +241,7 @@ public:
      * @return アクターの現在のアルファ値
      */
     virtual float getAlpha() const {
-        return _alpha;
+        return _paMaterial[0].Diffuse.a;
     }
 
     /**
@@ -368,7 +366,7 @@ public:
      */
     virtual int isOutOfView() override;
 
-    virtual ~FigureActor(); //デストラクタ
+    virtual ~FigureActor();
 };
 
 }

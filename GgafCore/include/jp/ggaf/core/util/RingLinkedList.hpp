@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_LINKEDLISTRING_H_
 #define GGAF_CORE_LINKEDLISTRING_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
 #include "jp/ggaf/core/exception/CriticalException.h"

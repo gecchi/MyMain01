@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_QUANTITY_HPP_
 #define GGAF_LIB_QUANTITY_HPP_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
 namespace GgafLib {

@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_DEFAULTCAMWORKER_H_
 #define GGAF_LIB_DEFAULTCAMWORKER_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "CameraWorker.h"
 
 namespace GgafLib {

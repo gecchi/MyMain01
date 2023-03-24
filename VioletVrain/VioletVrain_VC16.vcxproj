@@ -40,29 +40,26 @@
     <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World\TrialAndErrScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVrain\util\VvUtil.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\VioletVrain.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVrain\VvCaretaker.cpp" />
-    <ClCompile Include="src\VioletVrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\enemy\Zako\Zako.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Jiki.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvChikeiActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvEffectActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvEnemyActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvItemActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvMikataActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvMyActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvTekiActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Test01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World\TrialAndErrScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\util\VvUtil.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\VioletVrain.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\VvCaretaker.h" />
-    <ClInclude Include="src\VioletVrain.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{00AD85EE-8B26-41BF-A92F-61B2EB53A7D7}</ProjectGuid>

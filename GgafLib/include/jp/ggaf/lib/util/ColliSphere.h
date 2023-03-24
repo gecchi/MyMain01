@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_COLLISPHERE_H_
 #define GGAF_LIB_COLLISPHERE_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/util/CollisionPart.h"
 
 namespace GgafLib {

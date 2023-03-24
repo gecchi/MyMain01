@@ -36,6 +36,12 @@ public:
     void processBehavior() override;
 
     /**
+     * 当たり判定処理実行（空実装）
+     */
+    void processHitCheck() override {
+    }
+
+    /**
      * 仮想ボタンオブジェクトを返す .
      * @return 仮想ボタン
      */

@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_REGULARPOLYGONBOARDMODEL_H_
 #define GGAF_DX_REGULARPOLYGONBOARDMODEL_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/interface/IPlaneModel.h"
 
@@ -62,7 +62,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはRegularPolygonBoardModelManagerである<BR>
      */
-    virtual ~RegularPolygonBoardModel(); //デストラクタ
+    virtual ~RegularPolygonBoardModel();
 
 };
 

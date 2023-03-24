@@ -1,6 +1,6 @@
 #ifndef MYLOCKONCONTROLLER_H_
 #define MYLOCKONCONTROLLER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/core/actor/ex/DestructActor.h"
 
 #include "jp/ggaf/core/util/RingLinkedList.hpp"

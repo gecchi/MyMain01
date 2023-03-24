@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_WORLDCOLLISIONCHECKER_H_
 #define GGAF_LIB_WORLDCOLLISIONCHECKER_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/util/CollisionChecker.h"
 
 namespace GgafLib {

@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_NODE_H_
 #define GGAF_CORE_NODE_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
 #include <cstring>
@@ -90,6 +90,8 @@ class Node : public Object {
 public:
     /** [r]ノード識別名(50文字まで) */
     char* _name;
+    /** [r]ノード識別名のハッシュ値 */
+    hashval _name_hash;
     /** [r]クラス名（デバッグで使用します） */
     const char* _class_name;
     /** [r]親ノード */
@@ -107,7 +109,6 @@ public:
     /** [r]子ノードの数 */
     int _child_num;
 
-    hashval _name_hash;
 public:
     /**
      * コンストラクタ
@@ -331,7 +332,6 @@ public:
      */
     virtual bool hasChild(char* prm_child_actor_name) const;
 
-
     /**
      * 子ノード数を取得する .
      * @return  T*  子ノード数
@@ -384,19 +384,6 @@ Node<T>::Node(const char* prm_name) :
     int len = strlen(prm_name);
     _name = NEW char[len+1];
     strcpy(_name, prm_name);
-
-
-//#ifdef MY_DEBUG
-//    if (strlen(prm_name) > 49) {
-//        throwCriticalException("[Node コンストラクタ Error! prm_name の文字数オーバー prm_name="<<prm_name<<"");
-//    }
-//    if (strlen(prm_name) == 0) {
-//        throwCriticalException("[Node コンストラクタ Error! prm_name の文字数が0prm_name="<<prm_name<<"");
-//
-//    }
-//#endif
-//    _name = NEW char[51];
-//    strcpy(_name, prm_name);
 }
 
 template<class T>
@@ -437,7 +424,6 @@ T* Node<T>::extract() {
         //しかし将来、addNext() のように隣に要素を追加するメソッドを作らなければいけなくなった場合、
         //親の頂点が横並び手をつなぎ、台形のような構造を採れるようにした場合は、
         //ここの場所に横連結からのみ切り離す処理を追加する必要がある事を忘れずに。
-
         return ((T*)this);
     }
 }
@@ -623,8 +609,6 @@ void Node<T>::prependChild(T* prm_pChild) {
  bool Node<T>::isNamed(const char* prm_name) {
  char*::size_type iLen = prm_name.length();
  if (prm_name.rfind('*') == iLen-1) {}
-
-
  return _name;
  }
  */

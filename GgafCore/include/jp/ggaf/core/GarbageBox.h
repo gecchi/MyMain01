@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_GARBAGEBOX_H_
 #define GGAF_CORE_GARBAGEBOX_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
 #ifndef _MSC_VER
@@ -20,8 +20,10 @@ namespace GgafCore {
  */
 class GarbageBox : public Object {
 #ifdef _MSC_VER
+    /** 同時に追加されないためのセマフォ */
     static volatile bool _wait;
 #else
+    /** 同時に追加されないためのセマフォ */
     static volatile std::atomic<bool> _wait;
 #endif
 public:
@@ -29,7 +31,6 @@ public:
     static GarbageBox* _pGarbageBox;
     /** [r]掃除オブジェクト数 */
     static int _cnt_cleaned;
-
     /** [r]まもなくdeleteされるアクターのツリートップのノード */
     DisusedActor* _pDisusedActor;
     /** [r]まもなくdeleteされるシーンのツリートップのノード */

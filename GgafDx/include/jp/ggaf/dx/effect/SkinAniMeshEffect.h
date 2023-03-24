@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_SKINANIMESHEFFECT_H_
 #define GGAF_DX_SKINANIMESHEFFECT_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 
 //DefaultSkinAniMeshEffect.fx と 定数を一致させる事
@@ -44,7 +44,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはSkinAniMeshEffectManagerである<BR>
      */
-    virtual ~SkinAniMeshEffect(); //デストラクタ
+    virtual ~SkinAniMeshEffect();
 
 };
 

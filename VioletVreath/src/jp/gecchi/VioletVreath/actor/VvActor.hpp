@@ -1,6 +1,6 @@
 #ifndef VVACTOR_H_
 #define VVACTOR_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/core/util/Status.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"

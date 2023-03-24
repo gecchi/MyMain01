@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_PROPERTIES_H_
 #define GGAF_CORE_PROPERTIES_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 
 #include "jp/ggaf/core/util/Util.h"
 #include "jp/ggaf/core/util/Rgb.h"
@@ -16,22 +16,37 @@ namespace GgafCore {
  */
 class Properties : public Object {
 
-
-public:
-    /** [r] 保持プロパティ */
+private:
+    /** [r] 保持プロパティ(key,value のマップ) */
     StrMap _mapProperties;
 
 public:
+    /**
+     * コンストラクタ .
+     * 空のプロパティを構築
+     */
     Properties();
 
+    /**
+     * コンストラクタ .
+     * ファイルの内容を読み込み、保持プロパティに反映する
+     * @param prm_properties_filename プロパティファイル
+     */
     Properties(std::string prm_properties_filename);
 
     /**
-     * 外部プロパティファイルから未ロードならロードして保持プロパティへ設定、メンバ変数に反映 .
+     * 外部プロパティファイルからロード .
+     * ファイルの内容を読み込み、保持プロパティに反映する
+     * 既に設定済みのプロパティは上書きされる。
      * @param prm_properties_filename プロパティファイル
      */
     void read(std::string prm_properties_filename);
 
+    /**
+     * ストリームからロード .
+     * 上記の read(std::string); が内部で呼び出す。
+     * @param is プロパティファイルの文字列ストリーム
+     */
     void read(std::istream& is);
 
     /**
@@ -40,10 +55,11 @@ public:
      */
     void write(std::string prm_properties_filename, const char *header = nullptr);
 
-//    void write(std::ostream &os, const char *header = nullptr);
-
+    /**
+     * 保持プロパティを文字列ストリームに出力 .
+     * @param os 出力結果の文字列ストリーム
+     */
     void print(std::ostream &os);
-
 
     /**
      * 保持プロパティにキーが存在するか調べる .

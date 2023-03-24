@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_WORLDBOUNDACTOR_H_
 #define GGAF_DX_WORLDBOUNDACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/MorphMeshActor.h"
 #include "jp/ggaf/dx/actor/interface/ICubeMapActor.h"
 
@@ -52,7 +52,7 @@ public:
      */
     virtual void changeModelByIndex(int prm_model_index) override;
 
-    virtual ~WorldBoundActor (); //デストラクタ
+    virtual ~WorldBoundActor ();
 };
 
 }

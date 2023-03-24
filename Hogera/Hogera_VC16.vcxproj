@@ -26,6 +26,28 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\actor\camera\HgrCamera.cpp" />
+    <ClCompile Include="src\actor\Jiki.cpp" />
+    <ClCompile Include="src\actor\Test01.cpp" />
+    <ClCompile Include="src\HgrCaretaker.cpp" />
+    <ClCompile Include="src\Hogera.cpp" />
+    <ClCompile Include="src\scene\HgrSpacetime.cpp" />
+    <ClCompile Include="src\scene\HgrSpacetime\HgrWorld.cpp" />
+    <ClCompile Include="src\scene\HgrSpacetime\HgrWorld\TrialAndErrScene.cpp" />
+    <ClCompile Include="src\util\HgrUtil.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\actor\camera\HgrCamera.h" />
+    <ClInclude Include="src\actor\Jiki.h" />
+    <ClInclude Include="src\actor\Test01.h" />
+    <ClInclude Include="src\HgrCaretaker.h" />
+    <ClInclude Include="src\Hogera.h" />
+    <ClInclude Include="src\scene\HgrSpacetime.h" />
+    <ClInclude Include="src\scene\HgrSpacetime\HgrWorld.h" />
+    <ClInclude Include="src\scene\HgrSpacetime\HgrWorld\TrialAndErrScene.h" />
+    <ClInclude Include="src\util\HgrUtil.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C4579C22-19F9-45D9-98FD-95BF69561FB9}</ProjectGuid>
     <RootNamespace>Hogera_VC14</RootNamespace>
@@ -257,28 +279,6 @@
       <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(PlatformToolset)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(PlatformToolset)_$(Configuration).exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\actor\camera\HgrCamera.cpp" />
-    <ClCompile Include="src\actor\Jiki.cpp" />
-    <ClCompile Include="src\actor\Test01.cpp" />
-    <ClCompile Include="src\HgrCaretaker.cpp" />
-    <ClCompile Include="src\Hogera.cpp" />
-    <ClCompile Include="src\scene\HgrSpacetime.cpp" />
-    <ClCompile Include="src\scene\HgrSpacetime\HgrWorld.cpp" />
-    <ClCompile Include="src\scene\HgrSpacetime\HgrWorld\TrialAndErrScene.cpp" />
-    <ClCompile Include="src\util\HgrUtil.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\actor\camera\HgrCamera.h" />
-    <ClInclude Include="src\actor\Jiki.h" />
-    <ClInclude Include="src\actor\Test01.h" />
-    <ClInclude Include="src\HgrCaretaker.h" />
-    <ClInclude Include="src\Hogera.h" />
-    <ClInclude Include="src\scene\HgrSpacetime.h" />
-    <ClInclude Include="src\scene\HgrSpacetime\HgrWorld.h" />
-    <ClInclude Include="src\scene\HgrSpacetime\HgrWorld\TrialAndErrScene.h" />
-    <ClInclude Include="src\util\HgrUtil.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

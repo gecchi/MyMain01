@@ -314,10 +314,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\TitleBoard.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\ViewPointGuide.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\Caretaker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\Config.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\Caretaker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CurveManufactureManagerEx.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CurveSourceManagerEx.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.cpp" />
@@ -606,7 +606,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\mousepointer.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MousePointer.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.h" />
@@ -615,10 +615,10 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\title\MenuBoardTitle.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshin.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinBase.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\bunshin\mybunshincontroller.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinController.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinShot001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinSnipeShot001.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\bunshin\mybunshinstraightlaserchip001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinStraightLaserChip001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinWateringLaserChip001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001.h" />
@@ -682,10 +682,10 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVEnemysHeader.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvItemActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvMyActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\Caretaker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\Config.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\Caretaker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CurveManufactureManagerEx.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CurveSourceManagerEx.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.h" />
@@ -747,8 +747,8 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\VvScene.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\RankingTable.h" />
-    <ClInclude Include="src\Version.h" />
-    <ClInclude Include="src\VioletVreath.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\Version.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\VioletVreath.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{90B4BB52-94AC-403C-8906-24712F5218E5}</ProjectGuid>

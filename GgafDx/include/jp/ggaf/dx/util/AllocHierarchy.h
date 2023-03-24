@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_ALLOCHIERARCHY_H_
 #define GGAF_DX_ALLOCHIERARCHY_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 #include <list>
 

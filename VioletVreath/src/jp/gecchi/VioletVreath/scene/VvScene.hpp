@@ -1,6 +1,6 @@
 #ifndef VVSCENE_H_
 #define VVSCENE_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 
 #include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
@@ -44,11 +44,11 @@ public:
         }
     }
 
-//    void settleBehavior() override {
-//        if (_is_next_frame) {
-//            T::settleBehavior();
-//        }
-//    }
+    void settleBehavior() override {
+        if (_is_next_frame) {
+            T::settleBehavior();
+        }
+    }
 
     void resetTree() override {
         _once_in_n_time = 1;

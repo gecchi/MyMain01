@@ -27,7 +27,7 @@ MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicM
     }
     point_lv_ = 0;
     tmp_y_ = _y;
-    tmp_alpha_ = _alpha;
+    tmp_alpha_ = getAlpha();
     tx_ = 0;
     ty_ = 0;
     setZWriteEnable(false);

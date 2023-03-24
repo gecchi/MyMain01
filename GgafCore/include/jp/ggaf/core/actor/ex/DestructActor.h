@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_DESTRUCTACTOR_H_
 #define GGAF_CORE_DESTRUCTACTOR_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/MainActor.h"
 
 namespace GgafCore {
@@ -26,7 +26,9 @@ public:
 
     virtual void processJudgement() override {
     }
-
+	virtual bool processHitChkLogic(Actor* prm_pOtherActor) override {
+		return false;
+	}
     virtual void processPreDraw() override {
     }
 
@@ -44,16 +46,6 @@ public:
             sayonara(1); //1フレーム後
         }
     }
-
-    /**
-     * 当たり判定不要のため常にfalseを返す .
-     * @param prm_pOtherActor
-     * @return false
-     */
-    virtual bool processHitChkLogic(Actor* prm_pOtherActor) override {
-        return false;
-    }
-
     virtual void onHit(const Actor* prm_pOtherActor) override {
     }
 

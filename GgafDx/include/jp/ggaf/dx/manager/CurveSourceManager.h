@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_CURVEPROGRAMMANAGER_H_
 #define GGAF_DX_CURVEPROGRAMMANAGER_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/util/ResourceManager.hpp"
 
 namespace GgafDx {

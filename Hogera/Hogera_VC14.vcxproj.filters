@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Hogera.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\actor\camera\HgrCamera.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -39,14 +36,14 @@
     <ClCompile Include="src\util\HgrUtil.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\HgrGod.cpp">
+    <ClCompile Include="src\HgrCaretaker.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hogera.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Hogera.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\actor\camera\HgrCamera.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -68,7 +65,10 @@
     <ClInclude Include="src\util\HgrUtil.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\HgrGod.h">
+    <ClInclude Include="src\HgrCaretaker.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hogera.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

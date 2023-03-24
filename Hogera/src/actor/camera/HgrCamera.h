@@ -20,7 +20,7 @@ public:
 
     HgrCamera(const char* prm_name);
 
-    virtual ~HgrCamera(); //デストラクタ
+    virtual ~HgrCamera();
 };
 
 }

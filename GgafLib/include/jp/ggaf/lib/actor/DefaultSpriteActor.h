@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_DEFAULTSPRITEACTOR_H_
 #define GGAF_LIB_DEFAULTSPRITEACTOR_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/actor/SpriteActor.h"
 
 namespace GgafLib {

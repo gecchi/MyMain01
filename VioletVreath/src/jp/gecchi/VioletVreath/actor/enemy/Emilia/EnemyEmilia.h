@@ -1,6 +1,6 @@
 #ifndef ENEMYASSALIA_H_
 #define ENEMYASSALIA_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Emilia/EnemyEmiliaBase.h"
 
 namespace VioletVreath {

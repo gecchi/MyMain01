@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_AABOARDRECTACTOR_H_
 #define GGAF_DX_AABOARDRECTACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/BoardActor.h"
 
 namespace GgafDx {
@@ -19,7 +19,7 @@ public:
 
     void drawRect(coord prm_x1, coord prm_y1, coord prm_x2, coord prm_y2);
 
-    virtual ~AABoardRectActor(); //デストラクタ
+    virtual ~AABoardRectActor();
 };
 
 }

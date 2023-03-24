@@ -1,6 +1,6 @@
 #ifndef FORMATIONERELMAN_H_
 #define FORMATIONERELMAN_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/TreeFormation.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"

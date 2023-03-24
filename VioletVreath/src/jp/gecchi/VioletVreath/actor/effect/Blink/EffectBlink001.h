@@ -1,6 +1,6 @@
 #ifndef EFFECTBLINK001_H_
 #define EFFECTBLINK001_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 namespace VioletVreath {

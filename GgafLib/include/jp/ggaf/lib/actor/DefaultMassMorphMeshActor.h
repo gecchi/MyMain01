@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_DEFAULTMASSMORPHMESHACTOR_H_
 #define GGAF_LIB_DEFAULTMASSMORPHMESHACTOR_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/actor/MassMorphMeshActor.h"
 
 namespace GgafLib {

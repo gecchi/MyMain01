@@ -33,7 +33,6 @@ _pUvFlipper(NEW UvFlipper()) {
     _pUvFlipper->locatePatternNo(_pBoardModel);
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
-    _alpha = 1.0f;
     _is_fix_2D = true;
     _pFunc_calc_rot_mv_world_matrix = nullptr;
     setZEnableDraw(false);
@@ -68,8 +67,6 @@ void BoardActor::processDraw() {
     checkDxException(hr, D3D_OK, "SetFloat(_h_local_left_top_y) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_depth_z, float(C_PX(_z)));
     checkDxException(hr, D3D_OK, "SetFloat(_h_depth_z) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-//    hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_alpha, _alpha);
-//    checkDxException(hr, D3D_OK, "SetFloat(_h_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetValue(_pBoardEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
     checkDxException(hr, D3D_OK, "SetValue(_h_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
@@ -82,17 +79,6 @@ void BoardActor::processDraw() {
 
     _pBoardModel->BoardModel::draw(this);
 }
-
-//void BoardActor::setAlign(Align prm_align, Valign prm_valign) {
-//    _align = prm_align;
-//    _valign = prm_valign;
-//}
-//void BoardActor::setAlign(Align prm_align) {
-//    _align = prm_align;
-//}
-//void BoardActor::setValign(Valign prm_valign) {
-//    _valign = prm_valign;
-//}
 
 void BoardActor::setPositionAt(const GeometricActor* prm_pActor) {
     _x = prm_pActor->_x;
@@ -135,14 +121,6 @@ void BoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate)
     _sy = R_SC(prm_y_rate);
     _sz = R_SC(prm_z_rate); //_sz‚Í2D‚Å‚ÍŽg—p‚³‚ê‚È‚¢‚ªAScaler::behave() “à‚Ì”»’è‚Å–ð‚É—§‚ÂB
 }
-
-//float BoardActor::getModelWidth() {
-//    return _pBoardModel->_model_width_px;
-//}
-//
-//float BoardActor::getModelHeight() {
-//    return _pBoardModel->_model_height_px;
-//}
 
 void BoardActor::changeModelByIndex(int prm_model_index) {
     FigureActor::changeModelByIndex(prm_model_index);

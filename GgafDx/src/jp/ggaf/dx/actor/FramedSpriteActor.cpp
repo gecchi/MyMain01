@@ -225,7 +225,7 @@ void FramedSpriteActor::processDraw() {
 
     checkDxException(hr, D3D_OK, "SetFloat(_h_local_offset_y) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_alpha, _alpha);
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_alpha, getAlpha());
     checkDxException(hr, D3D_OK, "SetFloat(_h_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     int active_frame_ptn_no = _pUvFlipper_frame->getActivePtn();

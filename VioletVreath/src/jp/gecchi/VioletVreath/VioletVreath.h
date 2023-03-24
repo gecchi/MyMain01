@@ -2,7 +2,7 @@
 #define VIOLETVREATHHEADER_H_
 //「DirectXライブラリ」を利用する（利用者は俺！）場合
 //次の"GgafLib::LibCommonHeader.h"ヘッダをインクルードします。
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 
 //種別定数
 //意味は資料「種別相関定義コピペツール.xls」を参照

@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_D3DXMESHMODEL_H_
 #define GGAF_DX_D3DXMESHMODEL_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/Model.h"
 
 #include <d3dx9.h>
@@ -55,7 +55,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはD3DXMeshModelManagerである<BR>
      */
-    virtual ~D3DXMeshModel(); //デストラクタ
+    virtual ~D3DXMeshModel();
 
 };
 

@@ -35,7 +35,7 @@ void EffectMyShipExplosion::onActive() {
 }
 
 void EffectMyShipExplosion::processBehavior() {
-    _alpha -= 0.01;
+    addAlpha(-0.01);
     setPositionAt(pMYSHIP);
     getUvFlipper()->behave();
     getVecVehicle()->behave();

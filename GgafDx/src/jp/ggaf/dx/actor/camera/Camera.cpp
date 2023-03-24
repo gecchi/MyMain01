@@ -21,24 +21,19 @@ _tan_half_fovX(tan(_rad_fovX/2.0)),
 _tan_half_fovY(tan(_rad_fovY/2.0)),
 _cameraZ_org(-1.0 * ((1.0 * (CONFIG::GAME_BUFFER_HEIGHT) / PX_UNIT) / 2.0) / _tan_half_fovY),
 _zn(0.1f),
-_zf(-_cameraZ_org*(_dep+1.0)-_zn),
-_x_buffer_left(PX_C(CONFIG::GAME_BUFFER_WIDTH) / -2),
-_x_buffer_right(PX_C(CONFIG::GAME_BUFFER_WIDTH) / 2),
-_y_buffer_top(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / 2),
-_y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
+_zf(-_cameraZ_org*(_dep+1.0)-_zn)
 {
     _class_name = "Camera";
     //fovXとアスペクト比からfovYを計算して求める
     _TRACE_(FUNC_NAME<<" 画面アスペクト："<<_screen_aspect);
     _TRACE_(FUNC_NAME<<" FovX="<<prm_rad_fovX<<" FovY="<<_rad_fovY);
 
-
     //初期カメラ位置は視点(0,0,Z)、注視点(0,0,0)
     //Zは、キャラがZ=0のXY平面で丁度キャラが値ピクセル幅と一致するような所にカメラを引く
     _TRACE_(FUNC_NAME<<" カメラの位置(0,0,"<<_cameraZ_org<<") dxcoord");
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ_org); //位置
     _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
-    _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
+    _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, (FLOAT)_cameraZ_org); //上方向
 
     // VIEW変換行列作成
     D3DXMatrixLookAtLH(
@@ -108,7 +103,6 @@ _y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
     _x_prev = 0;
     _y_prev = 0;
     _z_prev = 0;
-
     _pCameraViewPoint = nullptr;
     _pCameraUpVector = nullptr;
 
@@ -193,13 +187,11 @@ void Camera::processBehavior() {
         &_plnTop,
         D3DXPlaneFromPoints(&_plnTop, &(vecFar0), &(vecNear1), &(vecNear0))
     );
-
     // 下 ( F左下、N左下、N右下 )
    D3DXPlaneNormalize(
        &_plnBottom,
        D3DXPlaneFromPoints(&_plnBottom, &(vecFar2), &(vecNear2), &(vecNear3))
    );
-
    // 左 ( F左上、N左上、N左下 )
    D3DXPlaneNormalize(
        &_plnLeft,
@@ -339,13 +331,11 @@ CameraUpVector* Camera::getCameraUpVector() {
 }
 
 void Camera::setDefaultPosition() {
-    _x = 0;
-    _y = 0;
-    _z = DX_C(_cameraZ_org);
+    setPosition(0, 0, DX_C(_cameraZ_org));
     CameraViewPoint* pVp = getCameraViewPoint();
     pVp->setPosition(0, 0, 0);
     CameraUpVector* pUpv = getCameraUpVector();
-    pUpv->setPosition(0, DX_C(1), 0);
+    pUpv->setPosition(0, DX_C(1), DX_C(_cameraZ_org));
 }
 
 bool Camera::isMoving() {

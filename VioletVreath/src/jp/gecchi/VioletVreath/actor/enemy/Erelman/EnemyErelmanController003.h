@@ -1,6 +1,6 @@
 #ifndef ENEMYERELMANCONTROLLER003_H_
 #define ENEMYERELMANCONTROLLER003_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "EnemyErelmanController.h"
 
 namespace VioletVreath {

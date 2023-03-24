@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_SOUND_H_
 #define GGAF_DX_SOUND_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include <sstream>
 
 //#ifdef __GNUG__

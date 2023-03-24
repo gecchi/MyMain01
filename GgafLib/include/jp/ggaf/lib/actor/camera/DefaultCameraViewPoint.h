@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_DEFAULTCAMERAVIEWPOINT_H_
 #define GGAF_LIB_DEFAULTCAMERAVIEWPOINT_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
 
 namespace GgafLib {
@@ -45,7 +45,7 @@ public:
 
     void slideMvTo(GgafDx::GeometricActor* pTarget, frame t, double prm_p1, double prm_p2);
 
-    virtual ~DefaultCameraViewPoint(); //デストラクタ
+    virtual ~DefaultCameraViewPoint();
 };
 
 }

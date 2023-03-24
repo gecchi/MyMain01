@@ -1,6 +1,6 @@
 #ifndef MOUSEPOINTER_H_
 #define MOUSEPOINTER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/MousePointerActor.h"
 
 namespace VioletVreath {

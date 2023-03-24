@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_SINGLELASEREFFECT_H_
 #define GGAF_LIB_SINGLELASEREFFECT_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/effect/MeshSetEffect.h"
 
 namespace GgafLib {
@@ -24,7 +24,7 @@ public:
      */
     SingleLaserEffect(const char* prm_effect_name);
 
-    virtual ~SingleLaserEffect(); //デストラクタ
+    virtual ~SingleLaserEffect();
 
 };
 

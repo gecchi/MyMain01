@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\Hogera.cpp" />
     <ClCompile Include="src\actor\camera\HgrCamera.cpp" />
     <ClCompile Include="src\actor\Jiki.cpp" />
     <ClCompile Include="src\actor\Test01.cpp" />
@@ -9,10 +8,10 @@
     <ClCompile Include="src\scene\HgrSpacetime\HgrWorld.cpp" />
     <ClCompile Include="src\scene\HgrSpacetime.cpp" />
     <ClCompile Include="src\util\HgrUtil.cpp" />
-    <ClCompile Include="src\HgrGod.cpp" />
+    <ClCompile Include="src\HgrCaretaker.cpp" />
+    <ClCompile Include="src\Hogera.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Hogera.h" />
     <ClInclude Include="src\actor\camera\HgrCamera.h" />
     <ClInclude Include="src\actor\Jiki.h" />
     <ClInclude Include="src\actor\Test01.h" />
@@ -20,6 +19,7 @@
     <ClInclude Include="src\scene\HgrSpacetime\HgrWorld.h" />
     <ClInclude Include="src\scene\HgrSpacetime.h" />
     <ClInclude Include="src\util\HgrUtil.h" />
-    <ClInclude Include="src\HgrGod.h" />
+    <ClInclude Include="src\HgrCaretaker.h" />
+    <ClInclude Include="src\Hogera.h" />
   </ItemGroup>
 </Project>

@@ -18,6 +18,41 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\enemy\Zako\Zako.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\Jiki.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvChikeiActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvEffectActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvEnemyActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvItemActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvMyActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\Test01.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World\TrialAndErrScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\util\VvUtil.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\VioletVrain.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\VvCaretaker.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\enemy\Zako\Zako.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Jiki.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvActor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvChikeiActor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvEffectActor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvEnemyActor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvItemActor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvMyActor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Test01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World\TrialAndErrScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\util\VvUtil.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\VioletVrain.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\VvCaretaker.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{65C8D7EF-89E4-4741-97D8-DD75609E03DD}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -219,44 +254,6 @@
       <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(PlatformToolset)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(PlatformToolset)_$(Configuration).exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\enemy\Zako\Zako.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\Jiki.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvChikeiActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvEffectActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvEnemyActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvItemActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvMyActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\Test01.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World\TrialAndErrScene.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVrain\util\VvUtil.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVrain\VvCaretaker.cpp" />
-    <ClCompile Include="src\VioletVrain.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.h" />
-    <ClInclude Include="src\jp\gecchi\violetvrain\actor\enemy\zako\zako.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Jiki.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvActor.h" />
-    <ClInclude Include="src\jp\gecchi\violetvrain\actor\kind\vvactor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvChikeiActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvEffectActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvEnemyActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvItemActor.h" />
-    <ClInclude Include="src\jp\gecchi\violetvrain\actor\kind\vvmikataactor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvMyActor.h" />
-    <ClInclude Include="src\jp\gecchi\violetvrain\actor\kind\vvtekiactor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Test01.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World\TrialAndErrScene.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\util\VvUtil.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\VvCaretaker.h" />
-    <ClInclude Include="src\VioletVrain.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

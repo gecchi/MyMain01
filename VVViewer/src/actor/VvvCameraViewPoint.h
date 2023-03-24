@@ -17,7 +17,7 @@ class VvvCameraViewPoint : public GgafLib::DefaultCameraViewPoint {
 public:
     VvvCameraViewPoint(const char* prm_name);
 
-    virtual ~VvvCameraViewPoint(); //デストラクタ
+    virtual ~VvvCameraViewPoint();
 };
 
 

@@ -1,6 +1,6 @@
 #ifndef WORLD_H_
 #define WORLD_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 #include "jp/gecchi/VioletVreath/scene/VvScene.hpp"

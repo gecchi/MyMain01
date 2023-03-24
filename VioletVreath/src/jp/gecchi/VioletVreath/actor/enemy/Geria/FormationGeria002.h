@@ -1,6 +1,6 @@
 #ifndef FORMATIONGERIA002_H_
 #define FORMATIONGERIA002_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Geria/FormationGeria.h"
 
 namespace VioletVreath {

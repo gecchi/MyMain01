@@ -1,6 +1,6 @@
 #ifndef FORMATIONUNOMIA002_H_
 #define FORMATIONUNOMIA002_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/FormationUnomia.h"
 
 namespace VioletVreath {

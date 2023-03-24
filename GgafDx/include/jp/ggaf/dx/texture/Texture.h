@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_TEXTURE_H_
 #define GGAF_DX_TEXTURE_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
 #include <string>
@@ -55,7 +55,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはTextureManagerである<BR>
      */
-    virtual ~Texture(); //デストラクタ
+    virtual ~Texture();
 };
 
 }

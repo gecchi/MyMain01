@@ -13,14 +13,9 @@ Object::Object() :
     _obj_class(0)
 {
 }
-//char* Object::getName() {
-//       return _name;
-//}
 std::string Object::toString() {
     //TODO:java‚Ì‚æ‚¤‚É‚µ‚½‚¢‚Ì‚©
     return "Object";
 }
-
 Object::~Object() {
-//    GGAF_DELETEARR(_name);
 }

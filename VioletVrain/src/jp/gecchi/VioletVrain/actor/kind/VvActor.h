@@ -1,6 +1,6 @@
 #ifndef VVACTOR_H_
 #define VVACTOR_H_
-#include "VioletVrain.h"
+#include "jp/gecchi/VioletVrain/VioletVrain.h"
 
 template<class T>
 class VvActor : public T {

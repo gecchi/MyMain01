@@ -31,7 +31,7 @@ void EffectExplosion001::onActive() {
 }
 
 void EffectExplosion001::processBehavior() {
-    _alpha -= 0.03;
+    addAlpha(-0.03);
     _sx+= 100;
     _sy+= 100;
     getUvFlipper()->behave();

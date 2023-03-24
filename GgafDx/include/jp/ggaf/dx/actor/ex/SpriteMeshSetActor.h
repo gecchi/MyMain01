@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_SPRITEMESHSETACTOR_H_
 #define GGAF_DX_SPRITEMESHSETACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/MeshSetActor.h"
 
 namespace GgafDx {

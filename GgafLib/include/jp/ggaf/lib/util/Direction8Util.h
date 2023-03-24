@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_DIRECTION8UTIL_H_
 #define GGAF_LIB_DIRECTION8UTIL_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 
 //-1,0,1 の3数の3進法 を 配列要素のため正の10進数に変換するマクロ(-4～+4)
 #define DIR8(X,Y) ((3*(X)) + (Y))

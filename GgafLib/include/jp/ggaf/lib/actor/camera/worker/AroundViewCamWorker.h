@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_AROUNDVIEWCAMWORKER_H_
 #define GGAF_LIB_AROUNDVIEWCAMWORKER_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "CameraWorker.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 
@@ -35,7 +35,7 @@ public:
     }
 
 
-    virtual ~AroundViewCamWorker(); //デストラクタ
+    virtual ~AroundViewCamWorker();
 };
 
 }

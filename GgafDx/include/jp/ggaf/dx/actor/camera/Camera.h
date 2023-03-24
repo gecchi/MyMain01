@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_CAMERAACTOR_H_
 #define GGAF_DX_CAMERAACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 
 namespace GgafDx {
@@ -11,7 +11,7 @@ namespace GgafDx {
  * 本クラスは管理者(Caretaker)と連動しています。メンバを操作すると、その通りにカメラの位置と注視点が操作できます。<BR>
  * processPreDraw メソッドが実装されており、その中で管理者(Caretaker)のカメラに座標情報を上書きします。<BR>
  * <BR>
- * _x,_y,_z             ・・・ カメラの位置 <BR>
+ * _x,_y,_z  ・・・ カメラの位置 <BR>
  * <BR>
  * ＜使い方＞<BR>
  * 継承し、processBehavior() 等を オーバーライドして好きに座標を動かすがよい<BR>
@@ -27,8 +27,6 @@ class Camera : public GeometricActor {
     friend SeTransmitterForActor;
 
 public:
-    D3DVIEWPORT9 _viewport;
-    // 視錐台の6つの面
     /** [r]視錐台上面、法線は視錐台の内から外に向いている(毎フレーム更新) */
     D3DXPLANE _plnTop;
     /** [r]視錐台下面、法線は視錐台の内から外に向いている(毎フレーム更新) */
@@ -44,15 +42,17 @@ public:
     /** [r]視錐台を左右に分割する垂直面、左右の効果音のパンに使用(毎フレーム更新) */
     D3DXPLANE _plnVerticalCenter;
 
+    /** [r]カメラのビューポート情報 */
+    D3DVIEWPORT9 _viewport;
     /** [r]DirectXビューポート変換行列 */
     D3DXMATRIX _matViewPort;
     /** [r]DirectXビューポート変換逆行列 */
     D3DXMATRIX _matInvViewPort;
-
     /** [r]DirectX射影変換行列（現在のカメラの射影変換行列） */
     D3DXMATRIX _matProj;
     /** [r]DirectX射影変換逆行列 */
     D3DXMATRIX _matInvProj;
+
     /** [r]DirectXカメラの位置(フレーム毎更新) */
     D3DXVECTOR3* _pVecCamFromPoint;
     /** [r]DirectXカメラの注視点(フレーム毎更新) */
@@ -83,19 +83,17 @@ public:
     const double _tan_half_fovY;
     /** [r]カメラのZ座標初期位置 */
     const dxcoord _cameraZ_org;
-    /** [r]カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0 */
+    /** [r]表示対象開始の、カメラから最近傍クリップ面まで距離(どこからの距離が表示対象か）≠0 */
     const dxcoord _zn;
-    /** [r]カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
+    /** [r]表示対象終了の、カメラから最遠クリップ面まで距離(どこまでの距離が表示対象か）> zn */
     const dxcoord _zf;
-    const coord _x_buffer_left;
-    const coord _x_buffer_right;
-    const coord _y_buffer_top;
-    const coord _y_buffer_bottom;
 
-    /** [r/w]注視点（座標が _pVecCamLookatPoint と連動） **/
+    /** [r/w]カメラの注視点（自身からの方向が _pVecCamLookatPoint と連動） */
     CameraViewPoint* _pCameraViewPoint;
+    /** [r/w]カメラの上方向（自身からの方向が _pVecCamUp と連動） */
     CameraUpVector* _pCameraUpVector;
 
+    /** [r]一つ前の座標 */
     coord _x_prev, _y_prev, _z_prev;
 
 public:
@@ -122,10 +120,13 @@ public:
      */
     Camera(const char* prm_name, double prm_rad_fovX, double prm_dep);
 
+    /**
+     * 準備：カメラの注視点、カメラの上方向アクターの生成 .
+     */
     virtual void initialize() override;
 
     /**
-     * 視錐台面情報を更新する。
+     * 視錐台面の座標情報を更新する。
      */
     virtual void processBehavior() override;
 
@@ -139,66 +140,132 @@ public:
      */
     virtual void processSettlementBehavior() override;
 
-
+    /**
+     * カメラを初期設定に戻す .
+     * カメラを初期位置設定し、視点は原点を注視し、上方向をカメラのY軸真上方向ベクトルとします。
+     */
     virtual void setDefaultPosition();
 
     /**
-     * 視点用アクターを取得 .
+     * カメラからの視点ポイントに位置するアクターを取得 .
      * 生成済みの視点用アクターを取得します。
      * 但し、初めて呼び出した場合、createCameraViewPoint() が呼び出され
      * インスタンスが作成されます。
-     * @return 生成済み視点用アクター
+     * @return 視点ポイントアクター
      */
     virtual CameraViewPoint* getCameraViewPoint();
 
     /**
-     * 視点用アクターのインスタンスを生成 .
-     * 独自のインスタンスを生成したい場合は、オーバーライドしてください。
-     * @return 生成された視点用アクター
+     * カメラからの視点ポイントのアクターインスタンスを生成 .
+     * オーバーライドしてください。
+     * @return 視点ポイントアクター
      */
     virtual CameraViewPoint* createCameraViewPoint() = 0;
 
+    /**
+     * カメラの上方向ベクトルのポイントを表すアクターを取得 .
+     * 生成済みのアクターを取得します。
+     * 但し、初めて呼び出した場合、createCameraUpVector() が呼び出され
+     * インスタンスが作成されます。
+     * @return カメラの上方向ベクトルのポイントアクター
+     */
     virtual CameraUpVector* getCameraUpVector();
 
+    /**
+     * カメラの上方向ベクトルのポイントのアクターインスタンスを生成 .
+     * オーバーライドしてください。
+     * @return 上方向ポイントアクター
+     */
     virtual CameraUpVector* createCameraUpVector() = 0;
 
+    /**
+     * カメラが移動中か判定します。
+     * 注意：注視点、上方向の移動中は判定に含まれません。
+     * @return true:移動中（一つ前のフレームと座標が違う）／false:停止中（一つ前のフレームと座標が同じ）
+     */
     bool isMoving();
 
+    /**
+     * 表示対象終了の、カメラから最遠クリップ面まで距離を取得 .
+     * @return  表示対象終了の、カメラから最遠クリップ面まで距離
+     */
     inline dxcoord getZFar() const {
         return _zf;
     }
 
+    /**
+     * 表示対象開始の、カメラから最近傍クリップ面まで距離を取得 .
+     * @return 表示対象開始の、カメラから最近傍クリップ面まで距離
+     */
     inline dxcoord getZNear() const {
         return _zn;
     }
 
+    /**
+     * カメラの影変換行列を取得 .
+     * @return カメラの影変換行列
+     */
     inline D3DXMATRIX* getProjectionMatrix()  {
         return &_matProj;
     }
 
+    /**
+     * カメラの影変換の逆行列を取得 .
+     * @return カメラの影変換の逆行列
+     */
     inline D3DXMATRIX* getInvProjectionMatrix()  {
         return &_matInvProj;
     }
 
+    /**
+     * 現在のカメラのビュー変換行列(毎フレーム更新)を取得 .
+     * @return カメラのビュー変換行列
+     */
     inline D3DXMATRIX* getViewMatrix() {
         return &_matView;
     }
 
+    /**
+     * カメラの位置ベクトルを取得 .
+     * @return カメラの位置ベクトル
+     */
     inline D3DXVECTOR3* getVecCamFromPoint() const {
         return _pVecCamFromPoint;
     }
 
+    /**
+     * カメラの注視点位置ベクトルを取得 .
+     * @return カメラの注視点位置ベクトル
+     */
     inline D3DXVECTOR3* getVecCamLookatPoint() const {
         return _pVecCamLookatPoint;
     }
 
+    /**
+     * カメラの上を表す地点の位置ベクトルを取得 .
+     * @return カメラの上を表す地点の位置ベクトル
+     */
+    inline D3DXVECTOR3* getVecCamUp() const {
+        return _pVecCamUp;
+    }
+
+    /**
+     * カメラの初期位置のZ座標を取得 .
+     * @return カメラの初期位置のZ座標を取得
+     */
     inline dxcoord getZOrigin() const {
         return _cameraZ_org;
     }
+
+    /**
+     * カメラの表示の深さ（_cameraZ_orgの何倍か) を取得 .
+     * @return カメラの表示の深さ
+     */
     inline double getDep() {
         return _dep;
     }
-    virtual ~Camera(); //デストラクタ
+
+    virtual ~Camera();
 };
 
 }

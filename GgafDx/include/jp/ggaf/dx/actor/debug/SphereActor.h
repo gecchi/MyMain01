@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_SPHEREACTOR_H_
 #define GGAF_DX_SPHEREACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/MeshActor.h"
 
 namespace GgafDx {
@@ -21,7 +21,7 @@ public:
 
     void drawSphere(coord prm_x, coord prm_y, coord prm_z, coord prm_r);
 
-    virtual ~SphereActor(); //デストラクタ
+    virtual ~SphereActor();
 };
 
 }

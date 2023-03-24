@@ -1,6 +1,6 @@
 #ifndef GROUNDMESHACTOR_H_
 #define GROUNDMESHACTOR_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/dx/actor/MeshActor.h"
 
 namespace VioletVreath {

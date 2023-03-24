@@ -1,7 +1,7 @@
 #ifndef JIKI_H_
 #define JIKI_H_
 #include "jp/gecchi/VioletVrain/actor/kind/VvMyActor.h"
-#include "VioletVrain.h"
+#include "jp/gecchi/VioletVrain/VioletVrain.h"
 
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
 

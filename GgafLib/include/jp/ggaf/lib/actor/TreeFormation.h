@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_TREEFORMATION_H_
 #define GGAF_LIB_TREEFORMATION_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/core/actor/ex/TreeFormation.h"
 
 namespace GgafLib {

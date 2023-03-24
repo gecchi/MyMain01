@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_SCENEMEDIATOR_H_
 #define GGAF_CORE_SCENEMEDIATOR_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/Actor.h"
 
 namespace GgafCore {
@@ -59,7 +59,9 @@ public:
 
     void processJudgement() override {
     }
-
+    bool processHitChkLogic(Actor* prm_pOtherActor) override {
+        return false;
+    }
     void processPreDraw() override {
     }
 
@@ -81,15 +83,6 @@ public:
     void throwEventUpperTree(eventval prm_event_val) override {
         throwEventUpperTree(prm_event_val, this);
     }
-    /**
-     * ìñÇΩÇËîªíËïsóvÇÃÇΩÇﬂèÌÇ…falseÇï‘Ç∑ .
-     * @param prm_pOtherActor
-     * @return false
-     */
-    bool processHitChkLogic(Actor* prm_pOtherActor) override {
-        return false;
-    }
-
     void onHit(const Actor* prm_pOtherActor) override {
     }
 

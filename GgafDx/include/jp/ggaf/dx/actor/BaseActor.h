@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_BASEACTOR_H_
 #define GGAF_DX_BASEACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/actor/MainActor.h"
 
 namespace GgafDx {
@@ -18,7 +18,7 @@ class BaseActor : public GgafCore::MainActor {
 public:
     BaseActor(const char* prm_name);
 
-    virtual ~BaseActor(); //デストラクタ
+    virtual ~BaseActor();
 
 };
 

@@ -1,6 +1,6 @@
 #ifndef FORMATIONAPPHO001B_H_
 #define FORMATIONAPPHO001B_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Appho/FormationAppho001.h"
 
 namespace VioletVreath {

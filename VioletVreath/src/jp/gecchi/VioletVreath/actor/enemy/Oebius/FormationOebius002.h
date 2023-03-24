@@ -1,6 +1,6 @@
 #ifndef FORMATIONOEBIUS002_H_
 #define FORMATIONOEBIUS002_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius.h"
 #include "jp/ggaf/dx/util/GeoElem.h"
 

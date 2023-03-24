@@ -1,6 +1,6 @@
 #ifndef RANKUPSTAGE_H_
 #define RANKUPSTAGE_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 
 #include "jp/ggaf/core/actor/MainActor.h"
 #include "jp/ggaf/core/actor/ex/Formation.h"

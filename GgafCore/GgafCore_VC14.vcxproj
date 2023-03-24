@@ -35,7 +35,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\GgafCommonHeader.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\Actor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\DisusedActor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\ActorDepository.h" />
@@ -86,6 +85,7 @@
     <ClInclude Include="include\jp\ggaf\core\util\TrapezoidalVeloValue.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\Util.h" />
     <ClInclude Include="include\jp\ggaf\core\util\Xpm.h" />
+    <ClInclude Include="include\jp\ggaf\GgafCommonHeader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\jp\ggaf\core\actor\Actor.cpp" />

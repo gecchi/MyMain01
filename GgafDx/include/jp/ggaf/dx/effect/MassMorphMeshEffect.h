@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_MASSMORPHMESHEFFECT_H_
 #define GGAF_DX_MASSMORPHMESHEFFECT_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/effect/MassEffect.h"
 
 namespace GgafDx {
@@ -38,7 +38,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはMassMorphMeshEffectManagerである<BR>
      */
-    virtual ~MassMorphMeshEffect(); //デストラクタ
+    virtual ~MassMorphMeshEffect();
 
 };
 

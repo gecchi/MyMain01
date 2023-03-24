@@ -1,6 +1,6 @@
 #ifndef STAGEDEBUGPART01_H_
 #define STAGEDEBUGPART01_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "StageDebugPart.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 

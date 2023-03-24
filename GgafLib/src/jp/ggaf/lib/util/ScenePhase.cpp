@@ -134,7 +134,7 @@ DefaultScene* ScenePhase::getGazedScene() {
     }
 }
 
-DefaultScene* ScenePhase::getScene(int prm_phase_no) {
+DefaultScene* ScenePhase::getRelationScene(int prm_phase_no) {
     if (_mapPhase2Scene.find(prm_phase_no) == _mapPhase2Scene.end()) {
         return nullptr;
     } else {

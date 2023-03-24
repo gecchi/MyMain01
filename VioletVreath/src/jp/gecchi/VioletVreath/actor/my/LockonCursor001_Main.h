@@ -1,6 +1,6 @@
 #ifndef LOCKONCURSOR001MAIN_H_
 #define LOCKONCURSOR001MAIN_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/my/LockonCursor001.h"
 
 namespace VioletVreath {

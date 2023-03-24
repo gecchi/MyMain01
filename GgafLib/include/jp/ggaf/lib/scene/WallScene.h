@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_WALLSCENE_H_
 #define GGAF_LIB_WALLSCENE_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "jp/ggaf/core/util/RingLinkedList.hpp"

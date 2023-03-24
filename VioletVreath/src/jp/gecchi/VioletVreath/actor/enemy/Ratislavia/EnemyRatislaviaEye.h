@@ -1,6 +1,6 @@
 #ifndef ENEMYRATISLAVIAEYE_H_
 #define ENEMYRATISLAVIAEYE_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 

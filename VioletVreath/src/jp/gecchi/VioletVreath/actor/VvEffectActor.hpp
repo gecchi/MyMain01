@@ -1,6 +1,6 @@
 #ifndef VVEFFECTACTOR_H_
 #define VVEFFECTACTOR_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "VvActor.hpp"
 
 namespace VioletVreath {

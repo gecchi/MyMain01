@@ -35,18 +35,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\VioletVreath_launcher.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="src\VioletVreath_launcher.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="small.ico" />
     <Image Include="VioletVreath.ico" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VioletVreath_launcher.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\VioletVreath_launcher.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\jp\gecchi\VioletVreath\VioletVreath_launcher.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B03E0799-674B-49D4-A292-EB422CD1D561}</ProjectGuid>

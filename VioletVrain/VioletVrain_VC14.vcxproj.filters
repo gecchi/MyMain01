@@ -18,6 +18,24 @@
     <ClCompile Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\enemy\Zako\Zako.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvChikeiActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvEffectActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvEnemyActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvItemActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvMyActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVrain\actor\Jiki.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -36,28 +54,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVrain\util\VvUtil.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVrain\VvGod.cpp">
+    <ClCompile Include="src\jp\gecchi\VioletVrain\VioletVrain.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\VioletVrain.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvChikeiActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvEffectActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvEnemyActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvItemActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvMyActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\enemy\Zako\Zako.cpp">
+    <ClCompile Include="src\jp\gecchi\VioletVrain\VvCaretaker.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,37 +65,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Jiki.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Test01.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World\TrialAndErrScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVrain\util\VvUtil.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVrain\VvGod.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VioletVrain.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvActor.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvMikataActor.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvTekiActor.hpp">
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\enemy\Zako\Zako.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvActor.h">
@@ -116,7 +86,28 @@
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvMyActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\enemy\Zako\Zako.h">
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Jiki.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Test01.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World\TrialAndErrScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\util\VvUtil.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\VioletVrain.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\VvCaretaker.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

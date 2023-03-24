@@ -76,27 +76,6 @@ void Properties::read(std::istream& is) {
     }
 }
 
-//void Properties::write(std::string prm_properties_filename, const char *header) {
-//    std::ofstream ofs_properties(prm_properties_filename.c_str());
-//    write(ofs_properties, header);
-//    ofs_properties.close();
-//}
-
-
-
-//void Properties::write(std::ostream &os, const char *header) {
-//    if (header != nullptr) {
-//        os << '#' << header << std::endl;
-//    }
-//    os << '#' << "update " << Util::getSystemDateTimeStr() << std::endl;
-//
-//    for (StrMap::iterator it = _mapProperties.begin(), end = _mapProperties.end(); it != end; ++it) {
-//        const std::string &key = (*it).first, &val = (*it).second;
-//        os << key << '=' << val << std::endl;
-//    }
-//}
-
-
 void Properties::write(std::string prm_properties_filename, const char *header) {
     std::ifstream ifs_properties(prm_properties_filename.c_str());
 

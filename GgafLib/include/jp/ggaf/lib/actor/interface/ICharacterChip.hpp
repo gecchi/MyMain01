@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_IFIXEDFONT_H_
 #define GGAF_LIB_IFIXEDFONT_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/core/exception/CriticalException.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include <string.h>

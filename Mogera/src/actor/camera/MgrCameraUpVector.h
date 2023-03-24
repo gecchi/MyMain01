@@ -16,7 +16,7 @@ class MgrCameraUpVector : public GgafLib::DefaultCameraUpVector {
 public:
     MgrCameraUpVector(const char* prm_name);
 
-    virtual ~MgrCameraUpVector(); //デストラクタ
+    virtual ~MgrCameraUpVector();
 };
 
 

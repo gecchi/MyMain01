@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_D3DXANIMESHMODEL_H_
 #define GGAF_DX_D3DXANIMESHMODEL_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/Model.h"
 
 #include "jp/ggaf/dx/util/BoneAniMeshWorldMatStack.h"
@@ -61,7 +61,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはD3DXAniMeshModelManagerである<BR>
      */
-    virtual ~D3DXAniMeshModel(); //デストラクタ
+    virtual ~D3DXAniMeshModel();
 
 };
 

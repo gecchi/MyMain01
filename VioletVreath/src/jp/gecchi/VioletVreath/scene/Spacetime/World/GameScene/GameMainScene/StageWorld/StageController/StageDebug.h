@@ -1,6 +1,6 @@
 #ifndef STAGEDEBUG_H_
 #define STAGEDEBUG_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "Stage.h"
 
 namespace VioletVreath {

@@ -1,6 +1,6 @@
 #ifndef FORMATIONALLAS001A_H_
 #define FORMATIONALLAS001A_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Allas/FormationAllas001.h"
 
 namespace VioletVreath {

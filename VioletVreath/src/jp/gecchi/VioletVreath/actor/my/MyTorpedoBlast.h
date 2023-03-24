@@ -1,6 +1,6 @@
 #ifndef MYTORPEDOBLAST_H_
 #define MYTORPEDOBLAST_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/VvMyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 

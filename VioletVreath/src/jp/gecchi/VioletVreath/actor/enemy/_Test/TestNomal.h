@@ -1,6 +1,6 @@
 #ifndef TESTNOMAL_H_
 #define TESTNOMAL_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestEnemy.h"
 
 namespace VioletVreath {

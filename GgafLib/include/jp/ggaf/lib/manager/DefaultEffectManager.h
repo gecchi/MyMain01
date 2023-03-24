@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_DEFAULTEFFECTMANAGER_H_
 #define GGAF_LIB_DEFAULTEFFECTMANAGER_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 
 #include "jp/ggaf/dx/manager/EffectManager.h"
 

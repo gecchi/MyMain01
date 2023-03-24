@@ -1,6 +1,6 @@
 #ifndef MAGICLVCURSOR003_H_
 #define MAGICLVCURSOR003_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor.h"
 
 

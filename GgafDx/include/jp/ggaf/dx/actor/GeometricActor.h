@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_GEOMETRICACTOR_H_
 #define GGAF_DX_GEOMETRICACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/BaseActor.h"
 
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
@@ -26,7 +26,7 @@ private:
     void processFinal() override {
     }
 
-    /** [r]力車 */
+    /** [r]力車(前進、後退、旋回による移動支援)  */
     VecVehicle* _pVecVehicle;
     /** [r]駕籠(平行移動支援) */
     AxisVehicle* _pAxisVehicle;
@@ -242,10 +242,8 @@ public:
      */
     virtual void processSettlementBehavior() override;
 
-    /**
-     * 当たり判定の為に八分木（四分木）に登録する .
-     */
-    virtual void updateHitArea();
+    virtual void judge() override;
+
     /**
      * 共通の描画事後処理 .
      * 俺デバッグモード (MY_DEBUG が 1)の場合は

@@ -30,7 +30,7 @@
     <ClCompile Include="src\SimpleSample.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\SmpGod.cpp">
+    <ClCompile Include="src\SmpCaretaker.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,7 +50,7 @@
     <ClInclude Include="src\SimpleSample.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\SmpGod.h">
+    <ClInclude Include="src\SmpCaretaker.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

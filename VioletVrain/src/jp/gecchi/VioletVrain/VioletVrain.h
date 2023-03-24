@@ -1,7 +1,7 @@
 #ifndef VIOLETVRAIN_H_
 #define VIOLETVRAIN_H_
-#include "VioletVrain.h"
-#include "GgafLibCommonHeader.h"
+#include "jp/gecchi/VioletVrain/VioletVrain.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 
 #undef pCARETAKER
 #define pCARETAKER ((VioletVrain::VvCaretaker*)VioletVrain::VvCaretaker::_pCaretaker)

@@ -1,6 +1,6 @@
 #ifndef ENEMYSTRAEALASERCHIP002_H_
 #define ENEMYSTRAEALASERCHIP002_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/laserchip/RefractionLaserChip.h"
 

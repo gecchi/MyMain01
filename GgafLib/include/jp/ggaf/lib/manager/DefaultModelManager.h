@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_DEFAULTMODELMANAGER_H_
 #define GGAF_LIB_DEFAULTMODELMANAGER_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 
 #include "jp/ggaf/dx/manager/ModelManager.h"
 

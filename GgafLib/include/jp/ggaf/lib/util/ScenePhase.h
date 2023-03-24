@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_SCENEPHASE_H_
 #define GGAF_LIB_SCENEPHASE_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/core/Phase.h"
 
 #include <map>
@@ -12,20 +12,23 @@ typedef std::map<int, GgafLib::DefaultScene*> PhaseSceneMap;
  * フェーズ管理(シーン用)クラス .
  * 基底のGgafCore::Phaseクラスに、シーンにまつわる便利な機能を追加した
  * シーン専用のフェーズ管理クラスです。
+ * シーンの切り替えに連動して、フェードアウト、フェードイン等が出来ます。
  * @version 1.00
  * @since 2011/07/15
  * @author Masatoshi Tsuge
  */
 class ScenePhase : public GgafCore::Phase {
 
-public:
+private:
     /** [r]フェーズ管理対象シーン */
     DefaultScene* _pScene;
+    /** [r]内部フレームカウンタが _count_next_promise となった場合に切り替わる約束のフェーズ番号 */
+    int _phase_no_next_promise;
+    /** [r]約束のフレームカウント */
+    frame _count_next_promise;
+public:
     /** [r]フェーズ番号 対 子シーン */
     PhaseSceneMap _mapPhase2Scene;
-
-    int _phase_no_next_promise;
-    frame _count_next_promise;
 
 public:
     /**
@@ -47,7 +50,6 @@ public:
      * @param prm_FirstChildSceneName 先頭のフェーズ(prm_FirstPhase)に対応する子シーンの名称
      */
     void relateChildScene(int prm_FirstPhase, int prm_EndPhase, const char* prm_FirstChildSceneName);
-
 
     /**
      * フェーズと子シーンを関連付け連動させる.
@@ -122,7 +124,7 @@ public:
      * @param prm_phase_no フェーズ
      * @return
      */
-    DefaultScene* getScene(int prm_phase_no);
+    DefaultScene* getRelationScene(int prm_phase_no);
 
     /**
      * フェーズ番号を変更し、changeDelay は無かったことにする .
@@ -147,12 +149,16 @@ public:
     virtual void changeNext() override;
 
     /**
-     * フェーズ番号の変更予約をする。 .
+     * フェーズ番号の変更予約(約束)をする。 .
      * @param prm_phase_no 予約フェーズ番号(0～)
      * @param prm_delay 遅延フレーム
      */
     virtual void changeDelay(int prm_phase_no, frame prm_delay);
 
+    /**
+     * フェーズを次の状態に更新 .
+     * 時間カウンターの増加処理等で、この処理をコールしてください。
+     */
     virtual void update() override;
 
     /**

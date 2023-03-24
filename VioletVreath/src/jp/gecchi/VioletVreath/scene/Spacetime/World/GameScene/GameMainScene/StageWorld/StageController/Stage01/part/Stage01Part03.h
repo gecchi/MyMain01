@@ -1,6 +1,6 @@
 #ifndef STAGE01PART03_H_
 #define STAGE01PART03_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "Stage01Part.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 

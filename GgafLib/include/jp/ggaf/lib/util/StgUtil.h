@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_STGUTIL_H_
 #define GGAF_LIB_STGUTIL_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 #include "jp/ggaf/lib/util/ColliAABox.h"

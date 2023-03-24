@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_SCENE_H_
 #define GGAF_CORE_SCENE_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/Element.hpp"
 
 namespace GgafCore {
@@ -137,8 +137,6 @@ public:
     virtual void inactivate() override;
     virtual void inactivateTreeImmed() override;
     virtual void inactivateImmed() override;
-
-
 
 //    /**
 //     * 自ツリーの配下ノード全てに、再帰呼び出しを行う。

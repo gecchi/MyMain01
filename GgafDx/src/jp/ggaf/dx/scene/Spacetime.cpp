@@ -3,6 +3,8 @@
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/core/util/RingLinkedList.hpp"
 #include "jp/ggaf/core/util/RepeatSeq.h"
+#include "jp/ggaf/core/util/lineartree/LinearOctree.hpp"
+#include "jp/ggaf/core/util/lineartree/LinearQuadtree.hpp"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/effect/Effect.h"
@@ -24,6 +26,13 @@ using namespace GgafDx;
 
 int Spacetime::render_depth_index_active = 0;
 std::string Spacetime::_seqkey_se_delay = "_SE_D_";
+
+WorldOctree* Spacetime::_pWorldOctree = nullptr;
+WorldOctreeRounder* Spacetime::_pWorldOctreeRounder = nullptr;
+WorldQuadtree* Spacetime::_pWorldQuadtree = nullptr;
+WorldQuadtreeRounder* Spacetime::_pWorldQuadtreeRounder = nullptr;
+ViewQuadtree* Spacetime::_pViewQuadtree = nullptr;
+ViewQuadtreeRounder* Spacetime::_pViewQuadtreeRounder = nullptr;
 
 Spacetime::SeArray::SeArray() {
 #ifdef MY_DEBUG
@@ -153,6 +162,35 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
                                              " = "<< DX_C(_dep_resolution)   );
     _TRACE_("カメラからの距離  0 ~ "<<DX_C(_dep_resolution)<< " のActorは、 深度が考慮されて遠くのオブジェクトから順にレンダリングを行います。");
     _TRACE_(DX_C(_dep_resolution)<<" より遠いオブジェクトは全て同一深度として最初にレンダリングされます。");
+
+    if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
+        //四分木作成
+        _TRACE_("四分木作成開始");
+        Spacetime::_pWorldQuadtree = NEW WorldQuadtree(CONFIG::WORLD_HIT_CHECK_QUADTREE_LEVEL,
+                                                              _x_bound_left  ,_y_bound_bottom,
+                                                              _x_bound_right ,_y_bound_top    );
+        Spacetime::_pWorldQuadtreeRounder =
+                _pWorldQuadtree->createRounder(&GgafCore::Actor::executeHitChk_MeAnd);
+        _TRACE_("四分木作成終了");
+    } else {
+        //八分木作成
+        _TRACE_("八分木作成開始");
+        Spacetime::_pWorldOctree = NEW WorldOctree(CONFIG::WORLD_HIT_CHECK_OCTREE_LEVEL,
+                                                          _x_bound_left  ,_y_bound_bottom, _z_bound_near ,
+                                                          _x_bound_right ,_y_bound_top   , _z_bound_far   );
+        Spacetime::_pWorldOctreeRounder =
+                _pWorldOctree->createRounder(&GgafCore::Actor::executeHitChk_MeAnd);
+        _TRACE_("八分木作成終了");
+    }
+
+    //Board用四分木作成
+    _TRACE_("Board用四分木作成開始");
+    Spacetime::_pViewQuadtree = NEW ViewQuadtree(CONFIG::VIEW_HIT_CHECK_QUADTREE_LEVEL,
+                                                        _x_bound_left_b  ,_y_bound_top_b,
+                                                        _x_bound_right_b , _y_bound_bottom_b   );
+    Spacetime::_pViewQuadtreeRounder =
+            _pViewQuadtree->createRounder(&GgafCore::Actor::executeHitChk_MeAnd);
+    _TRACE_("Board用四分木作成終了");
 }
 
 void Spacetime::registerSe(Se* prm_pSe,
@@ -539,6 +577,26 @@ void Spacetime::cnvWorldCoordToView(coord prm_world_x, coord prm_world_y, coord 
     out_view_y = DX_C(y);
 }
 
+void Spacetime::executeWorldHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
+    if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
+        Spacetime::_pWorldQuadtreeRounder->executeAll(prm_kind_groupA, prm_kind_groupB);
+    } else {
+        Spacetime::_pWorldOctreeRounder->executeAll(prm_kind_groupA, prm_kind_groupB);
+    }
+}
+
+
+void Spacetime::executeViewHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
+    Spacetime::_pViewQuadtreeRounder->executeAll(prm_kind_groupA, prm_kind_groupB);
+}
+void Spacetime::processFinal() {
+    if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
+        Spacetime::_pWorldQuadtree->clearAllElem();
+    } else {
+        Spacetime::_pWorldOctree->clearAllElem();
+    }
+    Spacetime::_pViewQuadtree->clearAllElem();
+}
 void Spacetime::dumpRenderDepthOrder() {
     for (int i = 0; i < ALL_RENDER_DEPTH_INDEXS_NUM; i++) {
         FigureActor* pDrawActor = _papFirstRenderActor[i];
@@ -565,4 +623,28 @@ Spacetime::~Spacetime() {
     GGAF_DELETEARR(_paDep2Lv);
     GGAF_DELETEARR(_papFirstRenderActor);
     GGAF_DELETEARR(_papLastRenderActor);
+
+#ifdef MY_DEBUG
+    if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
+        _TRACE_("World四分木 -->");
+        Spacetime::_pWorldQuadtree->putTree();
+        _TRACE_("<--World四分木");
+    } else {
+        _TRACE_("World八分木 -->");
+        Spacetime::_pWorldOctree->putTree();
+        _TRACE_("<--World八分木");
+    }
+    _TRACE_("View四分木 -->");
+    Spacetime::_pViewQuadtree->putTree();
+    _TRACE_("<--View四分木");
+#endif
+    if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
+        GGAF_DELETE(Spacetime::_pWorldQuadtree);
+        GGAF_DELETE(Spacetime::_pWorldQuadtreeRounder);
+    } else {
+        GGAF_DELETE(Spacetime::_pWorldOctree);
+        GGAF_DELETE(Spacetime::_pWorldOctreeRounder);
+    }
+    GGAF_DELETE(Spacetime::_pViewQuadtree);
+    GGAF_DELETE(Spacetime::_pViewQuadtreeRounder);
 }

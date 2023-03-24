@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_GEOVEHICLE_H_
 #define GGAF_DX_GEOVEHICLE_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "ActorVehicle.h"
 
 #include "jp/ggaf/dx/actor/GeometricActor.h"
@@ -8,7 +8,7 @@
 namespace GgafDx {
 
 /**
- * アクターを乗せる力車 .
+ * アクターの移動支援(ホーミング) .
  * 分身光牙レーザーのホーミング計算を、汎用的に切り出し。<BR>
  * setAcceByVc() がやりたかった事<BR>
  * @version 1.00

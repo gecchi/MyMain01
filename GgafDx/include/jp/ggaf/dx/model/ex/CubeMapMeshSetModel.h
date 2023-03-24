@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_CUBEMAPMESHSETMODEL_H_
 #define GGAF_DX_CUBEMAPMESHSETMODEL_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/MeshSetModel.h"
 
 namespace GgafDx {
@@ -21,7 +21,7 @@ public:
      */
     CubeMapMeshSetModel(const char* prm_model_id);
 
-    virtual ~CubeMapMeshSetModel(); //デストラクタ
+    virtual ~CubeMapMeshSetModel();
 };
 
 }

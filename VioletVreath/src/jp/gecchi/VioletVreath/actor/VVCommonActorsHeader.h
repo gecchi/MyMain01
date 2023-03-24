@@ -1,6 +1,6 @@
 #ifndef VVCOMMONACTORSHEADER_H_
 #define VVCOMMONACTORSHEADER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 
 #include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyWateringLaserChip001.h"

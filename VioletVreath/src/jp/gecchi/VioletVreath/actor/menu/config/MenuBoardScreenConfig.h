@@ -1,6 +1,6 @@
 #ifndef MENUBOARDSCREENCONFIG_H_
 #define MENUBOARDSCREENCONFIG_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/menu/MenuBoard.h"
 
 #include "jp/ggaf/core/util/EnumIndex.h"

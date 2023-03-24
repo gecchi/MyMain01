@@ -1,6 +1,6 @@
 #ifndef SHOT001_H_
 #define SHOT001_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 

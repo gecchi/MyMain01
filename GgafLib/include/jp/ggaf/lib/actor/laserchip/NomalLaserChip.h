@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_NOMALLASERCHIP_H_
 #define GGAF_LIB_NOMALLASERCHIP_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
 namespace GgafLib {

@@ -1,6 +1,6 @@
 #ifndef ENEMYERELMANCORE003_H_
 #define ENEMYERELMANCORE003_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "EnemyErelmanCore.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"

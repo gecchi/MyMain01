@@ -1,6 +1,6 @@
 #ifndef CAMERAVIEWPOINT_H_
 #define CAMERAVIEWPOINT_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 
 namespace VioletVreath {
@@ -16,7 +16,7 @@ class CameraViewPoint : public GgafLib::DefaultCameraViewPoint {
 public:
     CameraViewPoint(const char* prm_name);
 
-    virtual ~CameraViewPoint(); //デストラクタ
+    virtual ~CameraViewPoint();
 };
 
 }

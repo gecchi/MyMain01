@@ -16,45 +16,30 @@ int Config::RENDER_DEPTH_INDEXS_NUM_EX_NEAR = 10;
 int Config::RENDER_DEPTH_INDEXS_NUM_EX_FAR = 10;
 double Config::RENDER_DEPTH_STAGE_RATIO = 0.6;
 bool Config::PRJ_2D_MODE = false;
+
 pixcoord Config::RENDER_TARGET_BUFFER_WIDTH = Config::GAME_BUFFER_WIDTH;
 pixcoord Config::RENDER_TARGET_BUFFER_HEIGHT = Config::GAME_BUFFER_HEIGHT;
-
-//pixcoord Config::VIEW_SOURCE_RENDER_BUFFER_WIDTH = Config::RENDER_TARGET_BUFFER_WIDTH;
-//pixcoord Config::VIEW_SOURCE_RENDER_BUFFER_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
 
 pixcoord Config::RENDER_BUFFER_SOURCE1_LEFT   = 0;
 pixcoord Config::RENDER_BUFFER_SOURCE1_TOP    = 0;
 pixcoord Config::RENDER_BUFFER_SOURCE1_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH;
 pixcoord Config::RENDER_BUFFER_SOURCE1_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
 
-
-//pixcoord Config::RENDER_BUFFER_SOURCE1_LEFT   = 0;
-//pixcoord Config::RENDER_BUFFER_SOURCE1_TOP    = 0;
-//pixcoord Config::RENDER_BUFFER_SOURCE1_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH/2;
-//pixcoord Config::RENDER_BUFFER_SOURCE1_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
-
 pixcoord Config::RENDER_BUFFER_SOURCE2_LEFT   = Config::RENDER_TARGET_BUFFER_WIDTH/2;
 pixcoord Config::RENDER_BUFFER_SOURCE2_TOP    = 0;
 pixcoord Config::RENDER_BUFFER_SOURCE2_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH/2;
 pixcoord Config::RENDER_BUFFER_SOURCE2_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
 
-
-//pixcoord Config::WINDOW1_WIDTH = 1600;
-//pixcoord Config::WINDOW1_HEIGHT = 450;
 pixcoord Config::WINDOW1_WIDTH = 1600;
 pixcoord Config::WINDOW1_HEIGHT = 450;
 pixcoord Config::WINDOW2_WIDTH = 800;
 pixcoord Config::WINDOW2_HEIGHT = 450;
 //0の場合現在の解像度でフルスクリーン
-//pixcoord Config::FULL_SCREEN1_WIDTH = 0;
-//pixcoord Config::FULL_SCREEN1_HEIGHT = 0;
 pixcoord Config::FULL_SCREEN1_WIDTH = 0;
 pixcoord Config::FULL_SCREEN1_HEIGHT = 0;
 pixcoord Config::FULL_SCREEN2_WIDTH = 0;
 pixcoord Config::FULL_SCREEN2_HEIGHT = 0;
 
-//pixcoord Config::FULL_SCREEN1_WIDTH_BK  = Config::FULL_SCREEN1_WIDTH;
-//pixcoord Config::FULL_SCREEN1_HEIGHT_BK = Config::FULL_SCREEN1_HEIGHT;
 pixcoord Config::FULL_SCREEN1_WIDTH_BK   = Config::FULL_SCREEN1_WIDTH;
 pixcoord Config::FULL_SCREEN1_HEIGHT_BK  = Config::FULL_SCREEN1_HEIGHT;
 pixcoord Config::FULL_SCREEN2_WIDTH_BK   = Config::FULL_SCREEN2_WIDTH;
@@ -66,7 +51,6 @@ int Config::PRIMARY_ADAPTER_NO = 0;
 int Config::SECONDARY_ADAPTER_NO = 1;
 
 bool Config::SWAP_GAME_VIEW = false;
-//int Config::PRESENT_POSITION1 = 5;
 int Config::PRESENT_POSITION1 = 6;
 int Config::PRESENT_POSITION2 = 4;
 
@@ -152,6 +136,12 @@ std::string Config::COLI_AAPRISM_MODEL = "GgafDxAAPrism";
 std::string Config::COLI_AAPYRAMID_MODEL = "GgafDxAAPyramid";
 std::string Config::COLI_SPHERE_MODEL = "GgafDxSphere";
 std::string Config::COLI_AABOARDRECT_MODEL = "GgafDxAABoardRect";
+
+
+int Config::WORLD_HIT_CHECK_OCTREE_LEVEL = 2;
+int Config::WORLD_HIT_CHECK_QUADTREE_LEVEL = 2;
+int Config::VIEW_HIT_CHECK_QUADTREE_LEVEL = 2;
+bool Config::ENABLE_WORLD_HIT_CHECK_2D = false;
 
 void Config::loadProperties(std::string prm_properties_filename) {
     GgafCore::Config::loadProperties(prm_properties_filename);
@@ -503,6 +493,31 @@ void Config::loadProperties(std::string prm_properties_filename) {
             throwCriticalException("prm_properties_filename="<<prm_properties_filename<<" DIR_CURVE("<<Config::DIR_CURVE<<") のディレクトリが見つかりません。");
         }
     }
+
+
+    if (GgafCore::Config::_properties.isExistKey("ENABLE_WORLD_HIT_CHECK_2D")) {
+        Config::ENABLE_WORLD_HIT_CHECK_2D = GgafCore::Config::_properties.getBool("ENABLE_WORLD_HIT_CHECK_2D");
+    }
+    if (Config::ENABLE_WORLD_HIT_CHECK_2D) {
+        if (GgafCore::Config::_properties.isExistKey("WORLD_HIT_CHECK_QUADTREE_LEVEL")) {
+            Config::WORLD_HIT_CHECK_QUADTREE_LEVEL  = GgafCore::Config::_properties.getInt("WORLD_HIT_CHECK_QUADTREE_LEVEL");
+        }
+        if (GgafCore::Config::_properties.isExistKey("WORLD_HIT_CHECK_OCTREE_LEVEL")) {
+            throwCriticalException("ENABLE_WORLD_HIT_CHECK_2D が ture の場合、WORLD_HIT_CHECK_OCTREE_LEVEL は設定できません。(WORLD_HIT_CHECK_QUADTREE_LEVEL を設定してください。)");
+        }
+    } else {
+        if (GgafCore::Config::_properties.isExistKey("WORLD_HIT_CHECK_QUADTREE_LEVEL")) {
+            throwCriticalException("ENABLE_WORLD_HIT_CHECK_2D が false の場合、WORLD_HIT_CHECK_QUADTREE_LEVEL は設定できません。(WORLD_HIT_CHECK_OCTREE_LEVEL を設定してください。)");
+        }
+        if (GgafCore::Config::_properties.isExistKey("WORLD_HIT_CHECK_OCTREE_LEVEL")) {
+            Config::WORLD_HIT_CHECK_OCTREE_LEVEL  = GgafCore::Config::_properties.getInt("WORLD_HIT_CHECK_OCTREE_LEVEL");
+        }
+    }
+    if (GgafCore::Config::_properties.isExistKey("VIEW_HIT_CHECK_QUADTREE_LEVEL")) {
+        Config::VIEW_HIT_CHECK_QUADTREE_LEVEL  = GgafCore::Config::_properties.getInt("VIEW_HIT_CHECK_QUADTREE_LEVEL");
+    }
+
+
     _TRACE_("Config::FULL_SCREEN=" << Config::FULL_SCREEN);
     _TRACE_("Config::DUAL_VIEW=" << Config::DUAL_VIEW);
     _TRACE_("Config::GAME_BUFFER_WIDTH=" << Config::GAME_BUFFER_WIDTH);
@@ -515,14 +530,7 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::PRJ_2D_MODE=" << Config::PRJ_2D_MODE);
     _TRACE_("Config::RENDER_TARGET_BUFFER_WIDTH=" << Config::RENDER_TARGET_BUFFER_WIDTH);
     _TRACE_("Config::RENDER_TARGET_BUFFER_HEIGHT=" << Config::RENDER_TARGET_BUFFER_HEIGHT);
-//    _TRACE_("Config::VIEW_SOURCE_RENDER_BUFFER_WIDTH=" << Config::VIEW_SOURCE_RENDER_BUFFER_WIDTH);
-//    _TRACE_("Config::VIEW_SOURCE_RENDER_BUFFER_HEIGHT=" << Config::VIEW_SOURCE_RENDER_BUFFER_HEIGHT);
 
-
-//    _TRACE_("Config::RENDER_BUFFER_SOURCE1_LEFT=" << Config::RENDER_BUFFER_SOURCE1_LEFT  );
-//    _TRACE_("Config::RENDER_BUFFER_SOURCE1_TOP=" << Config::RENDER_BUFFER_SOURCE1_TOP   );
-//    _TRACE_("Config::RENDER_BUFFER_SOURCE1_WIDTH=" << Config::RENDER_BUFFER_SOURCE1_WIDTH );
-//    _TRACE_("Config::RENDER_BUFFER_SOURCE1_HEIGHT=" << Config::RENDER_BUFFER_SOURCE1_HEIGHT);
     _TRACE_("Config::RENDER_BUFFER_SOURCE1_LEFT=" << Config::RENDER_BUFFER_SOURCE1_LEFT   );
     _TRACE_("Config::RENDER_BUFFER_SOURCE1_TOP=" << Config::RENDER_BUFFER_SOURCE1_TOP    );
     _TRACE_("Config::RENDER_BUFFER_SOURCE1_WIDTH=" << Config::RENDER_BUFFER_SOURCE1_WIDTH  );
@@ -532,21 +540,14 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::RENDER_BUFFER_SOURCE2_WIDTH=" << Config::RENDER_BUFFER_SOURCE2_WIDTH  );
     _TRACE_("Config::RENDER_BUFFER_SOURCE2_HEIGHT=" << Config::RENDER_BUFFER_SOURCE2_HEIGHT );
 
-
-//    _TRACE_("Config::WINDOW1_WIDTH=" << Config::WINDOW1_WIDTH);
-//    _TRACE_("Config::WINDOW1_HEIGHT=" << Config::WINDOW1_HEIGHT);
     _TRACE_("Config::WINDOW1_WIDTH=" << Config::WINDOW1_WIDTH);
     _TRACE_("Config::WINDOW1_HEIGHT=" << Config::WINDOW1_HEIGHT);
     _TRACE_("Config::WINDOW2_WIDTH=" << Config::WINDOW2_WIDTH);
     _TRACE_("Config::WINDOW2_HEIGHT=" << Config::WINDOW2_HEIGHT);
-//    _TRACE_("Config::FULL_SCREEN1_WIDTH=" << Config::FULL_SCREEN1_WIDTH);
-//    _TRACE_("Config::FULL_SCREEN1_HEIGHT=" << Config::FULL_SCREEN1_HEIGHT);
     _TRACE_("Config::FIXED_GAME_VIEW_ASPECT=" << Config::FIXED_GAME_VIEW_ASPECT);
-
     _TRACE_("Config::PRIMARY_ADAPTER_NO=" << Config::PRIMARY_ADAPTER_NO);
     _TRACE_("Config::SECONDARY_ADAPTER_NO=" << Config::SECONDARY_ADAPTER_NO);
     _TRACE_("Config::SWAP_GAME_VIEW=" << Config::SWAP_GAME_VIEW);
-//    _TRACE_("Config::PRESENT_POSITION1=" << Config::PRESENT_POSITION1);
     _TRACE_("Config::PRESENT_POSITION1=" << Config::PRESENT_POSITION1);
     _TRACE_("Config::PRESENT_POSITION2=" << Config::PRESENT_POSITION2);
     _TRACE_("Config::VIEW1_WIDTH_RATIO=" << Config::VIEW1_WIDTH_RATIO);
@@ -581,6 +582,8 @@ void Config::loadProperties(std::string prm_properties_filename) {
     }
     _TRACE_("Config::DIR_CURVE=" << Config::DIR_CURVE);
     _TRACE_("Config::REALTIME_EFFECT_COMPILE="<<Config::REALTIME_EFFECT_COMPILE);
-
+    _TRACE_("Config::ENABLE_WORLD_HIT_CHECK_2D=" << Config::ENABLE_WORLD_HIT_CHECK_2D);
+    _TRACE_("Config::WORLD_HIT_CHECK_OCTREE_LEVEL=" << Config::WORLD_HIT_CHECK_OCTREE_LEVEL);
+    _TRACE_("Config::WORLD_HIT_CHECK_QUADTREE_LEVEL=" << Config::WORLD_HIT_CHECK_QUADTREE_LEVEL);
 }
 

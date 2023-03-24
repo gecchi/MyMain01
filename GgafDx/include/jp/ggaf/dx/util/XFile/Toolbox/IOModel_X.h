@@ -6,7 +6,7 @@
 
 #ifndef IOMODEL_X
 #define IOMODEL_X
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 //#define DEBUG
 
 //#include "jp/ggaf/dx/util/XFile/ToolBox/MyTrace.h"

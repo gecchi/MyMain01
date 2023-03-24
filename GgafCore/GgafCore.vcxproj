@@ -19,40 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\jp\ggaf\core\actor\Actor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepository.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepositoryStore.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\DepositoryFormation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\DestructActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\Formation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\TreeFormation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\GroupHead.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\MainActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\SceneMediator.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Caretaker.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Config.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Cradle.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\exception\CriticalException.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\exception\Exception.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\GarbageBox.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Object.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Phase.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Properties.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\scene\MainScene.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\scene\Scene.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\scene\Spacetime.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\DetectMemoryLeaks.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Logger.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\RepeatSeq.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Rgb.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Status.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Table.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Util.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Xpm.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\ggafcommonheader.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\actor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\DisusedActor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\actordepository.h" />
@@ -103,6 +69,40 @@
     <ClInclude Include="include\jp\ggaf\core\util\trapezoidalvelovalue.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\util.h" />
     <ClInclude Include="include\jp\ggaf\core\util\xpm.h" />
+    <ClInclude Include="include\jp\ggaf\ggafcommonheader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\jp\ggaf\core\actor\Actor.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepository.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepositoryStore.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\DepositoryFormation.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\DestructActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\Formation.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\ex\TreeFormation.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\GroupHead.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\MainActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\SceneMediator.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Caretaker.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Config.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Cradle.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\exception\CriticalException.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\exception\Exception.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\GarbageBox.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Object.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Phase.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Properties.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\scene\MainScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\scene\Scene.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\scene\Spacetime.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\DetectMemoryLeaks.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\Logger.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\RepeatSeq.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\Rgb.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\Status.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\Table.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\Util.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\Xpm.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4CD46674-BB16-4B83-B01E-D6DAF7FB6C81}</ProjectGuid>

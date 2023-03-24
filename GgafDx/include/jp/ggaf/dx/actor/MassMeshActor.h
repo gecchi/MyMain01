@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_MASSMESHACTOR_H_
 #define GGAF_DX_MASSMESHACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/MassActor.h"
 #include "jp/ggaf/dx/model/MassMeshModel.h"
 
@@ -68,7 +68,7 @@ public:
      */
     virtual void changeModelByIndex(int prm_model_index) override;
 
-    virtual ~MassMeshActor(); //デストラクタ
+    virtual ~MassMeshActor();
 };
 
 }

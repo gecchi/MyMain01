@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_D3DXANIMESHACTOR_H_
 #define GGAF_DX_D3DXANIMESHACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/util/BoneAniMeshWorldMatStack.h"
 namespace GgafDx {
@@ -52,7 +52,7 @@ public:
      */
     virtual void changeModelByIndex(int prm_model_index) override;
 
-    virtual ~D3DXAniMeshActor(); //デストラクタ
+    virtual ~D3DXAniMeshActor();
 };
 
 }

@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_FONTSPRITEACTOR_H_
 #define GGAF_LIB_FONTSPRITEACTOR_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 
 #include "jp/ggaf/dx/actor/MassSpriteActor.h"
 #include "interface/ICharacterChip.hpp"

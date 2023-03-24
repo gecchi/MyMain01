@@ -1,6 +1,6 @@
 #ifndef VVCARETAKER_H_
 #define VVCARETAKER_H_
-#include "VioletVrain.h"
+#include "jp/gecchi/VioletVrain/VioletVrain.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 
 #include "scene/VvSpacetime.h"

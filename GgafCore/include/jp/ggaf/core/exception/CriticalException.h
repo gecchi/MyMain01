@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_CRITICALEXCEPTION_H_
 #define GGAF_CORE_CRITICALEXCEPTION_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/exception/Exception.h"
 
 #include <sstream>

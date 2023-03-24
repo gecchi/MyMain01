@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_CAMERAWORKERMANAGER_H_
 #define GGAF_LIB_CAMERAWORKERMANAGER_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 
 #include "jp/ggaf/core/util/ResourceManager.hpp"
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"

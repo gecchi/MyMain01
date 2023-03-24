@@ -8,11 +8,11 @@
     <ClCompile Include="src\actor\VvvCameraViewPoint.cpp" />
     <ClCompile Include="src\actor\VvvCursor.cpp" />
     <ClCompile Include="src\actor\VvvGrid.cpp" />
+    <ClCompile Include="src\actor\VvvMousePointer.cpp" />
     <ClCompile Include="src\scene\VvvSpacetime\VvvWorld.cpp" />
     <ClCompile Include="src\scene\VvvSpacetime.cpp" />
-    <ClCompile Include="src\VVViewer.cpp" />
     <ClCompile Include="src\VvvCaretaker.cpp" />
-    <ClCompile Include="src\actor\VvvMousePointer.cpp" />
+    <ClCompile Include="src\VVViewer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\CamWorker\VvvCamWorker.h" />
@@ -22,10 +22,10 @@
     <ClInclude Include="src\actor\VvvCameraViewPoint.h" />
     <ClInclude Include="src\actor\VvvCursor.h" />
     <ClInclude Include="src\actor\VvvGrid.h" />
+    <ClInclude Include="src\actor\VvvMousePointer.h" />
     <ClInclude Include="src\scene\VvvSpacetime\VvvWorld.h" />
     <ClInclude Include="src\scene\VvvSpacetime.h" />
-    <ClInclude Include="src\VVViewer.h" />
     <ClInclude Include="src\VvvCaretaker.h" />
-    <ClInclude Include="src\actor\vvvmousepointer.h" />
+    <ClInclude Include="src\VVViewer.h" />
   </ItemGroup>
 </Project>

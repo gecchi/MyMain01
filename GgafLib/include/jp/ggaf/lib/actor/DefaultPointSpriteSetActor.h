@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_DEFAULTPOINTSPRITESETACTOR_H_
 #define GGAF_LIB_DEFAULTPOINTSPRITESETACTOR_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/actor/PointSpriteSetActor.h"
 
 namespace GgafLib {

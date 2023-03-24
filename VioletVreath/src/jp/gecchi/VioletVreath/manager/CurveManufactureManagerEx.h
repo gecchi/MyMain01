@@ -1,6 +1,6 @@
 #ifndef CURVEMANUFACTUREMANAGEREX_H_
 #define CURVEMANUFACTUREMANAGEREX_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 
 #include "jp/ggaf/dx/manager/CurveManufactureManager.h"
 

@@ -21,77 +21,16 @@ using namespace GgafDx;
 
 hashval FigureActor::_hash_technique_last_draw = 0;
 
-//FigureActor::FigureActor(const char* prm_name,
-//                         const char* prm_model,
-//                         const char* prm_effect,
-//                         const char* prm_technique,
-//                         CollisionChecker* prm_pChecker) :
-//
-//                             GeometricActor(prm_name,
-//                                            prm_pChecker),
-//_pModelCon(
-//    (ModelConnection*)(
-//        pCARETAKER->_pModelManager->connect(prm_model, this)
-//    )
-//),
-//_pModel((Model*)_pModelCon->peek()),
-//_pEffectCon(
-//    (EffectConnection*)(
-//        pCARETAKER->_pEffectManager->connect(prm_effect, this)
-//    )
-//),
-//_pEffect((Effect*)_pEffectCon->peek()),
-//_pAlphaFader(nullptr),
-//_pColorist(nullptr)
-//{
-//    _obj_class |= Obj_GgafDx_FigureActor;
-//    _class_name = "FigureActor";
-//    _technique = NEW char[256];
-//    FigureActor::changeEffectTechnique(prm_technique);
-//    _temp_technique = NEW char[256];
-//    _hash_temp_technique = 0;
-//    _frame_of_behaving_temp_technique_end = 0;
-//    _is_temp_technique = false;
-//    _pNextRenderActor = nullptr;
-//    //マテリアルをコピー
-//    _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
-//    for (DWORD i = 0; i < _pModel->_num_materials; i++) {
-//        _paMaterial[i] = _pModel->_paMaterial_default[i];
-//    }
-//    _alpha = 1.0f;
-//    //最大距離頂点
-//    _now_drawdepth = 0;
-//    _specal_render_depth_index = -1;
-//    _zenable = true;
-//    _zwriteenable = true;
-////    if (_pModelCon->chkFirstConnectionIs(this) ) {
-////        _is_first_model_connector = true;
-////    } else {
-////        _is_first_model_connector = false;
-////    }
-////    if (_pEffectCon->chkFirstConnectionIs(this) ) {
-////        _is_first_effect_connector = true;
-////    } else {
-////        _is_first_effect_connector = false;
-////    }
-//    _cull_enable = true;
-//    _cull_mode_default = D3DCULL_CCW;
-//    _cull_mode = _cull_mode_default;
-//
-//    _lstModelCon.push_back(_pModelCon);
-//    _lstModel.push_back(_pModel);
-//}
-
 FigureActor::FigureActor(const char* prm_name,
                          const char* prm_model,
                          const char prm_model_type,
                          const char* prm_effect_id,
                          const char prm_effect_type,
                          const char* prm_technique,
-                         CollisionChecker* prm_pChecker) :
 
-                             GeometricActor(prm_name,
-                                            prm_pChecker),
+                         CollisionChecker* prm_pChecker) :
+                         GeometricActor(prm_name,
+                                        prm_pChecker),
 _pModelCon(
     (ModelConnection*)(
         pCARETAKER->_pModelManager->connect(
@@ -126,7 +65,6 @@ _pColorist(nullptr)
     for (DWORD i = 0; i < _pModel->_num_materials; i++) {
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
-    _alpha = 1.0f;
     _cull_enable = true;
     _cull_mode_default = D3DCULL_CCW;
     _cull_mode = _cull_mode_default;
@@ -134,16 +72,6 @@ _pColorist(nullptr)
     _specal_render_depth_index = -1;
     _zenable = true;
     _zwriteenable = true;
-//    if (_pModelCon->chkFirstConnectionIs(this) ) {
-//        _is_first_model_connector = true;
-//    } else {
-//        _is_first_model_connector = false;
-//    }
-//    if (_pEffectCon->chkFirstConnectionIs(this) ) {
-//        _is_first_effect_connector = true;
-//    } else {
-//        _is_first_effect_connector = false;
-//    }
     _lstModelCon.push_back(_pModelCon);
     _lstModel.push_back(_pModel);
 
@@ -217,7 +145,7 @@ void FigureActor::processPreDraw() {
     if (isActiveInTheTree()) {
         GgafCore::Caretaker::_num_active_actors++;
         if (!isOutOfView()) {
-            if (_alpha > 0.0f &&  ((GgafDx::Scene*)pPlatformScene)->_scene_alpha > 0.0f) { //isActiveInTheTree() で判定すること
+            if (getAlpha() > 0.0f &&  ((GgafDx::Scene*)pPlatformScene)->_scene_alpha > 0.0f) { //isActiveInTheTree() で判定すること
                 //レンダリング対象として登録
                 _now_drawdepth = pSpacetime->registerDrawActor(this);
 #ifdef MY_DEBUG
@@ -297,17 +225,13 @@ void FigureActor::resetMaterialColor() {
     }
 }
 void FigureActor::setAlpha(float prm_alpha) {
-    _alpha = prm_alpha;
     //α設定、現在マテリアルはDiffuse以外関係ない
-    _paMaterial[0].Ambient.a = _alpha;
-    _paMaterial[0].Diffuse.a = _alpha;
+    _paMaterial[0].Diffuse.a = prm_alpha;
 }
 
 void FigureActor::addAlpha(float prm_alpha) {
-    _alpha += prm_alpha;
     //α設定、現在マテリアルはDiffuse以外関係ない
-    _paMaterial[0].Ambient.a = _alpha;
-    _paMaterial[0].Diffuse.a = _alpha;
+    _paMaterial[0].Diffuse.a += prm_alpha;
 }
 void FigureActor::setSpecialRenderDepthIndex(int prm_drawdepth) {
     if (prm_drawdepth < 0) {

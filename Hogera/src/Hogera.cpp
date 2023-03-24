@@ -1,16 +1,14 @@
 /**
  * 「Gecchi Game App Framework ライブラリ」使用サンプル
  */
-#include "GgafLib.h" //"GgafLib::Lib.h" をインクルードし、
+#include "jp/ggaf/GgafLib.h" //"GgafLib::Lib.h" をインクルードし、
 #include "Hogera.h"
 
 #include "HgrCaretaker.h"
 #include <scrnsave.h>
 using namespace Hogera;
 
-
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-
 
 /**
  * MSVC のエントリポイント
@@ -69,10 +67,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
  * GCC のエントリポイント
  */
 int main(int argc, char *argv[]) {
-    LibMain(argc, argv); //直後に、この様に呼び出して下さい。
-    return WinMain(WinMain_hInstance, WinMain_hPrevInstance, WinMain_lpCmdLine, WinMain_nCmdShow);
+    return CALL_WinMain();
 }
-
 
 /**
  * ウィンドウプロシージャ

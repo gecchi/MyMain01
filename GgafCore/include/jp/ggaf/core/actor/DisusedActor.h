@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_DISUSEDACTOR_H_
 #define GGAF_CORE_DISUSEDACTOR_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/Actor.h"
 
 namespace GgafCore {
@@ -27,6 +27,9 @@ public:
     }
     void processJudgement() override {
     }
+    bool processHitChkLogic(Actor* prm_pOtherActor) override {
+        return false;
+    }
     void processPreDraw() override {
     }
     void processDraw() override {
@@ -36,9 +39,6 @@ public:
     void onCatchEvent(eventval prm_event_val, void* prm_pSource) override {
     }
     void processFinal() override {
-    }
-    bool processHitChkLogic(Actor* prm_pOtherActor) override {
-        return false;
     }
     void onHit(const Actor* prm_pOtherActor) override {
     }

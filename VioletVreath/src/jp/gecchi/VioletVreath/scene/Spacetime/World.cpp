@@ -13,7 +13,7 @@
 #include "jp/gecchi/VioletVreath/Config.h"
 #include "World/PreDrawScene.h"
 #include "World/GameScene.h"
-#include "Version.h"
+#include "jp/gecchi/VioletVreath/Version.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;

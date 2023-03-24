@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_MASSACTOR_H_
 #define GGAF_DX_MASSACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/model/MassModel.h"
 
@@ -44,7 +44,7 @@ public:
               CollisionChecker* prm_pChecker);
 
 
-    virtual ~MassActor(); //デストラクタ
+    virtual ~MassActor();
 };
 
 }

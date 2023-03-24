@@ -1,6 +1,6 @@
 #ifndef MYTORPEDOCONTROLLER_H_
 #define MYTORPEDOCONTROLLER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/core/actor/ex/DestructActor.h"
 
 namespace VioletVreath {

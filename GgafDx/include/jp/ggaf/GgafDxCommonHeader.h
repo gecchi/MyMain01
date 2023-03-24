@@ -1,6 +1,6 @@
 #ifndef GGAFDXCOMMONHEADER_H_
 #define GGAFDXCOMMONHEADER_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 
 #define DIRECTINPUT_VERSION 0x0800
 
@@ -72,20 +72,33 @@
 
 typedef uint_fast32_t pos_t;
 
-//プリズム姿勢(位置)定数
-
-#define POS_PRISM_XY_NN   (0x11) //0b 00010001
-#define POS_PRISM_XY_NP   (0x12) //0b 00010010
-#define POS_PRISM_XY_PN   (0x14) //0b 00010100
-#define POS_PRISM_XY_PP   (0x18) //0b 00011000
-#define POS_PRISM_YZ_NN   (0x21) //0b 00100001
-#define POS_PRISM_YZ_NP   (0x22) //0b 00100010
-#define POS_PRISM_YZ_PN   (0x24) //0b 00100100
-#define POS_PRISM_YZ_PP   (0x28) //0b 00101000
-#define POS_PRISM_ZX_NN   (0x41) //0b 01000001
-#define POS_PRISM_ZX_NP   (0x42) //0b 01000010
-#define POS_PRISM_ZX_PN   (0x44) //0b 01000100
-#define POS_PRISM_ZX_PP   (0x48) //0b 01001000
+//AABBプリズム姿勢(位置)定数
+//＜例＞
+//POS_PRISM_YZ_NN
+//＜意味＞
+//"POS_PRISM_" + どの平面にスライスを入れるか + "_" + スライスの仕方
+//[どの平面にスライスを入れるか]
+//XY ・・・ AABのXY平面に垂直にスライス
+//YZ ・・・ AABのYZ平面に垂直にスライス
+//ZX ・・・ AABのZX平面に垂直にスライス
+//[スライスの仕方]
+// n(negative)は負方向、p(positive)は正方向、という意味を持たしている
+//nn ・・・ 直角三角形の直角の部分が先の平面座標系の (負方向, 負方向) と言う意味
+//np ・・・ 直角三角形の直角の部分が先の平面座標系の (負方向, 正方向) と言う意味
+//pn ・・・ 直角三角形の直角の部分が先の平面座標系の (正方向, 負方向) と言う意味
+//pp ・・・ 直角三角形の直角の部分が先の平面座標系の (正方向, 正方向) と言う意味
+#define POS_PRISM_XY_NN   (0x11) //!< プリズムの3直角の辺の位置は、-X, -Y 方向 （0b 00010001)
+#define POS_PRISM_XY_NP   (0x12) //!< プリズムの3直角の辺の位置は、-X, +Y 方向 （0b 00010010)
+#define POS_PRISM_XY_PN   (0x14) //!< プリズムの3直角の辺の位置は、+X, -Y 方向 （0b 00010100)
+#define POS_PRISM_XY_PP   (0x18) //!< プリズムの3直角の辺の位置は、+X, +Y 方向 （0b 00011000)
+#define POS_PRISM_YZ_NN   (0x21) //!< プリズムの3直角の辺の位置は、-Y, -Z 方向 （0b 00100001)
+#define POS_PRISM_YZ_NP   (0x22) //!< プリズムの3直角の辺の位置は、-Y, +Z 方向 （0b 00100010)
+#define POS_PRISM_YZ_PN   (0x24) //!< プリズムの3直角の辺の位置は、+Y, -Z 方向 （0b 00100100)
+#define POS_PRISM_YZ_PP   (0x28) //!< プリズムの3直角の辺の位置は、+Y, +Z 方向 （0b 00101000)
+#define POS_PRISM_ZX_NN   (0x41) //!< プリズムの3直角の辺の位置は、-Z, -X 方向 （0b 01000001)
+#define POS_PRISM_ZX_NP   (0x42) //!< プリズムの3直角の辺の位置は、-Z, +X 方向 （0b 01000010)
+#define POS_PRISM_ZX_PN   (0x44) //!< プリズムの3直角の辺の位置は、+Z, -X 方向 （0b 01000100)
+#define POS_PRISM_ZX_PP   (0x48) //!< プリズムの3直角の辺の位置は、+Z, +X 方向 （0b 01001000)
 
 //プリズムは、直方体をどの面から見て対角線に垂直にスライスされて出来上がった形かを示す
 /** XY平面から見て対角線に垂直にスライスした形である */
@@ -124,7 +137,19 @@ typedef uint_fast32_t pos_t;
 #define POS_R_TRIANGLE_xP POS_PRISM_xx_xP
 #define POS_R_TRIANGLE_Px POS_PRISM_xx_Px
 
+//AABBピラミッド姿勢(位置)定数
 //直角の頂点の位置をネガポジ
+//＜例＞
+//POS_PYRAMID_NPN
+//＜意味＞
+//"POS_PYRAMID_" + どの頂点が３直角の頂点か
+//スライスされる前の立方体が原点にあったとして、
+//スライスされて出来上がった直角三角柱の３直角の頂点の位置を表している。
+//n(negative)は負方向、p(positive)は正方向、という意味を持たしている
+//POS_PYRAMID_NPN の "npn" の３文字の部分は、
+//１文字目はX軸の正負,２文字目はY軸の正負、３文字目はZ軸の正負
+//を表し、例の "npn" は (x, y, z) = (-, +, -) の象限に３直角の頂点があるよ
+//という意味
 //                  xyz
 #define POS_PYRAMID_NNN   (0x8000) //0b  10000000 00000000
 #define POS_PYRAMID_NNP   (0x8100) //0b  10000001 00000000

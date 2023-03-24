@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_ACTORVEHICLE_H_
 #define GGAF_DX_ACTORVEHICLE_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/dx/util/GeoElem.h"
@@ -9,7 +9,7 @@
 namespace GgafDx {
 
 /**
- * アクターの運転手 .
+ * アクターの移動支援基底クラス .
  * @version 1.00
  * @since 2021/03/29
  * @author Masatoshi Tsuge
@@ -21,7 +21,6 @@ private:
 public:
     /** [r]対象アクター */
     GeometricActor* const _pActor;
-
 
 public:
     /**

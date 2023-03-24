@@ -1,6 +1,6 @@
 #ifndef PREDRAWSCENE_H_
 #define PREDRAWSCENE_H_
-#include "VioletVrain.h"
+#include "jp/gecchi/VioletVrain/VioletVrain.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVrain {

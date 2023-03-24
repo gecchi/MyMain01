@@ -1807,7 +1807,13 @@ void Caretaker::presentMoment() {
         GgafCore::Caretaker::presentMoment();
     }
 }
-
+void Caretaker::presentBehave() {
+    if (pCARETAKER->_is_device_lost_flg) {
+        return;
+    } else {
+        GgafCore::Caretaker::presentBehave();
+    }
+}
 void Caretaker::presentJudge() {
     if (pCARETAKER->_is_device_lost_flg) {
         return;

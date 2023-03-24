@@ -1,6 +1,6 @@
 #ifndef TESTGU_H_
 #define TESTGU_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestEnemy.h"
 
 namespace VioletVreath {

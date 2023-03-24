@@ -224,7 +224,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardScreenConfig.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorSelectMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.cpp" />
@@ -232,14 +234,17 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\title\CursorTitleMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\title\MenuBoardTitle.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MousePointer.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestChokiShot.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestGuShot.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestNomalShot.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestPaShot.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshin.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinBase.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinController.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinShot001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinSnipeShot001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinStraightLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinWateringLaserChip001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectBunshinMagic001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLaserMagic.cpp" />
@@ -350,14 +355,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\RankingTable.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\Caretaker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\Config.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\Caretaker.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorSelectMenu.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MousePointer.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinStraightLaserChip001.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.h" />
@@ -584,7 +584,9 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardScreenConfig.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorSelectMenu.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.h" />
@@ -592,14 +594,17 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\title\CursorTitleMenu.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\title\MenuBoardTitle.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MousePointer.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestChokiShot.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestGuShot.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestNomalShot.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestPaShot.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshin.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinBase.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinController.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinShot001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinSnipeShot001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinStraightLaserChip001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinWateringLaserChip001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectBunshinMagic001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLaserMagic.h" />
@@ -721,15 +726,10 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\VvScene.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\RankingTable.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\Caretaker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\Config.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
-    <ClInclude Include="src\Version.h" />
-    <ClInclude Include="src\VioletVreath.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\Caretaker.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorSelectMenu.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\menu\mousepointer.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\bunshin\mybunshinstraightlaserchip001.h" />
-    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\bunshin\mybunshincontroller.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\Version.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\VioletVreath.h" />
   </ItemGroup>
 </Project>

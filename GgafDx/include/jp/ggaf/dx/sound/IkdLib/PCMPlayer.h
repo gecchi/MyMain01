@@ -1,6 +1,6 @@
 #ifndef IKD_DIX_PCMPLAYER_H
 #define IKD_DIX_PCMPLAYER_H
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include <sstream>
 
 //#ifdef __GNUG__

@@ -1,6 +1,6 @@
 #ifndef CARETAKER_H_
 #define CARETAKER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 
 #include "jp/ggaf/lib/util/VirtualButton.h"
@@ -85,13 +85,13 @@ public:
     }
 
     /**
-     * この世の瞬間を創造する前に、VBを更新する。
+     * VBを更新する。
      */
-    virtual void presentMoment() override {
+    virtual void presentBehave() override {
         //VBを反映
         pVbtn_active_ = pVbtn_active_next_frame_;
         //上位呼び出し
-        GgafLib::DefaultCaretaker::presentMoment();
+        GgafLib::DefaultCaretaker::presentBehave();
     }
 
     /**

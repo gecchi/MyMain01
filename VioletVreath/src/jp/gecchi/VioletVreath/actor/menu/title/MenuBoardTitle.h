@@ -1,6 +1,6 @@
 #ifndef MENUBOARDTITLE_H_
 #define MENUBOARDTITLE_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/menu/MenuBoard.h"
 
 namespace VioletVreath {

@@ -1,6 +1,6 @@
 #ifndef VIOLETVREATH_LAUNCHER_H_
 #define VIOLETVREATH_LAUNCHER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 
 
 namespace VioletVreath_launcher {

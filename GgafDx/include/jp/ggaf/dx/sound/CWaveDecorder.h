@@ -6,7 +6,7 @@
 
 #ifndef	_INCLUDE_WAVEDECORDER_HPP
 #define	_INCLUDE_WAVEDECORDER_HPP
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include <windows.h>
 #ifdef __GNUG__
     #undef __in

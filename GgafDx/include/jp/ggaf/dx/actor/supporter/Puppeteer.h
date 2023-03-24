@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_PUPPETEER_H_
 #define GGAF_DX_PUPPETEER_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/core/util/TransitionValue.hpp"

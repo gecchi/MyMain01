@@ -1,6 +1,6 @@
 #ifndef EFFECTRATISLAVIAEYE001_H_
 #define EFFECTRATISLAVIAEYE001_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
 
 namespace VioletVreath {

@@ -35,7 +35,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\GgafDxCommonHeader.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\BaseActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\BoardActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\BoardSetActor.h" />
@@ -222,6 +221,7 @@
     <ClInclude Include="include\jp\ggaf\dx\util\XFile\framework\Frm_types.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\XFile\Toolbox\IOModel_X.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\XFile\Toolbox\XFileStructs.h" />
+    <ClInclude Include="include\jp\ggaf\GgafDxCommonHeader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\jp\ggaf\dx\actor\BaseActor.cpp" />

@@ -15,7 +15,7 @@ ColliAAPrismActor* ColliAAPrismActor::_pObj = nullptr;
 
 ColliAAPrismActor::ColliAAPrismActor(const char* prm_name) : GgafDx::AAPrismActor(prm_name, nullptr) {
     _class_name = "ColliAAPrismActor";
-    setAlpha(0.98);
+    setAlpha(0.8);
 }
 
 ColliAAPrismActor* ColliAAPrismActor::get() {

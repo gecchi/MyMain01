@@ -1,6 +1,6 @@
 #ifndef HOSHIBOSHIEFFECT_H_
 #define HOSHIBOSHIEFFECT_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/dx/effect/PointSpriteEffect.h"
 
 namespace VioletVreath {
@@ -28,7 +28,7 @@ public:
     HoshiboshiEffect(const char* prm_effect_name);
 
 
-    virtual ~HoshiboshiEffect(); //デストラクタ
+    virtual ~HoshiboshiEffect();
 
 };
 

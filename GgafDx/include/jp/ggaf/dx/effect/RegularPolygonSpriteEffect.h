@@ -1,6 +1,6 @@
 #ifndef GGAFDXREGULARPOLYGONSPRITEEFFECT_H_
 #define GGAFDXREGULARPOLYGONSPRITEEFFECT_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 
 namespace GgafDx {
@@ -43,7 +43,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはRegularPolygonSpriteEffectManagerである<BR>
      */
-    virtual ~RegularPolygonSpriteEffect(); //デストラクタ
+    virtual ~RegularPolygonSpriteEffect();
 
 };
 

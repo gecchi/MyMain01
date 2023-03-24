@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_SCENECURTAIN_H_
 #define GGAF_DX_SCENECURTAIN_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 #include "jp/ggaf/core/util/Curtain.hpp"
 

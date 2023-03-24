@@ -1,6 +1,6 @@
 #ifndef FORMATIONERELMAN001_H_
 #define FORMATIONERELMAN001_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Erelman/FormationErelman.h"
 #include "jp/ggaf/dx/util/GeoElem.h"
 

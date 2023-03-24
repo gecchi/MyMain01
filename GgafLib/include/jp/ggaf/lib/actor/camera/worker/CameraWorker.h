@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_CAMERAWORKER_H_
 #define GGAF_LIB_CAMERAWORKER_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/core/actor/MainActor.h"
 
 
@@ -99,7 +99,7 @@ public:
     void stopMvCam();
     void stopMvVp();
 
-    virtual ~CameraWorker(); //デストラクタ
+    virtual ~CameraWorker();
 };
 
 }

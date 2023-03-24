@@ -25,7 +25,6 @@ void LockonCursor001_Main::initialize() {
 
 void LockonCursor001_Main::onActive() {
     LockonCursor001::onActive();
-//    _TRACE_(FUNC_NAME<<" "<<getActiveFrame()<<", this="<<NODE_INFO<<" pTarget_="<<pTarget_);
     if (pTarget_ == nullptr) {
         inactivateImmed();
         return;
@@ -45,9 +44,13 @@ void LockonCursor001_Main::onActive() {
         setAlpha(0.00);
         getPhase()->reset(LOCKON001_PHASE_RELEASE);
     }
+
+    //_TRACE_(FUNC_NAME<<" ! "<<getActiveFrame()<<", Alpha="<<getAlpha()<<" _sx="<<_sx<<" this="<<NODE_INFO<<" pTarget_="<<pTarget_);
+
 }
 
 void LockonCursor001_Main::processBehavior() {
+    //_TRACE_(FUNC_NAME<<" B "<<getActiveFrame()<<", Alpha="<<getAlpha()<<" _sx="<<_sx<<" this="<<NODE_INFO<<" pTarget_="<<pTarget_);
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::Scaler* const pScaler = getScaler();
     GgafCore::Phase* pPhase = getPhase();
@@ -95,6 +98,7 @@ void LockonCursor001_Main::processBehavior() {
     pVecVehicle->behave();
     pScaler->behave();
     LockonCursor001::processBehavior();
+    //_TRACE_(FUNC_NAME<<" E "<<getActiveFrame()<<", Alpha="<<getAlpha()<<" _sx="<<_sx<<" this="<<NODE_INFO<<" pTarget_="<<pTarget_);
 }
 
 void LockonCursor001_Main::processJudgement() {

@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_AAPRISMACTOR_H_
 #define GGAF_DX_AAPRISMACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/MeshActor.h"
 
 namespace GgafDx {
@@ -15,6 +15,10 @@ namespace GgafDx {
  */
 class AAPrismActor : public MeshActor {
 public:
+
+    /**
+     * 軸回転情報の構造体
+     */
     class RotPosPrism : public GgafCore::Object {
     public:
         angle _rx;
@@ -28,35 +32,23 @@ public:
         }
     };
 
+    /** プリズムの姿勢マップ（AABBのプリズム位置：対応する軸回転） */
     static std::map<int, AAPrismActor::RotPosPrism> pos2r;
 
 public:
     AAPrismActor(const char* prm_name, CollisionChecker* prm_pChecker);
 
+    /**
+     * プリズムの姿勢マップを設定
+     * @return
+     */
     static bool initStatic();
 
     void drawPrism(coord prm_x1, coord prm_y1, coord prm_z1,
                    coord prm_x2, coord prm_y2, coord prm_z2, pos_t pos_info);
 
-    virtual ~AAPrismActor(); //デストラクタ
+    virtual ~AAPrismActor();
 };
 
 }
-#endif /*GGAF_DX_BOXACTOR_H_*/
-
-//補足
-//プリズム位置(pos_info)を、表す定数(CommonHeader.hで定義)は以下のような命名がなされている。
-//＜例＞
-//POS_PRISM_YZ_NN
-//＜意味＞
-//"POS_PRISM_" + どの平面にスライスを入れるか + "_" + スライスの仕方
-//[どの平面にスライスを入れるか]
-//XY ・・・ AABのXY平面に垂直にスライス
-//YZ ・・・ AABのYZ平面に垂直にスライス
-//ZX ・・・ AABのZX平面に垂直にスライス
-//[スライスの仕方]
-// n(negative)は負方向、p(positive)は正方向、という意味を持たしている
-//nn ・・・ 直角三角形の直角の部分が先の平面座標系の (負方向, 負方向) と言う意味
-//np ・・・ 直角三角形の直角の部分が先の平面座標系の (負方向, 正方向) と言う意味
-//pn ・・・ 直角三角形の直角の部分が先の平面座標系の (正方向, 負方向) と言う意味
-//pp ・・・ 直角三角形の直角の部分が先の平面座標系の (正方向, 正方向) と言う意味
+#endif /*GGAF_DX_AAPRISMACTOR_H_*/

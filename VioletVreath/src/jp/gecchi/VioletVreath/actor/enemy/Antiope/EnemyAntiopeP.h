@@ -1,6 +1,6 @@
 #ifndef ENEMYANTIOPEP_H_
 #define ENEMYANTIOPEP_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiope.h"
 
 namespace VioletVreath {

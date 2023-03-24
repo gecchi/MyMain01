@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_FIXEDFRAMECURVEAXISVEHICLELEADER_H_
 #define GGAF_DX_FIXEDFRAMECURVEAXISVEHICLELEADER_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 
 namespace GgafDx {

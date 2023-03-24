@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_FIXEDVELOCITYCURVEMANUFACTURE_H_
 #define GGAF_LDX_FIXEDVELOCITYCURVEMANUFACTURE_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 
 namespace GgafDx {

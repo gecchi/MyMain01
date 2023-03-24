@@ -82,7 +82,6 @@ void Scene::judge() {
         _pSceneMediator->judge();
     }
 }
-
 void Scene::preDraw() {
     Element<Scene>::preDraw();
     _pSceneMediator->preDraw();

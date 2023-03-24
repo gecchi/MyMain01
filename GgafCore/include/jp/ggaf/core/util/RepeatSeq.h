@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_REPEATSEQ_H_
 #define GGAF_CORE_REPEATSEQ_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 
 #include <map>
 #include <string>

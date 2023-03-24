@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_EFFECTCONNECTION_H_
 #define GGAF_DX_EFFECTCONNECTION_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/util/ResourceConnection.hpp"
 
 #include "jp/ggaf/dx/effect/Effect.h"

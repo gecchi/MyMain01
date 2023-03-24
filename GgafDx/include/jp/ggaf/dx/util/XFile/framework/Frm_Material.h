@@ -6,7 +6,7 @@
 
 #ifndef FRM_MATERIAL_H
 #define FRM_MATERIAL_H
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 #include "jp/ggaf/dx/util/XFile/framework/frm_types.h"
 #include <stdio.h>

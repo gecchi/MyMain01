@@ -1,7 +1,7 @@
 /**
  * 「Gecchi Game App Framework ライブラリ」使用サンプル
  */
-#include "GgafLib.h" //"GgafLib::Lib.h" をインクルードし、
+#include "jp/ggaf/GgafLib.h" //"GgafLib::Lib.h" をインクルードし、
 #include "Mogera.h"
 
 #include "MgrCaretaker.h"
@@ -60,14 +60,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     }
     return (int)msg.wParam;
 }
+
 /**
  * GCC のエントリポイント
  */
 int main(int argc, char *argv[]) {
-    LibMain(argc, argv); //直後に、この様に呼び出して下さい。
-    return WinMain(WinMain_hInstance, WinMain_hPrevInstance, WinMain_lpCmdLine, WinMain_nCmdShow);
+    return CALL_WinMain();
 }
-
 
 /**
  * ウィンドウプロシージャ

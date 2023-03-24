@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_CUBEMAPMESHACTOR_H_
 #define GGAF_DX_CUBEMAPMESHACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/MeshActor.h"
 #include "jp/ggaf/dx/actor/interface/ICubeMapActor.h"
 
@@ -52,7 +52,7 @@ public:
      */
     virtual void changeModelByIndex(int prm_model_index) override;
 
-    virtual ~CubeMapMeshActor(); //デストラクタ
+    virtual ~CubeMapMeshActor();
 };
 
 }

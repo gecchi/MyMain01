@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_DEFAULTCAMERA_H_
 #define GGAF_LIB_DEFAULTCAMERA_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/actor/camera/Camera.h"
 
 namespace GgafLib {
@@ -77,7 +77,7 @@ public:
 
     bool isSliding();
 
-    virtual ~DefaultCamera(); //デストラクタ
+    virtual ~DefaultCamera();
 };
 
 }

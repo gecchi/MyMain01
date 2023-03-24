@@ -1,6 +1,6 @@
 #ifndef VREATHITEM001_H_
 #define VREATHITEM001_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/item/VreathItem.h"
 
 namespace VioletVreath {

@@ -1,6 +1,6 @@
 #ifndef IKD_DIX_OGGVORBISRESOURCE_H
 #define IKD_DIX_OGGVORBISRESOURCE_H
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 #define OV_EXCLUDE_STATIC_CALLBACKS
 

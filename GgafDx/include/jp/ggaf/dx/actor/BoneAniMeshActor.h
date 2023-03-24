@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_BONEANIMESHACTOR_H_
 #define GGAF_DX_BONEANIMESHACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 
 #include "jp/ggaf/dx/util/BoneAniMeshWorldMatStack.h"
@@ -62,7 +62,7 @@ public:
      */
     virtual void changeModelByIndex(int prm_model_index) override;
 
-    virtual ~BoneAniMeshActor(); //デストラクタ
+    virtual ~BoneAniMeshActor();
 };
 
 }

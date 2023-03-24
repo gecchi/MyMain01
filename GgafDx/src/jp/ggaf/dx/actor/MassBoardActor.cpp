@@ -34,8 +34,6 @@ _pUvFlipper(NEW UvFlipper())
     _pUvFlipper->locatePatternNo(_pMassBoardModel);
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
-    _alpha = 1.0f;
-
     _is_fix_2D = true;
     _pFunc_calc_rot_mv_world_matrix = nullptr;
     setZEnableDraw(false);
@@ -53,19 +51,6 @@ void MassBoardActor::setPositionAt(const GeoElem* prm_pGeoElem) {
     _y = prm_pGeoElem->y;
 }
 
-//void MassBoardActor::setAlign(Align prm_align, Valign prm_valign) {
-//    _align = prm_align;
-//    _valign = prm_valign;
-//}
-
-//void MassBoardActor::setAlign(Align prm_align) {
-//    _align = prm_align;
-//}
-//
-//void MassBoardActor::setValign(Valign prm_valign) {
-//    _valign = prm_valign;
-//}
-//
 void MassBoardActor::setScale(scale s) {
     _sx = s;
     _sy = s;
@@ -97,14 +82,6 @@ void MassBoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_r
     _sy = R_SC(prm_y_rate);
     _sz = R_SC(prm_z_rate); //_szは2Dでは使用されないが、Scaler::behave() 内の判定で役に立つ。
 }
-
-//float MassBoardActor::getModelWidth() {
-//    return _pMassBoardModel->_model_width_px;
-//}
-//
-//float MassBoardActor::getModelHeight() {
-//    return _pMassBoardModel->_model_height_px;
-//}
 
 void MassBoardActor::changeModelByIndex(int prm_model_index) {
     MassActor::changeModelByIndex(prm_model_index);

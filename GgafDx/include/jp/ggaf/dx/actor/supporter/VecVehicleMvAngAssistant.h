@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_VECVEHICLEMVANGASSISTANT_H_
 #define GGAF_DX_VECVEHICLEMVANGASSISTANT_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
 

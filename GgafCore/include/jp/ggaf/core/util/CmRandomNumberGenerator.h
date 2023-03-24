@@ -9,7 +9,7 @@
 
 #ifndef _CM_RANDOM_NUMBER_GENERATOR_H_INCLUDED_
 #define _CM_RANDOM_NUMBER_GENERATOR_H_INCLUDED_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 
 namespace GgafCore {
 

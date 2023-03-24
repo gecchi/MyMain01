@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_LINEARQUADTREE_H_
 #define GGAF_CORE_LINEARQUADTREE_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/util/lineartree/LinearTree.hpp"
 
 #include "jp/ggaf/core/util/lineartree/LinearQuadtreeRounder.hpp"

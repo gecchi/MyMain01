@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_IALIGNABLEACTOR_H_
 #define GGAF_DX_IALIGNABLEACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 namespace GgafDx {
 

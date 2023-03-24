@@ -1,6 +1,6 @@
 #ifndef FORMATIONURYDIKE001_H_
 #define FORMATIONURYDIKE001_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "FormationUrydike.h"
 
 namespace VioletVreath {

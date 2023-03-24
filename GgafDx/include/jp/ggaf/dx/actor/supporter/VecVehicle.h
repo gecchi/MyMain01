@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_VECVEHICLE_H_
 #define GGAF_DX_VECVEHICLE_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "ActorVehicle.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
@@ -9,13 +9,7 @@
 namespace GgafDx {
 
 /**
- * アクターを乗せる力車（アクターの旋回移動支援） .
- * 力車は我々の目には触れませんが、演者(アクター)を持ち上げ、「移動」「向きの回転」を行わせる世話人です。<BR>
- * 演者(アクター)は自らの意思で動作せずとも、力車のおかげで舞台を飛び回まわることができます。<BR>
- * 基本的な動作は力車でほとんどカバーできてしまいます。そのお蔭で、演者は自身の演技に集中できるのです。<BR>
- * もちろん演者自身も協力して移動・回転を行うと、力車だけでは出来ない、より複雑な移動動作も可能でしょう。<BR>
- * 演者一人につき、力車が標準で一人付属しています。<BR>
- * <BR>
+ * アクターの移動支援の力車(前進、後退、旋回) .
  * それはさて置き、つまりは座標計算支援（共通化）クラスです。<BR>
  * GeometricActor のメンバの<BR>
  *  _x,  _y,  _z  ・・・ アクターの座標<BR>

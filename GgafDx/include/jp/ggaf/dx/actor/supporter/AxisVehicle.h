@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_AXISVEHICLE_H_
 #define GGAF_DX_AXISVEHICLE_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "ActorVehicle.h"
 
 #include "jp/ggaf/dx/actor/GeometricActor.h"
@@ -8,7 +8,7 @@
 namespace GgafDx {
 
 /**
- * アクターを乗せる駕籠（アクターの平行移動支援） .
+ * アクターの移動支援(X,Y,Z軸の平行移動) .
  * GeometricActor のメンバの<BR>
  *  _x, _y, _z  ・・・ アクターの座標<BR>
  * を、各成分毎に簡単に操作するために作成。<BR>

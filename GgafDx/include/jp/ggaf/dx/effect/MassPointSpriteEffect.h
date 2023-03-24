@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_MASSPOINTSPRITEEFFECT_H_
 #define GGAF_DX_MASSPOINTSPRITEEFFECT_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 #include "jp/ggaf/dx/effect/MassEffect.h"
 
@@ -35,7 +35,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはPointSpriteEffectManagerである<BR>
      */
-    virtual ~MassPointSpriteEffect(); //デストラクタ
+    virtual ~MassPointSpriteEffect();
 
 };
 

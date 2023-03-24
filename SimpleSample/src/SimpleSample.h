@@ -3,7 +3,7 @@
 
 //「Gecchi Game App Freamework ライブラリ」を利用する場合
 //次のように"GgafLib::LibCommonHeader.h" をインクルードします。
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 
 //前方宣言
 namespace SimpleSample {

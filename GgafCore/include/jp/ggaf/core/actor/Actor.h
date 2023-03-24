@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_ACTOR_H_
 #define GGAF_CORE_ACTOR_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/Element.hpp"
 #include "jp/ggaf/core/util/lineartree/ITreeNodeElem.hpp"
 #include "jp/ggaf/core/util/Status.h"
@@ -150,9 +150,7 @@ public:
      * @retval	true	衝突しているを返す事
      * @retval	false	衝突していないを返す事
      */
-    virtual bool processHitChkLogic(Actor* prm_pOtherActor) {
-        return false;
-    }
+    virtual bool processHitChkLogic(Actor* prm_pOtherActor) = 0;
 
     /**
      * アクターと衝突した時の処理 .

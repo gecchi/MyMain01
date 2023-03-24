@@ -1,6 +1,6 @@
 #ifndef ENEMYOEBIUSCONTROLLER002_H_
 #define ENEMYOEBIUSCONTROLLER002_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "EnemyOebiusController.h"
 
 namespace VioletVreath {

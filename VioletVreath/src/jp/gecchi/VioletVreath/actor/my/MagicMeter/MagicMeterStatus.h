@@ -1,6 +1,6 @@
 #ifndef MAGICMETERSTATUS_H_
 #define MAGICMETERSTATUS_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/FontBoardActor.h"
 
 namespace VioletVreath {

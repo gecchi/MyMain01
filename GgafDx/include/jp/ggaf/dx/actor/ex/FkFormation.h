@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_FKFORMATION_H_
 #define GGAF_DX_FKFORMATION_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/actor/ex/Formation.h"
 
 namespace GgafDx {

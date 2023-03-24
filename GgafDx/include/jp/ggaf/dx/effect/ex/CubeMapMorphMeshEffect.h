@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_CUBEMAPMORPHMESHEFFECT_H_
 #define GGAF_DX_CUBEMAPMORPHMESHEFFECT_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/effect/MorphMeshEffect.h"
 
 namespace GgafDx {
@@ -20,7 +20,7 @@ public:
 public:
     CubeMapMorphMeshEffect(const char* prm_effect_name);
 
-    virtual ~CubeMapMorphMeshEffect(); //デストラクタ
+    virtual ~CubeMapMorphMeshEffect();
 
 };
 

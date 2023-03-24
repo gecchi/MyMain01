@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_WORLDMODEL_H_
 #define GGAF_DX_WORLDMODEL_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/MorphMeshModel.h"
 
 namespace GgafDx {
@@ -23,7 +23,7 @@ public:
 
     virtual HRESULT draw(FigureActor* prm_pActor_target, int prm_draw_set_num = 1, void* prm_pPrm = nullptr) override;
 
-    virtual ~WorldBoundModel(); //デストラクタ
+    virtual ~WorldBoundModel();
 };
 
 }

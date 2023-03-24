@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_AMERAWORKERCONNECTION_H_
 #define GGAF_LIB_AMERAWORKERCONNECTION_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 
 #include "jp/ggaf/core/util/ResourceConnection.hpp"
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"

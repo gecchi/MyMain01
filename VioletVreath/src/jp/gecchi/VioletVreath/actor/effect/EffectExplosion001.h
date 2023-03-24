@@ -1,6 +1,6 @@
 #ifndef EFFECTEXPLOSION001_H_
 #define EFFECTEXPLOSION001_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMassSpriteActor.h"
 
 namespace VioletVreath {

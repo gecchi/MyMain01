@@ -1,6 +1,6 @@
 #ifndef DEPOSITORYMANAGER_H_
 #define DEPOSITORYMANAGER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/core/util/ResourceManager.hpp"
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"

@@ -6,7 +6,7 @@
 
 #ifndef _XFILESTRUCTS_H
 #define _XFILESTRUCTS_H
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 #define XOFFILE_FORMAT_MAGIC \
     ((int32_t)'x' + ((int32_t)'o' << 8) + ((int32_t)'f' << 16) + ((int32_t)' ' << 24))

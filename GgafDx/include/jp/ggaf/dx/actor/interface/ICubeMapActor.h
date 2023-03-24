@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_ICUBEMAPACTOR_H_
 #define GGAF_DX_ICUBEMAPACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
 #include <d3d9.h>
 #ifdef __GNUG__
@@ -59,7 +59,7 @@ public:
         return _reflectance;
     }
 
-    virtual ~ICubeMapActor(); //デストラクタ
+    virtual ~ICubeMapActor();
 
 };
 

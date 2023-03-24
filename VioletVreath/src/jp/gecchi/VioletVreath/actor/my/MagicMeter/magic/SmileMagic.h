@@ -1,6 +1,6 @@
 #ifndef SMILEMAGIC_H_
 #define SMILEMAGIC_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
 
 namespace VioletVreath {

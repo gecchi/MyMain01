@@ -1,6 +1,6 @@
 #ifndef CURVELINEMANAGER_H_
 #define CURVELINEMANAGER_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/dx/manager/CurveSourceManager.h"
 
 namespace VioletVreath {

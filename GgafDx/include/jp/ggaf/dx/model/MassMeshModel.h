@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_MASSMESHMODEL_H_
 #define GGAF_DX_MASSMESHMODEL_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/MassModel.h"
 
 namespace GgafDx {
@@ -43,7 +43,7 @@ public:
     /**
      * デストラクタ<BR>
      */
-    virtual ~MassMeshModel(); //デストラクタ
+    virtual ~MassMeshModel();
 };
 
 }

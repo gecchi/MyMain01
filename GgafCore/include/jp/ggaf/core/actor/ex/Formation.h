@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_FORMATION_H_
 #define GGAF_CORE_FORMATION_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/MainActor.h"
 
 #define FORMATION_END_DELAY (SEC_F(30))

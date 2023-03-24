@@ -573,7 +573,7 @@
     <ClInclude Include="include\jp\ggaf\dx\Config.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\GgafDxCommonHeader.h">
+    <ClInclude Include="include\jp\ggaf\GgafDxCommonHeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

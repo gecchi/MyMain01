@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_TEXTUREBLINKER_H_
 #define GGAF_DX_TEXTUREBLINKER_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/util/TransitionValueSet.hpp"
 
 namespace GgafDx {

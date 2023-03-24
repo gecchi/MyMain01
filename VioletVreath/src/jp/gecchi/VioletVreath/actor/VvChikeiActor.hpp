@@ -1,6 +1,6 @@
 #ifndef VVCHIKEIACTOR_H_
 #define VVCHIKEIACTOR_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "VvActor.hpp"
 
 namespace VioletVreath {

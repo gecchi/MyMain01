@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_CAMERAWORKERCHANGER_H_
 #define GGAF_LIB_CAMERAWORKERCHANGER_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/core/actor/MainActor.h"
 
 namespace GgafLib {
@@ -99,7 +99,7 @@ public:
         return false;
     }
 
-    virtual ~CameraWorkerChanger(); //デストラクタ
+    virtual ~CameraWorkerChanger();
 };
 
 }

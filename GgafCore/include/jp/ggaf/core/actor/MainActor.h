@@ -1,6 +1,6 @@
 #ifndef GGAF_CORE_MAINACTOR_H_
 #define GGAF_CORE_MAINACTOR_H_
-#include "GgafCommonHeader.h"
+#include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/Actor.h"
 
 namespace GgafCore {
@@ -105,6 +105,10 @@ public:
      * @return
      */
     kind_t lookUpKind();
+
+    bool processHitChkLogic(Actor* prm_pOtherActor) override {
+        return false;
+    }
 
     virtual ~MainActor();
 };

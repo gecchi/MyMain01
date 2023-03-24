@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_CRITICALEXCEPTION_H_
 #define GGAF_DX_CRITICALEXCEPTION_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/exception/CriticalException.h"
 
 #include <windows.h>

@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_REGULARPOLYGONBOARDACTOR_H_
 #define GGAF_DX_REGULARPOLYGONBOARDACTOR_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/actor/interface/IAlignAbleActor.h"
 
@@ -78,11 +78,6 @@ public:
                              const char* prm_technique );
 
     virtual void processDraw() override;
-
-//    virtual void setAlign(Align prm_align, Valign prm_valign);
-//    virtual void setAlign(Align prm_align);
-//    virtual void setValign(Valign prm_valign);
-
     virtual void setPositionAt(const GeometricActor* prm_pActor) override;
     virtual void setPositionAt(const GeoElem* prm_pGeoElem) override;
     virtual void setScale(scale s) override;
@@ -158,7 +153,7 @@ public:
      */
     virtual void changeModelByIndex(int prm_model_index) override;
 
-    virtual ~RegularPolygonBoardActor(); //デストラクタ
+    virtual ~RegularPolygonBoardActor();
 };
 
 }

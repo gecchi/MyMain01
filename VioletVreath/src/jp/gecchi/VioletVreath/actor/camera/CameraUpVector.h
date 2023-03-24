@@ -1,6 +1,6 @@
 #ifndef CAMERAUPVECTOR_H_
 #define CAMERAUPVECTOR_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraUpVector.h"
 
 namespace VioletVreath {
@@ -16,7 +16,7 @@ class CameraUpVector : public GgafLib::DefaultCameraUpVector {
 public:
     CameraUpVector(const char* prm_name);
 
-    virtual ~CameraUpVector(); //デストラクタ
+    virtual ~CameraUpVector();
 };
 
 

@@ -1,6 +1,6 @@
 #ifndef VVSPACETIME_H_
 #define VVSPACETIME_H_
-#include "VioletVrain.h"
+#include "jp/gecchi/VioletVrain/VioletVrain.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 
 #include "jp/gecchi/VioletVrain/actor/camera/VvCamera.h"
@@ -36,7 +36,7 @@ public:
      */
     void processBehavior() override;
 
-    void processJudgement() override;
+    void processHitCheck() override;
 
     VvCamera* getCamera() override { //‹¤•Ï‚Ì–ß‚è’l
         return (VvCamera*)_pCamera;

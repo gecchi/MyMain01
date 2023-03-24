@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_SINGLELASERMODEL_H_
 #define GGAF_LIB_SINGLELASERMODEL_H_
-#include "GgafLibCommonHeader.h"
+#include "jp/ggaf/GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/model/MeshSetModel.h"
 
 namespace GgafLib {

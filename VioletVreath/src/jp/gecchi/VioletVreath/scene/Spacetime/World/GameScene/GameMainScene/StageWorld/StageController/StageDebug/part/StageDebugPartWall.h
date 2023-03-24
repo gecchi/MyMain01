@@ -1,6 +1,6 @@
 #ifndef STAGEDEBUGPARTWALLSCENE_H_
 #define STAGEDEBUGPARTWALLSCENE_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 
 #include "StageDebugPart.hpp"
 #include "jp/ggaf/lib/scene/WallScene.h"

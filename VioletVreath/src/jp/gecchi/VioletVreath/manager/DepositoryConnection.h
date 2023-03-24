@@ -1,6 +1,6 @@
 #ifndef DEPOSITORYCONNECTION_H_
 #define DEPOSITORYCONNECTION_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/core/util/ResourceConnection.hpp"
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"

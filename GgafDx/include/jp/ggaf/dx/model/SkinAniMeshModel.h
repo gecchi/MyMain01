@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_SKINANIMESHMODEL_H_
 #define GGAF_DX_SKINANIMESHMODEL_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/effect/SkinAniMeshEffect.h"
 #include <map>
@@ -145,7 +145,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはSkinAniMeshModelManagerである<BR>
      */
-    virtual ~SkinAniMeshModel(); //デストラクタ
+    virtual ~SkinAniMeshModel();
 
 };
 

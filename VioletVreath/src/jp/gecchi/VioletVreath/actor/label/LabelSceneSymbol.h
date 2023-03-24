@@ -1,6 +1,6 @@
 #ifndef LABELSCENESYMBOL_H_
 #define LABELSCENESYMBOL_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/FontBoardActor.h"
 
 namespace VioletVreath {

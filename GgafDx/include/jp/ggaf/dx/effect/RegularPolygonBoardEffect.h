@@ -1,6 +1,6 @@
 #ifndef GGAF_DX_REGULARPOLYGONBOARDEFFECT_H_
 #define GGAF_DX_REGULARPOLYGONBOARDEFFECT_H_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 
 namespace GgafDx {
@@ -52,7 +52,7 @@ public:
      * デストラクタ<BR>
      * deleteするのはRegularPolygonBoardEffectManagerである<BR>
      */
-    virtual ~RegularPolygonBoardEffect(); //デストラクタ
+    virtual ~RegularPolygonBoardEffect();
 
 };
 

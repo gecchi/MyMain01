@@ -1,6 +1,6 @@
 #ifndef MYSTGUTIL_H_
 #define MYSTGUTIL_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
 #include "jp/ggaf/core/util/Status.h"

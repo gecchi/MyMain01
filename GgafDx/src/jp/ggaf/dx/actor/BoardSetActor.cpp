@@ -37,7 +37,6 @@ _pUvFlipper(NEW UvFlipper()) {
     _harf_height_px = _height_px/2;
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
-    _alpha = 1.0f;
 
     _is_fix_2D = true;
     _pFunc_calc_rot_mv_world_matrix = nullptr;
@@ -80,7 +79,7 @@ void BoardSetActor::processDraw() {
             checkDxException(hr, D3D_OK, "SetFloat(_ah_transformed_y) ‚É¸”s‚µ‚Ü‚µ‚½B");
             hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_depth_z[draw_set_num], C_PX(pBoardSetActor->_z));
             checkDxException(hr, D3D_OK, "SetFloat(_ah_depth_z) ‚É¸”s‚µ‚Ü‚µ‚½B");
-            hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[draw_set_num], pBoardSetActor->_alpha);
+            hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_alpha[draw_set_num], pBoardSetActor->getAlpha());
             checkDxException(hr, D3D_OK, "SetFloat(_ah_alpha) ‚É¸”s‚µ‚Ü‚µ‚½B");
             pBoardSetActor->_pUvFlipper->getUV(u,v);
             hr = pID3DXEffect->SetFloat(pBoardSetEffect->_ah_offset_u[draw_set_num], u);

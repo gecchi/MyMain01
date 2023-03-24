@@ -1,6 +1,6 @@
 #ifndef LASERMAGIC_H_
 #define LASERMAGIC_H_
-#include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
 
 namespace VioletVreath {

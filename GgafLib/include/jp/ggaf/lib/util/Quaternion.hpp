@@ -1,6 +1,6 @@
 #ifndef GGAF_LIB_QUATERNION_HPP_
 #define GGAF_LIB_QUATERNION_HPP_
-#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
 namespace GgafLib {
