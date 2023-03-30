@@ -16,15 +16,15 @@ MousePointerActor::MousePointerActor(const char* prm_name, const char* prm_model
 //    _w_r =  1.0 * CONFIG::GAME_BUFFER_WIDTH / CONFIG::RENDER_TARGET_BUFFER_WIDTH;
 //    _h_r =  1.0 * CONFIG::GAME_BUFFER_HEIGHT / CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
 //
-//    _buffer_left1 = CONFIG::RENDER_BUFFER_SOURCE1_LEFT*_w_r;
-//    _buffer_top1 = CONFIG::RENDER_BUFFER_SOURCE1_TOP*_h_r;
-//    _buffer_width1 = CONFIG::RENDER_BUFFER_SOURCE1_WIDTH*_w_r;
-//    _buffer_height1 = CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT*_h_r;
+//    _buffer_left1 = CONFIG::PRIMARY_RENDER_BUFFER_SOURCE_LEFT*_w_r;
+//    _buffer_top1 = CONFIG::PRIMARY_RENDER_BUFFER_SOURCE_TOP*_h_r;
+//    _buffer_width1 = CONFIG::PRIMARY_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
+//    _buffer_height1 = CONFIG::PRIMARY_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
 //
-//    _buffer_left2 = CONFIG::RENDER_BUFFER_SOURCE2_LEFT*_w_r;
-//    _buffer_top2 = CONFIG::RENDER_BUFFER_SOURCE2_TOP*_h_r;
-//    _buffer_width2 = CONFIG::RENDER_BUFFER_SOURCE2_WIDTH*_w_r;
-//    _buffer_height2 = CONFIG::RENDER_BUFFER_SOURCE2_HEIGHT*_h_r;
+//    _buffer_left2 = CONFIG::SECONDARY_RENDER_BUFFER_SOURCE_LEFT*_w_r;
+//    _buffer_top2 = CONFIG::SECONDARY_RENDER_BUFFER_SOURCE_TOP*_h_r;
+//    _buffer_width2 = CONFIG::SECONDARY_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
+//    _buffer_height2 = CONFIG::SECONDARY_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
     DefaultSpacetime* pSpacetime = pCARETAKER->getSpacetime();
 
     _coord_buffer_left1 = PX_C(pSpacetime->_buffer_left1);
@@ -50,7 +50,7 @@ void MousePointerActor::processSettlementBehavior() {
     // スクリーン座標をクライアント座標に変換する
     ScreenToClient(_last_hWnd, &_mouse_point);
     if (_last_hWnd == pCARETAKER->_pHWndSecondary) {
-        RECT& rect_Present = pCARETAKER->_aRect_Present[pCARETAKER->_secondary_adapter_no];
+        RECT& rect_Present = pCARETAKER->_aRect_Present[PRIMARY_VIEW];
         pixcoord cPresent_w = rect_Present.right - rect_Present.left;
         pixcoord cPresent_h = rect_Present.bottom - rect_Present.top;
         pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* pSpacetime->_buffer_width2) / (1.0* cPresent_w));
@@ -58,7 +58,7 @@ void MousePointerActor::processSettlementBehavior() {
         _x = PX_C(x) + _coord_buffer_left2;
         _y = PX_C(y) + _coord_buffer_top2;
     } else if (_last_hWnd == pCARETAKER->_pHWndPrimary) {
-        RECT& rect_Present = pCARETAKER->_aRect_Present[pCARETAKER->_primary_adapter_no];
+        RECT& rect_Present = pCARETAKER->_aRect_Present[SECONDARY_VIEW];
         pixcoord cPresent_w = rect_Present.right - rect_Present.left;
         pixcoord cPresent_h = rect_Present.bottom - rect_Present.top;
         pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* pSpacetime->_buffer_width1) / (1.0* cPresent_w));

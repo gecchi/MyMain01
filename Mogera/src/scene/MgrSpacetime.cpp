@@ -15,9 +15,6 @@ using namespace GgafDx;
 using namespace GgafLib;
 using namespace Mogera;
 
-#define PRIMARY_VIEW 0
-#define SECONDARY_VIEW 1
-
 MgrSpacetime::MgrSpacetime(const char* prm_name, MgrCamera* prm_pCam) :
         GgafLib::DefaultSpacetime(prm_name, prm_pCam) {
     pWorld_ = nullptr;

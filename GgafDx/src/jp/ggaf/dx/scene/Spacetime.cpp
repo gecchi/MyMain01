@@ -96,15 +96,15 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
     _w_r =  1.0 * CONFIG::GAME_BUFFER_WIDTH / CONFIG::RENDER_TARGET_BUFFER_WIDTH;
     _h_r =  1.0 * CONFIG::GAME_BUFFER_HEIGHT / CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
 
-    _buffer_left1 = CONFIG::RENDER_BUFFER_SOURCE1_LEFT*_w_r;
-    _buffer_top1 = CONFIG::RENDER_BUFFER_SOURCE1_TOP*_h_r;
-    _buffer_width1 = CONFIG::RENDER_BUFFER_SOURCE1_WIDTH*_w_r;
-    _buffer_height1 = CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT*_h_r;
+    _buffer_left1 = CONFIG::PRIMARY_RENDER_BUFFER_SOURCE_LEFT*_w_r;
+    _buffer_top1 = CONFIG::PRIMARY_RENDER_BUFFER_SOURCE_TOP*_h_r;
+    _buffer_width1 = CONFIG::PRIMARY_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
+    _buffer_height1 = CONFIG::PRIMARY_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
 
-    _buffer_left2 = CONFIG::RENDER_BUFFER_SOURCE2_LEFT*_w_r;
-    _buffer_top2 = CONFIG::RENDER_BUFFER_SOURCE2_TOP*_h_r;
-    _buffer_width2 = CONFIG::RENDER_BUFFER_SOURCE2_WIDTH*_w_r;
-    _buffer_height2 = CONFIG::RENDER_BUFFER_SOURCE2_HEIGHT*_h_r;
+    _buffer_left2 = CONFIG::SECONDARY_RENDER_BUFFER_SOURCE_LEFT*_w_r;
+    _buffer_top2 = CONFIG::SECONDARY_RENDER_BUFFER_SOURCE_TOP*_h_r;
+    _buffer_width2 = CONFIG::SECONDARY_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
+    _buffer_height2 = CONFIG::SECONDARY_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
 
 //TODO:ƒtƒHƒO‚¢‚Â‚©
 //    _colFog.r = 0.0;

@@ -19,5 +19,6 @@ GgafCore::Spacetime* VvvCaretaker::createSpacetime() {
 }
 
 VvvCaretaker::~VvvCaretaker() {
+    calmDown();
 }
 

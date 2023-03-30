@@ -23,6 +23,8 @@
  */
 #define connectToCurveSourceManager(X)   ((GgafDx::CurveSourceConnection*)((pCARETAKER)->_pCurveSrcManager->connect((X), this)))
 
+#define PRIMARY_VIEW 0
+#define SECONDARY_VIEW 1
 
 #undef pCARETAKER
 #define pCARETAKER ((GgafDx::Caretaker*)GgafCore::Caretaker::ask())

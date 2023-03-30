@@ -20,44 +20,45 @@ bool Config::PRJ_2D_MODE = false;
 pixcoord Config::RENDER_TARGET_BUFFER_WIDTH = Config::GAME_BUFFER_WIDTH;
 pixcoord Config::RENDER_TARGET_BUFFER_HEIGHT = Config::GAME_BUFFER_HEIGHT;
 
-pixcoord Config::RENDER_BUFFER_SOURCE1_LEFT   = 0;
-pixcoord Config::RENDER_BUFFER_SOURCE1_TOP    = 0;
-pixcoord Config::RENDER_BUFFER_SOURCE1_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH;
-pixcoord Config::RENDER_BUFFER_SOURCE1_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
+int Config::PRIMARY_DISPLAY_NO = 0;
+int Config::SECONDARY_DISPLAY_NO = 1;
 
-pixcoord Config::RENDER_BUFFER_SOURCE2_LEFT   = Config::RENDER_TARGET_BUFFER_WIDTH/2;
-pixcoord Config::RENDER_BUFFER_SOURCE2_TOP    = 0;
-pixcoord Config::RENDER_BUFFER_SOURCE2_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH/2;
-pixcoord Config::RENDER_BUFFER_SOURCE2_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
+pixcoord Config::PRIMARY_RENDER_BUFFER_SOURCE_LEFT   = 0;
+pixcoord Config::PRIMARY_RENDER_BUFFER_SOURCE_TOP    = 0;
+pixcoord Config::PRIMARY_RENDER_BUFFER_SOURCE_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH;
+pixcoord Config::PRIMARY_RENDER_BUFFER_SOURCE_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
 
-pixcoord Config::WINDOW1_WIDTH = 1600;
-pixcoord Config::WINDOW1_HEIGHT = 450;
-pixcoord Config::WINDOW2_WIDTH = 800;
-pixcoord Config::WINDOW2_HEIGHT = 450;
+pixcoord Config::SECONDARY_RENDER_BUFFER_SOURCE_LEFT   = Config::RENDER_TARGET_BUFFER_WIDTH/2;
+pixcoord Config::SECONDARY_RENDER_BUFFER_SOURCE_TOP    = 0;
+pixcoord Config::SECONDARY_RENDER_BUFFER_SOURCE_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH/2;
+pixcoord Config::SECONDARY_RENDER_BUFFER_SOURCE_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
+
+pixcoord Config::PRIMARY_WINDOW_WIDTH = 1600;
+pixcoord Config::PRIMARY_WINDOW_HEIGHT = 450;
+pixcoord Config::SECONDARY_WINDOW_WIDTH = 800;
+pixcoord Config::SECONDARY_WINDOW_HEIGHT = 450;
 //0の場合現在の解像度でフルスクリーン
-pixcoord Config::FULL_SCREEN1_WIDTH = 0;
-pixcoord Config::FULL_SCREEN1_HEIGHT = 0;
-pixcoord Config::FULL_SCREEN2_WIDTH = 0;
-pixcoord Config::FULL_SCREEN2_HEIGHT = 0;
+pixcoord Config::PRIMARY_FULL_SCREEN_WIDTH = 0;
+pixcoord Config::PRIMARY_FULL_SCREEN_HEIGHT = 0;
+pixcoord Config::SECONDARY_FULL_SCREEN_WIDTH = 0;
+pixcoord Config::SECONDARY_FULL_SCREEN_HEIGHT = 0;
 
-pixcoord Config::FULL_SCREEN1_WIDTH_BK   = Config::FULL_SCREEN1_WIDTH;
-pixcoord Config::FULL_SCREEN1_HEIGHT_BK  = Config::FULL_SCREEN1_HEIGHT;
-pixcoord Config::FULL_SCREEN2_WIDTH_BK   = Config::FULL_SCREEN2_WIDTH;
-pixcoord Config::FULL_SCREEN2_HEIGHT_BK  = Config::FULL_SCREEN2_HEIGHT;
+pixcoord Config::PRIMARY_FULL_SCREEN_WIDTH_BK   = Config::PRIMARY_FULL_SCREEN_WIDTH;
+pixcoord Config::PRIMARY_FULL_SCREEN_HEIGHT_BK  = Config::PRIMARY_FULL_SCREEN_HEIGHT;
+pixcoord Config::SECONDARY_FULL_SCREEN_WIDTH_BK   = Config::SECONDARY_FULL_SCREEN_WIDTH;
+pixcoord Config::SECONDARY_FULL_SCREEN_HEIGHT_BK  = Config::SECONDARY_FULL_SCREEN_HEIGHT;
 
 
 bool Config::FIXED_GAME_VIEW_ASPECT = false;
-int Config::PRIMARY_ADAPTER_NO = 0;
-int Config::SECONDARY_ADAPTER_NO = 1;
 
 bool Config::SWAP_GAME_VIEW = false;
-int Config::PRESENT_POSITION1 = 6;
-int Config::PRESENT_POSITION2 = 4;
+int Config::PRIMARY_PRESENT_POSITION = 6;
+int Config::SECONDARY_PRESENT_POSITION = 4;
 
-double Config::VIEW1_WIDTH_RATIO = 1.0;
-double Config::VIEW1_HEIGHT_RATIO = 1.0;
-double Config::VIEW2_WIDTH_RATIO = 1.0;
-double Config::VIEW2_HEIGHT_RATIO = 1.0;
+double Config::PRIMARY_VIEW_WIDTH_RATIO = 1.0;
+double Config::PRIMARY_VIEW_HEIGHT_RATIO = 1.0;
+double Config::SECONDARY_VIEW_WIDTH_RATIO = 1.0;
+double Config::SECONDARY_VIEW_HEIGHT_RATIO = 1.0;
 
 std::string Config::BORDER_COLOR = "#222222";
 std::string Config::BG_COLOR = "#000000";
@@ -196,127 +197,128 @@ void Config::loadProperties(std::string prm_properties_filename) {
         Config::RENDER_TARGET_BUFFER_HEIGHT = GgafCore::Config::_properties.getInt("RENDER_TARGET_BUFFER_HEIGHT");
     }
 
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_DISPLAY_NO")) {
+        Config::PRIMARY_DISPLAY_NO = GgafCore::Config::_properties.getInt("PRIMARY_DISPLAY_NO");
+    }
+    if (GgafCore::Config::_properties.isExistKey("SECONDARY_DISPLAY_NO")) {
+        Config::SECONDARY_DISPLAY_NO = GgafCore::Config::_properties.getInt("SECONDARY_DISPLAY_NO");
+    }
+
     if (Config::DUAL_VIEW) {
-        Config::RENDER_BUFFER_SOURCE1_LEFT   = 0;
-        Config::RENDER_BUFFER_SOURCE1_TOP    = 0;
-        Config::RENDER_BUFFER_SOURCE1_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH/2;
-        Config::RENDER_BUFFER_SOURCE1_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
+        Config::PRIMARY_RENDER_BUFFER_SOURCE_LEFT   = 0;
+        Config::PRIMARY_RENDER_BUFFER_SOURCE_TOP    = 0;
+        Config::PRIMARY_RENDER_BUFFER_SOURCE_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH/2;
+        Config::PRIMARY_RENDER_BUFFER_SOURCE_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
 
-        Config::RENDER_BUFFER_SOURCE2_LEFT   = Config::RENDER_TARGET_BUFFER_WIDTH/2;
-        Config::RENDER_BUFFER_SOURCE2_TOP    = 0;
-        Config::RENDER_BUFFER_SOURCE2_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH/2;
-        Config::RENDER_BUFFER_SOURCE2_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
+        Config::SECONDARY_RENDER_BUFFER_SOURCE_LEFT   = Config::RENDER_TARGET_BUFFER_WIDTH/2;
+        Config::SECONDARY_RENDER_BUFFER_SOURCE_TOP    = 0;
+        Config::SECONDARY_RENDER_BUFFER_SOURCE_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH/2;
+        Config::SECONDARY_RENDER_BUFFER_SOURCE_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
     } else {
-        Config::RENDER_BUFFER_SOURCE1_LEFT   = 0;
-        Config::RENDER_BUFFER_SOURCE1_TOP    = 0;
-        Config::RENDER_BUFFER_SOURCE1_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH;
-        Config::RENDER_BUFFER_SOURCE1_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
+        Config::PRIMARY_RENDER_BUFFER_SOURCE_LEFT   = 0;
+        Config::PRIMARY_RENDER_BUFFER_SOURCE_TOP    = 0;
+        Config::PRIMARY_RENDER_BUFFER_SOURCE_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH;
+        Config::PRIMARY_RENDER_BUFFER_SOURCE_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
     }
-    if (GgafCore::Config::_properties.isExistKey("RENDER_BUFFER_SOURCE1_LEFT")) {
-        Config::RENDER_BUFFER_SOURCE1_LEFT = GgafCore::Config::_properties.getInt("RENDER_BUFFER_SOURCE1_LEFT");
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_RENDER_BUFFER_SOURCE_LEFT")) {
+        Config::PRIMARY_RENDER_BUFFER_SOURCE_LEFT = GgafCore::Config::_properties.getInt("PRIMARY_RENDER_BUFFER_SOURCE_LEFT");
     }
-    if (GgafCore::Config::_properties.isExistKey("RENDER_BUFFER_SOURCE1_TOP")) {
-        Config::RENDER_BUFFER_SOURCE1_TOP = GgafCore::Config::_properties.getInt("RENDER_BUFFER_SOURCE1_TOP");
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_RENDER_BUFFER_SOURCE_TOP")) {
+        Config::PRIMARY_RENDER_BUFFER_SOURCE_TOP = GgafCore::Config::_properties.getInt("PRIMARY_RENDER_BUFFER_SOURCE_TOP");
     }
-    if (GgafCore::Config::_properties.isExistKey("RENDER_BUFFER_SOURCE1_WIDTH")) {
-        Config::RENDER_BUFFER_SOURCE1_WIDTH = GgafCore::Config::_properties.getInt("RENDER_BUFFER_SOURCE1_WIDTH");
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_RENDER_BUFFER_SOURCE_WIDTH")) {
+        Config::PRIMARY_RENDER_BUFFER_SOURCE_WIDTH = GgafCore::Config::_properties.getInt("PRIMARY_RENDER_BUFFER_SOURCE_WIDTH");
     }
-    if (GgafCore::Config::_properties.isExistKey("RENDER_BUFFER_SOURCE1_HEIGHT")) {
-        Config::RENDER_BUFFER_SOURCE1_HEIGHT = GgafCore::Config::_properties.getInt("RENDER_BUFFER_SOURCE1_HEIGHT");
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_RENDER_BUFFER_SOURCE_HEIGHT")) {
+        Config::PRIMARY_RENDER_BUFFER_SOURCE_HEIGHT = GgafCore::Config::_properties.getInt("PRIMARY_RENDER_BUFFER_SOURCE_HEIGHT");
     }
-    if (GgafCore::Config::_properties.isExistKey("RENDER_BUFFER_SOURCE2_LEFT")) {
-        Config::RENDER_BUFFER_SOURCE2_LEFT = GgafCore::Config::_properties.getInt("RENDER_BUFFER_SOURCE2_LEFT");
+    if (GgafCore::Config::_properties.isExistKey("SECONDARY_RENDER_BUFFER_SOURCE_LEFT")) {
+        Config::SECONDARY_RENDER_BUFFER_SOURCE_LEFT = GgafCore::Config::_properties.getInt("SECONDARY_RENDER_BUFFER_SOURCE_LEFT");
     }
-    if (GgafCore::Config::_properties.isExistKey("RENDER_BUFFER_SOURCE2_TOP")) {
-        Config::RENDER_BUFFER_SOURCE2_TOP = GgafCore::Config::_properties.getInt("RENDER_BUFFER_SOURCE2_TOP");
+    if (GgafCore::Config::_properties.isExistKey("SECONDARY_RENDER_BUFFER_SOURCE_TOP")) {
+        Config::SECONDARY_RENDER_BUFFER_SOURCE_TOP = GgafCore::Config::_properties.getInt("SECONDARY_RENDER_BUFFER_SOURCE_TOP");
     }
-    if (GgafCore::Config::_properties.isExistKey("RENDER_BUFFER_SOURCE2_WIDTH")) {
-        Config::RENDER_BUFFER_SOURCE2_WIDTH = GgafCore::Config::_properties.getInt("RENDER_BUFFER_SOURCE2_WIDTH");
+    if (GgafCore::Config::_properties.isExistKey("SECONDARY_RENDER_BUFFER_SOURCE_WIDTH")) {
+        Config::SECONDARY_RENDER_BUFFER_SOURCE_WIDTH = GgafCore::Config::_properties.getInt("SECONDARY_RENDER_BUFFER_SOURCE_WIDTH");
     }
-    if (GgafCore::Config::_properties.isExistKey("RENDER_BUFFER_SOURCE2_HEIGHT")) {
-        Config::RENDER_BUFFER_SOURCE2_HEIGHT = GgafCore::Config::_properties.getInt("RENDER_BUFFER_SOURCE2_HEIGHT");
-    }
-
-    Config::WINDOW1_WIDTH = RENDER_BUFFER_SOURCE1_WIDTH;
-    Config::WINDOW1_HEIGHT = RENDER_BUFFER_SOURCE1_HEIGHT;
-    Config::WINDOW2_WIDTH = RENDER_BUFFER_SOURCE2_WIDTH;
-    Config::WINDOW2_HEIGHT = RENDER_BUFFER_SOURCE2_HEIGHT;
-    if (GgafCore::Config::_properties.isExistKey("WINDOW1_WIDTH")) {
-        Config::WINDOW1_WIDTH = GgafCore::Config::_properties.getInt("WINDOW1_WIDTH");
-    }
-    if (GgafCore::Config::_properties.isExistKey("WINDOW1_HEIGHT")) {
-        Config::WINDOW1_HEIGHT = GgafCore::Config::_properties.getInt("WINDOW1_HEIGHT");
-    }
-    if (GgafCore::Config::_properties.isExistKey("WINDOW2_WIDTH")) {
-        Config::WINDOW2_WIDTH = GgafCore::Config::_properties.getInt("WINDOW2_WIDTH");
-    }
-    if (GgafCore::Config::_properties.isExistKey("WINDOW2_HEIGHT")) {
-        Config::WINDOW2_HEIGHT = GgafCore::Config::_properties.getInt("WINDOW2_HEIGHT");
+    if (GgafCore::Config::_properties.isExistKey("SECONDARY_RENDER_BUFFER_SOURCE_HEIGHT")) {
+        Config::SECONDARY_RENDER_BUFFER_SOURCE_HEIGHT = GgafCore::Config::_properties.getInt("SECONDARY_RENDER_BUFFER_SOURCE_HEIGHT");
     }
 
+    Config::PRIMARY_WINDOW_WIDTH = PRIMARY_RENDER_BUFFER_SOURCE_WIDTH;
+    Config::PRIMARY_WINDOW_HEIGHT = PRIMARY_RENDER_BUFFER_SOURCE_HEIGHT;
+    Config::SECONDARY_WINDOW_WIDTH = SECONDARY_RENDER_BUFFER_SOURCE_WIDTH;
+    Config::SECONDARY_WINDOW_HEIGHT = SECONDARY_RENDER_BUFFER_SOURCE_HEIGHT;
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_WINDOW_WIDTH")) {
+        Config::PRIMARY_WINDOW_WIDTH = GgafCore::Config::_properties.getInt("PRIMARY_WINDOW_WIDTH");
+    }
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_WINDOW_HEIGHT")) {
+        Config::PRIMARY_WINDOW_HEIGHT = GgafCore::Config::_properties.getInt("PRIMARY_WINDOW_HEIGHT");
+    }
+    if (GgafCore::Config::_properties.isExistKey("SECONDARY_WINDOW_WIDTH")) {
+        Config::SECONDARY_WINDOW_WIDTH = GgafCore::Config::_properties.getInt("SECONDARY_WINDOW_WIDTH");
+    }
+    if (GgafCore::Config::_properties.isExistKey("SECONDARY_WINDOW_HEIGHT")) {
+        Config::SECONDARY_WINDOW_HEIGHT = GgafCore::Config::_properties.getInt("SECONDARY_WINDOW_HEIGHT");
+    }
 
-    Config::FULL_SCREEN1_WIDTH = RENDER_BUFFER_SOURCE1_WIDTH;
-    Config::FULL_SCREEN1_HEIGHT = RENDER_BUFFER_SOURCE1_HEIGHT;
-    Config::FULL_SCREEN2_WIDTH = RENDER_BUFFER_SOURCE2_WIDTH;
-    Config::FULL_SCREEN2_HEIGHT = RENDER_BUFFER_SOURCE2_HEIGHT;
-    Config::FULL_SCREEN1_WIDTH_BK   = Config::FULL_SCREEN1_WIDTH;
-    Config::FULL_SCREEN1_HEIGHT_BK  = Config::FULL_SCREEN1_HEIGHT;
-    Config::FULL_SCREEN2_WIDTH_BK   = Config::FULL_SCREEN2_WIDTH;
-    Config::FULL_SCREEN2_HEIGHT_BK  = Config::FULL_SCREEN2_HEIGHT;
-    if (GgafCore::Config::_properties.isExistKey("FULL_SCREEN1_WIDTH")) {
-        Config::FULL_SCREEN1_WIDTH = GgafCore::Config::_properties.getInt("FULL_SCREEN1_WIDTH");
-        Config::FULL_SCREEN1_WIDTH_BK   = Config::FULL_SCREEN1_WIDTH;
+
+    Config::PRIMARY_FULL_SCREEN_WIDTH = PRIMARY_RENDER_BUFFER_SOURCE_WIDTH;
+    Config::PRIMARY_FULL_SCREEN_HEIGHT = PRIMARY_RENDER_BUFFER_SOURCE_HEIGHT;
+    Config::SECONDARY_FULL_SCREEN_WIDTH = SECONDARY_RENDER_BUFFER_SOURCE_WIDTH;
+    Config::SECONDARY_FULL_SCREEN_HEIGHT = SECONDARY_RENDER_BUFFER_SOURCE_HEIGHT;
+    Config::PRIMARY_FULL_SCREEN_WIDTH_BK   = Config::PRIMARY_FULL_SCREEN_WIDTH;
+    Config::PRIMARY_FULL_SCREEN_HEIGHT_BK  = Config::PRIMARY_FULL_SCREEN_HEIGHT;
+    Config::SECONDARY_FULL_SCREEN_WIDTH_BK   = Config::SECONDARY_FULL_SCREEN_WIDTH;
+    Config::SECONDARY_FULL_SCREEN_HEIGHT_BK  = Config::SECONDARY_FULL_SCREEN_HEIGHT;
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_FULL_SCREEN_WIDTH")) {
+        Config::PRIMARY_FULL_SCREEN_WIDTH = GgafCore::Config::_properties.getInt("PRIMARY_FULL_SCREEN_WIDTH");
+        Config::PRIMARY_FULL_SCREEN_WIDTH_BK   = Config::PRIMARY_FULL_SCREEN_WIDTH;
     }
-    if (GgafCore::Config::_properties.isExistKey("FULL_SCREEN1_HEIGHT")) {
-        Config::FULL_SCREEN1_HEIGHT = GgafCore::Config::_properties.getInt("FULL_SCREEN1_HEIGHT");
-        Config::FULL_SCREEN1_HEIGHT_BK  = Config::FULL_SCREEN1_HEIGHT;
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_FULL_SCREEN_HEIGHT")) {
+        Config::PRIMARY_FULL_SCREEN_HEIGHT = GgafCore::Config::_properties.getInt("PRIMARY_FULL_SCREEN_HEIGHT");
+        Config::PRIMARY_FULL_SCREEN_HEIGHT_BK  = Config::PRIMARY_FULL_SCREEN_HEIGHT;
     }
-    if (GgafCore::Config::_properties.isExistKey("FULL_SCREEN2_WIDTH")) {
-        Config::FULL_SCREEN2_WIDTH = GgafCore::Config::_properties.getInt("FULL_SCREEN2_WIDTH");
-        Config::FULL_SCREEN2_WIDTH_BK   = Config::FULL_SCREEN2_WIDTH;
+    if (GgafCore::Config::_properties.isExistKey("SECONDARY_FULL_SCREEN_WIDTH")) {
+        Config::SECONDARY_FULL_SCREEN_WIDTH = GgafCore::Config::_properties.getInt("SECONDARY_FULL_SCREEN_WIDTH");
+        Config::SECONDARY_FULL_SCREEN_WIDTH_BK   = Config::SECONDARY_FULL_SCREEN_WIDTH;
     }
-    if (GgafCore::Config::_properties.isExistKey("FULL_SCREEN2_HEIGHT")) {
-        Config::FULL_SCREEN2_HEIGHT = GgafCore::Config::_properties.getInt("FULL_SCREEN2_HEIGHT");
-        Config::FULL_SCREEN2_HEIGHT_BK  = Config::FULL_SCREEN2_HEIGHT;
+    if (GgafCore::Config::_properties.isExistKey("SECONDARY_FULL_SCREEN_HEIGHT")) {
+        Config::SECONDARY_FULL_SCREEN_HEIGHT = GgafCore::Config::_properties.getInt("SECONDARY_FULL_SCREEN_HEIGHT");
+        Config::SECONDARY_FULL_SCREEN_HEIGHT_BK  = Config::SECONDARY_FULL_SCREEN_HEIGHT;
     }
 
     if (GgafCore::Config::_properties.isExistKey("FIXED_GAME_VIEW_ASPECT")) {
         Config::FIXED_GAME_VIEW_ASPECT = GgafCore::Config::_properties.getBool("FIXED_GAME_VIEW_ASPECT");
-    }
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_ADAPTER_NO")) {
-        Config::PRIMARY_ADAPTER_NO = GgafCore::Config::_properties.getInt("PRIMARY_ADAPTER_NO");
-    }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_ADAPTER_NO")) {
-        Config::SECONDARY_ADAPTER_NO = GgafCore::Config::_properties.getInt("SECONDARY_ADAPTER_NO");
     }
     if (GgafCore::Config::_properties.isExistKey("SWAP_GAME_VIEW")) {
         Config::SWAP_GAME_VIEW = GgafCore::Config::_properties.getBool("SWAP_GAME_VIEW");
     }
 
     if (Config::DUAL_VIEW) {
-        Config::PRESENT_POSITION1 = 6;
-        Config::PRESENT_POSITION2 = 4;
+        Config::PRIMARY_PRESENT_POSITION = 6;
+        Config::SECONDARY_PRESENT_POSITION = 4;
     } else {
-        Config::PRESENT_POSITION1 = 5;
+        Config::PRIMARY_PRESENT_POSITION = 5;
     }
-    if (GgafCore::Config::_properties.isExistKey("PRESENT_POSITION1")) {
-        Config::PRESENT_POSITION1 = GgafCore::Config::_properties.getInt("PRESENT_POSITION1");
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_PRESENT_POSITION")) {
+        Config::PRIMARY_PRESENT_POSITION = GgafCore::Config::_properties.getInt("PRIMARY_PRESENT_POSITION");
     }
-    if (GgafCore::Config::_properties.isExistKey("PRESENT_POSITION2")) {
-        Config::PRESENT_POSITION2 = GgafCore::Config::_properties.getInt("PRESENT_POSITION2");
+    if (GgafCore::Config::_properties.isExistKey("SECONDARY_PRESENT_POSITION")) {
+        Config::SECONDARY_PRESENT_POSITION = GgafCore::Config::_properties.getInt("SECONDARY_PRESENT_POSITION");
     }
 
-    if (GgafCore::Config::_properties.isExistKey("VIEW1_WIDTH_RATIO")) {
-        Config::VIEW1_WIDTH_RATIO = GgafCore::Config::_properties.getDouble("VIEW1_WIDTH_RATIO");
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_VIEW_WIDTH_RATIO")) {
+        Config::PRIMARY_VIEW_WIDTH_RATIO = GgafCore::Config::_properties.getDouble("PRIMARY_VIEW_WIDTH_RATIO");
     }
-    if (GgafCore::Config::_properties.isExistKey("VIEW1_HEIGHT_RATIO")) {
-        Config::VIEW1_HEIGHT_RATIO = GgafCore::Config::_properties.getDouble("VIEW1_HEIGHT_RATIO");
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_VIEW_HEIGHT_RATIO")) {
+        Config::PRIMARY_VIEW_HEIGHT_RATIO = GgafCore::Config::_properties.getDouble("PRIMARY_VIEW_HEIGHT_RATIO");
     }
-    if (GgafCore::Config::_properties.isExistKey("VIEW2_WIDTH_RATIO")) {
-        Config::VIEW2_WIDTH_RATIO = GgafCore::Config::_properties.getDouble("VIEW2_WIDTH_RATIO");
+    if (GgafCore::Config::_properties.isExistKey("SECONDARY_VIEW_WIDTH_RATIO")) {
+        Config::SECONDARY_VIEW_WIDTH_RATIO = GgafCore::Config::_properties.getDouble("SECONDARY_VIEW_WIDTH_RATIO");
     }
-    if (GgafCore::Config::_properties.isExistKey("VIEW1_HEIGHT_RATIO")) {
-        Config::VIEW2_HEIGHT_RATIO = GgafCore::Config::_properties.getDouble("VIEW2_HEIGHT_RATIO");
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_VIEW_HEIGHT_RATIO")) {
+        Config::SECONDARY_VIEW_HEIGHT_RATIO = GgafCore::Config::_properties.getDouble("SECONDARY_VIEW_HEIGHT_RATIO");
     }
 
     if (GgafCore::Config::_properties.isExistKey("BORDER_COLOR")) {
@@ -531,29 +533,29 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::RENDER_TARGET_BUFFER_WIDTH=" << Config::RENDER_TARGET_BUFFER_WIDTH);
     _TRACE_("Config::RENDER_TARGET_BUFFER_HEIGHT=" << Config::RENDER_TARGET_BUFFER_HEIGHT);
 
-    _TRACE_("Config::RENDER_BUFFER_SOURCE1_LEFT=" << Config::RENDER_BUFFER_SOURCE1_LEFT   );
-    _TRACE_("Config::RENDER_BUFFER_SOURCE1_TOP=" << Config::RENDER_BUFFER_SOURCE1_TOP    );
-    _TRACE_("Config::RENDER_BUFFER_SOURCE1_WIDTH=" << Config::RENDER_BUFFER_SOURCE1_WIDTH  );
-    _TRACE_("Config::RENDER_BUFFER_SOURCE1_HEIGHT=" << Config::RENDER_BUFFER_SOURCE1_HEIGHT );
-    _TRACE_("Config::RENDER_BUFFER_SOURCE2_LEFT=" << Config::RENDER_BUFFER_SOURCE2_LEFT   );
-    _TRACE_("Config::RENDER_BUFFER_SOURCE2_TOP=" << Config::RENDER_BUFFER_SOURCE2_TOP    );
-    _TRACE_("Config::RENDER_BUFFER_SOURCE2_WIDTH=" << Config::RENDER_BUFFER_SOURCE2_WIDTH  );
-    _TRACE_("Config::RENDER_BUFFER_SOURCE2_HEIGHT=" << Config::RENDER_BUFFER_SOURCE2_HEIGHT );
+    _TRACE_("Config::PRIMARY_RENDER_BUFFER_SOURCE_LEFT=" << Config::PRIMARY_RENDER_BUFFER_SOURCE_LEFT   );
+    _TRACE_("Config::PRIMARY_RENDER_BUFFER_SOURCE_TOP=" << Config::PRIMARY_RENDER_BUFFER_SOURCE_TOP    );
+    _TRACE_("Config::PRIMARY_RENDER_BUFFER_SOURCE_WIDTH=" << Config::PRIMARY_RENDER_BUFFER_SOURCE_WIDTH  );
+    _TRACE_("Config::PRIMARY_RENDER_BUFFER_SOURCE_HEIGHT=" << Config::PRIMARY_RENDER_BUFFER_SOURCE_HEIGHT );
+    _TRACE_("Config::SECONDARY_RENDER_BUFFER_SOURCE_LEFT=" << Config::SECONDARY_RENDER_BUFFER_SOURCE_LEFT   );
+    _TRACE_("Config::SECONDARY_RENDER_BUFFER_SOURCE_TOP=" << Config::SECONDARY_RENDER_BUFFER_SOURCE_TOP    );
+    _TRACE_("Config::SECONDARY_RENDER_BUFFER_SOURCE_WIDTH=" << Config::SECONDARY_RENDER_BUFFER_SOURCE_WIDTH  );
+    _TRACE_("Config::SECONDARY_RENDER_BUFFER_SOURCE_HEIGHT=" << Config::SECONDARY_RENDER_BUFFER_SOURCE_HEIGHT );
 
-    _TRACE_("Config::WINDOW1_WIDTH=" << Config::WINDOW1_WIDTH);
-    _TRACE_("Config::WINDOW1_HEIGHT=" << Config::WINDOW1_HEIGHT);
-    _TRACE_("Config::WINDOW2_WIDTH=" << Config::WINDOW2_WIDTH);
-    _TRACE_("Config::WINDOW2_HEIGHT=" << Config::WINDOW2_HEIGHT);
+    _TRACE_("Config::PRIMARY_WINDOW_WIDTH=" << Config::PRIMARY_WINDOW_WIDTH);
+    _TRACE_("Config::PRIMARY_WINDOW_HEIGHT=" << Config::PRIMARY_WINDOW_HEIGHT);
+    _TRACE_("Config::SECONDARY_WINDOW_WIDTH=" << Config::SECONDARY_WINDOW_WIDTH);
+    _TRACE_("Config::SECONDARY_WINDOW_HEIGHT=" << Config::SECONDARY_WINDOW_HEIGHT);
     _TRACE_("Config::FIXED_GAME_VIEW_ASPECT=" << Config::FIXED_GAME_VIEW_ASPECT);
-    _TRACE_("Config::PRIMARY_ADAPTER_NO=" << Config::PRIMARY_ADAPTER_NO);
-    _TRACE_("Config::SECONDARY_ADAPTER_NO=" << Config::SECONDARY_ADAPTER_NO);
+    _TRACE_("Config::PRIMARY_DISPLAY_NO=" << Config::PRIMARY_DISPLAY_NO);
+    _TRACE_("Config::SECONDARY_DISPLAY_NO=" << Config::SECONDARY_DISPLAY_NO);
     _TRACE_("Config::SWAP_GAME_VIEW=" << Config::SWAP_GAME_VIEW);
-    _TRACE_("Config::PRESENT_POSITION1=" << Config::PRESENT_POSITION1);
-    _TRACE_("Config::PRESENT_POSITION2=" << Config::PRESENT_POSITION2);
-    _TRACE_("Config::VIEW1_WIDTH_RATIO=" << Config::VIEW1_WIDTH_RATIO);
-    _TRACE_("Config::VIEW1_HEIGHT_RATIO=" << Config::VIEW1_HEIGHT_RATIO);
-    _TRACE_("Config::VIEW2_WIDTH_RATIO=" << Config::VIEW2_WIDTH_RATIO);
-    _TRACE_("Config::VIEW2_HEIGHT_RATIO=" << Config::VIEW2_HEIGHT_RATIO);
+    _TRACE_("Config::PRIMARY_PRESENT_POSITION=" << Config::PRIMARY_PRESENT_POSITION);
+    _TRACE_("Config::SECONDARY_PRESENT_POSITION=" << Config::SECONDARY_PRESENT_POSITION);
+    _TRACE_("Config::PRIMARY_VIEW_WIDTH_RATIO=" << Config::PRIMARY_VIEW_WIDTH_RATIO);
+    _TRACE_("Config::PRIMARY_VIEW_HEIGHT_RATIO=" << Config::PRIMARY_VIEW_HEIGHT_RATIO);
+    _TRACE_("Config::SECONDARY_VIEW_WIDTH_RATIO=" << Config::SECONDARY_VIEW_WIDTH_RATIO);
+    _TRACE_("Config::SECONDARY_VIEW_HEIGHT_RATIO=" << Config::SECONDARY_VIEW_HEIGHT_RATIO);
     _TRACE_("Config::BORDER_COLOR=" << Config::BORDER_COLOR);
     _TRACE_("Config::BG_COLOR=" << Config::BG_COLOR);
     _TRACE_("Config::MASTER_VOLUME=" << Config::MASTER_VOLUME);

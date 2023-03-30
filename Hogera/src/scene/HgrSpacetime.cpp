@@ -8,8 +8,6 @@
 #include "jp/ggaf/core/actor/SceneMediator.h"
 using namespace Hogera;
 
-#define PRIMARY_VIEW 0
-#define SECONDARY_VIEW 1
 
 HgrSpacetime::HgrSpacetime(const char* prm_name, HgrCamera* prm_pCam) :
         GgafLib::DefaultSpacetime(prm_name, prm_pCam) {

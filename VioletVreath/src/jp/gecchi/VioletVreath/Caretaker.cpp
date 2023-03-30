@@ -175,6 +175,7 @@ CurveManufactureManagerEx* Caretaker::createCurveManufactureManager() {
 }
 
 Caretaker::~Caretaker() {
+    calmDown();
     if (getSpacetime()) {
         World* pWorld = getSpacetime()->getWorld();
         if (pWorld) {

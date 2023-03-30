@@ -48,11 +48,6 @@ bool AAPyramidActor::initStatic() {
     return true;
 }
 
-//void AAPyramidActor::processDraw() {
-//    GeometricActor::setWorldTransformScRzMxyz(this);
-//    _pD3DXMeshModel->draw(this);
-//}
-
 void AAPyramidActor::drawPyramid(coord prm_x1, coord prm_y1, coord prm_z1,
                                        coord prm_x2, coord prm_y2, coord prm_z2, pos_t pos_info) {
     _rx = AAPyramidActor::pos2r[pos_info]._rx;

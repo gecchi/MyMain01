@@ -16,6 +16,7 @@ GgafCore::Spacetime* SmpCaretaker::createSpacetime() {
 }
 
 SmpCaretaker::~SmpCaretaker() {
+    calmDown();
 }
 
 

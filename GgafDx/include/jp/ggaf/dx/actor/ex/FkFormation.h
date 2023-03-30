@@ -27,7 +27,9 @@ private:
 
     /** [r]calledUpMember()用のカーソル */
     GgafCore::Actor* _pIte;
+
     bool _can_called_up;
+
 public:
     /**
      * コンストラクタ .

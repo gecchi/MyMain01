@@ -1,6 +1,5 @@
 #include "jp/ggaf/dx/actor/BaseActor.h"
 
-
 using namespace GgafDx;
 
 BaseActor::BaseActor(const char* prm_name) : GgafCore::MainActor(prm_name) {

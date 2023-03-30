@@ -494,8 +494,12 @@ void FramedSpriteModel::release() {
     GGAF_RELEASE(_paIndexBuffer);
     //テクスチャを解放
     if (_papTextureConnection) {
-        _papTextureConnection[0]->close();
-        _papTextureConnection[1]->close(); //フレーム
+        for (int i = 0; i < 2; i++) {
+            if (_papTextureConnection[i]) {
+                _TRACE3_("close() _papTextureConnection["<<i<<"]->"<<(_papTextureConnection[i]->getIdStr()));
+                _papTextureConnection[i]->close();
+            }
+        }
     }
     GGAF_DELETEARR(_papTextureConnection);
     _TRACE3_("_model_id=" << _model_id << " end");

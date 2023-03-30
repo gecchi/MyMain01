@@ -14,8 +14,6 @@
 #endif
 #define CONFIG GgafCore::Config
 
-
-
 /** 秒 → フレーム数 変換 */
 #define SEC_F(X)  ( (frame)((X) * (CONFIG::FPS)) )
 /** ミリ秒 → フレーム数 変換 */

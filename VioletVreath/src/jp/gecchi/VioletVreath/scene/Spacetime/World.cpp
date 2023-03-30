@@ -121,14 +121,14 @@ void World::initialize() {
     bool is_warn2 = false;
     if (CONFIG::DUAL_VIEW) {
         if (CONFIG::FULL_SCREEN) {
-            w1 = CONFIG::FULL_SCREEN1_WIDTH;
-            h1 = CONFIG::FULL_SCREEN1_HEIGHT;
-            w2 = CONFIG::FULL_SCREEN2_WIDTH;
-            h2 = CONFIG::FULL_SCREEN2_HEIGHT;
-            w1_bk = CONFIG::FULL_SCREEN1_WIDTH_BK;
-            h1_bk = CONFIG::FULL_SCREEN1_HEIGHT_BK;
-            w2_bk = CONFIG::FULL_SCREEN2_WIDTH_BK;
-            h2_bk = CONFIG::FULL_SCREEN2_HEIGHT_BK;
+            w1 = CONFIG::PRIMARY_FULL_SCREEN_WIDTH;
+            h1 = CONFIG::PRIMARY_FULL_SCREEN_HEIGHT;
+            w2 = CONFIG::SECONDARY_FULL_SCREEN_WIDTH;
+            h2 = CONFIG::SECONDARY_FULL_SCREEN_HEIGHT;
+            w1_bk = CONFIG::PRIMARY_FULL_SCREEN_WIDTH_BK;
+            h1_bk = CONFIG::PRIMARY_FULL_SCREEN_HEIGHT_BK;
+            w2_bk = CONFIG::SECONDARY_FULL_SCREEN_WIDTH_BK;
+            h2_bk = CONFIG::SECONDARY_FULL_SCREEN_HEIGHT_BK;
             if (w1 != w1_bk || h1 != h1_bk) {
                 is_warn1 = true;
             }
@@ -136,10 +136,10 @@ void World::initialize() {
                 is_warn2 = true;
             }
         } else {
-            w1 = CONFIG::WINDOW1_WIDTH;
-            h1 = CONFIG::WINDOW1_HEIGHT;
-            w2 = CONFIG::WINDOW2_WIDTH;
-            h2 = CONFIG::WINDOW2_HEIGHT;
+            w1 = CONFIG::PRIMARY_WINDOW_WIDTH;
+            h1 = CONFIG::PRIMARY_WINDOW_HEIGHT;
+            w2 = CONFIG::SECONDARY_WINDOW_WIDTH;
+            h2 = CONFIG::SECONDARY_WINDOW_HEIGHT;
             w1_bk = w1;
             h1_bk = h1;
             w2_bk = w2;
@@ -147,16 +147,16 @@ void World::initialize() {
         }
     } else {
         if (CONFIG::FULL_SCREEN) {
-            w1 = CONFIG::FULL_SCREEN1_WIDTH;
-            h1 = CONFIG::FULL_SCREEN1_HEIGHT;
-            w1_bk = CONFIG::FULL_SCREEN1_WIDTH_BK;
-            h1_bk = CONFIG::FULL_SCREEN1_HEIGHT_BK;
+            w1 = CONFIG::PRIMARY_FULL_SCREEN_WIDTH;
+            h1 = CONFIG::PRIMARY_FULL_SCREEN_HEIGHT;
+            w1_bk = CONFIG::PRIMARY_FULL_SCREEN_WIDTH_BK;
+            h1_bk = CONFIG::PRIMARY_FULL_SCREEN_HEIGHT_BK;
             if (w1 != w1_bk || h1 != h1_bk) {
                 is_warn1 = true;
             }
         } else {
-            w1 = CONFIG::WINDOW1_WIDTH;
-            h1 = CONFIG::WINDOW1_HEIGHT;
+            w1 = CONFIG::PRIMARY_WINDOW_WIDTH;
+            h1 = CONFIG::PRIMARY_WINDOW_HEIGHT;
             w1_bk = w1;
             h1_bk = h1;
         }
@@ -240,7 +240,7 @@ void World::processBehavior() {
 
         case PHASE_CALM2: {
             if ((pPhase->getFrame() >= SEC_F(0.5) && pCaretaker->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pCaretaker->_fps <= CONFIG::FPS*1.01) || pPhase->getFrame() >= SEC_F(60*3)) {
-                pGameScene_ = (GameScene*)receiveScene(2);
+                waitForRequestActor(2); //GameScene 作成完了まで待つ
                 pPhase->changeNext();
             }
             pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
@@ -276,6 +276,7 @@ void World::processBehavior() {
 
         case PHASE_MAINLOOP: { //世界のメインループ
             if (pPhase->hasJustChanged()) {
+                pGameScene_ = (GameScene*)receiveScene(2);
                 appendChild(pGameScene_);
             }
 

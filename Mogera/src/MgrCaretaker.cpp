@@ -17,5 +17,6 @@ GgafCore::Spacetime* MgrCaretaker::createSpacetime() {
 }
 
 MgrCaretaker::~MgrCaretaker() {
+    calmDown();
 }
 

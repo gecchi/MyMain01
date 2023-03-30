@@ -37,53 +37,54 @@ public:
     /** [r] 描画先サーフェイス高さのピクセルサイズ */
     static pixcoord RENDER_TARGET_BUFFER_HEIGHT;
 
-    /** [r] 描画先サーフェイス（RENDER_TARGET_BUFFER）の中から、実際にゲームに表示する画面領域（クリッピング） */
-    static pixcoord RENDER_BUFFER_SOURCE1_LEFT;
-    static pixcoord RENDER_BUFFER_SOURCE1_TOP;
-    static pixcoord RENDER_BUFFER_SOURCE1_WIDTH;
-    static pixcoord RENDER_BUFFER_SOURCE1_HEIGHT;
+    /** [r/w] フルスクリーンモード時、１画面目のデイスプレイ番号(0～) */
+    static int PRIMARY_DISPLAY_NO;
+    /** [r/w] フルスクリーンモード時、２画面目のデイスプレイ番号(0～) */
+    static int SECONDARY_DISPLAY_NO;
 
-    static pixcoord RENDER_BUFFER_SOURCE2_LEFT;
-    static pixcoord RENDER_BUFFER_SOURCE2_TOP;
-    static pixcoord RENDER_BUFFER_SOURCE2_WIDTH;
-    static pixcoord RENDER_BUFFER_SOURCE2_HEIGHT;
+    /** [r] 描画先サーフェイス（RENDER_TARGET_BUFFER）の中から、実際にゲームに表示するコピー元バッファのクリッピング領域 */
+    static pixcoord PRIMARY_RENDER_BUFFER_SOURCE_LEFT;
+    static pixcoord PRIMARY_RENDER_BUFFER_SOURCE_TOP;
+    static pixcoord PRIMARY_RENDER_BUFFER_SOURCE_WIDTH;
+    static pixcoord PRIMARY_RENDER_BUFFER_SOURCE_HEIGHT;
+    /** [r] 描画先サーフェイス（RENDER_TARGET_BUFFER）の中から、実際にゲームに表示するコピー元バッファのクリッピング領域 */
+    static pixcoord SECONDARY_RENDER_BUFFER_SOURCE_LEFT;
+    static pixcoord SECONDARY_RENDER_BUFFER_SOURCE_TOP;
+    static pixcoord SECONDARY_RENDER_BUFFER_SOURCE_WIDTH;
+    static pixcoord SECONDARY_RENDER_BUFFER_SOURCE_HEIGHT;
 
     /** [r] ２画面ウィンドウモードだった場合の１画面目のウィンドウの初期幅サイズ */
-    static pixcoord WINDOW1_WIDTH;
+    static pixcoord PRIMARY_WINDOW_WIDTH;
     /** [r] ２画面ウィンドウモードだった場合の１画面目のウィンドウの初期高さサイズ */
-    static pixcoord WINDOW1_HEIGHT;
+    static pixcoord PRIMARY_WINDOW_HEIGHT;
     /** [r] ２画面ウィンドウモードだった場合の２画面目のウィンドウの初期幅サイズ */
-    static pixcoord WINDOW2_WIDTH;
+    static pixcoord SECONDARY_WINDOW_WIDTH;
     /** [r] ２画面ウィンドウモードだった場合の２画面目のウィンドウの初期高さサイズ */
-    static pixcoord WINDOW2_HEIGHT;
+    static pixcoord SECONDARY_WINDOW_HEIGHT;
     /** [r] ２画面フルスクリーンモードだった場合の１画面目スクリーンの解像度(横) */
-    static pixcoord FULL_SCREEN1_WIDTH;
+    static pixcoord PRIMARY_FULL_SCREEN_WIDTH;
     /** [r] ２画面フルスクリーンモードだった場合の１画面目スクリーンの解像度(縦) */
-    static pixcoord FULL_SCREEN1_HEIGHT;
+    static pixcoord PRIMARY_FULL_SCREEN_HEIGHT;
     /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの解像度(横) */
-    static pixcoord FULL_SCREEN2_WIDTH;
+    static pixcoord SECONDARY_FULL_SCREEN_WIDTH;
     /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの解像度(縦) */
-    static pixcoord FULL_SCREEN2_HEIGHT;
+    static pixcoord SECONDARY_FULL_SCREEN_HEIGHT;
     /** [r/w] 表示領域サイズ可変時、表示領域アスペクト比をゲームバッファの縦横比で固定にするかどうか(true=固定/false=固定にしない) */
     static bool FIXED_GAME_VIEW_ASPECT;
-    /** [r/w] ２画面フルスクリーンモード時、１画面目のデイスプレイ番号(0～) */
-    static int PRIMARY_ADAPTER_NO;
-    /** [r/w] ２画面フルスクリーンモード時、２画面目のデイスプレイ番号(0～) */
-    static int SECONDARY_ADAPTER_NO;
     /** [r/w] ２画面モード時、１画面目と２画面目を入れ替えるかどうか */
     static bool SWAP_GAME_VIEW;
     /** [r] ２画面モード時かつゲーム表示領域アスペクト比を固定時、１画面目の表示領域場所を指定(場所＝テンキーの数値) */
-    static int PRESENT_POSITION1;
+    static int PRIMARY_PRESENT_POSITION;
     /** [r] ２画面モード時かつゲーム表示領域アスペクト比を固定時、２画面目の表示領域場所を指定(場所＝テンキーの数値) */
-    static int PRESENT_POSITION2;
+    static int SECONDARY_PRESENT_POSITION;
     /** [r/w] アスペクト比固定の場合、ゲーム表示領域の横幅調整乗率（１画面目） */
-    static double VIEW1_WIDTH_RATIO;
+    static double PRIMARY_VIEW_WIDTH_RATIO;
     /** [r/w] アスペクト比固定の場合、ゲーム表示領域の高さ調整乗率（１画面目） */
-    static double VIEW1_HEIGHT_RATIO;
+    static double PRIMARY_VIEW_HEIGHT_RATIO;
     /** [r/w] アスペクト比固定の場合、ゲーム表示領域の横幅調整乗率（２画面目） */
-    static double VIEW2_WIDTH_RATIO;
+    static double SECONDARY_VIEW_WIDTH_RATIO;
     /** [r/w] アスペクト比固定の場合、ゲーム表示領域の高さ調整乗率（２画面目） */
-    static double VIEW2_HEIGHT_RATIO;
+    static double SECONDARY_VIEW_HEIGHT_RATIO;
 
     /** [r/w] ゲーム表示領域アスペクト比を固定時、ゲーム表示領域外の背景色 */
     static std::string BORDER_COLOR;
@@ -161,17 +162,17 @@ public:
     static std::string DIR_CURVE;
 
 //    /** [r] １画面フルスクリーンモードだった場合のスクリーンの補正前解像度(横) */
-//    static pixcoord FULL_SCREEN1_WIDTH_BK;
+//    static pixcoord PRIMARY_FULL_SCREEN_WIDTH_BK;
 //    /** [r] １画面フルスクリーンモードだった場合のスクリーンの補正前解像度(縦) */
-//    static pixcoord FULL_SCREEN1_HEIGHT_BK;
+//    static pixcoord PRIMARY_FULL_SCREEN_HEIGHT_BK;
     /** [r] ２画面フルスクリーンモードだった場合の１画面目スクリーンの補正前解像度(横) */
-    static pixcoord FULL_SCREEN1_WIDTH_BK;
+    static pixcoord PRIMARY_FULL_SCREEN_WIDTH_BK;
     /** [r] ２画面フルスクリーンモードだった場合の１画面目スクリーンの補正前解像度(縦) */
-    static pixcoord FULL_SCREEN1_HEIGHT_BK;
+    static pixcoord PRIMARY_FULL_SCREEN_HEIGHT_BK;
     /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの補正前解像度(横) */
-    static pixcoord FULL_SCREEN2_WIDTH_BK;
+    static pixcoord SECONDARY_FULL_SCREEN_WIDTH_BK;
     /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの補正前解像度(縦) */
-    static pixcoord FULL_SCREEN2_HEIGHT_BK;
+    static pixcoord SECONDARY_FULL_SCREEN_HEIGHT_BK;
 
     /** [r] ワールドヒットチェックの八分木空間レベル数 */
     static int WORLD_HIT_CHECK_OCTREE_LEVEL;

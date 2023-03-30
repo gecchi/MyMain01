@@ -115,8 +115,7 @@ public:
     int _max_skip_frames;
     /** [r] 現在の処理落ちモード 0:60fps 1:40fps 2:30fps。_aaTime_offset_of_next_viewの一つ目の要素 */
     int _slowdown_mode;
-    /** [r] 時間とフレームの同期調整モード中はtrue */
-    bool _sync_frame_time;
+
     bool _was_cleaned;
 public:
     /**
@@ -193,6 +192,8 @@ public:
         _sync_frame_time = true;
     }
 
+    void calmDown();
+
     virtual void clean();
 
     /**
@@ -239,11 +240,15 @@ private:
     /**
      * 管理者へのゆりかご行列を検索し、命を受け取る（メインスレッドが使用） .
      * 未祝福だった場合、祝福が完了するまで待つ。<BR>
-     * @param   prm_cradle_no	ゆりかご番号
-     * @param   prm_pReceiver	受取人
+     * @param prm_cradle_no	ゆりかご番号
+     * @param prm_pReceiver	受取人
+     * @param prm_was_just_wondering ちょっと気になっただけフラグ
+     *                  true:命を受けとるまで待つが、ゆりかごリストから取り出さない
+     *                  false:命を受けとり、ゆりかごリストから削除
      * @return	命のポインタ
      */
-    void* takeOutObject(uint64_t prm_cradle_no, Object* prm_pReceiver);
+    void* takeOutObject(uint64_t prm_cradle_no, Object* prm_pReceiver, bool prm_was_just_wondering);
+
 
 public:
     /** 先頭のゆりかご */
@@ -280,6 +285,8 @@ public:
     volatile bool _is_sending_flg;
     /** [r]異界送のおわり */
     volatile bool _was_finished_sending_flg;
+    /** [r] 時間とフレームの同期調整モード中はtrue */
+    volatile bool _sync_frame_time;
 #else
     /** [r]愛してるフラグ */
     volatile std::atomic<bool> _is_loving_flg;
@@ -293,6 +300,8 @@ public:
     volatile std::atomic<bool> _is_sending_flg;
     /** [r]異界送のおわり */
     volatile std::atomic<bool> _was_finished_sending_flg;
+    /** [r] 時間とフレームの同期調整モード中はtrue */
+    volatile std::atomic<bool> _sync_frame_time;
 #endif
 public:
     /**
@@ -347,7 +356,7 @@ public:
      * @param   prm_pReceiver 受取人
      * @return	生成されたアクターのポインタ
      */
-    MainActor* takeOutActor(uint64_t prm_cradle_no, Object* prm_pReceiver);
+    MainActor* takeOutActor(uint64_t prm_cradle_no, Object* prm_pReceiver, bool prm_was_just_wondering = false);
 
     /**
      * 望んだシーンを受け取る。（メインスレッドが使用） .
@@ -357,7 +366,7 @@ public:
      * @param   prm_pReceiver 受取人
      * @return	生成されたシーンのポインタ
      */
-    MainScene* takeOutScene(uint64_t prm_cradle_no, Object* prm_pReceiver);
+    MainScene* takeOutScene(uint64_t prm_cradle_no, Object* prm_pReceiver, bool prm_was_just_wondering = false);
 
     /**
      * 望んで、祝福されるまで待って、すぐに受け取る。
@@ -576,8 +585,14 @@ public:
 #endif
 
 /** 望まれ祝福されたアクターを受け取る。presentMoment()、presentJudge() の間のみ使用可能 */
-#define receiveActor(ID) (GgafCore::Caretaker::_pCaretaker->takeOutActor((ID),this))
+#define receiveActor(ID) (GgafCore::Caretaker::_pCaretaker->takeOutActor((ID),this,false))
 /** 望まれ祝福されたシーンを受け取る。 presentMoment()、presentJudge() の間のみ使用可能 */
-#define receiveScene(ID) (GgafCore::Caretaker::_pCaretaker->takeOutScene((ID),this))
+#define receiveScene(ID) (GgafCore::Caretaker::_pCaretaker->takeOutScene((ID),this,false))
+
+/** 望まれ祝福されたアクターを受け取れるまで待つ。presentMoment()、presentJudge() の間のみ使用可能 */
+#define waitForRequestActor(ID) (GgafCore::Caretaker::_pCaretaker->takeOutActor((ID),this,true))
+/** 望まれ祝福されたシーンを受け取れるまで待つ。 presentMoment()、presentJudge() の間のみ使用可能 */
+#define waitForRequestScene(ID) (GgafCore::Caretaker::_pCaretaker->takeOutScene((ID),this,true))
+
 }
 #endif /*GGAF_CORE_CARETAKER_H_*/

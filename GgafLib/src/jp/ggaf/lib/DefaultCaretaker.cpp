@@ -31,6 +31,7 @@ DefaultModelManager* DefaultCaretaker::createModelManager() {
 
 
 DefaultCaretaker::~DefaultCaretaker() {
+    calmDown();
     clean();
     _was_cleaned = true;
 }

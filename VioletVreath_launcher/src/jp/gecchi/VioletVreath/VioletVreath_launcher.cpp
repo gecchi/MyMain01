@@ -126,6 +126,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         while (true) {
             if (::PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
+                    _TRACE_("おしまい WM_QUIT!!!");
 #ifdef MY_DEBUG
     #ifdef _MSC_VER
         #ifdef _DEBUG
@@ -190,8 +191,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         std::string message = "\n・"+e.getMsg()+"  \n\nエラーにお心あたりが無い場合、本アプリのバグの可能性が高いです。\n誠に申し訳ございません。\n";
         std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(nullptr, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
-        VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_ggaf_Exception.rep");
-        VB_UI->_pRpy->outputFile("VB_UI_LAST_ggaf_Exception.rep");
+        if (VB_PLAY) {
+            VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_ggaf_Exception.rep");
+        }
+        if (VB_UI) {
+            VB_UI->_pRpy->outputFile("VB_UI_LAST_ggaf_Exception.rep");
+        }
         _TRACE_("[GgafCore::CriticalException]:"<<e.getMsg());
         return EXIT_FAILURE;
     } catch (std::exception& e2) {
@@ -334,29 +339,29 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                         pixcoord ch1 = cRect1.bottom - cRect1.top;
                         pixcoord cw2 = cRect2.right - cRect2.left;
                         pixcoord ch2 = cRect2.bottom - cRect2.top;
-                        CONFIG::WINDOW1_WIDTH  = cw1;
-                        CONFIG::WINDOW1_HEIGHT = ch1;
-                        CONFIG::WINDOW2_WIDTH  = cw2;
-                        CONFIG::WINDOW2_HEIGHT = ch2;
-                        CONFIG::_properties.setValue("WINDOW1_WIDTH" , CONFIG::WINDOW1_WIDTH);
-                        CONFIG::_properties.setValue("WINDOW1_HEIGHT", CONFIG::WINDOW1_HEIGHT);
-                        CONFIG::_properties.setValue("WINDOW2_WIDTH" , CONFIG::WINDOW2_WIDTH);
-                        CONFIG::_properties.setValue("WINDOW2_HEIGHT", CONFIG::WINDOW2_HEIGHT);
+                        CONFIG::PRIMARY_WINDOW_WIDTH  = cw1;
+                        CONFIG::PRIMARY_WINDOW_HEIGHT = ch1;
+                        CONFIG::SECONDARY_WINDOW_WIDTH  = cw2;
+                        CONFIG::SECONDARY_WINDOW_HEIGHT = ch2;
+                        CONFIG::_properties.setValue("PRIMARY_WINDOW_WIDTH" , CONFIG::PRIMARY_WINDOW_WIDTH);
+                        CONFIG::_properties.setValue("PRIMARY_WINDOW_HEIGHT", CONFIG::PRIMARY_WINDOW_HEIGHT);
+                        CONFIG::_properties.setValue("SECONDARY_WINDOW_WIDTH" , CONFIG::SECONDARY_WINDOW_WIDTH);
+                        CONFIG::_properties.setValue("SECONDARY_WINDOW_HEIGHT", CONFIG::SECONDARY_WINDOW_HEIGHT);
 
-                        CONFIG::_properties.setValue("PRESENT_POSITION1", CONFIG::PRESENT_POSITION1);
-                        CONFIG::_properties.setValue("PRESENT_POSITION2", CONFIG::PRESENT_POSITION2);
+                        CONFIG::_properties.setValue("PRIMARY_PRESENT_POSITION", CONFIG::PRIMARY_PRESENT_POSITION);
+                        CONFIG::_properties.setValue("SECONDARY_PRESENT_POSITION", CONFIG::SECONDARY_PRESENT_POSITION);
 
                     } else {
                         RECT cRect1;
                         GetClientRect(hWnd1, &cRect1);
                         pixcoord cw1 = cRect1.right - cRect1.left;
                         pixcoord ch1 = cRect1.bottom - cRect1.top;
-                        CONFIG::WINDOW1_WIDTH  = cw1;
-                        CONFIG::WINDOW1_HEIGHT = ch1;
-                        CONFIG::_properties.setValue("WINDOW1_WIDTH" , CONFIG::WINDOW1_WIDTH);
-                        CONFIG::_properties.setValue("WINDOW1_HEIGHT", CONFIG::WINDOW1_HEIGHT);
+                        CONFIG::PRIMARY_WINDOW_WIDTH  = cw1;
+                        CONFIG::PRIMARY_WINDOW_HEIGHT = ch1;
+                        CONFIG::_properties.setValue("PRIMARY_WINDOW_WIDTH" , CONFIG::PRIMARY_WINDOW_WIDTH);
+                        CONFIG::_properties.setValue("PRIMARY_WINDOW_HEIGHT", CONFIG::PRIMARY_WINDOW_HEIGHT);
 
-                        CONFIG::_properties.setValue("PRESENT_POSITION1", CONFIG::PRESENT_POSITION1);
+                        CONFIG::_properties.setValue("PRIMARY_PRESENT_POSITION", CONFIG::PRIMARY_PRESENT_POSITION);
                     }
                     CONFIG::_properties.setValue("FIXED_GAME_VIEW_ASPECT", CONFIG::FIXED_GAME_VIEW_ASPECT);
 

@@ -302,24 +302,29 @@ void Caretaker::presentVisualize() {
 void Caretaker::presentClosing() {
     _pSpacetime->doFinally();
 }
-
+void Caretaker::calmDown() {
+    _TRACE_("Caretaker::calmDown() _was_finished_loving_flg="<<_was_finished_loving_flg);
+    if (_was_finished_loving_flg == false) {
+        _is_loving_flg = false;
+        Sleep(10);
+        _TRACE_("Caretaker::~Caretaker() 管理者が落ち着くまで待つ・・・");
+        for (int i = 0; _was_finished_loving_flg == false; i++) {
+            Sleep(10); //管理者が落ち着くまで待つ
+            if (i > 5*100*60) {
+                _TRACE_("Caretaker::~Caretaker() 5分待機しましたが、管理者から反応がありません。もう知りません！、強制 break します。要調査");
+                break;
+            }
+        }
+        _TRACE_("Caretaker::~Caretaker() 管理者が落ち着きました");
+    }
+}
 void Caretaker::clean() {
+    _TRACE_(FUNC_NAME<<" begin");
     if (!_was_cleaned) {
-        _TRACE_(FUNC_NAME<<" start");
         if (_pSpacetime) {
             _TRACE_("_pSpacetime != nullptr");
             //管理者を止める
-            Sleep(10);
-            _is_loving_flg = false;
-            _TRACE_("Caretaker::~Caretaker() 管理者が落ち着くまで待つ・・・");
-            for (int i = 0; _was_finished_loving_flg == false; i++) {
-                Sleep(10); //管理者が落ち着くまで待つ
-                if (i > 5*100*60) {
-                    _TRACE_("Caretaker::~Caretaker() 5分待機しましたが、管理者から反応がありません。もう知りません！、強制 break します。要調査");
-                    break;
-                }
-            }
-            _TRACE_("Caretaker::~Caretaker() 管理者が落ち着きました");
+            calmDown();
             //排他の解除、スレッドが終了するまで待つ
             _TRACE_("Caretaker::~Caretaker()  WaitForSingleObject(_handle_god_love01, 120*1000) .....");
             DWORD r = WaitForSingleObject(_handle_god_love01, 120*1000);  //DeleteCriticalSectionを行うために必要
@@ -352,7 +357,6 @@ void Caretaker::clean() {
 #endif
 
             //洪水
-            _TRACE_(FUNC_NAME<<"");
             desert();
             //ゴミ箱
 #ifdef MY_DEBUG
@@ -361,12 +365,15 @@ void Caretaker::clean() {
             _TRACE_("Dumping GarbageBox::_pGarbageBox->_pDisusedActor ...");
             GarbageBox::_pGarbageBox->_pDisusedActor->dump();
 #endif
-            _TRACE_("GGAF_DELETE(GarbageBox::_pGarbageBox);");
+            _TRACE_(FUNC_NAME<<" GGAF_DELETE(GarbageBox::_pGarbageBox) begin");
             GGAF_DELETE(GarbageBox::_pGarbageBox);
+            _TRACE_(FUNC_NAME<<" GGAF_DELETE(GarbageBox::_pGarbageBox) end");
             //この世で生きている物も掃除
             Sleep(20);
-            _TRACE_("GGAF_DELETE(_pSpacetime);");
+            _TRACE_(FUNC_NAME<<" GGAF_DELETE(_pSpacetime); begin");
             GGAF_DELETE(_pSpacetime);
+            _TRACE_(FUNC_NAME<<" GGAF_DELETE(_pSpacetime); end");
+
             _TRACE_("Caretaker::~Caretaker()  DeleteCriticalSection(&(Caretaker::CS2)); .....");
             DeleteCriticalSection(&(Caretaker::CS2));
         }
@@ -382,17 +389,19 @@ void Caretaker::clean() {
 }
 
 Caretaker::~Caretaker() {
+    _sync_frame_time = false;
+    calmDown();
     timeEndPeriod(1);
     clean();
     _was_cleaned = true;
 }
 
-MainActor* Caretaker::takeOutActor(uint64_t prm_cradle_no, Object* prm_pReceiver) {
-    return (MainActor*)Caretaker::takeOutObject(prm_cradle_no, prm_pReceiver);
+MainActor* Caretaker::takeOutActor(uint64_t prm_cradle_no, Object* prm_pReceiver, bool prm_was_just_wondering) {
+    return (MainActor*)takeOutObject(prm_cradle_no, prm_pReceiver, prm_was_just_wondering);
 }
 
-MainScene* Caretaker::takeOutScene(uint64_t prm_cradle_no, Object* prm_pReceiver) {
-    return (MainScene*)takeOutObject(prm_cradle_no, prm_pReceiver);
+MainScene* Caretaker::takeOutScene(uint64_t prm_cradle_no, Object* prm_pReceiver, bool prm_was_just_wondering) {
+    return (MainScene*)takeOutObject(prm_cradle_no, prm_pReceiver, prm_was_just_wondering);
 }
 
 void Caretaker::addCradle(uint64_t prm_cradle_no,
@@ -468,7 +477,8 @@ int Caretaker::chkCradle(uint64_t prm_cradle_no) {
     return -2;
 }
 
-void* Caretaker::takeOutObject(uint64_t prm_cradle_no, Object* prm_pReceiver) {
+
+void* Caretaker::takeOutObject(uint64_t prm_cradle_no, Object* prm_pReceiver, bool prm_was_just_wondering) {
     _TRACE2_("＜受取人:"<< (prm_pReceiver ? prm_pReceiver->toString() : "nullptr") <<"("<<prm_pReceiver<<")＞ まいど、["<<prm_cradle_no<<"-"<<prm_pReceiver<<"]を取りに来ましたよっと。");
 #ifdef _DEBUG
     if (_is_behaved_flg) {
@@ -539,6 +549,12 @@ void* Caretaker::takeOutObject(uint64_t prm_cradle_no, Object* prm_pReceiver) {
                     }
 #endif
                     _TRACE2_("＜受取人:"<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<")＞ よ～し、["<<prm_cradle_no<<"-"<<prm_pReceiver<<"]は祝福完了ですね。おおきに！");
+                    if (prm_was_just_wondering) {
+                        _TRACE2_("＜受取人:"<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<")＞ だがしかし、まだ受け取りません！。ちょっと聞いてみただけ～");
+                        objectCreation = pCradle->_pObject_creation;
+                        END_SYNCHRONIZED1;
+                        return (void*)objectCreation;
+                    }
                     if (pCradle->_is_first_cradle_flg && pCradle->_is_last_cradle_flg) {
                         //最後の一つを receive
                         objectCreation = pCradle->_pObject_creation;
@@ -622,10 +638,10 @@ void Caretaker::finishRest() {
 void Caretaker::desert() {
     //管理者にため込んでいる全てのゆりかごを破棄
     //管理者(Caretaker)がアプリ終了時等に実行する予定。
-    _TRACE2_("＜管理者＞ もう・・・見捨てよう・・・");
+    _TRACE_("＜管理者＞ もう・・・見捨てよう・・・");
     Cradle* pCradle = _pCradleRoot;
     if (pCradle == nullptr) {
-        _TRACE2_("＜管理者＞ しかし何も無い！！");
+        _TRACE_("＜管理者＞ しかし何も無い！！");
         return;
     }
     uint64_t cnt = 0;
@@ -640,23 +656,23 @@ void Caretaker::desert() {
     }
 
     Caretaker::debuginfo();
-
+    _TRACE_("＜管理者＞ ゆりかご削除開始");
     while (true) {
         if (pCradle->_is_last_cradle_flg) {
-            _TRACE2_("＜管理者＞ ゆりかご削除["<<pCradle->getDebuginfo()<<"]、最後のストック");
+            _TRACE_("＜管理者＞ ゆりかご削除["<<pCradle->getDebuginfo()<<"]、最後のストック");
             GGAF_DELETE(pCradle);
             pCradle = nullptr;
             _pCradleRoot = nullptr;
             _pCradleBlessing = nullptr;
             break;
         } else {
-            _TRACE2_("＜管理者＞ ゆりかご削除["<<pCradle->getDebuginfo()<<"]");
+            _TRACE_("＜管理者＞ ゆりかご削除["<<pCradle->getDebuginfo()<<"]");
             Cradle* pCradle_my_next = pCradle->_pCradle_next;
             GGAF_DELETE(pCradle);
             pCradle = pCradle_my_next;
         }
     }
-    _TRACE2_("＜管理者＞ きれいさっぱり消したった");
+    _TRACE_("＜管理者＞ ゆりかご削除終了");
     return;
 }
 
