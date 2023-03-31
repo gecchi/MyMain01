@@ -339,31 +339,31 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                         pixcoord ch1 = cRect1.bottom - cRect1.top;
                         pixcoord cw2 = cRect2.right - cRect2.left;
                         pixcoord ch2 = cRect2.bottom - cRect2.top;
-                        CONFIG::PRIMARY_WINDOW_WIDTH  = cw1;
-                        CONFIG::PRIMARY_WINDOW_HEIGHT = ch1;
-                        CONFIG::SECONDARY_WINDOW_WIDTH  = cw2;
-                        CONFIG::SECONDARY_WINDOW_HEIGHT = ch2;
-                        CONFIG::_properties.setValue("PRIMARY_WINDOW_WIDTH" , CONFIG::PRIMARY_WINDOW_WIDTH);
-                        CONFIG::_properties.setValue("PRIMARY_WINDOW_HEIGHT", CONFIG::PRIMARY_WINDOW_HEIGHT);
-                        CONFIG::_properties.setValue("SECONDARY_WINDOW_WIDTH" , CONFIG::SECONDARY_WINDOW_WIDTH);
-                        CONFIG::_properties.setValue("SECONDARY_WINDOW_HEIGHT", CONFIG::SECONDARY_WINDOW_HEIGHT);
+                        CONFIG::PRIMARY_VIEW_WINDOW_WIDTH  = cw1;
+                        CONFIG::PRIMARY_VIEW_WINDOW_HEIGHT = ch1;
+                        CONFIG::SECONDARY_VIEW_WINDOW_WIDTH  = cw2;
+                        CONFIG::SECONDARY_VIEW_WINDOW_HEIGHT = ch2;
+                        CONFIG::_properties.setValue("PRIMARY_VIEW_WINDOW_WIDTH" , CONFIG::PRIMARY_VIEW_WINDOW_WIDTH);
+                        CONFIG::_properties.setValue("PRIMARY_VIEW_WINDOW_HEIGHT", CONFIG::PRIMARY_VIEW_WINDOW_HEIGHT);
+                        CONFIG::_properties.setValue("SECONDARY_VIEW_WINDOW_WIDTH" , CONFIG::SECONDARY_VIEW_WINDOW_WIDTH);
+                        CONFIG::_properties.setValue("SECONDARY_VIEW_WINDOW_HEIGHT", CONFIG::SECONDARY_VIEW_WINDOW_HEIGHT);
 
-                        CONFIG::_properties.setValue("PRIMARY_PRESENT_POSITION", CONFIG::PRIMARY_PRESENT_POSITION);
-                        CONFIG::_properties.setValue("SECONDARY_PRESENT_POSITION", CONFIG::SECONDARY_PRESENT_POSITION);
+                        CONFIG::_properties.setValue("PRIMARY_VIEW_PRESENT_POSITION", CONFIG::PRIMARY_VIEW_PRESENT_POSITION);
+                        CONFIG::_properties.setValue("SECONDARY_VIEW_PRESENT_POSITION", CONFIG::SECONDARY_VIEW_PRESENT_POSITION);
 
                     } else {
                         RECT cRect1;
                         GetClientRect(hWnd1, &cRect1);
                         pixcoord cw1 = cRect1.right - cRect1.left;
                         pixcoord ch1 = cRect1.bottom - cRect1.top;
-                        CONFIG::PRIMARY_WINDOW_WIDTH  = cw1;
-                        CONFIG::PRIMARY_WINDOW_HEIGHT = ch1;
-                        CONFIG::_properties.setValue("PRIMARY_WINDOW_WIDTH" , CONFIG::PRIMARY_WINDOW_WIDTH);
-                        CONFIG::_properties.setValue("PRIMARY_WINDOW_HEIGHT", CONFIG::PRIMARY_WINDOW_HEIGHT);
+                        CONFIG::PRIMARY_VIEW_WINDOW_WIDTH  = cw1;
+                        CONFIG::PRIMARY_VIEW_WINDOW_HEIGHT = ch1;
+                        CONFIG::_properties.setValue("PRIMARY_VIEW_WINDOW_WIDTH" , CONFIG::PRIMARY_VIEW_WINDOW_WIDTH);
+                        CONFIG::_properties.setValue("PRIMARY_VIEW_WINDOW_HEIGHT", CONFIG::PRIMARY_VIEW_WINDOW_HEIGHT);
 
-                        CONFIG::_properties.setValue("PRIMARY_PRESENT_POSITION", CONFIG::PRIMARY_PRESENT_POSITION);
+                        CONFIG::_properties.setValue("PRIMARY_VIEW_PRESENT_POSITION", CONFIG::PRIMARY_VIEW_PRESENT_POSITION);
                     }
-                    CONFIG::_properties.setValue("FIXED_GAME_VIEW_ASPECT", CONFIG::FIXED_GAME_VIEW_ASPECT);
+                    CONFIG::_properties.setValue("FIXED_VIEW_ASPECT", CONFIG::FIXED_VIEW_ASPECT);
 
                     CONFIG::_properties.write(VV_CONFIG_FILE); //プロパティ保存
                     CONFIG::loadProperties(VV_CONFIG_FILE); //プロパティ再反映

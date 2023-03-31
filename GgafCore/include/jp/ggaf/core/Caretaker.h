@@ -354,6 +354,9 @@ public:
      * 未祝福だった場合、祝福が完了するまで待つ。<BR>
      * @param   prm_cradle_no ゆりかご番号
      * @param   prm_pReceiver 受取人
+     * @param   prm_was_just_wondering ちょっと気になっただけフラグ
+     *                  true:命を受けとるまで待つが、ゆりかごリストから取り出さない
+     *                  false:命を受けとり、ゆりかごリストから削除
      * @return	生成されたアクターのポインタ
      */
     MainActor* takeOutActor(uint64_t prm_cradle_no, Object* prm_pReceiver, bool prm_was_just_wondering = false);
@@ -364,6 +367,9 @@ public:
      * 未祝福だった場合、祝福が完了するまで待つ。<BR>
      * @param   prm_cradle_no ゆりかご番号
      * @param   prm_pReceiver 受取人
+     * @param   prm_was_just_wondering ちょっと気になっただけフラグ
+     *                  true:命を受けとるまで待つが、ゆりかごリストから取り出さない
+     *                  false:命を受けとり、ゆりかごリストから削除
      * @return	生成されたシーンのポインタ
      */
     MainScene* takeOutScene(uint64_t prm_cradle_no, Object* prm_pReceiver, bool prm_was_just_wondering = false);
@@ -389,7 +395,7 @@ public:
                   void* prm_pArg3,
                   Object* prm_org) {
         addCradle(ORDER_ID_MAX, (Object* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
-        return (X*)(takeOutObject(ORDER_ID_MAX, prm_org));
+        return (X*)(takeOutObject(ORDER_ID_MAX, prm_org, false));
     }
 
     template<class X>
@@ -401,7 +407,7 @@ public:
                  void* prm_pArg3,
                  Object* prm_org) {
         addActorCradle(ORDER_ID_MAX, (Object* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
-        return (X*)(takeOutActor(ORDER_ID_MAX, prm_org));
+        return (X*)(takeOutActor(ORDER_ID_MAX, prm_org, false));
     }
 
     template<class X>
@@ -413,7 +419,7 @@ public:
                  void* prm_pArg3,
                  Object* prm_org) {
         addSceneCradle(ORDER_ID_MAX, (Object* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
-        return (X*)(takeOutScene(ORDER_ID_MAX, prm_org));
+        return (X*)(takeOutScene(ORDER_ID_MAX, prm_org, false));
     }
 
     /**

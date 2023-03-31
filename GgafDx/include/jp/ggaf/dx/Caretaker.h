@@ -58,9 +58,9 @@ private:
     /** フルスクリーン時、DirectXのバックバッファ、[0]:１画面目、[1]:２画面目 */
     IDirect3DSurface9* _apBackBuffer[2];
 
-    /** デバイス作成時パラメーター */
+    /** デバイス作成時パラメーター配列、添字はアダブタ番号 */
     D3DPRESENT_PARAMETERS* _paPresetPrm;
-    /** 今回採用されているデバイス（WDDM使用時のみ必要） */
+    /** 今回採用されているデバイス配列、添字はアダブタ番号（WDDM使用時のみ必要） */
     D3DDISPLAYMODEEX* _paDisplayMode;
 
 
@@ -209,16 +209,16 @@ public:
     /** [r] ゲームバッファ領域(ピクセル的な系) */
     RECT _rectGameBuffer;
     /** [r] レンダリングターゲットテクスチャの領域(ピクセル) */
-    RECT _rectRenderTargetBuffer;
+    RECT _rectRenderBufferSource;
     /** [r] フルスクリーン時、レンダリングターゲットテクスチャ領域の、[0]:左半分領域、[1]:右半分領域 (ピクセル) */
-    RECT _aRect_HarfRenderTargetBuffer[2];
+    RECT _aRect_HarfRenderBufferSource[2];
     /** [r] 最終表示フロントバッファフレームの領域、[0]:１画面目、[1]:２画面目 (ピクセル) */
-    RECT _aRect_ViewScreen[2];
+    RECT _aRect_FullScreen[2];
     /** [r] Present領域(フルスクリーン時、またはウィンドウ＆アスペクトFIXの場合)、[0]:１画面目、[1]:２画面目 (ピクセル) */
     RECT _aRect_Present[2];
-    /** [r] １画面目アダプタ番号、 _aRect_HarfRenderTargetBuffer[] の序数 0 ～ */
+    /** [r] １画面目アダプタ番号、 _aRect_HarfRenderBufferSource[] の序数 0 ～ */
     int _primary_adapter_no;
-    /** [r] ２画面目アダプタ番号、 _aRect_HarfRenderTargetBuffer[] の序数 0 ～ */
+    /** [r] ２画面目アダプタ番号、 _aRect_HarfRenderBufferSource[] の序数 0 ～ */
     int _secondary_adapter_no;
 
 public:
