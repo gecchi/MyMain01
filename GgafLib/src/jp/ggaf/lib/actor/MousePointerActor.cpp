@@ -50,7 +50,7 @@ void MousePointerActor::processSettlementBehavior() {
     // スクリーン座標をクライアント座標に変換する
     ScreenToClient(_last_hWnd, &_mouse_point);
     if (_last_hWnd == pCARETAKER->_pHWndSecondary) {
-        RECT& rect_Present = pCARETAKER->_aRect_Present[PRIMARY_VIEW];
+        RECT& rect_Present = pCARETAKER->_aRect_Present[SECONDARY_VIEW];
         pixcoord cPresent_w = rect_Present.right - rect_Present.left;
         pixcoord cPresent_h = rect_Present.bottom - rect_Present.top;
         pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* pSpacetime->_buffer_width2) / (1.0* cPresent_w));
@@ -58,7 +58,7 @@ void MousePointerActor::processSettlementBehavior() {
         _x = PX_C(x) + _coord_buffer_left2;
         _y = PX_C(y) + _coord_buffer_top2;
     } else if (_last_hWnd == pCARETAKER->_pHWndPrimary) {
-        RECT& rect_Present = pCARETAKER->_aRect_Present[SECONDARY_VIEW];
+        RECT& rect_Present = pCARETAKER->_aRect_Present[PRIMARY_VIEW];
         pixcoord cPresent_w = rect_Present.right - rect_Present.left;
         pixcoord cPresent_h = rect_Present.bottom - rect_Present.top;
         pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* pSpacetime->_buffer_width1) / (1.0* cPresent_w));

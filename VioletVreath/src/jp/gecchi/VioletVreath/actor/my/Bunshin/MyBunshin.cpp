@@ -136,7 +136,7 @@ void MyBunshin::processSettlementBehavior() {
 
     //ロックオン対象へ方向を向ける
 //    _is_thunder_lock = false;
-    if (_laser_kind == LASER_KOANYA) {
+    if (_laser_kind == LASER_THUNDER) {
         //絶対座標系で通常のロックオン対象狙う方向ベクトル
         GgafDx::GeometricActor* pTargetActor = pLockonCtrler_->pMainLockonCursor_->pTarget_;
         if (pTargetActor) {

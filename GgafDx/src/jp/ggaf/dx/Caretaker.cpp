@@ -1656,7 +1656,7 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
         if (_primary_adapter_no < _secondary_adapter_no) {
             // 画面番号の通常の描画順
             hr = _pID3DDevice9->GetSwapChain( 0, &_apSwapChain[PRIMARY_VIEW] );
-            returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました。");
+            returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました。(1)");
             hr = _apSwapChain[PRIMARY_VIEW]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_apBackBuffer[PRIMARY_VIEW] );
             returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました。(1)");
 
