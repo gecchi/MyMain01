@@ -267,12 +267,14 @@ public:
     public :
         VBRecord* _next; //時系列で次のフレームの入力状態
         VBRecord* _prev; //時系列で前のフレームの入力状態
-        vb_sta _state;
+        vb_sta _p1_state;
+        vb_sta _p2_state;
     public:
         VBRecord() {
             _next = nullptr;
             _prev = nullptr;
-            _state = (vb_sta)0;
+            _p1_state = (vb_sta)0;
+            _p2_state = (vb_sta)0;
         }
         ~VBRecord() {
         }
@@ -365,7 +367,7 @@ public:
 
 
 
-    typedef bool (*funcVJBtn)(void);
+    typedef bool (*funcVJBtn)(int);
     static std::map<int, funcVJBtn> _mapVBJ2Func;
 
 public:
@@ -452,7 +454,7 @@ public:
      * @endcode
      */
     inline vb_sta isPressed(vb_sta prm_VB) const {
-        return (_pVBRecord_active->_state & prm_VB);
+        return (_pVBRecord_active->_p1_state & prm_VB);
     }
 
     /**
@@ -512,7 +514,7 @@ public:
      * @return true / false
      */
     inline bool isPushedDown(vb_sta prm_VB) const {
-        return (!(_pVBRecord_active->_prev->_state & prm_VB) && (_pVBRecord_active->_state & prm_VB)) ? true : false;
+        return (!(_pVBRecord_active->_prev->_p1_state & prm_VB) && (_pVBRecord_active->_p1_state & prm_VB)) ? true : false;
     }
 
     /**
@@ -664,7 +666,7 @@ public:
 
 
     inline vb_sta getState() const {
-        return _pVBRecord_active->_state;
+        return _pVBRecord_active->_p1_state;
     }
 
     /**

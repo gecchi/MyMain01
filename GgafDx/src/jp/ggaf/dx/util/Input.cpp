@@ -9,7 +9,7 @@ using namespace GgafDx;
 //const int Input::BUFFER_SIZE = 256;
 LPDIRECTINPUT8 Input::_pIDirectInput8 = nullptr;
 LPDIRECTINPUTDEVICE8 Input::_pKeyboardInputDevice = nullptr;
-LPDIRECTINPUTDEVICE8 Input::_pJoystickInputDevice = nullptr;
+LPDIRECTINPUTDEVICE8 Input::_apJoystickInputDevice[2];
 LPDIRECTINPUTDEVICE8 Input::_pMouseInputDevice  = nullptr;
 DIMOUSESTATE2 Input::_di_mouse_state[2];
 int  Input::_flip_ms = 0;
@@ -17,10 +17,12 @@ int  Input::_flip_ms = 0;
 BYTE Input::_keyboard_state[2][256];
 int Input::_flip_ks = 0;
 DIDEVCAPS Input::_devcap;
-DIJOYSTATE Input::_joy_state[2];
+DIJOYSTATE Input::_joy_state[2][2];
 int Input::_flip_js = 0;
 
 Input::MouseState Input::_win_mouse_state[2];
+
+int Input::count_joy_stick_device_no = 0;
 
 HRESULT Input::init() {
     if (Input::_pIDirectInput8) {
@@ -184,11 +186,20 @@ HRESULT Input::initJoyStick() {
     if (!Input::_pIDirectInput8) {
         Input::init();
     }
-    if (Input::_pJoystickInputDevice) {
+
+    if (Input::_apJoystickInputDevice[P1_JOY_STICK]) {
         //取得済み
-        Input::_pJoystickInputDevice->Unacquire();
-        GGAF_RELEASE(Input::_pJoystickInputDevice);
+        Input::_apJoystickInputDevice[P1_JOY_STICK]->Unacquire();
+        GGAF_RELEASE(Input::_apJoystickInputDevice[P1_JOY_STICK]);
     }
+    if (Input::_apJoystickInputDevice[P2_JOY_STICK]) {
+        //取得済み
+        Input::_apJoystickInputDevice[P2_JOY_STICK]->Unacquire();
+        GGAF_RELEASE(Input::_apJoystickInputDevice[P2_JOY_STICK]);
+    }
+    Input::_apJoystickInputDevice[P1_JOY_STICK] = nullptr;
+    Input::_apJoystickInputDevice[P2_JOY_STICK] = nullptr;
+    Input::count_joy_stick_device_no = 0;
     HRESULT hr;
     // ゲームスティックを列挙してデバイスを得る
     hr = Input::_pIDirectInput8->EnumDevices(
@@ -197,22 +208,22 @@ HRESULT Input::initJoyStick() {
                                            nullptr,
                                            DIEDFL_ATTACHEDONLY
                                        );
-    if (hr != D3D_OK || Input::_pJoystickInputDevice == nullptr) {
-        _TRACE_("ジョイスティックが見つかりません");
-        Input::_pJoystickInputDevice = nullptr;
+    if (hr != D3D_OK || Input::_apJoystickInputDevice[P1_JOY_STICK] == nullptr) {
+        _TRACE_("1P ジョイスティックが見つかりません");
+        Input::_apJoystickInputDevice[P1_JOY_STICK] = nullptr;
         return FALSE;
     } else {
         _TRACE_("ジョイスティックデバイス取得");
 
         // ゲームスティックのデータ形式を設定する
-        hr = Input::_pJoystickInputDevice->SetDataFormat(&c_dfDIJoystick);
+        hr = Input::_apJoystickInputDevice[P1_JOY_STICK]->SetDataFormat(&c_dfDIJoystick);
         if (hr != D3D_OK) {
             _TRACE_("ジョイスティックSetDataFormatに失敗しました");
             return FALSE;
         }
 
         // ゲームスティック協調レベルを設定する
-        hr = Input::_pJoystickInputDevice->SetCooperativeLevel(
+        hr = Input::_apJoystickInputDevice[P1_JOY_STICK]->SetCooperativeLevel(
                                                      pCARETAKER->_pHWndPrimary,
                                                      DISCL_FOREGROUND | DISCL_NONEXCLUSIVE
                                                  );
@@ -222,7 +233,7 @@ HRESULT Input::initJoyStick() {
         }
 
         // ゲームスティックの軸データの範囲を設定する
-        hr = Input::_pJoystickInputDevice->EnumObjects(
+        hr = Input::_apJoystickInputDevice[P1_JOY_STICK]->EnumObjects(
                                                      Input::enumPadAxisCallback,
                                                      nullptr,
                                                      DIDFT_AXIS
@@ -240,17 +251,17 @@ HRESULT Input::initJoyStick() {
         dipropword_j.diph.dwHow = DIPH_DEVICE;
         dipropword_j.dwData = DIPROPAXISMODE_ABS; // 絶対値モード
         //  dipropword.dwData       = DIPROPAXISMODE_REL;   // 相対値モード
-        hr = Input::_pJoystickInputDevice->SetProperty(DIPROP_AXISMODE, &dipropword_j.diph);
+        hr = Input::_apJoystickInputDevice[P1_JOY_STICK]->SetProperty(DIPROP_AXISMODE, &dipropword_j.diph);
         if (hr != D3D_OK) {
             _TRACE_( "軸モードの設定に失敗");
             return FALSE;
         }
 
         // ゲームスティックのアクセス権を取得する
-        hr = Input::_pJoystickInputDevice->Poll();
+        hr = Input::_apJoystickInputDevice[P1_JOY_STICK]->Poll();
         if (hr != D3D_OK) {
             do {
-                hr = Input::_pJoystickInputDevice->Acquire();
+                hr = Input::_apJoystickInputDevice[P1_JOY_STICK]->Acquire();
             } while (hr == DIERR_INPUTLOST);
         }
     }
@@ -260,9 +271,10 @@ HRESULT Input::initJoyStick() {
 BOOL CALLBACK Input::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInstance, VOID *pContext) {
     HRESULT hr;
     // ゲームスティックデバイスを探す
+    LPDIRECTINPUTDEVICE8 pJoystickInputDevice;
     hr = Input::_pIDirectInput8->CreateDevice(
                                            pDIDeviceInstance->guidInstance,
-                                           &Input::_pJoystickInputDevice,
+                                           &pJoystickInputDevice,
                                            nullptr
                                        );
     if(hr != D3D_OK) {
@@ -273,16 +285,29 @@ BOOL CALLBACK Input::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInsta
 
     // ジョイスティックの能力を取得
     Input::_devcap.dwSize = sizeof(DIDEVCAPS);
-    hr = Input::_pJoystickInputDevice->GetCapabilities( &Input::_devcap );
+    hr = pJoystickInputDevice->GetCapabilities( &Input::_devcap );
     if( hr != D3D_OK ) {
-        _TRACE_("enumGameCtrlCallback ジョイスティックGetCapabilitiesに失敗しました");
+        _TRACE_("enumGameCtrlCallback 能力取得できない。ジョイスティックGetCapabilitiesに失敗しました");
         // ジョイスティックの能力を取得出来ないようなら、勘弁願う
-        Input::_pJoystickInputDevice->Release();
+        pJoystickInputDevice->Release();
         return DIENUM_CONTINUE;
     }
 
     //生き残ればデバイス採用
-    return DIENUM_STOP;
+    _TRACE_("enumGameCtrlCallback "<<count_joy_stick_device_no<<"番目のジョイスティックが見つかりました。");
+    if (Input::count_joy_stick_device_no == Config::P1_JOY_STICK_DEVICE_NO) {
+        Input::_apJoystickInputDevice[P1_JOY_STICK] = pJoystickInputDevice;
+        _TRACE_("enumGameCtrlCallback 1P ジョイスティックとして使用されます。理由、Config::P1_JOY_STICK_DEVICE_NO="<<Config::P1_JOY_STICK_DEVICE_NO);
+    } else if (Input::count_joy_stick_device_no == Config::P2_JOY_STICK_DEVICE_NO) {
+        Input::_apJoystickInputDevice[P2_JOY_STICK] = pJoystickInputDevice;
+        _TRACE_("enumGameCtrlCallback 2P ジョイスティックとして使用されます。理由、Config::P2_JOY_STICK_DEVICE_NO="<<Config::P2_JOY_STICK_DEVICE_NO);
+    } else {
+        pJoystickInputDevice->Release();
+        _TRACE_("enumGameCtrlCallback このジョイスティックは使用されません。理由、P1_JOY_STICK_DEVICE_NO="<<Config::P1_JOY_STICK_DEVICE_NO<<"/P2_JOY_STICK_DEVICE_NO="<<Config::P2_JOY_STICK_DEVICE_NO);
+
+    }
+    Input::count_joy_stick_device_no++;
+    return DIENUM_CONTINUE;
 }
 
 BOOL CALLBACK Input::enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef) {
@@ -295,7 +320,7 @@ BOOL CALLBACK Input::enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOI
     diproprange.lMin = -255;
     diproprange.lMax = +255;
 
-    HRESULT hr = Input::_pJoystickInputDevice->SetProperty(DIPROP_RANGE, &diproprange.diph);
+    HRESULT hr = Input::_apJoystickInputDevice[P1_JOY_STICK]->SetProperty(DIPROP_RANGE, &diproprange.diph);
     if(hr != D3D_OK) {
         _TRACE_("enumPadAxisCallback ジョイスティックSetPropertyに失敗しました");
         return DIENUM_STOP;
@@ -504,8 +529,8 @@ bool Input::isReleasedUpKey(int prm_DIK) {
     }
 }
 
-void Input::updateJoystickState() {
-    if (Input::_pJoystickInputDevice == nullptr) {
+void Input::updateJoystickState(int prm_joystic_no) {
+    if (Input::_apJoystickInputDevice[prm_joystic_no] == nullptr) {
         return;
     }
     Input::_flip_js ^= 1;
@@ -513,9 +538,9 @@ void Input::updateJoystickState() {
     HRESULT hr;
 
 again1:
-    hr = Input::_pJoystickInputDevice->Poll();
+    hr = Input::_apJoystickInputDevice[prm_joystic_no]->Poll();
     if (hr != DI_OK) {
-        hr = Input::_pJoystickInputDevice->Acquire();
+        hr = Input::_apJoystickInputDevice[prm_joystic_no]->Acquire();
         if (hr == DI_OK) {
             goto again1;
         } else {
@@ -523,12 +548,12 @@ again1:
     }
 
 again2:
-    hr = Input::_pJoystickInputDevice->GetDeviceState(
+    hr = Input::_apJoystickInputDevice[prm_joystic_no]->GetDeviceState(
                                                  sizeof(DIJOYSTATE),
-                                                 &Input::_joy_state[Input::_flip_js]
+                                                 &Input::_joy_state[prm_joystic_no][Input::_flip_js]
                                              );
     if (hr != DI_OK) {
-        hr = Input::_pJoystickInputDevice->Acquire();
+        hr = Input::_apJoystickInputDevice[prm_joystic_no]->Acquire();
         if (hr == DI_OK) {
             goto again2;
         } else {
@@ -543,9 +568,9 @@ again2:
 //    _TRACE_("lRz="<<Input::_joy_state[Input::_flip_js].lRz);
 }
 
-bool Input::isPushedDownJoyRgbButton(int prm_joy_button_no) {
-    if (Input::isPressedJoyButton(prm_joy_button_no)) { //今は押している
-        if (Input::_joy_state[!Input::_flip_js].rgbButtons[prm_joy_button_no] & 0x80) {
+bool Input::isPushedDownJoyRgbButton(int prm_joystic_no, int prm_joy_button_no) {
+    if (Input::isPressedJoyButton(prm_joystic_no, prm_joy_button_no)) { //今は押している
+        if (Input::_joy_state[prm_joystic_no][!Input::_flip_js].rgbButtons[prm_joy_button_no] & 0x80) {
             //前回セット[!Input::_flip_js]も押されている。押しっぱなし
             return false;
         } else {
@@ -557,10 +582,10 @@ bool Input::isPushedDownJoyRgbButton(int prm_joy_button_no) {
     }
 }
 
-int Input::getFirstPushedDownJoyRgbButton() {
-    int JOY_pressed = Input::getFirstPressedJoyRgbButton();
+int Input::getFirstPushedDownJoyRgbButton(int prm_joystic_no) {
+    int JOY_pressed = Input::getFirstPressedJoyRgbButton(prm_joystic_no);
     if (JOY_pressed >= 0 ) { //今は押している
-        if (Input::_joy_state[!Input::_flip_js].rgbButtons[JOY_pressed] & 0x80) {
+        if (Input::_joy_state[prm_joystic_no][!Input::_flip_js].rgbButtons[JOY_pressed] & 0x80) {
             //前回セット[!Input::_flip_js]も押されている。押しっぱなし
             return -1;
         } else {
@@ -573,26 +598,27 @@ int Input::getFirstPushedDownJoyRgbButton() {
 }
 
 
-int Input::getPressedJoyDirection() {
-    if (Input::_joy_state[Input::_flip_js].lY < -127) {
-        if (Input::_joy_state[Input::_flip_js].lX > 127) {
+int Input::getPressedJoyDirection(int prm_joystic_no) {
+    DIJOYSTATE& sta = Input::_joy_state[prm_joystic_no][Input::_flip_js];
+    if (sta.lY < -127) {
+        if (sta.lX > 127) {
             return 9;
-        } else if (Input::_joy_state[Input::_flip_js].lX < -127) {
+        } else if (sta.lX < -127) {
             return 7;
         } else {
             return 8;
         }
-    } else if (Input::_joy_state[Input::_flip_js].lY > 127) {
-        if (Input::_joy_state[Input::_flip_js].lX > 127) {
+    } else if (sta.lY > 127) {
+        if (sta.lX > 127) {
             return 3;
-        } else if (Input::_joy_state[Input::_flip_js].lX < -127) {
+        } else if (sta.lX < -127) {
             return 1;
         } else {
             return 2;
         }
-    } else if (Input::_joy_state[Input::_flip_js].lX > 127) {
+    } else if (sta.lX > 127) {
         return 6;
-    } else if (Input::_joy_state[Input::_flip_js].lX < -127) {
+    } else if (sta.lX < -127) {
         return 4;
     } else {
         return 5;
@@ -600,9 +626,9 @@ int Input::getPressedJoyDirection() {
 }
 
 
-int Input::getPressedPovDirection() {
-    if (Input::_pJoystickInputDevice) { //JoyStickが無い場合、rgdwPOV[0]=0のため、上と判定されることを防ぐ
-        DWORD n = Input::_joy_state[Input::_flip_js].rgdwPOV[0];
+int Input::getPressedPovDirection(int prm_joystic_no) {
+    if (Input::_apJoystickInputDevice[prm_joystic_no]) { //JoyStickが無い場合、rgdwPOV[0]=0のため、上と判定されることを防ぐ
+        DWORD n = Input::_joy_state[prm_joystic_no][Input::_flip_js].rgdwPOV[0];
         if (LOWORD(n) != 0xFFFF) {
             if (n < 20750) {
                 if (n < 11750) {
@@ -652,9 +678,13 @@ void Input::release() {
             Input::_pKeyboardInputDevice->Unacquire();
             GGAF_RELEASE(Input::_pKeyboardInputDevice);
         }
-        if (Input::_pJoystickInputDevice) {
-            Input::_pJoystickInputDevice->Unacquire();
-            GGAF_RELEASE(Input::_pJoystickInputDevice);
+        if (Input::_apJoystickInputDevice[P1_JOY_STICK]) {
+            Input::_apJoystickInputDevice[P1_JOY_STICK]->Unacquire();
+            GGAF_RELEASE(Input::_apJoystickInputDevice[P1_JOY_STICK]);
+        }
+        if (Input::_apJoystickInputDevice[P2_JOY_STICK]) {
+            Input::_apJoystickInputDevice[P2_JOY_STICK]->Unacquire();
+            GGAF_RELEASE(Input::_apJoystickInputDevice[P2_JOY_STICK]);
         }
         if (Input::_pMouseInputDevice) {
             Input::_pMouseInputDevice->Unacquire();

@@ -10,7 +10,7 @@ namespace GgafLib {
 
 /**
  * リプレイデータクラス .
- * 仮想ボタンステータス(VirtualButton の _state)の、
+ * 仮想ボタンステータス(VirtualButton の _p1_state)の、
  * 書き込み読み取り、ファイル書き出し取り込み機能を提供。
  * @version 1.00
  * @since 2010/04/20
@@ -27,22 +27,22 @@ public:
         /** [r]次のリプレイデータ要素 */
         VBRecordNote* _pNext;
         /** [r]仮想ボタンステータス */
-        vb_sta _state;
+        vb_sta _p1_state;
         /** [r]ステータス継続フレーム数 */
         frame _frame_of_keeping;
     public:
         /**
          * コンストラクタ .
          */
-        VBRecordNote() : _pNext(nullptr),_state(0),_frame_of_keeping(0) {
+        VBRecordNote() : _pNext(nullptr),_p1_state(0),_frame_of_keeping(0) {
         }
 
         /**
          * コンストラクタ .
-         * @param state 仮想ボタンステータス
+         * @param p1_state 仮想ボタンステータス
          * @param frame_of_keeping ステータス継続フレーム数
          */
-        VBRecordNote(vb_sta state, frame frame_of_keeping) : _pNext(nullptr),_state(state),_frame_of_keeping(frame_of_keeping) {
+        VBRecordNote(vb_sta p1_state, frame frame_of_keeping) : _pNext(nullptr),_p1_state(p1_state),_frame_of_keeping(frame_of_keeping) {
         }
 
         ~VBRecordNote() {
@@ -95,9 +95,9 @@ public:
     bool setRealtimeOutputFile(const char* prm_filename);
     /**
      * 仮想ボタンステータスを書き込み、内部状態を、次の状態へ遷移 .
-     * @param state
+     * @param p1_state
      */
-    void write(vb_sta state);
+    void write(vb_sta p1_state);
 
     /**
      * ファイルにリプレイデータを書きだす。

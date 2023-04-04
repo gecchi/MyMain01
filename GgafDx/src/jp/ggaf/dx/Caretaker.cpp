@@ -38,16 +38,16 @@ Caretaker::Caretaker() : GgafCore::Caretaker() {
     _pHWndPrimary = nullptr;
     _pHWndSecondary = nullptr;
     if (CONFIG::FULL_SCREEN) {
-        _primary_adapter_no = CONFIG::PRIMARY_VIEW_DISPLAY_NO;
-        _secondary_adapter_no = CONFIG::SECONDARY_VIEW_DISPLAY_NO;
+        _primary_game_view_no = CONFIG::PRIMARY_GAME_VIEW_NO;
+        _secondary_game_view_no = CONFIG::SECONDARY_GAME_VIEW_NO;
     } else {
-        _primary_adapter_no = 0;
-        _secondary_adapter_no = 1;
+        _primary_game_view_no = 0;
+        _secondary_game_view_no = 1;
     }
     if (CONFIG::SWAP_VIEW && CONFIG::DUAL_VIEW) {
-        int wk = _primary_adapter_no;
-        _primary_adapter_no = _secondary_adapter_no;
-        _secondary_adapter_no = wk;
+        int wk = _primary_game_view_no;
+        _primary_game_view_no = _secondary_game_view_no;
+        _secondary_game_view_no = wk;
     }
 
     _hInstance = GetModuleHandle(0);
@@ -66,10 +66,9 @@ Caretaker::Caretaker() : GgafCore::Caretaker() {
     _paAdapterRezos = nullptr;
 
     _can_wddm = true;//とりあえず
-    _apSwapChain[0] = nullptr;
-    _apBackBuffer[0] = nullptr;
-    _apSwapChain[1] = nullptr;
-    _apBackBuffer[1] = nullptr;
+    _papSwapChain = nullptr;
+    _papBackBuffer = nullptr;
+
     _paPresetPrm = nullptr;
     _paDisplayMode = nullptr;
     _paHWnd = nullptr;
@@ -255,7 +254,7 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
 
             if (CONFIG::DUAL_VIEW) {
                 //２画面フルスクリーン時
-                if (adapter_no == _primary_adapter_no) {
+                if (adapter_no == _primary_game_view_no) {
                     //ゲーム画面１画面目
                     if (allow_chang_rezo && CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH > 0) {
                         //解像度変更許可
@@ -274,9 +273,9 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
                         CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH  = (pixcoord)(structD3DDisplayMode0.Width);
                         CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT = (pixcoord)(structD3DDisplayMode0.Height);
                     }
-                    _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH;
-                    _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT;
-                } else if (adapter_no == _secondary_adapter_no) {
+                    _paPresetPrm[_primary_game_view_no].BackBufferWidth  = CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH;
+                    _paPresetPrm[_primary_game_view_no].BackBufferHeight = CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT;
+                } else if (adapter_no == _secondary_game_view_no) {
                     //ゲーム画面２画面目
                     if (allow_chang_rezo && CONFIG::SECONDARY_VIEW_FULL_SCREEN_WIDTH > 0) {
                         //解像度変更許可
@@ -295,8 +294,8 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
                         CONFIG::SECONDARY_VIEW_FULL_SCREEN_WIDTH  = (pixcoord)(structD3DDisplayMode1.Width);
                         CONFIG::SECONDARY_VIEW_FULL_SCREEN_HEIGHT = (pixcoord)(structD3DDisplayMode1.Height);
                     }
-                    _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = CONFIG::SECONDARY_VIEW_FULL_SCREEN_WIDTH;
-                    _paPresetPrm[_secondary_adapter_no].BackBufferHeight = CONFIG::SECONDARY_VIEW_FULL_SCREEN_HEIGHT;
+                    _paPresetPrm[_secondary_game_view_no].BackBufferWidth  = CONFIG::SECONDARY_VIEW_FULL_SCREEN_WIDTH;
+                    _paPresetPrm[_secondary_game_view_no].BackBufferHeight = CONFIG::SECONDARY_VIEW_FULL_SCREEN_HEIGHT;
                 } else {
                     //メモ：ゲーム画面３画面目以降１画面目・２画面目の解像度は、現状の解像度をそのまま設定。
                     D3DDISPLAYMODE structD3DDisplayMode;
@@ -310,7 +309,7 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
 
             } else {
                 //１画面フルスクリーン時
-                if (adapter_no == _primary_adapter_no) {
+                if (adapter_no == _primary_game_view_no) {
                     if (allow_chang_rezo && CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH > 0) {
                         //解像度変更許可
                         int n = checkAppropriateDisplaySize(
@@ -328,8 +327,8 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
                         CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH  = (pixcoord)(structD3DDisplayMode0.Width);
                         CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT = (pixcoord)(structD3DDisplayMode0.Height);
                     }
-                    _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH;
-                    _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT;
+                    _paPresetPrm[_primary_game_view_no].BackBufferWidth  = CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH;
+                    _paPresetPrm[_primary_game_view_no].BackBufferHeight = CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT;
                 } else {
                     _paPresetPrm[adapter_no].BackBufferWidth  = 0;
                     _paPresetPrm[adapter_no].BackBufferHeight = 0;
@@ -581,8 +580,8 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
 
 #ifdef MY_DEBUG
     _TRACE_("初期設定");
-    _TRACE_(" _primary_adapter_no = "<<_primary_adapter_no );
-    _TRACE_(" _secondary_adapter_no = "<<_secondary_adapter_no );
+    _TRACE_(" _primary_game_view_no = "<<_primary_game_view_no );
+    _TRACE_(" _secondary_game_view_no = "<<_secondary_game_view_no );
     if (CONFIG::DUAL_VIEW) {
         _TRACE_(" _aRect_HarfRenderBufferSource[PRIMARY_VIEW].left   = "<<_aRect_HarfRenderBufferSource[PRIMARY_VIEW].left  );
         _TRACE_(" _aRect_HarfRenderBufferSource[PRIMARY_VIEW].top    = "<<_aRect_HarfRenderBufferSource[PRIMARY_VIEW].top   );
@@ -713,75 +712,94 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 
     _num_adapter = caps.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
     _TRACE_("_num_adapter = "<< _num_adapter);
-    if (CONFIG::FULL_SCREEN && CONFIG::DUAL_VIEW) {
-        if (_num_adapter < 2) {
-            _TRACE_("【警告】２画面フルスクリーン設定ですが、マルチモニタを検出できません。強制的に１画面フルスクリーンで起動します");
-            MessageBox(_pHWndPrimary,
-                       "【警告】２画面フルスクリーン設定ですが、マルチモニタを検出できません。\n強制的に１画面フルスクリーンで起動します",
-                       "WARNING", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
-            _primary_adapter_no = 0;
-            _secondary_adapter_no = 1;
-            CONFIG::DUAL_VIEW = false;
-            CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH_BK  = CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH;
-            CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT_BK = CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT;
+
+
+    if (CONFIG::FULL_SCREEN) {
+        if (CONFIG::DUAL_VIEW) {
+            if (_num_adapter < 2) {
+                _TRACE_("【警告】２画面フルスクリーン設定ですが、マルチモニタを検出できません。強制的に１画面フルスクリーンで起動します");
+                MessageBox(_pHWndPrimary,
+                           "【警告】２画面フルスクリーン設定ですが、マルチモニタを検出できません。\n強制的に１画面フルスクリーンで起動します",
+                           "WARNING", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
+                _primary_game_view_no = 0;
+                _secondary_game_view_no = 1;
+                CONFIG::DUAL_VIEW = false;
+                CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH_BK  = CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH;
+                CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT_BK = CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT;
+            } else {
+                if (_num_adapter < CONFIG::PRIMARY_GAME_VIEW_NO+1 || _num_adapter < CONFIG::SECONDARY_GAME_VIEW_NO+1) {
+                    throwCriticalException("範囲外のディスプレイアダプタ番号を指定しています。アダプタ番号は 0～"<<_num_adapter-1<<" が有効です。\n"
+                                               "PRIMARY_GAME_VIEW_NO="<<CONFIG::PRIMARY_GAME_VIEW_NO<<", "
+                                               "SECONDARY_GAME_VIEW_NO="<<CONFIG::SECONDARY_GAME_VIEW_NO );
+                } else if(_primary_game_view_no == _secondary_game_view_no) {
+                    throwCriticalException("１画面目、２画面目とも、同じディスプレイアダプタ番号を指定しています。\n"
+                                               "PRIMARY_GAME_VIEW_NO="<<CONFIG::PRIMARY_GAME_VIEW_NO<<", "
+                                               "SECONDARY_GAME_VIEW_NO="<<CONFIG::SECONDARY_GAME_VIEW_NO );
+                }
+            }
         } else {
-            if (_num_adapter < CONFIG::PRIMARY_VIEW_DISPLAY_NO+1 || _num_adapter < CONFIG::SECONDARY_VIEW_DISPLAY_NO+1) {
+            if (_num_adapter < CONFIG::PRIMARY_GAME_VIEW_NO+1 || _num_adapter < CONFIG::SECONDARY_GAME_VIEW_NO+1) {
                 throwCriticalException("範囲外のディスプレイアダプタ番号を指定しています。アダプタ番号は 0～"<<_num_adapter-1<<" が有効です。\n"
-                                           "PRIMARY_VIEW_DISPLAY_NO="<<CONFIG::PRIMARY_VIEW_DISPLAY_NO<<", "
-                                           "SECONDARY_VIEW_DISPLAY_NO="<<CONFIG::SECONDARY_VIEW_DISPLAY_NO );
-            } else if(_primary_adapter_no == _secondary_adapter_no) {
-                throwCriticalException("１画面目、２画面目とも、同じディスプレイアダプタ番号を指定しています。\n"
-                                           "PRIMARY_VIEW_DISPLAY_NO="<<CONFIG::PRIMARY_VIEW_DISPLAY_NO<<", "
-                                           "SECONDARY_VIEW_DISPLAY_NO="<<CONFIG::SECONDARY_VIEW_DISPLAY_NO );
+                                           "PRIMARY_GAME_VIEW_NO="<<CONFIG::PRIMARY_GAME_VIEW_NO<<", "
+                                           "SECONDARY_GAME_VIEW_NO="<<CONFIG::SECONDARY_GAME_VIEW_NO );
+            } else {
+                //_secondary_game_view_no は、_primary_game_view_no とかぶらないようにしておく
+                if (_primary_game_view_no == _secondary_game_view_no) {
+                    if (_secondary_game_view_no == 0) {
+                        _secondary_game_view_no = _primary_game_view_no + 1;
+                    } else {
+                        _secondary_game_view_no = _primary_game_view_no - 1;
+                    }
+                }
             }
         }
     }
 
     int preset_prm_num = _num_adapter > 2 ? _num_adapter : 2;
     _paPresetPrm = NEW D3DPRESENT_PARAMETERS[preset_prm_num];
-    ZeroMemory(&_paPresetPrm[_primary_adapter_no], sizeof(D3DPRESENT_PARAMETERS));
+    ZeroMemory(&_paPresetPrm[_primary_game_view_no], sizeof(D3DPRESENT_PARAMETERS));
 
     //ウィンドウ時・フルスクリーン時共通
-    _paPresetPrm[_primary_adapter_no].BackBufferCount        = 1;            //バックバッファの数
-    _paPresetPrm[_primary_adapter_no].EnableAutoDepthStencil = TRUE;         //バックバッファの Zバッファの自動作成
-    _paPresetPrm[_primary_adapter_no].AutoDepthStencilFormat = D3DFMT_D24S8; //深度ステンシルバッファ //D3DFMT_D16;
-    _paPresetPrm[_primary_adapter_no].Flags                  = 0;            //0にしておく
+    _paPresetPrm[_primary_game_view_no].BackBufferCount        = 1;            //バックバッファの数
+    _paPresetPrm[_primary_game_view_no].EnableAutoDepthStencil = TRUE;         //バックバッファの Zバッファの自動作成
+    _paPresetPrm[_primary_game_view_no].AutoDepthStencilFormat = D3DFMT_D24S8; //深度ステンシルバッファ //D3DFMT_D16;
+    _paPresetPrm[_primary_game_view_no].Flags                  = 0;            //0にしておく
 
     if (CONFIG::FULL_SCREEN) {
 
         //フルスクリーン時
-        _paPresetPrm[_primary_adapter_no].BackBufferFormat           = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
-        _paPresetPrm[_primary_adapter_no].Windowed                   = false; //フルスクリーンモード時
-        _paPresetPrm[_primary_adapter_no].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //リフレッシュレート
-        _paPresetPrm[_primary_adapter_no].PresentationInterval       = D3DPRESENT_INTERVAL_DEFAULT; //スワップのタイミング
-        _paPresetPrm[_primary_adapter_no].SwapEffect                 = D3DSWAPEFFECT_DISCARD;
+        _paPresetPrm[_primary_game_view_no].BackBufferFormat           = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
+        _paPresetPrm[_primary_game_view_no].Windowed                   = false; //フルスクリーンモード時
+        _paPresetPrm[_primary_game_view_no].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //リフレッシュレート
+        _paPresetPrm[_primary_game_view_no].PresentationInterval       = D3DPRESENT_INTERVAL_DEFAULT; //スワップのタイミング
+        _paPresetPrm[_primary_game_view_no].SwapEffect                 = D3DSWAPEFFECT_DISCARD;
 
         if(CONFIG::DUAL_VIEW) {
-            _paPresetPrm[_secondary_adapter_no] = _paPresetPrm[_primary_adapter_no]; //ココまでを複製
+            _paPresetPrm[_secondary_game_view_no] = _paPresetPrm[_primary_game_view_no]; //ココまでを複製
 
-            _paPresetPrm[_primary_adapter_no].EnableAutoDepthStencil = FALSE;   //Zバッファの自動作成無効
-            _paPresetPrm[_secondary_adapter_no].EnableAutoDepthStencil = FALSE;
+            _paPresetPrm[_primary_game_view_no].EnableAutoDepthStencil = FALSE;   //Zバッファの自動作成無効
+            _paPresetPrm[_secondary_game_view_no].EnableAutoDepthStencil = FALSE;
             //【メモ】
             //EnableAutoDepthStencil = FALSE;
             //とすると、レンダリングステートの D3DRS_ZENABLE が FALSE になるだけのように見える。
             //従って「無効」にしただけであり、「使用不可」ではないのだろう・・・。
         } else {
-            _paPresetPrm[_primary_adapter_no].EnableAutoDepthStencil = FALSE; //Z バッファの自動作成有効
+            _paPresetPrm[_primary_game_view_no].EnableAutoDepthStencil = FALSE; //Z バッファの自動作成有効
         }
     } else {
         //ウィンドウ時
-        _paPresetPrm[_primary_adapter_no].BackBufferFormat           = D3DFMT_UNKNOWN; //現在の表示モードフォーマット
-        _paPresetPrm[_primary_adapter_no].Windowed                   = true; //ウィンドウモード時
-        _paPresetPrm[_primary_adapter_no].FullScreen_RefreshRateInHz = 0; //リフレッシュレート
-        _paPresetPrm[_primary_adapter_no].PresentationInterval       = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
-        _paPresetPrm[_primary_adapter_no].SwapEffect                 = D3DSWAPEFFECT_COPY; //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
+        _paPresetPrm[_primary_game_view_no].BackBufferFormat           = D3DFMT_UNKNOWN; //現在の表示モードフォーマット
+        _paPresetPrm[_primary_game_view_no].Windowed                   = true; //ウィンドウモード時
+        _paPresetPrm[_primary_game_view_no].FullScreen_RefreshRateInHz = 0; //リフレッシュレート
+        _paPresetPrm[_primary_game_view_no].PresentationInterval       = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
+        _paPresetPrm[_primary_game_view_no].SwapEffect                 = D3DSWAPEFFECT_COPY; //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
 
         if(CONFIG::DUAL_VIEW) {
-            _paPresetPrm[_secondary_adapter_no] = _paPresetPrm[_primary_adapter_no]; //ココまでを複製
-            _paPresetPrm[_primary_adapter_no].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
-            _paPresetPrm[_secondary_adapter_no].EnableAutoDepthStencil = TRUE;
+            _paPresetPrm[_secondary_game_view_no] = _paPresetPrm[_primary_game_view_no]; //ココまでを複製
+            _paPresetPrm[_primary_game_view_no].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
+            _paPresetPrm[_secondary_game_view_no].EnableAutoDepthStencil = TRUE;
         } else {
-            _paPresetPrm[_primary_adapter_no].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
+            _paPresetPrm[_primary_game_view_no].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
         }
 
     }
@@ -792,7 +810,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 //    if( SUCCEEDED(_pID3D9->CheckDeviceMultiSampleType(
 //        D3DADAPTER_DEFAULT,
 //        D3DDEVTYPE_HAL,
-//        _paPresetPrm[_primary_adapter_no].BackBufferFormat,  //TODO:ウィンドウモード時は
+//        _paPresetPrm[_primary_game_view_no].BackBufferFormat,  //TODO:ウィンドウモード時は
 //        CONFIG::FULL_SCREEN ? FALSE : TRUE,
 //        D3DMULTISAMPLE_2_SAMPLES,
 //        &qualityLevels) ) )
@@ -800,7 +818,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 //        if( SUCCEEDED(_pID3D9->CheckDeviceMultiSampleType(
 //            D3DADAPTER_DEFAULT,
 //            D3DDEVTYPE_HAL,
-//            _paPresetPrm[_primary_adapter_no].AutoDepthStencilFormat,
+//            _paPresetPrm[_primary_game_view_no].AutoDepthStencilFormat,
 //            CONFIG::FULL_SCREEN ? FALSE : TRUE,
 //            D3DMULTISAMPLE_2_SAMPLES,
 //            nullptr) ) )
@@ -819,80 +837,86 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 
     if(CONFIG::DUAL_VIEW) {
         //マルチサンプルの数
-        _paPresetPrm[_primary_adapter_no].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+        _paPresetPrm[_primary_game_view_no].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
         //マルチサンプルの品質レベル
-        _paPresetPrm[_primary_adapter_no].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
+        _paPresetPrm[_primary_game_view_no].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
         //マルチサンプルの数
-        _paPresetPrm[_secondary_adapter_no].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+        _paPresetPrm[_secondary_game_view_no].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
         //マルチサンプルの品質レベル
-        _paPresetPrm[_secondary_adapter_no].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
+        _paPresetPrm[_secondary_game_view_no].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
     } else {
         //マルチサンプルの数
-        _paPresetPrm[_primary_adapter_no].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+        _paPresetPrm[_primary_game_view_no].MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
         //マルチサンプルの品質レベル
-        _paPresetPrm[_primary_adapter_no].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
+        _paPresetPrm[_primary_game_view_no].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0);
     }
 
     //マルチサンプルの数
-    //_paPresetPrm[_primary_adapter_no].MultiSampleType = D3DMULTISAMPLE_NONMASKABLE;//D3DMULTISAMPLE_NONE;
+    //_paPresetPrm[_primary_game_view_no].MultiSampleType = D3DMULTISAMPLE_NONMASKABLE;//D3DMULTISAMPLE_NONE;
     //マルチサンプルの品質レベル
-    //_paPresetPrm[_primary_adapter_no].MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
+    //_paPresetPrm[_primary_game_view_no].MultiSampleQuality = 0;//qualityLevels - (qualityLevels > 0 ? 1 : 0);
 
 
     //バックバッファサイズ
     if (CONFIG::FULL_SCREEN) {
         if(CONFIG::DUAL_VIEW) {
             //フルスクリーンモード・２画面使用 (フルスクリーンチェックで上書きされるかもしれない)
-            _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH;
-            _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT;
-            _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = CONFIG::SECONDARY_VIEW_FULL_SCREEN_WIDTH;
-            _paPresetPrm[_secondary_adapter_no].BackBufferHeight = CONFIG::SECONDARY_VIEW_FULL_SCREEN_HEIGHT;
+            _paPresetPrm[_primary_game_view_no].BackBufferWidth  = CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH;
+            _paPresetPrm[_primary_game_view_no].BackBufferHeight = CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT;
+            _paPresetPrm[_secondary_game_view_no].BackBufferWidth  = CONFIG::SECONDARY_VIEW_FULL_SCREEN_WIDTH;
+            _paPresetPrm[_secondary_game_view_no].BackBufferHeight = CONFIG::SECONDARY_VIEW_FULL_SCREEN_HEIGHT;
         } else {
             //フルスクリーンモード・１画面使用 (フルスクリーンチェックで上書きされるかもしれない)
-            _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH;
-            _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT;
-            _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = 0;
-            _paPresetPrm[_secondary_adapter_no].BackBufferHeight = 0;
+            _paPresetPrm[_primary_game_view_no].BackBufferWidth  = CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH;
+            _paPresetPrm[_primary_game_view_no].BackBufferHeight = CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT;
+            _paPresetPrm[_secondary_game_view_no].BackBufferWidth  = 0;
+            _paPresetPrm[_secondary_game_view_no].BackBufferHeight = 0;
         }
     } else {
         if(CONFIG::DUAL_VIEW) {
             //ウィンドウモード・２画面使用
-            _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::RENDER_TARGET_BUFFER_WIDTH;
-            _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
-            _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = 0;
-            _paPresetPrm[_secondary_adapter_no].BackBufferHeight = 0;
+            _paPresetPrm[_primary_game_view_no].BackBufferWidth  = CONFIG::RENDER_TARGET_BUFFER_WIDTH;
+            _paPresetPrm[_primary_game_view_no].BackBufferHeight = CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
+            _paPresetPrm[_secondary_game_view_no].BackBufferWidth  = 0;
+            _paPresetPrm[_secondary_game_view_no].BackBufferHeight = 0;
         } else {
             //ウィンドウモード・１画面使用
-            _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::RENDER_TARGET_BUFFER_WIDTH;
-            _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
-            _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = 0;
-            _paPresetPrm[_secondary_adapter_no].BackBufferHeight = 0;
+            _paPresetPrm[_primary_game_view_no].BackBufferWidth  = CONFIG::RENDER_TARGET_BUFFER_WIDTH;
+            _paPresetPrm[_primary_game_view_no].BackBufferHeight = CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
+            _paPresetPrm[_secondary_game_view_no].BackBufferWidth  = 0;
+            _paPresetPrm[_secondary_game_view_no].BackBufferHeight = 0;
         }
     }
 
     _paDisplayMode = NEW D3DDISPLAYMODEEX[_num_adapter > 2 ? _num_adapter : 2];
-    _paDisplayMode[_primary_adapter_no].Size = sizeof(_paDisplayMode[_primary_adapter_no]);
-    _paDisplayMode[_primary_adapter_no].Width = _paPresetPrm[_primary_adapter_no].BackBufferWidth;
-    _paDisplayMode[_primary_adapter_no].Height = _paPresetPrm[_primary_adapter_no].BackBufferHeight;
-    _paDisplayMode[_primary_adapter_no].Format = _paPresetPrm[_primary_adapter_no].BackBufferFormat;
-    _paDisplayMode[_primary_adapter_no].RefreshRate = _paPresetPrm[_primary_adapter_no].FullScreen_RefreshRateInHz;
-    _paDisplayMode[_primary_adapter_no].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
+    _paDisplayMode[_primary_game_view_no].Size = sizeof(_paDisplayMode[_primary_game_view_no]);
+    _paDisplayMode[_primary_game_view_no].Width = _paPresetPrm[_primary_game_view_no].BackBufferWidth;
+    _paDisplayMode[_primary_game_view_no].Height = _paPresetPrm[_primary_game_view_no].BackBufferHeight;
+    _paDisplayMode[_primary_game_view_no].Format = _paPresetPrm[_primary_game_view_no].BackBufferFormat;
+    _paDisplayMode[_primary_game_view_no].RefreshRate = _paPresetPrm[_primary_game_view_no].FullScreen_RefreshRateInHz;
+    _paDisplayMode[_primary_game_view_no].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
 
-    _paDisplayMode[_secondary_adapter_no].Size = sizeof(_paDisplayMode[_secondary_adapter_no]);
-    _paDisplayMode[_secondary_adapter_no].Width = _paPresetPrm[_secondary_adapter_no].BackBufferWidth;
-    _paDisplayMode[_secondary_adapter_no].Height = _paPresetPrm[_secondary_adapter_no].BackBufferHeight;
-    _paDisplayMode[_secondary_adapter_no].Format = _paPresetPrm[_secondary_adapter_no].BackBufferFormat;
-    _paDisplayMode[_secondary_adapter_no].RefreshRate = _paPresetPrm[_secondary_adapter_no].FullScreen_RefreshRateInHz;
-    _paDisplayMode[_secondary_adapter_no].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
+    _paDisplayMode[_secondary_game_view_no].Size = sizeof(_paDisplayMode[_secondary_game_view_no]);
+    _paDisplayMode[_secondary_game_view_no].Width = _paPresetPrm[_secondary_game_view_no].BackBufferWidth;
+    _paDisplayMode[_secondary_game_view_no].Height = _paPresetPrm[_secondary_game_view_no].BackBufferHeight;
+    _paDisplayMode[_secondary_game_view_no].Format = _paPresetPrm[_secondary_game_view_no].BackBufferFormat;
+    _paDisplayMode[_secondary_game_view_no].RefreshRate = _paPresetPrm[_secondary_game_view_no].FullScreen_RefreshRateInHz;
+    _paDisplayMode[_secondary_game_view_no].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
 
     //フルスクリーン時３画面目以降のパラメータを１画面のパラメータのコピーで作成
     for (int i = 0; i < _num_adapter; i++) {
-        if (i != _primary_adapter_no && i != _secondary_adapter_no) {
-            _paPresetPrm[i] = _paPresetPrm[_primary_adapter_no];
-            _paDisplayMode[i] = _paDisplayMode[_primary_adapter_no];
+        if (i != _primary_game_view_no && i != _secondary_game_view_no) {
+            _paPresetPrm[i] = _paPresetPrm[_primary_game_view_no];
+            _paDisplayMode[i] = _paDisplayMode[_primary_game_view_no];
         }
     }
 
+    _papSwapChain = NEW IDirect3DSwapChain9*[_num_adapter];
+    _papBackBuffer =NEW IDirect3DSurface9*[_num_adapter];
+    for (int n = 0; n < _num_adapter; n++) {
+        _papSwapChain[n] = nullptr;
+        _papBackBuffer[n] = nullptr;
+    }
     _paAvailableAdapter = NEW Adapter[_num_adapter];
     _paAdapterRezos = NEW AdapterRezos[_num_adapter];
     pCARETAKER->setDisplaySizeInfo();
@@ -912,10 +936,10 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
             wc.lpszClassName = "dummy"; //TODO:４画面時に大丈夫か要確認
 
             for (int n = 0; n < _num_adapter; n++) {
-                if (n == _primary_adapter_no) {
+                if (n == _primary_game_view_no) {
 
                     RegisterClassEx(&prm_wndclass1);
-                    _paHWnd[_primary_adapter_no] =
+                    _paHWnd[_primary_game_view_no] =
                             CreateWindowEx(
                                 WS_EX_APPWINDOW,
                                 prm_wndclass1.lpszClassName,
@@ -923,16 +947,16 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                                 WS_POPUP | WS_VISIBLE,
                                 CW_USEDEFAULT,
                                 CW_USEDEFAULT,
-                                _paPresetPrm[_primary_adapter_no].BackBufferWidth,
-                                _paPresetPrm[_primary_adapter_no].BackBufferHeight,
+                                _paPresetPrm[_primary_game_view_no].BackBufferWidth,
+                                _paPresetPrm[_primary_game_view_no].BackBufferHeight,
                                 HWND_DESKTOP,
                                 nullptr,
                                 prm_wndclass1.hInstance,
                                 nullptr
                             );
-                } else if (n == _secondary_adapter_no) {
+                } else if (n == _secondary_game_view_no) {
                     RegisterClassEx(&prm_wndclass2);
-                    _paHWnd[_secondary_adapter_no] =
+                    _paHWnd[_secondary_game_view_no] =
                             CreateWindowEx(
                                 WS_EX_APPWINDOW,
                                 prm_wndclass2.lpszClassName,
@@ -940,8 +964,8 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                                 WS_POPUP | WS_VISIBLE,
                                 CW_USEDEFAULT,
                                 CW_USEDEFAULT,
-                                _paPresetPrm[_secondary_adapter_no].BackBufferWidth,
-                                _paPresetPrm[_secondary_adapter_no].BackBufferHeight,
+                                _paPresetPrm[_secondary_game_view_no].BackBufferWidth,
+                                _paPresetPrm[_secondary_game_view_no].BackBufferHeight,
                                 HWND_DESKTOP,
                                 nullptr,
                                 prm_wndclass2.hInstance,
@@ -969,7 +993,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         } else {
             //フルスクリーンモード・１画面使用
             RegisterClassEx(&prm_wndclass1);
-            _paHWnd[_primary_adapter_no] =
+            _paHWnd[_primary_game_view_no] =
                     CreateWindowEx(
                         WS_EX_APPWINDOW,
                         prm_wndclass1.lpszClassName,
@@ -977,8 +1001,8 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                         WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
-                        _paPresetPrm[_primary_adapter_no].BackBufferWidth,
-                        _paPresetPrm[_primary_adapter_no].BackBufferHeight,
+                        _paPresetPrm[_primary_game_view_no].BackBufferWidth,
+                        _paPresetPrm[_primary_game_view_no].BackBufferHeight,
                         HWND_DESKTOP,
                         nullptr,
                         prm_wndclass1.hInstance,
@@ -989,7 +1013,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         if (CONFIG::DUAL_VIEW) {
             //ウインドモード・２窓使用
             RegisterClassEx(&prm_wndclass1);
-            _paHWnd[_primary_adapter_no] =
+            _paHWnd[_primary_game_view_no] =
                     CreateWindow(
                         prm_wndclass1.lpszClassName,
                         prm_title1,
@@ -1005,7 +1029,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                     );
 
             RegisterClassEx(&prm_wndclass2);
-            _paHWnd[_secondary_adapter_no] =
+            _paHWnd[_secondary_game_view_no] =
                     CreateWindow(
                         prm_wndclass2.lpszClassName,
                         prm_title2,
@@ -1024,7 +1048,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         } else {
             //ウインドモード・１窓使用
             RegisterClassEx(&prm_wndclass1);
-            _paHWnd[_primary_adapter_no] =
+            _paHWnd[_primary_game_view_no] =
                     CreateWindow(
                         prm_wndclass1.lpszClassName,
                         prm_title1,
@@ -1044,8 +1068,8 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
         _paPresetPrm[adapter_no].hDeviceWindow = _paHWnd[adapter_no];
     }
-    _pHWndSecondary = _paHWnd[_secondary_adapter_no];
-    _pHWndPrimary   = _paHWnd[_primary_adapter_no];
+    _pHWndSecondary = _paHWnd[_secondary_game_view_no];
+    _pHWndPrimary   = _paHWnd[_primary_game_view_no];
     //_pHWndPrimary の有無が
     //ウィンドウプロシージャの WM_SETFOCUS 時の排他になっているので、
     //２画面目 → １画面目の順で代入すること。
@@ -1055,10 +1079,11 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     if (!_pHWndPrimary) {
         throwCriticalException("プライマリウィンドウが作成出来ませんでした。");
     }
-
-    //ウィンドウモード時、クライアント領域を所望の大きさにするため、
-    //タイトルバー、リサイズボーダーの厚さを考慮し再設定。
-    if (!CONFIG::FULL_SCREEN) {
+    if (CONFIG::FULL_SCREEN) {
+        setFullScreenWindowPos();
+    } else {
+        //ウィンドウモード時、クライアント領域を所望の大きさにするため、
+        //タイトルバー、リサイズボーダーの厚さを考慮し再設定。
         //ウィンドウモード時
         if (CONFIG::DUAL_VIEW) {
             resetWindowsize(_pHWndPrimary  , CONFIG::PRIMARY_VIEW_WINDOW_WIDTH, CONFIG::PRIMARY_VIEW_WINDOW_HEIGHT);
@@ -1175,8 +1200,8 @@ HRESULT Caretaker::initDevice() {
 //
 //#endif
     // <------------------------------------------------ NVIDIA PerfHUD 用 end
-    _TRACE_("_primary_adapter_no="<<_primary_adapter_no);
-    _TRACE_("_secondary_adapter_no="<<_secondary_adapter_no);
+    _TRACE_("_primary_game_view_no="<<_primary_game_view_no);
+    _TRACE_("_secondary_game_view_no="<<_secondary_game_view_no);
     for (int n = 0; n < _num_adapter; n++) {
         _TRACE_("_paPresetPrm["<<n<<"].BackBufferWidth            = "<<_paPresetPrm[n].BackBufferWidth            );
         _TRACE_("_paPresetPrm["<<n<<"].BackBufferHeight           = "<<_paPresetPrm[n].BackBufferHeight           );
@@ -1218,7 +1243,7 @@ HRESULT Caretaker::initDevice() {
         _TRACE_("ビデオカードハードの頂点シェーダー 3_0 、ピンクセルシェーダー 3_0 以上が推奨です。");
         _TRACE_("ご使用のビデオカードでは、正しく動作しない恐れがあります。");
     }
-    UINT adapter = _primary_adapter_no;
+    UINT adapter = _primary_game_view_no;
     if (CONFIG::FULL_SCREEN && CONFIG::DUAL_VIEW) {
         //＜フルスクリーン かつ デュアルビュー の場合＞
         //デバイス作成を試み _pID3DDevice9 へ設定する。
@@ -1280,7 +1305,7 @@ HRESULT Caretaker::initDevice() {
         } else {
             hr = createDx9Device(adapter, D3DDEVTYPE_HAL, _pHWndPrimary,
                                  D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
-                                 &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
+                                 &_paPresetPrm[_primary_game_view_no], &_paDisplayMode[_primary_game_view_no]);
     //                                           D3DCREATE_MIXED_VERTEXPROCESSING|D3DCREATE_MULTITHREADED,
     //                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
         }
@@ -1290,7 +1315,7 @@ HRESULT Caretaker::initDevice() {
             } else {
                 hr = createDx9Device(adapter, D3DDEVTYPE_HAL, _pHWndPrimary,
                                      D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
-                                     &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
+                                     &_paPresetPrm[_primary_game_view_no], &_paDisplayMode[_primary_game_view_no]);
             }
 
             if (hr != D3D_OK) {
@@ -1300,13 +1325,13 @@ HRESULT Caretaker::initDevice() {
                     //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
                     hr = createDx9Device(adapter, D3DDEVTYPE_HAL, _pHWndPrimary,
                                          D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
-                                         &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
+                                         &_paPresetPrm[_primary_game_view_no], &_paDisplayMode[_primary_game_view_no]);
                 }
                 if (hr != D3D_OK) {
                     //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
                     hr = createDx9Device(adapter, D3DDEVTYPE_REF, _pHWndPrimary,
                                          D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
-                                         &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
+                                         &_paPresetPrm[_primary_game_view_no], &_paDisplayMode[_primary_game_view_no]);
                     if (hr != D3D_OK) {
                         //どのデバイスの作成も失敗した場合
                         _TRACE_(FUNC_NAME<<" DirectXの初期化に失敗しました。 "<<CriticalException::getHresultMsg(hr));
@@ -1581,7 +1606,7 @@ _TRACE_("restoreFullScreenRenderTarget() 1");
                                 CONFIG::RENDER_TARGET_BUFFER_HEIGHT,
                                 1, //MipLevel Mip無し
                                 D3DUSAGE_RENDERTARGET,
-                                _paPresetPrm[_primary_adapter_no].BackBufferFormat,
+                                _paPresetPrm[_primary_game_view_no].BackBufferFormat,
                                 D3DPOOL_DEFAULT,
                                 &_pRenderTexture,
                                 nullptr);
@@ -1628,9 +1653,9 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
     hr = _pID3DDevice9->CreateDepthStencilSurface(
             CONFIG::RENDER_TARGET_BUFFER_WIDTH,
             CONFIG::RENDER_TARGET_BUFFER_HEIGHT,
-            _paPresetPrm[_primary_adapter_no].AutoDepthStencilFormat, //D3DFORMAT           Format,
-            _paPresetPrm[_primary_adapter_no].MultiSampleType,        //D3DMULTISAMPLE_TYPE MultiSample,
-            _paPresetPrm[_primary_adapter_no].MultiSampleQuality,     //DWORD               MultisampleQuality,
+            _paPresetPrm[_primary_game_view_no].AutoDepthStencilFormat, //D3DFORMAT           Format,
+            _paPresetPrm[_primary_game_view_no].MultiSampleType,        //D3DMULTISAMPLE_TYPE MultiSample,
+            _paPresetPrm[_primary_game_view_no].MultiSampleQuality,     //DWORD               MultisampleQuality,
             TRUE,                                   //BOOL                Discard, SetDepthStencileSurface関数で深度バッファを変更した時にバッファを破棄するかどうか
             &_pRenderTextureZ,                      //IDirect3DSurface9** ppSurface,
             nullptr                                 //HANDLE*             pHandle 現在未使用
@@ -1653,34 +1678,29 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
 
     if (CONFIG::DUAL_VIEW) {
 
-        if (_primary_adapter_no < _secondary_adapter_no) {
-            // 画面番号の通常の描画順
-            hr = _pID3DDevice9->GetSwapChain( 0, &_apSwapChain[PRIMARY_VIEW] );
-            returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました。(1)");
-            hr = _apSwapChain[PRIMARY_VIEW]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_apBackBuffer[PRIMARY_VIEW] );
-            returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました。(1)");
 
-            hr = _pID3DDevice9->GetSwapChain( 1, &_apSwapChain[SECONDARY_VIEW] );
-            returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェイン取得に失敗しました。\nマルチディスプレイ環境に問題発生しました。(1)");
-            hr = _apSwapChain[SECONDARY_VIEW]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_apBackBuffer[SECONDARY_VIEW] );
-            returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェインから、ターゲットのバックバッファ取得に失敗しました。(1)");
-
-        } else {
-            // 画面番号の逆の描画順 (SECONDARY_VIEW に 1画面目が設定されている)
-            hr = _pID3DDevice9->GetSwapChain( 0, &_apSwapChain[SECONDARY_VIEW] );
-            returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェイン取得に失敗しました。\nマルチディスプレイ環境に問題発生しました。(2)");
-            hr = _apSwapChain[SECONDARY_VIEW]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_apBackBuffer[SECONDARY_VIEW] );
-            returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェインから、ターゲットのバックバッファ取得に失敗しました。(2)");
-
-            hr = _pID3DDevice9->GetSwapChain( 1, &_apSwapChain[PRIMARY_VIEW] );
-            returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました。");
-            hr = _apSwapChain[PRIMARY_VIEW]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_apBackBuffer[PRIMARY_VIEW] );
-            returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました。(2)");
+        for (int adapter = 0; adapter < _num_adapter; adapter++) {
+            if (adapter == _primary_game_view_no) {
+                hr = _pID3DDevice9->GetSwapChain(adapter, &_papSwapChain[_primary_game_view_no] );
+                returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました(0)。adapter="<<adapter);
+                hr = _papSwapChain[_primary_game_view_no]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_papBackBuffer[_primary_game_view_no] );
+                returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました(0)。adapter="<<adapter);
+            } else if (adapter == _secondary_game_view_no) {
+                hr = _pID3DDevice9->GetSwapChain( adapter, &_papSwapChain[_secondary_game_view_no] );
+                returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました(1)。adapter="<<adapter);
+                hr = _papSwapChain[_secondary_game_view_no]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_papBackBuffer[_secondary_game_view_no] );
+                returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました(1)。adapter="<<adapter);
+             } else {
+                hr = _pID3DDevice9->GetSwapChain( adapter, &_papSwapChain[adapter] );
+                returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました(2)。adapter="<<adapter);
+                hr = _papSwapChain[adapter]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_papBackBuffer[adapter] );
+                returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました(2)。adapter="<<adapter);
+             }
         }
     } else {
-        hr = _pID3DDevice9->GetSwapChain( 0, &_apSwapChain[PRIMARY_VIEW] );
+        hr = _pID3DDevice9->GetSwapChain( 0, &_papSwapChain[_primary_game_view_no] );
         returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました。");
-        hr = _apSwapChain[PRIMARY_VIEW]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_apBackBuffer[PRIMARY_VIEW] );
+        hr = _papSwapChain[_primary_game_view_no]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_papBackBuffer[_primary_game_view_no] );
         returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました。(3)");
     }
 
@@ -1688,20 +1708,20 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
     if (CONFIG::DUAL_VIEW) {
         hr = _pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderBufferSource[PRIMARY_VIEW],
-                _apBackBuffer[PRIMARY_VIEW], &_aRect_FullScreen[PRIMARY_VIEW],
+                _papBackBuffer[_primary_game_view_no], &_aRect_FullScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(1)\n"
-                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
+                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_papBackBuffer[_primary_game_view_no]="<<_papBackBuffer[_primary_game_view_no]);
         hr = _pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderBufferSource[SECONDARY_VIEW],
-                _apBackBuffer[SECONDARY_VIEW], &_aRect_FullScreen[SECONDARY_VIEW],
+                _papBackBuffer[_secondary_game_view_no], &_aRect_FullScreen[SECONDARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(1)\n"
-                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[SECONDARY_VIEW]);
+                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_papBackBuffer[_primary_game_view_no]="<<_papBackBuffer[_secondary_game_view_no]);
     } else {
         hr = _pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_rectRenderBufferSource,
-                _apBackBuffer[PRIMARY_VIEW], &_aRect_FullScreen[PRIMARY_VIEW],
+                _papBackBuffer[_primary_game_view_no], &_aRect_FullScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(1)");
     }
@@ -1712,21 +1732,21 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
     if (CONFIG::DUAL_VIEW) {
         hr = _pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderBufferSource[PRIMARY_VIEW],
-                _apBackBuffer[PRIMARY_VIEW], &_aRect_FullScreen[PRIMARY_VIEW],
+                _papBackBuffer[_primary_game_view_no], &_aRect_FullScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(2)\n"
-                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
+                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_papBackBuffer[_primary_game_view_no]="<<_papBackBuffer[_primary_game_view_no]);
 
         hr = _pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderBufferSource[SECONDARY_VIEW],
-                _apBackBuffer[SECONDARY_VIEW], &_aRect_FullScreen[SECONDARY_VIEW],
+                _papBackBuffer[_secondary_game_view_no], &_aRect_FullScreen[SECONDARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(2)\n"
-                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
+                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_papBackBuffer[_primary_game_view_no]="<<_papBackBuffer[_primary_game_view_no]);
     } else {
         hr = _pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_rectRenderBufferSource,
-                _apBackBuffer[PRIMARY_VIEW], &_aRect_FullScreen[PRIMARY_VIEW],
+                _papBackBuffer[_primary_game_view_no], &_aRect_FullScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE
                 );
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(2)");
@@ -1737,7 +1757,10 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
     //  両対応させるのはこのようなコードしかないという結論。
 
     //フルスクリーンのウィンドウ位置を補正
-
+    setFullScreenWindowPos();
+    return D3D_OK;
+}
+void Caretaker::setFullScreenWindowPos() {
     EnumDisplayMonitors(nullptr, nullptr, Caretaker::updateMoniterPixcoordCallback, (LPARAM)this);
     if (CONFIG::DUAL_VIEW) {
         for (int n = 0; n < _num_adapter; n++) {
@@ -1750,10 +1773,13 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
                          HWND_TOPMOST,
                          full_screen_x, full_screen_y, 0, 0,
                          SWP_NOSIZE);
+            if (n == _primary_game_view_no) {
+                SetCursorPos(full_screen_x, full_screen_y);
+            }
         }
     } else {
         for (int n = 0; n < _num_adapter; n++) {
-            if (n == _primary_adapter_no) {
+            if (n == _primary_game_view_no) {
                 pixcoord full_screen_x = _paAvailableAdapter[n].rcMonitor.left;
                 pixcoord full_screen_y = _paAvailableAdapter[n].rcMonitor.top;
                 _TRACE_("画面 adapter_no="<<n<<" の左上座標("<<full_screen_x<<","<<full_screen_y<<")");
@@ -1763,23 +1789,29 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
                              HWND_TOPMOST,
                              full_screen_x, full_screen_y, 0, 0,
                              SWP_NOSIZE);
+                SetCursorPos(full_screen_x, full_screen_y);
+                break;
             }
         }
     }
-    return D3D_OK;
 }
-
 
 HRESULT Caretaker::releaseFullScreenRenderTarget() {
     GGAF_RELEASE_BY_FROCE(_pRenderTextureSurface);
     GGAF_RELEASE_BY_FROCE(_pRenderTexture);
     GGAF_RELEASE_BY_FROCE(_pRenderTextureZ);
-    GGAF_RELEASE_BY_FROCE(_apBackBuffer[PRIMARY_VIEW]);
-    GGAF_RELEASE_BY_FROCE(_apSwapChain[PRIMARY_VIEW]);
-    if (CONFIG::DUAL_VIEW) {
-        GGAF_RELEASE_BY_FROCE(_apBackBuffer[SECONDARY_VIEW]);
-        GGAF_RELEASE_BY_FROCE(_apSwapChain[SECONDARY_VIEW]);
+    for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
+        IDirect3DSurface9* p1 = _papBackBuffer[adapter_no];
+        GGAF_RELEASE_BY_FROCE(p1);
+        IDirect3DSwapChain9* p2 = _papSwapChain[adapter_no];
+        GGAF_RELEASE_BY_FROCE(p2);
     }
+//    GGAF_RELEASE_BY_FROCE(_papBackBuffer[_primary_game_view_no]);
+//    GGAF_RELEASE_BY_FROCE(_papSwapChain[_primary_game_view_no]);
+//    if (CONFIG::DUAL_VIEW) {
+//        GGAF_RELEASE_BY_FROCE(_papBackBuffer[_secondary_game_view_no]);
+//        GGAF_RELEASE_BY_FROCE(_papSwapChain[_secondary_game_view_no]);
+//    }
     return D3D_OK;
 }
 
@@ -1897,36 +1929,30 @@ void Caretaker::presentVisualize() {
         if (CONFIG::FULL_SCREEN) {
             if (CONFIG::DUAL_VIEW) {
                 //２画面使用・フルスクリーン
-                //画面０バックバッファを画面１バックバッファへコピーする
                 hr = pDevice->StretchRect(
                         _pRenderTextureSurface, &_aRect_HarfRenderBufferSource[PRIMARY_VIEW],
-                        _apBackBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW],
+                        _papBackBuffer[_primary_game_view_no], &_aRect_Present[PRIMARY_VIEW],
                         D3DTEXF_LINEAR); //TODO:D3DTEXF_LINEARをオプション指定にするか？
-                checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目 StretchRect() に失敗しました。\n_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
-
+                //checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目 StretchRect() に失敗しました。");
                 hr = pDevice->StretchRect(
                         _pRenderTextureSurface, &_aRect_HarfRenderBufferSource[SECONDARY_VIEW],
-                        _apBackBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW],
+                        _papBackBuffer[_secondary_game_view_no], &_aRect_Present[SECONDARY_VIEW],
                         D3DTEXF_LINEAR);
-                checkDxException(hr, D3D_OK, "StretchRect() に失敗しました。");
-
+                //checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目 StretchRect() に失敗しました。");
                 hr = pDevice->Present(nullptr, nullptr, nullptr, nullptr);
             } else {
                 //１画面使用・フルスクリーン
                 hr = pDevice->StretchRect(
-                        _pRenderTextureSurface,
-                        &_rectRenderBufferSource,
-                        _apBackBuffer[PRIMARY_VIEW],
-                        &_aRect_Present[PRIMARY_VIEW],
+                        _pRenderTextureSurface, &_rectRenderBufferSource,
+                        _papBackBuffer[_primary_game_view_no], &_aRect_Present[PRIMARY_VIEW],
                         D3DTEXF_LINEAR);
-                checkDxException(hr, D3D_OK, "FULL 1gamen StretchRect() に失敗しました。");
-
+                //checkDxException(hr, D3D_OK, "FULL_SCREEN StretchRect() に失敗しました。");
                 hr = pDevice->Present(nullptr, nullptr, nullptr, nullptr);
             }
         } else {
             if (CONFIG::DUAL_VIEW) {
                 //２画面使用・ウィンドウモード
-                hr = pDevice->Present(&_aRect_HarfRenderBufferSource[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
+                hr = pDevice->Present(&_aRect_HarfRenderBufferSource[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW], _pHWndPrimary, nullptr);
                 if (hr == D3D_OK) {
                     hr = pDevice->Present(&_aRect_HarfRenderBufferSource[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
                 }
@@ -2003,7 +2029,7 @@ void Caretaker::presentVisualize() {
         //for (int i = 0; i < 300; i++) {
         while (true) {
             if (_can_wddm) {
-                hr = ((IDirect3DDevice9Ex*)pDevice)->CheckDeviceState(_paPresetPrm[_primary_adapter_no].hDeviceWindow);
+                hr = ((IDirect3DDevice9Ex*)pDevice)->CheckDeviceState(_paPresetPrm[_primary_game_view_no].hDeviceWindow);
                 if (hr == D3DERR_DEVICELOST || hr == S_PRESENT_OCCLUDED) {
                     return; //D3DERR_DEVICELOST じゃなくなるまで待つ
                 } else {
@@ -2040,32 +2066,32 @@ void Caretaker::presentVisualize() {
             //バックバッファサイズ
             if(CONFIG::DUAL_VIEW) {
                 //フルスクリーンモード・２画面使用 (フルスクリーンチェックで上書きされるかもしれない)
-                _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH;
-                _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT;
-                _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = CONFIG::SECONDARY_VIEW_FULL_SCREEN_WIDTH;
-                _paPresetPrm[_secondary_adapter_no].BackBufferHeight = CONFIG::SECONDARY_VIEW_FULL_SCREEN_HEIGHT;
+                _paPresetPrm[_primary_game_view_no].BackBufferWidth  = CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH;
+                _paPresetPrm[_primary_game_view_no].BackBufferHeight = CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT;
+                _paPresetPrm[_secondary_game_view_no].BackBufferWidth  = CONFIG::SECONDARY_VIEW_FULL_SCREEN_WIDTH;
+                _paPresetPrm[_secondary_game_view_no].BackBufferHeight = CONFIG::SECONDARY_VIEW_FULL_SCREEN_HEIGHT;
             } else {
                 //フルスクリーンモード・１画面使用 (フルスクリーンチェックで上書きされるかもしれない)
-                _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH;
-                _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT;
-                _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = 0;
-                _paPresetPrm[_secondary_adapter_no].BackBufferHeight = 0;
+                _paPresetPrm[_primary_game_view_no].BackBufferWidth  = CONFIG::PRIMARY_VIEW_FULL_SCREEN_WIDTH;
+                _paPresetPrm[_primary_game_view_no].BackBufferHeight = CONFIG::PRIMARY_VIEW_FULL_SCREEN_HEIGHT;
+                _paPresetPrm[_secondary_game_view_no].BackBufferWidth  = 0;
+                _paPresetPrm[_secondary_game_view_no].BackBufferHeight = 0;
             }
 
             //下のrestoreFullScreenRenderTarget() で似たようなことをやってるのでいらんかも
             if (CONFIG::DUAL_VIEW) {
-                SetWindowPos(_paHWnd[_primary_adapter_no], NULL, 0, 0,
-                        _paPresetPrm[_primary_adapter_no].BackBufferWidth,
-                        _paPresetPrm[_primary_adapter_no].BackBufferHeight,
+                SetWindowPos(_paHWnd[_primary_game_view_no], NULL, 0, 0,
+                        _paPresetPrm[_primary_game_view_no].BackBufferWidth,
+                        _paPresetPrm[_primary_game_view_no].BackBufferHeight,
                         SWP_NOMOVE | SWP_NOZORDER);
-                SetWindowPos(_paHWnd[_secondary_adapter_no], NULL, 0, 0,
-                        _paPresetPrm[_secondary_adapter_no].BackBufferWidth,
-                        _paPresetPrm[_secondary_adapter_no].BackBufferHeight,
+                SetWindowPos(_paHWnd[_secondary_game_view_no], NULL, 0, 0,
+                        _paPresetPrm[_secondary_game_view_no].BackBufferWidth,
+                        _paPresetPrm[_secondary_game_view_no].BackBufferHeight,
                         SWP_NOMOVE | SWP_NOZORDER);
             } else {
-                SetWindowPos(_paHWnd[_primary_adapter_no], NULL, 0, 0,
-                        _paPresetPrm[_primary_adapter_no].BackBufferWidth,
-                        _paPresetPrm[_primary_adapter_no].BackBufferHeight,
+                SetWindowPos(_paHWnd[_primary_game_view_no], NULL, 0, 0,
+                        _paPresetPrm[_primary_game_view_no].BackBufferWidth,
+                        _paPresetPrm[_primary_game_view_no].BackBufferHeight,
                         SWP_NOMOVE | SWP_NOZORDER);
             }
         }
@@ -2075,7 +2101,7 @@ void Caretaker::presentVisualize() {
             if (CONFIG::FULL_SCREEN && CONFIG::DUAL_VIEW) {
                 hr = pDevice->Reset(_paPresetPrm);
             } else {
-                hr = pDevice->Reset(&(_paPresetPrm[_primary_adapter_no]));
+                hr = pDevice->Reset(&(_paPresetPrm[_primary_game_view_no]));
             }
             if (hr != D3D_OK) {
                 if (hr == D3DERR_DRIVERINTERNALERROR) {
@@ -2141,7 +2167,6 @@ void Caretaker::presentVisualize() {
 
         Sleep(100);
 
-
         hr = pDevice->Clear(0,    // クリアする矩形領域の数
                             nullptr, // 矩形領域
                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
@@ -2165,7 +2190,6 @@ void Caretaker::setLightDiffuseColor(float r, float g, float b) {
     _d3dlight9_default.Diffuse.r = r;
     _d3dlight9_default.Diffuse.g = g;
     _d3dlight9_default.Diffuse.b = b;
-
     //_d3dlight9_default.Range = 1000.0f;
 
 }
@@ -2215,7 +2239,6 @@ void Caretaker::clean() {
         _TRACE_(FUNC_NAME<<" _pCurveManufManager 開放開始");
         GGAF_DELETE(_pCurveManufManager);
         _TRACE_(FUNC_NAME<<" _pCurveManufManager 開放終了");
-
     }
     _TRACE_(FUNC_NAME<<" end");
 }
@@ -2405,6 +2428,8 @@ Caretaker::~Caretaker() {
 
     _TRACE_("_pID3DDevice9 解放来たわ");
     Sleep(60);
+    GGAF_DELETEARR(_papSwapChain);
+    GGAF_DELETEARR(_papBackBuffer);
     GGAF_DELETEARR(_paAvailableAdapter);
     GGAF_DELETEARR(_paAdapterRezos);
     GGAF_DELETEARR(_paPresetPrm);
@@ -2485,7 +2510,7 @@ Caretaker::~Caretaker() {
 //                                        ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 //                                      ／                              ／
 //                                    ／                              ／
-//    バックバッファ                ／      _apBackBuffer[0]        ／
+//    バックバッファ                ／      _papBackBuffer[0]        ／
 //                                ／                              ／
 //                              ／                              ／
 //                              ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
@@ -2521,7 +2546,7 @@ Caretaker::~Caretaker() {
 //                               ↓                                 ↓
 //                            ＿＿＿＿＿＿＿＿＿＿＿             ＿＿＿＿＿＿＿＿＿＿＿
 //                          ／                    ／           ／                    ／
-//    バックバッファ      ／  _apBackBuffer[0]  ／           ／  _apBackBuffer[1]  ／
+//    バックバッファ      ／  _papBackBuffer[0]  ／           ／  _papBackBuffer[1]  ／
 //                      ／                    ／           ／                    ／
 //                      ￣￣￣￣￣￣￣￣￣￣￣             ￣￣￣￣￣￣￣￣￣￣￣
 //                     PRIMARY_VIEW_FULL_SCREEN_WIDTH x        SECONDARY_VIEW_FULL_SCREEN_WIDTH x

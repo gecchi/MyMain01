@@ -46,7 +46,7 @@ Caretaker::Caretaker() :
         VBReplayRecorder::VBRecordNote* pRecNote = pRepPlay->_pFirstVBNote;
         vb_sta vb_pause_not_mask = ~((vb_sta)VB_PAUSE);
         while (pRecNote) {
-            pRecNote->_state = (pRecNote->_state & vb_pause_not_mask);
+            pRecNote->_p1_state = (pRecNote->_p1_state & vb_pause_not_mask);
             pRecNote = pRecNote->_pNext;
         }
     } else {

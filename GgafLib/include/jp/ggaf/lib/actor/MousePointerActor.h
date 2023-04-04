@@ -20,20 +20,20 @@ protected:
 //
 //    double _w_r;
 //    double _h_r;
-//    pixcoord _buffer_left1;
-//    pixcoord _buffer_top1;
-//    pixcoord _buffer_width1;
-//    pixcoord _buffer_height1;
+//    pixcoord _primary_buffer_source_left;
+//    pixcoord _primary_buffer_source_top;
+//    pixcoord _primary_buffer_source_width;
+//    pixcoord _primary_buffer_source_height;
 //
-//    pixcoord _buffer_left2;
-//    pixcoord _buffer_top2;
-//    pixcoord _buffer_width2;
-//    pixcoord _buffer_height2;
+//    pixcoord _secondary_buffer_source_left;
+//    pixcoord _secondary_buffer_source_top;
+//    pixcoord _secondary_buffer_source_width;
+//    pixcoord _secondary_buffer_source_height;
 
-    coord _coord_buffer_left1;
-    coord _coord_buffer_top1;
-    coord _coord_buffer_left2;
-    coord _coord_buffer_top2;
+    coord _coord_primary_buffer_source_left;
+    coord _coord_primary_buffer_source_top;
+    coord _coord_secondary_buffer_source_left;
+    coord _coord_secondary_buffer_source_top;
 
     HWND _last_hWnd;
 //    GgafCore::Actor* _pSelectActor_prev;

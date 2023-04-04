@@ -290,24 +290,25 @@ void World::processBehavior() {
             if (GgafDx::Input::isPressedKey(DIK_2)) {
                 GgafDx::Sound::addAppMasterVolume(10);
             }
+            if (CONFIG::FULL_SCREEN) {
+                //しばらくカーソルを動かさなければ消す。
+                long mdx, mdy, mdz;
+                GgafDx::Input::getMousePointer_REL(&mdx, &mdy, &mdz);
+                _TRACE_("hide_cursor_cnt_="<<hide_cursor_cnt_);
+                if (mdx == 0 && mdy == 0 && mdz == 0) {
+                    hide_cursor_cnt_++;
+                    if (hide_cursor_cnt_ == SEC_F(3)) {
+                        showCursor(false);
+                        pMousePointer_->inactivate();
+                    }
+                } else {
+                    hide_cursor_cnt_ = 0;
+                    showCursor(true);
+                    pMousePointer_->activate();
+                }
+            }
 
             break;
-        }
-    }
-    if (CONFIG::FULL_SCREEN) {
-        //しばらくカーソルを動かさなければ消す。
-        long mdx, mdy, mdz;
-        GgafDx::Input::getMousePointer_REL(&mdx, &mdy, &mdz);
-        if (mdx == 0 && mdy == 0 && mdz == 0) {
-            hide_cursor_cnt_++;
-            if (hide_cursor_cnt_ == SEC_F(3)) {
-                showCursor(false);
-                pMousePointer_->inactivate();
-            }
-        } else {
-            hide_cursor_cnt_ = 0;
-            showCursor(true);
-            pMousePointer_->activate();
         }
     }
 

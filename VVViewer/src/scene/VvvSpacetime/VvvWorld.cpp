@@ -89,10 +89,10 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     _w_r =  1.0 * CONFIG::GAME_BUFFER_WIDTH / CONFIG::RENDER_TARGET_BUFFER_WIDTH;
     _h_r =  1.0 * CONFIG::GAME_BUFFER_HEIGHT / CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
 
-    _buffer_left1 = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_LEFT*_w_r;
-    _buffer_top1 = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_TOP*_h_r;
-    _buffer_width1 = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
-    _buffer_height1 = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
+    _primary_buffer_source_left = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_LEFT*_w_r;
+    _primary_buffer_source_top = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_TOP*_h_r;
+    _primary_buffer_source_width = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
+    _primary_buffer_source_height = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
 
     mapNumDik_[0] = DIK_0;
     mapNumDik_[1] = DIK_1;

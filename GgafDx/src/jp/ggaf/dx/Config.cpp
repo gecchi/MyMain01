@@ -20,8 +20,8 @@ bool Config::PRJ_2D_MODE = false;
 pixcoord Config::RENDER_TARGET_BUFFER_WIDTH = Config::GAME_BUFFER_WIDTH;
 pixcoord Config::RENDER_TARGET_BUFFER_HEIGHT = Config::GAME_BUFFER_HEIGHT;
 
-int Config::PRIMARY_VIEW_DISPLAY_NO = 0;
-int Config::SECONDARY_VIEW_DISPLAY_NO = 1;
+int Config::PRIMARY_GAME_VIEW_NO = 0;
+int Config::SECONDARY_GAME_VIEW_NO = 1;
 
 pixcoord Config::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_LEFT   = 0;
 pixcoord Config::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_TOP    = 0;
@@ -144,6 +144,10 @@ int Config::WORLD_HIT_CHECK_QUADTREE_LEVEL = 2;
 int Config::VIEW_HIT_CHECK_QUADTREE_LEVEL = 2;
 bool Config::ENABLE_WORLD_HIT_CHECK_2D = false;
 
+int Config::P1_JOY_STICK_DEVICE_NO = 0;
+int Config::P2_JOY_STICK_DEVICE_NO = 1;
+
+
 void Config::loadProperties(std::string prm_properties_filename) {
     GgafCore::Config::loadProperties(prm_properties_filename);
 
@@ -197,11 +201,11 @@ void Config::loadProperties(std::string prm_properties_filename) {
         Config::RENDER_TARGET_BUFFER_HEIGHT = GgafCore::Config::_properties.getInt("RENDER_TARGET_BUFFER_HEIGHT");
     }
 
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_VIEW_DISPLAY_NO")) {
-        Config::PRIMARY_VIEW_DISPLAY_NO = GgafCore::Config::_properties.getInt("PRIMARY_VIEW_DISPLAY_NO");
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_GAME_VIEW_NO")) {
+        Config::PRIMARY_GAME_VIEW_NO = GgafCore::Config::_properties.getInt("PRIMARY_GAME_VIEW_NO");
     }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_VIEW_DISPLAY_NO")) {
-        Config::SECONDARY_VIEW_DISPLAY_NO = GgafCore::Config::_properties.getInt("SECONDARY_VIEW_DISPLAY_NO");
+    if (GgafCore::Config::_properties.isExistKey("SECONDARY_GAME_VIEW_NO")) {
+        Config::SECONDARY_GAME_VIEW_NO = GgafCore::Config::_properties.getInt("SECONDARY_GAME_VIEW_NO");
     }
 
     if (Config::DUAL_VIEW) {
@@ -519,6 +523,13 @@ void Config::loadProperties(std::string prm_properties_filename) {
         Config::VIEW_HIT_CHECK_QUADTREE_LEVEL  = GgafCore::Config::_properties.getInt("VIEW_HIT_CHECK_QUADTREE_LEVEL");
     }
 
+    if (GgafCore::Config::_properties.isExistKey("P1_JOY_STICK_DEVICE_NO")) {
+        Config::P1_JOY_STICK_DEVICE_NO  = GgafCore::Config::_properties.getInt("P1_JOY_STICK_DEVICE_NO");
+    }
+    if (GgafCore::Config::_properties.isExistKey("P2_JOY_STICK_DEVICE_NO")) {
+        Config::P2_JOY_STICK_DEVICE_NO  = GgafCore::Config::_properties.getInt("P2_JOY_STICK_DEVICE_NO");
+    }
+
 
     _TRACE_("Config::FULL_SCREEN=" << Config::FULL_SCREEN);
     _TRACE_("Config::DUAL_VIEW=" << Config::DUAL_VIEW);
@@ -547,8 +558,8 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::SECONDARY_VIEW_WINDOW_WIDTH=" << Config::SECONDARY_VIEW_WINDOW_WIDTH);
     _TRACE_("Config::SECONDARY_VIEW_WINDOW_HEIGHT=" << Config::SECONDARY_VIEW_WINDOW_HEIGHT);
     _TRACE_("Config::FIXED_VIEW_ASPECT=" << Config::FIXED_VIEW_ASPECT);
-    _TRACE_("Config::PRIMARY_VIEW_DISPLAY_NO=" << Config::PRIMARY_VIEW_DISPLAY_NO);
-    _TRACE_("Config::SECONDARY_VIEW_DISPLAY_NO=" << Config::SECONDARY_VIEW_DISPLAY_NO);
+    _TRACE_("Config::PRIMARY_GAME_VIEW_NO=" << Config::PRIMARY_GAME_VIEW_NO);
+    _TRACE_("Config::SECONDARY_GAME_VIEW_NO=" << Config::SECONDARY_GAME_VIEW_NO);
     _TRACE_("Config::SWAP_VIEW=" << Config::SWAP_VIEW);
     _TRACE_("Config::PRIMARY_VIEW_PRESENT_POSITION=" << Config::PRIMARY_VIEW_PRESENT_POSITION);
     _TRACE_("Config::SECONDARY_VIEW_PRESENT_POSITION=" << Config::SECONDARY_VIEW_PRESENT_POSITION);
@@ -587,5 +598,9 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::ENABLE_WORLD_HIT_CHECK_2D=" << Config::ENABLE_WORLD_HIT_CHECK_2D);
     _TRACE_("Config::WORLD_HIT_CHECK_OCTREE_LEVEL=" << Config::WORLD_HIT_CHECK_OCTREE_LEVEL);
     _TRACE_("Config::WORLD_HIT_CHECK_QUADTREE_LEVEL=" << Config::WORLD_HIT_CHECK_QUADTREE_LEVEL);
+
+    _TRACE_("Config::P1_JOY_STICK_DEVICE_NO=" << Config::P1_JOY_STICK_DEVICE_NO);
+    _TRACE_("Config::P2_JOY_STICK_DEVICE_NO=" << Config::P2_JOY_STICK_DEVICE_NO);
+
 }
 

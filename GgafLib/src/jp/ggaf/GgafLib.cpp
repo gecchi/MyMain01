@@ -93,9 +93,9 @@ void LibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
                                    "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
                     }
                 }
-                if (GgafDx::Input::_pJoystickInputDevice) {
+                if (GgafDx::Input::_apJoystickInputDevice[P1_JOY_STICK]) {
                     // ゲームスティック協調レベルを設定する
-                    hr = GgafDx::Input::_pJoystickInputDevice->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+                    hr = GgafDx::Input::_apJoystickInputDevice[P1_JOY_STICK]->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
                     if (hr != D3D_OK) {
                         _TRACE_("LibWndProc() ジョイスティックSetCooperativeLevelに失敗しました");
                         // ゲームスティックデバイスの初期化を試みる

@@ -96,15 +96,15 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
     _w_r =  1.0 * CONFIG::GAME_BUFFER_WIDTH / CONFIG::RENDER_TARGET_BUFFER_WIDTH;
     _h_r =  1.0 * CONFIG::GAME_BUFFER_HEIGHT / CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
 
-    _buffer_left1 = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_LEFT*_w_r;
-    _buffer_top1 = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_TOP*_h_r;
-    _buffer_width1 = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
-    _buffer_height1 = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
+    _primary_buffer_source_left = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_LEFT*_w_r;
+    _primary_buffer_source_top = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_TOP*_h_r;
+    _primary_buffer_source_width = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
+    _primary_buffer_source_height = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
 
-    _buffer_left2 = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_LEFT*_w_r;
-    _buffer_top2 = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_TOP*_h_r;
-    _buffer_width2 = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
-    _buffer_height2 = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
+    _secondary_buffer_source_left = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_LEFT*_w_r;
+    _secondary_buffer_source_top = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_TOP*_h_r;
+    _secondary_buffer_source_width = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
+    _secondary_buffer_source_height = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
 
 //TODO:ƒtƒHƒO‚¢‚Â‚©
 //    _colFog.r = 0.0;
@@ -571,8 +571,8 @@ void Spacetime::cnvWorldCoordToView(coord prm_world_x, coord prm_world_y, coord 
     dxcoord len_left = -(pPlnLeft->a*fX + pPlnLeft->b*fY + pPlnLeft->c*fZ + pPlnLeft->d);
     const D3DXPLANE *pPlnRight = &(pCam->_plnRight);
     dxcoord len_rigth = -(pPlnRight->a*fX + pPlnRight->b*fY + pPlnRight->c*fZ + pPlnRight->d);
-    dxcoord x =  PX_DX(_buffer_width1 ) * (len_left / (len_left+len_rigth ) );
-    dxcoord y =  PX_DX(_buffer_height1) * (len_top  / (len_top +len_bottom) );
+    dxcoord x =  PX_DX(_primary_buffer_source_width ) * (len_left / (len_left+len_rigth ) );
+    dxcoord y =  PX_DX(_primary_buffer_source_height) * (len_top  / (len_top +len_bottom) );
     out_view_x = DX_C(x);
     out_view_y = DX_C(y);
 }

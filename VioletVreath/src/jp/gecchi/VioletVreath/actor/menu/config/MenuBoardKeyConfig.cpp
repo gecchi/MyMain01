@@ -140,7 +140,7 @@ void MenuBoardKeyConfig::onRise() {
 }
 void MenuBoardKeyConfig::processBehavior() {
     if (getBehaveingFrame() % 60 == 0) {
-        if (GgafDx::Input::_pJoystickInputDevice == nullptr) {
+        if (GgafDx::Input::_apJoystickInputDevice[P1_JOY_STICK] == nullptr) {
             GgafDx::Input::initJoyStick();
         }
     }

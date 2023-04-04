@@ -54,10 +54,10 @@ public:
 
     double _w_r;
     double _h_r;
-    pixcoord _buffer_left1;
-    pixcoord _buffer_top1;
-    pixcoord _buffer_width1;
-    pixcoord _buffer_height1;
+    pixcoord _primary_buffer_source_left;
+    pixcoord _primary_buffer_source_top;
+    pixcoord _primary_buffer_source_width;
+    pixcoord _primary_buffer_source_height;
     std::map<int, int> mapNumDik_;
     char aBufDebug_[256];
     /**

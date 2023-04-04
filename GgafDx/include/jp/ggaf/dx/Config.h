@@ -38,9 +38,9 @@ public:
     static pixcoord RENDER_TARGET_BUFFER_HEIGHT;
 
     /** [r/w] フルスクリーンモード時、１画面目のデイスプレイ番号(0～) */
-    static int PRIMARY_VIEW_DISPLAY_NO;
+    static int PRIMARY_GAME_VIEW_NO;
     /** [r/w] フルスクリーンモード時、２画面目のデイスプレイ番号(0～) */
-    static int SECONDARY_VIEW_DISPLAY_NO;
+    static int SECONDARY_GAME_VIEW_NO;
 
     /** [r] 描画先サーフェイス（RENDER_TARGET_BUFFER）の中から、実際にゲームに表示するコピー元バッファのクリッピング領域 */
     static pixcoord PRIMARY_VIEW_RENDER_BUFFER_SOURCE_LEFT;
@@ -179,7 +179,8 @@ public:
     /** [r] ヒットチェックに使用する空間分割、true：四分木場合／false：八分木（デフォルト） */
     static bool ENABLE_WORLD_HIT_CHECK_2D;
 
-
+    static int P1_JOY_STICK_DEVICE_NO;
+    static int P2_JOY_STICK_DEVICE_NO;
 public:
     static void loadProperties(std::string prm_properties_filename); //shadows
 };

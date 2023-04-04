@@ -124,7 +124,7 @@ void GameTitleScene::processBehavior() {
                 }
             }
 
-            if (GgafDx::Input::getFirstPressedJoyRgbButton() != -1) {
+            if (GgafDx::Input::getFirstPressedJoyRgbButton(P1_JOY_STICK) != -1) {
                 frame_of_noinput_ = pPhase->getFrame();
             }
             if (GgafDx::Input::getFirstPushedDownKey() != -1) {

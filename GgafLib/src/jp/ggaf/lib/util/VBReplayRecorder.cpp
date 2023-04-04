@@ -31,7 +31,7 @@ void VBReplayRecorder::first() {
 
 vb_sta VBReplayRecorder::read() {
     if (_pRecNote) {
-        vb_sta r = _pRecNote->_state;
+        vb_sta r = _pRecNote->_p1_state;
         _frame_of_the_same_vb_sta_reading++;
         if (_pRecNote->_frame_of_keeping == _frame_of_the_same_vb_sta_reading) {
             _frame_of_the_same_vb_sta_reading = 0;
@@ -62,7 +62,7 @@ void VBReplayRecorder::write(vb_sta prm_state) {
             _pRecNote_read_prev = nullptr;
         }
 
-        if (_pRecNote->_state != prm_state) {
+        if (_pRecNote->_p1_state != prm_state) {
             _pRecNote->_pNext = NEW VBRecordNote(prm_state, 1);
             _pRecNote = _pRecNote->_pNext;
             return;
@@ -76,7 +76,7 @@ void VBReplayRecorder::outputFile(const char* prm_filename) {
     std::ofstream ofs(prm_filename);
     VBRecordNote* p = _pFirstVBNote;
     while (p != nullptr) {
-        ofs << p->_state << " " << p->_frame_of_keeping << std::endl;
+        ofs << p->_p1_state << " " << p->_frame_of_keeping << std::endl;
         p = p ->_pNext;
     }
     if (_write_realtime) {
@@ -93,7 +93,7 @@ bool VBReplayRecorder::importFile(const char* prm_filename) {
     VBRecordNote* p = NEW VBRecordNote();
     _pFirstVBNote = p;
     _pRecNote = p;
-    ifs >> (p->_state) >> (p->_frame_of_keeping);
+    ifs >> (p->_p1_state) >> (p->_frame_of_keeping);
 
     vb_sta in_state;
     frame in_frame_of_keeping;
@@ -104,7 +104,7 @@ bool VBReplayRecorder::importFile(const char* prm_filename) {
         }
         p->_pNext = NEW VBRecordNote();
         p = p->_pNext;
-        p->_state = in_state;
+        p->_p1_state = in_state;
         p->_frame_of_keeping = in_frame_of_keeping;
     }
     this->first();

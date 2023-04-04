@@ -12,28 +12,12 @@ using namespace GgafLib;
 
 MousePointerActor::MousePointerActor(const char* prm_name, const char* prm_model)
       : DefaultBoardActor(prm_name, prm_model) {
-
-//    _w_r =  1.0 * CONFIG::GAME_BUFFER_WIDTH / CONFIG::RENDER_TARGET_BUFFER_WIDTH;
-//    _h_r =  1.0 * CONFIG::GAME_BUFFER_HEIGHT / CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
-//
-//    _buffer_left1 = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_LEFT*_w_r;
-//    _buffer_top1 = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_TOP*_h_r;
-//    _buffer_width1 = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
-//    _buffer_height1 = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
-//
-//    _buffer_left2 = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_LEFT*_w_r;
-//    _buffer_top2 = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_TOP*_h_r;
-//    _buffer_width2 = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
-//    _buffer_height2 = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
     DefaultSpacetime* pSpacetime = pCARETAKER->getSpacetime();
-
-    _coord_buffer_left1 = PX_C(pSpacetime->_buffer_left1);
-    _coord_buffer_top1 = PX_C(pSpacetime->_buffer_top1);
-
-    _coord_buffer_left2 = PX_C(pSpacetime->_buffer_left2);
-    _coord_buffer_top2 = PX_C(pSpacetime->_buffer_top2);
+    _coord_primary_buffer_source_left = PX_C(pSpacetime->_primary_buffer_source_left);
+    _coord_primary_buffer_source_top = PX_C(pSpacetime->_primary_buffer_source_top);
+    _coord_secondary_buffer_source_left = PX_C(pSpacetime->_secondary_buffer_source_left);
+    _coord_secondary_buffer_source_top = PX_C(pSpacetime->_secondary_buffer_source_top);
     _last_hWnd = pCARETAKER->_pHWndPrimary;
-//    _pSelectActor_prev = nullptr;
     _pHitActor = nullptr;
     _is_select_able = false;
 }
@@ -49,22 +33,31 @@ void MousePointerActor::processSettlementBehavior() {
     }
     // スクリーン座標をクライアント座標に変換する
     ScreenToClient(_last_hWnd, &_mouse_point);
+//    _TRACE_("_last_hWnd="<<_last_hWnd<<"   _pHWndSecondary="<<pCARETAKER->_pHWndSecondary<<"/_pHWndPrimary="<<pCARETAKER->_pHWndPrimary);
     if (_last_hWnd == pCARETAKER->_pHWndSecondary) {
         RECT& rect_Present = pCARETAKER->_aRect_Present[SECONDARY_VIEW];
         pixcoord cPresent_w = rect_Present.right - rect_Present.left;
         pixcoord cPresent_h = rect_Present.bottom - rect_Present.top;
-        pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* pSpacetime->_buffer_width2) / (1.0* cPresent_w));
-        pixcoord y = (_mouse_point.y - rect_Present.top)  * ((1.0* pSpacetime->_buffer_height2) / (1.0* cPresent_h));
-        _x = PX_C(x) + _coord_buffer_left2;
-        _y = PX_C(y) + _coord_buffer_top2;
+        pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* pSpacetime->_secondary_buffer_source_width) / (1.0* cPresent_w));
+        pixcoord y = (_mouse_point.y - rect_Present.top)  * ((1.0* pSpacetime->_secondary_buffer_source_height) / (1.0* cPresent_h));
+        _x = PX_C(x) + _coord_secondary_buffer_source_left;
+        _y = PX_C(y) + _coord_secondary_buffer_source_top;
     } else if (_last_hWnd == pCARETAKER->_pHWndPrimary) {
         RECT& rect_Present = pCARETAKER->_aRect_Present[PRIMARY_VIEW];
         pixcoord cPresent_w = rect_Present.right - rect_Present.left;
         pixcoord cPresent_h = rect_Present.bottom - rect_Present.top;
-        pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* pSpacetime->_buffer_width1) / (1.0* cPresent_w));
-        pixcoord y = (_mouse_point.y - rect_Present.top)  * ((1.0* pSpacetime->_buffer_height1) / (1.0* cPresent_h));
-        _x = PX_C(x) + _coord_buffer_left1;
-        _y = PX_C(y) + _coord_buffer_top1;
+        pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* pSpacetime->_primary_buffer_source_width) / (1.0* cPresent_w));
+        pixcoord y = (_mouse_point.y - rect_Present.top)  * ((1.0* pSpacetime->_primary_buffer_source_height) / (1.0* cPresent_h));
+        _x = PX_C(x) + _coord_primary_buffer_source_left;
+        _y = PX_C(y) + _coord_primary_buffer_source_top;
+//        _TRACE_("x,y="<<x<<","<<y<<"");
+//        _TRACE_("rect_Present="<<rect_Present.right<<","<<rect_Present.left<<","<<rect_Present.bottom<<","<<rect_Present.top<<"");
+//        _TRACE_("cPresent_w,cPresent_h="<<cPresent_w<<","<<cPresent_h<<"");
+//        _TRACE_("pSpacetime->_primary_buffer_source_width,_primary_buffer_source_height="<<pSpacetime->_primary_buffer_source_width<<","<<pSpacetime->_primary_buffer_source_height<<"");
+//        _TRACE_("rect_Present.left,rect_Present.top="<<rect_Present.left<<","<<rect_Present.top<<"");
+//        _TRACE_("_mouse_point.x,_mouse_point.y="<<_mouse_point.x<<","<<_mouse_point.y<<"");
+//        _TRACE_("_coord_primary_buffer_source_left,_coord_primary_buffer_source_top="<<_coord_primary_buffer_source_left<<","<<_coord_primary_buffer_source_top<<"");
+//        _TRACE_("_x,_y="<<_x<<","<<_y<<"");
     } else {
         //どうしよう
     }

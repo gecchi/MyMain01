@@ -75,26 +75,26 @@ public:
     FigureActor** _papLastRenderActor;
 
     static int render_depth_index_active;
-    /** [r]アプリケーション領域、X座標の最小値 */
+    /** [r]アプリケーション領域(ヒットチェック可能座標領域)、X座標の最小値 */
     const coord _x_bound_left;
-    /** [r]アプリケーション領域、X座標の最大値 */
+    /** [r]アプリケーション領域(ヒットチェック可能座標領域)、X座標の最大値 */
     const coord _x_bound_right;
-    /** [r]アプリケーション領域、Y座標の最小値 */
+    /** [r]アプリケーション領域(ヒットチェック可能座標領域)、Y座標の最小値 */
     const coord _y_bound_bottom;
-    /** [r]アプリケーション領域、Y座標の最大値 */
+    /** [r]アプリケーション領域(ヒットチェック可能座標領域)、Y座標の最大値 */
     const coord _y_bound_top;
-    /** [r]アプリケーション領域、Z座標の最小値 */
+    /** [r]アプリケーション領域(ヒットチェック可能座標領域)、Z座標の最小値 */
     const coord _z_bound_near;
-    /** [r]アプリケーション領域、Z座標の最大値 */
+    /** [r]アプリケーション領域(ヒットチェック可能座標領域)、Z座標の最大値 */
     const coord _z_bound_far;
 
-    /** [r]アプリケーション領域(Board用)、X座標の最小値 */
+    /** [r]アプリケーション領域(ヒットチェック可能座標領域)(Board用)、X座標の最小値 */
     const coord _x_bound_left_b;
-    /** [r]アプリケーション領域(Board用)、X座標の最大値 */
+    /** [r]アプリケーション領域(ヒットチェック可能座標領域)(Board用)、X座標の最大値 */
     const coord _x_bound_right_b;
-    /** [r]アプリケーション領域(Board用)、Y座標の最小値 */
+    /** [r]アプリケーション領域(ヒットチェック可能座標領域)(Board用)、Y座標の最小値 */
     const coord _y_bound_bottom_b;
-    /** [r]アプリケーション領域(Board用)、Y座標の最大値 */
+    /** [r]アプリケーション領域(ヒットチェック可能座標領域)(Board用)、Y座標の最大値 */
     const coord _y_bound_top_b;
 
 
@@ -108,15 +108,24 @@ public:
 
     double _w_r;
     double _h_r;
-    pixcoord _buffer_left1;
-    pixcoord _buffer_top1;
-    pixcoord _buffer_width1;
-    pixcoord _buffer_height1;
 
-    pixcoord _buffer_left2;
-    pixcoord _buffer_top2;
-    pixcoord _buffer_width2;
-    pixcoord _buffer_height2;
+    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標のX座標(主画面) */
+    pixcoord _primary_buffer_source_left;
+    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標のY座標(主画面) */
+    pixcoord _primary_buffer_source_top;
+    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標空の幅(主画面) */
+    pixcoord _primary_buffer_source_width;
+    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標空の高さ(主画面) */
+    pixcoord _primary_buffer_source_height;
+
+    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標のX座標(副画面) */
+    pixcoord _secondary_buffer_source_left;
+    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標のY座標(副画面) */
+    pixcoord _secondary_buffer_source_top;
+    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標空の幅(副画面) */
+    pixcoord _secondary_buffer_source_width;
+    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標空の高さ(副画面) */
+    pixcoord _secondary_buffer_source_height;
 
     static WorldOctree* _pWorldOctree;
     static WorldOctreeRounder* _pWorldOctreeRounder;
