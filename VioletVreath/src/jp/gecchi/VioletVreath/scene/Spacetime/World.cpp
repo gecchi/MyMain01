@@ -166,8 +166,9 @@ void World::initialize() {
         //‰ð‘œ“xî•ñ•\Ž¦
         pLabel_resolution1_->update(
             PX_C(cx/2), PX_C(cy),
-            ("VIEW[0] "+XTOS(w1)+"*"+XTOS(h1)+"\n"+
-                    fix_str).c_str()
+            ("DISPLAY["+XTOS(CONFIG::PRIMARY_GAME_VIEW_DISPLAY_NO)+"] / VIEW[0]\n"+
+              XTOS(w1)+"*"+XTOS(h1)+"\n"+
+              fix_str).c_str()
         );
         if (is_warn1) {
             pLabel_warn1_->update(
@@ -177,7 +178,8 @@ void World::initialize() {
         }
         pLabel_resolution2_->update(
             PX_C(cx+(cx/2)), PX_C(cy),
-            ("VIEW[1] "+XTOS(w2)+"*"+XTOS(h2)+"\n"+
+            ("DISPLAY["+XTOS(CONFIG::SECONDARY_GAME_VIEW_DISPLAY_NO)+"] / VIEW[1]\n"+
+                    XTOS(w2)+"*"+XTOS(h2)+"\n"+
                     fix_str).c_str()
         );
         if (is_warn2) {

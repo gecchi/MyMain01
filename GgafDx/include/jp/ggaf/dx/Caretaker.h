@@ -220,9 +220,9 @@ public:
     /** [r] Present領域(フルスクリーン時、またはウィンドウ＆アスペクトFIXの場合)、[0]:１画面目、[1]:２画面目 (ピクセル) */
     RECT _aRect_Present[2];
     /** [r] １画面目アダプタ番号、 _aRect_HarfRenderBufferSource[] の序数 0 ～ */
-    int _primary_game_view_no;
+    int _primary_game_view_display_no;
     /** [r] ２画面目アダプタ番号、 _aRect_HarfRenderBufferSource[] の序数 0 ～ */
-    int _secondary_game_view_no;
+    int _secondary_game_view_display_no;
 
 public:
     CurveSourceManager* _pCurveSrcManager;

@@ -38,9 +38,9 @@ public:
     static pixcoord RENDER_TARGET_BUFFER_HEIGHT;
 
     /** [r/w] フルスクリーンモード時、１画面目のデイスプレイ番号(0～) */
-    static int PRIMARY_GAME_VIEW_NO;
+    static int PRIMARY_GAME_VIEW_DISPLAY_NO;
     /** [r/w] フルスクリーンモード時、２画面目のデイスプレイ番号(0～) */
-    static int SECONDARY_GAME_VIEW_NO;
+    static int SECONDARY_GAME_VIEW_DISPLAY_NO;
 
     /** [r] 描画先サーフェイス（RENDER_TARGET_BUFFER）の中から、実際にゲームに表示するコピー元バッファのクリッピング領域 */
     static pixcoord PRIMARY_VIEW_RENDER_BUFFER_SOURCE_LEFT;

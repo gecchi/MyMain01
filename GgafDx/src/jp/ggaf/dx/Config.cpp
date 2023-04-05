@@ -20,8 +20,8 @@ bool Config::PRJ_2D_MODE = false;
 pixcoord Config::RENDER_TARGET_BUFFER_WIDTH = Config::GAME_BUFFER_WIDTH;
 pixcoord Config::RENDER_TARGET_BUFFER_HEIGHT = Config::GAME_BUFFER_HEIGHT;
 
-int Config::PRIMARY_GAME_VIEW_NO = 0;
-int Config::SECONDARY_GAME_VIEW_NO = 1;
+int Config::PRIMARY_GAME_VIEW_DISPLAY_NO = 0;
+int Config::SECONDARY_GAME_VIEW_DISPLAY_NO = 1;
 
 pixcoord Config::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_LEFT   = 0;
 pixcoord Config::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_TOP    = 0;
@@ -201,11 +201,11 @@ void Config::loadProperties(std::string prm_properties_filename) {
         Config::RENDER_TARGET_BUFFER_HEIGHT = GgafCore::Config::_properties.getInt("RENDER_TARGET_BUFFER_HEIGHT");
     }
 
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_GAME_VIEW_NO")) {
-        Config::PRIMARY_GAME_VIEW_NO = GgafCore::Config::_properties.getInt("PRIMARY_GAME_VIEW_NO");
+    if (GgafCore::Config::_properties.isExistKey("PRIMARY_GAME_VIEW_DISPLAY_NO")) {
+        Config::PRIMARY_GAME_VIEW_DISPLAY_NO = GgafCore::Config::_properties.getInt("PRIMARY_GAME_VIEW_DISPLAY_NO");
     }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_GAME_VIEW_NO")) {
-        Config::SECONDARY_GAME_VIEW_NO = GgafCore::Config::_properties.getInt("SECONDARY_GAME_VIEW_NO");
+    if (GgafCore::Config::_properties.isExistKey("SECONDARY_GAME_VIEW_DISPLAY_NO")) {
+        Config::SECONDARY_GAME_VIEW_DISPLAY_NO = GgafCore::Config::_properties.getInt("SECONDARY_GAME_VIEW_DISPLAY_NO");
     }
 
     if (Config::DUAL_VIEW) {
@@ -558,8 +558,8 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::SECONDARY_VIEW_WINDOW_WIDTH=" << Config::SECONDARY_VIEW_WINDOW_WIDTH);
     _TRACE_("Config::SECONDARY_VIEW_WINDOW_HEIGHT=" << Config::SECONDARY_VIEW_WINDOW_HEIGHT);
     _TRACE_("Config::FIXED_VIEW_ASPECT=" << Config::FIXED_VIEW_ASPECT);
-    _TRACE_("Config::PRIMARY_GAME_VIEW_NO=" << Config::PRIMARY_GAME_VIEW_NO);
-    _TRACE_("Config::SECONDARY_GAME_VIEW_NO=" << Config::SECONDARY_GAME_VIEW_NO);
+    _TRACE_("Config::PRIMARY_GAME_VIEW_DISPLAY_NO=" << Config::PRIMARY_GAME_VIEW_DISPLAY_NO);
+    _TRACE_("Config::SECONDARY_GAME_VIEW_DISPLAY_NO=" << Config::SECONDARY_GAME_VIEW_DISPLAY_NO);
     _TRACE_("Config::SWAP_VIEW=" << Config::SWAP_VIEW);
     _TRACE_("Config::PRIMARY_VIEW_PRESENT_POSITION=" << Config::PRIMARY_VIEW_PRESENT_POSITION);
     _TRACE_("Config::SECONDARY_VIEW_PRESENT_POSITION=" << Config::SECONDARY_VIEW_PRESENT_POSITION);
