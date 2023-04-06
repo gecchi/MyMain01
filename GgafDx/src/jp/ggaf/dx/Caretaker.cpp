@@ -737,18 +737,15 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                 }
             }
         } else {
-            if (_num_adapter < CONFIG::PRIMARY_GAME_VIEW_DISPLAY_NO+1 || _num_adapter < CONFIG::SECONDARY_GAME_VIEW_DISPLAY_NO+1) {
+            if (_num_adapter < CONFIG::PRIMARY_GAME_VIEW_DISPLAY_NO+1 ) {
                 throwCriticalException("範囲外のディスプレイアダプタ番号を指定しています。アダプタ番号は 0～"<<_num_adapter-1<<" が有効です。\n"
-                                           "PRIMARY_GAME_VIEW_DISPLAY_NO="<<CONFIG::PRIMARY_GAME_VIEW_DISPLAY_NO<<", "
-                                           "SECONDARY_GAME_VIEW_DISPLAY_NO="<<CONFIG::SECONDARY_GAME_VIEW_DISPLAY_NO );
+                                           "PRIMARY_GAME_VIEW_DISPLAY_NO="<<CONFIG::PRIMARY_GAME_VIEW_DISPLAY_NO);
             } else {
                 //_secondary_game_view_display_no は、_primary_game_view_display_no とかぶらないようにしておく
-                if (_primary_game_view_display_no == _secondary_game_view_display_no) {
-                    if (_secondary_game_view_display_no == 0) {
-                        _secondary_game_view_display_no = _primary_game_view_display_no + 1;
-                    } else {
-                        _secondary_game_view_display_no = _primary_game_view_display_no - 1;
-                    }
+                if (_secondary_game_view_display_no == 0) {
+                    _secondary_game_view_display_no = _primary_game_view_display_no + 1;
+                } else {
+                    _secondary_game_view_display_no = _primary_game_view_display_no - 1;
                 }
             }
         }
