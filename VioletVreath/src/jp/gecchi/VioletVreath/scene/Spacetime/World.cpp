@@ -296,7 +296,6 @@ void World::processBehavior() {
                 //しばらくカーソルを動かさなければ消す。
                 long mdx, mdy, mdz;
                 GgafDx::Input::getMousePointer_REL(&mdx, &mdy, &mdz);
-                _TRACE_("hide_cursor_cnt_="<<hide_cursor_cnt_);
                 if (mdx == 0 && mdy == 0 && mdz == 0) {
                     hide_cursor_cnt_++;
                     if (hide_cursor_cnt_ == SEC_F(3)) {
