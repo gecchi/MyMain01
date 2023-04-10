@@ -227,10 +227,10 @@ void D3DXMeshModel::restore() {
     for ( DWORD i = 0; i < num_materials; i++) {
         texture_filename = paD3DMaterial9_tmp[i].pTextureFilename;
         if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
-            papTextureConnection[i] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(texture_filename, this));
+            papTextureConnection[i] = connectToTextureManager(texture_filename);
         } else {
             //テクスチャ無し
-            papTextureConnection[i] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(CONFIG::WHITE_TEXTURE.c_str(), this));
+            papTextureConnection[i] = connectToTextureManager(CONFIG::WHITE_TEXTURE.c_str());
         }
     }
     GGAF_RELEASE(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放

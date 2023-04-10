@@ -4,7 +4,7 @@
 using namespace GgafDx;
 
 BgmConnection::BgmConnection(const char* prm_idstr, Bgm* prm_pBgm) :
-    GgafCore::ResourceConnection<Bgm> (prm_idstr, prm_pBgm) {
+    GgafCore::ResourceConnection<Bgm>(prm_idstr, prm_pBgm) {
 }
 
 void BgmConnection::processReleaseResource(Bgm* prm_pResource) {

@@ -64,8 +64,6 @@ ModelManager::ModelManager(const char* prm_manager_name) :
     GgafCore::ResourceManager<Model> (prm_manager_name) {
 
     static volatile bool is_init = ModelManager::initStatic(); //静的メンバ初期化
-    //テクスチャマネジャー
-    _pModelTextureManager = NEW TextureManager("TextureManager");
     HRESULT hr;
 
     D3DXFileCreate( &_pID3DXFile_modelx );
@@ -688,7 +686,7 @@ ModelManager::~ModelManager() {
     GGAF_RELEASE(_pID3DXFile_psprx);
     GGAF_RELEASE(_pID3DXFile_fsprx);
     GGAF_RELEASE(_pID3DXFile_rsprx);
-    GGAF_DELETE(_pModelTextureManager);
+//    GGAF_DELETE(_pModelTextureManager);
     _TRACE3_("するけども、ここでは既に何も解放するものがないはずです");
     releaseAll();
 }

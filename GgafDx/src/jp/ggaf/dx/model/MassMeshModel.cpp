@@ -231,11 +231,9 @@ void MassMeshModel::restore() {
 
     //デバイスにテクスチャ作成
     if (_papTextureConnection == nullptr) {
-        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
-            _papTextureConnection[n] =
-                    (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
+            _papTextureConnection[n] = connectToTextureManager(_pa_texture_filenames[n].c_str());
         }
     }
 

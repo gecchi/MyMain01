@@ -32,19 +32,11 @@ FigureActor::FigureActor(const char* prm_name,
                          GeometricActor(prm_name,
                                         prm_pChecker),
 _pModelCon(
-    (ModelConnection*)(
-        pCARETAKER->_pModelManager->connect(
-            (std::string(1, prm_model_type) + "," + std::string(prm_model)).c_str(), this
-        )
-    )
+    connectToModelManager( (std::string(1, prm_model_type) + "," + std::string(prm_model)).c_str() )
 ),
 _pModel((Model*)_pModelCon->peek()),
 _pEffectCon(
-    (EffectConnection*)(
-        pCARETAKER->_pEffectManager->connect(
-            (std::string(1, prm_effect_type) + "," + std::string(prm_effect_id)).c_str(), this
-        )
-    )
+    connectToEffectManager( (std::string(1, prm_effect_type) + "," + std::string(prm_effect_id)).c_str() )
 ),
 _pEffect((Effect*)_pEffectCon->peek()),
 _pAlphaFader(nullptr),
@@ -86,8 +78,8 @@ void FigureActor::addModel(const char* prm_model) {
     }
 #endif
    std::string model_id = std::string(1, _pModel->_model_type) + "," + std::string(prm_model);
-   ModelConnection* pModelCon =  (ModelConnection*)pCARETAKER->_pModelManager->connect(model_id.c_str(), this);
-   Model* pModel = ((Model*)pModelCon->peek());
+   ModelConnection* pModelCon = connectToModelManager(model_id.c_str());
+   Model* pModel = pModelCon->peek();
    _lstModelCon.push_back(pModelCon);
    _lstModel.push_back(pModel);
    _mapModel[model] = (int)(_lstModel.size()-1);

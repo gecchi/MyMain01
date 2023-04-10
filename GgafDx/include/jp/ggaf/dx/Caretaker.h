@@ -23,6 +23,13 @@
  */
 #define connectToCurveSourceManager(X)   ((GgafDx::CurveSourceConnection*)((pCARETAKER)->_pCurveSrcManager->connect((X), this)))
 
+#define connectToTextureManager(X) ((GgafDx::TextureConnection*)(pCARETAKER)->_pTextureManager->connect((X), this))
+
+#define connectToModelManager(X) ((GgafDx::ModelConnection*)(pCARETAKER)->_pModelManager->connect((X), this))
+
+#define connectToEffectManager(X) ((GgafDx::EffectConnection*)(pCARETAKER)->_pEffectManager->connect((X), this))
+
+
 #define PRIMARY_VIEW 0
 #define SECONDARY_VIEW 1
 
@@ -46,9 +53,6 @@ private:
     D3DCOLOR _color_border;
     /** ゲーム表示領域の表示クリア時の背景色 */
     D3DCOLOR _color_clear;
-
-    /** フルスクリーン時、レンダリングターゲットテクスチャ */
-    IDirect3DTexture9*  _pRenderTexture;
     /** フルスクリーン時、レンダリングターゲットテクスチャのサーフェイス */
     IDirect3DSurface9*  _pRenderTextureSurface;
     /** フルスクリーン時、レンダリングターゲットのZバッファのサーフェイス */
@@ -172,15 +176,11 @@ public:
     /** 使用可能なデバイスのアダプタの解像度情報セット */
     AdapterRezos* _paAdapterRezos;
     ////////////////////////////////////////////////////////////
-
+    TextureManager* _pTextureManager;
     /** モデル(Model)資源管理者 */
     ModelManager* _pModelManager;
     /** エフェクト(Effect)資源管理者 */
     EffectManager* _pEffectManager;
-    /** 環境マップ用テクスチャー(Texture)資源管理者。（※通常のテクスチャはModelの内部管理） */
-    TextureManager* _pCubeMapTextureManager;
-    /** バンプマップ用テクスチャー(Texture)資源管理者。（※通常のテクスチャはModelの内部管理） */
-    TextureManager* _pBumpMapTextureManager;
     /** [r] 1画面目のウィンドウハンドル  */
     HWND _pHWndPrimary;
     /** [r] 2画面目のウィンドウハンドル  */
@@ -201,8 +201,6 @@ public:
     bool _is_device_lost_flg;
     /** [r] 画面アスペクト比調整フラグ (true=ウィンドウがリサイズされ、表示領域を再計算) */
     bool _adjustGameWindow;
-//    /** [r] 表示領域を再計算が必要なウィンドウ(のハンドル) */
-//    HWND _pHWnd_adjustScreen;
 
     /** [r] 頂点シェーダーのバージョン(D3DVS_VERSION(_Major,_Minor)) */
     uint32_t _vs_v;
@@ -369,7 +367,6 @@ public:
     virtual void presentVisualize() override;
     virtual void presentClosing() override;
 
-
     /**
      * この世を取得 .
      * 下位でオーバーライド可能。<BR>
@@ -379,13 +376,19 @@ public:
         return (Spacetime*)_pSpacetime;
     }
 
+    virtual TextureManager* getTextureManager() {
+        return _pTextureManager;
+    }
+
     virtual ModelManager* getModelManager() {
         return _pModelManager;
     }
+
     virtual EffectManager* getEffectManager() {
         return _pEffectManager;
     }
 
+    virtual TextureManager* createTextureManager();
     virtual ModelManager* createModelManager();
     virtual EffectManager* createEffectManager();
 

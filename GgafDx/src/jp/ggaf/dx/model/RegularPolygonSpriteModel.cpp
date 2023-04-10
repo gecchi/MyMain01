@@ -252,7 +252,7 @@ void RegularPolygonSpriteModel::restore() {
         //テクスチャ取得しモデルに保持させる
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[1];
-        _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
+        _papTextureConnection[0] = connectToTextureManager(_pa_texture_filenames[0].c_str());
     }
 
     _TRACE3_("_model_id=" << _model_id << " end");

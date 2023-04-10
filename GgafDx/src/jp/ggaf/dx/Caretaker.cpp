@@ -58,7 +58,6 @@ Caretaker::Caretaker() : GgafCore::Caretaker() {
     _color_border = D3DCOLOR_RGBA(rgb_border._red, rgb_border._green, rgb_border._blue, 0);
     GgafCore::Rgb rgb_bg = GgafCore::Rgb(CONFIG::BG_COLOR);
     _color_clear = D3DCOLOR_RGBA(rgb_bg._red, rgb_bg._green, rgb_bg._blue, 0);
-    _pRenderTexture = nullptr;
     _pRenderTextureSurface = nullptr;
     _pRenderTextureZ = nullptr;
     _num_adapter = 1;
@@ -72,10 +71,9 @@ Caretaker::Caretaker() : GgafCore::Caretaker() {
     _paPresetPrm = nullptr;
     _paDisplayMode = nullptr;
     _paHWnd = nullptr;
+    _pTextureManager = nullptr;
     _pModelManager = nullptr;
     _pEffectManager = nullptr;
-    _pCubeMapTextureManager = nullptr;
-    _pBumpMapTextureManager = nullptr;
 
     //ライト構造体は、シェーダーのパラメータになる時があるため必要。
     D3DXVECTOR3 vecDirection(-1.0f, -1.0f, 1.0f);
@@ -1311,10 +1309,7 @@ HRESULT Caretaker::initDevice() {
         hr = ((IDirect3DDevice9Ex*)_pID3DDevice9)->SetMaximumFrameLatency(0);
         checkDxException(hr, D3D_OK, "SetMaximumFrameLatency(0) に失敗しました。");
     }
-
-    //その他必要な初期化
-    _pCubeMapTextureManager = NEW TextureManager("CubeMapTexManager");
-    _pBumpMapTextureManager = NEW TextureManager("BumpMapTexManager");
+    _pTextureManager = createTextureManager();
     _pModelManager = createModelManager();
     _pEffectManager = createEffectManager();
     Util::init();  //ユーティリティ準備
@@ -1556,15 +1551,38 @@ _TRACE_("restoreFullScreenRenderTarget() 1");
     }
     HRESULT hr;
     //描画先となるテクスチャを別途作成（バックバッファ的な使用を行う）
-    hr = _pID3DDevice9->CreateTexture(
-                                CONFIG::RENDER_TARGET_BUFFER_WIDTH,
-                                CONFIG::RENDER_TARGET_BUFFER_HEIGHT,
-                                1, //MipLevel Mip無し
-                                D3DUSAGE_RENDERTARGET,
-                                _paPresetPrm[_primary_game_view_display_no].BackBufferFormat,
-                                D3DPOOL_DEFAULT,
-                                &_pRenderTexture,
-                                nullptr);
+//    hr = _pID3DDevice9->CreateTexture(
+//                                CONFIG::RENDER_TARGET_BUFFER_WIDTH,
+//                                CONFIG::RENDER_TARGET_BUFFER_HEIGHT,
+//                                1, //MipLevel Mip無し
+//                                D3DUSAGE_RENDERTARGET,
+//                                _paPresetPrm[_primary_game_view_display_no].BackBufferFormat,
+//                                D3DPOOL_DEFAULT,
+//                                &_pRenderTexture,
+//                                nullptr);
+ //   returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャ("<<CONFIG::RENDER_TARGET_BUFFER_WIDTH<<"x"<<CONFIG::RENDER_TARGET_BUFFER_HEIGHT<<")の作成に失敗。\nサイズを確認して下さい。");
+    //RenderTarget(描画先)をテクスチャへ切り替え
+//    hr = _pRenderTexture->GetSurfaceLevel(
+//                            0,   //ミップマップのレベル
+//                            &_pRenderTextureSurface
+//                          );
+
+    //hr = _pID3DDevice9->CreateRenderTarget(Width, Height, Format, MultiSample, MultisampleQuality, Lockable, ppSurface, pSharedHandle)
+    //STDMETHOD(CreateRenderTarget)(THIS_ UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,DWORD MultisampleQuality,BOOL Lockable,IDirect3DSurface9** ppSurface,HANDLE* pSharedHandle) PURE;
+
+        hr = _pID3DDevice9->CreateRenderTarget(
+            CONFIG::RENDER_TARGET_BUFFER_WIDTH,
+            CONFIG::RENDER_TARGET_BUFFER_HEIGHT,
+            _paPresetPrm[_primary_game_view_display_no].BackBufferFormat,
+            D3DMULTISAMPLE_NONE, //D3DMULTISAMPLE_TYPE MultiSample,
+            0, //DWORD MultisampleQuality,
+            true, //BOOL Lockable,
+            &_pRenderTextureSurface,
+            nullptr //HANDLE* pHandle
+        );
+
+
+
 _TRACE_("restoreFullScreenRenderTarget() 2");
 //    LPDIRECT3DTEXTURE9 pIDirect3DTexture9;
 //    HRESULT hr = D3DXCreateTextureFromFileEx(
@@ -1597,9 +1615,27 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
     //        HANDLE* pHandle
     //    );
 
-    returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャ("<<CONFIG::RENDER_TARGET_BUFFER_WIDTH<<"x"<<CONFIG::RENDER_TARGET_BUFFER_HEIGHT<<")の作成に失敗。\nサイズを確認して下さい。");
-    //RenderTarget(描画先)をテクスチャへ切り替え
-    hr = _pRenderTexture->GetSurfaceLevel(0, &_pRenderTextureSurface);
+
+//オブジェクト判定サーフェイス作成例
+//// デバイスの描画バッファを取得
+//g_pD3DDev->GetRenderTarget(0, &pDevSurface);
+//
+//// バックバッファサーフェイスの属性を取得
+//D3DSURFACE_DESC DevSufDesc;
+//pDevSurface->GetDesc( &DevSufDesc );
+//
+//// オブジェクト判定サーフェイスの作成
+//g_pD3DDev->CreateRenderTarget(
+//        DevSufDesc.Width,
+//        DevSufDesc.Height,
+//        DevSufDesc.Format,
+//        DevSufDesc.MultiSampleType,
+//        0,
+//        true,
+//        &pColorSurface, NULL);
+
+
+
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャのサーフェイス取得に失敗しました。");
     hr = _pID3DDevice9->SetRenderTarget(0, _pRenderTextureSurface);
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャへ SetRenderTarget 出来ませんでした。");
@@ -1753,7 +1789,7 @@ void Caretaker::setFullScreenWindowPos() {
 
 HRESULT Caretaker::releaseFullScreenRenderTarget() {
     GGAF_RELEASE_BY_FROCE(_pRenderTextureSurface);
-    GGAF_RELEASE_BY_FROCE(_pRenderTexture);
+//    GGAF_RELEASE_BY_FROCE(_pRenderTexture);
     GGAF_RELEASE_BY_FROCE(_pRenderTextureZ);
     for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
         IDirect3DSurface9* p1 = _papBackBuffer[adapter_no];
@@ -1955,12 +1991,17 @@ void Caretaker::presentVisualize() {
                 releaseFullScreenRenderTarget();
             }
             //環境マップテクスチャ、デバイスロスト処理
-            _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->releaseAll() BEGIN ------>");
-            _pCubeMapTextureManager->releaseAll();
-            _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->releaseAll() <-------- END");
-            _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->releaseAll() BEGIN ------>");
-            _pBumpMapTextureManager->releaseAll();
-            _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->releaseAll() <-------- END");
+//            _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->releaseAll() BEGIN ------>");
+//            _pCubeMapTextureManager->releaseAll();
+//            _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->releaseAll() <-------- END");
+//            _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->releaseAll() BEGIN ------>");
+//            _pBumpMapTextureManager->releaseAll();
+//            _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->releaseAll() <-------- END");
+
+            _TRACE_("【デバイスロスト処理】_pTextureManager->releaseAll() BEGIN ------>");
+            _pTextureManager->releaseAll();
+            _TRACE_("【デバイスロスト処理】_pTextureManager->releaseAll() <-------- END");
+
             //エフェクト、デバイスロスト処理
             _TRACE_("【デバイスロスト処理】_pEffectManager->onDeviceLostAll() BEGIN ------>");
             _pEffectManager->onDeviceLostAll();
@@ -2090,12 +2131,17 @@ void Caretaker::presentVisualize() {
         //リソース再構築
         _TRACE_("【デバイスロスト処理】リソース再構築 BEGIN ------>");
         //環境マップテクスチャ、復帰処理
-        _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->restoreAll() BEGIN ------>");
-        _pCubeMapTextureManager->restoreAll();
-        _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->restoreAll() <-------- END");
-        _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->restoreAll() BEGIN ------>");
-        _pBumpMapTextureManager->restoreAll();
-        _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->restoreAll() <-------- END");
+//        _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->restoreAll() BEGIN ------>");
+//        _pCubeMapTextureManager->restoreAll();
+//        _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->restoreAll() <-------- END");
+//        _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->restoreAll() BEGIN ------>");
+//        _pBumpMapTextureManager->restoreAll();
+//        _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->restoreAll() <-------- END");
+
+        _TRACE_("【デバイスロスト処理】_pTextureManager->restoreAll() BEGIN ------>");
+        _pTextureManager->restoreAll();
+        _TRACE_("【デバイスロスト処理】_pTextureManager->restoreAll() <-------- END");
+
         //エフェクトリセット
         _TRACE_("【デバイスロスト処理】_pEffectManager->restoreAll() BEGIN ------>");
         _pEffectManager->restoreAll();
@@ -2171,13 +2217,17 @@ void Caretaker::clean() {
         _TRACE_(FUNC_NAME<<" GgafCore::Caretaker::clean() 終了");
         GgafCore::CmRandomNumberGenerator::getInstance()->release();
         //保持モデル解放
-        _TRACE_(FUNC_NAME<<" _pCubeMapTextureManager 開放開始");
-        GGAF_DELETE(_pCubeMapTextureManager);
-        _TRACE_(FUNC_NAME<<" _pCubeMapTextureManager 開放終了");
+//        _TRACE_(FUNC_NAME<<" _pCubeMapTextureManager 開放開始");
+//        GGAF_DELETE(_pCubeMapTextureManager);
+//        _TRACE_(FUNC_NAME<<" _pCubeMapTextureManager 開放終了");
+//
+//        _TRACE_(FUNC_NAME<<" _pBumpMapTextureManager 開放開始");
+//        GGAF_DELETE(_pBumpMapTextureManager);
+//        _TRACE_(FUNC_NAME<<" _pCubeMapTextureManager 開放終了");
 
-        _TRACE_(FUNC_NAME<<" _pBumpMapTextureManager 開放開始");
-        GGAF_DELETE(_pBumpMapTextureManager);
-        _TRACE_(FUNC_NAME<<" _pCubeMapTextureManager 開放終了");
+        _TRACE_(FUNC_NAME<<" _pTextureManager 開放開始");
+        GGAF_DELETE(_pTextureManager);
+        _TRACE_(FUNC_NAME<<" _pTextureManager 開放終了");
 
         _TRACE_(FUNC_NAME<<" _pModelManager 開放開始");
         GGAF_DELETE(_pModelManager);
@@ -2350,23 +2400,31 @@ void Caretaker::setPositionPresentRect(int prm_pos, RECT& inout_rectPresent, pix
     }
 }
 
+TextureManager* Caretaker::createTextureManager() {
+    TextureManager* p =  NEW TextureManager("TextureManager");
+    return p;
+}
 
 ModelManager* Caretaker::createModelManager() {
     ModelManager* p =  NEW ModelManager("ModelManager");
     return p;
 }
+
 EffectManager* Caretaker::createEffectManager() {
     EffectManager* p = NEW EffectManager("EffectManager");
     return p;
 }
+
 CurveSourceManager* Caretaker::createCurveSourceManager() {
     CurveSourceManager* p = NEW CurveSourceManager("CurveSourceManager");
     return p;
 }
+
 CurveManufactureManager* Caretaker::createCurveManufactureManager() {
     CurveManufactureManager* p = NEW CurveManufactureManager("CurveManufactureManager");
     return p;
 }
+
 Caretaker::~Caretaker() {
     _TRACE_(FUNC_NAME<<" 解放開始");
     calmDown();
@@ -2465,7 +2523,7 @@ Caretaker::~Caretaker() {
 //                                        ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 //                                      ／                              ／
 //                                    ／                              ／
-//    バックバッファ                ／      _papBackBuffer[0]        ／
+//    バックバッファ                ／     _papBackBuffer[0]        ／
 //                                ／                              ／
 //                              ／                              ／
 //                              ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
@@ -2492,8 +2550,8 @@ Caretaker::~Caretaker() {
 //    フロントバッファ    ／                    ／       |    ／                    ／
 //    (ディスプレイ)    ／                    ／         |  ／                    ／
 //                      ￣￣￣￣￣￣￣￣￣￣￣           |  ￣￣￣￣￣￣￣￣￣￣￣
-//                     PRIMARY_VIEW_FULL_SCREEN_WIDTH x    |   SECONDARY_VIEW_FULL_SCREEN_WIDTH x
-//                       PRIMARY_VIEW_FULL_SCREEN_HEIGHT   |     SECONDARY_VIEW_FULL_SCREEN_HEIGHT
+//                     PRIMARY_VIEW_FULL_SCREEN_WIDTH x  |   SECONDARY_VIEW_FULL_SCREEN_WIDTH x
+//                       PRIMARY_VIEW_FULL_SCREEN_HEIGHT |     SECONDARY_VIEW_FULL_SCREEN_HEIGHT
 //
 //                               ↑                                 ↑
 //                               ｜ Present (flip)                  ｜ Present (flip)
@@ -2501,7 +2559,7 @@ Caretaker::~Caretaker() {
 //                               ↓                                 ↓
 //                            ＿＿＿＿＿＿＿＿＿＿＿             ＿＿＿＿＿＿＿＿＿＿＿
 //                          ／                    ／           ／                    ／
-//    バックバッファ      ／  _papBackBuffer[0]  ／           ／  _papBackBuffer[1]  ／
+//    バックバッファ      ／  _papBackBuffer[0] ／           ／ _papBackBuffer[1]  ／
 //                      ／                    ／           ／                    ／
 //                      ￣￣￣￣￣￣￣￣￣￣￣             ￣￣￣￣￣￣￣￣￣￣￣
 //                     PRIMARY_VIEW_FULL_SCREEN_WIDTH x        SECONDARY_VIEW_FULL_SCREEN_WIDTH x

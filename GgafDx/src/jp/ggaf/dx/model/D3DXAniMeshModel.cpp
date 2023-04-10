@@ -254,10 +254,10 @@ void D3DXAniMeshModel::restore() {
 
                 texture_filename = (*it)->pMeshContainer->pMaterials[j].pTextureFilename;
                 if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
-                    model_papTextureConnection[n] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(texture_filename, this));
+                    model_papTextureConnection[n] = connectToTextureManager(texture_filename);
                 } else {
                     //テクスチャ無し時は真っ白なテクスチャに置き換え
-                    model_papTextureConnection[n] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(CONFIG::WHITE_TEXTURE.c_str(), this));
+                    model_papTextureConnection[n] = connectToTextureManager(CONFIG::WHITE_TEXTURE.c_str());
                 }
                 n ++;
             }

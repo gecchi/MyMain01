@@ -144,8 +144,7 @@ void PointSpriteSetModel::restore() {
         //頂点バッファのpsizeの算出に、テクスチャの長さが必要なため、ここで一旦求めている
         if (_papTextureConnection == nullptr) {
             _papTextureConnection = NEW TextureConnection*[1];
-            _papTextureConnection[0] =
-                (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
+            _papTextureConnection[0] = connectToTextureManager(_pa_texture_filenames[0].c_str());
         }
 
         Texture* pTex = _papTextureConnection[0]->peek();
@@ -244,10 +243,8 @@ void PointSpriteSetModel::restore() {
 
     //デバイスにテクスチャ作成
     if (_papTextureConnection == nullptr) {
-        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[1];
-        _papTextureConnection[0] =
-            (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
+        _papTextureConnection[0] = connectToTextureManager(_pa_texture_filenames[0].c_str());
     }
 
 //    //インデックスバッファは使わない

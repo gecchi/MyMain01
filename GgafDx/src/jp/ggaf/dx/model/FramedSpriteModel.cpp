@@ -474,8 +474,8 @@ void FramedSpriteModel::restore() {
         //テクスチャ取得しモデルに保持させる
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[2];
-        _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this)); //中身用
-        _papTextureConnection[1] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[1].c_str(), this)); //フレーム用
+        _papTextureConnection[0] = connectToTextureManager(_pa_texture_filenames[0].c_str()); //中身用
+        _papTextureConnection[1] = connectToTextureManager(_pa_texture_filenames[1].c_str()); //フレーム用
     }
 
 

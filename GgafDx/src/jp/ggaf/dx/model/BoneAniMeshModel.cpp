@@ -551,10 +551,8 @@ void BoneAniMeshModel::restore() {
 
     if (_papTextureConnection == nullptr) {
         _papTextureConnection = NEW TextureConnection*[_num_materials];
-        TextureManager* pTextureManager = pCARETAKER->_pModelManager->_pModelTextureManager;
         for (DWORD n = 0; n < _num_materials; n++) {
-            _papTextureConnection[n] =
-                    (TextureConnection*)(pTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
+            _papTextureConnection[n] = connectToTextureManager(_pa_texture_filenames[n].c_str());
         }
     }
 

@@ -465,11 +465,9 @@ void MeshModel::restore() {
 
     //テクスチャ作成
     if (!_papTextureConnection) {
-        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
-            _papTextureConnection[n] =
-                    (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
+            _papTextureConnection[n] = connectToTextureManager(_pa_texture_filenames[n].c_str());
         }
     }
     _TRACE3_("_model_id=" << _model_id << " end");

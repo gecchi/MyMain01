@@ -19,8 +19,8 @@ EnemyStraeaLaserChip004::EnemyStraeaLaserChip004(const char* prm_name) :
     pConn_pCurveManuf_ = connectToCurveManufactureManager("GURUGURU");
     pVehicleLeader_ = createCurveVehicleLeader(pConn_pCurveManuf_->peek());
 //    if (pTexCon1_ == nullptr) {
-//        pTexCon1_ = connectToModelTextureManager("StraeaLaserChip001.png");
-//        pTexCon2_ = connectToModelTextureManager("EsperiaLaserChip001.png");
+//        pTexCon1_ = connectToTextureManager("StraeaLaserChip001.png");
+//        pTexCon2_ = connectToTextureManager("EsperiaLaserChip001.png");
 //        pModel->setMaterialTexture(0, pTexCon1_);
 //
 //    }

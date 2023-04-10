@@ -182,7 +182,6 @@ void SkinAniMeshModel::restore() {
 
         HRESULT hr;
         std::string xfilepath = Model::getMeshXFilePath(xdata.XFileNames[0]);
-        TextureManager* pTextureManager = pCARETAKER->_pModelManager->_pModelTextureManager;
         //Xファイルのファイルロード
         _pAllocHierarchy = NEW SkinAniMeshAllocHierarchy(); // CAllocHierarchyBaseの派生クラス
         hr = D3DXLoadMeshHierarchyFromX(
@@ -885,10 +884,8 @@ void SkinAniMeshModel::restore() {
 
     if (_papTextureConnection == nullptr) {
         _papTextureConnection = NEW TextureConnection*[_num_materials];
-        TextureManager* pTextureManager = pCARETAKER->_pModelManager->_pModelTextureManager;
         for (DWORD n = 0; n < _num_materials; n++) {
-            _papTextureConnection[n] =
-                    (TextureConnection*)(pTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
+            _papTextureConnection[n] = connectToTextureManager(_pa_texture_filenames[n].c_str());
         }
     }
 

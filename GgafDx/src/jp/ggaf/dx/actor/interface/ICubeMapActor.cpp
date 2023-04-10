@@ -28,7 +28,7 @@ void ICubeMapActor::setCubeMapTexture(const char* prm_cubemap_tex) {
     if (_pCubeMapTextureConnection) {
         _pCubeMapTextureConnection->close();
     }
-    _pCubeMapTextureConnection = (TextureConnection*)(pCARETAKER->_pCubeMapTextureManager->connect(prm_cubemap_tex,this));
+    _pCubeMapTextureConnection = connectToTextureManager(prm_cubemap_tex);
 }
 void ICubeMapActor::setCubeMapReflectance(float prm_reflectance) {
     _reflectance = prm_reflectance;
@@ -36,7 +36,7 @@ void ICubeMapActor::setCubeMapReflectance(float prm_reflectance) {
 
 IDirect3DBaseTexture9* ICubeMapActor::getCubeMapTexture() {
     if (!_pCubeMapTextureConnection) {
-        _pCubeMapTextureConnection = (TextureConnection*)(pCARETAKER->_pCubeMapTextureManager->connect("alpha_zero_cubemap.dds",this));
+        _pCubeMapTextureConnection = connectToTextureManager("alpha_zero_cubemap.dds");
     }
     return _pCubeMapTextureConnection->peek()->_pIDirect3DBaseTexture9;
 }

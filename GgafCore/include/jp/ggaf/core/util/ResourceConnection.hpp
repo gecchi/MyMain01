@@ -47,6 +47,8 @@ private:
     int _num_connection;
     /** 使いまわす資源へのポインタ */
     T* _pResource;
+    /** パラメータ */
+    void* _pPrm;
     /** 初めての接続元 */
     void* _p_first_connector;
 
@@ -74,7 +76,7 @@ protected:
      * @param prm_idstr 識別名(29文字まで)
      * @param prm_pResource 使いまわす資源
      */
-    ResourceConnection(const char* prm_idstr, T* prm_pResource);
+    ResourceConnection(const char* prm_idstr, T* prm_pResource, void* prm_pPrm = nullptr);
 
     /**
      * デストラクタ<BR>
@@ -157,9 +159,10 @@ ResourceConnection<T>* ResourceConnection<T>::getNext() const {
 }
 
 template<class T>
-ResourceConnection<T>::ResourceConnection(const char* prm_idstr, T* prm_pResource) : Object() {
+ResourceConnection<T>::ResourceConnection(const char* prm_idstr, T* prm_pResource, void* prm_pPrm) : Object() {
     _TRACE3_("prm_idstr="<<prm_idstr);
     _pResource = prm_pResource;
+    _pPrm = prm_pPrm;
     _pNext = nullptr;
     _pManager = nullptr;
     _num_connection = 0;

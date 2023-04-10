@@ -12,7 +12,6 @@
     #undef __in
     #undef __out
 #endif
-#define connectToModelTextureManager(X) ((GgafDx::TextureConnection*)pCARETAKER->_pModelManager->_pModelTextureManager->connect((X), this))
 
 #define TYPE_UNKNOWN_MODEL                '?'
 #define TYPE_D3DXMESH_MODEL               'D'
@@ -145,7 +144,7 @@ public:
         }
     };
 
-    TextureManager* _pModelTextureManager;
+//    TextureManager* _pModelTextureManager;
 
     ID3DXFile* _pID3DXFile_modelx;
     /** Xファイル読み込み用の ID3DXFile のポインタ（meshx モデル定義読み込んだあと） */
