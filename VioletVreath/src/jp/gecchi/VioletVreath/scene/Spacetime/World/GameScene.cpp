@@ -88,7 +88,7 @@ void GameScene::processBehavior() {
     Spacetime* pSpacetime = pCARETAKER->getSpacetime();
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
-    if (VB->isPushedDown(VB_UI_DEBUG) || GgafDx::Input::isPushedDownKey(DIK_Q)) {
+    if (VB->isPushedDown(0, VB_UI_DEBUG) || GgafDx::Input::isPushedDownKey(DIK_Q)) {
         if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
             pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
         } else {
@@ -130,7 +130,7 @@ void GameScene::processBehavior() {
                 getBgmConductor()->performFromTheBegining(BGM_DEMO);
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
-            if (VB->isPushedDown(VB_UI_EXECUTE)) { //skip
+            if (VB->isPushedDown(0, VB_UI_EXECUTE)) { //skip
                 pPhase->changeWithSceneFlipping(PHASE_TITLE);
             }
             //EVENT_PREGAMETITLESCENE_FINISH イベント受付
@@ -152,7 +152,7 @@ void GameScene::processBehavior() {
                 _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_DEMO)");
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
-            if (VB->isPushedDown(VB_UI_EXECUTE)) {
+            if (VB->isPushedDown(0, VB_UI_EXECUTE)) {
                 pPhase->changeWithSceneFlipping(PHASE_TITLE);
             }
 
@@ -189,13 +189,13 @@ void GameScene::processBehavior() {
                 //通常進行時処理はココ
                 //
 #ifdef MY_DEBUG
-                if (VB->isPushedDown(VB_PAUSE) || GgafDx::Input::isPushedDownKey(DIK_ESCAPE) || is_frame_advance_) {
+                if (VB->isPushedDown(0, VB_PAUSE) || GgafDx::Input::isPushedDownKey(DIK_ESCAPE) || is_frame_advance_) {
                     //ポーズではないときに、ポーズキーを押して離した場合の処理
                     //ポーズ発生時直後の初期処理はココへ
                     pauseGame();
                 }
 #else
-                if (VB->isPushedDown(VB_PAUSE) || is_frame_advance_) {
+                if (VB->isPushedDown(0, VB_PAUSE) || is_frame_advance_) {
                     //ポーズではないときに、ポーズキーを押して離した場合の処理
                     //ポーズ発生時直後の初期処理はココへ
                     pauseGame();

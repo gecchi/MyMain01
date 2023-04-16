@@ -252,7 +252,7 @@ void Caretaker::present() {
                 _fps = 0;
             } else {
                 static const double inv_offset_default = 1.0f / _aTime_offset_of_next_view[SLOWDOWN_MODE_DEFAULT];
-                _fps = inv_offset_default * d_visualize_frames * _aTime_offset_of_next_view[_slowdown_mode];
+                _fps = inv_offset_default * d_visualize_frames * _aTime_offset_of_next_view[SLOWDOWN_MODE_DEFAULT];
             }
             _time_calc_fps_next += 1000;
             _prev_visualize_frames = _visualize_frames;

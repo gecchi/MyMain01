@@ -47,26 +47,26 @@ void SmpPieGraphSprite::processBehavior() {
         setBeginAngPos(getBeginAngPos() - D_ANG(1));
     }
 
-    if (pVb->isPressed(VB_BUTTON1)) {
+    if (pVb->isPressed(0, VB_BUTTON1)) {
         //ボタン１（スペースキー）を押しながらの場合
-        if (pVb->isPressed(VB_UP)) {
+        if (pVb->isPressed(0, VB_UP)) {
             _z += PX_C(2); //奥
         }
-        if (pVb->isPressed(VB_DOWN)) {
+        if (pVb->isPressed(0, VB_DOWN)) {
             _z -= PX_C(2); //手前
         }
     } else {
         //ボタン１（スペースキー）を離している場合
-        if (pVb->isPressed(VB_RIGHT)) {
+        if (pVb->isPressed(0, VB_RIGHT)) {
             _x += PX_C(2); //右
         }
-        if (pVb->isPressed(VB_LEFT)) {
+        if (pVb->isPressed(0, VB_LEFT)) {
             _x -= PX_C(2); //左
         }
-        if (pVb->isPressed(VB_UP)) {
+        if (pVb->isPressed(0, VB_UP)) {
             _y += PX_C(2); //上
         }
-        if (pVb->isPressed(VB_DOWN)) {
+        if (pVb->isPressed(0, VB_DOWN)) {
             _y -= PX_C(2); //下
         }
     }

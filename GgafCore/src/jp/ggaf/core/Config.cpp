@@ -7,6 +7,7 @@
 
 using namespace GgafCore;
 
+std::string Config::_load_properties_filename = "";
 Properties Config::_properties;
 frame Config::FPS = 60;
 double Config::FRAME_SEC = 1.0 / Config::FPS;
@@ -15,7 +16,7 @@ uint32_t Config::OBJNUM_TO_SLOWDOWN1 = 1000;
 uint32_t Config::OBJNUM_TO_SLOWDOWN2 = 1500;
 double Config::RATE_OF_SLOWDOWN1 = 1.5;
 double Config::RATE_OF_SLOWDOWN2 = 2.0;
-float Config::FPS_TO_CLEAN_GARBAGE_BOX = 30.0f;
+float Config::FPS_TO_CLEAN_GARBAGE_BOX = 41.0f;
 std::string Config::DIR_RESOURCE = "./";
 std::string Config::DIRNAME_RESOURCE_SKIN = ".";
 std::string Config::DIRNAME_RESOURCE_SKIN_SYSTEM = ".";
@@ -41,9 +42,9 @@ if (GgafCore::Config::_is_lock) { Sleep(1); goto wait; } \
 void Config::loadProperties(std::string prm_properties_filename) {
     WAIT_LOCK;
     Config::_is_lock = true;
-
     _properties.read(prm_properties_filename);
 
+    Config::_load_properties_filename = prm_properties_filename;
     if (_properties.isExistKey("FPS")) {
         Config::FPS = _properties.getUInt("FPS");
     }

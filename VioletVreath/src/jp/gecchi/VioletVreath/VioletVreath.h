@@ -209,7 +209,7 @@ enum {
 #define FADE_FRAMES 180
 
 #define VV_DEFAULT_CONFIG_FILE ".\\default_config.properties"
-#define VV_CONFIG_FILE         ".\\config.properties"
+//#define VV_CONFIG_FILE         ".\\config.properties"
 
 #define Obj_RankUpStage     ((0x10000ULL) | Obj_SceneBit)    //0b 10000000 00000000 00000000 00000000 00000000 00000001 00000000 00000000
 

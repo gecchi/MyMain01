@@ -61,7 +61,7 @@ void GameBeginningScene::processBehavior() {
                 pLabel02_->update(PX_C(200), PX_C(250), "SELECT MODE!");
             }
             if (pPhase->getCurrent() == PHASE_SELECT_MODE) {
-                if (VB->isPushedDown(VB_UI_EXECUTE) || pPhase->hasArrivedFrameAt(300)) {
+                if (VB->isPushedDown(0, VB_UI_EXECUTE) || pPhase->hasArrivedFrameAt(300)) {
                     pPhase->change(PHASE_DECIDE);
                 }
             }

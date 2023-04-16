@@ -17,7 +17,7 @@ GroupHead::GroupHead(kind_t prm_kind) : Actor("GroupHead") {
     GGAF_DELETEARR(_name);
     const int bitnum = 32;
     char aChar_strbit[bitnum+1];
-    UTIL::strbin(prm_kind, aChar_strbit, bitnum);
+    UTIL::dec2bin(prm_kind, aChar_strbit, bitnum);
     std::stringstream ss;
     ss << "kind_t=" << aChar_strbit << "";
     std::string name = ss.str();
@@ -35,7 +35,7 @@ void GroupHead::setKind(kind_t prm_kind) {
     GGAF_DELETEARR(_name);
     const int bitnum = 32;
     char aChar_strbit[bitnum+1];
-    UTIL::strbin(prm_kind, aChar_strbit, bitnum);
+    UTIL::dec2bin(prm_kind, aChar_strbit, bitnum);
     std::stringstream ss;
     ss << "kind_t=" << aChar_strbit << "";
     std::string name = ss.str();

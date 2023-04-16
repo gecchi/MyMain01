@@ -98,7 +98,7 @@ void GameTitleScene::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 pLabel02_->update(PX_C(400), PX_C(400), "PUSH UI_EXECUTE TO BEGIN!");
             }
-            if (VB->isPushedDown(VB_UI_EXECUTE) || GgafDx::Input::isPressedMouseButton(0)) {
+            if (VB->isPushedDown(0, VB_UI_EXECUTE) || GgafDx::Input::isPressedMouseButton(0)) {
                 pSeConnection_exec_->peek()->play();
                 pPhase->change(PHASE_SELECT);
             } else if (pPhase->hasArrivedFrameAt(GAMETITLE_TIMEOUT)) {

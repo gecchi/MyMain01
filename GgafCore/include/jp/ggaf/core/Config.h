@@ -92,6 +92,9 @@ public:
     static volatile std::atomic<bool> _is_lock;
 #endif
 
+    /** [r] 外部プロパティファイルからロードされたファイル名 */
+    static std::string _load_properties_filename;
+
     /** [r] 保持プロパティ */
     static Properties _properties;
 

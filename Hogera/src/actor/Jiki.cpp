@@ -64,24 +64,24 @@ void Jiki::processBehavior() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
     VirtualButton* pVb = &(pCARETAKER->getSpacetime()->getWorld()->vb_);
-    if (pVb->isPressed(VB_BUTTON1)) {
-        if (pVb->isPressed(VB_UP)) {
+    if (pVb->isPressed(0, VB_BUTTON1)) {
+        if (pVb->isPressed(0, VB_UP)) {
             _z += PX_C(2);
         }
-        if (pVb->isPressed(VB_DOWN)) {
+        if (pVb->isPressed(0, VB_DOWN)) {
             _z -= PX_C(2);
         }
     } else {
-        if (pVb->isPressed(VB_RIGHT)) {
+        if (pVb->isPressed(0, VB_RIGHT)) {
             _x += PX_C(2);
         }
-        if (pVb->isPressed(VB_LEFT)) {
+        if (pVb->isPressed(0, VB_LEFT)) {
             _x -= PX_C(2);
         }
-        if (pVb->isPressed(VB_UP)) {
+        if (pVb->isPressed(0, VB_UP)) {
             _y += PX_C(2);
         }
-        if (pVb->isPressed(VB_DOWN)) {
+        if (pVb->isPressed(0, VB_DOWN)) {
             _y -= PX_C(2);
         }
     }

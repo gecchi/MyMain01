@@ -77,10 +77,10 @@ MenuBoardSoundConfig::MenuBoardSoundConfig(const char* prm_name) :
 
 }
 bool MenuBoardSoundConfig::condSelectNext() {
-    return VB->isAutoRepeat(VB_UI_DOWN);
+    return VB->isAutoRepeat(0, VB_UI_DOWN);
 }
 bool MenuBoardSoundConfig::condSelectPrev() {
-    return VB->isAutoRepeat(VB_UI_UP);
+    return VB->isAutoRepeat(0, VB_UI_UP);
 }
 void MenuBoardSoundConfig::onRise() {
     selectItem(ITEM_SE_VOL); //カーソルの初期選択アイテムを設定
@@ -100,8 +100,8 @@ void MenuBoardSoundConfig::processBehavior() {
             CONFIG::_properties.setValue("SE_VOLUME", GgafDx::Sound::getSeMasterVolume());
             CONFIG::_properties.setValue("BGM_VOLUME", GgafDx::Sound::getBgmMasterVolume());
             CONFIG::_properties.setValue("MASTER_VOLUME", GgafDx::Sound::getAppMasterVolume());
-            CONFIG::_properties.write(VV_CONFIG_FILE); //プロパティ保存
-//            CONFIG::loadProperties(VV_CONFIG_FILE); //プロパティ再反映
+            CONFIG::_properties.write(CONFIG::_load_properties_filename); //プロパティ保存
+//            CONFIG::loadProperties(CONFIG::_load_properties_filename); //プロパティ再反映
 //            //実行中アプリへも即時反映
 //            GgafDx::Sound::setSeMasterVolume(CONFIG::SE_VOLUME);
 //            GgafDx::Sound::setBgmMasterVolume(CONFIG::BGM_VOLUME);
@@ -120,21 +120,21 @@ void MenuBoardSoundConfig::processBehavior() {
     VirtualButton* pVB = VB;
     int index = getSelectedIndex();
     if (index == ITEM_SE_VOL) {
-        if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
+        if (pVB->isAutoRepeat(0, VB_UI_RIGHT)) {
             GgafDx::Sound::addSeMasterVolume(+10);
-        } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
+        } else if (pVB->isAutoRepeat(0, VB_UI_LEFT)) {
             GgafDx::Sound::addSeMasterVolume(-10);
         }
     } else if (index == ITEM_BGM_VOL) {
-        if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
+        if (pVB->isAutoRepeat(0, VB_UI_RIGHT)) {
             GgafDx::Sound::addBgmMasterVolume(+10);
-        } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
+        } else if (pVB->isAutoRepeat(0, VB_UI_LEFT)) {
             GgafDx::Sound::addBgmMasterVolume(-10);
         }
     } else if (index == ITEM_MASTER_VOL) {
-        if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
+        if (pVB->isAutoRepeat(0, VB_UI_RIGHT)) {
             GgafDx::Sound::addAppMasterVolume(+10);
-        } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
+        } else if (pVB->isAutoRepeat(0, VB_UI_LEFT)) {
             GgafDx::Sound::addAppMasterVolume(-10);
         }
     }

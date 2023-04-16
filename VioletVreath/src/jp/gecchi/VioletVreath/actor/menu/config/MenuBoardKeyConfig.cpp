@@ -85,14 +85,14 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
 }
 bool MenuBoardKeyConfig::condSelectNext() {
     if (input_mode_ == 0) {
-        return VB->isAutoRepeat(VB_UI_DOWN);
+        return VB->isAutoRepeat(0, VB_UI_DOWN);
     } else {
         return false;
     }
 }
 bool MenuBoardKeyConfig::condSelectPrev() {
     if (input_mode_ == 0) {
-        return VB->isAutoRepeat(VB_UI_UP);
+        return VB->isAutoRepeat(0, VB_UI_UP);
     } else {
         return false;
     }
@@ -139,11 +139,11 @@ void MenuBoardKeyConfig::onRise() {
     input_target_item_ = 0;
 }
 void MenuBoardKeyConfig::processBehavior() {
-    if (getBehaveingFrame() % 60 == 0) {
-        if (GgafDx::Input::_apJoystickInputDevice[P1_JOY_STICK] == nullptr) {
-            GgafDx::Input::initJoyStick();
-        }
-    }
+//    if (getBehaveingFrame() % 60 == 0) {
+//        if (GgafDx::Input::_apJoystickInputDevice[P1_JOY_STICK] == nullptr) {
+//            GgafDx::Input::initJoyStick();
+//        }
+//    }
     MenuBoard::processBehavior();
 
     //ƒTƒuƒƒjƒ…[”»’è
@@ -181,8 +181,8 @@ void MenuBoardKeyConfig::processBehavior() {
         CONFIG::_properties.setValue("MY_JOY_POWERUP"   , paVBConfig[ITEM_MAGIC     ].pJoy->getDrawString());
         CONFIG::_properties.setValue("MY_JOY_VIEW"      , paVBConfig[ITEM_VAM       ].pJoy->getDrawString());
         CONFIG::_properties.setValue("MY_JOY_PAUSE"     , paVBConfig[ITEM_PAUSE     ].pJoy->getDrawString());
-        CONFIG::_properties.write(VV_CONFIG_FILE);
-        CONFIG::loadProperties(VV_CONFIG_FILE); //Ä”½‰f
+        CONFIG::_properties.write(CONFIG::_load_properties_filename);
+        CONFIG::loadProperties(CONFIG::_load_properties_filename); //Ä”½‰f
         //Às’†ƒAƒvƒŠ‚Ö‚à”½‰f
         pCARETAKER->initVB();
 
@@ -201,7 +201,7 @@ void MenuBoardKeyConfig::processBehavior() {
 
     if (input_mode_ == 1) {
         int index = getSelectedIndex();
-        if (VB_UI->isPushedDown(VB_UI_CANCEL)) {
+        if (VB_UI->isPushedDown(0, VB_UI_CANCEL)) {
             input_mode_ = 0;
             paVBConfig[index].pKey->getAlphaFader()->transitionLinearToTop(5);
             paVBConfig[index].pJoy->getAlphaFader()->transitionLinearToTop(5);
@@ -214,7 +214,7 @@ void MenuBoardKeyConfig::processBehavior() {
                 input_mode_ = 2;
             }
 
-            int VBJ_pushed = VirtualButton::getFirstPushedDownVirtualJoyButton();
+            vbj VBJ_pushed = VirtualButton::getFirstPushedDownVirtualJoyButton(0);
             if (VBJ_pushed != -1) {
                  paVBConfig[index].pJoy->update(VirtualButton::_mapVBJ2Str[VBJ_pushed].c_str());
                  paVBConfig[index].pJoy->getAlphaFader()->beat(10, 5, 0, 5, 6.5);

@@ -38,12 +38,12 @@ void MenuBoard::setTransition(frame prm_menu_fade_frames,
 }
 
 bool MenuBoard::condDecision() {
-    if (VB->isPushedDown(VB_UI_EXECUTE)) {
+    if (VB->isPushedDown(0, VB_UI_EXECUTE)) {
         //「メニューアイテム：任意」で、VB_UI_EXECUTE ボタンの場合は
         //そのアイテムを「決定」した事とする。(当たり前だが)
         getSeTransmitter()->play(SE_DECIDED);
         return true;
-    } else if (VB->isPushedDown(VB_UI_CANCEL) &&
+    } else if (VB->isPushedDown(0, VB_UI_CANCEL) &&
                _lstItems.getRelation(ITEM_RELATION_TO_CANCEL) != nullptr &&
                _lstItems.getCurrent() == _lstItems.getRelation(ITEM_RELATION_TO_CANCEL)) {
         //特別に「メニューアイテム：キャンセル」にカーソルがある場合でかつ、VB_UI_CANCEL ボタンの場合は、
@@ -67,7 +67,7 @@ bool MenuBoard::condDecision() {
 }
 
 bool MenuBoard::condCancel() {
-    if (VB->isPushedDown(VB_UI_CANCEL)) {
+    if (VB->isPushedDown(0, VB_UI_CANCEL)) {
         //「メニューアイテム：任意」で、VB_UI_CANCEL ボタンの場合は
         //そのアイテムを「キャンセル」した事とする。(当たり前だが)
         getSeTransmitter()->play(SE_CANCEL);
@@ -78,19 +78,19 @@ bool MenuBoard::condCancel() {
 }
 
 bool MenuBoard::condSelectNext() {
-    return VB->isAutoRepeat(VB_UI_DOWN);
+    return VB->isAutoRepeat(0, VB_UI_DOWN);
 }
 
 bool MenuBoard::condSelectPrev() {
-    return VB->isAutoRepeat(VB_UI_UP);
+    return VB->isAutoRepeat(0, VB_UI_UP);
 }
 
 bool MenuBoard::condSelectExNext() {
-    return VB->isAutoRepeat(VB_UI_RIGHT);
+    return VB->isAutoRepeat(0, VB_UI_RIGHT);
 }
 
 bool MenuBoard::condSelectExPrev() {
-    return VB->isAutoRepeat(VB_UI_LEFT);
+    return VB->isAutoRepeat(0, VB_UI_LEFT);
 }
 
 bool MenuBoard::condSelectCancel() {

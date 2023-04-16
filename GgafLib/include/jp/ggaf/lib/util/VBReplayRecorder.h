@@ -10,7 +10,7 @@ namespace GgafLib {
 
 /**
  * リプレイデータクラス .
- * 仮想ボタンステータス(VirtualButton の _p1_state)の、
+ * 仮想ボタンステータス(VirtualButton の _vb_state)の、
  * 書き込み読み取り、ファイル書き出し取り込み機能を提供。
  * @version 1.00
  * @since 2010/04/20
@@ -27,22 +27,28 @@ public:
         /** [r]次のリプレイデータ要素 */
         VBRecordNote* _pNext;
         /** [r]仮想ボタンステータス */
-        vb_sta _p1_state;
+        vb_sta _vb_state[MAX_JOY_STICK_NUM];
         /** [r]ステータス継続フレーム数 */
         frame _frame_of_keeping;
     public:
         /**
          * コンストラクタ .
          */
-        VBRecordNote() : _pNext(nullptr),_p1_state(0),_frame_of_keeping(0) {
+        VBRecordNote() : _pNext(nullptr),_frame_of_keeping(0) {
+            for (int p = 0; p < MAX_JOY_STICK_NUM; p++) {
+                _vb_state[p] = 0;
+            }
         }
 
         /**
          * コンストラクタ .
-         * @param p1_state 仮想ボタンステータス
+         * @param p1_prm_pa_state 仮想ボタンステータス配列
          * @param frame_of_keeping ステータス継続フレーム数
          */
-        VBRecordNote(vb_sta p1_state, frame frame_of_keeping) : _pNext(nullptr),_p1_state(p1_state),_frame_of_keeping(frame_of_keeping) {
+        VBRecordNote(vb_sta* prm_pa_state, frame frame_of_keeping) : _pNext(nullptr),_frame_of_keeping(frame_of_keeping) {
+            for (int p = 0; p < MAX_JOY_STICK_NUM; p++) {
+                _vb_state[p] = prm_pa_state[p];
+            }
         }
 
         ~VBRecordNote() {
@@ -77,7 +83,7 @@ public:
      * 仮想ボタンステータス読み込み、内部状態を、次の状態へ遷移 .
      * @return 仮想ボタンステータス
      */
-    vb_sta read();
+    void readNextFrameStatus(vb_sta* prm_pa_vb_sta);
 
     /**
      * 読み込むレコードが存在するかどうか
@@ -97,7 +103,7 @@ public:
      * 仮想ボタンステータスを書き込み、内部状態を、次の状態へ遷移 .
      * @param p1_state
      */
-    void write(vb_sta p1_state);
+    void write(vb_sta* prm_pa_vb_sta);
 
     /**
      * ファイルにリプレイデータを書きだす。

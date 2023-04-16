@@ -78,11 +78,11 @@ void MenuBoardNameEntry::setNameFontBoard(FontSpriteActor* prm_pInputedName,
 }
 
 bool MenuBoardNameEntry::condDecision() {
-    if (VB->isPushedDown(VB_UI_EXECUTE)) {
+    if (VB->isPushedDown(0, VB_UI_EXECUTE)) {
         return true;
     } else if (pMousePointer_ && pMousePointer_->isReleasedUpButton(0)) {
         return true;
-    } else if (VB->isPushedDown(VB_UI_CANCEL) &&
+    } else if (VB->isPushedDown(0, VB_UI_CANCEL) &&
                getSelectedIndex() == ITEM_INDEX_BS_) {
         //特別に[BS]でキャンセルボタン押した場合は。[BS]を「決定（振る舞い）」したことにする
         getSeTransmitter()->play(SE_CANCEL);
@@ -93,7 +93,7 @@ bool MenuBoardNameEntry::condDecision() {
 }
 
 bool MenuBoardNameEntry::condCancel() {
-    if (VB->isPushedDown(VB_UI_CANCEL)) {
+    if (VB->isPushedDown(0, VB_UI_CANCEL)) {
         //「メニューアイテム：任意」で、VB_UI_CANCEL ボタンの場合は
         //そのアイテムを「キャンセル」した事とする。(当たり前だが)
         getSeTransmitter()->play(SE_CANCEL);
@@ -107,25 +107,25 @@ bool MenuBoardNameEntry::condSelectNext() {
     if (getSelectedIndex() == ITEM_INDEX_BS_) {  //BSから先へ進めなくする
         return false;
     } else {
-        return VB->isAutoRepeat(VB_UI_RIGHT);
+        return VB->isAutoRepeat(0, VB_UI_RIGHT);
     }
 }
 bool MenuBoardNameEntry::condSelectPrev() {
     if (getSelectedIndex() == 0) { //先頭文字からさらに戻れなくする
         return false;
     } else {
-        return VB->isAutoRepeat(VB_UI_LEFT);
+        return VB->isAutoRepeat(0, VB_UI_LEFT);
     }
 }
 bool MenuBoardNameEntry::condSelectExNext() {
     if (getSelectedIndex() == ITEM_INDEX_OK_) { //OKから下へは進めなくする
         return false;
     } else {
-        return VB->isAutoRepeat(VB_UI_DOWN);
+        return VB->isAutoRepeat(0, VB_UI_DOWN);
     }
 }
 bool MenuBoardNameEntry::condSelectExPrev() {
-    return VB->isAutoRepeat(VB_UI_UP);
+    return VB->isAutoRepeat(0, VB_UI_UP);
 }
 
 void MenuBoardNameEntry::selectNext(bool prm_smooth) { //右の時

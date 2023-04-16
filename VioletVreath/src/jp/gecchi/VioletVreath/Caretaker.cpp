@@ -46,7 +46,7 @@ Caretaker::Caretaker() :
         VBReplayRecorder::VBRecordNote* pRecNote = pRepPlay->_pFirstVBNote;
         vb_sta vb_pause_not_mask = ~((vb_sta)VB_PAUSE);
         while (pRecNote) {
-            pRecNote->_p1_state = (pRecNote->_p1_state & vb_pause_not_mask);
+            pRecNote->_vb_state[0] = (pRecNote->_vb_state[0] & vb_pause_not_mask);
             pRecNote = pRecNote->_pNext;
         }
     } else {
@@ -66,55 +66,55 @@ HRESULT Caretaker::initDevice() {
 
 void Caretaker::initVB() {
     //仮想ボタンを本ゲーム用に上書きして再定義
-    Caretaker::pVbtn_PLAY_->remap(VB_BUTTON1   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_SHOT1      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_SHOT1      ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_BUTTON2   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_SHOT2      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_SHOT2      ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_BUTTON3   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_OPTION     ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_OPTION     ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_BUTTON4   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW       ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_BUTTON5   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_TURBO      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_TURBO      ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_BUTTON6   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_POWERUP    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_POWERUP    ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_BUTTON7   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_BUTTON7    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_BUTTON7    ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_BUTTON8   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_BUTTON8    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_BUTTON8    ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_PAUSE     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_PAUSE      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_PAUSE      ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_UP        , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UP         ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UP         ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_DOWN      , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_DOWN       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_DOWN       ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_LEFT      , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_LEFT       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_LEFT       ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_RIGHT     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_RIGHT      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_RIGHT      ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_S1_UP     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_UP    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_UP    ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_S1_DOWN   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_DOWN  ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_DOWN  ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_S1_LEFT   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_LEFT  ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_LEFT  ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_S1_RIGHT  , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_RIGHT ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_RIGHT ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_UI_UP     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_UP      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_UP      ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_UI_DOWN   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_DOWN    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_DOWN    ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_UI_LEFT   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_LEFT    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_LEFT    ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_UI_RIGHT  , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_RIGHT   ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_RIGHT   ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_UI_EXECUTE, VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_EXECUTE ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_EXECUTE ]);
-    Caretaker::pVbtn_PLAY_->remap(VB_UI_CANCEL , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_CANCEL  ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_CANCEL  ]);
-    Caretaker::pVbtn_PLAY_->remapK(VB_UI_DEBUG  , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_DEBUG   ]  );
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_BUTTON1   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_SHOT1      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_SHOT1      ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_BUTTON2   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_SHOT2      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_SHOT2      ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_BUTTON3   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_OPTION     ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_OPTION     ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_BUTTON4   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW       ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_BUTTON5   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_TURBO      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_TURBO      ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_BUTTON6   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_POWERUP    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_POWERUP    ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_BUTTON7   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_BUTTON7    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_BUTTON7    ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_BUTTON8   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_BUTTON8    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_BUTTON8    ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_PAUSE     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_PAUSE      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_PAUSE      ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_UP        , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UP         ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UP         ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_DOWN      , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_DOWN       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_DOWN       ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_LEFT      , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_LEFT       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_LEFT       ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_RIGHT     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_RIGHT      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_RIGHT      ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_S1_UP     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_UP    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_UP    ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_S1_DOWN   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_DOWN  ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_DOWN  ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_S1_LEFT   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_LEFT  ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_LEFT  ]);
+    Caretaker::pVbtn_PLAY_->remap(P1, VB_S1_RIGHT  , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_RIGHT ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_RIGHT ]);
+//    Caretaker::pVbtn_PLAY_->remap(P1, VB_UI_UP     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_UP      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_UP      ]);
+//    Caretaker::pVbtn_PLAY_->remap(P1, VB_UI_DOWN   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_DOWN    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_DOWN    ]);
+//    Caretaker::pVbtn_PLAY_->remap(P1, VB_UI_LEFT   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_LEFT    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_LEFT    ]);
+//    Caretaker::pVbtn_PLAY_->remap(P1, VB_UI_RIGHT  , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_RIGHT   ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_RIGHT   ]);
+//    Caretaker::pVbtn_PLAY_->remap(P1, VB_UI_EXECUTE, VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_EXECUTE ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_EXECUTE ]);
+//    Caretaker::pVbtn_PLAY_->remap(P1, VB_UI_CANCEL , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_CANCEL  ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_CANCEL  ]);
+//    Caretaker::pVbtn_PLAY_->remapK(P1, VB_UI_DEBUG  , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_DEBUG   ]  );
 
-    Caretaker::pVbtn_UI_->remap(VB_BUTTON1   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_SHOT1      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_SHOT1      ]);
-    Caretaker::pVbtn_UI_->remap(VB_BUTTON2   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_SHOT2      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_SHOT2      ]);
-    Caretaker::pVbtn_UI_->remap(VB_BUTTON3   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_OPTION     ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_OPTION     ]);
-    Caretaker::pVbtn_UI_->remap(VB_BUTTON4   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW       ]);
-    Caretaker::pVbtn_UI_->remap(VB_BUTTON5   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_TURBO      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_TURBO      ]);
-    Caretaker::pVbtn_UI_->remap(VB_BUTTON6   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_POWERUP    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_POWERUP    ]);
-    Caretaker::pVbtn_UI_->remap(VB_BUTTON7   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_BUTTON7    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_BUTTON7    ]);
-    Caretaker::pVbtn_UI_->remap(VB_BUTTON8   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_BUTTON8    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_BUTTON8    ]);
-    Caretaker::pVbtn_UI_->remap(VB_PAUSE     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_PAUSE      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_PAUSE      ]);
-    Caretaker::pVbtn_UI_->remap(VB_UP        , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UP         ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UP         ]);
-    Caretaker::pVbtn_UI_->remap(VB_DOWN      , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_DOWN       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_DOWN       ]);
-    Caretaker::pVbtn_UI_->remap(VB_LEFT      , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_LEFT       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_LEFT       ]);
-    Caretaker::pVbtn_UI_->remap(VB_RIGHT     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_RIGHT      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_RIGHT      ]);
-    Caretaker::pVbtn_UI_->remap(VB_S1_UP     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_UP    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_UP    ]);
-    Caretaker::pVbtn_UI_->remap(VB_S1_DOWN   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_DOWN  ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_DOWN  ]);
-    Caretaker::pVbtn_UI_->remap(VB_S1_LEFT   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_LEFT  ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_LEFT  ]);
-    Caretaker::pVbtn_UI_->remap(VB_S1_RIGHT  , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_RIGHT ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_RIGHT ]);
-    Caretaker::pVbtn_UI_->remap(VB_UI_UP     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_UP      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_UP      ]);
-    Caretaker::pVbtn_UI_->remap(VB_UI_DOWN   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_DOWN    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_DOWN    ]);
-    Caretaker::pVbtn_UI_->remap(VB_UI_LEFT   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_LEFT    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_LEFT    ]);
-    Caretaker::pVbtn_UI_->remap(VB_UI_RIGHT  , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_RIGHT   ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_RIGHT   ]);
-    Caretaker::pVbtn_UI_->remap(VB_UI_EXECUTE, VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_EXECUTE ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_EXECUTE ]);
-    Caretaker::pVbtn_UI_->remap(VB_UI_CANCEL , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_CANCEL  ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_CANCEL  ]);
-    Caretaker::pVbtn_UI_->remapK(VB_UI_DEBUG  , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_DEBUG   ] );
+//    Caretaker::pVbtn_UI_->remap(P1, VB_BUTTON1   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_SHOT1      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_SHOT1      ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_BUTTON2   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_SHOT2      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_SHOT2      ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_BUTTON3   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_OPTION     ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_OPTION     ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_BUTTON4   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW       ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_BUTTON5   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_TURBO      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_TURBO      ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_BUTTON6   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_POWERUP    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_POWERUP    ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_BUTTON7   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_BUTTON7    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_BUTTON7    ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_BUTTON8   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_BUTTON8    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_BUTTON8    ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_PAUSE     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_PAUSE      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_PAUSE      ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_UP        , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UP         ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UP         ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_DOWN      , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_DOWN       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_DOWN       ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_LEFT      , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_LEFT       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_LEFT       ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_RIGHT     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_RIGHT      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_RIGHT      ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_S1_UP     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_UP    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_UP    ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_S1_DOWN   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_DOWN  ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_DOWN  ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_S1_LEFT   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_LEFT  ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_LEFT  ]);
+//    Caretaker::pVbtn_UI_->remap(P1, VB_S1_RIGHT  , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW_RIGHT ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW_RIGHT ]);
+    Caretaker::pVbtn_UI_->remap(P1, VB_UI_UP     , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_UP      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_UP      ]);
+    Caretaker::pVbtn_UI_->remap(P1, VB_UI_DOWN   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_DOWN    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_DOWN    ]);
+    Caretaker::pVbtn_UI_->remap(P1, VB_UI_LEFT   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_LEFT    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_LEFT    ]);
+    Caretaker::pVbtn_UI_->remap(P1, VB_UI_RIGHT  , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_RIGHT   ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_RIGHT   ]);
+    Caretaker::pVbtn_UI_->remap(P1, VB_UI_EXECUTE, VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_EXECUTE ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_EXECUTE ]);
+    Caretaker::pVbtn_UI_->remap(P1, VB_UI_CANCEL , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_CANCEL  ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_UI_CANCEL  ]);
+    Caretaker::pVbtn_UI_->remapK(P1, VB_UI_DEBUG  , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_UI_DEBUG   ] );
 
 }
 

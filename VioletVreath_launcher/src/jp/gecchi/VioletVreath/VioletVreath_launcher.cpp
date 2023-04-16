@@ -73,6 +73,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     LPTSTR command_line = GetCommandLine();
     _TRACE_("current_dir="<<current_dir);
     _TRACE_("command_line="<<command_line);
+    _TRACE_("lpCmdLine="<<lpCmdLine);
+    _TRACE_("nCmdShow="<<nCmdShow);
+
+    for(int i = 0; i < __argc; i++){
+        std::string arg = std::string(__argv[i]);
+        _TRACE_("__argv["<<i<<"]=" << arg);
+    }
+
     std::set_unexpected(myUnexpectedHandler);
     std::set_terminate(myTerminateHandler);
 
@@ -80,21 +88,41 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadString(hInstance, IDC_VIOLETVREATH, szWindowClass, MAX_LOADSTRING);
 
-    //プロパティファイル読込み
-    if (PathFileExists(VV_DEFAULT_CONFIG_FILE)) {
-        if (PathFileExists(VV_CONFIG_FILE)) {
-            CONFIG::loadProperties(VV_CONFIG_FILE);
-            _TRACE_("config.properties を load しました");
-        } else {
-            CONFIG::loadProperties(VV_DEFAULT_CONFIG_FILE);
-            CONFIG::_properties.write(VV_CONFIG_FILE);
-            _TRACE_("【警告】config.properties が存在しないので、既定の '" <<VV_DEFAULT_CONFIG_FILE << "' を load しました。");
-        }
+    std::string config_file = "";
+    if (__argc >= 2) {
+        config_file = std::string(__argv[1]);
     } else {
-        MessageBox(nullptr, "既定設定ファイル(.default_config.properties)が見つかりません。",
-                                 "Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
+        _TRACE_("【警告】引数に設定ファイルが存在しないので、既定の '" <<VV_DEFAULT_CONFIG_FILE << "' を load します。");
+        config_file = std::string(VV_DEFAULT_CONFIG_FILE);
+    }
+    //プロパティファイル読込み
+    if (PathFileExists(config_file.c_str())) {
+        _TRACE_("・・・"<<config_file<< " を load します");
+        CONFIG::loadProperties(config_file);
+        _TRACE_("・・・"<<config_file<< " を load しました");
+    } else {
+        std::string msg = "設定ファイル("+config_file+")が見つかりません。";
+        MessageBox(nullptr, msg.c_str(), "Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return EXIT_FAILURE;
     }
+
+
+//    _TRACE_(""<<config_file<< " を load しました");
+//    //プロパティファイル読込み
+//    if (PathFileExists(VV_DEFAULT_CONFIG_FILE)) {
+//        if (PathFileExists(VV_CONFIG_FILE)) {
+//            CONFIG::loadProperties(VV_CONFIG_FILE);
+//            _TRACE_("config.properties を load しました");
+//        } else {
+//            CONFIG::loadProperties(VV_DEFAULT_CONFIG_FILE);
+//            CONFIG::_properties.write(VV_CONFIG_FILE);
+//            _TRACE_("【警告】config.properties が存在しないので、既定の '" <<VV_DEFAULT_CONFIG_FILE << "' を load しました。");
+//        }
+//    } else {
+//        MessageBox(nullptr, "既定設定ファイル(.default_config.properties)が見つかりません。",
+//                                 "Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
+//        return EXIT_FAILURE;
+//    }
 
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
     GgafCore::Rgb rgb = GgafCore::Rgb(CONFIG::BORDER_COLOR);
@@ -365,8 +393,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                     }
                     CONFIG::_properties.setValue("FIXED_VIEW_ASPECT", CONFIG::FIXED_VIEW_ASPECT);
 
-                    CONFIG::_properties.write(VV_CONFIG_FILE); //プロパティ保存
-                    CONFIG::loadProperties(VV_CONFIG_FILE); //プロパティ再反映
+                    CONFIG::_properties.write(CONFIG::_load_properties_filename); //プロパティ保存
+                    CONFIG::loadProperties(CONFIG::_load_properties_filename); //プロパティ再反映
                 }
             } else if(wParam == MY_IDM_REBOOT) {
                 //再起動実行

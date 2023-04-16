@@ -292,7 +292,7 @@ bool MenuBoardScreenConfig::condSelectNext() {
     if (getSelectedIndex() == ITEM_CANCEL) { //CANCELから先へ進めなくする
         return false;
     } else {
-        return VB->isAutoRepeat(VB_UI_DOWN);
+        return VB->isAutoRepeat(0, VB_UI_DOWN);
     }
 }
 
@@ -300,7 +300,7 @@ bool MenuBoardScreenConfig::condSelectPrev() {
     if (getSelectedIndex() == 0) { //先頭アイテム
         return false;
     } else {
-        return VB->isAutoRepeat(VB_UI_UP);
+        return VB->isAutoRepeat(0, VB_UI_UP);
     }
 }
 
@@ -425,8 +425,8 @@ void MenuBoardScreenConfig::processBehavior() {
             bool tmp_FULL_SCREEN = CONFIG::FULL_SCREEN;
             bool tmp_DUAL_VIEW   = CONFIG::DUAL_VIEW;
             bool tmp_SWAP_VIEW = CONFIG::SWAP_VIEW;
-            CONFIG::_properties.write(VV_CONFIG_FILE); //プロパティ保存
-            CONFIG::loadProperties(VV_CONFIG_FILE); //プロパティ再反映
+            CONFIG::_properties.write(CONFIG::_load_properties_filename); //プロパティ保存
+            CONFIG::loadProperties(CONFIG::_load_properties_filename); //プロパティ再反映
             //要再起動プロパティは、現ゲームに参照されては困るにで、直ぐに戻す。Mapに書き込んでるので再起動後に反映される
             CONFIG::FULL_SCREEN = tmp_FULL_SCREEN;
             CONFIG::DUAL_VIEW = tmp_DUAL_VIEW;
@@ -455,41 +455,41 @@ void MenuBoardScreenConfig::processBehavior() {
     }
     //各設定項目の←→時の処理
     if (selected_index == ITEM_FULL_SCREEN) {
-        if (pVB->isPushedDown(VB_UI_LEFT)) {
+        if (pVB->isPushedDown(0, VB_UI_LEFT)) {
             selectItemBySubCursor(SUBCUR_FULL_SCREEN, VALUE_FULL_SCREEN_TRUE);
             CONFIG::_properties.setValue("FULL_SCREEN", true);
             replaceItem();
-        } else if (pVB->isPushedDown(VB_UI_RIGHT)) {
+        } else if (pVB->isPushedDown(0, VB_UI_RIGHT)) {
             selectItemBySubCursor(SUBCUR_FULL_SCREEN, VALUE_FULL_SCREEN_FALSE);
             CONFIG::_properties.setValue("FULL_SCREEN", false);
             replaceItem();
         }
     } else if (selected_index == ITEM_DUAL_VIEW) {
-        if (pVB->isPushedDown(VB_UI_LEFT)) {
+        if (pVB->isPushedDown(0, VB_UI_LEFT)) {
             selectItemBySubCursor(SUBCUR_DUAL_VIEW, VALUE_DUAL_VIEW_TRUE);
             CONFIG::_properties.setValue("DUAL_VIEW", true);
             replaceItem();
-        } else if (pVB->isPushedDown(VB_UI_RIGHT)) {
+        } else if (pVB->isPushedDown(0, VB_UI_RIGHT)) {
             selectItemBySubCursor(SUBCUR_DUAL_VIEW, VALUE_DUAL_VIEW_FALSE);
             CONFIG::_properties.setValue("DUAL_VIEW", false);
             replaceItem();
         }
     } else if (selected_index == ITEM_SWAP_VIEW) {
-        if (pVB->isPushedDown(VB_UI_LEFT)) {
+        if (pVB->isPushedDown(0, VB_UI_LEFT)) {
             selectItemBySubCursor(SUBCUR_SWAP_VIEW, VALUE_SWAP_VIEW_FALSE);
             CONFIG::_properties.setValue("SWAP_VIEW", false);
-        } else if (pVB->isPushedDown(VB_UI_RIGHT)) {
+        } else if (pVB->isPushedDown(0, VB_UI_RIGHT)) {
             selectItemBySubCursor(SUBCUR_SWAP_VIEW, VALUE_SWAP_VIEW_TRUE);
             CONFIG::_properties.setValue("SWAP_VIEW", true);
         }
     } else if (selected_index == ITEM_FIXED_VIEW_ASPECT) {
-        if (pVB->isPushedDown(VB_UI_LEFT)) {
+        if (pVB->isPushedDown(0, VB_UI_LEFT)) {
             selectItemBySubCursor(SUBCUR_FIXED_VIEW_ASPECT, VALUE_FIXED_VIEW_TRUE);
             CONFIG::_properties.setValue("FIXED_VIEW_ASPECT", true);
             if (!pWorld->need_reboot_) {
                 pCARETAKER->chengeViewAspect(true);
             }
-        } else if (pVB->isPushedDown(VB_UI_RIGHT)) {
+        } else if (pVB->isPushedDown(0, VB_UI_RIGHT)) {
             selectItemBySubCursor(SUBCUR_FIXED_VIEW_ASPECT, VALUE_FIXED_VIEW_FALSE);
             CONFIG::_properties.setValue("FIXED_VIEW_ASPECT", false);
             if (!pWorld->need_reboot_) {
@@ -497,7 +497,7 @@ void MenuBoardScreenConfig::processBehavior() {
             }
         }
 //    } else if (selected_index == ITEM_PRIMARY_VIEW_PRESENT_POSITION) {
-//        if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
+//        if (pVB->isAutoRepeat(0, VB_UI_RIGHT)) {
 //            int i = getSelectedIndexOnSubCursor(SUBCUR_PRIMARY_VIEW_PRESENT_POSITION);
 //            if (i == VALUE_POS_9) {
 //                i = VALUE_POS_1;
@@ -509,7 +509,7 @@ void MenuBoardScreenConfig::processBehavior() {
 //            if (!pWorld->need_reboot_) {
 //                pCARETAKER->chengeViewPos1(i+1 - VALUE_POS_1);
 //            }
-//        } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
+//        } else if (pVB->isAutoRepeat(0, VB_UI_LEFT)) {
 //            int i = getSelectedIndexOnSubCursor(SUBCUR_PRIMARY_VIEW_PRESENT_POSITION);
 //            if (i == VALUE_POS_1) {
 //                i = VALUE_POS_9;
@@ -523,7 +523,7 @@ void MenuBoardScreenConfig::processBehavior() {
 //            }
 //        }
     } else if (selected_index == ITEM_PRIMARY_VIEW_PRESENT_POSITION) {
-        if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
+        if (pVB->isAutoRepeat(0, VB_UI_RIGHT)) {
             int i = getSelectedIndexOnSubCursor(SUBCUR_PRIMARY_VIEW_PRESENT_POSITION);
             if (i == VALUE_POS1_9) {
                 i = VALUE_POS1_1;
@@ -533,7 +533,7 @@ void MenuBoardScreenConfig::processBehavior() {
             selectItemBySubCursor(SUBCUR_PRIMARY_VIEW_PRESENT_POSITION, i);
             CONFIG::_properties.setValue("PRIMARY_VIEW_PRESENT_POSITION", i+1 - VALUE_POS1_1);
             pCARETAKER->chengeViewPos1(i+1 - VALUE_POS1_1);
-        } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
+        } else if (pVB->isAutoRepeat(0, VB_UI_LEFT)) {
             int i = getSelectedIndexOnSubCursor(SUBCUR_PRIMARY_VIEW_PRESENT_POSITION);
             if (i == VALUE_POS1_1) {
                 i = VALUE_POS1_9;
@@ -545,7 +545,7 @@ void MenuBoardScreenConfig::processBehavior() {
             pCARETAKER->chengeViewPos1(i+1 - VALUE_POS1_1);
         }
     } else if (selected_index == ITEM_SECONDARY_VIEW_PRESENT_POSITION) {
-        if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
+        if (pVB->isAutoRepeat(0, VB_UI_RIGHT)) {
             int i = getSelectedIndexOnSubCursor(SUBCUR_SECONDARY_VIEW_PRESENT_POSITION);
             if (i == VALUE_POS2_9) {
                 i = VALUE_POS2_1;
@@ -555,7 +555,7 @@ void MenuBoardScreenConfig::processBehavior() {
             selectItemBySubCursor(SUBCUR_SECONDARY_VIEW_PRESENT_POSITION, i);
             CONFIG::_properties.setValue("PRIMARY_VIEW_PRESENT_POSITION", i+1 - VALUE_POS2_1);
             pCARETAKER->chengeViewPos2(i+1 - VALUE_POS2_1);
-        } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
+        } else if (pVB->isAutoRepeat(0, VB_UI_LEFT)) {
             int i = getSelectedIndexOnSubCursor(SUBCUR_SECONDARY_VIEW_PRESENT_POSITION);
             if (i == VALUE_POS2_1) {
                 i = VALUE_POS2_9;
@@ -567,8 +567,8 @@ void MenuBoardScreenConfig::processBehavior() {
             pCARETAKER->chengeViewPos2(i+1 - VALUE_POS2_1);
         }
 //    } else if (selected_index == ITEM_PRIMARY_VIEW_FULL_SCREEN_RESOLUTION) {
-//        bool is_right = pVB->isAutoRepeat(VB_UI_RIGHT);
-//        bool is_left = pVB->isAutoRepeat(VB_UI_LEFT);
+//        bool is_right = pVB->isAutoRepeat(0, VB_UI_RIGHT);
+//        bool is_left = pVB->isAutoRepeat(0, VB_UI_LEFT);
 //        if (is_right || is_left) {
 //            if (is_right) {
 //                if (rezo_index_ >= rezo_num_-1) {
@@ -592,8 +592,8 @@ void MenuBoardScreenConfig::processBehavior() {
 //            }
 //        }
     } else if (selected_index == ITEM_PRIMARY_VIEW_FULL_SCREEN_RESOLUTION) {
-        bool is_right = pVB->isAutoRepeat(VB_UI_RIGHT);
-        bool is_left = pVB->isAutoRepeat(VB_UI_LEFT);
+        bool is_right = pVB->isAutoRepeat(0, VB_UI_RIGHT);
+        bool is_left = pVB->isAutoRepeat(0, VB_UI_LEFT);
         if (is_right || is_left) {
             if (is_right) {
                 if (rezo1_index_ >= rezo1_num_-1) {
@@ -617,8 +617,8 @@ void MenuBoardScreenConfig::processBehavior() {
             }
         }
     } else if (selected_index == ITEM_SECONDARY_VIEW_FULL_SCREEN_RESOLUTION) {
-        bool is_right = pVB->isAutoRepeat(VB_UI_RIGHT);
-        bool is_left = pVB->isAutoRepeat(VB_UI_LEFT);
+        bool is_right = pVB->isAutoRepeat(0, VB_UI_RIGHT);
+        bool is_left = pVB->isAutoRepeat(0, VB_UI_LEFT);
         if (rezo2_num_ > 0) {
             if (is_right || is_left) {
                 if (is_right) {

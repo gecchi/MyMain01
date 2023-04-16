@@ -1602,20 +1602,6 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
 //                     &pIDirect3DTexture9        // [out] LPDIRECT3DTEXTURE9* ppTexture
 //                );
 
-    //TODO:アンチエイリアスの実験のため
-    //     テクスチャーの代わりにサーフェイスを試す事。
-    //    HRESULT CreateRenderTarget(
-    //        UINT Width,
-    //        UINT Height,
-    //        D3DFORMAT Format,
-    //        D3DMULTISAMPLE_TYPE MultiSample,
-    //        DWORD MultisampleQuality,
-    //        BOOL Lockable,
-    //        IDirect3DSurface9** ppSurface,
-    //        HANDLE* pHandle
-    //    );
-
-
 //オブジェクト判定サーフェイス作成例
 //// デバイスの描画バッファを取得
 //g_pD3DDev->GetRenderTarget(0, &pDevSurface);
@@ -1990,14 +1976,7 @@ void Caretaker::presentVisualize() {
             if (CONFIG::FULL_SCREEN) {
                 releaseFullScreenRenderTarget();
             }
-            //環境マップテクスチャ、デバイスロスト処理
-//            _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->releaseAll() BEGIN ------>");
-//            _pCubeMapTextureManager->releaseAll();
-//            _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->releaseAll() <-------- END");
-//            _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->releaseAll() BEGIN ------>");
-//            _pBumpMapTextureManager->releaseAll();
-//            _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->releaseAll() <-------- END");
-
+            //テクスチャ、デバイスロスト処理
             _TRACE_("【デバイスロスト処理】_pTextureManager->releaseAll() BEGIN ------>");
             _pTextureManager->releaseAll();
             _TRACE_("【デバイスロスト処理】_pTextureManager->releaseAll() <-------- END");
@@ -2130,13 +2109,6 @@ void Caretaker::presentVisualize() {
 
         //リソース再構築
         _TRACE_("【デバイスロスト処理】リソース再構築 BEGIN ------>");
-        //環境マップテクスチャ、復帰処理
-//        _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->restoreAll() BEGIN ------>");
-//        _pCubeMapTextureManager->restoreAll();
-//        _TRACE_("【デバイスロスト処理】_pCubeMapTextureManager->restoreAll() <-------- END");
-//        _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->restoreAll() BEGIN ------>");
-//        _pBumpMapTextureManager->restoreAll();
-//        _TRACE_("【デバイスロスト処理】_pBumpMapTextureManager->restoreAll() <-------- END");
 
         _TRACE_("【デバイスロスト処理】_pTextureManager->restoreAll() BEGIN ------>");
         _pTextureManager->restoreAll();
@@ -2217,14 +2189,6 @@ void Caretaker::clean() {
         _TRACE_(FUNC_NAME<<" GgafCore::Caretaker::clean() 終了");
         GgafCore::CmRandomNumberGenerator::getInstance()->release();
         //保持モデル解放
-//        _TRACE_(FUNC_NAME<<" _pCubeMapTextureManager 開放開始");
-//        GGAF_DELETE(_pCubeMapTextureManager);
-//        _TRACE_(FUNC_NAME<<" _pCubeMapTextureManager 開放終了");
-//
-//        _TRACE_(FUNC_NAME<<" _pBumpMapTextureManager 開放開始");
-//        GGAF_DELETE(_pBumpMapTextureManager);
-//        _TRACE_(FUNC_NAME<<" _pCubeMapTextureManager 開放終了");
-
         _TRACE_(FUNC_NAME<<" _pTextureManager 開放開始");
         GGAF_DELETE(_pTextureManager);
         _TRACE_(FUNC_NAME<<" _pTextureManager 開放終了");

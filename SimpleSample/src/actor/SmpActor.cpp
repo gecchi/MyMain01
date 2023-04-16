@@ -27,26 +27,26 @@ void SmpActor::processBehavior() {
     //キャラをボタン入力で移動
     static VirtualButton* pVb = ((SmpSpacetime*)pCARETAKER->getSpacetime())->getVB();
     static const coord d = PX_C(2);
-    if (pVb->isPressed(VB_BUTTON1)) {
+    if (pVb->isPressed(0, VB_BUTTON1)) {
         //ボタン１（スペースキー）を押しながらの場合
-        if (pVb->isPressed(VB_UP)) {
+        if (pVb->isPressed(0, VB_UP)) {
             _z += d; //奥
         }
-        if (pVb->isPressed(VB_DOWN)) {
+        if (pVb->isPressed(0, VB_DOWN)) {
             _z -= d; //手前
         }
     } else {
         //ボタン１（スペースキー）を離している場合
-        if (pVb->isPressed(VB_RIGHT)) {
+        if (pVb->isPressed(0, VB_RIGHT)) {
             _x += d; //右
         }
-        if (pVb->isPressed(VB_LEFT)) {
+        if (pVb->isPressed(0, VB_LEFT)) {
             _x -= d; //左
         }
-        if (pVb->isPressed(VB_UP)) {
+        if (pVb->isPressed(0, VB_UP)) {
             _y += d; //上
         }
-        if (pVb->isPressed(VB_DOWN)) {
+        if (pVb->isPressed(0, VB_DOWN)) {
             _y -= d; //下
         }
     }

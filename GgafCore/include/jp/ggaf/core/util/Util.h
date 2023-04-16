@@ -333,12 +333,12 @@ public:
     }
 
     /**
-     * 10進数-->2進数文字列変換関数
-     * @param prm_decimal
-     * @param out_binstr 2進数文字列化  char[33]  [out]
-     * @param bitnum 所望の２進数ビット数
+     * 10進数=>2進数文字列変換関数
+     * @param prm_decimal 10進数
+     * @param out_binstr 2進数文字列化
+     * @param bitnum 所望の出力２進数ビット数
      */
-    static inline void strbin(uint32_t prm_decimal, char* out_binstr, int bitnum = 32) {
+    static inline void dec2bin(uint32_t prm_decimal, char* out_binstr, int bitnum = 32) {
         /* 10進数-->2進数変換 */
         int i, k;
         for (i = 0, k = bitnum - 1; k >= 0; i++, k--) {
@@ -436,6 +436,12 @@ public:
         oss << std::hex << std::uppercase << prm_dec;
         return oss.str();
     }
+    /**
+     * 10進数=>16進数文字列変換関数
+     * @param prm_dec 10進数
+     * @param prm_keta 所望の出力16進数桁数（文字数）
+     * @return 16進数文字列
+     */
     static inline const std::string dec2hex(size_t prm_dec, int prm_keta) {
         std::ostringstream oss;
         oss << std::setw(prm_keta) << std::hex << std::setfill('0') << std::uppercase << prm_dec;

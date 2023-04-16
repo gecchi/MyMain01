@@ -35,7 +35,7 @@ void EffectTurbo001::processBehavior() {
     getUvFlipper()->behave();
     getVecVehicle()->behave();
     getScaler()->behave();
-    if (VB_PLAY->isPressed(VB_TURBO)) { //ターボ
+    if (VB_PLAY->isPressed(0, VB_TURBO)) { //ターボ
 
     } else {
         inactivate();

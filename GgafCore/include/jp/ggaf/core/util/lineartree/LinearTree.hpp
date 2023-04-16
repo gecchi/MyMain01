@@ -222,7 +222,7 @@ public:
                 space_no -= POW_N[i];
                 _TRACE_N_("  ");
             }
-            UTIL::strbin(_paNodeSpaceArray[prm_index]._kind_bit_field, _aChar_strbit);
+            UTIL::dec2bin(_paNodeSpaceArray[prm_index]._kind_bit_field, _aChar_strbit);
             _TRACE_N_("LV"<<prm_lv<<"-"<<space_no<<"(POS:"<<prm_pos<<")["<<prm_index<<"]="<<_aChar_strbit<<" /Node->");
             _paNodeSpaceArray[prm_index].dump();
             _TRACE_N_("\n");

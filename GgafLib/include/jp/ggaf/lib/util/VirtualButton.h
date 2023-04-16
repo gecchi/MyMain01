@@ -9,6 +9,7 @@
 
 typedef int_fast32_t vbk;
 typedef int_fast32_t vbj;
+typedef int_fast32_t vbj_base;
 typedef uint64_t vb_sta;
 
 namespace GgafLib {
@@ -176,40 +177,120 @@ namespace GgafLib {
 
 
 
-#define VBJ_BUTTON_01       (0x01)
-#define VBJ_BUTTON_02       (0x02)
-#define VBJ_BUTTON_03       (0x03)
-#define VBJ_BUTTON_04       (0x04)
-#define VBJ_BUTTON_05       (0x05)
-#define VBJ_BUTTON_06       (0x06)
-#define VBJ_BUTTON_07       (0x07)
-#define VBJ_BUTTON_08       (0x08)
-#define VBJ_BUTTON_09       (0x09)
-#define VBJ_BUTTON_10       (0x0A)
-#define VBJ_BUTTON_11       (0x0B)
-#define VBJ_BUTTON_12       (0x0C)
-#define VBJ_BUTTON_13       (0x0D)
-#define VBJ_BUTTON_14       (0x0E)
-#define VBJ_BUTTON_15       (0x0F)
-#define VBJ_BUTTON_16       (0x10)
-#define VBJ_BUTTON_MAX      (0x10) //rgbボタン番兵
+#define VBJ_BASE_BUTTON_01       (0x01)
+#define VBJ_BASE_BUTTON_02       (0x02)
+#define VBJ_BASE_BUTTON_03       (0x03)
+#define VBJ_BASE_BUTTON_04       (0x04)
+#define VBJ_BASE_BUTTON_05       (0x05)
+#define VBJ_BASE_BUTTON_06       (0x06)
+#define VBJ_BASE_BUTTON_07       (0x07)
+#define VBJ_BASE_BUTTON_08       (0x08)
+#define VBJ_BASE_BUTTON_09       (0x09)
+#define VBJ_BASE_BUTTON_10       (0x0A)
+#define VBJ_BASE_BUTTON_11       (0x0B)
+#define VBJ_BASE_BUTTON_12       (0x0C)
+#define VBJ_BASE_BUTTON_13       (0x0D)
+#define VBJ_BASE_BUTTON_14       (0x0E)
+#define VBJ_BASE_BUTTON_15       (0x0F)
+#define VBJ_BASE_BUTTON_16       (0x10)
+#define VBJ_BASE_BUTTON_MAX      (0x10) //rgbボタン番兵
 
-#define VBJ_X_POS_MINUS     (0x80)
-#define VBJ_X_POS_PLUS      (0x81)
-#define VBJ_Y_POS_MINUS     (0x82)
-#define VBJ_Y_POS_PLUS      (0x83)
-#define VBJ_Z_POS_MINUS     (0x84)
-#define VBJ_Z_POS_PLUS      (0x85)
-#define VBJ_X_ROT_MINUS     (0x86)
-#define VBJ_X_ROT_PLUS      (0x87)
-#define VBJ_Y_ROT_MINUS     (0x88)
-#define VBJ_Y_ROT_PLUS      (0x89)
-#define VBJ_Z_ROT_MINUS     (0x8A)
-#define VBJ_Z_ROT_PLUS      (0x8B)
-#define VBJ_POV_UP          (0x8C)
-#define VBJ_POV_DOWN        (0x8D)
-#define VBJ_POV_LEFT        (0x8E)
-#define VBJ_POV_RIGHT       (0x8F)
+#define VBJ_BASE_X_POS_MINUS     (0x80)
+#define VBJ_BASE_X_POS_PLUS      (0x81)
+#define VBJ_BASE_Y_POS_MINUS     (0x82)
+#define VBJ_BASE_Y_POS_PLUS      (0x83)
+#define VBJ_BASE_Z_POS_MINUS     (0x84)
+#define VBJ_BASE_Z_POS_PLUS      (0x85)
+#define VBJ_BASE_X_ROT_MINUS     (0x86)
+#define VBJ_BASE_X_ROT_PLUS      (0x87)
+#define VBJ_BASE_Y_ROT_MINUS     (0x88)
+#define VBJ_BASE_Y_ROT_PLUS      (0x89)
+#define VBJ_BASE_Z_ROT_MINUS     (0x8A)
+#define VBJ_BASE_Z_ROT_PLUS      (0x8B)
+#define VBJ_BASE_POV_UP          (0x8C)
+#define VBJ_BASE_POV_DOWN        (0x8D)
+#define VBJ_BASE_POV_LEFT        (0x8E)
+#define VBJ_BASE_POV_RIGHT       (0x8F)
+
+#define VBJ_P1                  (0x0000)
+#define VBJ_P2                  (0x1000)
+
+#define VBJ_P1_BUTTON_01       (VBJ_P1 | VBJ_BASE_BUTTON_01   )
+#define VBJ_P1_BUTTON_02       (VBJ_P1 | VBJ_BASE_BUTTON_02   )
+#define VBJ_P1_BUTTON_03       (VBJ_P1 | VBJ_BASE_BUTTON_03   )
+#define VBJ_P1_BUTTON_04       (VBJ_P1 | VBJ_BASE_BUTTON_04   )
+#define VBJ_P1_BUTTON_05       (VBJ_P1 | VBJ_BASE_BUTTON_05   )
+#define VBJ_P1_BUTTON_06       (VBJ_P1 | VBJ_BASE_BUTTON_06   )
+#define VBJ_P1_BUTTON_07       (VBJ_P1 | VBJ_BASE_BUTTON_07   )
+#define VBJ_P1_BUTTON_08       (VBJ_P1 | VBJ_BASE_BUTTON_08   )
+#define VBJ_P1_BUTTON_09       (VBJ_P1 | VBJ_BASE_BUTTON_09   )
+#define VBJ_P1_BUTTON_10       (VBJ_P1 | VBJ_BASE_BUTTON_10   )
+#define VBJ_P1_BUTTON_11       (VBJ_P1 | VBJ_BASE_BUTTON_11   )
+#define VBJ_P1_BUTTON_12       (VBJ_P1 | VBJ_BASE_BUTTON_12   )
+#define VBJ_P1_BUTTON_13       (VBJ_P1 | VBJ_BASE_BUTTON_13   )
+#define VBJ_P1_BUTTON_14       (VBJ_P1 | VBJ_BASE_BUTTON_14   )
+#define VBJ_P1_BUTTON_15       (VBJ_P1 | VBJ_BASE_BUTTON_15   )
+#define VBJ_P1_BUTTON_16       (VBJ_P1 | VBJ_BASE_BUTTON_16   )
+#define VBJ_P1_BUTTON_MAX      (VBJ_P1 | VBJ_BASE_BUTTON_MAX  )
+#define VBJ_P1_X_POS_MINUS     (VBJ_P1 | VBJ_BASE_X_POS_MINUS )
+#define VBJ_P1_X_POS_PLUS      (VBJ_P1 | VBJ_BASE_X_POS_PLUS  )
+#define VBJ_P1_Y_POS_MINUS     (VBJ_P1 | VBJ_BASE_Y_POS_MINUS )
+#define VBJ_P1_Y_POS_PLUS      (VBJ_P1 | VBJ_BASE_Y_POS_PLUS  )
+#define VBJ_P1_Z_POS_MINUS     (VBJ_P1 | VBJ_BASE_Z_POS_MINUS )
+#define VBJ_P1_Z_POS_PLUS      (VBJ_P1 | VBJ_BASE_Z_POS_PLUS  )
+#define VBJ_P1_X_ROT_MINUS     (VBJ_P1 | VBJ_BASE_X_ROT_MINUS )
+#define VBJ_P1_X_ROT_PLUS      (VBJ_P1 | VBJ_BASE_X_ROT_PLUS  )
+#define VBJ_P1_Y_ROT_MINUS     (VBJ_P1 | VBJ_BASE_Y_ROT_MINUS )
+#define VBJ_P1_Y_ROT_PLUS      (VBJ_P1 | VBJ_BASE_Y_ROT_PLUS  )
+#define VBJ_P1_Z_ROT_MINUS     (VBJ_P1 | VBJ_BASE_Z_ROT_MINUS )
+#define VBJ_P1_Z_ROT_PLUS      (VBJ_P1 | VBJ_BASE_Z_ROT_PLUS  )
+#define VBJ_P1_POV_UP          (VBJ_P1 | VBJ_BASE_POV_UP      )
+#define VBJ_P1_POV_DOWN        (VBJ_P1 | VBJ_BASE_POV_DOWN    )
+#define VBJ_P1_POV_LEFT        (VBJ_P1 | VBJ_BASE_POV_LEFT    )
+#define VBJ_P1_POV_RIGHT       (VBJ_P1 | VBJ_BASE_POV_RIGHT   )
+
+#define VBJ_P2_BUTTON_01       (VBJ_P2 | VBJ_BASE_BUTTON_01   )
+#define VBJ_P2_BUTTON_02       (VBJ_P2 | VBJ_BASE_BUTTON_02   )
+#define VBJ_P2_BUTTON_03       (VBJ_P2 | VBJ_BASE_BUTTON_03   )
+#define VBJ_P2_BUTTON_04       (VBJ_P2 | VBJ_BASE_BUTTON_04   )
+#define VBJ_P2_BUTTON_05       (VBJ_P2 | VBJ_BASE_BUTTON_05   )
+#define VBJ_P2_BUTTON_06       (VBJ_P2 | VBJ_BASE_BUTTON_06   )
+#define VBJ_P2_BUTTON_07       (VBJ_P2 | VBJ_BASE_BUTTON_07   )
+#define VBJ_P2_BUTTON_08       (VBJ_P2 | VBJ_BASE_BUTTON_08   )
+#define VBJ_P2_BUTTON_09       (VBJ_P2 | VBJ_BASE_BUTTON_09   )
+#define VBJ_P2_BUTTON_10       (VBJ_P2 | VBJ_BASE_BUTTON_10   )
+#define VBJ_P2_BUTTON_11       (VBJ_P2 | VBJ_BASE_BUTTON_11   )
+#define VBJ_P2_BUTTON_12       (VBJ_P2 | VBJ_BASE_BUTTON_12   )
+#define VBJ_P2_BUTTON_13       (VBJ_P2 | VBJ_BASE_BUTTON_13   )
+#define VBJ_P2_BUTTON_14       (VBJ_P2 | VBJ_BASE_BUTTON_14   )
+#define VBJ_P2_BUTTON_15       (VBJ_P2 | VBJ_BASE_BUTTON_15   )
+#define VBJ_P2_BUTTON_16       (VBJ_P2 | VBJ_BASE_BUTTON_16   )
+#define VBJ_P2_BUTTON_MAX      (VBJ_P2 | VBJ_BASE_BUTTON_MAX  )
+#define VBJ_P2_X_POS_MINUS     (VBJ_P2 | VBJ_BASE_X_POS_MINUS )
+#define VBJ_P2_X_POS_PLUS      (VBJ_P2 | VBJ_BASE_X_POS_PLUS  )
+#define VBJ_P2_Y_POS_MINUS     (VBJ_P2 | VBJ_BASE_Y_POS_MINUS )
+#define VBJ_P2_Y_POS_PLUS      (VBJ_P2 | VBJ_BASE_Y_POS_PLUS  )
+#define VBJ_P2_Z_POS_MINUS     (VBJ_P2 | VBJ_BASE_Z_POS_MINUS )
+#define VBJ_P2_Z_POS_PLUS      (VBJ_P2 | VBJ_BASE_Z_POS_PLUS  )
+#define VBJ_P2_X_ROT_MINUS     (VBJ_P2 | VBJ_BASE_X_ROT_MINUS )
+#define VBJ_P2_X_ROT_PLUS      (VBJ_P2 | VBJ_BASE_X_ROT_PLUS  )
+#define VBJ_P2_Y_ROT_MINUS     (VBJ_P2 | VBJ_BASE_Y_ROT_MINUS )
+#define VBJ_P2_Y_ROT_PLUS      (VBJ_P2 | VBJ_BASE_Y_ROT_PLUS  )
+#define VBJ_P2_Z_ROT_MINUS     (VBJ_P2 | VBJ_BASE_Z_ROT_MINUS )
+#define VBJ_P2_Z_ROT_PLUS      (VBJ_P2 | VBJ_BASE_Z_ROT_PLUS  )
+#define VBJ_P2_POV_UP          (VBJ_P2 | VBJ_BASE_POV_UP      )
+#define VBJ_P2_POV_DOWN        (VBJ_P2 | VBJ_BASE_POV_DOWN    )
+#define VBJ_P2_POV_LEFT        (VBJ_P2 | VBJ_BASE_POV_LEFT    )
+#define VBJ_P2_POV_RIGHT       (VBJ_P2 | VBJ_BASE_POV_RIGHT   )
+
+
+#define VBJ_P_MASK       (0xF000)
+#define VBJ_BUTTON_MASK  (0x0FFF)
+
+#define BASE_TO_VBJ(P_N, VBJ_BASE) ( (VBJ_BASE) | ((P_N) << 12 )  )
+#define VBJ_TO_BASE(VBJ)         ( (VBJ) & (VBJ_BUTTON_MASK) )
+/** P1/P2 を取得   1:P1 / 2:P2   */
+#define VBJ_TO_P_N(VBJ)         ( ( (VBJ) & (VBJ_P_MASK) ) >> 12 )
 
 #define VB_BUTTON1                (0x1ULL) //&B 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
 #define VB_BUTTON2                (0x2ULL) //&B 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
@@ -240,6 +321,7 @@ namespace GgafLib {
 #define VB_S2_DOWN          (0x4000000ULL) //&B 00000000 00000000 00000000 00000000 00000100 00000000 00000000 00000000
 #define VB_S2_LEFT          (0x8000000ULL) //&B 00000000 00000000 00000000 00000000 00001000 00000000 00000000 00000000
 #define VB_S2_RIGHT        (0x10000000ULL) //&B 00000000 00000000 00000000 00000000 00010000 00000000 00000000 00000000
+
 #define VB_UI_UP           (0x20000000ULL) //&B 00000000 00000000 00000000 00000000 00100000 00000000 00000000 00000000
 #define VB_UI_DOWN         (0x40000000ULL) //&B 00000000 00000000 00000000 00000000 01000000 00000000 00000000 00000000
 #define VB_UI_LEFT         (0x80000000ULL) //&B 00000000 00000000 00000000 00000000 10000000 00000000 00000000 00000000
@@ -247,6 +329,19 @@ namespace GgafLib {
 #define VB_UI_EXECUTE     (0x200000000ULL) //&B 00000000 00000000 00000000 00000010 00000000 00000000 00000000 00000000
 #define VB_UI_CANCEL      (0x400000000ULL) //&B 00000000 00000000 00000000 00000100 00000000 00000000 00000000 00000000
 #define VB_UI_DEBUG       (0x800000000ULL) //&B 00000000 00000000 00000000 00001000 00000000 00000000 00000000 00000000
+
+#define VB_UI_START      (0x1000000000ULL) //&B 00000000 00000000 00000000 00010000 00000000 00000000 00000000 00000000
+#define VB_UI_COIN       (0x2000000000ULL) //&B 00000000 00000000 00000000 00100000 00000000 00000000 00000000 00000000
+#define VB_UI_SERVICE    (0x4000000000ULL) //&B 00000000 00000000 00000000 01000000 00000000 00000000 00000000 00000000
+#define VB_UI_TEST       (0x8000000000ULL) //&B 00000000 00000000 00000000 10000000 00000000 00000000 00000000 00000000
+
+
+
+
+
+
+
+
 
 #define VB_MAP_BUFFER 120
 #define VB_NUM 29
@@ -267,60 +362,106 @@ public:
     public :
         VBRecord* _next; //時系列で次のフレームの入力状態
         VBRecord* _prev; //時系列で前のフレームの入力状態
-        vb_sta _p1_state;
-        vb_sta _p2_state;
+        vb_sta _vb_state[MAX_JOY_STICK_NUM];
+//        vb_sta _p2_state;
     public:
         VBRecord() {
             _next = nullptr;
             _prev = nullptr;
-            _p1_state = (vb_sta)0;
-            _p2_state = (vb_sta)0;
+            for (int p = 0; p < MAX_JOY_STICK_NUM; p++) {
+                _vb_state[p] = (vb_sta)0;
+            }
         }
         ~VBRecord() {
         }
     };
 
 
-    struct KEYBOARDMAP {
-        vbk BUTTON1;
-        vbk BUTTON2;
-        vbk BUTTON3;
-        vbk BUTTON4;
-        vbk BUTTON5;
-        vbk BUTTON6;
-        vbk BUTTON7;
-        vbk BUTTON8;
-        vbk BUTTON9;
-        vbk BUTTON10;
-        vbk BUTTON11;
-        vbk BUTTON12;
-        vbk BUTTON13;
-        vbk BUTTON14;
-        vbk BUTTON15;
-        vbk BUTTON16;
-        vbk PAUSE;
-        vbk UP;
-        vbk DOWN;
-        vbk LEFT;
-        vbk RIGHT;
-        vbk S1_UP;
-        vbk S1_DOWN;
-        vbk S1_LEFT;
-        vbk S1_RIGHT;
-        vbk S2_UP;
-        vbk S2_DOWN;
-        vbk S2_LEFT;
-        vbk S2_RIGHT;
-        vbk UI_UP;
-        vbk UI_DOWN;
-        vbk UI_LEFT;
-        vbk UI_RIGHT;
-        vbk UI_EXECUTE;
-        vbk UI_CANCEL;
-        vbk UI_DEBUG;
+    struct VbkKeyboard {
+        vbk P1_BUTTON1;
+        vbk P1_BUTTON2;
+        vbk P1_BUTTON3;
+        vbk P1_BUTTON4;
+        vbk P1_BUTTON5;
+        vbk P1_BUTTON6;
+        vbk P1_BUTTON7;
+        vbk P1_BUTTON8;
+        vbk P1_BUTTON9;
+        vbk P1_BUTTON10;
+        vbk P1_BUTTON11;
+        vbk P1_BUTTON12;
+        vbk P1_BUTTON13;
+        vbk P1_BUTTON14;
+        vbk P1_BUTTON15;
+        vbk P1_BUTTON16;
+        vbk P1_PAUSE;
+        vbk P1_UP;
+        vbk P1_DOWN;
+        vbk P1_LEFT;
+        vbk P1_RIGHT;
+        vbk P1_S1_UP;
+        vbk P1_S1_DOWN;
+        vbk P1_S1_LEFT;
+        vbk P1_S1_RIGHT;
+        vbk P1_S2_UP;
+        vbk P1_S2_DOWN;
+        vbk P1_S2_LEFT;
+        vbk P1_S2_RIGHT;
+        vbk P1_UI_UP;
+        vbk P1_UI_DOWN;
+        vbk P1_UI_LEFT;
+        vbk P1_UI_RIGHT;
+        vbk P1_UI_EXECUTE;
+        vbk P1_UI_CANCEL;
+        vbk P1_UI_DEBUG;
+        vbk P1_UI_START;
+        vbk P1_UI_COIN;
+        vbk P1_UI_SERVICE;
+        vbk P1_UI_TEST;
+
+        vbk P2_BUTTON1;
+        vbk P2_BUTTON2;
+        vbk P2_BUTTON3;
+        vbk P2_BUTTON4;
+        vbk P2_BUTTON5;
+        vbk P2_BUTTON6;
+        vbk P2_BUTTON7;
+        vbk P2_BUTTON8;
+        vbk P2_BUTTON9;
+        vbk P2_BUTTON10;
+        vbk P2_BUTTON11;
+        vbk P2_BUTTON12;
+        vbk P2_BUTTON13;
+        vbk P2_BUTTON14;
+        vbk P2_BUTTON15;
+        vbk P2_BUTTON16;
+        vbk P2_PAUSE;
+        vbk P2_UP;
+        vbk P2_DOWN;
+        vbk P2_LEFT;
+        vbk P2_RIGHT;
+        vbk P2_S1_UP;
+        vbk P2_S1_DOWN;
+        vbk P2_S1_LEFT;
+        vbk P2_S1_RIGHT;
+        vbk P2_S2_UP;
+        vbk P2_S2_DOWN;
+        vbk P2_S2_LEFT;
+        vbk P2_S2_RIGHT;
+        vbk P2_UI_UP;
+        vbk P2_UI_DOWN;
+        vbk P2_UI_LEFT;
+        vbk P2_UI_RIGHT;
+        vbk P2_UI_EXECUTE;
+        vbk P2_UI_CANCEL;
+        vbk P2_UI_DEBUG;
+        vbk P2_UI_START;
+        vbk P2_UI_COIN;
+        vbk P2_UI_SERVICE;
+        vbk P2_UI_TEST;
     };
 
-    struct JOYSTICKMAP {
+    struct VbjJoystick {
         vbj BUTTON1;
         vbj BUTTON2;
         vbj BUTTON3;
@@ -356,28 +497,32 @@ public:
         vbj UI_RIGHT;
         vbj UI_EXECUTE;
         vbj UI_CANCEL;
-        //vbj UI_DEBUG;
+        vbj UI_DEBUG;
+        vbj UI_START;
+        vbj UI_COIN;
+        vbj UI_SERVICE;
+        vbj UI_TEST;
     };
 
 public:
-    static std::map<std::string, int> _mapStr2VBK;
-    static std::map<std::string, int> _mapStr2VBJ;
-    static std::map<int, std::string> _mapVBK2Str;
-    static std::map<int, std::string> _mapVBJ2Str;
+    static std::map<std::string, vbk> _mapStr2VBK;
+    static std::map<std::string, vbj> _mapStr2VBJ;
+    static std::map<vbk, std::string> _mapVBK2Str;
+    static std::map<vbj, std::string> _mapVBJ2Str;
 
 
 
     typedef bool (*funcVJBtn)(int);
-    static std::map<int, funcVJBtn> _mapVBJ2Func;
+    static std::map<vbj_base, funcVJBtn> _mapVbjBase2Func;
 
 public:
     /** キーボード割り当て値 */
-    KEYBOARDMAP _keyboardmap;
+    VbkKeyboard _vbk_keyboardmap;
     /** ジョイスティック割り当て値 */
-    JOYSTICKMAP _joystickmap;
+    VbjJoystick _vbj_joystickmap[MAX_JOY_STICK_NUM];
 
-    std::map<vb_sta, int*> _mapVB2keyboardmap;
-    std::map<vb_sta, int*> _mapVB2joystickmap;
+    std::map<vb_sta, vbk*> _mapVB2keyboardmap[MAX_JOY_STICK_NUM];
+    std::map<vb_sta, vbj*> _mapVB2joystickmap[MAX_JOY_STICK_NUM];
 
     /** オートリピート判定用カウンター */
     std::map<vb_sta, frame> _auto_repeat_counter;
@@ -406,7 +551,7 @@ public:
 
     static bool isPressedVirtualJoyButton(vbj prm_VBJ);
 
-    static int getFirstPushedDownVirtualJoyButton();
+    static vbj getFirstPushedDownVirtualJoyButton(int prm_player_no);
 
     /**
      * 仮想ボタンの割り当てを変更（キーボード＆ジョイスティック） .
@@ -414,22 +559,28 @@ public:
      * @param prm_VBK VBK_... で始まる仮想キー定数、仮想ボタンへ割り当てるキーボードを指定
      * @param prm_VBJ VBJ_... で始まる仮想JOYスティックボタン定数、仮想ボタンへ割り当てるJOYスティックボタンを指定
      */
-    void remap(vb_sta prm_VB, vbk prm_VBK, vbj prm_VBJ);
+    void remap(int prm_player_no, vb_sta prm_VB, vbk prm_VBK, vbj prm_VBJ);
 
     /**
      * 仮想ボタンの割り当てを変更（キーボードのみ） .
      * @param prm_VB VB_... で始まる仮想ボタン、割り当て対象の仮想ボタンを指定
      * @param prm_VBK VBK_... で始まる仮想キー定数、仮想ボタンへ割り当てるキーボードを指定
      */
-    void remapK(vb_sta prm_VB, vbk prm_VBK);
+    void remapK(int prm_player_no, vb_sta prm_VB, vbk prm_VBK);
 
     /**
      * 仮想ボタンの割り当てを変更（ジョイスティックのみ） .
      * @param prm_VB VB_... で始まる仮想ボタン、割り当て対象の仮想ボタンを指定
      * @param prm_VBJ VBJ_... で始まる仮想JOYスティックボタン定数、仮想ボタンへ割り当てるJOYスティックボタンを指定
      */
-    void remapJ(vb_sta prm_VB, vbj prm_VBJ);
-    /**     * 過去の入力状態を取得 .     * @param prm_frame_ago 現在より何フレーム過去かを指定     * @return 過去の入力状態     */    VirtualButton::VBRecord* getPastVBRecord(frame prm_frame_ago) const;
+    void remapJ(int prm_player_no, vb_sta prm_VB, vbj prm_VBJ);
+
+    /**
+     * 過去の入力状態を取得 .
+     * @param prm_frame_ago 現在より何フレーム過去かを指定
+     * @return 過去の入力状態
+     */
+    VirtualButton::VBRecord* getPastVBRecord(frame prm_frame_ago) const;
 
     /**
      * 現在ボタンが押されているか判定(押されている間成立する) .
@@ -440,21 +591,21 @@ public:
      * VirtualButton vb_play = VirtualButton();
      * vb_play.update();
      *
-     * if (vb_play.isPressed(VB_BUTTON1)) {
+     * if (vb_play.isPressed(0, VB_BUTTON1)) {
      *     //VB_BUTTON1 が押されている場合の処理
      * }
      *
-     * if (vb_play.isPressed(VB_BUTTON1|VB_BUTTON3)) {
+     * if (vb_play.isPressed(0, VB_BUTTON1|VB_BUTTON3)) {
      *     //VB_BUTTON1 又は VB_BUTTON3 が押されている場合の処理
      * }
      *
-     * if (vb_play.isPressed(VB_BUTTON1|VB_BUTTON3) == (VB_BUTTON1|VB_BUTTON3)) {
+     * if (vb_play.isPressed(0, VB_BUTTON1|VB_BUTTON3) == (VB_BUTTON1|VB_BUTTON3)) {
      *     //VB_BUTTON1 と VB_BUTTON3 が両方押されている場合の処理
      * }
      * @endcode
      */
-    inline vb_sta isPressed(vb_sta prm_VB) const {
-        return (_pVBRecord_active->_p1_state & prm_VB);
+    inline vb_sta isPressed(int prm_player_no, vb_sta prm_VB) const {
+        return (_pVBRecord_active->_vb_state[prm_player_no] & prm_VB);
     }
 
     /**
@@ -466,7 +617,7 @@ public:
      * @retval 0   isPressed() と同じ
      * @retval >0  引数のボタンの内、過去に押されていたボタンの VB_ で始まる定数(の論理和)
      */
-    vb_sta wasPressed(vb_sta prm_VB, frame prm_frame_ago) const;
+    vb_sta wasPressed(int prm_player_no, vb_sta prm_VB, frame prm_frame_ago) const;
 
     /**
      * 現在と過去フレームの機関で、ずっとボタンが押されていたかどうか判定 .
@@ -475,7 +626,7 @@ public:
      * 1 で 現在と1フレーム前、2 で 現在と2フレーム前、0 は isPressed(vb_sta) と同じ意味になる。
      * @return true：現在とprm_frame_agoの期間ずっと押しっぱなしだった／false：それ以外（少なくとも１フレーム押されていない瞬間あり）
      */
-    vb_sta hasBeenPressed(vb_sta prm_VB, frame prm_frame_ago) const;
+    vb_sta hasBeenPressed(int prm_player_no, vb_sta prm_VB, frame prm_frame_ago) const;
 
 
 //    /**
@@ -503,8 +654,8 @@ public:
      *                      最大 (VB_MAP_BUFFER-1) フレーム前まで可
      * @return true / false
      */
-    inline bool wasNotPressed(vb_sta prm_VB, frame prm_frame_ago) const {
-        return wasPressed(prm_VB, prm_frame_ago) ? false : true;
+    inline bool wasNotPressed(int prm_player_no, vb_sta prm_VB, frame prm_frame_ago) const {
+        return wasPressed(prm_player_no, prm_VB, prm_frame_ago) ? false : true;
     }
 
     /**
@@ -513,8 +664,8 @@ public:
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @return true / false
      */
-    inline bool isPushedDown(vb_sta prm_VB) const {
-        return (!(_pVBRecord_active->_prev->_p1_state & prm_VB) && (_pVBRecord_active->_p1_state & prm_VB)) ? true : false;
+    inline bool isPushedDown(int prm_player_no, vb_sta prm_VB) const {
+        return (!(_pVBRecord_active->_prev->_vb_state[prm_player_no] & prm_VB) && (_pVBRecord_active->_vb_state[prm_player_no] & prm_VB)) ? true : false;
     }
 
     /**
@@ -526,7 +677,7 @@ public:
      *                      最大 (VB_MAP_BUFFER-1) フレーム前まで可
      * @return true / false
      */
-    bool wasPushedDown(vb_sta prm_VB, frame prm_frame_ago) const;
+    bool wasPushedDown(int prm_player_no, vb_sta prm_VB, frame prm_frame_ago) const;
 
     /**
      * 現在ボタンを離した瞬間なのかどうか判定 .
@@ -534,7 +685,7 @@ public:
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @return true / false
      */
-    bool isReleasedUp(vb_sta prm_VB) const;
+    bool isReleasedUp(int prm_player_no, vb_sta prm_VB) const;
 
     /**
      * 過去にボタンを離した瞬間があったのかどうか判定 .
@@ -544,7 +695,7 @@ public:
      *                      1 で 1フレーム前、2 で 2フレーム前、0 は isReleasedUp(vb_sta) と同じ意味になる。
      * @return true / false
      */
-    bool wasReleasedUp(vb_sta prm_VB, frame prm_frame_ago) const;
+    bool wasReleasedUp(int prm_player_no, vb_sta prm_VB, frame prm_frame_ago) const;
 
     /**
      * チョン押し判定 .
@@ -556,7 +707,7 @@ public:
      * @param prm_frame_push 許容するボタンを押していた期間フレーム(default=5)
      * @return true / false
      */
-    bool isPushedUp(vb_sta prm_VB, frame prm_frame_push = 5) const;
+    bool isPushedUp(int prm_player_no, vb_sta prm_VB, frame prm_frame_push = 5) const;
 
     /**
      * ダブルプッシュ判定 .
@@ -569,7 +720,7 @@ public:
      * @param prm_frame_delay 許容する(c)～(d) の期間
      * @return true / false
      */
-    bool isDoublePushedDown(vb_sta prm_VB, frame prm_frame_push = 5, frame prm_frame_delay = 5) const;
+    bool isDoublePushedDown(int prm_player_no, vb_sta prm_VB, frame prm_frame_push = 5, frame prm_frame_delay = 5) const;
 
     /**
      * 複数ボタン同時押し判定 .
@@ -593,7 +744,7 @@ public:
      * @param prm_num_button 配列の要素数
      * @return true / false
      */
-    bool arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button, int delay=2) const;
+    bool arePushedDownAtOnce(int prm_player_no, vb_sta prm_aVB[], int prm_num_button, int delay=2) const;
 
     /**
      * 2フレ猶予の２つボタン同時押し判定 .
@@ -601,11 +752,11 @@ public:
      * @param prm_VB2 判定対象仮想ボタン２
      * @return true / false
      */
-    bool arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, int delay=2) const {
+    bool arePushedDownAtOnce(int prm_player_no, vb_sta prm_VB1, vb_sta prm_VB2, int delay=2) const {
         vb_sta vb[2];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
-        return arePushedDownAtOnce(vb, 2, delay);
+        return arePushedDownAtOnce(prm_player_no, vb, 2, delay);
     }
 
     /**
@@ -615,12 +766,12 @@ public:
      * @param prm_VB3 判定対象仮想ボタン３
      * @return true / false
      */
-    bool arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, int delay=2) const {
+    bool arePushedDownAtOnce(int prm_player_no, vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, int delay=2) const {
         vb_sta vb[3];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
         vb[2] = prm_VB3;
-        return arePushedDownAtOnce(vb, 3, delay);
+        return arePushedDownAtOnce(prm_player_no, vb, 3, delay);
     }
 
     /**
@@ -631,13 +782,13 @@ public:
      * @param prm_VB4 判定対象仮想ボタン４
      * @return true / false
      */
-    bool arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, vb_sta prm_VB4, int delay=2) const {
+    bool arePushedDownAtOnce(int prm_player_no, vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, vb_sta prm_VB4, int delay=2) const {
         vb_sta vb[4];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
         vb[2] = prm_VB3;
         vb[3] = prm_VB4;
-        return arePushedDownAtOnce(vb, 4, delay);
+        return arePushedDownAtOnce(prm_player_no, vb, 4, delay);
     }
 
     /**
@@ -647,7 +798,7 @@ public:
      * @param prm_while_repeat オートリピート開始後、リピート間隔フレーム数
      * @return true / false
      */
-    bool isAutoRepeat(vb_sta prm_VB, frame prm_begin_repeat = 20, frame prm_while_repeat = 5);
+    bool isAutoRepeat(int prm_player_no, vb_sta prm_VB, frame prm_begin_repeat = 20, frame prm_while_repeat = 5);
 
     /**
      * グルッとポンか否か判定 .
@@ -659,15 +810,15 @@ public:
      * @param prm_frame_delay 「グルッとポン」が成立する全体の許容フレーム
      * @return true / false
      */
-    bool isScrewPushDown(vb_sta prm_VB, frame prm_frame_delay=30) const;
+    bool isScrewPushDown(int prm_player_no, vb_sta prm_VB, frame prm_frame_delay=30) const;
 
 
     //vb_sta getPushedDownStick() const;
 
 
-    inline vb_sta getState() const {
-        return _pVBRecord_active->_p1_state;
-    }
+//    inline vb_sta getState() const {
+//        return _pVBRecord_active->_vb_state[0];
+//    }
 
     /**
      * 入力情報を更新 .
@@ -677,6 +828,9 @@ public:
     void update();
 
     void clear();
+
+
+    void printDebugState();
 
     virtual ~VirtualButton();
 };

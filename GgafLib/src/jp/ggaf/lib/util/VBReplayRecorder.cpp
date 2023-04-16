@@ -29,29 +29,28 @@ void VBReplayRecorder::first() {
     _frame_of_the_same_vb_sta_reading = 0;
 }
 
-vb_sta VBReplayRecorder::read() {
+void VBReplayRecorder::readNextFrameStatus(vb_sta* prm_pa_vb_sta) {
     if (_pRecNote) {
-        vb_sta r = _pRecNote->_p1_state;
+        for (int p = 0; p < MAX_JOY_STICK_NUM; p++) {
+            prm_pa_vb_sta[p] = _pRecNote->_vb_state[p];
+        }
         _frame_of_the_same_vb_sta_reading++;
         if (_pRecNote->_frame_of_keeping == _frame_of_the_same_vb_sta_reading) {
             _frame_of_the_same_vb_sta_reading = 0;
             _pRecNote_read_prev = _pRecNote; //•Û‘¶
             _pRecNote = _pRecNote->_pNext;
         }
-        return r;
-    } else {
-        return 0;
     }
 }
 
-void VBReplayRecorder::write(vb_sta prm_state) {
+void VBReplayRecorder::write(vb_sta* prm_pa_vb_sta) {
     if (_write_realtime) {
-        _ofs_realtime << prm_state << " 1" << std::endl;
+        _ofs_realtime << prm_pa_vb_sta[0] << " " << prm_pa_vb_sta[1] << " 1" << std::endl;
     }
 
     if (_pFirstVBNote == nullptr) {
         //V‹K
-        _pFirstVBNote = NEW VBRecordNote(prm_state, 1);
+        _pFirstVBNote = NEW VBRecordNote(prm_pa_vb_sta, 1);
         _pRecNote = _pFirstVBNote;
         _pRecNote_read_prev = nullptr;
         return;
@@ -62,8 +61,8 @@ void VBReplayRecorder::write(vb_sta prm_state) {
             _pRecNote_read_prev = nullptr;
         }
 
-        if (_pRecNote->_p1_state != prm_state) {
-            _pRecNote->_pNext = NEW VBRecordNote(prm_state, 1);
+        if (_pRecNote->_vb_state[0] != prm_pa_vb_sta[0] || _pRecNote->_vb_state[1] != prm_pa_vb_sta[1]) {
+            _pRecNote->_pNext = NEW VBRecordNote(prm_pa_vb_sta, 1);
             _pRecNote = _pRecNote->_pNext;
             return;
         } else {
@@ -76,7 +75,7 @@ void VBReplayRecorder::outputFile(const char* prm_filename) {
     std::ofstream ofs(prm_filename);
     VBRecordNote* p = _pFirstVBNote;
     while (p != nullptr) {
-        ofs << p->_p1_state << " " << p->_frame_of_keeping << std::endl;
+        ofs << p->_vb_state[0] << " " << p->_vb_state[1] << " " << p->_frame_of_keeping << std::endl;
         p = p ->_pNext;
     }
     if (_write_realtime) {
@@ -93,18 +92,20 @@ bool VBReplayRecorder::importFile(const char* prm_filename) {
     VBRecordNote* p = NEW VBRecordNote();
     _pFirstVBNote = p;
     _pRecNote = p;
-    ifs >> (p->_p1_state) >> (p->_frame_of_keeping);
+    ifs >> (p->_vb_state[0]) >> (p->_vb_state[1]) >> (p->_frame_of_keeping);
 
-    vb_sta in_state;
+    vb_sta in_state[MAX_JOY_STICK_NUM];
     frame in_frame_of_keeping;
     while (!ifs.eof()) {
-        ifs >> in_state >> in_frame_of_keeping;
+        ifs >> in_state[0] >> in_state[1] >> in_frame_of_keeping;
         if (ifs.fail()) {
             break;
         }
         p->_pNext = NEW VBRecordNote();
         p = p->_pNext;
-        p->_p1_state = in_state;
+        for (int n = 0; n < MAX_JOY_STICK_NUM; n++) {
+            p->_vb_state[n] = in_state[n];
+        }
         p->_frame_of_keeping = in_frame_of_keeping;
     }
     this->first();

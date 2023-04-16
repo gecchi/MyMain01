@@ -13,6 +13,9 @@
 
 #define P1_JOY_STICK 0
 #define P2_JOY_STICK 1
+
+#define MAX_JOY_STICK_NUM 2
+
 namespace GgafDx {
 
 /**
@@ -29,7 +32,7 @@ public:
     /** キーボードインプットデバイス */
     static LPDIRECTINPUTDEVICE8 _pKeyboardInputDevice;
     /** ジョイスティックインプットデバイス, [0]:1P [1]:2P */
-    static LPDIRECTINPUTDEVICE8 _apJoystickInputDevice[2];
+    static LPDIRECTINPUTDEVICE8 _apJoystickInputDevice[MAX_JOY_STICK_NUM];
     /** マウスインプットデバイス */
     static LPDIRECTINPUTDEVICE8 _pMouseInputDevice;
     /** ジョイスティックの性能 */
@@ -46,7 +49,9 @@ public:
     /** 現在アクティブなキーボード状態の表裏(0:表／1:裏) */
     static int _flip_ks;
     /** ジョイスティックの状態([0:1P/1:2P][0:表／1:裏])  */
-    static DIJOYSTATE _joy_state[2][2];
+    static DIJOYSTATE _joy_state[MAX_JOY_STICK_NUM][2];
+    /** 実際に取得できたジョイスティック数 */
+    static int _max_acquire_joy_stick_num;
     /** 現在アクティブなジョイスティック状態の表裏(0:表／1:裏) */
     static int _flip_js;
 
@@ -181,6 +186,8 @@ public:
      */
     static bool isReleasedUpKey(int prm_DIK);
 
+    static void updateAllJoystickState();
+
     /**
      * ジョイスティックの状態を更新 .
      * 結果は _joy_state に格納される。
@@ -223,7 +230,7 @@ public:
     /**
      * 押されているジョイスティックボタン番号を調べ最初の１つの結果を返す .
      * @param prm_joystic_no P1_JOY_STICK/P2_JOY_STICK
-     * @return ジョイスティックボタン番号
+     * @return ジョイスティックボタン番号(1～)
      */
     static int getFirstPushedDownJoyRgbButton(int prm_joystic_no);
 
@@ -315,31 +322,10 @@ public:
     static inline bool isPressedPovUp(int prm_joystic_no) {
         if (Input::_apJoystickInputDevice[prm_joystic_no]) { //JoyStickが無い場合、rgdwPOV[0]=0のため、上と判定されることを防ぐ
             DWORD n = _joy_state[prm_joystic_no][_flip_js].rgdwPOV[0];
-            return (LOWORD(n) != 0xFFFF && (29750 <= n || n < 7250)) ? true : false;
+            return (LOWORD(n) != 0xFFFF && ( (31500 <= n && n <= 36000) || (0 <= n && n <= 4500) ) ) ? true : false;
         } else {
             return false;
         }
-
-    }
-
-    /**
-     * ハットスイッチの下方向の状態を調べる .
-     * @param prm_joystic_no P1_JOY_STICK/P2_JOY_STICK
-     * @return true：ハットスイッチの下方向はONである／false：そうでは無い
-     */
-    static inline bool isPressedPovDown(int prm_joystic_no) {
-        DWORD n = _joy_state[prm_joystic_no][_flip_js].rgdwPOV[0];
-        return (11750 <= n && n < 24250) ? true : false;
-    }
-
-    /**
-     * ハットスイッチの左方向の状態を調べる .
-     * @param prm_joystic_no P1_JOY_STICK/P2_JOY_STICK
-     * @return true：ハットスイッチの左方向はONである／false：そうでは無い
-     */
-    static inline bool isPressedPovLeft(int prm_joystic_no) {
-        DWORD n = _joy_state[prm_joystic_no][_flip_js].rgdwPOV[0];
-        return (20750 <= n && n < 33250) ? true : false;
     }
 
     /**
@@ -349,8 +335,29 @@ public:
      */
     static inline bool isPressedPovRight(int prm_joystic_no) {
         DWORD n = _joy_state[prm_joystic_no][_flip_js].rgdwPOV[0];
-        return (2750 <= n && n < 15250) ? true : false;
+        return (LOWORD(n) != 0xFFFF && (4500 <= n && n <= 13500)) ? true : false;
     }
+    /**
+     * ハットスイッチの下方向の状態を調べる .
+     * @param prm_joystic_no P1_JOY_STICK/P2_JOY_STICK
+     * @return true：ハットスイッチの下方向はONである／false：そうでは無い
+     */
+    static inline bool isPressedPovDown(int prm_joystic_no) {
+        DWORD n = _joy_state[prm_joystic_no][_flip_js].rgdwPOV[0];
+        return (LOWORD(n) != 0xFFFF && (13500 <= n && n <= 22500)) ? true : false;
+    }
+
+    /**
+     * ハットスイッチの左方向の状態を調べる .
+     * @param prm_joystic_no P1_JOY_STICK/P2_JOY_STICK
+     * @return true：ハットスイッチの左方向はONである／false：そうでは無い
+     */
+    static inline bool isPressedPovLeft(int prm_joystic_no) {
+        DWORD n = _joy_state[prm_joystic_no][_flip_js].rgdwPOV[0];
+        return (LOWORD(n) != 0xFFFF && (22500 <= n && n <= 31500)) ? true : false;
+    }
+
+
     /**
      * ハットスイッチの押している方向のを調べる .
      * @param prm_joystic_no P1_JOY_STICK/P2_JOY_STICK

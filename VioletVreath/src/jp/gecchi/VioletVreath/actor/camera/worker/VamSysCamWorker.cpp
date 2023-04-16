@@ -670,17 +670,17 @@ void VamSysCamWorker::processBehavior() {
     coord pMyShip_y = pMyShip_->_y;
     coord pMyShip_z = pMyShip_->_z;
 
-    const bool isPressed_VB_UP    = pVbPlay->isPressed(VB_UP);
-    const bool isPressed_VB_DOWN  = pVbPlay->isPressed(VB_DOWN);
-    const bool isPressed_VB_LEFT  = pVbPlay->isPressed(VB_LEFT);
-    const bool isPressed_VB_RIGHT = pVbPlay->isPressed(VB_RIGHT);
+    const bool isPressed_VB_UP    = pVbPlay->isPressed(0, VB_UP);
+    const bool isPressed_VB_DOWN  = pVbPlay->isPressed(0, VB_DOWN);
+    const bool isPressed_VB_LEFT  = pVbPlay->isPressed(0, VB_LEFT);
+    const bool isPressed_VB_RIGHT = pVbPlay->isPressed(0, VB_RIGHT);
 
-    const bool isPressed_VB_VIEW = pVbPlay->isPressed(VB_VIEW);
-    const bool isDoublePushedDown_VB_VIEW = pVbPlay->isDoublePushedDown(VB_VIEW);
-    const bool isPressed_VB_VIEW_UP    = pVbPlay->isPressed(VB_VIEW_UP)    ||  (isPressed_VB_VIEW && isPressed_VB_UP   );
-    const bool isPressed_VB_VIEW_DOWN  = pVbPlay->isPressed(VB_VIEW_DOWN)  ||  (isPressed_VB_VIEW && isPressed_VB_DOWN );
-    const bool isPressed_VB_VIEW_LEFT  = pVbPlay->isPressed(VB_VIEW_LEFT)  ||  (isPressed_VB_VIEW && isPressed_VB_LEFT );
-    const bool isPressed_VB_VIEW_RIGHT = pVbPlay->isPressed(VB_VIEW_RIGHT) ||  (isPressed_VB_VIEW && isPressed_VB_RIGHT);
+    const bool isPressed_VB_VIEW = pVbPlay->isPressed(0, VB_VIEW);
+    const bool isDoublePushedDown_VB_VIEW = pVbPlay->isDoublePushedDown(0, VB_VIEW);
+    const bool isPressed_VB_VIEW_UP    = pVbPlay->isPressed(0, VB_VIEW_UP)    ||  (isPressed_VB_VIEW && isPressed_VB_UP   );
+    const bool isPressed_VB_VIEW_DOWN  = pVbPlay->isPressed(0, VB_VIEW_DOWN)  ||  (isPressed_VB_VIEW && isPressed_VB_DOWN );
+    const bool isPressed_VB_VIEW_LEFT  = pVbPlay->isPressed(0, VB_VIEW_LEFT)  ||  (isPressed_VB_VIEW && isPressed_VB_LEFT );
+    const bool isPressed_VB_VIEW_RIGHT = pVbPlay->isPressed(0, VB_VIEW_RIGHT) ||  (isPressed_VB_VIEW && isPressed_VB_RIGHT);
 
     if (returning_cam_pos_) {
         if (returning_cam_pos_frames_ == 0) {

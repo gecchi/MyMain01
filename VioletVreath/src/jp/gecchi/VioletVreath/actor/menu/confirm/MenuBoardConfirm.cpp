@@ -33,10 +33,10 @@ MenuBoardConfirm::MenuBoardConfirm(const char* prm_name) :
     setTransition(10, -PX_C(100), PX_C(0)); //-100px左から右へスライド
 }
 bool MenuBoardConfirm::condSelectNext() {
-    return VB->isAutoRepeat(VB_UI_RIGHT);
+    return VB->isAutoRepeat(0, VB_UI_RIGHT);
 }
 bool MenuBoardConfirm::condSelectPrev() {
-    return VB->isAutoRepeat(VB_UI_LEFT);
+    return VB->isAutoRepeat(0, VB_UI_LEFT);
 }
 bool MenuBoardConfirm::condSelectExNext() {
     return false;

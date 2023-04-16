@@ -45,6 +45,9 @@ namespace VioletVreath {
 
 #define connectToXpmManager(X) ((VioletVreath::XpmConnection*)(pCARETAKER->pXpmManager_->connect((X), this)))
 
+#define P1 0
+#define P2 1
+
 
 /**
  * ŠÇ—Ò

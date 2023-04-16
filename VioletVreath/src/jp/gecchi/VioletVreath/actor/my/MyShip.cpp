@@ -406,7 +406,7 @@ void MyShip::processBehavior() {
     if (getStatus()->get(STAT_Stamina) < 0) {
         //息切れ
     } else {
-        if (pVbPlay->isPressed(VB_OPTION)) {
+        if (pVbPlay->isPressed(0, VB_OPTION)) {
             int tmp = mv_speed_;
             mv_speed_ /= 8; //オプション操作中移動は遅い
             moveNomal();
@@ -415,7 +415,7 @@ void MyShip::processBehavior() {
             moveNomal();
         }
 
-        if (pVbPlay->isPushedDown(VB_TURBO)) {
+        if (pVbPlay->isPushedDown(0, VB_TURBO)) {
             if (pAxisVehicle->_velo_x == 0 && pAxisVehicle->_velo_y == 0 && pAxisVehicle->_velo_z == 0) {
                 //ターボ移動完全に終了しないと次のターボは実行不可
                 moveTurbo();
@@ -427,7 +427,7 @@ void MyShip::processBehavior() {
             }
         } else {
             //Notターボ開始時
-            if (pVbPlay->isPressed(VB_TURBO)) {
+            if (pVbPlay->isPressed(0, VB_TURBO)) {
                 //ターボボタンを押し続けることで、速度減衰がゆるやかになり、
                 //移動距離を伸ばす
                 pAxisVehicle->_velo_x *= 0.96;
@@ -450,7 +450,7 @@ void MyShip::processBehavior() {
             }
         }
 
-        if (pVbPlay->isDoublePushedDown(VB_OPTION,8,8) ) {
+        if (pVbPlay->isDoublePushedDown(0, VB_OPTION,8,8) ) {
             pAxisVehicle->setXYZZero(); //ターボ移動中でも停止する。（ターボキャンセル的になる！）
         }
     }
@@ -548,7 +548,7 @@ void MyShip::processBehavior() {
 
     //ショット関連処理
     is_shooting_laser_ = false;
-    if (pVbPlay->isPressed(VB_SHOT1)) {
+    if (pVbPlay->isPressed(0, VB_SHOT1)) {
         frame_shot_pressed_ ++;
         if (can_shoot_laser_) {
             if (frame_shot_pressed_ > 30) { //30フレーム押しっぱなしでレーザーへ
@@ -562,7 +562,7 @@ void MyShip::processBehavior() {
 
     //レーザー発射
     if (is_shooting_laser_) {
-        if (pVbPlay->isPressed(VB_SHOT1)) {
+        if (pVbPlay->isPressed(0, VB_SHOT1)) {
             LaserChip* pLaserChip = pLaserChipDepo_->dispatch();
             if (pLaserChip) {
                 if (pLaserChip->getInfrontChip() == nullptr) {
@@ -577,7 +577,7 @@ void MyShip::processBehavior() {
     //ソフト連射
     //１プッシュ目の初弾のみ１発のみ発射のスナイプショット。
     //２プッシュ目以降ソフト連射、１プッシュで4F毎に最大3発
-    if (pVbPlay->isPushedDown(VB_SHOT1) && !pVbPlay->isPressed(VB_POWERUP)) {
+    if (pVbPlay->isPushedDown(0, VB_SHOT1) && !pVbPlay->isPressed(0, VB_POWERUP)) {
         if (is_being_soft_rapidshot_) {
             if (soft_rapidshot_frames_in_one_push >= SOFT_RAPIDSHOT_INTERVAL) {
                 //プッシュ後のソフト連射による２発目の SOFT_RAPIDSHOT_INTERVAL フレームより次のプッシュが遅い場合
@@ -705,7 +705,7 @@ void MyShip::processBehavior() {
 
 
     //光子魚雷発射
-    if (pVbPlay->isPushedDown(VB_SHOT2)) {
+    if (pVbPlay->isPushedDown(0, VB_SHOT2)) {
         if (this->pTorpedoCtrler_->fire()) {
             getSeTransmitter()->play3D(SE_FIRE_TORPEDO);
         }
@@ -1039,10 +1039,10 @@ void MyShip::updateMoveWay() {
         }
     }
     //pa_dir8[up_idx] が上である
-    bool isPressed_VB_UP    = pVbPlay->isPressed(VB_UP);
-    bool isPressed_VB_DOWN  = pVbPlay->isPressed(VB_DOWN);
-    bool isPressed_VB_LEFT  = pVbPlay->isPressed(VB_LEFT);
-    bool isPressed_VB_RIGHT = pVbPlay->isPressed(VB_RIGHT);
+    bool isPressed_VB_UP    = pVbPlay->isPressed(0, VB_UP);
+    bool isPressed_VB_DOWN  = pVbPlay->isPressed(0, VB_DOWN);
+    bool isPressed_VB_LEFT  = pVbPlay->isPressed(0, VB_LEFT);
+    bool isPressed_VB_RIGHT = pVbPlay->isPressed(0, VB_RIGHT);
     int mv_dir = -1; //入力方向番号0~7(上から右回りの８方向)
     if (isPressed_VB_UP) {
         if (isPressed_VB_RIGHT) {

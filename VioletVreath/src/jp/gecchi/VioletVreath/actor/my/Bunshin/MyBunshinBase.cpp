@@ -141,9 +141,9 @@ void MyBunshinBase::processBehavior() {
     }
     MyShip* pMyShip = pMYSHIP;
     VirtualButton* pVbPlay = VB_PLAY;
-    const bool is_pressed_VB_OPTION = pVbPlay->isPressed(VB_OPTION);
-    const bool is_pressed_VB_TURBO  = pVbPlay->isPressed(VB_TURBO);
-    const bool is_released_up_VB_TURBO = pVbPlay->isReleasedUp(VB_TURBO);
+    const bool is_pressed_VB_OPTION = pVbPlay->isPressed(0, VB_OPTION);
+    const bool is_pressed_VB_TURBO  = pVbPlay->isPressed(0, VB_TURBO);
+    const bool is_released_up_VB_TURBO = pVbPlay->isReleasedUp(0, VB_TURBO);
     GgafCore::Phase* pPhase = getPhase();
 
     switch (pPhase->getCurrent()) {
@@ -290,13 +290,13 @@ void MyBunshinBase::processBehavior() {
 
     //オプションフリーモードへの判断
     if (is_pressed_VB_OPTION) {
-        if (pVbPlay->isDoublePushedDown(VB_TURBO)) { //VB_OPTION + VB_TURBOダブルプッシュ
+        if (pVbPlay->isDoublePushedDown(0, VB_TURBO)) { //VB_OPTION + VB_TURBOダブルプッシュ
             //分身フリーモード、点火！
             pPhase->change(PHASE_BUNSHIN_FREE_MODE_IGNITED);
         }
     }
 
-    if (pVbPlay->isDoublePushedDown(VB_OPTION, 8, 8)) {
+    if (pVbPlay->isDoublePushedDown(0, VB_OPTION, 8, 8)) {
         if (is_pressed_VB_TURBO) {
             //VB_OPTION ダブルプッシュ + VB_TURBO押しっぱなしの場合
             //ハーフセット
@@ -333,7 +333,7 @@ void MyBunshinBase::processBehavior() {
                 pMyBunshinController_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
             }
             bunshin_radius_pos_ = pMyBunshinController_->getRadiusPosition(); //標準半径位置を更新
-        } else {  //if ( pVbPlay->isPressed(VB_TURBO) )  の else
+        } else {  //if ( pVbPlay->isPressed(0, VB_TURBO) )  の else
             //分身の向き(this土台の向き)操作
             trace_mode_ = TRACE_FREEZE;
             //カメラ位置によって上下左右の操作割当を変える
@@ -341,7 +341,7 @@ void MyBunshinBase::processBehavior() {
             const double vX = pVecVehicle->_vX;
             const double vY = pVecVehicle->_vY;
             const double vZ = pVecVehicle->_vZ;
-            bool update_updown_rot_axis_timing = (pVecVehicle->isTurningMvAng() || pVbPlay->isPushedDown(VB_OPTION) || pVAM->isJustChangedPosCam());
+            bool update_updown_rot_axis_timing = (pVecVehicle->isTurningMvAng() || pVbPlay->isPushedDown(0, VB_OPTION) || pVAM->isJustChangedPosCam());
 
             //LEFT RIGHT 回転軸 = pos_up = (up_sgn_x, up_sgn_y, up_sgn_z)
             double up_vx, up_vy, up_vz;
@@ -361,28 +361,28 @@ void MyBunshinBase::processBehavior() {
             }
             if (pos_up == VAM_POS_UP) {
                 //高速
-                if (pVbPlay->isPressed(VB_LEFT)) {
+                if (pVbPlay->isPressed(0, VB_LEFT)) {
                     pVecVehicle->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
-                } else if (pVbPlay->isPressed(VB_RIGHT)) {
+                } else if (pVbPlay->isPressed(0, VB_RIGHT)) {
                     pVecVehicle->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
                 }
-                if (pVbPlay->isPressed(VB_UP)) {
+                if (pVbPlay->isPressed(0, VB_UP)) {
                     pVecVehicle->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
-                } else if (pVbPlay->isPressed(VB_DOWN)) {
+                } else if (pVbPlay->isPressed(0, VB_DOWN)) {
                     pVecVehicle->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
                 }
 
 //TODO:上以外も斜めでなければ高速でいけるのでは？
             } else {
                 //重いが仕方ない
-                if (pVbPlay->isPressed(VB_LEFT)) {
+                if (pVbPlay->isPressed(0, VB_LEFT)) {
                     addTurnAngleAroundAx2( up_vx,  up_vy,  up_vz);
-                } else if (pVbPlay->isPressed(VB_RIGHT)) {
+                } else if (pVbPlay->isPressed(0, VB_RIGHT)) {
                     addTurnAngleAroundAx2(-up_vx, -up_vy, -up_vz);
                 }
-                if (pVbPlay->isPressed(VB_UP)) {
+                if (pVbPlay->isPressed(0, VB_UP)) {
                     addTurnAngleAroundAx1( c_ax_x_,  c_ax_y_,  c_ax_z_);
-                } else if (pVbPlay->isPressed(VB_DOWN)) {
+                } else if (pVbPlay->isPressed(0, VB_DOWN)) {
                     addTurnAngleAroundAx1(-c_ax_x_, -c_ax_y_, -c_ax_z_);
                 }
             }

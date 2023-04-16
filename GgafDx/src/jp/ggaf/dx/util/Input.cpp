@@ -9,7 +9,7 @@ using namespace GgafDx;
 //const int Input::BUFFER_SIZE = 256;
 LPDIRECTINPUT8 Input::_pIDirectInput8 = nullptr;
 LPDIRECTINPUTDEVICE8 Input::_pKeyboardInputDevice = nullptr;
-LPDIRECTINPUTDEVICE8 Input::_apJoystickInputDevice[2];
+LPDIRECTINPUTDEVICE8 Input::_apJoystickInputDevice[MAX_JOY_STICK_NUM];
 LPDIRECTINPUTDEVICE8 Input::_pMouseInputDevice  = nullptr;
 DIMOUSESTATE2 Input::_di_mouse_state[2];
 int  Input::_flip_ms = 0;
@@ -17,7 +17,8 @@ int  Input::_flip_ms = 0;
 BYTE Input::_keyboard_state[2][256];
 int Input::_flip_ks = 0;
 DIDEVCAPS Input::_devcap;
-DIJOYSTATE Input::_joy_state[2][2];
+DIJOYSTATE Input::_joy_state[MAX_JOY_STICK_NUM][2];
+int Input::_max_acquire_joy_stick_num = 0;
 int Input::_flip_js = 0;
 
 Input::MouseState Input::_win_mouse_state[2];
@@ -200,6 +201,8 @@ HRESULT Input::initJoyStick() {
     Input::_apJoystickInputDevice[P1_JOY_STICK] = nullptr;
     Input::_apJoystickInputDevice[P2_JOY_STICK] = nullptr;
     Input::count_joy_stick_device_no = 0;
+    Input::_max_acquire_joy_stick_num = 0;
+
     HRESULT hr;
     // ゲームスティックを列挙してデバイスを得る
     hr = Input::_pIDirectInput8->EnumDevices(
@@ -208,61 +211,64 @@ HRESULT Input::initJoyStick() {
                                            nullptr,
                                            DIEDFL_ATTACHEDONLY
                                        );
-    if (hr != D3D_OK || Input::_apJoystickInputDevice[P1_JOY_STICK] == nullptr) {
-        _TRACE_("1P ジョイスティックが見つかりません");
-        Input::_apJoystickInputDevice[P1_JOY_STICK] = nullptr;
-        return FALSE;
-    } else {
-        _TRACE_("ジョイスティックデバイス取得");
+    for (int n = 0; n < MAX_JOY_STICK_NUM; n++) {
+        if (hr != D3D_OK || Input::_apJoystickInputDevice[n] == nullptr) {
+            _TRACE_("P"<<n+1<<" ジョイスティックが見つかりませんでした。");
+            Input::_apJoystickInputDevice[n] = nullptr;
+            continue;
+        } else {
+            _TRACE_("P"<<n+1<<" ジョイスティックは見つかりました");
+            // ゲームスティックのデータ形式を設定する
+            hr = Input::_apJoystickInputDevice[n]->SetDataFormat(&c_dfDIJoystick);
+            if (hr != D3D_OK) {
+                _TRACE_("P"<<n+1<<" ジョイスティック SetDataFormatに失敗しました");
+                GGAF_RELEASE(Input::_apJoystickInputDevice[n]);
+                Input::_apJoystickInputDevice[n] = nullptr;
+                continue;
+            }
+            // ゲームスティック協調レベルを設定する
+            hr = Input::_apJoystickInputDevice[n]->SetCooperativeLevel(
+                                                         pCARETAKER->_pHWndPrimary,
+                                                         DISCL_FOREGROUND | DISCL_NONEXCLUSIVE
+                                                     );
+            if (hr != D3D_OK) {
+                _TRACE_("P"<<n+1<<" ジョイスティック SetCooperativeLevelに失敗しました");
+                GGAF_RELEASE(Input::_apJoystickInputDevice[n]);
+                Input::_apJoystickInputDevice[n] = nullptr;
+                continue;
+            }
 
-        // ゲームスティックのデータ形式を設定する
-        hr = Input::_apJoystickInputDevice[P1_JOY_STICK]->SetDataFormat(&c_dfDIJoystick);
-        if (hr != D3D_OK) {
-            _TRACE_("ジョイスティックSetDataFormatに失敗しました");
-            return FALSE;
-        }
+            // ゲームスティックの軸データの範囲を設定する
+            hr = Input::_apJoystickInputDevice[n]->EnumObjects(
+                                                         Input::enumPadAxisCallback,
+                                                         Input::_apJoystickInputDevice[n],
+                                                         DIDFT_AXIS
+                                                     );
+            if (hr == D3D_OK) {
+                // 軸モードを設定
+                DIPROPDWORD dipropword_j;
+                dipropword_j.diph.dwSize = sizeof(dipropword_j);
+                dipropword_j.diph.dwHeaderSize = sizeof(dipropword_j.diph);
+                dipropword_j.diph.dwObj = 0;
+                dipropword_j.diph.dwHow = DIPH_DEVICE;
+                dipropword_j.dwData = DIPROPAXISMODE_ABS; // 絶対値モード
+                //  dipropword.dwData       = DIPROPAXISMODE_REL;   // 相対値モード
+                hr = Input::_apJoystickInputDevice[n]->SetProperty(DIPROP_AXISMODE, &dipropword_j.diph);
+                if (hr != D3D_OK) {
+                    _TRACE_("P"<<n+1<<" ジョイスティック 軸モードの設定に失敗 SetProperty(DIPROP_AXISMODE)");
+                }
+            } else {
+                _TRACE_("P"<<n+1<<" ジョイスティック DIDFT_AXIS EnumObjectsに失敗しました");
+            }
 
-        // ゲームスティック協調レベルを設定する
-        hr = Input::_apJoystickInputDevice[P1_JOY_STICK]->SetCooperativeLevel(
-                                                     pCARETAKER->_pHWndPrimary,
-                                                     DISCL_FOREGROUND | DISCL_NONEXCLUSIVE
-                                                 );
-        if (hr != D3D_OK) {
-            _TRACE_("ジョイスティックSetCooperativeLevelに失敗しました");
-            return FALSE;
-        }
-
-        // ゲームスティックの軸データの範囲を設定する
-        hr = Input::_apJoystickInputDevice[P1_JOY_STICK]->EnumObjects(
-                                                     Input::enumPadAxisCallback,
-                                                     nullptr,
-                                                     DIDFT_AXIS
-                                                 );
-        if (hr != D3D_OK) {
-            _TRACE_("ジョイスティックEnumObjectsに失敗しました");
-            return FALSE;
-        }
-
-        // 軸モードを設定
-        DIPROPDWORD dipropword_j;
-        dipropword_j.diph.dwSize = sizeof(dipropword_j);
-        dipropword_j.diph.dwHeaderSize = sizeof(dipropword_j.diph);
-        dipropword_j.diph.dwObj = 0;
-        dipropword_j.diph.dwHow = DIPH_DEVICE;
-        dipropword_j.dwData = DIPROPAXISMODE_ABS; // 絶対値モード
-        //  dipropword.dwData       = DIPROPAXISMODE_REL;   // 相対値モード
-        hr = Input::_apJoystickInputDevice[P1_JOY_STICK]->SetProperty(DIPROP_AXISMODE, &dipropword_j.diph);
-        if (hr != D3D_OK) {
-            _TRACE_( "軸モードの設定に失敗");
-            return FALSE;
-        }
-
-        // ゲームスティックのアクセス権を取得する
-        hr = Input::_apJoystickInputDevice[P1_JOY_STICK]->Poll();
-        if (hr != D3D_OK) {
-            do {
-                hr = Input::_apJoystickInputDevice[P1_JOY_STICK]->Acquire();
-            } while (hr == DIERR_INPUTLOST);
+            // ゲームスティックのアクセス権を取得する
+            hr = Input::_apJoystickInputDevice[n]->Poll();
+            if (hr != D3D_OK) {
+                do {
+                    hr = Input::_apJoystickInputDevice[n]->Acquire();
+                } while (hr == DIERR_INPUTLOST);
+            }
+            Input::_max_acquire_joy_stick_num ++;
         }
     }
     return D3D_OK;
@@ -294,16 +300,16 @@ BOOL CALLBACK Input::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInsta
     }
 
     //生き残ればデバイス採用
-    _TRACE_("enumGameCtrlCallback "<<count_joy_stick_device_no<<"番目のジョイスティックが見つかりました。");
+    _TRACE_("enumGameCtrlCallback ジョイスティックのデバイス番号["<<count_joy_stick_device_no<<"] "<< pDIDeviceInstance->tszInstanceName<<"/"<<pDIDeviceInstance->tszProductName<<" を発見");
     if (Input::count_joy_stick_device_no == Config::P1_JOY_STICK_DEVICE_NO) {
         Input::_apJoystickInputDevice[P1_JOY_STICK] = pJoystickInputDevice;
-        _TRACE_("enumGameCtrlCallback 1P ジョイスティックとして使用されます。理由、Config::P1_JOY_STICK_DEVICE_NO="<<Config::P1_JOY_STICK_DEVICE_NO);
+        _TRACE_("enumGameCtrlCallback デバイス番号["<<count_joy_stick_device_no<<"] を 1P ジョイスティックとして使用されます。理由、Config::P1_JOY_STICK_DEVICE_NO="<<Config::P1_JOY_STICK_DEVICE_NO);
     } else if (Input::count_joy_stick_device_no == Config::P2_JOY_STICK_DEVICE_NO) {
         Input::_apJoystickInputDevice[P2_JOY_STICK] = pJoystickInputDevice;
-        _TRACE_("enumGameCtrlCallback 2P ジョイスティックとして使用されます。理由、Config::P2_JOY_STICK_DEVICE_NO="<<Config::P2_JOY_STICK_DEVICE_NO);
+        _TRACE_("enumGameCtrlCallback デバイス番号["<<count_joy_stick_device_no<<"] を 2P ジョイスティックとして使用されます。理由、Config::P2_JOY_STICK_DEVICE_NO="<<Config::P2_JOY_STICK_DEVICE_NO);
     } else {
         pJoystickInputDevice->Release();
-        _TRACE_("enumGameCtrlCallback このジョイスティックは使用されません。理由、P1_JOY_STICK_DEVICE_NO="<<Config::P1_JOY_STICK_DEVICE_NO<<"/P2_JOY_STICK_DEVICE_NO="<<Config::P2_JOY_STICK_DEVICE_NO);
+        _TRACE_("enumGameCtrlCallback デバイス番号["<<count_joy_stick_device_no<<"] は使用されません。理由、P1_JOY_STICK_DEVICE_NO="<<Config::P1_JOY_STICK_DEVICE_NO<<"/P2_JOY_STICK_DEVICE_NO="<<Config::P2_JOY_STICK_DEVICE_NO);
 
     }
     Input::count_joy_stick_device_no++;
@@ -311,6 +317,7 @@ BOOL CALLBACK Input::enumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInsta
 }
 
 BOOL CALLBACK Input::enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef) {
+    LPDIRECTINPUTDEVICE8 pJoystickInputDevice = (LPDIRECTINPUTDEVICE8)pvRef;
     DIPROPRANGE diproprange;
     ZeroMemory( &diproprange, sizeof(diproprange) );
     diproprange.diph.dwSize = sizeof(diproprange);
@@ -319,8 +326,7 @@ BOOL CALLBACK Input::enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOI
     diproprange.diph.dwObj = lpddoi->dwType;
     diproprange.lMin = -255;
     diproprange.lMax = +255;
-
-    HRESULT hr = Input::_apJoystickInputDevice[P1_JOY_STICK]->SetProperty(DIPROP_RANGE, &diproprange.diph);
+    HRESULT hr = pJoystickInputDevice->SetProperty(DIPROP_RANGE, &diproprange.diph);
     if(hr != D3D_OK) {
         _TRACE_("enumPadAxisCallback ジョイスティックSetPropertyに失敗しました");
         return DIENUM_STOP;
@@ -528,13 +534,23 @@ bool Input::isReleasedUpKey(int prm_DIK) {
         return false;
     }
 }
-
+void Input::updateAllJoystickState() {
+    Input::_flip_js ^= 1;
+    for (int joy_stick_no = 0; joy_stick_no < MAX_JOY_STICK_NUM; joy_stick_no++) {
+        GgafDx::Input::updateJoystickState(joy_stick_no);
+    }
+}
 void Input::updateJoystickState(int prm_joystic_no) {
+
     if (Input::_apJoystickInputDevice[prm_joystic_no] == nullptr) {
+        //Input::_joy_state[prm_joystic_no][Input::_flip_js] = {0};
         return;
     }
-    Input::_flip_js ^= 1;
-    // ジョイスティックの状態を取得
+    if (prm_joystic_no+1 > Input::_max_acquire_joy_stick_num) {
+        //Input::_joy_state[prm_joystic_no][Input::_flip_js] = {0};
+        return;
+    }
+
     HRESULT hr;
 
 again1:
@@ -542,8 +558,8 @@ again1:
     if (hr != DI_OK) {
         hr = Input::_apJoystickInputDevice[prm_joystic_no]->Acquire();
         if (hr == DI_OK) {
+            //１回だけ頑張る
             goto again1;
-        } else {
         }
     }
 
@@ -555,17 +571,49 @@ again2:
     if (hr != DI_OK) {
         hr = Input::_apJoystickInputDevice[prm_joystic_no]->Acquire();
         if (hr == DI_OK) {
+            //１回だけ頑張る
             goto again2;
-        } else {
         }
     }
-
-//    _TRACE_("lX="<<Input::_joy_state[Input::_flip_js].lX);
-//    _TRACE_("lY="<<Input::_joy_state[Input::_flip_js].lY);
-//    _TRACE_("lZ="<<Input::_joy_state[Input::_flip_js].lZ);
-//    _TRACE_("lRx="<<Input::_joy_state[Input::_flip_js].lRx);
-//    _TRACE_("lRy="<<Input::_joy_state[Input::_flip_js].lRy);
-//    _TRACE_("lRz="<<Input::_joy_state[Input::_flip_js].lRz);
+    //DEBUG
+//    DIJOYSTATE& sta_dbg =  Input::_joy_state[prm_joystic_no][Input::_flip_js];
+//    _TRACE_("Input::_joy_state prm_joystic_no="<<prm_joystic_no<<"/Input::_flip_js="<<Input::_flip_js);
+//    _TRACE_("sta_dbg="<<sta_dbg.lX<<","<<sta_dbg.lY<<","<<sta_dbg.lZ<<"/"<<sta_dbg.lRx<<","<<sta_dbg.lRy<<","<<sta_dbg.lRz);
+//    _TRACE_("sta_dbg.rglSlider="<<sta_dbg.rglSlider<<",[0]="<<sta_dbg.rglSlider[0]<<",[1]="<<sta_dbg.rglSlider[1]);
+//    _TRACE_("sta_dbg.rgdwPOV="<<sta_dbg.rgdwPOV<<",[0]=0x"<<UTIL::dec2hex(sta_dbg.rgdwPOV[0])<<",[1]=0x"<<UTIL::dec2hex(sta_dbg.rgdwPOV[1])<<",[2]=0x"<<UTIL::dec2hex(sta_dbg.rgdwPOV[2])<<",[3]=0x"<<UTIL::dec2hex(sta_dbg.rgdwPOV[3]));
+//    _TRACE_("sta_dbg.rgbButtons="<<sta_dbg.rgbButtons<<
+//            ",[0]=" << (int)(sta_dbg.rgbButtons[0]  & 0x80) <<
+//            ",[1]=" << (int)(sta_dbg.rgbButtons[1]  & 0x80) <<
+//            ",[2]=" << (int)(sta_dbg.rgbButtons[2]  & 0x80) <<
+//            ",[3]=" << (int)(sta_dbg.rgbButtons[3]  & 0x80) <<
+//            ",[4]=" << (int)(sta_dbg.rgbButtons[4]  & 0x80) <<
+//            ",[5]=" << (int)(sta_dbg.rgbButtons[5]  & 0x80) <<
+//            ",[6]=" << (int)(sta_dbg.rgbButtons[6]  & 0x80) <<
+//            ",[7]=" << (int)(sta_dbg.rgbButtons[7]  & 0x80) <<
+//            ",[8]=" << (int)(sta_dbg.rgbButtons[8]  & 0x80) <<
+//            ",[9]=" << (int)(sta_dbg.rgbButtons[9]  & 0x80) <<
+//            ",[10]="<< (int)(sta_dbg.rgbButtons[10] & 0x80) <<
+//            ",[11]="<< (int)(sta_dbg.rgbButtons[11] & 0x80) <<
+//            ",[12]="<< (int)(sta_dbg.rgbButtons[12] & 0x80) <<
+//            ",[13]="<< (int)(sta_dbg.rgbButtons[13] & 0x80) <<
+//            ",[14]="<< (int)(sta_dbg.rgbButtons[14] & 0x80) <<
+//            ",[15]="<< (int)(sta_dbg.rgbButtons[15] & 0x80) <<
+//            ",[16]="<< (int)(sta_dbg.rgbButtons[16] & 0x80) <<
+//            ",[17]="<< (int)(sta_dbg.rgbButtons[17] & 0x80) <<
+//            ",[18]="<< (int)(sta_dbg.rgbButtons[18] & 0x80) <<
+//            ",[19]="<< (int)(sta_dbg.rgbButtons[19] & 0x80) <<
+//            ",[20]="<< (int)(sta_dbg.rgbButtons[20] & 0x80) <<
+//            ",[21]="<< (int)(sta_dbg.rgbButtons[21] & 0x80) <<
+//            ",[22]="<< (int)(sta_dbg.rgbButtons[22] & 0x80) <<
+//            ",[23]="<< (int)(sta_dbg.rgbButtons[23] & 0x80) <<
+//            ",[24]="<< (int)(sta_dbg.rgbButtons[24] & 0x80) <<
+//            ",[25]="<< (int)(sta_dbg.rgbButtons[25] & 0x80) <<
+//            ",[26]="<< (int)(sta_dbg.rgbButtons[26] & 0x80) <<
+//            ",[27]="<< (int)(sta_dbg.rgbButtons[27] & 0x80) <<
+//            ",[28]="<< (int)(sta_dbg.rgbButtons[28] & 0x80) <<
+//            ",[29]="<< (int)(sta_dbg.rgbButtons[29] & 0x80) <<
+//            ",[30]="<< (int)(sta_dbg.rgbButtons[30] & 0x80) <<
+//            ",[31]="<< (int)(sta_dbg.rgbButtons[31] & 0x80)  );
 }
 
 bool Input::isPushedDownJoyRgbButton(int prm_joystic_no, int prm_joy_button_no) {
@@ -625,47 +673,34 @@ int Input::getPressedJoyDirection(int prm_joystic_no) {
     }
 }
 
-
 int Input::getPressedPovDirection(int prm_joystic_no) {
     if (Input::_apJoystickInputDevice[prm_joystic_no]) { //JoyStickが無い場合、rgdwPOV[0]=0のため、上と判定されることを防ぐ
         DWORD n = Input::_joy_state[prm_joystic_no][Input::_flip_js].rgdwPOV[0];
         if (LOWORD(n) != 0xFFFF) {
-            if (n < 20750) {
-                if (n < 11750) {
-                    if (n < 2750) {
-                        return 8;         //UP
-                    } else if (n < 7250) {
-                        return 9;         //UP+RIGHT
-                    } else { //n >= 7250
-                        return 6;         //RIGHT
-                    }
-                } else { //n >= 11750
-                    if (n < 15250) {
-                        return 3;         //DOWN+RIGHT
-                    } else { //n >= 15250
-                        return 2;         //DOWN
-                    }
-                }
-            } else { //n >= 20750
-                if (n < 29750) {
-                    if (n < 24250) {
-                        return 1;         //DOWN+LEFT
-                    } else { //n >= 24250
-                        return 4;         //LEFT
-                    }
-                } else { //n >= 29750
-                    if (n < 33250) {
-                        return 7;         //UP+LEFT
-                    } else { //n >= 33250
-                        return 8;         //UP
-                    }
-                }
+            if (n == 0 ) {
+                return 8; //UP
+            } else if (n == 4500) {
+                return 9; //RIGHT+UP
+            } else if (n == 9000) {
+                return 6; //RIGHT
+            } else if (n == 13500) {
+                return 3; //RIGHT+DOWN
+            } else if (n == 18000) {
+                return 2; //DOWN
+            } else if (n == 22500) {
+                return 1; //LEFT+DOWN
+            } else if (n == 27000) {
+                return 4; //LEFT
+            } else if (n == 31500) {
+                return 7; //LEFT+UP
+            } else {
+                _TRACE_("【警告】ありえない getPressedPovDirection n="<<n);
+                return 5;
             }
         } else {
-            return 5;                     //NEUTRAL
+            return 5;
         }
     } else {
-        //ジョイスティックが刺さってない
         return 5;
     }
 }

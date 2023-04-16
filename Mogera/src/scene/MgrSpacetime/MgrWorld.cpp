@@ -33,7 +33,7 @@ void MgrWorld::initialize() {
 void MgrWorld::processBehavior() {
     VirtualButton* pVb = pCARETAKER->getSpacetime()->pVb_;
     //ワイヤフレーム表示切替
-    if (pVb->isPushedDown(VB_UI_DEBUG)) {
+    if (pVb->isPushedDown(0, VB_UI_DEBUG)) {
         if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
             pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
         } else {
@@ -42,7 +42,7 @@ void MgrWorld::processBehavior() {
     }
 
     //一時停止
-    if (pVb->isPushedDown(VB_PAUSE)) {
+    if (pVb->isPushedDown(0, VB_PAUSE)) {
         if (pTestScene_->wasPaused()) {
             pTestScene_->unpause();
         } else {
