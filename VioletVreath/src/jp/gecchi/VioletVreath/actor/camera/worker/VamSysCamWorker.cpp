@@ -665,22 +665,22 @@ void VamSysCamWorker::processBehavior() {
     if (pMyShip_ == nullptr) {
         return; //MyShipSceneシーンが未だならカメラワーク禁止
     }
-    VirtualButton* pVbPlay = VB_PLAY;
+    VirtualButton* pVbPlay = VVB_PLAY;
     coord pMyShip_x = pMyShip_->_x;
     coord pMyShip_y = pMyShip_->_y;
     coord pMyShip_z = pMyShip_->_z;
 
-    const bool isPressed_VB_UP    = pVbPlay->isPressed(0, VB_UP);
-    const bool isPressed_VB_DOWN  = pVbPlay->isPressed(0, VB_DOWN);
-    const bool isPressed_VB_LEFT  = pVbPlay->isPressed(0, VB_LEFT);
-    const bool isPressed_VB_RIGHT = pVbPlay->isPressed(0, VB_RIGHT);
+    const bool isPressed_VVB_UP    = pVbPlay->isPressed(0, VVB_UP);
+    const bool isPressed_VVB_DOWN  = pVbPlay->isPressed(0, VVB_DOWN);
+    const bool isPressed_VVB_LEFT  = pVbPlay->isPressed(0, VVB_LEFT);
+    const bool isPressed_VVB_RIGHT = pVbPlay->isPressed(0, VVB_RIGHT);
 
-    const bool isPressed_VB_VIEW = pVbPlay->isPressed(0, VB_VIEW);
-    const bool isDoublePushedDown_VB_VIEW = pVbPlay->isDoublePushedDown(0, VB_VIEW);
-    const bool isPressed_VB_VIEW_UP    = pVbPlay->isPressed(0, VB_VIEW_UP)    ||  (isPressed_VB_VIEW && isPressed_VB_UP   );
-    const bool isPressed_VB_VIEW_DOWN  = pVbPlay->isPressed(0, VB_VIEW_DOWN)  ||  (isPressed_VB_VIEW && isPressed_VB_DOWN );
-    const bool isPressed_VB_VIEW_LEFT  = pVbPlay->isPressed(0, VB_VIEW_LEFT)  ||  (isPressed_VB_VIEW && isPressed_VB_LEFT );
-    const bool isPressed_VB_VIEW_RIGHT = pVbPlay->isPressed(0, VB_VIEW_RIGHT) ||  (isPressed_VB_VIEW && isPressed_VB_RIGHT);
+    const bool isPressed_VVB_VIEW = pVbPlay->isPressed(0, VVB_VIEW);
+    const bool isDoublePushedDown_VVB_VIEW = pVbPlay->isDoublePushedDown(0, VVB_VIEW);
+    const bool isPressed_VVB_VIEW_UP    = pVbPlay->isPressed(0, VVB_VIEW_UP)    ||  (isPressed_VVB_VIEW && isPressed_VVB_UP   );
+    const bool isPressed_VVB_VIEW_DOWN  = pVbPlay->isPressed(0, VVB_VIEW_DOWN)  ||  (isPressed_VVB_VIEW && isPressed_VVB_DOWN );
+    const bool isPressed_VVB_VIEW_LEFT  = pVbPlay->isPressed(0, VVB_VIEW_LEFT)  ||  (isPressed_VVB_VIEW && isPressed_VVB_LEFT );
+    const bool isPressed_VVB_VIEW_RIGHT = pVbPlay->isPressed(0, VVB_VIEW_RIGHT) ||  (isPressed_VVB_VIEW && isPressed_VVB_RIGHT);
 
     if (returning_cam_pos_) {
         if (returning_cam_pos_frames_ == 0) {
@@ -690,7 +690,7 @@ void VamSysCamWorker::processBehavior() {
         }
     }
 
-    if (isDoublePushedDown_VB_VIEW) {
+    if (isDoublePushedDown_VVB_VIEW) {
         //プリセット位置に移動
         pSe_->play(SE_RETURNNING_CAM_POS);
         mv_t_x_vUP_  = 0;
@@ -699,19 +699,19 @@ void VamSysCamWorker::processBehavior() {
         coord mv_t_x_vCAM_from = mv_t_x_vCAM_;
         coord mv_t_y_vCAM_from = mv_t_y_vCAM_;
         coord mv_t_z_vCAM_from = mv_t_z_vCAM_;
-        if (isPressed_VB_DOWN) {
+        if (isPressed_VVB_DOWN) {
             mv_t_x_vCAM_ = -VamSysCamWorker::cam_radius_;
             mv_t_y_vCAM_ = 0;
             mv_t_z_vCAM_ = 0;
-        } else if (isPressed_VB_RIGHT) {
+        } else if (isPressed_VVB_RIGHT) {
             mv_t_x_vCAM_ = 0;
             mv_t_y_vCAM_ = 0;
             mv_t_z_vCAM_ = -VamSysCamWorker::cam_radius_;
-        } else if (isPressed_VB_LEFT) {
+        } else if (isPressed_VVB_LEFT) {
             mv_t_x_vCAM_ = 0;
             mv_t_y_vCAM_ = 0;
             mv_t_z_vCAM_ = VamSysCamWorker::cam_radius_;
-        } else if (isPressed_VB_UP) {
+        } else if (isPressed_VVB_UP) {
             mv_t_x_vCAM_ = VamSysCamWorker::cam_radius_;
             mv_t_y_vCAM_ = 0;
             mv_t_z_vCAM_ = 0;
@@ -745,36 +745,36 @@ void VamSysCamWorker::processBehavior() {
 
     //ワールド回転軸方向ベクトル、(vX_axis, vY_axis, vZ_axis) を計算 begin =======>
     if (!returning_cam_pos_ &&
-        (isPressed_VB_VIEW_UP || isPressed_VB_VIEW_DOWN || isPressed_VB_VIEW_LEFT || isPressed_VB_VIEW_RIGHT)
+        (isPressed_VVB_VIEW_UP || isPressed_VVB_VIEW_DOWN || isPressed_VVB_VIEW_LEFT || isPressed_VVB_VIEW_RIGHT)
     ) {
         double vx = 0;
         double vy = 0;
-        if (isPressed_VB_VIEW_UP) {
-            if (isPressed_VB_VIEW_LEFT) {
+        if (isPressed_VVB_VIEW_UP) {
+            if (isPressed_VVB_VIEW_LEFT) {
                 vx = 0.7071067811865475;
                 vy = -0.7071067811865475;
-            } else if (isPressed_VB_VIEW_RIGHT) {
+            } else if (isPressed_VVB_VIEW_RIGHT) {
                 vx = 0.7071067811865475;
                 vy = 0.7071067811865475;
             } else {
                 vx = 1;
                 vy = 0;
             }
-        } else if (isPressed_VB_VIEW_DOWN) {
-            if (isPressed_VB_VIEW_LEFT) {
+        } else if (isPressed_VVB_VIEW_DOWN) {
+            if (isPressed_VVB_VIEW_LEFT) {
                 vx = -0.7071067811865475;
                 vy = -0.7071067811865475;
-            } else if (isPressed_VB_VIEW_RIGHT) {
+            } else if (isPressed_VVB_VIEW_RIGHT) {
                 vx = -0.7071067811865475;
                 vy = 0.7071067811865475;
             } else {
                 vx = -1;
                 vy = 0;
             }
-        } else if (isPressed_VB_VIEW_LEFT) {
+        } else if (isPressed_VVB_VIEW_LEFT) {
             vx = 0;
             vy = -1;
-        } else if (isPressed_VB_VIEW_RIGHT) {
+        } else if (isPressed_VVB_VIEW_RIGHT) {
             vx = 0;
             vy = 1;
         }
@@ -897,7 +897,7 @@ void VamSysCamWorker::processBehavior() {
     VamSysCamWorker::cnvVec2VamSgn(mv_t_x_vCAM_, mv_t_y_vCAM_, mv_t_z_vCAM_,
                                    cam_sgn_x_, cam_sgn_y_, cam_sgn_z_);
     pos_vam_camera_ = DIR26(cam_sgn_x_, cam_sgn_y_, cam_sgn_z_); //18方向へ
-    if ((pos_vam_camera_prev_ != pos_vam_camera_) || isDoublePushedDown_VB_VIEW) {
+    if ((pos_vam_camera_prev_ != pos_vam_camera_) || isDoublePushedDown_VVB_VIEW) {
         is_just_changed_pos_vam_cam_ = true;
         //UPも更新する
         if (mv_t_x_vUP_ == 0 && mv_t_y_vUP_ == 0 && mv_t_z_vUP_ == 0) {

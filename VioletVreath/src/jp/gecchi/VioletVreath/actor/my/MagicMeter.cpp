@@ -504,18 +504,18 @@ void MagicMeter::processBehavior() {
 //    //<-----------------debug
 
     ////////////////////////魔法メーターについての処理//////////////////////////
-    VirtualButton* pVbPlay = VB_PLAY;
+    VirtualButton* pVbPlay = VVB_PLAY;
     MyShip* pMyShip = pMYSHIP;
-    if (pMyShip->canControl() && pVbPlay->isPressed(0, VB_POWERUP)) {
+    if (pMyShip->canControl() && pVbPlay->isPressed(0, VVB_POWERUP)) {
         alpha_velo_ = 0.05f;
         Magic* pActiveMagic = lstMagic_.getCurrent();     //アクティブな魔法
         int active_idx = lstMagic_.getCurrentIndex();     //アクティブな魔法のインデックス
         int active_phase = pActiveMagic->getPhase()->getCurrent();  //アクティブな魔法のフェーズ
-        if (pMyShip->canControl() && pVbPlay->isPushedDown(0, VB_POWERUP)) {
+        if (pMyShip->canControl() && pVbPlay->isPushedDown(0, VVB_POWERUP)) {
             rollOpen(active_idx);
         }
 
-        if (pVbPlay->isAutoRepeat(0, VB_RIGHT)) {    //「→」押下時
+        if (pVbPlay->isAutoRepeat(0, VVB_RIGHT)) {    //「→」押下時
             //レベル表示
             if (active_phase == Magic::PHASE_CASTING) {
                 if (papLvTgtMvCur_[active_idx]->point_lv_ != papLvCastingCur_[active_idx]->point_lv_) {
@@ -539,7 +539,7 @@ void MagicMeter::processBehavior() {
             pMainCur_->moveTo(active_idx); //メーターカーソルも１つ進める
             getSeTransmitter()->play(SE_CURSOR_MOVE_METER);
 
-        } else if (pVbPlay->isAutoRepeat(0, VB_LEFT)) { //「←」押下時
+        } else if (pVbPlay->isAutoRepeat(0, VVB_LEFT)) { //「←」押下時
             //レベル表示
             if (active_phase == Magic::PHASE_CASTING) {
                 if (papLvTgtMvCur_[active_idx]->point_lv_ != papLvCastingCur_[active_idx]->point_lv_) {
@@ -563,13 +563,13 @@ void MagicMeter::processBehavior() {
             pMainCur_->moveTo(active_idx); //メーターカーソルも１つ戻す
             getSeTransmitter()->play(SE_CURSOR_MOVE_METER);
 
-        } else if (pVbPlay->isAutoRepeat(0, VB_UP) ) {  // 「↑」押下時
+        } else if (pVbPlay->isAutoRepeat(0, VVB_UP) ) {  // 「↑」押下時
             if (pActiveMagic->max_level_ > papLvTgtMvCur_[active_idx]->point_lv_) {
                 getSeTransmitter()->play(SE_CURSOR_MOVE_LEVEL);
                 papLvTgtMvCur_[active_idx]->moveSmoothTo(papLvTgtMvCur_[active_idx]->point_lv_ + 1);
             }
 
-        } else if (pVbPlay->isAutoRepeat(0, VB_DOWN)) {  //「↓」押下時
+        } else if (pVbPlay->isAutoRepeat(0, VVB_DOWN)) {  //「↓」押下時
             if (0 < papLvTgtMvCur_[active_idx]->point_lv_) {
                 getSeTransmitter()->play(SE_CURSOR_MOVE_LEVEL);
                 papLvTgtMvCur_[active_idx]->moveSmoothTo(papLvTgtMvCur_[active_idx]->point_lv_ - 1);
@@ -629,7 +629,7 @@ void MagicMeter::processBehavior() {
         }
 
         //「決定」時
-        if (pVbPlay->isPushedDown(0, VB_SHOT1) || pVbPlay->isPushedDown(0, VB_SHOT2) || pVbPlay->isPushedDown(0, VB_TURBO)) {
+        if (pVbPlay->isPushedDown(0, VVB_SHOT1) || pVbPlay->isPushedDown(0, VVB_SHOT2) || pVbPlay->isPushedDown(0, VVB_TURBO)) {
             int r = pActiveMagic->cast(papLvTgtMvCur_[active_idx]->point_lv_);
             switch (r) {
                 case MAGIC_CAST_NG_INVOKING_NOW: {
@@ -644,7 +644,7 @@ void MagicMeter::processBehavior() {
         }
     } else  {
         alpha_velo_ = -0.02f;
-        if (!pMyShip->canControl() || pVbPlay->isReleasedUp(0, VB_POWERUP)) {
+        if (!pMyShip->canControl() || pVbPlay->isReleasedUp(0, VVB_POWERUP)) {
             rollClose(lstMagic_.getCurrentIndex());
         }
         pMpCostDispBar_->setVal(0);

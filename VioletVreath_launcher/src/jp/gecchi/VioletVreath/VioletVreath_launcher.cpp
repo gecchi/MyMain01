@@ -219,11 +219,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         std::string message = "\n・"+e.getMsg()+"  \n\nエラーにお心あたりが無い場合、本アプリのバグの可能性が高いです。\n誠に申し訳ございません。\n";
         std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(nullptr, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
-        if (VB_PLAY) {
-            VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_ggaf_Exception.rep");
+        if (VVB_PLAY) {
+            VVB_PLAY->_pRpy->outputFile("VVB_PLAY_LAST_ggaf_Exception.rep");
         }
-        if (VB_UI) {
-            VB_UI->_pRpy->outputFile("VB_UI_LAST_ggaf_Exception.rep");
+        if (VVB_UI) {
+            VVB_UI->_pRpy->outputFile("VVB_UI_LAST_ggaf_Exception.rep");
         }
         _TRACE_("[GgafCore::CriticalException]:"<<e.getMsg());
         return EXIT_FAILURE;
@@ -234,8 +234,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(nullptr, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         _TRACE_("[exception]:"<<what);
-        VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_exception.rep");
-        VB_UI->_pRpy->outputFile("VB_UI_LAST_exception.rep");
+        VVB_PLAY->_pRpy->outputFile("VVB_PLAY_LAST_exception.rep");
+        VVB_UI->_pRpy->outputFile("VVB_UI_LAST_exception.rep");
         return EXIT_FAILURE;
     }
 #endif
@@ -246,8 +246,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 //        std::string message = "恐れ入りますが、不明な内部エラーが発生しました。\n誠に申し訳ございません。\n";
 //        std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
 //        MessageBox(nullptr, message_dialog.c_str(),"下記の致命的な謎例外が発生してしまいました", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
-//        VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_UNKNOWN_ERROR.rep");
-//        VB_UI->_pRpy->outputFile("VB_UI_LAST_UNKNOWN_ERROR.rep");
+//        VVB_PLAY->_pRpy->outputFile("VVB_PLAY_LAST_UNKNOWN_ERROR.rep");
+//        VVB_UI->_pRpy->outputFile("VVB_UI_LAST_UNKNOWN_ERROR.rep");
 //        return EXIT_FAILURE;
 //    }
 //#endif
@@ -263,16 +263,16 @@ int main(int argc, char *argv[]) {
 void myUnexpectedHandler() {
     //MessageBox(nullptr, "UnexpectedHandler was called.","ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
     _TRACE_("ERROR. UnexpectedHandler was called.");
-    VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Unexpected.rep");
-    VB_UI->_pRpy->outputFile("VB_UI_LAST_Unexpected.rep");
+    VVB_PLAY->_pRpy->outputFile("VVB_PLAY_LAST_Unexpected.rep");
+    VVB_UI->_pRpy->outputFile("VVB_UI_LAST_Unexpected.rep");
     std::unexpected();
 }
 
 void myTerminateHandler() {
     //MessageBox(nullptr, "TerminateHandler was called.","ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
     _TRACE_("ERROR. TerminateHandler was called.");
-    VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Terminate.rep");
-    VB_UI->_pRpy->outputFile("VB_UI_LAST_Terminate.rep");
+    VVB_PLAY->_pRpy->outputFile("VVB_PLAY_LAST_Terminate.rep");
+    VVB_UI->_pRpy->outputFile("VVB_UI_LAST_Terminate.rep");
     std::terminate();
 }
 

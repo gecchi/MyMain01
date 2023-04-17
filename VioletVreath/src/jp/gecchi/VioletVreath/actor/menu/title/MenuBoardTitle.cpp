@@ -69,10 +69,10 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     addSubMenu(pNameEntryBoard);       //MENU_NAME_ENTRY,
 }
 bool MenuBoardTitle::condSelectNext() {
-    return VB->isAutoRepeat(0, VB_UI_DOWN);
+    return VVB->isAutoRepeat(0, VVB_UI_DOWN);
 }
 bool MenuBoardTitle::condSelectPrev() {
-    return VB->isAutoRepeat(0, VB_UI_UP);
+    return VVB->isAutoRepeat(0, VVB_UI_UP);
 }
 bool MenuBoardTitle::condSelectExNext() {
     return false;

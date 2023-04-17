@@ -1251,12 +1251,19 @@ void VirtualButton::update() {
         }
     }
     //’Êí‘€ì
-    vb_sta vb_state[MAX_JOY_STICK_NUM];
+//    vb_sta vb_state[MAX_JOY_STICK_NUM];
+    vb_sta* vb_state = _pVBRecord_active->_vb_state;
     vb_state[0] = 0;
     vb_state[1] = 0;
     const VbkKeyboard& kmap = _vbk_keyboardmap;
 
     BYTE* kst = GgafDx::Input::_keyboard_state[GgafDx::Input::_flip_ks];
+
+//    vb_state[0] |= (kst[kmap.P1_BUTTON1] & 0x80) == 0x80);
+//    vb_state[0] =<< 1;
+
+
+
     vb_state[0] |= ( VB_BUTTON1    *  ((kst[kmap.P1_BUTTON1] & 0x80)    == 0x80) );
     vb_state[0] |= ( VB_BUTTON2    *  ((kst[kmap.P1_BUTTON2] & 0x80)    == 0x80) );
     vb_state[0] |= ( VB_BUTTON3    *  ((kst[kmap.P1_BUTTON3] & 0x80)    == 0x80) );
@@ -1339,7 +1346,7 @@ void VirtualButton::update() {
     vb_state[1] |= ( VB_UI_SERVICE *  ((kst[kmap.P2_UI_SERVICE] & 0x80) == 0x80) );
     vb_state[1] |= ( VB_UI_TEST    *  ((kst[kmap.P2_UI_TEST   ] & 0x80) == 0x80) );
 
-    for (int p = 0; p < MAX_JOY_STICK_NUM; p++) {
+    for (int p = 0; p < GgafDx::Input::_max_acquire_joy_stick_num; p++) {
         if (GgafDx::Input::_apJoystickInputDevice[p]) {
             const VbjJoystick& jmap = _vbj_joystickmap[p];
             vb_state[p] |= (VB_BUTTON1  * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON1));
@@ -1404,9 +1411,9 @@ void VirtualButton::update() {
             vb_state[p] |= (VB_UI_TEST    * VirtualButton::isPressedVirtualJoyButton(jmap.UI_TEST   ));
         }
     }
-    for (int p = 0; p < MAX_JOY_STICK_NUM; p++) {
-        _pVBRecord_active->_vb_state[p] = vb_state[p];
-    }
+//    for (int p = 0; p < GgafDx::Input::_max_acquire_joy_stick_num; p++) {
+//        _pVBRecord_active->_vb_state[p] = vb_state[p];
+//    }
     _pRpy->write(_pVBRecord_active->_vb_state); //ƒŠƒvƒŒƒCî•ñ‹L˜^
     //TODO:DEBUG
     //printDebugState();

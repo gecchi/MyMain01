@@ -87,7 +87,7 @@ private:
     /**
      * 本体の軸回転 .
      * 回転角度は MyBunshinBase::ANGVELO_TURN
-     * VB_UP,VB_DOWN 時の分身の回転軸ベクトル(c_ax_x_, c_ax_y_, c_ax_z_) も、一緒に軸回転させる。
+     * VVB_UP,VVB_DOWN 時の分身の回転軸ベクトル(c_ax_x_, c_ax_y_, c_ax_z_) も、一緒に軸回転させる。
      * @param prm_ax_x 回転軸ベクトルX軸要素
      * @param prm_ax_y 回転軸ベクトルY軸要素
      * @param prm_ax_z 回転軸ベクトルZ軸要素

@@ -199,7 +199,7 @@ void MyBunshin::processChangeGeoFinal() {
     }
      //絶対座標計算後
     MyShip* const pMyShip = pMYSHIP;
-    const VirtualButton* pVbPlay = VB_PLAY;
+    const VirtualButton* pVbPlay = VVB_PLAY;
 
 
     //!! -->
@@ -251,7 +251,7 @@ void MyBunshin::processChangeGeoFinal() {
                 }
             }
         }
-        if (pMyShip->is_shooting_laser_ && pVbPlay->isPressed(0, VB_SHOT1)) {
+        if (pMyShip->is_shooting_laser_ && pVbPlay->isPressed(0, VVB_SHOT1)) {
             if (_laser_kind == LASER_KOANYA) {
                 //レーザー発射。
                 MyBunshinWateringLaserChip001* pLaserChip = (MyBunshinWateringLaserChip001*)pLaserChipDepo_->dispatch();
@@ -276,7 +276,7 @@ void MyBunshin::processChangeGeoFinal() {
         }
 
         //光子魚雷発射
-        if (pVbPlay->isPushedDown(0, VB_SHOT2)) {
+        if (pVbPlay->isPushedDown(0, VVB_SHOT2)) {
             if (pTorpedoCtrler_->fire()) {
                 getSeTransmitter()->play3D(SE_FIRE_TORPEDO);
             }

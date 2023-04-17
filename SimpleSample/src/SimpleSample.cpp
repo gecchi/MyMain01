@@ -40,7 +40,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
  * GCC のエントリポイント
  */
 int main(int argc, char *argv[]) {
-    return CALL_WinMain(); //このマクロを記述して WinMain() を実行呼び出してください。
+    return CALL_WinMain(); //このマクロを記述して WinMain() を呼び出してください。
 }
 
 /**

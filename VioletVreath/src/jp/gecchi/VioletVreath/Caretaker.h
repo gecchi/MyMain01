@@ -18,24 +18,24 @@
 namespace VioletVreath {
 
 /** ゲーム時のVirtualButton */
-#define VB_PLAY VioletVreath::Caretaker::pVbtn_PLAY_
+#define VVB_PLAY VioletVreath::Caretaker::pVbtn_PLAY_
 /** UI操作時のVirtualButton */
-#define VB_UI VioletVreath::Caretaker::pVbtn_UI_
-/** VB_PLAY or VB_UI のどちらかで、アクティブな方のVirtualButton */
-#define VB VioletVreath::Caretaker::pVbtn_active_
+#define VVB_UI VioletVreath::Caretaker::pVbtn_UI_
+/** VVB_PLAY or VVB_UI のどちらかで、アクティブな方のVirtualButton */
+#define VVB VioletVreath::Caretaker::pVbtn_active_
 
 /** ゲームプレイのリプレイ再生用読み込みファイル */
-#define FILE_INPUT_PLAY_REPLAY    "VB_PLAY.rep"
+#define FILE_INPUT_PLAY_REPLAY    "VVB_PLAY.rep"
 /** UI操作のリプレイ再生用読み込みファイル */
-#define FILE_INPUT_UI_REPLAY      "VB_UI.rep"
+#define FILE_INPUT_UI_REPLAY      "VVB_UI.rep"
 /** ゲームプレイのリプレイ書き出しファイル */
-#define FILE_OUTPUT_PLAY_REPLAY   "VB_PLAY_LAST.rep"
+#define FILE_OUTPUT_PLAY_REPLAY   "VVB_PLAY_LAST.rep"
 /** UI操作のリプレイ書き出しファイル */
-#define FILE_OUTPUT_UI_REPLAY     "VB_UI_LAST.rep"
+#define FILE_OUTPUT_UI_REPLAY     "VVB_UI_LAST.rep"
 /** ゲームプレイのリプレイ書き出しファイル（デバッグ用逐次書き出し） */
-#define FILE_REALTIME_OUTPUT_PLAY_REPLAY   "VB_PLAY_LAST_REALTIME.rep"
+#define FILE_REALTIME_OUTPUT_PLAY_REPLAY   "VVB_PLAY_LAST_REALTIME.rep"
 /** UI操作のリプレイ書き出しファイル（デバッグ用逐次書き出し） */
-#define FILE_REALTIME_OUTPUT_UI_REPLAY     "VB_UI_LAST_REALTIME.rep"
+#define FILE_REALTIME_OUTPUT_UI_REPLAY     "VVB_UI_LAST_REALTIME.rep"
 
 /**
  * 管理者が保持する DepositoryManager に接続し、コネクションを取得。
@@ -78,13 +78,13 @@ public:
 
     /**
      * VBを更新を予約する。 .
-     * @param prm_pVB
+     * @param prm_pVVB
      */
-    void setVB(GgafLib::VirtualButton* prm_pVB) {
-        if (pVbtn_active_ != prm_pVB) {
+    void setVB(GgafLib::VirtualButton* prm_pVVB) {
+        if (pVbtn_active_ != prm_pVVB) {
             //VBのセットが切り替わる
         }
-        pVbtn_active_next_frame_ = prm_pVB;
+        pVbtn_active_next_frame_ = prm_pVVB;
     }
 
     /**

@@ -85,14 +85,14 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
 }
 bool MenuBoardKeyConfig::condSelectNext() {
     if (input_mode_ == 0) {
-        return VB->isAutoRepeat(0, VB_UI_DOWN);
+        return VVB->isAutoRepeat(0, VVB_UI_DOWN);
     } else {
         return false;
     }
 }
 bool MenuBoardKeyConfig::condSelectPrev() {
     if (input_mode_ == 0) {
-        return VB->isAutoRepeat(0, VB_UI_UP);
+        return VVB->isAutoRepeat(0, VVB_UI_UP);
     } else {
         return false;
     }
@@ -101,37 +101,37 @@ void MenuBoardKeyConfig::onRise() {
 
     selectItem(ITEM_UP); //カーソルの初期選択アイテムを設定
     //リセット
-    paVBConfig[ITEM_UP        ].pKey->update(CONFIG::MY_KEY_UP        .c_str());
-    paVBConfig[ITEM_DOWN      ].pKey->update(CONFIG::MY_KEY_DOWN      .c_str());
-    paVBConfig[ITEM_LEFT      ].pKey->update(CONFIG::MY_KEY_LEFT      .c_str());
-    paVBConfig[ITEM_RIGHT     ].pKey->update(CONFIG::MY_KEY_RIGHT     .c_str());
-    paVBConfig[ITEM_VIEW_UP   ].pKey->update(CONFIG::MY_KEY_VIEW_UP   .c_str());
-    paVBConfig[ITEM_VIEW_DOWN ].pKey->update(CONFIG::MY_KEY_VIEW_DOWN .c_str());
-    paVBConfig[ITEM_VIEW_LEFT ].pKey->update(CONFIG::MY_KEY_VIEW_LEFT .c_str());
-    paVBConfig[ITEM_VIEW_RIGHT].pKey->update(CONFIG::MY_KEY_VIEW_RIGHT.c_str());
-    paVBConfig[ITEM_MAIN_SHOT ].pKey->update(CONFIG::MY_KEY_SHOT1     .c_str());
-    paVBConfig[ITEM_SUB_SHOT  ].pKey->update(CONFIG::MY_KEY_SHOT2     .c_str());
-    paVBConfig[ITEM_TURBO     ].pKey->update(CONFIG::MY_KEY_TURBO     .c_str());
-    paVBConfig[ITEM_CONTROLL  ].pKey->update(CONFIG::MY_KEY_OPTION    .c_str());
-    paVBConfig[ITEM_MAGIC     ].pKey->update(CONFIG::MY_KEY_POWERUP   .c_str());
-//    paVBConfig[ITEM_VAM       ].pKey->update(CONFIG::MY_KEY_VIEW      .c_str());
-    paVBConfig[ITEM_PAUSE     ].pKey->update(CONFIG::MY_KEY_PAUSE     .c_str());
+    paVBConfig[ITEM_UP        ].pKey->update(CONFIG::VV_KEY_UP        .c_str());
+    paVBConfig[ITEM_DOWN      ].pKey->update(CONFIG::VV_KEY_DOWN      .c_str());
+    paVBConfig[ITEM_LEFT      ].pKey->update(CONFIG::VV_KEY_LEFT      .c_str());
+    paVBConfig[ITEM_RIGHT     ].pKey->update(CONFIG::VV_KEY_RIGHT     .c_str());
+    paVBConfig[ITEM_VIEW_UP   ].pKey->update(CONFIG::VV_KEY_VIEW_UP   .c_str());
+    paVBConfig[ITEM_VIEW_DOWN ].pKey->update(CONFIG::VV_KEY_VIEW_DOWN .c_str());
+    paVBConfig[ITEM_VIEW_LEFT ].pKey->update(CONFIG::VV_KEY_VIEW_LEFT .c_str());
+    paVBConfig[ITEM_VIEW_RIGHT].pKey->update(CONFIG::VV_KEY_VIEW_RIGHT.c_str());
+    paVBConfig[ITEM_MAIN_SHOT ].pKey->update(CONFIG::VV_KEY_SHOT1     .c_str());
+    paVBConfig[ITEM_SUB_SHOT  ].pKey->update(CONFIG::VV_KEY_SHOT2     .c_str());
+    paVBConfig[ITEM_TURBO     ].pKey->update(CONFIG::VV_KEY_TURBO     .c_str());
+    paVBConfig[ITEM_CONTROLL  ].pKey->update(CONFIG::VV_KEY_OPTION    .c_str());
+    paVBConfig[ITEM_MAGIC     ].pKey->update(CONFIG::VV_KEY_POWERUP   .c_str());
+//    paVBConfig[ITEM_VAM       ].pKey->update(CONFIG::VV_KEY_VIEW      .c_str());
+    paVBConfig[ITEM_PAUSE     ].pKey->update(CONFIG::VV_KEY_PAUSE     .c_str());
 
-    paVBConfig[ITEM_UP        ].pJoy->update(CONFIG::MY_JOY_UP        .c_str());
-    paVBConfig[ITEM_DOWN      ].pJoy->update(CONFIG::MY_JOY_DOWN      .c_str());
-    paVBConfig[ITEM_LEFT      ].pJoy->update(CONFIG::MY_JOY_LEFT      .c_str());
-    paVBConfig[ITEM_RIGHT     ].pJoy->update(CONFIG::MY_JOY_RIGHT     .c_str());
-    paVBConfig[ITEM_VIEW_UP   ].pJoy->update(CONFIG::MY_JOY_VIEW_UP   .c_str());
-    paVBConfig[ITEM_VIEW_DOWN ].pJoy->update(CONFIG::MY_JOY_VIEW_DOWN .c_str());
-    paVBConfig[ITEM_VIEW_LEFT ].pJoy->update(CONFIG::MY_JOY_VIEW_LEFT .c_str());
-    paVBConfig[ITEM_VIEW_RIGHT].pJoy->update(CONFIG::MY_JOY_VIEW_RIGHT.c_str());
-    paVBConfig[ITEM_MAIN_SHOT ].pJoy->update(CONFIG::MY_JOY_SHOT1     .c_str());
-    paVBConfig[ITEM_SUB_SHOT  ].pJoy->update(CONFIG::MY_JOY_SHOT2     .c_str());
-    paVBConfig[ITEM_TURBO     ].pJoy->update(CONFIG::MY_JOY_TURBO     .c_str());
-    paVBConfig[ITEM_CONTROLL  ].pJoy->update(CONFIG::MY_JOY_OPTION    .c_str());
-    paVBConfig[ITEM_MAGIC     ].pJoy->update(CONFIG::MY_JOY_POWERUP   .c_str());
-//    paVBConfig[ITEM_VAM       ].pJoy->update(CONFIG::MY_JOY_VIEW      .c_str());
-    paVBConfig[ITEM_PAUSE     ].pJoy->update(CONFIG::MY_JOY_PAUSE     .c_str());
+    paVBConfig[ITEM_UP        ].pJoy->update(CONFIG::VV_JOY_UP        .c_str());
+    paVBConfig[ITEM_DOWN      ].pJoy->update(CONFIG::VV_JOY_DOWN      .c_str());
+    paVBConfig[ITEM_LEFT      ].pJoy->update(CONFIG::VV_JOY_LEFT      .c_str());
+    paVBConfig[ITEM_RIGHT     ].pJoy->update(CONFIG::VV_JOY_RIGHT     .c_str());
+    paVBConfig[ITEM_VIEW_UP   ].pJoy->update(CONFIG::VV_JOY_VIEW_UP   .c_str());
+    paVBConfig[ITEM_VIEW_DOWN ].pJoy->update(CONFIG::VV_JOY_VIEW_DOWN .c_str());
+    paVBConfig[ITEM_VIEW_LEFT ].pJoy->update(CONFIG::VV_JOY_VIEW_LEFT .c_str());
+    paVBConfig[ITEM_VIEW_RIGHT].pJoy->update(CONFIG::VV_JOY_VIEW_RIGHT.c_str());
+    paVBConfig[ITEM_MAIN_SHOT ].pJoy->update(CONFIG::VV_JOY_SHOT1     .c_str());
+    paVBConfig[ITEM_SUB_SHOT  ].pJoy->update(CONFIG::VV_JOY_SHOT2     .c_str());
+    paVBConfig[ITEM_TURBO     ].pJoy->update(CONFIG::VV_JOY_TURBO     .c_str());
+    paVBConfig[ITEM_CONTROLL  ].pJoy->update(CONFIG::VV_JOY_OPTION    .c_str());
+    paVBConfig[ITEM_MAGIC     ].pJoy->update(CONFIG::VV_JOY_POWERUP   .c_str());
+//    paVBConfig[ITEM_VAM       ].pJoy->update(CONFIG::VV_JOY_VIEW      .c_str());
+    paVBConfig[ITEM_PAUSE     ].pJoy->update(CONFIG::VV_JOY_PAUSE     .c_str());
 
     MenuBoard::onRise();
 
@@ -150,37 +150,37 @@ void MenuBoardKeyConfig::processBehavior() {
     MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu();
     if (pSubConfirm->hasJustDecidedOk()) {
         //現プロパティをファイルに保存
-        CONFIG::_properties.setValue("MY_KEY_UP"        , paVBConfig[ITEM_UP        ].pKey->getDrawString());
-        CONFIG::_properties.setValue("MY_KEY_DOWN"      , paVBConfig[ITEM_DOWN      ].pKey->getDrawString());
-        CONFIG::_properties.setValue("MY_KEY_LEFT"      , paVBConfig[ITEM_LEFT      ].pKey->getDrawString());
-        CONFIG::_properties.setValue("MY_KEY_RIGHT"     , paVBConfig[ITEM_RIGHT     ].pKey->getDrawString());
-        CONFIG::_properties.setValue("MY_KEY_VIEW_UP"   , paVBConfig[ITEM_VIEW_UP   ].pKey->getDrawString());
-        CONFIG::_properties.setValue("MY_KEY_VIEW_DOWN" , paVBConfig[ITEM_VIEW_DOWN ].pKey->getDrawString());
-        CONFIG::_properties.setValue("MY_KEY_VIEW_LEFT" , paVBConfig[ITEM_VIEW_LEFT ].pKey->getDrawString());
-        CONFIG::_properties.setValue("MY_KEY_VIEW_RIGHT", paVBConfig[ITEM_VIEW_RIGHT].pKey->getDrawString());
-        CONFIG::_properties.setValue("MY_KEY_SHOT1"     , paVBConfig[ITEM_MAIN_SHOT ].pKey->getDrawString());
-        CONFIG::_properties.setValue("MY_KEY_SHOT2"     , paVBConfig[ITEM_SUB_SHOT  ].pKey->getDrawString());
-        CONFIG::_properties.setValue("MY_KEY_TURBO"     , paVBConfig[ITEM_TURBO     ].pKey->getDrawString());
-        CONFIG::_properties.setValue("MY_KEY_OPTION"    , paVBConfig[ITEM_CONTROLL  ].pKey->getDrawString());
-        CONFIG::_properties.setValue("MY_KEY_POWERUP"   , paVBConfig[ITEM_MAGIC     ].pKey->getDrawString());
-//        CONFIG::_properties.setValue("MY_KEY_VIEW"      , paVBConfig[ITEM_VAM       ].pKey->getDrawString());
-        CONFIG::_properties.setValue("MY_KEY_PAUSE"     , paVBConfig[ITEM_PAUSE     ].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_UP"        , paVBConfig[ITEM_UP        ].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_DOWN"      , paVBConfig[ITEM_DOWN      ].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_LEFT"      , paVBConfig[ITEM_LEFT      ].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_RIGHT"     , paVBConfig[ITEM_RIGHT     ].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_VIEW_UP"   , paVBConfig[ITEM_VIEW_UP   ].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_VIEW_DOWN" , paVBConfig[ITEM_VIEW_DOWN ].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_VIEW_LEFT" , paVBConfig[ITEM_VIEW_LEFT ].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_VIEW_RIGHT", paVBConfig[ITEM_VIEW_RIGHT].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_SHOT1"     , paVBConfig[ITEM_MAIN_SHOT ].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_SHOT2"     , paVBConfig[ITEM_SUB_SHOT  ].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_TURBO"     , paVBConfig[ITEM_TURBO     ].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_OPTION"    , paVBConfig[ITEM_CONTROLL  ].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_POWERUP"   , paVBConfig[ITEM_MAGIC     ].pKey->getDrawString());
+//        CONFIG::_properties.setValue("VV_KEY_VIEW"      , paVBConfig[ITEM_VAM       ].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_PAUSE"     , paVBConfig[ITEM_PAUSE     ].pKey->getDrawString());
 
-        CONFIG::_properties.setValue("MY_JOY_UP"        , paVBConfig[ITEM_UP        ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("MY_JOY_DOWN"      , paVBConfig[ITEM_DOWN      ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("MY_JOY_LEFT"      , paVBConfig[ITEM_LEFT      ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("MY_JOY_RIGHT"     , paVBConfig[ITEM_RIGHT     ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("MY_JOY_VIEW_UP"   , paVBConfig[ITEM_VIEW_UP   ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("MY_JOY_VIEW_DOWN" , paVBConfig[ITEM_VIEW_DOWN ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("MY_JOY_VIEW_LEFT" , paVBConfig[ITEM_VIEW_LEFT ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("MY_JOY_VIEW_RIGHT", paVBConfig[ITEM_VIEW_RIGHT].pJoy->getDrawString());
-        CONFIG::_properties.setValue("MY_JOY_SHOT1"     , paVBConfig[ITEM_MAIN_SHOT ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("MY_JOY_SHOT2"     , paVBConfig[ITEM_SUB_SHOT  ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("MY_JOY_TURBO"     , paVBConfig[ITEM_TURBO     ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("MY_JOY_OPTION"    , paVBConfig[ITEM_CONTROLL  ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("MY_JOY_POWERUP"   , paVBConfig[ITEM_MAGIC     ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("MY_JOY_VIEW"      , paVBConfig[ITEM_VAM       ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("MY_JOY_PAUSE"     , paVBConfig[ITEM_PAUSE     ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_UP"        , paVBConfig[ITEM_UP        ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_DOWN"      , paVBConfig[ITEM_DOWN      ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_LEFT"      , paVBConfig[ITEM_LEFT      ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_RIGHT"     , paVBConfig[ITEM_RIGHT     ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_VIEW_UP"   , paVBConfig[ITEM_VIEW_UP   ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_VIEW_DOWN" , paVBConfig[ITEM_VIEW_DOWN ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_VIEW_LEFT" , paVBConfig[ITEM_VIEW_LEFT ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_VIEW_RIGHT", paVBConfig[ITEM_VIEW_RIGHT].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_SHOT1"     , paVBConfig[ITEM_MAIN_SHOT ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_SHOT2"     , paVBConfig[ITEM_SUB_SHOT  ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_TURBO"     , paVBConfig[ITEM_TURBO     ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_OPTION"    , paVBConfig[ITEM_CONTROLL  ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_POWERUP"   , paVBConfig[ITEM_MAGIC     ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_VIEW"      , paVBConfig[ITEM_VAM       ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_PAUSE"     , paVBConfig[ITEM_PAUSE     ].pJoy->getDrawString());
         CONFIG::_properties.write(CONFIG::_load_properties_filename);
         CONFIG::loadProperties(CONFIG::_load_properties_filename); //再反映
         //実行中アプリへも反映
@@ -201,7 +201,7 @@ void MenuBoardKeyConfig::processBehavior() {
 
     if (input_mode_ == 1) {
         int index = getSelectedIndex();
-        if (VB_UI->isPushedDown(0, VB_UI_CANCEL)) {
+        if (VVB_UI->isPushedDown(0, VVB_UI_CANCEL)) {
             input_mode_ = 0;
             paVBConfig[index].pKey->getAlphaFader()->transitionLinearToTop(5);
             paVBConfig[index].pJoy->getAlphaFader()->transitionLinearToTop(5);

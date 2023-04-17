@@ -140,10 +140,10 @@ void MyBunshinBase::processBehavior() {
         return;
     }
     MyShip* pMyShip = pMYSHIP;
-    VirtualButton* pVbPlay = VB_PLAY;
-    const bool is_pressed_VB_OPTION = pVbPlay->isPressed(0, VB_OPTION);
-    const bool is_pressed_VB_TURBO  = pVbPlay->isPressed(0, VB_TURBO);
-    const bool is_released_up_VB_TURBO = pVbPlay->isReleasedUp(0, VB_TURBO);
+    VirtualButton* pVbPlay = VVB_PLAY;
+    const bool is_pressed_VVB_OPTION = pVbPlay->isPressed(0, VVB_OPTION);
+    const bool is_pressed_VVB_TURBO  = pVbPlay->isPressed(0, VVB_TURBO);
+    const bool is_released_up_VVB_TURBO = pVbPlay->isReleasedUp(0, VVB_TURBO);
     GgafCore::Phase* pPhase = getPhase();
 
     switch (pPhase->getCurrent()) {
@@ -157,7 +157,7 @@ void MyBunshinBase::processBehavior() {
             }
             //初期位置から２０フレーム以内の動きは、TRACE_TWINBEEによって初期位置を維持させる
             if (pMyShip->is_move_) {
-                if (is_pressed_VB_OPTION) {
+                if (is_pressed_VVB_OPTION) {
                     moving_frames_since_default_pos_ = 0;
                 } else {
                     moving_frames_since_default_pos_++;
@@ -174,7 +174,7 @@ void MyBunshinBase::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 pMyBunshinController_->effectFreeModeIgnited(); //点火エフェクト
             }
-            if (is_pressed_VB_OPTION && is_pressed_VB_TURBO) {
+            if (is_pressed_VVB_OPTION && is_pressed_VVB_TURBO) {
                 if (pPhase->getFrame() >= (((MyBunshinBase::now_bunshin_num_ - (bunshin_no_-1) )*5) + 10) ) { //おしりのオプションから
                     pPhase->change(PHASE_BUNSHIN_FREE_MODE_READY);
                 }
@@ -196,15 +196,15 @@ void MyBunshinBase::processBehavior() {
                 //強制発射
                 pPhase->change(PHASE_BUNSHIN_FREE_MODE_MOVE);
             } else {
-                if (is_pressed_VB_OPTION) {
-                    if(is_released_up_VB_TURBO) { //VB_TURBOだけ離すと即発射。
+                if (is_pressed_VVB_OPTION) {
+                    if(is_released_up_VVB_TURBO) { //VVB_TURBOだけ離すと即発射。
                         //ハーフ発射！！
                         pPhase->change(PHASE_BUNSHIN_FREE_MODE_MOVE);
                     } else {
                         //発射待ち・・・
                     }
                 } else {
-                    //VB_OPTION を離すとリセット。
+                    //VVB_OPTION を離すとリセット。
                     //リセット
                     if (is_free_mode_) {
                         pPhase->change(PHASE_BUNSHIN_FREE_MODE_STOP);
@@ -223,13 +223,13 @@ void MyBunshinBase::processBehavior() {
                 pAxisVehicle->setXYZZero();
                 pAxisVehicle->setAcceXYZZero();
             }
-            if (is_pressed_VB_OPTION) {
+            if (is_pressed_VVB_OPTION) {
                 //分身フリーモードで移動中
                 //オプションの広がり角より、MyBunshinBaseの移動速度と、MyBunshin旋回半径増加速度にベクトル分解。
                 angvelo bunshin_angvelo_expance = pMyBunshinController_->getExpanse();
                 pVecVehicle->setMvVelo(ANG_COS(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV); //MyBunshinBase
                 pMyBunshinController_->addRadiusPosition(ANG_SIN(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV);
-                // VB_OPTION を離すまで待つ・・・
+                // VVB_OPTION を離すまで待つ・・・
             } else {
                 //分身フリーモード、中断待機
                 pVecVehicle->setMvVelo(0);
@@ -289,27 +289,27 @@ void MyBunshinBase::processBehavior() {
     }
 
     //オプションフリーモードへの判断
-    if (is_pressed_VB_OPTION) {
-        if (pVbPlay->isDoublePushedDown(0, VB_TURBO)) { //VB_OPTION + VB_TURBOダブルプッシュ
+    if (is_pressed_VVB_OPTION) {
+        if (pVbPlay->isDoublePushedDown(0, VVB_TURBO)) { //VVB_OPTION + VVB_TURBOダブルプッシュ
             //分身フリーモード、点火！
             pPhase->change(PHASE_BUNSHIN_FREE_MODE_IGNITED);
         }
     }
 
-    if (pVbPlay->isDoublePushedDown(0, VB_OPTION, 8, 8)) {
-        if (is_pressed_VB_TURBO) {
-            //VB_OPTION ダブルプッシュ + VB_TURBO押しっぱなしの場合
+    if (pVbPlay->isDoublePushedDown(0, VVB_OPTION, 8, 8)) {
+        if (is_pressed_VVB_TURBO) {
+            //VVB_OPTION ダブルプッシュ + VVB_TURBO押しっぱなしの場合
             //ハーフセット
             //フリーモード維持、半径位置も維持、
             resetBunshin(1);
         } else {
-            //VB_OPTION ダブルプッシュ、VB_TURBOを押していないと、
+            //VVB_OPTION ダブルプッシュ、VVB_TURBOを押していないと、
             //オールリセット
             resetBunshin(0);
         }
-    } else if (is_pressed_VB_OPTION) {
+    } else if (is_pressed_VVB_OPTION) {
         //分身操作
-        if (is_pressed_VB_TURBO) {
+        if (is_pressed_VVB_TURBO) {
             trace_mode_ = TRACE_FREEZE;
             dir26 mv_way_sgn_x_MyShip = pMyShip->mv_way_sgn_x_;
             dir26 mv_way_sgn_y_MyShip = pMyShip->mv_way_sgn_y_;
@@ -333,7 +333,7 @@ void MyBunshinBase::processBehavior() {
                 pMyBunshinController_->addRadiusPosition(-bunshin_velo_mv_radius_pos_);
             }
             bunshin_radius_pos_ = pMyBunshinController_->getRadiusPosition(); //標準半径位置を更新
-        } else {  //if ( pVbPlay->isPressed(0, VB_TURBO) )  の else
+        } else {  //if ( pVbPlay->isPressed(0, VVB_TURBO) )  の else
             //分身の向き(this土台の向き)操作
             trace_mode_ = TRACE_FREEZE;
             //カメラ位置によって上下左右の操作割当を変える
@@ -341,7 +341,7 @@ void MyBunshinBase::processBehavior() {
             const double vX = pVecVehicle->_vX;
             const double vY = pVecVehicle->_vY;
             const double vZ = pVecVehicle->_vZ;
-            bool update_updown_rot_axis_timing = (pVecVehicle->isTurningMvAng() || pVbPlay->isPushedDown(0, VB_OPTION) || pVAM->isJustChangedPosCam());
+            bool update_updown_rot_axis_timing = (pVecVehicle->isTurningMvAng() || pVbPlay->isPushedDown(0, VVB_OPTION) || pVAM->isJustChangedPosCam());
 
             //LEFT RIGHT 回転軸 = pos_up = (up_sgn_x, up_sgn_y, up_sgn_z)
             double up_vx, up_vy, up_vz;
@@ -361,28 +361,28 @@ void MyBunshinBase::processBehavior() {
             }
             if (pos_up == VAM_POS_UP) {
                 //高速
-                if (pVbPlay->isPressed(0, VB_LEFT)) {
+                if (pVbPlay->isPressed(0, VVB_LEFT)) {
                     pVecVehicle->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
-                } else if (pVbPlay->isPressed(0, VB_RIGHT)) {
+                } else if (pVbPlay->isPressed(0, VVB_RIGHT)) {
                     pVecVehicle->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
                 }
-                if (pVbPlay->isPressed(0, VB_UP)) {
+                if (pVbPlay->isPressed(0, VVB_UP)) {
                     pVecVehicle->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
-                } else if (pVbPlay->isPressed(0, VB_DOWN)) {
+                } else if (pVbPlay->isPressed(0, VVB_DOWN)) {
                     pVecVehicle->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
                 }
 
 //TODO:上以外も斜めでなければ高速でいけるのでは？
             } else {
                 //重いが仕方ない
-                if (pVbPlay->isPressed(0, VB_LEFT)) {
+                if (pVbPlay->isPressed(0, VVB_LEFT)) {
                     addTurnAngleAroundAx2( up_vx,  up_vy,  up_vz);
-                } else if (pVbPlay->isPressed(0, VB_RIGHT)) {
+                } else if (pVbPlay->isPressed(0, VVB_RIGHT)) {
                     addTurnAngleAroundAx2(-up_vx, -up_vy, -up_vz);
                 }
-                if (pVbPlay->isPressed(0, VB_UP)) {
+                if (pVbPlay->isPressed(0, VVB_UP)) {
                     addTurnAngleAroundAx1( c_ax_x_,  c_ax_y_,  c_ax_z_);
-                } else if (pVbPlay->isPressed(0, VB_DOWN)) {
+                } else if (pVbPlay->isPressed(0, VVB_DOWN)) {
                     addTurnAngleAroundAx1(-c_ax_x_, -c_ax_y_, -c_ax_z_);
                 }
             }
@@ -477,7 +477,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
                           true
                        );
     if (prm_mode == 0) {
-        //VB_OPTION ダブルプッシュ + VB_TURBO押しっぱなしの場合
+        //VVB_OPTION ダブルプッシュ + VVB_TURBO押しっぱなしの場合
         //オールリセット
         //分身の半径位置が元に戻る指示
         bunshin_radius_pos_ = bunshin_default_radius_pos_;
@@ -487,7 +487,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
         //が行われる
         pPhase->change(PHASE_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS); //分身の位置が元に戻るフェーズへ移行
     } else {
-        //VB_OPTION ダブルプッシュ、VB_TURBOを押していないと、
+        //VVB_OPTION ダブルプッシュ、VVB_TURBOを押していないと、
         //チョットリセット
         //フリーモード維持、半径位置も維持、
         return_default_pos_frames_ = 0;

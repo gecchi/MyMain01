@@ -282,7 +282,7 @@ void World::processBehavior() {
                 appendChild(pGameScene_);
             }
 
-            VB->update(); //入力情報更新
+            VVB->update(); //入力情報更新
 
             //1キーが音量下げ
             if (GgafDx::Input::isPressedKey(DIK_1)) {

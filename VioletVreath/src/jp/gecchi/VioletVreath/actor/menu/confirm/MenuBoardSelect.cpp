@@ -50,10 +50,10 @@ MenuBoardSelect::MenuBoardSelect(const char* prm_name) :
 
 }
 bool MenuBoardSelect::condSelectNext() {
-    return VB->isAutoRepeat(0, VB_UI_RIGHT);
+    return VVB->isAutoRepeat(0, VVB_UI_RIGHT);
 }
 bool MenuBoardSelect::condSelectPrev() {
-    return VB->isAutoRepeat(0, VB_UI_LEFT);
+    return VVB->isAutoRepeat(0, VVB_UI_LEFT);
 }
 bool MenuBoardSelect::condSelectExNext() {
     return false;
