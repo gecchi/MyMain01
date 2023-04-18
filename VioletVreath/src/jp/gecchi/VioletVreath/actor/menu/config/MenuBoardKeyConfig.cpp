@@ -21,7 +21,7 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
     _class_name = "MenuBoardKeyConfig";
     setWidth(PX_C(45*32));
-    setHeight(PX_C(16*32));
+    setHeight(PX_C(15*32));
     //メニューアイテム（選択可）設定
     const char* apItemStr[] = {
           "MOVE UP",
@@ -45,27 +45,27 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
     for (item_index = ITEM_UP; item_index < ITEM_BANPEI; item_index++) {
         LabelMenuItemFont01* pLabel = NEW LabelMenuItemFont01("item");
         pLabel->update(apItemStr[item_index], ALIGN_LEFT, VALIGN_MIDDLE);
-        addItem(pLabel, PX_C(100), PX_C(100+(item_index*20)));
+        addItem(pLabel, PX_C(100), PX_C(100+(item_index*18)));
     }
 
     LabelMenuItemFont01* pLabel_OK = NEW LabelMenuItemFont01("item_Ok");
     pLabel_OK->update("OK & SAVE", ALIGN_LEFT, VALIGN_MIDDLE);
-    addItem(pLabel_OK, PX_C(100), PX_C(350));
+    addItem(pLabel_OK, PX_C(100), PX_C(380));
     ITEM_INDEX_OK_ = item_index;
 
     LabelMenuItemFont01* pLabel_CANCEL = NEW LabelMenuItemFont01("item_Cancel");
     pLabel_CANCEL->update("CANCEL", ALIGN_LEFT, VALIGN_MIDDLE);
-    addItem(pLabel_CANCEL, PX_C(400), PX_C(350));
+    addItem(pLabel_CANCEL, PX_C(400), PX_C(380));
     ITEM_INDEX_CANCEL_ = item_index + 1;
 
     paVBConfig = NEW VBProperty[item_index+1];
     for (int i = ITEM_UP; i < ITEM_BANPEI; i++) {
         paVBConfig[i].pKey = NEW LabelFix16Font01("DISP_KEY");
         paVBConfig[i].pKey->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-        addLabel(paVBConfig[i].pKey, PX_C(600), PX_C(100+(i*20)));
+        addLabel(paVBConfig[i].pKey, PX_C(600), PX_C(100+(i*18)));
         paVBConfig[i].pJoy = NEW LabelFix16Font01("DISP_JOY");
         paVBConfig[i].pJoy->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-        addLabel(paVBConfig[i].pJoy, PX_C(800), PX_C(100+(i*20)));
+        addLabel(paVBConfig[i].pJoy, PX_C(800), PX_C(100+(i*18)));
     }
 
     LabelMenuTitleFont01* pLabel_title = NEW LabelMenuTitleFont01("LABEL_TITLE");
@@ -114,7 +114,7 @@ void MenuBoardKeyConfig::onRise() {
     paVBConfig[ITEM_TURBO     ].pKey->update(CONFIG::VV_KEY_TURBO     .c_str());
     paVBConfig[ITEM_CONTROLL  ].pKey->update(CONFIG::VV_KEY_OPTION    .c_str());
     paVBConfig[ITEM_MAGIC     ].pKey->update(CONFIG::VV_KEY_POWERUP   .c_str());
-//    paVBConfig[ITEM_VAM       ].pKey->update(CONFIG::VV_KEY_VIEW      .c_str());
+    paVBConfig[ITEM_VIEW      ].pKey->update(CONFIG::VV_KEY_VIEW      .c_str());
     paVBConfig[ITEM_PAUSE     ].pKey->update(CONFIG::VV_KEY_PAUSE     .c_str());
 
     paVBConfig[ITEM_UP        ].pJoy->update(CONFIG::VV_JOY_UP        .c_str());
@@ -130,7 +130,7 @@ void MenuBoardKeyConfig::onRise() {
     paVBConfig[ITEM_TURBO     ].pJoy->update(CONFIG::VV_JOY_TURBO     .c_str());
     paVBConfig[ITEM_CONTROLL  ].pJoy->update(CONFIG::VV_JOY_OPTION    .c_str());
     paVBConfig[ITEM_MAGIC     ].pJoy->update(CONFIG::VV_JOY_POWERUP   .c_str());
-//    paVBConfig[ITEM_VAM       ].pJoy->update(CONFIG::VV_JOY_VIEW      .c_str());
+    paVBConfig[ITEM_VIEW      ].pJoy->update(CONFIG::VV_JOY_VIEW      .c_str());
     paVBConfig[ITEM_PAUSE     ].pJoy->update(CONFIG::VV_JOY_PAUSE     .c_str());
 
     MenuBoard::onRise();
@@ -163,7 +163,7 @@ void MenuBoardKeyConfig::processBehavior() {
         CONFIG::_properties.setValue("VV_KEY_TURBO"     , paVBConfig[ITEM_TURBO     ].pKey->getDrawString());
         CONFIG::_properties.setValue("VV_KEY_OPTION"    , paVBConfig[ITEM_CONTROLL  ].pKey->getDrawString());
         CONFIG::_properties.setValue("VV_KEY_POWERUP"   , paVBConfig[ITEM_MAGIC     ].pKey->getDrawString());
-//        CONFIG::_properties.setValue("VV_KEY_VIEW"      , paVBConfig[ITEM_VAM       ].pKey->getDrawString());
+        CONFIG::_properties.setValue("VV_KEY_VIEW"      , paVBConfig[ITEM_VIEW      ].pKey->getDrawString());
         CONFIG::_properties.setValue("VV_KEY_PAUSE"     , paVBConfig[ITEM_PAUSE     ].pKey->getDrawString());
 
         CONFIG::_properties.setValue("VV_JOY_UP"        , paVBConfig[ITEM_UP        ].pJoy->getDrawString());
@@ -179,7 +179,7 @@ void MenuBoardKeyConfig::processBehavior() {
         CONFIG::_properties.setValue("VV_JOY_TURBO"     , paVBConfig[ITEM_TURBO     ].pJoy->getDrawString());
         CONFIG::_properties.setValue("VV_JOY_OPTION"    , paVBConfig[ITEM_CONTROLL  ].pJoy->getDrawString());
         CONFIG::_properties.setValue("VV_JOY_POWERUP"   , paVBConfig[ITEM_MAGIC     ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("VV_JOY_VIEW"      , paVBConfig[ITEM_VAM       ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_VIEW"      , paVBConfig[ITEM_VIEW       ].pJoy->getDrawString());
         CONFIG::_properties.setValue("VV_JOY_PAUSE"     , paVBConfig[ITEM_PAUSE     ].pJoy->getDrawString());
         CONFIG::_properties.write(CONFIG::_load_properties_filename);
         CONFIG::loadProperties(CONFIG::_load_properties_filename); //再反映
@@ -201,11 +201,12 @@ void MenuBoardKeyConfig::processBehavior() {
 
     if (input_mode_ == 1) {
         int index = getSelectedIndex();
-        if (VVB_UI->isPushedDown(0, VVB_UI_CANCEL)) {
-            input_mode_ = 0;
-            paVBConfig[index].pKey->getAlphaFader()->transitionLinearToTop(5);
-            paVBConfig[index].pJoy->getAlphaFader()->transitionLinearToTop(5);
-        } else {
+        //キャンセルJOYボタンを割り当てるためコメント
+//        if (VVB_UI->isPushedDown(0, VVB_UI_CANCEL)) {
+//            input_mode_ = 0;
+//            paVBConfig[index].pKey->getAlphaFader()->transitionLinearToTop(5);
+//            paVBConfig[index].pJoy->getAlphaFader()->transitionLinearToTop(5);
+//        } else {
             int DIK_pushed = GgafDx::Input::getFirstPushedDownKey();
             if (DIK_pushed != -1 && 0x00 <= DIK_pushed && DIK_pushed <= 0xD1) {
                 paVBConfig[index].pKey->update(VirtualButton::_mapVBK2Str[DIK_pushed].c_str());
@@ -221,7 +222,7 @@ void MenuBoardKeyConfig::processBehavior() {
                  paVBConfig[index].pKey->getAlphaFader()->transitionLinearToTop(5);
                  input_mode_ = 2;
             }
-        }
+//        }
     }
 
 }
@@ -236,8 +237,8 @@ void MenuBoardKeyConfig::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item
     } else if (input_mode_ == 0) {
         input_mode_ = 1;
         input_target_item_ = prm_item_index;
-        paVBConfig[prm_item_index].pKey->getAlphaFader()->beat(30, 15, 0, 15, -1);
-        paVBConfig[prm_item_index].pJoy->getAlphaFader()->beat(30, 15, 0, 15, -1);
+        paVBConfig[prm_item_index].pKey->getAlphaFader()->beat(40, 15, 5, 15, -1);
+        paVBConfig[prm_item_index].pJoy->getAlphaFader()->beat(40, 15, 5, 15, -1);
     }
 }
 void MenuBoardKeyConfig::onCancel(GgafDx::FigureActor* prm_pItem, int prm_item_index) {

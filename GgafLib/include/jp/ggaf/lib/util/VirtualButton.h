@@ -292,6 +292,8 @@ namespace GgafLib {
 /** P1/P2 を取得   1:P1 / 2:P2   */
 #define VBJ_TO_P_N(VBJ)         ( ( (VBJ) & (VBJ_P_MASK) ) >> 12 )
 
+#define RGB_BUTTON_TO_VBJ_BASE_BUTTON(RGB_B) ((RGB_B) + 1)
+
 #define VB_BUTTON1                (0x1ULL) //&B 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
 #define VB_BUTTON2                (0x2ULL) //&B 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
 #define VB_BUTTON3                (0x4ULL) //&B 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100
@@ -506,8 +508,8 @@ public:
 
 
     typedef bool (*funcVJBtn)(int);
-    static std::map<vbj_base, funcVJBtn> _mapVbjBase2Func;
-
+    static std::map<vbj_base, funcVJBtn> _mapVbjBase2PressedFunc;
+    static std::map<vbj_base, funcVJBtn> _mapVbjBase2PushedDownFunc;
 public:
     /** キーボード割り当て値 */
     VbkKeyboard _vbk_keyboardmap;
@@ -543,6 +545,8 @@ public:
     static bool initStatic();
 
     static bool isPressedVirtualJoyButton(vbj prm_VBJ);
+
+    static bool isPushedDownVirtualJoyButton(vbj prm_VBJ);
 
     static vbj getFirstPushedDownVirtualJoyButton(int prm_player_no);
 

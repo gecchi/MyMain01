@@ -334,7 +334,9 @@ std::map<std::string, vbk> VirtualButton::_mapStr2VBK;
 std::map<std::string, vbj> VirtualButton::_mapStr2VBJ;
 std::map<vbk, std::string> VirtualButton::_mapVBK2Str;
 std::map<vbj, std::string> VirtualButton::_mapVBJ2Str;
-std::map<vbj_base, VirtualButton::funcVJBtn> VirtualButton::_mapVbjBase2Func;
+std::map<vbj_base, VirtualButton::funcVJBtn> VirtualButton::_mapVbjBase2PressedFunc;
+std::map<vbj_base, VirtualButton::funcVJBtn> VirtualButton::_mapVbjBase2PushedDownFunc;
+
 bool VirtualButton::initStatic() {
     VirtualButton::_mapStr2VBK["VBK_ESCAPE"]       = VBK_ESCAPE      ;
     VirtualButton::_mapStr2VBK["VBK_1"]            = VBK_1           ;
@@ -564,6 +566,7 @@ bool VirtualButton::initStatic() {
     VirtualButton::_mapStr2VBJ["VBJ_P2_POV_LEFT"]    = VBJ_P2_POV_LEFT   ;
     VirtualButton::_mapStr2VBJ["VBJ_P2_POV_RIGHT"]   = VBJ_P2_POV_RIGHT  ;
 
+    VirtualButton::_mapVBK2Str[0] = "VBK_NOTHING";
     VirtualButton::_mapVBK2Str[VBK_ESCAPE      ] = "VBK_ESCAPE";
     VirtualButton::_mapVBK2Str[VBK_1           ] = "VBK_1";
     VirtualButton::_mapVBK2Str[VBK_2           ] = "VBK_2";
@@ -725,6 +728,7 @@ bool VirtualButton::initStatic() {
     VirtualButton::_mapVBK2Str[VBK_DOWNARROW   ] = "VBK_DOWNARROW";
     VirtualButton::_mapVBK2Str[VBK_PGDN        ] = "VBK_PGDN";
 
+    VirtualButton::_mapVBJ2Str[0] = "VBJ_NOTHING";
     VirtualButton::_mapVBJ2Str[VBJ_P1_BUTTON_01  ] = "VBJ_P1_BUTTON_01";
     VirtualButton::_mapVBJ2Str[VBJ_P1_BUTTON_02  ] = "VBJ_P1_BUTTON_02";
     VirtualButton::_mapVBJ2Str[VBJ_P1_BUTTON_03  ] = "VBJ_P1_BUTTON_03";
@@ -791,22 +795,39 @@ bool VirtualButton::initStatic() {
     VirtualButton::_mapVBJ2Str[VBJ_P2_POV_LEFT   ] = "VBJ_P2_POV_LEFT";
     VirtualButton::_mapVBJ2Str[VBJ_P2_POV_RIGHT  ] = "VBJ_P2_POV_RIGHT";
 
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_X_POS_MINUS] = GgafDx::Input::isPressedJoyXAxisMinus;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_X_POS_PLUS ] = GgafDx::Input::isPressedJoyXAxisPlus;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_Y_POS_MINUS] = GgafDx::Input::isPressedJoyYAxisMinus;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_Y_POS_PLUS ] = GgafDx::Input::isPressedJoyYAxisPlus;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_Z_POS_MINUS] = GgafDx::Input::isPressedJoyZAxisMinus;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_Z_POS_PLUS ] = GgafDx::Input::isPressedJoyZAxisPlus;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_X_ROT_MINUS] = GgafDx::Input::isPressedJoyRxMinus;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_X_ROT_PLUS ] = GgafDx::Input::isPressedJoyRxPlus;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_Y_ROT_MINUS] = GgafDx::Input::isPressedJoyRyMinus;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_Y_ROT_PLUS ] = GgafDx::Input::isPressedJoyRyPlus;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_Z_ROT_MINUS] = GgafDx::Input::isPressedJoyRzMinus;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_Z_ROT_PLUS ] = GgafDx::Input::isPressedJoyRzPlus;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_POV_UP     ] = GgafDx::Input::isPressedPovUp;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_POV_DOWN   ] = GgafDx::Input::isPressedPovDown;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_POV_LEFT   ] = GgafDx::Input::isPressedPovLeft;
-    VirtualButton::_mapVbjBase2Func[VBJ_BASE_POV_RIGHT  ] = GgafDx::Input::isPressedPovRight;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_X_POS_MINUS] = GgafDx::Input::isPressedJoyXAxisMinus;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_X_POS_PLUS ] = GgafDx::Input::isPressedJoyXAxisPlus;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_Y_POS_MINUS] = GgafDx::Input::isPressedJoyYAxisMinus;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_Y_POS_PLUS ] = GgafDx::Input::isPressedJoyYAxisPlus;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_Z_POS_MINUS] = GgafDx::Input::isPressedJoyZAxisMinus;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_Z_POS_PLUS ] = GgafDx::Input::isPressedJoyZAxisPlus;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_X_ROT_MINUS] = GgafDx::Input::isPressedJoyRxMinus;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_X_ROT_PLUS ] = GgafDx::Input::isPressedJoyRxPlus;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_Y_ROT_MINUS] = GgafDx::Input::isPressedJoyRyMinus;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_Y_ROT_PLUS ] = GgafDx::Input::isPressedJoyRyPlus;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_Z_ROT_MINUS] = GgafDx::Input::isPressedJoyRzMinus;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_Z_ROT_PLUS ] = GgafDx::Input::isPressedJoyRzPlus;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_POV_UP     ] = GgafDx::Input::isPressedPovUp;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_POV_DOWN   ] = GgafDx::Input::isPressedPovDown;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_POV_LEFT   ] = GgafDx::Input::isPressedPovLeft;
+    VirtualButton::_mapVbjBase2PressedFunc[VBJ_BASE_POV_RIGHT  ] = GgafDx::Input::isPressedPovRight;
+
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_X_POS_MINUS] = GgafDx::Input::isPushedDownJoyXAxisMinus;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_X_POS_PLUS ] = GgafDx::Input::isPushedDownJoyXAxisPlus;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_Y_POS_MINUS] = GgafDx::Input::isPushedDownJoyYAxisMinus;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_Y_POS_PLUS ] = GgafDx::Input::isPushedDownJoyYAxisPlus;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_Z_POS_MINUS] = GgafDx::Input::isPushedDownJoyZAxisMinus;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_Z_POS_PLUS ] = GgafDx::Input::isPushedDownJoyZAxisPlus;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_X_ROT_MINUS] = GgafDx::Input::isPushedDownJoyRxMinus;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_X_ROT_PLUS ] = GgafDx::Input::isPushedDownJoyRxPlus;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_Y_ROT_MINUS] = GgafDx::Input::isPushedDownJoyRyMinus;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_Y_ROT_PLUS ] = GgafDx::Input::isPushedDownJoyRyPlus;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_Z_ROT_MINUS] = GgafDx::Input::isPushedDownJoyRzMinus;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_Z_ROT_PLUS ] = GgafDx::Input::isPushedDownJoyRzPlus;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_POV_UP     ] = GgafDx::Input::isPushedDownPovUp;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_POV_DOWN   ] = GgafDx::Input::isPushedDownPovDown;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_POV_LEFT   ] = GgafDx::Input::isPushedDownPovLeft;
+    VirtualButton::_mapVbjBase2PushedDownFunc[VBJ_BASE_POV_RIGHT  ] = GgafDx::Input::isPushedDownPovRight;
     return true;
 }
 
@@ -1444,52 +1465,66 @@ bool VirtualButton::isPressedVirtualJoyButton(vbj prm_VBJ) {
     if (VBJ_BASE_BUTTON_01 <= vbj_base_prm && vbj_base_prm <= VBJ_BASE_BUTTON_MAX) {
         return GgafDx::Input::isPressedJoyButton(player_no, vbj_base_prm); //rgb_buttonÇÃèÍçá
     } else if ( VBJ_BASE_X_POS_MINUS <= vbj_base_prm && vbj_base_prm <= VBJ_BASE_POV_RIGHT ) {
-        return (VirtualButton::_mapVbjBase2Func[vbj_base_prm])(player_no); //XYZé≤è„â∫Ç©ÅAXYZé≤âÒì]Å{Å[Ç©ÅAPOVÇÃï˚å¸ÇÃèÍçá
+        return (VirtualButton::_mapVbjBase2PressedFunc[vbj_base_prm])(player_no); //XYZé≤è„â∫Ç©ÅAXYZé≤âÒì]Å{Å[Ç©ÅAPOVÇÃï˚å¸ÇÃèÍçá
     } else {
         return false;
     }
 }
+
+bool VirtualButton::isPushedDownVirtualJoyButton(vbj prm_VBJ) {
+    int player_no = VBJ_TO_P_N(prm_VBJ);
+    vbj_base vbj_base_prm = VBJ_TO_BASE(prm_VBJ);
+    if (VBJ_BASE_BUTTON_01 <= vbj_base_prm && vbj_base_prm <= VBJ_BASE_BUTTON_MAX) {
+        return GgafDx::Input::isPushedDownJoyButton(player_no, vbj_base_prm); //rgb_buttonÇÃèÍçá
+    } else if ( VBJ_BASE_X_POS_MINUS <= vbj_base_prm && vbj_base_prm <= VBJ_BASE_POV_RIGHT ) {
+        return (VirtualButton::_mapVbjBase2PushedDownFunc[vbj_base_prm])(player_no); //XYZé≤è„â∫Ç©ÅAXYZé≤âÒì]Å{Å[Ç©ÅAPOVÇÃï˚å¸ÇÃèÍçá
+    } else {
+        return false;
+    }
+}
+
+
 vbj VirtualButton::getFirstPushedDownVirtualJoyButton(int prm_player_no) {
-    vbj_base VBJ_BASE_pushed_button_no = GgafDx::Input::getFirstPushedDownJoyRgbButton(prm_player_no);
-    //0Å`15 => VBJ_BASE_BUTTON_01 Å`VBJ_BASE_BUTTON_15 / -1:âΩÇ‡âüÇ≥ÇÍÇƒÇ¢Ç»Ç¢
-    if (VBJ_BASE_pushed_button_no == -1) {
-        if (GgafDx::Input::isPressedJoyXAxisMinus(prm_player_no)) {
+    int pushed_rgb_button = GgafDx::Input::getFirstPushedDownJoyRgbButton(prm_player_no);
+    //0Å`15 => VBJ_BASE_BUTTON_01 Å`VBJ_BASE_BUTTON_15 / -1:âΩÇ‡ PushedDown Ç≥ÇÍÇƒÇ¢Ç»Ç¢
+    if (pushed_rgb_button == -1) {
+        if (GgafDx::Input::isPushedDownJoyXAxisMinus(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_X_POS_MINUS);
-        } else if (GgafDx::Input::isPressedJoyXAxisPlus(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownJoyXAxisPlus(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_X_POS_PLUS);
-        } else if (GgafDx::Input::isPressedJoyYAxisMinus(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownJoyYAxisMinus(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_Y_POS_MINUS);
-        } else if (GgafDx::Input::isPressedJoyYAxisPlus(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownJoyYAxisPlus(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_Y_POS_PLUS);
-        } else if (GgafDx::Input::isPressedJoyZAxisMinus(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownJoyZAxisMinus(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_Z_POS_MINUS);
-        } else if (GgafDx::Input::isPressedJoyZAxisPlus(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownJoyZAxisPlus(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_Z_POS_PLUS);
-        } else if (GgafDx::Input::isPressedJoyRxMinus(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownJoyRxMinus(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_X_ROT_MINUS);
-        } else if (GgafDx::Input::isPressedJoyRxPlus(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownJoyRxPlus(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_X_ROT_PLUS);
-        } else if (GgafDx::Input::isPressedJoyRyMinus(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownJoyRyMinus(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_Y_ROT_MINUS);
-        } else if (GgafDx::Input::isPressedJoyRyPlus(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownJoyRyPlus(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_Y_ROT_PLUS);
-        } else if (GgafDx::Input::isPressedJoyRzMinus(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownJoyRzMinus(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_Z_ROT_MINUS);
-        } else if (GgafDx::Input::isPressedJoyRzPlus(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownJoyRzPlus(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_Z_ROT_PLUS);
-        } else if (GgafDx::Input::isPressedPovUp(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownPovUp(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_POV_UP);
-        } else if (GgafDx::Input::isPressedPovDown(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownPovDown(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_POV_DOWN);
-        } else if (GgafDx::Input::isPressedPovLeft(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownPovLeft(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_POV_LEFT);
-        } else if (GgafDx::Input::isPressedPovRight(prm_player_no)) {
+        } else if (GgafDx::Input::isPushedDownPovRight(prm_player_no)) {
             return BASE_TO_VBJ(prm_player_no, VBJ_BASE_POV_RIGHT);
         } else {
             return -1;
         }
     } else {
-        return BASE_TO_VBJ(prm_player_no, VBJ_BASE_pushed_button_no);
+        return BASE_TO_VBJ(prm_player_no, RGB_BUTTON_TO_VBJ_BASE_BUTTON(pushed_rgb_button));
     }
 }
 

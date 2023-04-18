@@ -631,14 +631,14 @@ bool Input::isPushedDownJoyRgbButton(int prm_joystic_no, int prm_joy_button_no) 
 }
 
 int Input::getFirstPushedDownJoyRgbButton(int prm_joystic_no) {
-    int JOY_pressed = Input::getFirstPressedJoyRgbButton(prm_joystic_no);
-    if (JOY_pressed >= 0 ) { //今は押している
-        if (Input::_joy_state[prm_joystic_no][!Input::_flip_js].rgbButtons[JOY_pressed] & 0x80) {
+    int rgb_button = Input::getFirstPressedJoyRgbButton(prm_joystic_no);
+    if (rgb_button >= 0 ) { //今は押している
+        if (Input::_joy_state[prm_joystic_no][!Input::_flip_js].rgbButtons[rgb_button] & 0x80) {
             //前回セット[!Input::_flip_js]も押されている。押しっぱなし
             return -1;
         } else {
             //前回セット[!Input::_flip_js]は押されていないのでOK
-            return JOY_pressed;
+            return rgb_button;
         }
     } else {
         return -1;
@@ -672,7 +672,40 @@ int Input::getPressedJoyDirection(int prm_joystic_no) {
         return 5;
     }
 }
+int Input::getPushedDownJoyDirection(int prm_joystic_no) {
+    int d_now = Input::getPressedJoyDirection(prm_joystic_no);
 
+    DIJOYSTATE& sta_prev = Input::_joy_state[prm_joystic_no][!Input::_flip_js];
+    int d_prev = -1;
+    if (sta_prev.lY < -127) {
+        if (sta_prev.lX > 127) {
+            d_prev = 9;
+        } else if (sta_prev.lX < -127) {
+            d_prev = 7;
+        } else {
+            d_prev = 8;
+        }
+    } else if (sta_prev.lY > 127) {
+        if (sta_prev.lX > 127) {
+            d_prev = 3;
+        } else if (sta_prev.lX < -127) {
+            d_prev = 1;
+        } else {
+            d_prev = 2;
+        }
+    } else if (sta_prev.lX > 127) {
+        d_prev = 6;
+    } else if (sta_prev.lX < -127) {
+        d_prev = 4;
+    } else {
+        d_prev = 5;
+    }
+    if (d_now != d_prev) {
+        return d_now;
+    } else {
+        return -1;
+    }
+}
 int Input::getPressedPovDirection(int prm_joystic_no) {
     if (Input::_apJoystickInputDevice[prm_joystic_no]) { //JoyStickが無い場合、rgdwPOV[0]=0のため、上と判定されることを防ぐ
         DWORD n = Input::_joy_state[prm_joystic_no][Input::_flip_js].rgdwPOV[0];
@@ -705,6 +738,45 @@ int Input::getPressedPovDirection(int prm_joystic_no) {
     }
 }
 
+
+int Input::getPushedDownPovDirection(int prm_joystic_no) {
+    int d_now = Input::getPressedPovDirection(prm_joystic_no);
+    int d_prev = -1;
+    if (Input::_apJoystickInputDevice[prm_joystic_no]) { //JoyStickが無い場合、rgdwPOV[0]=0のため、上と判定されることを防ぐ
+        DWORD n_prev = Input::_joy_state[prm_joystic_no][!Input::_flip_js].rgdwPOV[0];
+        if (LOWORD(n_prev) != 0xFFFF) {
+            if (n_prev == 0 ) {
+                d_prev =  8; //UP
+            } else if (n_prev == 4500) {
+                d_prev =  9; //RIGHT+UP
+            } else if (n_prev == 9000) {
+                d_prev =  6; //RIGHT
+            } else if (n_prev == 13500) {
+                d_prev =  3; //RIGHT+DOWN
+            } else if (n_prev == 18000) {
+                d_prev =  2; //DOWN
+            } else if (n_prev == 22500) {
+                d_prev =  1; //LEFT+DOWN
+            } else if (n_prev == 27000) {
+                d_prev =  4; //LEFT
+            } else if (n_prev == 31500) {
+                d_prev =  7; //LEFT+UP
+            } else {
+                _TRACE_("【警告】ありえない getPushedDownPovDirection n="<<n_prev);
+                d_prev =  5;
+            }
+        } else {
+            d_prev = 5;
+        }
+    } else {
+        d_prev = 5;
+    }
+    if (d_now != d_prev) {
+        return d_now;
+    } else {
+        return -1;
+    }
+}
 
 void Input::release() {
     //デバイス解放
