@@ -813,9 +813,9 @@ public:
     //vb_sta getPushedDownStick() const;
 
 
-//    inline vb_sta getState() const {
-//        return _pVBRecord_active->_vb_state[0];
-//    }
+    inline vb_sta getState(int prm_player_no) const {
+        return _pVBRecord_active->_vb_state[prm_player_no];
+    }
 
     /**
      * “ü—Íî•ñ‚ğXV .

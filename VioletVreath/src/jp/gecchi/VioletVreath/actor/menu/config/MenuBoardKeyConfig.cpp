@@ -13,7 +13,6 @@
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 
 
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -201,12 +200,15 @@ void MenuBoardKeyConfig::processBehavior() {
 
     if (input_mode_ == 1) {
         int index = getSelectedIndex();
-        //キャンセルJOYボタンを割り当てるためコメント
-//        if (VVB_UI->isPushedDown(0, VVB_UI_CANCEL)) {
-//            input_mode_ = 0;
-//            paVBConfig[index].pKey->getAlphaFader()->transitionLinearToTop(5);
-//            paVBConfig[index].pJoy->getAlphaFader()->transitionLinearToTop(5);
-//        } else {
+
+        if (GgafDx::Input::isPushedDownKey(VBK_ESCAPE)) {
+            //キャンセルボタンを割り当てたいかもしれない
+            //ここではキャンセルは ESC のみ
+            //TODO:キャンセルは ESCキーのみです。というメッセージ出そうかな
+            input_mode_ = 0;
+            paVBConfig[index].pKey->getAlphaFader()->transitionLinearToTop(5);
+            paVBConfig[index].pJoy->getAlphaFader()->transitionLinearToTop(5);
+        } else {
             int DIK_pushed = GgafDx::Input::getFirstPushedDownKey();
             if (DIK_pushed != -1 && 0x00 <= DIK_pushed && DIK_pushed <= 0xD1) {
                 paVBConfig[index].pKey->update(VirtualButton::_mapVBK2Str[DIK_pushed].c_str());
@@ -222,7 +224,7 @@ void MenuBoardKeyConfig::processBehavior() {
                  paVBConfig[index].pKey->getAlphaFader()->transitionLinearToTop(5);
                  input_mode_ = 2;
             }
-//        }
+        }
     }
 
 }

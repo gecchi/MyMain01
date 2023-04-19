@@ -145,6 +145,14 @@ public:
     static void updateKeyboardState();
 
     /**
+     * キーボードの状態を取得
+     * @return BYTE[256] の配列
+     */
+    static inline BYTE* getKeyboardState() {
+        return _keyboard_state[_flip_ks];
+    }
+
+    /**
      * キーボードのキーの状態を調べる .
      * @param prm_DIK 調べたいキー(DIK_*)
      * @return true：そのキーは押されている状態である／false：そうでは無い

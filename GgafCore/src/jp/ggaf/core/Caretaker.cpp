@@ -384,8 +384,8 @@ void Caretaker::clean() {
         //ä«óùé“ó·äO _pException_god Ç™ãNÇ±Ç¡ÇƒÇ¢ÇÈÇ©Ç‡ÇµÇÍÇ»Ç¢ÅB
         _TRACE_("GGAF_DELETE_NULLABLE(_pException_god);");
         GGAF_DELETE_NULLABLE(_pException_god);
-        _TRACE_(FUNC_NAME<<" end");
     }
+    _TRACE_(FUNC_NAME<<" end");
 }
 
 Caretaker::~Caretaker() {
