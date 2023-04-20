@@ -1,7 +1,7 @@
 #include "EnemyHisbeLaserChip002.h"
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/manager/CurveManufactureConnection.h"
@@ -21,8 +21,8 @@ EnemyHisbeLaserChip002::EnemyHisbeLaserChip002(const char* prm_name) :
     pVehicleLeader_ = createCurveVehicleLeader(pConn_pCurveManuf_->peek());
     pVehicleLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     pFeatureScene_ = nullptr;
-    getVecVehicle()->setMvAngByFaceAng();
-    getVecVehicle()->linkFaceAngByMvAng(true);
+    getLocoVehicle()->setMvAngByFaceAng();
+    getLocoVehicle()->linkFaceAngByMvAng(true);
 }
 
 void EnemyHisbeLaserChip002::initialize() {

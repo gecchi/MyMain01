@@ -23,7 +23,6 @@ public:
         : LinearTreeRounder<T,2,4>(prm_paLinearTreeSpace, prm_num_space, prm_pFuncHitCheck)  {
     }
 
-
     virtual ~LinearQuadtreeRounder() {
     }
 };

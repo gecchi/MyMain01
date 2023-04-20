@@ -45,6 +45,7 @@ public:
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }
+
     /**
      * モデル資源(MeshModel)を切り替える（表示が切り替わります） .
      * @param prm_model_index モデル資源保持リストのインデックス。

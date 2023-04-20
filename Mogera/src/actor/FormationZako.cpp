@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/util/Rgb.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "Zako.h"
 
 

@@ -17,19 +17,18 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 template<class VAL_TYPE, int N>
-class TransitionValueSet : public Object {
+class ValueTransitioner : public Object {
 
 public:
     enum TransitionMethod {
-        NO_TRANSITION,
-        TARGET_LINEAR_UNTIL,
-        TARGET_LINEAR_STEP,
-        BEAT_LINEAR,
-        BEAT_TRIANGLEWAVE,
-        R_BEAT_TRIANGLEWAVE,
-        BEAT_TRIGONOMETRIC,
-        TARGET_ACCELERATION_UNTIL,
-        TARGET_ACCELERATION_UNTIL_VELO,
+        NO_TRANSITION,                 //!< 値遷移なし
+        TARGET_LINEAR_UNTIL,           //!< 目標値まで片道等速で遷移（フレーム数指定）
+        TARGET_LINEAR_STEP,            //!< 目標値まで片道等速で遷移（速度指定）
+        BEAT_LINEAR,                   //!< 等速値遷移で目標値まで到達した、また元に戻る（フレーム数指定）
+        BEAT_TRIANGLEWAVE,             //!< 台形波の波形で値を遷移
+        R_BEAT_TRIANGLEWAVE,           //!< 逆台形波の波形で値を遷移
+        TARGET_ACCELERATION_UNTIL,     //!< 片道加速値遷移（遷移目標値指定）
+        TARGET_ACCELERATION_UNTIL_VELO,//!< 片道加速値遷移（目標速度値指定）
     };
 
     struct Parameter {
@@ -81,7 +80,7 @@ public:
     /**
      * コンストラクタ<BR>
      */
-    TransitionValueSet() : Object() {
+    ValueTransitioner() : Object() {
         Parameter* p = _parameter;
         for (int i = 0; i < N; i++) {
             p->_velo = 0;
@@ -886,7 +885,7 @@ public:
         }
     }
 
-    virtual ~TransitionValueSet() {
+    virtual ~ValueTransitioner() {
     }
 };
 

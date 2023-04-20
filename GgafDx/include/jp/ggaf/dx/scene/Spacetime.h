@@ -201,7 +201,7 @@ public:
     /**
       * ワールド座標上のアクターの「種別Aグループ 対 種別Bグループ」の ヒットチェック を行う  .
       * ３次元（８分木） or ２次元（４分木）
-      * processJudgement() で呼ぶ必要あり。（processSettlementBehavior() で ツリーに登録している為）<BR>
+      * processHitCheck() で呼ぶ必要あり。<BR>
       * @param prm_kind_groupA アクター種別Aグループ
       * @param prm_kind_groupB アクター種別Bグループ
       */
@@ -209,7 +209,7 @@ public:
 
      /**
       * ビュー座標上のアクターの「種別Aグループ 対 種別Bグループ」の ヒットチェック を行う  .
-      * processJudgement() で呼ぶ必要あり。（processSettlementBehavior() で ツリーに登録している為）<BR>
+      * processHitCheck() で呼ぶ必要あり。<BR>
       * @param prm_kind_groupA アクター種別Aグループ
       * @param prm_kind_groupB アクター種別Bグループ
       */

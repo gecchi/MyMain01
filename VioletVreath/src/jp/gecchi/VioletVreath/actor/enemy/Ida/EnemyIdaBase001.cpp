@@ -1,6 +1,6 @@
 #include "EnemyIdaBase001.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/manager/CurveManufactureConnection.h"
@@ -25,9 +25,9 @@ EnemyIdaBase001::EnemyIdaBase001(const char* prm_name) :
 
 void EnemyIdaBase001::initialize() {
     EnemyIdaBase::initialize();
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->linkFaceAngByMvAng(true);
-    pVecVehicle->setRollPitchYawFaceAngVelo(D_ANG(2), D0ANG, D_ANG(0.4));
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->linkFaceAngByMvAng(true);
+    pLocoVehicle->setRollPitchYawFaceAngVelo(D_ANG(2), D0ANG, D_ANG(0.4));
 }
 
 void EnemyIdaBase001::onActive() {
@@ -37,7 +37,7 @@ void EnemyIdaBase001::onActive() {
 
 void EnemyIdaBase001::processBehavior() {
     EnemyIdaBase::processBehavior();
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
@@ -51,7 +51,7 @@ void EnemyIdaBase001::processBehavior() {
         }
     }
 
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
 }
 
 EnemyIdaBase001::~EnemyIdaBase001() {

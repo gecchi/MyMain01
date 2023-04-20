@@ -1,6 +1,6 @@
 #include "FormationEbe.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ebe/EnemyEbe.h"
@@ -40,7 +40,7 @@ void FormationEbe::processBehavior() {
         if (pEbe) {
             GgafCore::ActorDepository* pDepo_shot = pConn_pShotDepo_ ? pConn_pShotDepo_->peek() : nullptr;
             pEbe->config(getSplManuf(), pDepo_shot, nullptr);
-            pEbe->getVecVehicle()->setMvVelo(RV_MvVelo_);
+            pEbe->getLocoVehicle()->setMvVelo(RV_MvVelo_);
             onCalledUpEbe(pEbe); //下位フォーメーションクラス個別実装の処理
         }
     }

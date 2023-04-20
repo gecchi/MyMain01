@@ -1,7 +1,7 @@
 #include "EnemyStraeaLaserChip002.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -26,11 +26,11 @@ void EnemyStraeaLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->setMvVelo(80000);
-    //_pVecVehicle->setMvAcce(300);
-    //_pVecVehicle->forceRyMvAngVeloRange(-90000, 90000);
-    pVecVehicle->linkFaceAngByMvAng(true);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->setMvVelo(80000);
+    //_pLocoVehicle->setMvAcce(300);
+    //_pLocoVehicle->forceRyMvAngVeloRange(-90000, 90000);
+    pLocoVehicle->linkFaceAngByMvAng(true);
 }
 
 void EnemyStraeaLaserChip002::onRefractionInto(int prm_num_refraction)  {
@@ -41,7 +41,7 @@ void EnemyStraeaLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
 
     } else {
-        GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+        GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
         angle out_rz_Target;
         angle out_ry_Target;
         angle out_d_rz;
@@ -51,16 +51,16 @@ void EnemyStraeaLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
                                pMYSHIP->_z - _z,
                                out_rz_Target,
                                out_ry_Target);
-        out_d_rz = pVecVehicle->getRzMvAngDistance(out_rz_Target, TURN_CLOSE_TO);
-        out_d_ry = pVecVehicle->getRyMvAngDistance(out_ry_Target, TURN_CLOSE_TO);
-        pVecVehicle->addRzMvAng(SGN(out_d_rz)*20000);
-        pVecVehicle->addRyMvAng(SGN(out_d_ry)*30000);
-//        pVecVehicle->turnMvAngTwd(
+        out_d_rz = pLocoVehicle->getRzMvAngDistance(out_rz_Target, TURN_CLOSE_TO);
+        out_d_ry = pLocoVehicle->getRyMvAngDistance(out_ry_Target, TURN_CLOSE_TO);
+        pLocoVehicle->addRzMvAng(SGN(out_d_rz)*20000);
+        pLocoVehicle->addRyMvAng(SGN(out_d_ry)*30000);
+//        pLocoVehicle->turnMvAngTwd(
 //                        pMYSHIP,
 //                        90000, 0,
 //                        TURN_CLOSE_TO, false);
 
-//        pVecVehicle->setMvAngTwd(pMYSHIP);
+//        pLocoVehicle->setMvAngTwd(pMYSHIP);
     }
 }
 

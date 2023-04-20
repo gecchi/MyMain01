@@ -2,9 +2,9 @@
 
 #include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/core/util/Status.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/NaviVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/util/CollisionChecker.h"
@@ -14,10 +14,10 @@
 using namespace GgafDx;
 
 GeometricActor::GeometricActor(const char* prm_name,
-                               CollisionChecker* prm_pChecker) : BaseActor(prm_name),
-_pVecVehicle(nullptr),
-_pAxisVehicle(nullptr),
-_pGeoVehicle(nullptr),
+                               CollisionChecker* prm_pChecker) : GgafCore::MainActor(prm_name),
+_pLocoVehicle(nullptr),
+_pCoordVehicle(nullptr),
+_pNaviVehicle(nullptr),
 _pScaler(nullptr),
 _pSeTransmitter(nullptr),
 _pVehicleLeader(nullptr),
@@ -60,25 +60,25 @@ void GeometricActor::setCollisionChecker(CollisionChecker* prm_pChecker) {
     _pChecker= prm_pChecker;
 }
 
-VecVehicle* GeometricActor::getVecVehicle() {
-    return _pVecVehicle ? _pVecVehicle : _pVecVehicle = NEW VecVehicle(this);
+LocoVehicle* GeometricActor::getLocoVehicle() {
+    return _pLocoVehicle ? _pLocoVehicle : _pLocoVehicle = NEW LocoVehicle(this);
 }
 
-AxisVehicle* GeometricActor::getAxisVehicle() {
-    return _pAxisVehicle ? _pAxisVehicle : _pAxisVehicle = NEW AxisVehicle(this);
+CoordVehicle* GeometricActor::getCoordVehicle() {
+    return _pCoordVehicle ? _pCoordVehicle : _pCoordVehicle = NEW CoordVehicle(this);
 }
 
-GeoVehicle* GeometricActor::getGeoVehicle() {
-    return _pGeoVehicle ? _pGeoVehicle : _pGeoVehicle = NEW GeoVehicle(this);
+NaviVehicle* GeometricActor::getNaviVehicle() {
+    return _pNaviVehicle ? _pNaviVehicle : _pNaviVehicle = NEW NaviVehicle(this);
 }
 
 VehicleLeader* GeometricActor::createCurveVehicleLeader(CurveManufacture* prm_pCurveManufacture) {
     VehicleLeader* pVehicleLeader = nullptr;
     CurveManufacture::MoveDriver move_driver = prm_pCurveManufacture->_move_driver;
-    if (move_driver == CurveManufacture::MoveDriver::AxisVehicle) {
-        pVehicleLeader = prm_pCurveManufacture->createAxisVehicleLeader(getAxisVehicle());
-    } else if (move_driver == CurveManufacture::MoveDriver::VecVehicle) {
-        pVehicleLeader = prm_pCurveManufacture->createVecVehicleLeader(getVecVehicle());
+    if (move_driver == CurveManufacture::MoveDriver::CoordVehicle) {
+        pVehicleLeader = prm_pCurveManufacture->createCoordVehicleLeader(getCoordVehicle());
+    } else if (move_driver == CurveManufacture::MoveDriver::LocoVehicle) {
+        pVehicleLeader = prm_pCurveManufacture->createLocoVehicleLeader(getLocoVehicle());
     } else {
         throwCriticalException("createCurveVehicleLeader() : CurveManufacture::MoveDrive Ç™ê›íËÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒÅB"<<
                 "ldr_file="<<prm_pCurveManufacture->_ldr_file<<" move_driver="<<move_driver<<" this="<<NODE_INFO<<"");
@@ -375,8 +375,8 @@ GgafCore::GroupHead* GeometricActor::appendGroupChildAsFk(kind_t prm_kind,
     prm_pGeoActor->_rx = prm_rx_init_local;
     prm_pGeoActor->_ry = prm_ry_init_local;
     prm_pGeoActor->_rz = prm_rz_init_local;
-//    prm_pGeoActor->getVecVehicle()->_rz_mv = prm_rz_init_local;
-//    prm_pGeoActor->getVecVehicle()->_ry_mv = prm_ry_init_local;
+//    prm_pGeoActor->getLocoVehicle()->_rz_mv = prm_rz_init_local;
+//    prm_pGeoActor->getLocoVehicle()->_ry_mv = prm_ry_init_local;
 
     prm_pGeoActor->changeGeoFinal();
     return pGroupHead;
@@ -605,14 +605,13 @@ void GeometricActor::setFaceAngTwd(const GeometricActor* prm_pActor) {
 }
 
 void GeometricActor::onEnd() {
-    BaseActor::onEnd();
     _pFormation = nullptr;
 }
 
 GeometricActor::~GeometricActor() {
-    GGAF_DELETE_NULLABLE(_pVecVehicle);
-    GGAF_DELETE_NULLABLE(_pAxisVehicle);
-    GGAF_DELETE_NULLABLE(_pGeoVehicle);
+    GGAF_DELETE_NULLABLE(_pLocoVehicle);
+    GGAF_DELETE_NULLABLE(_pCoordVehicle);
+    GGAF_DELETE_NULLABLE(_pNaviVehicle);
     GGAF_DELETE_NULLABLE(_pScaler);
     GGAF_DELETE_NULLABLE(_pSeTransmitter);
 }

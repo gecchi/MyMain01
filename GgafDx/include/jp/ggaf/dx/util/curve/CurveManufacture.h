@@ -13,7 +13,7 @@ namespace GgafDx {
  * オブジェクトの関係<BR>
  * VehicleLeader       各アクター毎に生成される。
  *                    アクターに対する、スプライン曲線上の現在の補完点の位置・時間・距離等の管理を行い、
- *                    力車(VecVehicle)に指示を出してアクターを移動させる。
+ *                    移動車両(LocoVehicle)に指示を出してアクターを移動させる。
  *                    １つの CurveManufacture オブジェクトに対して N 個の VehicleLeader オブジェクトが参照している。
  *                    スプラインの座標点間の距離に影響の無い情報はココで保持する。
  *                    つまりスプライン曲線の座標点の軸平行移動オフセット、
@@ -45,8 +45,8 @@ public:
     };
 
     enum MoveDriver {
-        AxisVehicle = 1,
-        VecVehicle,
+        CoordVehicle = 1,
+        LocoVehicle,
     };
 
 
@@ -110,14 +110,14 @@ public:
 
     /**
      * VehicleLeader オブジェクトの生成 .
-     * 設定した力車を、操作しますので注意して下さい。<br>
+     * 設定した移動車両を、操作しますので注意して下さい。<br>
      * 本メソッドで作成した VehicleLeader は、呼び元で deleteする必要があります。<br>
-     * @param prm_pVecVehicle 対象のアクターの力車
+     * @param prm_pLocoVehicle 対象のアクターの移動車両
      * @return
      */
-    virtual VehicleLeader* createVecVehicleLeader(GgafDx::VecVehicle* prm_pVecVehicle);
+    virtual VehicleLeader* createLocoVehicleLeader(GgafDx::LocoVehicle* prm_pLocoVehicle);
 
-    virtual VehicleLeader* createAxisVehicleLeader(GgafDx::AxisVehicle* prm_pAxisVehicle);
+    virtual VehicleLeader* createCoordVehicleLeader(GgafDx::CoordVehicle* prm_pCoordVehicle);
 
     void setMoveMethod(MoveMethod prm_move_method) {
         _move_method = prm_move_method;

@@ -73,9 +73,9 @@
     <ClInclude Include="include\jp\ggaf\core\util\Status.h" />
     <ClInclude Include="include\jp\ggaf\core\util\Table.h" />
     <ClInclude Include="include\jp\ggaf\core\util\TransitionValue.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\TransitionValueSet.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\TrapezoidalVeloValue.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\Util.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\ValueTransitioner.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\Xpm.h" />
     <ClInclude Include="include\jp\ggaf\GgafCommonHeader.h" />
   </ItemGroup>

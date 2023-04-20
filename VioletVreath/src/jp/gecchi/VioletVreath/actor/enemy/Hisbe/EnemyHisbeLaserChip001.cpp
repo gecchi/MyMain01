@@ -1,7 +1,7 @@
 #include "EnemyHisbeLaserChip001.h"
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
@@ -19,8 +19,8 @@ EnemyHisbeLaserChip001::EnemyHisbeLaserChip001(const char* prm_name) :
     pConn_pCurveManuf_ = connectToCurveManufactureManager("EnemyHisbeLaserChip002"); //ヒルベルト曲線
     pVehicleLeader_ = createCurveVehicleLeader(pConn_pCurveManuf_->peek());
     pFeatureScene_ = nullptr;
-    getVecVehicle()->setMvAngByFaceAng();
-    getVecVehicle()->linkFaceAngByMvAng(true);
+    getLocoVehicle()->setMvAngByFaceAng();
+    getLocoVehicle()->linkFaceAngByMvAng(true);
 }
 
 void EnemyHisbeLaserChip001::initialize() {
@@ -51,7 +51,7 @@ void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
         pVehicleLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
     }
     pVehicleLeader_->behave();
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
     if (pVehicleLeader_->isFinished()) {
         sayonara();
     }

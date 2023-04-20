@@ -1,7 +1,7 @@
 #include "EnemyErelman.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -50,9 +50,9 @@ void EnemyErelman::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-//    pVecVehicle->linkFaceAngByMvAng(true);
-    pVecVehicle->forceMvVeloRange(PX_C(15));
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+//    pLocoVehicle->linkFaceAngByMvAng(true);
+    pLocoVehicle->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyErelman::onActive() {
@@ -61,16 +61,16 @@ void EnemyErelman::onActive() {
 }
 
 void EnemyErelman::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);
-//            pVecVehicle->setRollFaceAngVelo(D_ANG(3));
+//            pLocoVehicle->setRollFaceAngVelo(D_ANG(3));
             setRyFaceAng(D_ANG(90));
-            pVecVehicle->setRzFaceAngVelo(D_ANG(3));
+            pLocoVehicle->setRzFaceAngVelo(D_ANG(3));
             pPhase->changeNext();
             break;
         }
@@ -103,7 +103,7 @@ void EnemyErelman::processBehavior() {
 
         case PHASE_CURVE: {
             if (pPhase->hasJustChanged()) {
-                getVecVehicle()->setMvAcce(0); //‰Á‘¬“x‚ª‚ ‚éê‡‚ÍØ‚Á‚Ä‚¨‚­
+                getLocoVehicle()->setMvAcce(0); //‰Á‘¬“x‚ª‚ ‚éê‡‚ÍØ‚Á‚Ä‚¨‚­
                 pVehicleLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1‚Í–³ŒÀƒ‹[ƒv
             }
             if (free_interval_ == 0) {
@@ -128,9 +128,9 @@ void EnemyErelman::processBehavior() {
             if (pPhase->hasArrivedFrameAt(delay_)) {
                 //ŽU‚èŽU‚è‚É‚È‚é
                 pVehicleLeader_->stop();
-                pVecVehicle->turnRzRyMvAngTo(RND_ABOUT(pVecVehicle->_rz_mv, D_ANG(90)), RND_ABOUT(pVecVehicle->_ry_mv, D_ANG(90)),
+                pLocoVehicle->turnRzRyMvAngTo(RND_ABOUT(pLocoVehicle->_rz_mv, D_ANG(90)), RND_ABOUT(pLocoVehicle->_ry_mv, D_ANG(90)),
                                          D_ANG(2), 0, TURN_CLOSE_TO,false);
-                pVecVehicle->setMvAcce(100);
+                pLocoVehicle->setMvAcce(100);
             }
 
             if (pPhase->hasArrivedFrameAt(delay_ + 200)) {
@@ -155,7 +155,7 @@ void EnemyErelman::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
 }
 
 void EnemyErelman::processJudgement() {

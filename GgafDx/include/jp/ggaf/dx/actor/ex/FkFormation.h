@@ -82,7 +82,7 @@ public:
      * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
-     * 力車(getVecVehicle()) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 移動車両(getLocoVehicle()) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_pMember 従属させるアクター
      * @param prm_x_init_local  従属アクターのローカル(this)位置からのX座標位置

@@ -79,12 +79,12 @@ public:
     /**
      * VehicleLeader オブジェクトの生成 .
      * インスタンスは FixedFrameCurveManufacture です。
-     * @param prm_pVecVehicle カーブ移動するための操作するオブジェクト
+     * @param prm_pLocoVehicle カーブ移動するための操作するオブジェクト
      * @return VehicleLeader オブジェクト
      */
-    VehicleLeader* createVecVehicleLeader(GgafDx::VecVehicle* prm_pVecVehicle) override;
+    VehicleLeader* createLocoVehicleLeader(GgafDx::LocoVehicle* prm_pLocoVehicle) override;
 
-    VehicleLeader* createAxisVehicleLeader(GgafDx::AxisVehicle* prm_pAxisVehicle) override;
+    VehicleLeader* createCoordVehicleLeader(GgafDx::CoordVehicle* prm_pCoordVehicle) override;
 
     virtual ~FixedFrameCurveManufacture();
 };

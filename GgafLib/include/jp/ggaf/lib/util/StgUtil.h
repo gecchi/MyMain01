@@ -247,7 +247,7 @@ public:
      * 単発弾を複数個撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
-     * ・ショットの GgafDx::VecVehicle の移動方向、移動速度、加速度<BR>
+     * ・ショットの GgafDx::LocoVehicle の移動方向、移動速度、加速度<BR>
      * @param prm_x               発射元X座標
      * @param prm_y               発射元Y座標
      * @param prm_z               発射元Z座標
@@ -275,7 +275,7 @@ public:
      * 発射元が向いている方向（_rz > _ry）に向かって 単発弾を複数個撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
-     * ・ショットの GgafDx::VecVehicle の移動方向、移動速度、加速度<BR>
+     * ・ショットの GgafDx::LocoVehicle の移動方向、移動速度、加速度<BR>
      * @param prm_from_x          発射元X座標
      * @param prm_from_y          発射元Y座標
      * @param prm_from_z          発射元Z座標
@@ -304,7 +304,7 @@ public:
      * 発射元が向いている方向（_rz > _ry）に向かって 単発弾を複数個撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
-     * ・ショットの GgafDx::VecVehicle の移動方向、移動速度、加速度<BR>
+     * ・ショットの GgafDx::LocoVehicle の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom           発射元
      * @param prm_pDepo_shot      発射するショットのデポジトリ
      * @param prm_r               発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
@@ -359,7 +359,7 @@ public:
      * 発射元が向いている方向（_rx, _rz > _ry）N-Way弾（Rz変化）を複数セット撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
-     * ・ショットの GgafDx::VecVehicle の移動方向、移動速度、加速度<BR>
+     * ・ショットの GgafDx::LocoVehicle の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom                  発射元
      * @param prm_pDepo_shot             発射するショットのデポジトリ
      * @param prm_r                      発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。
@@ -386,7 +386,7 @@ public:
      * N*M-Way弾を複数セット撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
-     * ・ショットの GgafDx::VecVehicle の移動方向、移動速度、加速度<BR>
+     * ・ショットの GgafDx::LocoVehicle の移動方向、移動速度、加速度<BR>
      * @param prm_x                発射元X座標
      * @param prm_y                発射元Y座標
      * @param prm_z                発射元Z座標
@@ -429,7 +429,7 @@ public:
      * 発射元が向いている方向（_rx > _rz > _ry）に向かって N*M-Way弾を複数セット撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
-     * ・ショットの GgafDx::VecVehicle の移動方向、移動速度、加速度<BR>
+     * ・ショットの GgafDx::LocoVehicle の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom            発射元
      * @param prm_pDepo_shot1      発射するショットのデポジトリその１
      * @param prm_paUint32_dotmat1 ショットその１を使用するドットマトリックス
@@ -465,7 +465,7 @@ public:
      * 拡散放射状弾を複数セット同時に撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
-     * ・ショットの GgafDx::VecVehicle の移動方向、移動速度、加速度<BR>
+     * ・ショットの GgafDx::LocoVehicle の移動方向、移動速度、加速度<BR>
      * @param prm_x               発射元X座標
      * @param prm_y               発射元Y座標
      * @param prm_z               発射元Z座標
@@ -503,7 +503,7 @@ public:
      * 発射元が向いている方向（_rz > _ry）に向かって拡散放射状弾を複数セット同時に撃つ .
      * 発射するショットに、次の項目が設定されます。<BR>
      * ・ショットの _x, _y, _z 座標 <BR>
-     * ・ショットの GgafDx::VecVehicle の移動方向、移動速度、加速度<BR>
+     * ・ショットの GgafDx::LocoVehicle の移動方向、移動速度、加速度<BR>
      * @param prm_pFrom           発射元
      * @param prm_pDepo_shot      発射するショットのデポジトリ
      * @param prm_r               発射元と発射するショットの初期表示位置距離(発射元からの半径)。0より大きい値の必要有り。

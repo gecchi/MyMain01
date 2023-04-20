@@ -6,7 +6,6 @@
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
 
-
 using namespace GgafLib;
 
 DefaultMassMorphMeshActor::VERTEX_instancedata DefaultMassMorphMeshActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];

@@ -74,8 +74,6 @@ public:
     /** [r]角がゆがまないで表示できる限界の _sy */
     const scale _lim_center_sy;
 
-//    Align _align;
-//    Valign _valign;
 public:
     /**
      * コンストラクタ .
@@ -95,10 +93,6 @@ public:
     virtual void setPositionAt(const GeometricActor* prm_pActor) override;
 
     virtual void setPositionAt(const GeoElem* prm_pGeoElem) override;
-
-//    virtual void setAlign(Align prm_align, Valign prm_valign);
-//    virtual void setAlign(Align prm_align);
-//    virtual void setValign(Valign prm_valign);
 
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;
@@ -123,12 +117,50 @@ public:
         _sz += dsz;
     }
 
-    void setWidth(coord prm_width);
-    void setHeight(coord prm_height);
-    void addWidth(coord prm_width);
-    void addHeight(coord prm_height);
-    coord getWidth();
-    coord getHeight();
+    /**
+     * 外枠も含めたトータルの横幅を設定する .
+     * 内部的には、_sx を計算して設定します。
+     * @param prm_width 横幅
+     */
+    virtual void setWidth(coord prm_width);
+
+    /**
+     * 外枠も含めたトータルの高さを設定する .
+     * 内部的には、_sy を計算して設定します。
+     * @param prm_height
+     */
+    virtual void setHeight(coord prm_height);
+
+    /**
+     * 横幅を増やす .
+     * 基本的に四隅の枠の大きさはそのままで、中心さが変化しますが、
+     * 限界を越えると 四隅も伸縮します。
+     * 内部的には、_sx を計算して設定します。
+     * @param prm_width 横幅増分
+     */
+    virtual void addWidth(coord prm_width);
+
+    /**
+     * 高さを増やす .
+     * 基本的に四隅の枠の大きさはそのままで、中心さが変化しますが、
+     * 限界を越えると 四隅も伸縮します。
+     * 内部的には、_sy を計算して設定します。
+     * @param prm_height 高さ増分
+     */
+    virtual void addHeight(coord prm_height);
+
+    /**
+     * 外枠も含めたトータルの横幅を取得 .
+     * @return
+     */
+    virtual coord getWidth();
+
+    /**
+     * 外枠も含めたトータルの高さを取得 .
+     * @return
+     */
+    virtual coord getHeight();
+
 
     int isOutOfView() override {
         return 0;

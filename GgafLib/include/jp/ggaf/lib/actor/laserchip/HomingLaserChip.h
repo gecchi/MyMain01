@@ -11,9 +11,9 @@ namespace GgafLib {
  * ・発射座標位置固定（発射元座標が通常移動不可）<BR>
  * ・移動方向、速度は先頭チップがのみが決め、残りチップは単に追従する<BR>
  * と言うべきか、レイフォースのロックオンレーザーと言うべきか、そんな感じ。<BR>
- * 先頭のチップの動きを processBehaviorHeadChip() に実装して下さい。VecVehicle で移動します。<BR>
- * dispatch() したら、座標と VecVehicle（向き速度）を設定して下さい。<BR>
- * 先頭のチップの場合のみ、座標と VecVehicle（向き速度）の設定が適用され、
+ * 先頭のチップの動きを processBehaviorHeadChip() に実装して下さい。LocoVehicle で移動します。<BR>
+ * dispatch() したら、座標と LocoVehicle（向き速度）を設定して下さい。<BR>
+ * 先頭のチップの場合のみ、座標と LocoVehicle（向き速度）の設定が適用され、
  * それ以降のチップは一つ前方のチップの座標を強制トレースします。<BR>
  * @version 1.00
  * @since 2009/11/04

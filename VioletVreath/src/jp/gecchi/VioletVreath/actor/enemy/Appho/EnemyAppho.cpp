@@ -1,14 +1,14 @@
 #include "EnemyAppho.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafLib;
@@ -51,7 +51,7 @@ void EnemyAppho::onActive() {
 }
 
 void EnemyAppho::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
 
     switch (pPhase->getCurrent()) {
@@ -61,10 +61,10 @@ void EnemyAppho::processBehavior() {
              setPositionAt(&entry_pos_);
              setFaceAngTwd(stagnating_pos_.x, stagnating_pos_.y, stagnating_pos_.z);
              setAlpha(0);
-             pVecVehicle->linkFaceAngByMvAng(false);
-             pVecVehicle->setMvVelo(0);
-             pVecVehicle->setMvAngTwd(&stagnating_pos_);
-             pVecVehicle->setRollFaceAngVelo(D_ANG(3));
+             pLocoVehicle->linkFaceAngByMvAng(false);
+             pLocoVehicle->setMvVelo(0);
+             pLocoVehicle->setMvAngTwd(&stagnating_pos_);
+             pLocoVehicle->setRollFaceAngVelo(D_ANG(3));
              pPhase->changeNext();
              break;
          }
@@ -72,7 +72,7 @@ void EnemyAppho::processBehavior() {
              EffectBlink* pEffectEntry = nullptr;
              if (pPhase->hasJustChanged()) {
                  pEffectEntry = UTIL::activateEntryEffectOf(this);
-                 pVecVehicle->setRollFaceAngVelo(D_ANG(3));
+                 pLocoVehicle->setRollFaceAngVelo(D_ANG(3));
              }
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
              static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
@@ -91,34 +91,34 @@ void EnemyAppho::processBehavior() {
                  //滞留ポイントへGO!
                  velo mv_velo = RF_EnemyAppho_MvVelo(G_RANK);
                  coord d = UTIL::getDistance(this, &stagnating_pos_);
-                 pVecVehicle->asstMv()->slideByVd(mv_velo, d,
+                 pLocoVehicle->asstMv()->slideByVd(mv_velo, d,
                                                0.2, 0.8, 200, true);
              }
              //滞留ポイントまで移動中
              if (pPhase->getFrame() % 32U == 0) {
                  //ちょくちょく自機を見つめる
-                 pVecVehicle->turnFaceAngTwd(pMYSHIP, D_ANG(0.5), 0,
+                 pLocoVehicle->turnFaceAngTwd(pMYSHIP, D_ANG(0.5), 0,
                                          TURN_CLOSE_TO, true);
              }
-             if (pVecVehicle->asstMv()->hasJustFinishedSliding()) {
+             if (pLocoVehicle->asstMv()->hasJustFinishedSliding()) {
                  pPhase->changeNext();
              }
-             //_TRACE_("PHASE_MOVE01:"<<_x<<","<<_y<<","<<_z<<","<<_pVecVehicle->_velo_mv<<","<<_pVecVehicle->_acc_mv);
+             //_TRACE_("PHASE_MOVE01:"<<_x<<","<<_y<<","<<_z<<","<<_pLocoVehicle->_velo_mv<<","<<_pLocoVehicle->_acc_mv);
              break;
          }
 
          case PHASE_MOVE02: {
              if (pPhase->hasJustChanged()) {
                  //滞留ポイント到着、自機方向へジワリ移動させる
-                 pVecVehicle->turnMvAngTwd(pMYSHIP,
+                 pLocoVehicle->turnMvAngTwd(pMYSHIP,
                                        100, 0, TURN_CLOSE_TO, false);
                  //ゆっくり自機の方へ向かせる
-                 pVecVehicle->turnFaceAngTwd(pMYSHIP,
+                 pLocoVehicle->turnFaceAngTwd(pMYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              //滞留中
              //自機を見つめる
-             pVecVehicle->turnFaceAngTwd(pMYSHIP,
+             pLocoVehicle->turnFaceAngTwd(pMYSHIP,
                                      D_ANG(1), 0, TURN_CLOSE_TO, true);
 
              if (pPhase->hasArrivedFrameAt(180)) {
@@ -129,10 +129,10 @@ void EnemyAppho::processBehavior() {
                      GgafDx::FigureActor* pShot = UTIL::activateAttackShotOf(this);
                      if (pShot) {
                          pShot->activateDelay(1+(i*10)); //ばらつかせ。activate タイミング上書き！
-                         GgafDx::VecVehicle* pShot_pVecVehicle = pShot->getVecVehicle();
-                         pShot_pVecVehicle->setRzRyMvAng(_rz, _ry);
-                         pShot_pVecVehicle->setMvVelo(shot_velo);
-                         pShot_pVecVehicle->setMvAcce(100);
+                         GgafDx::LocoVehicle* pShot_pLocoVehicle = pShot->getLocoVehicle();
+                         pShot_pLocoVehicle->setRzRyMvAng(_rz, _ry);
+                         pShot_pLocoVehicle->setMvVelo(shot_velo);
+                         pShot_pLocoVehicle->setMvAcce(100);
                      }
                  }
              }
@@ -146,15 +146,15 @@ void EnemyAppho::processBehavior() {
              //さよなら準備
              if (pPhase->hasJustChanged()) {
                  //ゆっくりさよならポイントへ向ける
-                 pVecVehicle->turnMvAngTwd(&leave_pos_,
+                 pLocoVehicle->turnMvAngTwd(&leave_pos_,
                                        D_ANG(1), D_ANG(1), TURN_CLOSE_TO, false);
-                 pVecVehicle->setMvAcce(10);
+                 pLocoVehicle->setMvAcce(10);
              }
              if (pPhase->getFrame() % 16U == 0) {
-                 pVecVehicle->turnFaceAngTwd(pMYSHIP,
+                 pLocoVehicle->turnFaceAngTwd(pMYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
-             if (!pVecVehicle->isTurningMvAng()) {
+             if (!pLocoVehicle->isTurningMvAng()) {
                  pPhase->changeNext();
              }
              break;
@@ -163,13 +163,13 @@ void EnemyAppho::processBehavior() {
          case PHASE_MOVE04: {
              //さよなら～
              if (pPhase->hasJustChanged()) {
-                 pVecVehicle->turnMvAngTwd(&leave_pos_,
+                 pLocoVehicle->turnMvAngTwd(&leave_pos_,
                                        D_ANG(1), 0, TURN_CLOSE_TO, false);
-                 pVecVehicle->setMvAcce(100+(G_RANK*200));
+                 pLocoVehicle->setMvAcce(100+(G_RANK*200));
              }
              if (pPhase->getFrame() % 16U == 0) {
                  //ちょくちょく自機を見つめる
-                 pVecVehicle->turnFaceAngTwd(pMYSHIP,
+                 pLocoVehicle->turnFaceAngTwd(pMYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              break;
@@ -179,7 +179,7 @@ void EnemyAppho::processBehavior() {
              break;
          }
      }
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
     getAlphaFader()->behave();
 }
 

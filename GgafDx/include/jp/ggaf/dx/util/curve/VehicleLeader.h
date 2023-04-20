@@ -13,7 +13,7 @@ enum SplinTraceOption {
 
 /**
  * スプライン曲線移動を実行するためのオブジェクト .
- * 力車に指示を出して移動を先導します。
+ * 移動車両に指示を出して移動を先導します。
  * @version 1.00
  * @since 2009/10/27
  * @author Masatoshi Tsuge
@@ -33,7 +33,7 @@ public:
      * [r]オプション
      * ABSOLUTE_COORD     : 絶対座標移動。
      * RELATIVE_COORD     : 始点を現座標とし、スプライン座標群は相対移動で計算。
-     * RELATIVE_COORD_DIRECTION : 始点を現座標とし、さらに現在の向き（_pVecVehicle の _rz_mv, _ry_mv)でスプライン座標群をワールド変換。
+     * RELATIVE_COORD_DIRECTION : 始点を現座標とし、さらに現在の向き（_pLocoVehicle の _rz_mv, _ry_mv)でスプライン座標群をワールド変換。
      */
     SplinTraceOption _option;
     /** [r] ループカウンタ */
@@ -57,7 +57,7 @@ public:
     int _flip_z;
     /** [r]アクターの現在位置からスプライン始点までの距離。start()時点で更新される。 */
     int _distance_to_begin;
-    /** [r]始点座標を固定する。（固定しない場合は力車のアクターの座標になる） */
+    /** [r]始点座標を固定する。（固定しない場合は移動車両のアクターの座標になる） */
     bool _is_force_start_pos;
     bool _is_force_start_ang;
     bool _is_fix_pos;
@@ -76,7 +76,7 @@ public:
     /**
      * コンストラクタ .
      * @param prm_pManufacture
-     * @param prm_pVecVehicle
+     * @param prm_pLocoVehicle
      */
     VehicleLeader(CurveManufacture* prm_pManufacture,  GgafDx::GeometricActor* prm_pActor_target);
 
@@ -130,8 +130,8 @@ public:
     /**
      * スプライン曲線の補完点を移動する先導開始 .
      * @param prm_option ABSOLUTE_COORD     絶対座標移動
-     *                   RELATIVE_COORD     スプライン座標の(0,0,0)を、対象力車のアクターの現座標とし、相対座標で計算
-     *                   RELATIVE_COORD_DIRECTION スプライン座標の(0,0,0)を、対象力車のアクターの現座標とし、相対座標で計算。その後、現在の向き（_rx > _rz > _ry)でスプライン座標群をワールド変換。
+     *                   RELATIVE_COORD     スプライン座標の(0,0,0)を、対象移動車両のアクターの現座標とし、相対座標で計算
+     *                   RELATIVE_COORD_DIRECTION スプライン座標の(0,0,0)を、対象移動車両のアクターの現座標とし、相対座標で計算。その後、現在の向き（_rx > _rz > _ry)でスプライン座標群をワールド変換。
      * @param prm_max_loop 繰り返し回数、省略時は１ループ。
      */
     virtual void start(SplinTraceOption prm_option, int prm_max_loop = 1);
@@ -145,16 +145,16 @@ public:
 
     /**
      * 移動実行メソッド .
-     * 移動を行うために、力車の状態を更新します。
+     * 移動を行うために、移動車両の状態を更新します。
      * start() を行った同一フレームに実行を避けるといったことは不要。<BR>
      * start() を行った最初のbehave()は、現在の座標～ポイント[0] が離れていればその移動処理、
      * もし、現在の座標とポイント[0]が重なっていれば、現在の座標～ポイント[1]への移動処理となります。<BR>
-     * 力車(GgafDx::VecVehicle)のbehave();より先に実行して下さい。
+     * 移動車両(GgafDx::LocoVehicle)のbehave();より先に実行して下さい。
      */
     virtual void behave() = 0;
 
     /**
-     * 力車を先導中か否か .
+     * 移動車両を先導中か否か .
      * @return true:先導中 / false:先導が終了している
      */
     inline bool isLeading() {
@@ -162,7 +162,7 @@ public:
     }
 
     /**
-     * 力車を先導が終了したか否か。 .
+     * 移動車両を先導が終了したか否か。 .
      * @return true:先導が終了している / false:まだ開始していないか、先導中
      */
     inline bool isFinished() {
@@ -239,7 +239,7 @@ public:
     /**
      * スプラインの開始座標を引数の座標に固定設定。
      * 本メソッドを実行しなかった場合、スプライン開始座標は、<BR>
-     * 「スプライン開始座標 ＝ start()時の力車のアクターの座標」となるのだが、<BR>
+     * 「スプライン開始座標 ＝ start()時の移動車両のアクターの座標」となるのだが、<BR>
      * これを行わずに、スプライン開始座標を、任意の座標からのスタートに設定を行う。
      * 想定使用方法は、本メソッド実行で開始座標を設定した後、<BR>
      * 実際の移動するアクターの座標は別の場所に設定して、カーブ移動を開始、<BR>
@@ -272,7 +272,7 @@ public:
     /**
      * スプラインの開始移動方向を固定に設定。
      * 本メソッドを実行しなかった場合、スプライン開始時のスプライン方向は、<BR>
-     * 「スプライン開始方向 ＝ start()時の対象アクターの力車の向きの方向(_rz, _ry）」となるのだが、<BR>
+     * 「スプライン開始方向 ＝ start()時の対象アクターの移動車両の向きの方向(_rz, _ry）」となるのだが、<BR>
      * これを行わずに、スプライン開始時、任意のスプライン方向からのスタートに設定を行う。<BR>
      * start()時、カーブ移動繰り返し設定(２週以上)を行った場合、
      * ２週目以降は、開始移動方向はそのままで、この値がそのまま引き継がれることになる。<BR>
@@ -295,7 +295,7 @@ public:
 //
 //    /**
 //     * カーブ移動の開始方向を、自分が移動している方向に対して開始する .
-//     * start()時の対象アクター力車の移動方向(getVecVehicle()->_rz_mv, getVecVehicle()->_ry_mv）
+//     * start()時の対象アクター移動車両の移動方向(getLocoVehicle()->_rz_mv, getLocoVehicle()->_ry_mv）
 //     * に座標変換されて、スプラインの軌跡が構築される。
 //     */
 //    void setLoopAngleByMvAng() {

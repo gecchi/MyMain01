@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
@@ -57,7 +57,7 @@ void VehicleLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_
     //次の補間点（or制御点)に移動方角を向ける
     if (_option == RELATIVE_COORD_DIRECTION) {
         if (_is_leading) {
-            //力車さんが先導中(leading中)
+            //移動車両さんが先導中(leading中)
             //startされているので、未来の補間点座標が確定している
             //    平行移動 ＞ X軸回転 ＞ Z軸回転 ＞ Y軸回転
             // | cosRz*cosRy                                                                       sinRz                                       cosRz*-sinRy                                                                        0 |
@@ -73,7 +73,7 @@ void VehicleLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_
             out_y = ((dx*_sinRz_begin + (dy_cosRx_begin + -dz_sinRx_begin)* _cosRz_begin)                                                                  ) + _y_start_in_loop;
             out_z = ((dx_cosRz_begin  + (dy_cosRx_begin + -dz_sinRx_begin)*-_sinRz_begin)*-_sinRy_begin + ((dy_sinRx_begin + dz_cosRx_begin))*_cosRy_begin ) + _z_start_in_loop;
         } else {
-            //力車さんが先導していない(not leading 中)
+            //移動車両さんが先導していない(not leading 中)
             //まだ start されていないので、未来の補間点座標が未確定
             //この場合、仮に今ココで start された場合の座標を計算して返す
             const double sinRx_now = ANG_SIN(_pActor_target->_rx);
@@ -103,12 +103,12 @@ void VehicleLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_
     } else if (_option == RELATIVE_COORD) {
         //相対座標ターゲット
         if (_is_leading) {
-            //力車さんが先導中(leading中)
+            //移動車両さんが先導中(leading中)
             out_x = dx + _x_start_in_loop;
             out_y = dy + _y_start_in_loop;
             out_z = dz + _z_start_in_loop;
         } else {
-            //力車さんが先導していない(not leading 中)
+            //移動車両さんが先導していない(not leading 中)
             if (_is_force_start_pos) {
                 out_x = dx + 0;
                 out_y = dy + 0;
@@ -183,10 +183,10 @@ void VehicleLeader::restart() {
 //            } else {
 //                //setLoopAngleByMvAng() 設定済みの場合
 //                //１週目はアクターの移動方向が開始移動方向
-//                GgafDx::VecVehicle* pActorVecVehicle = _pActor_target->getVecVehicle();
+//                GgafDx::LocoVehicle* pActorLocoVehicle = _pActor_target->getLocoVehicle();
 //                angle rx_mv_start = D0ANG;
-//                angle rz_mv_start = pActorVecVehicle->_rz_mv;
-//                angle ry_mv_start = pActorVecVehicle->_ry_mv;
+//                angle rz_mv_start = pActorLocoVehicle->_rz_mv;
+//                angle ry_mv_start = pActorLocoVehicle->_ry_mv;
 //                _sinRx_begin = ANG_SIN(rx_mv_start);
 //                _cosRx_begin = ANG_COS(rx_mv_start);
 //                _sinRz_begin = ANG_SIN(rz_mv_start);

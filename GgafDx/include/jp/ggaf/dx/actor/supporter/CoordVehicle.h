@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_AXISVEHICLE_H_
-#define GGAF_DX_AXISVEHICLE_H_
+#ifndef GGAF_DX_COORDVEHICLE_H_
+#define GGAF_DX_COORDVEHICLE_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "ActorVehicle.h"
 
@@ -16,7 +16,7 @@ namespace GgafDx {
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class AxisVehicle : public ActorVehicle {
+class CoordVehicle : public ActorVehicle {
 
 public:
     /** [r]対象アクター */
@@ -67,20 +67,20 @@ public:
     coord _grv_mv_stop_renge;
     bool _grv_mv_flg;
     /** [r]駕籠の助手A */
-    AxisVehicleAssistantA* _pAsstMv;
+    CoordVehicleAssistantA* _pAsstMv;
 
 public:
     /**
      * コンストラクタ<BR>
      * @param   prm_pActor  駕籠に乗るActor
      */
-    explicit AxisVehicle(GeometricActor* prm_pActor);
+    explicit CoordVehicle(GeometricActor* prm_pActor);
 
     /**
      * 駕籠の助手(滑らか移動担当)を取得 .
      * @return 駕籠の助手
      */
-    AxisVehicleAssistantA* asst();
+    CoordVehicleAssistantA* asst();
 
     int dot(int prm_vX, int prm_vY, int prm_vZ);
 
@@ -405,13 +405,13 @@ public:
 
     /**
      * 駕籠(平行移動支援)の仕事を引継ぐ .
-     * 他の AxisVehicle オブジェクトを状態を自身に引継ぐ .
+     * 他の CoordVehicle オブジェクトを状態を自身に引継ぐ .
      * @param prm_pAxsMver 引継元
      */
-    void takeoverFrom(AxisVehicle* const prm_pAxsMver);
+    void takeoverFrom(CoordVehicle* const prm_pAxsMver);
 
     /**
-     * AxisVehicleによるアクター移動を停止する。
+     * CoordVehicleによるアクター移動を停止する。
      */
     void stop();
 
@@ -427,9 +427,9 @@ public:
      */
     virtual void behave();
 
-    virtual ~AxisVehicle();
+    virtual ~CoordVehicle();
 };
 
 }
-#endif /*GGAF_DX_AXISVEHICLE_H_*/
+#endif /*GGAF_DX_COORDVEHICLE_H_*/
 

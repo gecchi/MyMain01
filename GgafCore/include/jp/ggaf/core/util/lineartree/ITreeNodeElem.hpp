@@ -24,10 +24,11 @@ public:
         _kind = prm_kind;
         _pNextValue = nullptr;
     }
+
     void dump() {
-//        _TRACE_N_("o");
         _TRACE_N_("("<<UTIL::dec2hex(_kind)<<")");
     }
+
     virtual ~ITreeNodeElem() {
     }
 };

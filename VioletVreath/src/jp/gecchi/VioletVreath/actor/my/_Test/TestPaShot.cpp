@@ -1,6 +1,6 @@
 #include "TestPaShot.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -26,11 +26,11 @@ void TestPaShot::initialize() {
 void TestPaShot::onActive() {
     getStatus()->reset();
     setHitAble(true);
-    getVecVehicle()->setMvVelo(PX_C(30));
+    getLocoVehicle()->setMvVelo(PX_C(30));
 }
 
 void TestPaShot::processBehavior() {
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
 }
 
 void TestPaShot::processJudgement() {

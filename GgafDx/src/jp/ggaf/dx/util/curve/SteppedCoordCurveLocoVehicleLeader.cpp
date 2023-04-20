@@ -1,22 +1,22 @@
-#include "jp/ggaf/dx/util/curve/SteppedCoordCurveVecVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/SteppedCoordCurveLocoVehicleLeader.h"
 
 #include "jp/ggaf/dx/exception/CriticalException.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
 #include "jp/ggaf/dx/util/curve/SteppedCoordCurveManufacture.h"
 
 using namespace GgafDx;
 
-SteppedCoordCurveVecVehicleLeader::SteppedCoordCurveVecVehicleLeader(CurveManufacture* prm_pManufacture, GgafDx::VecVehicle* prm_pVecVehicle_target) :
-        VehicleLeader(prm_pManufacture, prm_pVecVehicle_target->_pActor) {
-    _pVecVehicle_target = prm_pVecVehicle_target;
+SteppedCoordCurveLocoVehicleLeader::SteppedCoordCurveLocoVehicleLeader(CurveManufacture* prm_pManufacture, GgafDx::LocoVehicle* prm_pLocoVehicle_target) :
+        VehicleLeader(prm_pManufacture, prm_pLocoVehicle_target->_pActor) {
+    _pLocoVehicle_target = prm_pLocoVehicle_target;
     _pSteppedSplManuf = (SteppedCoordCurveManufacture*)prm_pManufacture;
     _leading_frames = 0;
     _point_index = -1;
 }
 
-void SteppedCoordCurveVecVehicleLeader::restart() {
+void SteppedCoordCurveLocoVehicleLeader::restart() {
     VehicleLeader::restart();
     _leading_frames = 0;
     //始点へ行く特別処理。
@@ -31,9 +31,9 @@ void SteppedCoordCurveVecVehicleLeader::restart() {
     }
 }
 
-void SteppedCoordCurveVecVehicleLeader::behave() {
+void SteppedCoordCurveLocoVehicleLeader::behave() {
     if (_is_leading) {
-        GgafDx::VecVehicle* pVecVehicle_target = _pActor_target->getVecVehicle();
+        GgafDx::LocoVehicle* pLocoVehicle_target = _pActor_target->getLocoVehicle();
         _point_index++;
         if (_point_index == _pSteppedSplManuf->_pCurve->_rnum) {
             if (_cnt_loop == _max_loop) {
@@ -50,11 +50,11 @@ void SteppedCoordCurveVecVehicleLeader::behave() {
         coord x, y, z;
         getPointCoord(_point_index, x, y, z);
         coord d = UTIL::getDistance(_pActor_target->_x, _pActor_target->_y, _pActor_target->_z, x, y, z);
-        pVecVehicle_target->setMvAngTwd(x, y, z);
-        pVecVehicle_target->setMvVelo(d);
+        pLocoVehicle_target->setMvAngTwd(x, y, z);
+        pLocoVehicle_target->setMvVelo(d);
         _leading_frames++;
     }
 }
 
-SteppedCoordCurveVecVehicleLeader::~SteppedCoordCurveVecVehicleLeader() {
+SteppedCoordCurveLocoVehicleLeader::~SteppedCoordCurveLocoVehicleLeader() {
 }

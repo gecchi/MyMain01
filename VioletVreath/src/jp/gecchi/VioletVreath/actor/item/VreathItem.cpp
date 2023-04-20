@@ -1,7 +1,7 @@
 #include "VreathItem.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
@@ -28,9 +28,9 @@ VreathItem::VreathItem(const char* prm_name, const char* prm_model, void* prm_pF
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
-    pVecVehicle->linkFaceAngByMvAng(true);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
+    pLocoVehicle->linkFaceAngByMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
     setHitAble(true, false); //画面外当たり判定は無効
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
@@ -46,11 +46,11 @@ void VreathItem::initialize() {
 void VreathItem::onActive() {
     // _x, _y, _z は発生元座標に設定済み
     setHitAble(true, false);
-    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
-    pAxisVehicle->forceVeloXYZRange(-30000, 30000);
-    pAxisVehicle->setXYZZero();
-    pAxisVehicle->setAcceXYZZero();
-    pAxisVehicle->stopGravitationMvSequence();
+    GgafDx::CoordVehicle* const pCoordVehicle = getCoordVehicle();
+    pCoordVehicle->forceVeloXYZRange(-30000, 30000);
+    pCoordVehicle->setXYZZero();
+    pCoordVehicle->setAcceXYZZero();
+    pCoordVehicle->stopGravitationMvSequence();
 
     //初期方向設定
     MyShip* pMyShip = pMYSHIP;
@@ -59,8 +59,8 @@ void VreathItem::onActive() {
 //    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
 ////    int scattered_distance = scattered_renge/2 + 400000;
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->forceMvVeloRange(0, 20000);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->forceMvVeloRange(0, 20000);
     double vX, vY, vZ;
     UTIL::getNormalizedVector(
             pMyShip->_x - _x,
@@ -69,11 +69,11 @@ void VreathItem::onActive() {
             vX, vY, vZ);
     int d = PX_C(200);
     int r = PX_C(75);
-    pVecVehicle->setMvAngTwd( (coord)(_x + (vX * d) + RND(-r, +r)),
+    pLocoVehicle->setMvAngTwd( (coord)(_x + (vX * d) + RND(-r, +r)),
                               (coord)(_y + (vY * d) + RND(-r, +r)),
                               (coord)(_z + (vZ * d) + RND(-r, +r)) );
-    pVecVehicle->setMvVelo(2000);
-    pVecVehicle->setMvAcce(100);
+    pLocoVehicle->setMvVelo(2000);
+    pLocoVehicle->setMvAcce(100);
 
     getPhase()->reset(PHASE_DRIFT);
     _sx = _sy = _sz = 1000;
@@ -81,8 +81,8 @@ void VreathItem::onActive() {
 
 void VreathItem::processBehavior() {
     //通常移動
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::CoordVehicle* const pCoordVehicle = getCoordVehicle();
     GgafCore::Phase* pPhase = getPhase();
     if (pPhase->getCurrent() == PHASE_DRIFT) {
         //TractorMagic発動中はPHASE_ATTACHへ移行
@@ -99,11 +99,11 @@ void VreathItem::processBehavior() {
         MyShip* pMyShip = pMYSHIP;
         if (pPhase->hasJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
-            pAxisVehicle->setVeloXYZ(pVecVehicle->_vX * pVecVehicle->_velo_mv,
-                                     pVecVehicle->_vY * pVecVehicle->_velo_mv,
-                                     pVecVehicle->_vZ * pVecVehicle->_velo_mv );
-            pAxisVehicle->execGravitationMvSequenceTwd(pMyShip, PX_C(20), 200, PX_C(100));
-            pVecVehicle->stop();
+            pCoordVehicle->setVeloXYZ(pLocoVehicle->_vX * pLocoVehicle->_velo_mv,
+                                     pLocoVehicle->_vY * pLocoVehicle->_velo_mv,
+                                     pLocoVehicle->_vZ * pLocoVehicle->_velo_mv );
+            pCoordVehicle->execGravitationMvSequenceTwd(pMyShip, PX_C(20), 200, PX_C(100));
+            pLocoVehicle->stop();
         }
 
         //かつ自機近辺に到達？
@@ -123,9 +123,9 @@ void VreathItem::processBehavior() {
     if (pPhase->getCurrent() == PHASE_ABSORB) {
         MyShip* pMyShip = pMYSHIP;
         if (pPhase->hasJustChanged()) {
-            pAxisVehicle->setXYZZero();
-            pAxisVehicle->setAcceXYZZero();
-            pAxisVehicle->stopGravitationMvSequence();
+            pCoordVehicle->setXYZZero();
+            pCoordVehicle->setAcceXYZZero();
+            pCoordVehicle->stopGravitationMvSequence();
         }
         _x = pMyShip->_x + kDX_;
         _y = pMyShip->_y + kDY_;
@@ -140,8 +140,8 @@ void VreathItem::processBehavior() {
         }
         pMyShip->getStatus()->plus(STAT_Stamina, 1);
     }
-    pVecVehicle->behave();
-    pAxisVehicle->behave();
+    pLocoVehicle->behave();
+    pCoordVehicle->behave();
 }
 
 void VreathItem::processJudgement() {

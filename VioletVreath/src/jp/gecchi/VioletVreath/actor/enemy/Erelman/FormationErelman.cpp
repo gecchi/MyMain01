@@ -11,7 +11,7 @@
 #include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
 #include "EnemyErelmanCore.h"
 #include "EnemyErelmanController.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 
 
 

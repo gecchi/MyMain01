@@ -1,33 +1,33 @@
-#include "jp/ggaf/dx/util/curve/FixedVelocityCurveVecVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedVelocityCurveLocoVehicleLeader.h"
 
 #include "jp/ggaf/dx/exception/CriticalException.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAngAssistant.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
 #include "jp/ggaf/dx/util/curve/FixedVelocityCurveManufacture.h"
 
 using namespace GgafDx;
 
-FixedVelocityCurveVecVehicleLeader::FixedVelocityCurveVecVehicleLeader(CurveManufacture* prm_pManufacture, GgafDx::VecVehicle* prm_pVecVehicle_target) :
-        VehicleLeader(prm_pManufacture, prm_pVecVehicle_target->_pActor) {
-    _pVecVehicle_target = prm_pVecVehicle_target;
+FixedVelocityCurveLocoVehicleLeader::FixedVelocityCurveLocoVehicleLeader(CurveManufacture* prm_pManufacture, GgafDx::LocoVehicle* prm_pLocoVehicle_target) :
+        VehicleLeader(prm_pManufacture, prm_pLocoVehicle_target->_pActor) {
+    _pLocoVehicle_target = prm_pLocoVehicle_target;
     _pFixedVeloSplManuf = (FixedVelocityCurveManufacture*)prm_pManufacture;
     _leadning_double_frames = 0.0;
     _double_frame_of_next = -0.00001;
     _point_index = -1;//最初は始点[0]に向かうので、始点前の-1になる。
 }
 
-void FixedVelocityCurveVecVehicleLeader::restart() {
+void FixedVelocityCurveLocoVehicleLeader::restart() {
     VehicleLeader::restart();
     _leadning_double_frames = 0.0;
     _double_frame_of_next = -0.00001;
     _point_index = -1;//最初は始点[0]に向かうので、始点前の-1になる。
 }
 
-void FixedVelocityCurveVecVehicleLeader::behave() {
+void FixedVelocityCurveLocoVehicleLeader::behave() {
     if (_is_leading) {
-        GgafDx::VecVehicle* pVecVehicle_target = _pVecVehicle_target;
+        GgafDx::LocoVehicle* pLocoVehicle_target = _pLocoVehicle_target;
         //変わり目
         const int sp_rnum = _pFixedVeloSplManuf->_pCurve->_rnum;
         if (_leadning_double_frames >= _double_frame_of_next) {
@@ -37,7 +37,7 @@ again:
                 if (_cnt_loop == _max_loop) {
                     //終了
                     _is_leading = false;
-                    pVecVehicle_target->stopTurningMvAng();
+                    pLocoVehicle_target->stopTurningMvAng();
                     return;
                 } else {
                     //ループ
@@ -62,13 +62,13 @@ again:
             coord x, y, z;
             getPointCoord(_point_index, x, y, z);
             if (_turn_smooth) {
-                pVecVehicle_target->asstMvAng()->turnByVdTwd(
+                pLocoVehicle_target->asstMvAng()->turnByVdTwd(
                         _pFixedVeloSplManuf->_angvelo_rzry_mv,
                         x, y, z, _pFixedVeloSplManuf->_turn_way, _pFixedVeloSplManuf->_turn_optimize,
                         0.3, 0.7, 0,
                         true);
             } else {
-                pVecVehicle_target->turnMvAngTwd(x, y, z,
+                pLocoVehicle_target->turnMvAngTwd(x, y, z,
                                              _pFixedVeloSplManuf->_angvelo_rzry_mv, 0,
                                              _pFixedVeloSplManuf->_turn_way,
                                              _pFixedVeloSplManuf->_turn_optimize);
@@ -77,9 +77,9 @@ again:
         //キャラの速度が1000ならば、_leadning_double_frames ++;
         //キャラの速度が2000ならば  _leadning_double_frames += 2.0;
         //キャラの速度が500ならば、 _leadning_double_frames += 0.5
-        _leadning_double_frames += (pVecVehicle_target->_velo_mv * (1.0 / LEN_UNIT));
+        _leadning_double_frames += (pLocoVehicle_target->_velo_mv * (1.0 / LEN_UNIT));
     }
 }
 
-FixedVelocityCurveVecVehicleLeader::~FixedVelocityCurveVecVehicleLeader() {
+FixedVelocityCurveLocoVehicleLeader::~FixedVelocityCurveLocoVehicleLeader() {
 }

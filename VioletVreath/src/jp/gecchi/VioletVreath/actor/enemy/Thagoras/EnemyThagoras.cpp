@@ -1,7 +1,7 @@
 #include "EnemyThagoras.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -45,10 +45,10 @@ void EnemyThagoras::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->linkFaceAngByMvAng(true);
-    pVecVehicle->setRollFaceAngVelo(2000);
-    pVecVehicle->forceMvVeloRange(PX_C(15));
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->linkFaceAngByMvAng(true);
+    pLocoVehicle->setRollFaceAngVelo(2000);
+    pLocoVehicle->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyThagoras::onActive() {
@@ -109,7 +109,7 @@ void EnemyThagoras::processBehavior() {
             break;
     }
     pAlphaFader->behave();
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
     //ŒÛ“®‚ð“¯Šú
     _sx = pActor4Sc_->_sx;
     _sy = pActor4Sc_->_sy;

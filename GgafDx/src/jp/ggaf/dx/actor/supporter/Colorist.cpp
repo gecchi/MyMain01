@@ -14,7 +14,7 @@ enum {
     BLUE = 2,
 };
 
-Colorist::Colorist(FigureActor* prm_pActor) : GgafCore::TransitionValueSet<float, 3 > (),
+Colorist::Colorist(FigureActor* prm_pActor) : GgafCore::ValueTransitioner<float, 3 > (),
 _pActor(prm_pActor) {
     _pa_diffuse[RED]   = &(_pActor->_paMaterial[0].Diffuse.r);
     _pa_diffuse[GREEN] = &(_pActor->_paMaterial[0].Diffuse.g);
@@ -23,7 +23,7 @@ _pActor(prm_pActor) {
 }
 
 void Colorist::reset() {
-    GgafCore::TransitionValueSet<float, 3 >::reset();
+    GgafCore::ValueTransitioner<float, 3 >::reset();
 }
 
 float Colorist::getValue(int idx) {

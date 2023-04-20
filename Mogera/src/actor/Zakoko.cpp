@@ -1,7 +1,7 @@
 #include "Zakoko.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
@@ -23,8 +23,8 @@ void Zakoko::onCreateModel() {
 }
 
 void Zakoko::initialize() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->linkFaceAngByMvAng(true);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->linkFaceAngByMvAng(true);
 
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
@@ -39,8 +39,8 @@ void Zakoko::onActive() {
 }
 
 void Zakoko::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->behave();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->behave();
 }
 
 void Zakoko::processJudgement() {

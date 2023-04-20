@@ -1,9 +1,9 @@
 #include "SmpActor2.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/NaviVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "MgrCaretaker.h"
@@ -64,13 +64,13 @@ void SmpActor2::initialize() {
 }
 
 void SmpActor2::processBehavior() {
-    GeoVehicle* pGeoVehicle = getGeoVehicle();
+    NaviVehicle* pNaviVehicle = getNaviVehicle();
 
 
     if (GgafDx::Input::isPressedKey(DIK_SPACE)) {
         setPosition(0, 0, 0);
-        pGeoVehicle->setVeloZero();
-        pGeoVehicle->setAcceZero();
+        pNaviVehicle->setVeloZero();
+        pNaviVehicle->setAcceZero();
     }
 
     if (GgafDx::Input::isPressedKey(DIK_A)) {
@@ -83,8 +83,8 @@ void SmpActor2::processBehavior() {
 
 
 //    _TRACE_("x,y,z="<<_x<<", "<<_y<<", "<<_z);
-    pGeoVehicle->behave();
-    getVecVehicle()->behave();
+    pNaviVehicle->behave();
+    getLocoVehicle()->behave();
 }
 
 void SmpActor2::onHit(const GgafCore::Actor* prm_pOtherActor) {

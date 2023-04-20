@@ -22,7 +22,7 @@
 #define Obj_GgafDx_Scene        ((0x10ULL) | Obj_SceneBit)  //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00010000
 #define Obj_GgafDx_Spacetime    ((0x20ULL) | Obj_SceneBit)  //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00100000
 
-#define Obj_GgafDx_BaseActor                         (0x100ULL)  //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000001 00000000
+//#define Obj_GgafDx_BaseActor                         (0x100ULL)  //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000001 00000000
 #define Obj_GgafDx_SceneMediator                     (0x200ULL)  //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000010 00000000
 #define Obj_GgafDx_GeometricActor                    (0x400ULL)  //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000100 00000000
 #define Obj_GgafDx_FigureActor                       (0x800ULL)  //0b 00000000 00000000 00000000 00000000 00000000 00000000 00001000 00000000
@@ -362,7 +362,6 @@ class ICubeMapActor;
 class IBumpMapActor;
 
 
-class BaseActor;
 class SceneMediator;
 class GeometricActor;
 class FigureActor;
@@ -476,13 +475,13 @@ class CollisionPart;
 class GeoElem;
 
 class ActorVehicle;
-class VecVehicle;
-class VecVehicleMvAssistant;
-class VecVehicleFaceAngAssistant;
-class VecVehicleMvAngAssistant;
-class AxisVehicle;
-class AxisVehicleAssistantA;
-class GeoVehicle;
+class LocoVehicle;
+class LocoVehicleMvAssistant;
+class LocoVehicleFaceAngAssistant;
+class LocoVehicleMvAngAssistant;
+class CoordVehicle;
+class CoordVehicleAssistantA;
+class NaviVehicle;
 class CollisionChecker;
 class Scaler;
 class AlphaFader;
@@ -506,9 +505,9 @@ class Sound;
 class CWaveDecorder;
 
 class VehicleLeader;
-class FixedFrameCurveVecVehicleLeader;
-class FixedVelocityCurveVecVehicleLeader;
-class SteppedCoordCurveVecVehicleLeader;
+class FixedFrameCurveLocoVehicleLeader;
+class FixedVelocityCurveLocoVehicleLeader;
+class SteppedCoordCurveLocoVehicleLeader;
 class CurveManufacture;
 class CurveSource;
 class FixedFrameCurveManufacture;

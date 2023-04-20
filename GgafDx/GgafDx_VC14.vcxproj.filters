@@ -75,22 +75,34 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\AlphaFader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\AxisVehicle.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\AxisVehicleAssistantA.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Colorist.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\GeoVehicle.h">
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\CoordVehicle.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\CoordVehicleAssistantA.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\LocoVehicle.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\LocoVehicleFaceAngAssistant.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\LocoVehicleMvAngAssistant.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\LocoVehicleMvAssistant.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Morpher.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\MorpherAssistantA.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\NaviVehicle.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Puppeteer.h">
@@ -103,21 +115,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\UvFlipper.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\VecVehicle.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\VecVehicleFaceAngAssistant.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\VecVehicleMvAngAssistant.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\VecVehicleMvAssistant.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\BaseActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\actor\BoardActor.h">
@@ -474,25 +471,25 @@
     <ClInclude Include="include\jp\ggaf\dx\util\curve\CurveSource.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\util\curve\FixedFrameCurveAxisVehicleLeader.h">
+    <ClInclude Include="include\jp\ggaf\dx\util\curve\FixedFrameCurveCoordVehicleLeader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\util\curve\FixedFrameCurveLocoVehicleLeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\util\curve\FixedFrameCurveManufacture.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\util\curve\FixedFrameCurveVecVehicleLeader.h">
+    <ClInclude Include="include\jp\ggaf\dx\util\curve\FixedVelocityCurveLocoVehicleLeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\util\curve\FixedVelocityCurveManufacture.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\util\curve\FixedVelocityCurveVecVehicleLeader.h">
+    <ClInclude Include="include\jp\ggaf\dx\util\curve\SteppedCoordCurveLocoVehicleLeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\util\curve\SteppedCoordCurveManufacture.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\util\curve\SteppedCoordCurveVecVehicleLeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\util\curve\VehicleLeader.h">
@@ -635,16 +632,28 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\AlphaFader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\AxisVehicle.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\AxisVehicleAssistantA.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Colorist.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\GeoVehicle.cpp">
+    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\CoordVehicle.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\CoordVehicleAssistantA.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\LocoVehicle.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\LocoVehicleFaceAngAssistant.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\LocoVehicleMvAngAssistant.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\LocoVehicleMvAssistant.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\NaviVehicle.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Puppeteer.cpp">
@@ -657,21 +666,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\UvFlipper.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\VecVehicle.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\VecVehicleFaceAngAssistant.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\VecVehicleMvAngAssistant.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\VecVehicleMvAssistant.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\actor\BaseActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\actor\BoardActor.cpp">
@@ -1022,25 +1016,25 @@
     <ClCompile Include="src\jp\ggaf\dx\util\curve\CurveSource.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\util\curve\FixedFrameCurveAxisVehicleLeader.cpp">
+    <ClCompile Include="src\jp\ggaf\dx\util\curve\FixedFrameCurveCoordVehicleLeader.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dx\util\curve\FixedFrameCurveLocoVehicleLeader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\util\curve\FixedFrameCurveManufacture.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\util\curve\FixedFrameCurveVecVehicleLeader.cpp">
+    <ClCompile Include="src\jp\ggaf\dx\util\curve\FixedVelocityCurveLocoVehicleLeader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\util\curve\FixedVelocityCurveManufacture.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\util\curve\FixedVelocityCurveVecVehicleLeader.cpp">
+    <ClCompile Include="src\jp\ggaf\dx\util\curve\SteppedCoordCurveLocoVehicleLeader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\util\curve\SteppedCoordCurveManufacture.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\util\curve\SteppedCoordCurveVecVehicleLeader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\util\curve\VehicleLeader.cpp">

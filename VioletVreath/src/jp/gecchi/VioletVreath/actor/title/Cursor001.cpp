@@ -1,8 +1,8 @@
 #include "Cursor001.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
 
 
 
@@ -23,7 +23,7 @@ void Cursor001::onActive() {
 }
 
 void Cursor001::processBehavior() {
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
     getUvFlipper()->behave();
 }
 
@@ -31,9 +31,9 @@ void Cursor001::processJudgement() {
 }
 
 void Cursor001::moveTo(coord tx, coord ty) {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->setMvAngTwd(tx, ty);
-    pVecVehicle->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx, ty),
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->setMvAngTwd(tx, ty);
+    pLocoVehicle->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx, ty),
                                   8, 0.2, 0.3, 0, true);
 }
 

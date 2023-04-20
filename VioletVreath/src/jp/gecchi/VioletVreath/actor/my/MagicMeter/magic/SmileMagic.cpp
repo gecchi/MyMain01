@@ -1,6 +1,6 @@
 #include "SmileMagic.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -52,7 +52,7 @@ void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         }
         pMoji_->update(s.c_str());
         pMoji_->setFaceAngZero();
-        pMoji_->getVecVehicle()->setRollPitchYawFaceAngVelo(0,0,0);
+        pMoji_->getLocoVehicle()->setRollPitchYawFaceAngVelo(0,0,0);
         pMoji_->activate();
     }
 }
@@ -60,7 +60,7 @@ void SmileMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         pMoji_->_x += 1000;
         pMoji_->_y += 1000;
-        pMoji_->getVecVehicle()->behave();
+        pMoji_->getLocoVehicle()->behave();
     }
 }
 
@@ -76,13 +76,13 @@ void SmileMagic::processCastFinish(int prm_now_level, int prm_new_level, int prm
 void SmileMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     _TRACE_("SmileMagic::processInvokeBegin(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<")");
     if (prm_new_level > prm_now_level) {
-        pMoji_->getVecVehicle()->setFaceAngVelo(AXIS_Z, 5000);
+        pMoji_->getLocoVehicle()->setFaceAngVelo(AXIS_Z, 5000);
     }
 }
 
 void SmileMagic::processInvokingBehavior(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pMoji_->getVecVehicle()->behave();
+        pMoji_->getLocoVehicle()->behave();
     }
 }
 

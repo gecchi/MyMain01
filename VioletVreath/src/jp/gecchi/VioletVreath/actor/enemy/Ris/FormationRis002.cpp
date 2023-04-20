@@ -1,7 +1,7 @@
 #include "FormationRis002.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/util/curve/FixedVelocityCurveVecVehicleLeader.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/util/curve/FixedVelocityCurveLocoVehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/FixedVelocityCurveManufacture.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ris/EnemyRis.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
@@ -26,7 +26,7 @@ FormationRis002::FormationRis002(const char* prm_name) :
     for (int i = 0; i < RF_FormationRis002_Num(G_MAX_RANK); i++) {
         EnemyRis* pRis = NEW EnemyRis("Ris01");
         //カーブ移動プログラム設定
-        VehicleLeader* pVehicleLeader = NEW FixedVelocityCurveVecVehicleLeader(pManufacture_, pRis->getVecVehicle());
+        VehicleLeader* pVehicleLeader = NEW FixedVelocityCurveLocoVehicleLeader(pManufacture_, pRis->getLocoVehicle());
         pRis->config(pVehicleLeader, pConn_depo_->peek(), nullptr);
         appendFormationMember(pRis);
     }
@@ -46,7 +46,7 @@ void FormationRis002::processBehavior() {
         EnemyRis* pRis = (EnemyRis*)calledUpMember(num_Ris_);
         if (pRis) {
             pRis->setPosition(MyShip::lim_x_behaind_ - 500000, 0, MyShip::lim_z_right_ * 0.8);
-            pRis->getVecVehicle()->setMvVelo(velo_mv_);
+            pRis->getLocoVehicle()->setMvVelo(velo_mv_);
         }
     }
 }

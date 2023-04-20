@@ -1,7 +1,7 @@
 #include "EnemyRatislaviaEyeStraightLaserChip001.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 
@@ -17,7 +17,7 @@ EnemyRatislaviaEyeStraightLaserChip001::EnemyRatislaviaEyeStraightLaserChip001(c
 }
 
 void EnemyRatislaviaEyeStraightLaserChip001::initialize() {
-    getVecVehicle()->setRzRyMvAng(0,0);
+    getLocoVehicle()->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(300000);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³‚µ
     //setScaleR(5.0);
@@ -27,8 +27,8 @@ void EnemyRatislaviaEyeStraightLaserChip001::initialize() {
 
 void EnemyRatislaviaEyeStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
-    getVecVehicle()->setMvVelo(100000);
-    getVecVehicle()->setMvAcce(300);
+    getLocoVehicle()->setMvVelo(100000);
+    getLocoVehicle()->setMvAcce(300);
     getStatus()->reset();
 }
 

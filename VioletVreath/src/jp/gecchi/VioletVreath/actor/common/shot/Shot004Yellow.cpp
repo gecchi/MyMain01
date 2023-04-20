@@ -1,6 +1,6 @@
 #include "Shot004Yellow.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
@@ -33,11 +33,11 @@ void Shot004Yellow::onReset() {
     getStatus()->reset();
     setScaleR(3.0);
     setCullingDraw(false);
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->setRollFaceAngVelo(D_ANG(3));
-    pVecVehicle->setMvVelo(40000);             //移動速度
-    pVecVehicle->setMvAcce(1000);             //移動速度
-    pVecVehicle->linkFaceAngByMvAng(true);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->setRollFaceAngVelo(D_ANG(3));
+    pLocoVehicle->setMvVelo(40000);             //移動速度
+    pLocoVehicle->setMvAcce(1000);             //移動速度
+    pLocoVehicle->linkFaceAngByMvAng(true);
 }
 
 void Shot004Yellow::onActive() {
@@ -47,7 +47,7 @@ void Shot004Yellow::onActive() {
 
 void Shot004Yellow::processBehavior() {
     //座標に反映
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
 }
 
 void Shot004Yellow::processJudgement() {

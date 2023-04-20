@@ -1,7 +1,7 @@
 #include "EnemyEbe.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
@@ -34,7 +34,7 @@ EnemyEbe::EnemyEbe(const char* prm_name) :
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //”š”­
-    getVecVehicle()->linkFaceAngByMvAng(true);
+    getLocoVehicle()->linkFaceAngByMvAng(true);
 }
 
 void EnemyEbe::onCreateModel() {
@@ -65,16 +65,16 @@ void EnemyEbe::onActive() {
     }
     getStatus()->reset();
     setHitAble(true);
-    getVecVehicle()->setMvAcce(0);
+    getLocoVehicle()->setMvAcce(0);
     getPhase()->reset(PHASE_MOVE01_1);
 }
 
 void EnemyEbe::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_MOVE01_1: {
-            if ((int)(pPhase->getFrame()) > (int)(PX_C(300) / ABS(pVecVehicle->_velo_mv))) {
+            if ((int)(pPhase->getFrame()) > (int)(PX_C(300) / ABS(pLocoVehicle->_velo_mv))) {
                 pPhase->changeNext();
             }
             break;
@@ -94,7 +94,7 @@ void EnemyEbe::processBehavior() {
 
         case PHASE_MOVE02_1: {
             if (pPhase->hasJustChanged()) {
-                pVecVehicle->turnMvAngTwd(_x - PX_C(300), _y, _z,
+                pLocoVehicle->turnMvAngTwd(_x - PX_C(300), _y, _z,
                                       D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
 
@@ -102,7 +102,7 @@ void EnemyEbe::processBehavior() {
         }
     }
 
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
 }
 
 void EnemyEbe::processJudgement() {

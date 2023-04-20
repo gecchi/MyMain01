@@ -1,6 +1,6 @@
-#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 
-#include "jp/ggaf/dx/actor/supporter/AxisVehicleAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistantA.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 using namespace GgafDx;
@@ -9,7 +9,7 @@ using namespace GgafDx;
 // 「X軸方向移動速度」「Y軸方向移動速度」「Z軸方向移動速度」を設定すると、毎フレーム(_x,_y,_z)にそれぞれの移動増分が
 // 加算される。
 
-AxisVehicle::AxisVehicle(GeometricActor* prm_pActor)  : ActorVehicle(prm_pActor) {
+CoordVehicle::CoordVehicle(GeometricActor* prm_pActor)  : ActorVehicle(prm_pActor) {
     _pAsstMv = nullptr;
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _velo_x = 0;
@@ -54,11 +54,11 @@ AxisVehicle::AxisVehicle(GeometricActor* prm_pActor)  : ActorVehicle(prm_pActor)
     _grv_mv_flg = false;
 }
 
-AxisVehicleAssistantA* AxisVehicle::asst() {
-    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW AxisVehicleAssistantA(this);
+CoordVehicleAssistantA* CoordVehicle::asst() {
+    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW CoordVehicleAssistantA(this);
 }
 
-void AxisVehicle::behave() {
+void CoordVehicle::behave() {
     if (_pAsstMv) {
         _pAsstMv->behave();
     }
@@ -178,11 +178,11 @@ void AxisVehicle::behave() {
     _pActor->_z += _velo_z;
 }
 
-int AxisVehicle::dot(int prm_vX, int prm_vY, int prm_vZ) {
+int CoordVehicle::dot(int prm_vX, int prm_vY, int prm_vZ) {
     return (prm_vX * _velo_x) + (prm_vY *_velo_y) + (prm_vZ*_velo_z);
 }
 
-void AxisVehicle::setVeloX(velo prm_velo_x) {
+void CoordVehicle::setVeloX(velo prm_velo_x) {
     if (prm_velo_x > _top_velo_x) {
         _velo_x = _top_velo_x;
     } else if (prm_velo_x < _bottom_velo_x) {
@@ -192,7 +192,7 @@ void AxisVehicle::setVeloX(velo prm_velo_x) {
     }
 }
 
-void AxisVehicle::addVeloX(velo prm_velo_x) {
+void CoordVehicle::addVeloX(velo prm_velo_x) {
     _velo_x += prm_velo_x;
     if (_velo_x > _top_velo_x) {
         _velo_x = _top_velo_x;
@@ -201,7 +201,7 @@ void AxisVehicle::addVeloX(velo prm_velo_x) {
     }
 }
 
-void AxisVehicle::forceVeloXRange(velo prm_velo_x01, velo prm_velo_x02) {
+void CoordVehicle::forceVeloXRange(velo prm_velo_x01, velo prm_velo_x02) {
     if (prm_velo_x01 < prm_velo_x02) {
         _top_velo_x = prm_velo_x02;
         _bottom_velo_x = prm_velo_x01;
@@ -212,7 +212,7 @@ void AxisVehicle::forceVeloXRange(velo prm_velo_x01, velo prm_velo_x02) {
     setVeloX(_velo_x); //再設定して範囲内に補正
 }
 
-void AxisVehicle::setAcceX(acce prm_acce_x) {
+void CoordVehicle::setAcceX(acce prm_acce_x) {
     if (prm_acce_x > _top_acce_x) {
         _acce_x = _top_acce_x;
     } else if (prm_acce_x < _bottom_acce_x) {
@@ -222,11 +222,11 @@ void AxisVehicle::setAcceX(acce prm_acce_x) {
     }
 }
 
-void AxisVehicle::addAcceX(acce prm_acce_x) {
+void CoordVehicle::addAcceX(acce prm_acce_x) {
     setAcceX(_acce_x + prm_acce_x);
 }
 
-void AxisVehicle::forceAcceXRange(acce prm_acce_x01, acce prm_acce_x02) {
+void CoordVehicle::forceAcceXRange(acce prm_acce_x01, acce prm_acce_x02) {
     if (prm_acce_x01 < prm_acce_x02) {
         _top_acce_x = prm_acce_x02;
         _bottom_acce_x = prm_acce_x01;
@@ -238,7 +238,7 @@ void AxisVehicle::forceAcceXRange(acce prm_acce_x01, acce prm_acce_x02) {
 }
 
 
-void AxisVehicle::setVeloY(velo prm_velo_y) {
+void CoordVehicle::setVeloY(velo prm_velo_y) {
     if (prm_velo_y > _top_velo_y) {
         _velo_y = _top_velo_y;
     } else if (prm_velo_y < _bottom_velo_y) {
@@ -248,7 +248,7 @@ void AxisVehicle::setVeloY(velo prm_velo_y) {
     }
 }
 
-void AxisVehicle::addVeloY(velo prm_velo_y) {
+void CoordVehicle::addVeloY(velo prm_velo_y) {
     _velo_y += prm_velo_y;
     if (_velo_y > _top_velo_y) {
         _velo_y = _top_velo_y;
@@ -257,7 +257,7 @@ void AxisVehicle::addVeloY(velo prm_velo_y) {
     }
 }
 
-void AxisVehicle::forceVeloYRange(velo prm_velo_y01, velo prm_velo_y02) {
+void CoordVehicle::forceVeloYRange(velo prm_velo_y01, velo prm_velo_y02) {
     if (prm_velo_y01 < prm_velo_y02) {
         _top_velo_y = prm_velo_y02;
         _bottom_velo_y = prm_velo_y01;
@@ -268,7 +268,7 @@ void AxisVehicle::forceVeloYRange(velo prm_velo_y01, velo prm_velo_y02) {
     setVeloY(_velo_y); //再設定して範囲内に補正
 }
 
-void AxisVehicle::setAcceY(acce prm_acce_y) {
+void CoordVehicle::setAcceY(acce prm_acce_y) {
     if (prm_acce_y > _top_acce_y) {
         _acce_y = _top_acce_y;
     } else if (prm_acce_y < _bottom_acce_y) {
@@ -278,11 +278,11 @@ void AxisVehicle::setAcceY(acce prm_acce_y) {
     }
 }
 
-void AxisVehicle::addAcceY(acce prm_acce_y) {
+void CoordVehicle::addAcceY(acce prm_acce_y) {
     setAcceY(_acce_y + prm_acce_y);
 }
 
-void AxisVehicle::forceAcceYRange(acce prm_acce_y01, acce prm_acce_y02) {
+void CoordVehicle::forceAcceYRange(acce prm_acce_y01, acce prm_acce_y02) {
     if (prm_acce_y01 < prm_acce_y02) {
         _top_acce_y = prm_acce_y02;
         _bottom_acce_y = prm_acce_y01;
@@ -293,7 +293,7 @@ void AxisVehicle::forceAcceYRange(acce prm_acce_y01, acce prm_acce_y02) {
     setAcceY(_acce_y); //再設定して範囲内に補正
 }
 
-void AxisVehicle::setVeloZ(velo prm_velo_z) {
+void CoordVehicle::setVeloZ(velo prm_velo_z) {
     if (prm_velo_z > _top_velo_z) {
         _velo_z = _top_velo_z;
     } else if (prm_velo_z < _bottom_velo_z) {
@@ -303,7 +303,7 @@ void AxisVehicle::setVeloZ(velo prm_velo_z) {
     }
 }
 
-void AxisVehicle::addVeloZ(velo prm_velo_z) {
+void CoordVehicle::addVeloZ(velo prm_velo_z) {
     _velo_z += prm_velo_z;
     if (_velo_z > _top_velo_z) {
         _velo_z = _top_velo_z;
@@ -312,7 +312,7 @@ void AxisVehicle::addVeloZ(velo prm_velo_z) {
     }
 }
 
-void AxisVehicle::forceVeloZRange(velo prm_velo_z01, velo prm_velo_z02) {
+void CoordVehicle::forceVeloZRange(velo prm_velo_z01, velo prm_velo_z02) {
     if (prm_velo_z01 < prm_velo_z02) {
         _top_velo_z = prm_velo_z02;
         _bottom_velo_z = prm_velo_z01;
@@ -323,7 +323,7 @@ void AxisVehicle::forceVeloZRange(velo prm_velo_z01, velo prm_velo_z02) {
     setVeloZ(_velo_z); //再設定して範囲内に補正
 }
 
-void AxisVehicle::setAcceZ(acce prm_acce_z) {
+void CoordVehicle::setAcceZ(acce prm_acce_z) {
     if (prm_acce_z > _top_acce_z) {
         _acce_z = _top_acce_z;
     } else if (prm_acce_z < _bottom_acce_z) {
@@ -333,11 +333,11 @@ void AxisVehicle::setAcceZ(acce prm_acce_z) {
     }
 }
 
-void AxisVehicle::addAcceZ(acce prm_acce_z) {
+void CoordVehicle::addAcceZ(acce prm_acce_z) {
     setAcceZ(_acce_z + prm_acce_z);
 }
 
-void AxisVehicle::forceAcceZRange(acce prm_acce_z01, acce prm_acce_z02) {
+void CoordVehicle::forceAcceZRange(acce prm_acce_z01, acce prm_acce_z02) {
     if (prm_acce_z01 < prm_acce_z02) {
         _top_acce_z = prm_acce_z02;
         _bottom_acce_z = prm_acce_z01;
@@ -348,7 +348,7 @@ void AxisVehicle::forceAcceZRange(acce prm_acce_z01, acce prm_acce_z02) {
     setAcceZ(_acce_z); //再設定して範囲内に補正
 }
 
-void AxisVehicle::forceVeloXYZRange(velo prm_velo_vxyz_mv01, velo prm_velo_vxyz_mv02) {
+void CoordVehicle::forceVeloXYZRange(velo prm_velo_vxyz_mv01, velo prm_velo_vxyz_mv02) {
     if (prm_velo_vxyz_mv01 < prm_velo_vxyz_mv02) {
         _top_velo_x    = _top_velo_y    = _top_velo_z    = prm_velo_vxyz_mv02;
         _bottom_velo_x = _bottom_velo_y = _bottom_velo_z = prm_velo_vxyz_mv01;
@@ -362,7 +362,7 @@ void AxisVehicle::forceVeloXYZRange(velo prm_velo_vxyz_mv01, velo prm_velo_vxyz_
     setVeloZ(_velo_z);
 }
 
-void AxisVehicle::forceAcceXYZRange(acce prm_acce_vxyz_mv01, acce prm_acce_vxyz_mv02) {
+void CoordVehicle::forceAcceXYZRange(acce prm_acce_vxyz_mv01, acce prm_acce_vxyz_mv02) {
     if (prm_acce_vxyz_mv01 < prm_acce_vxyz_mv02) {
         _top_acce_x    = _top_acce_y    = _top_acce_z    = prm_acce_vxyz_mv02;
         _bottom_acce_x = _bottom_acce_y = _bottom_acce_z = prm_acce_vxyz_mv01;
@@ -376,7 +376,7 @@ void AxisVehicle::forceAcceXYZRange(acce prm_acce_vxyz_mv01, acce prm_acce_vxyz_
     setAcceZ(_acce_z);
 }
 
-void AxisVehicle::setVeloXYZ(velo prm_velo_x, velo prm_velo_y, velo prm_velo_z) {
+void CoordVehicle::setVeloXYZ(velo prm_velo_x, velo prm_velo_y, velo prm_velo_z) {
     if (prm_velo_x > _top_velo_x) {
         _velo_x = _top_velo_x;
     } else if (prm_velo_x < _bottom_velo_x) {
@@ -400,13 +400,13 @@ void AxisVehicle::setVeloXYZ(velo prm_velo_x, velo prm_velo_y, velo prm_velo_z) 
     }
 }
 
-void AxisVehicle::setVeloXYZTwd(angle prm_rz, angle prm_ry, velo prm_velo) {
+void CoordVehicle::setVeloXYZTwd(angle prm_rz, angle prm_ry, velo prm_velo) {
     double vx, vy, vz;
     UTIL::convRzRyToVector(prm_rz, prm_ry, vx, vy, vz);
     setVeloXYZ(vx*prm_velo, vy*prm_velo, vz*prm_velo);
 }
 
-void AxisVehicle::setVeloXYZTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_velo) {
+void CoordVehicle::setVeloXYZTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_velo) {
     double vx, vy, vz;
     UTIL::getNormalizedVector(prm_tx - _pActor->_x,
                               prm_ty - _pActor->_y,
@@ -415,7 +415,7 @@ void AxisVehicle::setVeloXYZTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo p
     setVeloXYZ(vx*prm_velo, vy*prm_velo, vz*prm_velo);
 }
 
-void AxisVehicle::setAcceXYZ(acce prm_acce_x, acce prm_acce_y, acce prm_acce_z) {
+void CoordVehicle::setAcceXYZ(acce prm_acce_x, acce prm_acce_y, acce prm_acce_z) {
     if (prm_acce_x > _top_acce_x) {
         _acce_x = _top_acce_x;
     } else if (prm_acce_x < _bottom_acce_x) {
@@ -439,7 +439,7 @@ void AxisVehicle::setAcceXYZ(acce prm_acce_x, acce prm_acce_y, acce prm_acce_z) 
     }
 }
 
-coord AxisVehicle::setAcceXByT(frame prm_target_frames, velo prm_target_velo) {
+coord CoordVehicle::setAcceXByT(frame prm_target_frames, velo prm_target_velo) {
     double acc = UTIL::getAcceByTv(prm_target_frames, _velo_x, prm_target_velo);
     if (acc > 0.0) {
         acc += 0.5;
@@ -451,7 +451,7 @@ coord AxisVehicle::setAcceXByT(frame prm_target_frames, velo prm_target_velo) {
     return ((_velo_x + prm_target_velo) * prm_target_frames) / 2 ;
 }
 
-coord AxisVehicle::setAcceYByT(frame prm_target_frames, velo prm_target_velo) {
+coord CoordVehicle::setAcceYByT(frame prm_target_frames, velo prm_target_velo) {
     double acc = UTIL::getAcceByTv(prm_target_frames, _velo_y, prm_target_velo);
     if (acc > 0.0) {
         acc += 0.5;
@@ -463,7 +463,7 @@ coord AxisVehicle::setAcceYByT(frame prm_target_frames, velo prm_target_velo) {
     return ((_velo_y + prm_target_velo) * prm_target_frames) / 2 ;
 }
 
-coord AxisVehicle::setAcceZByT(frame prm_target_frames, velo prm_target_velo) {
+coord CoordVehicle::setAcceZByT(frame prm_target_frames, velo prm_target_velo) {
     double acc = UTIL::getAcceByTv(prm_target_frames, _velo_z, prm_target_velo);
     if (acc > 0.0) {
         acc += 0.5;
@@ -475,7 +475,7 @@ coord AxisVehicle::setAcceZByT(frame prm_target_frames, velo prm_target_velo) {
     return ((_velo_z + prm_target_velo) * prm_target_frames) / 2 ;
 }
 
-void AxisVehicle::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord prm_tz,
+void CoordVehicle::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                                               velo prm_max_velo,
                                               acce prm_acce,
                                               coord prm_stop_renge ) {
@@ -493,7 +493,7 @@ void AxisVehicle::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord
     forceVeloZRange(-prm_max_velo, prm_max_velo);
 }
 
-void AxisVehicle::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_target,
+void CoordVehicle::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_target,
                                               velo prm_max_velo,
                                               acce prm_acce,
                                               coord prm_stop_renge ) {
@@ -511,7 +511,7 @@ void AxisVehicle::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_
     forceVeloZRange(-prm_max_velo, prm_max_velo);
 }
 
-void AxisVehicle::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_target,
+void CoordVehicle::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_target,
                                               coord prm_local_offset_tx, coord prm_local_offset_ty, coord prm_local_offset_tz,
                                               velo prm_max_velo,
                                               acce prm_acce,
@@ -530,7 +530,7 @@ void AxisVehicle::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_
     forceVeloZRange(-prm_max_velo, prm_max_velo);
 }
 
-void AxisVehicle::takeoverFrom(AxisVehicle* const prm_pAxsMver) {
+void CoordVehicle::takeoverFrom(CoordVehicle* const prm_pAxsMver) {
     // X軸方向移動速度
     _velo_x = prm_pAxsMver->_velo_x;
     // X軸方向移動速度上限
@@ -569,7 +569,7 @@ void AxisVehicle::takeoverFrom(AxisVehicle* const prm_pAxsMver) {
     _bottom_acce_z = prm_pAxsMver->_bottom_acce_z;
 }
 
-void AxisVehicle::stop() {
+void CoordVehicle::stop() {
     setXYZZero();
     setAcceXYZZero();
     stopGravitationMvSequence();
@@ -578,7 +578,7 @@ void AxisVehicle::stop() {
     }
 }
 
-void AxisVehicle::reset() {
+void CoordVehicle::reset() {
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _velo_x = 0;
     //X軸方向移動速度上限
@@ -615,6 +615,6 @@ void AxisVehicle::reset() {
     _grv_mv_flg = false;
 }
 
-AxisVehicle::~AxisVehicle() {
+CoordVehicle::~CoordVehicle() {
     GGAF_DELETE_NULLABLE(_pAsstMv);
 }

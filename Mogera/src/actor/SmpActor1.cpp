@@ -1,7 +1,7 @@
 #include "actor/SmpActor1.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAngAssistant.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "MgrCaretaker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
@@ -53,7 +53,7 @@ void SmpActor1::processBehavior() {
             _y -= PX_C(2); //下
         }
     }
-    getVecVehicle()->behave(); //力車を活動させる（Z軸回転する）
+    getLocoVehicle()->behave(); //移動車両を活動させる（Z軸回転する）
 }
 
 void SmpActor1::onHit(const GgafCore::Actor* prm_pOtherActor) {

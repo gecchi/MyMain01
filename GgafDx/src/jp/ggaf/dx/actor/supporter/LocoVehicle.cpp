@@ -1,31 +1,31 @@
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 
 #include <math.h>
 #include "jp/ggaf/dx/actor/FigureActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAngAssistant.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 using namespace GgafDx;
 
-VecVehicle::VecVehicle(GeometricActor* prm_pActor) : ActorVehicle(prm_pActor) {
+LocoVehicle::LocoVehicle(GeometricActor* prm_pActor) : ActorVehicle(prm_pActor) {
     _pAsstMv = nullptr;
     _pAsstFaceAng = nullptr;
     _pAsstMvAng = nullptr;
     reset();
 }
-VecVehicleMvAssistant* VecVehicle::asstMv() {
-    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW VecVehicleMvAssistant(this);
+LocoVehicleMvAssistant* LocoVehicle::asstMv() {
+    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW LocoVehicleMvAssistant(this);
 }
-VecVehicleFaceAngAssistant* VecVehicle::asstFaceAng() {
-    return _pAsstFaceAng ? _pAsstFaceAng : _pAsstFaceAng = NEW VecVehicleFaceAngAssistant(this);
+LocoVehicleFaceAngAssistant* LocoVehicle::asstFaceAng() {
+    return _pAsstFaceAng ? _pAsstFaceAng : _pAsstFaceAng = NEW LocoVehicleFaceAngAssistant(this);
 }
-VecVehicleMvAngAssistant* VecVehicle::asstMvAng() {
-    return _pAsstMvAng ? _pAsstMvAng : _pAsstMvAng = NEW VecVehicleMvAngAssistant(this);
+LocoVehicleMvAngAssistant* LocoVehicle::asstMvAng() {
+    return _pAsstMvAng ? _pAsstMvAng : _pAsstMvAng = NEW LocoVehicleMvAngAssistant(this);
 }
 
-void VecVehicle::reset() {
+void LocoVehicle::reset() {
     GGAF_DELETE_NULLABLE(_pAsstMv);
     GGAF_DELETE_NULLABLE(_pAsstFaceAng);
     GGAF_DELETE_NULLABLE(_pAsstMvAng);
@@ -133,7 +133,7 @@ void VecVehicle::reset() {
     _taget_face_alltime_optimize_ang = true;
 }
 
-void VecVehicle::behave() {
+void LocoVehicle::behave() {
     if (_pAsstMv) {
         _pAsstMv->behave();
     }
@@ -396,7 +396,7 @@ void VecVehicle::behave() {
     _pActor->_z += (coord)(_vZ * _velo_mv);
 }
 
-void VecVehicle::setFaceAngVelo(axis prm_axis, angvelo prm_angvelo) {
+void LocoVehicle::setFaceAngVelo(axis prm_axis, angvelo prm_angvelo) {
     if (prm_angvelo > _top_angvelo_face[prm_axis]) {
         _angvelo_face[prm_axis] = _top_angvelo_face[prm_axis];
     } else if (prm_angvelo < _bottom_angvelo_face[prm_axis]) {
@@ -406,7 +406,7 @@ void VecVehicle::setFaceAngVelo(axis prm_axis, angvelo prm_angvelo) {
     }
 }
 
-void VecVehicle::setRollPitchYawFaceAngVelo(angvelo prm_axis_x_angvelo,
+void LocoVehicle::setRollPitchYawFaceAngVelo(angvelo prm_axis_x_angvelo,
                                          angvelo prm_axis_z_angvelo,
                                          angvelo prm_axis_y_angvelo) {
     setFaceAngVelo(AXIS_X, prm_axis_x_angvelo);
@@ -414,7 +414,7 @@ void VecVehicle::setRollPitchYawFaceAngVelo(angvelo prm_axis_x_angvelo,
     setFaceAngVelo(AXIS_Y, prm_axis_y_angvelo);
 }
 
-void VecVehicle::forceFaceAngVeloRange(axis prm_axis,
+void LocoVehicle::forceFaceAngVeloRange(axis prm_axis,
                                     angvelo prm_angvelo01,
                                     angvelo prm_angvelo02) {
     if (prm_angvelo01 < prm_angvelo02) {
@@ -427,11 +427,11 @@ void VecVehicle::forceFaceAngVeloRange(axis prm_axis,
     setFaceAngVelo(prm_axis, _angvelo_face[prm_axis]); //再設定して範囲内に補正
 }
 
-void VecVehicle::setFaceAngAcce(axis prm_axis, angacce prm_angacce) {
+void LocoVehicle::setFaceAngAcce(axis prm_axis, angacce prm_angacce) {
     _angacce_face[prm_axis] = prm_angacce;
 }
 
-void VecVehicle::setStopTargetFaceAngTwd(axis prm_axis,
+void LocoVehicle::setStopTargetFaceAngTwd(axis prm_axis,
                                       coord prm_tx,
                                       coord prm_ty,
                                       int prm_allow_way,
@@ -444,7 +444,7 @@ void VecVehicle::setStopTargetFaceAngTwd(axis prm_axis,
     );
 }
 
-void VecVehicle::setStopTargetFaceAng(axis prm_axis,
+void LocoVehicle::setStopTargetFaceAng(axis prm_axis,
                                    angle prm_target,
                                    int prm_allow_way,
                                    angvelo prm_allow_angvelo) {
@@ -455,22 +455,22 @@ void VecVehicle::setStopTargetFaceAng(axis prm_axis,
     _face_stop_allow_angvelo[prm_axis] = prm_allow_angvelo;
 }
 
-angle VecVehicle::getFaceAngDistance(axis prm_axis, coord prm_tx, coord prm_ty, int prm_way) {
+angle LocoVehicle::getFaceAngDistance(axis prm_axis, coord prm_tx, coord prm_ty, int prm_way) {
     return getFaceAngDistance(
                prm_axis,
                UTIL::getAngle2D(prm_tx-(_pActor->_x), prm_ty-(_pActor->_y)),
                prm_way);
 }
 
-angle VecVehicle::getFaceAngDistance(axis prm_axis, angle prm_target, int prm_way) {
+angle LocoVehicle::getFaceAngDistance(axis prm_axis, angle prm_target, int prm_way) {
     return UTIL::getAngDiff( (*(_actor_face[prm_axis])),  prm_target, prm_way);
 }
 
-void VecVehicle::forceMvVeloRange(velo prm_velo) {
+void LocoVehicle::forceMvVeloRange(velo prm_velo) {
     forceMvVeloRange(-prm_velo, prm_velo);
 }
 
-void VecVehicle::forceMvVeloRange(velo prm_velo_mv01, velo prm_velo_mv02) {
+void LocoVehicle::forceMvVeloRange(velo prm_velo_mv01, velo prm_velo_mv02) {
     if (prm_velo_mv01 < prm_velo_mv02) {
         _top_velo_mv = prm_velo_mv02;
         _bottom_velo_mv = prm_velo_mv01;
@@ -481,7 +481,7 @@ void VecVehicle::forceMvVeloRange(velo prm_velo_mv01, velo prm_velo_mv02) {
     setMvVelo(_velo_mv); //再設定して範囲内に補正
 }
 
-void VecVehicle::setMvVelo(velo prm_velo_mv) {
+void LocoVehicle::setMvVelo(velo prm_velo_mv) {
     if (prm_velo_mv > _top_velo_mv) {
         _velo_mv = _top_velo_mv;
     } else if (prm_velo_mv < _bottom_velo_mv) {
@@ -491,15 +491,15 @@ void VecVehicle::setMvVelo(velo prm_velo_mv) {
     }
 }
 
-void VecVehicle::addMvVelo(velo prm_velo_mv_Offset) {
+void LocoVehicle::addMvVelo(velo prm_velo_mv_Offset) {
     setMvVelo(_velo_mv + prm_velo_mv_Offset);
 }
 
-void VecVehicle::setMvAcce(int prm_acceMove) {
+void LocoVehicle::setMvAcce(int prm_acceMove) {
     _acc_mv = prm_acceMove;
 }
 
-frame VecVehicle::setMvAcceToStop(coord prm_target_distance) {
+frame LocoVehicle::setMvAcceToStop(coord prm_target_distance) {
     double acc = UTIL::getAcceToStop(prm_target_distance, _velo_mv);
     if (acc > 0.0) {
         acc += 0.5;
@@ -510,7 +510,7 @@ frame VecVehicle::setMvAcceToStop(coord prm_target_distance) {
     return (frame)((2.0*prm_target_distance) / _velo_mv); //使用フレーム数
 }
 
-frame VecVehicle::setFaceAngAcceToStop(axis prm_axis, angle prm_target_distance) {
+frame LocoVehicle::setFaceAngAcceToStop(axis prm_axis, angle prm_target_distance) {
     double acc = UTIL::getAcceToStop(prm_target_distance, _angvelo_face[prm_axis]);
     if (acc > 0.0) {
         acc += 0.5;
@@ -521,7 +521,7 @@ frame VecVehicle::setFaceAngAcceToStop(axis prm_axis, angle prm_target_distance)
     return (frame)((2.0*prm_target_distance) / _angvelo_face[prm_axis]); //使用フレーム数
 }
 
-frame VecVehicle::setMvAcceByD(coord prm_target_distance, velo prm_target_velo) {
+frame LocoVehicle::setMvAcceByD(coord prm_target_distance, velo prm_target_velo) {
     double acc = UTIL::getAcceByVd(_velo_mv, prm_target_velo, prm_target_distance);
     if (acc > 0.0) {
         acc += 0.5;
@@ -531,7 +531,7 @@ frame VecVehicle::setMvAcceByD(coord prm_target_distance, velo prm_target_velo) 
     _acc_mv = acc;
     return (frame)((1.0*prm_target_velo - _velo_mv) / acc); //使用フレーム数
 }
-frame VecVehicle::setFaceAngAcceByD(axis prm_axis, angle prm_target_distance, angvelo prm_target_angvelo) {
+frame LocoVehicle::setFaceAngAcceByD(axis prm_axis, angle prm_target_distance, angvelo prm_target_angvelo) {
     double acc = UTIL::getAcceByVd(prm_target_angvelo, prm_target_distance, _angvelo_face[prm_axis]);
     if (acc > 0.0) {
         acc += 0.5;
@@ -593,7 +593,7 @@ frame VecVehicle::setFaceAngAcceByD(axis prm_axis, angle prm_target_distance, an
     //    結局 a = (Vt^2 - V0^2) / 2D となるので
     //    V0 <= 0  かつ  Vt <= 0 場合、あるいは  V0 >= 0  かつ  Vt >= 0  場合と同じである
 
-coord VecVehicle::setMvAcceByT(frame prm_target_frames, velo prm_target_velo) {
+coord LocoVehicle::setMvAcceByT(frame prm_target_frames, velo prm_target_velo) {
     double acc = UTIL::getAcceByTv(prm_target_frames, _velo_mv, prm_target_velo);
     if (acc > 0.0) {
         acc += 0.5;
@@ -604,7 +604,7 @@ coord VecVehicle::setMvAcceByT(frame prm_target_frames, velo prm_target_velo) {
     //  D = (1/2) (Vo + Vt) Te
     return ((_velo_mv + prm_target_velo) * prm_target_frames) / 2 ;
 }
-angle VecVehicle::setFaceAngAcceByT(axis prm_axis, frame prm_target_frames, angvelo prm_target_angvelo) {
+angle LocoVehicle::setFaceAngAcceByT(axis prm_axis, frame prm_target_frames, angvelo prm_target_angvelo) {
     double acc = UTIL::getAcceByTv(prm_target_frames, _angvelo_face[prm_axis], prm_target_angvelo);
     if (acc > 0.0) {
         acc += 0.5;
@@ -616,7 +616,7 @@ angle VecVehicle::setFaceAngAcceByT(axis prm_axis, frame prm_target_frames, angv
     return ((_angvelo_face[prm_axis] + prm_target_angvelo) * prm_target_frames) / 2 ;
 }
 
-void VecVehicle::setRzMvAng(angle prm_ang) {
+void LocoVehicle::setRzMvAng(angle prm_ang) {
     if (prm_ang !=  _rz_mv) {
         _rz_mv = UTIL::simplifyAng(prm_ang);
         UTIL::convRzRyToVector(_rz_mv, _ry_mv, _vX, _vY, _vZ);
@@ -626,7 +626,7 @@ void VecVehicle::setRzMvAng(angle prm_ang) {
     }
 }
 
-void VecVehicle::addRzMvAng(angle prm_ang) {
+void LocoVehicle::addRzMvAng(angle prm_ang) {
     angle ang_offset = prm_ang;
     if (_bottom_angvelo_rz_mv > prm_ang) {
         ang_offset = _bottom_angvelo_rz_mv;
@@ -636,7 +636,7 @@ void VecVehicle::addRzMvAng(angle prm_ang) {
     setRzMvAng(_rz_mv + ang_offset);
 }
 
-void VecVehicle::setRzMvAngVelo(angvelo prm_angvelo_rz_mv) {
+void LocoVehicle::setRzMvAngVelo(angvelo prm_angvelo_rz_mv) {
     if (prm_angvelo_rz_mv > _top_angvelo_rz_mv) {
         _angvelo_rz_mv = _top_angvelo_rz_mv;
     } else if (prm_angvelo_rz_mv < _bottom_angvelo_rz_mv) {
@@ -646,11 +646,11 @@ void VecVehicle::setRzMvAngVelo(angvelo prm_angvelo_rz_mv) {
     }
 }
 
-void VecVehicle::setRzMvAngAcce(angacce prm_angacce_rz_mv) {
+void LocoVehicle::setRzMvAngAcce(angacce prm_angacce_rz_mv) {
     _angacce_rz_mv = prm_angacce_rz_mv;
 }
 
-void VecVehicle::forceRzMvAngVeloRange(angvelo prm_angvelo_rz_mv01,
+void LocoVehicle::forceRzMvAngVeloRange(angvelo prm_angvelo_rz_mv01,
                                     angvelo prm_angvelo_rz_mv02) {
     if (prm_angvelo_rz_mv01 < prm_angvelo_rz_mv02) {
         _top_angvelo_rz_mv = prm_angvelo_rz_mv02;
@@ -662,7 +662,7 @@ void VecVehicle::forceRzMvAngVeloRange(angvelo prm_angvelo_rz_mv01,
     setRzMvAngVelo(_angvelo_rz_mv); //再設定して範囲内に補正
 }
 
-void VecVehicle::setStopTargetRzMvAng(angle prm_target_rz_mv,
+void LocoVehicle::setStopTargetRzMvAng(angle prm_target_rz_mv,
                                    int prm_allow_way,
                                    angvelo prm_allow_angvelo) {
     _is_targeting_rz_mv = true;
@@ -672,20 +672,20 @@ void VecVehicle::setStopTargetRzMvAng(angle prm_target_rz_mv,
     _rz_mv_stop_allow_angvelo = prm_allow_angvelo;
 }
 
-angle VecVehicle::getRzMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way) {
+angle LocoVehicle::getRzMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way) {
     return getRzMvAngDistance(UTIL::getAngle2D(prm_tx - (_pActor->_x), prm_ty - (_pActor->_y)), prm_way);
 }
 
-angle VecVehicle::getRzMvAngDistance(angle prm_target_rz_mv, int prm_way) {
+angle LocoVehicle::getRzMvAngDistance(angle prm_target_rz_mv, int prm_way) {
     return UTIL::getAngDiff(_rz_mv, prm_target_rz_mv, prm_way);
 }
 
 
-//void VecVehicle::setRyMvAngTwd(coord prm_tx, coord prm_ty) {
+//void LocoVehicle::setRyMvAngTwd(coord prm_tx, coord prm_ty) {
 //    setRyMvAng(UTIL::getAngle2D(prm_tx - (_pActor->_x), prm_ty - (_pActor->_y)));
 //}
 
-void VecVehicle::setRyMvAng(angle prm_ang) {
+void LocoVehicle::setRyMvAng(angle prm_ang) {
     if (prm_ang != _ry_mv) {
         _ry_mv = UTIL::simplifyAng(prm_ang);
         UTIL::convRzRyToVector(_rz_mv, _ry_mv, _vX, _vY, _vZ);
@@ -695,7 +695,7 @@ void VecVehicle::setRyMvAng(angle prm_ang) {
     }
 }
 
-void VecVehicle::addRyMvAng(angle prm_ang) {
+void LocoVehicle::addRyMvAng(angle prm_ang) {
     angle ang_offset = prm_ang;
     if (_bottom_angvelo_ry_mv > prm_ang) {
         ang_offset = _bottom_angvelo_ry_mv;
@@ -705,7 +705,7 @@ void VecVehicle::addRyMvAng(angle prm_ang) {
     setRyMvAng(_ry_mv + ang_offset);
 }
 
-void VecVehicle::setRyMvAngVelo(angvelo prm_angvelo_ry_mv) {
+void LocoVehicle::setRyMvAngVelo(angvelo prm_angvelo_ry_mv) {
     if (prm_angvelo_ry_mv > _top_angvelo_ry_mv) {
         _angvelo_ry_mv = _top_angvelo_ry_mv;
     } else if (prm_angvelo_ry_mv < _bottom_angvelo_ry_mv) {
@@ -715,11 +715,11 @@ void VecVehicle::setRyMvAngVelo(angvelo prm_angvelo_ry_mv) {
     }
 }
 
-void VecVehicle::setRyMvAngAcce(angacce prm_angacce_ry_mv) {
+void LocoVehicle::setRyMvAngAcce(angacce prm_angacce_ry_mv) {
     _angacce_ry_mv = prm_angacce_ry_mv;
 }
 
-void VecVehicle::forceRyMvAngVeloRange(angvelo prm_angvelo_ry_mv01,
+void LocoVehicle::forceRyMvAngVeloRange(angvelo prm_angvelo_ry_mv01,
                                     angvelo prm_angvelo_ry_mv02) {
     if (prm_angvelo_ry_mv01 < prm_angvelo_ry_mv02) {
         _top_angvelo_ry_mv = prm_angvelo_ry_mv02;
@@ -731,7 +731,7 @@ void VecVehicle::forceRyMvAngVeloRange(angvelo prm_angvelo_ry_mv01,
     setRyMvAngVelo(_angvelo_ry_mv); //再設定して範囲内に補正
 }
 
-void VecVehicle::forceRzRyMvAngVeloRange(angvelo prm_angvelo_rzry_mv01, angvelo prm_angvelo_rzry_mv02) {
+void LocoVehicle::forceRzRyMvAngVeloRange(angvelo prm_angvelo_rzry_mv01, angvelo prm_angvelo_rzry_mv02) {
     if (prm_angvelo_rzry_mv01 < prm_angvelo_rzry_mv02) {
         _top_angvelo_rz_mv = prm_angvelo_rzry_mv02;
         _bottom_angvelo_rz_mv = prm_angvelo_rzry_mv01;
@@ -747,12 +747,12 @@ void VecVehicle::forceRzRyMvAngVeloRange(angvelo prm_angvelo_rzry_mv01, angvelo 
     setRyMvAngVelo(_angvelo_ry_mv); //再設定して範囲内に補正
 }
 
-void VecVehicle::setRzRyMvAngAcce(angacce prm_angacce_rz_mv, angacce prm_angacce_ry_mv) {
+void LocoVehicle::setRzRyMvAngAcce(angacce prm_angacce_rz_mv, angacce prm_angacce_ry_mv) {
     _angacce_rz_mv = prm_angacce_rz_mv;
     _angacce_ry_mv = prm_angacce_ry_mv;
 }
 
-void VecVehicle::setRzRyMvAngVelo(angvelo prm_angvelo_rz_mv, angvelo prm_angvelo_ry_mv) {
+void LocoVehicle::setRzRyMvAngVelo(angvelo prm_angvelo_rz_mv, angvelo prm_angvelo_ry_mv) {
     if (prm_angvelo_rz_mv > _top_angvelo_rz_mv) {
         _angvelo_rz_mv = _top_angvelo_rz_mv;
     } else if (prm_angvelo_rz_mv < _bottom_angvelo_rz_mv) {
@@ -769,7 +769,7 @@ void VecVehicle::setRzRyMvAngVelo(angvelo prm_angvelo_rz_mv, angvelo prm_angvelo
     }
 }
 
-void VecVehicle::setStopTargetRyMvAng(angle prm_target_ry_mv,
+void LocoVehicle::setStopTargetRyMvAng(angle prm_target_ry_mv,
                                    int prm_allow_way,
                                    angvelo prm_allow_angvelo) {
     _is_targeting_ry_mv = true;
@@ -779,15 +779,15 @@ void VecVehicle::setStopTargetRyMvAng(angle prm_target_ry_mv,
     _ry_mv_stop_allow_angvelo = prm_allow_angvelo;
 }
 
-angle VecVehicle::getRyMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way) {
+angle LocoVehicle::getRyMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way) {
     return getRyMvAngDistance(UTIL::getAngle2D(prm_tx - (_pActor->_x), prm_ty - (_pActor->_y)), prm_way);
 }
 
-angle VecVehicle::getRyMvAngDistance(angle prm_target_ry_mv, int prm_way) {
+angle LocoVehicle::getRyMvAngDistance(angle prm_target_ry_mv, int prm_way) {
     return UTIL::getAngDiff(_ry_mv, prm_target_ry_mv, prm_way);
 }
 
-void VecVehicle::getRzRyMvAngDistanceTwd(angle prm_target_rz, angle prm_target_ry, int prm_way,
+void LocoVehicle::getRzRyMvAngDistanceTwd(angle prm_target_rz, angle prm_target_ry, int prm_way,
                                       angle& out_d_rz, angle& out_d_ry) {
     angle target_rz = UTIL::simplifyAng(prm_target_rz);
     angle target_ry = UTIL::simplifyAng(prm_target_ry);
@@ -818,7 +818,7 @@ void VecVehicle::getRzRyMvAngDistanceTwd(angle prm_target_rz, angle prm_target_r
     }
 }
 
-void VecVehicle::getRzRyFaceAngDistanceTwd(angle prm_target_rz, angle prm_target_ry,int prm_way,
+void LocoVehicle::getRzRyFaceAngDistanceTwd(angle prm_target_rz, angle prm_target_ry,int prm_way,
                                         angle& out_d_rz, angle& out_d_ry) {
     angle target_rz = UTIL::simplifyAng(prm_target_rz);
     angle target_ry = UTIL::simplifyAng(prm_target_ry);
@@ -849,7 +849,7 @@ void VecVehicle::getRzRyFaceAngDistanceTwd(angle prm_target_rz, angle prm_target
     }
 }
 
-void VecVehicle::setRzRyMvAng(angle prm_rz, angle prm_ry) {
+void LocoVehicle::setRzRyMvAng(angle prm_rz, angle prm_ry) {
     if (prm_rz != _rz_mv || prm_ry !=_ry_mv ) {
         _rz_mv = UTIL::simplifyAng(prm_rz);
         _ry_mv = UTIL::simplifyAng(prm_ry);
@@ -863,7 +863,7 @@ void VecVehicle::setRzRyMvAng(angle prm_rz, angle prm_ry) {
     }
 }
 
-void VecVehicle::setRzRyMvAng(double prm_vx, double prm_vy, double prm_vz, bool prm_opt) {
+void LocoVehicle::setRzRyMvAng(double prm_vx, double prm_vy, double prm_vz, bool prm_opt) {
     if (prm_opt) {
         angle rz_mv1, ry_mv1;
         UTIL::convVectorToRzRy(prm_vx, prm_vy, prm_vz,
@@ -899,7 +899,7 @@ void VecVehicle::setRzRyMvAng(double prm_vx, double prm_vy, double prm_vz, bool 
     }
 }
 
-void VecVehicle::setRzRyMvAngByRyRz(angle prm_ryRz_Ry, angle prm_ryRz_Rz) {
+void LocoVehicle::setRzRyMvAngByRyRz(angle prm_ryRz_Ry, angle prm_ryRz_Rz) {
     angle RyRz_Ry = UTIL::simplifyAng(prm_ryRz_Ry);
     angle RyRz_Rz = UTIL::simplifyAng(prm_ryRz_Rz);
     double out_vY, out_vZ;
@@ -916,7 +916,7 @@ void VecVehicle::setRzRyMvAngByRyRz(angle prm_ryRz_Ry, angle prm_ryRz_Rz) {
 }
 
 
-void VecVehicle::setMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
+void LocoVehicle::setMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
     coord vx = prm_tx - _pActor->_x;
     coord vy = prm_ty - _pActor->_y;
     coord vz = prm_tz - _pActor->_z;
@@ -936,7 +936,7 @@ void VecVehicle::setMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
     }
 }
 
-void VecVehicle::reverseMvAng() {
+void LocoVehicle::reverseMvAng() {
     _vX = -_vX;
     _vY = -_vY;
     _vZ = -_vZ;
@@ -946,7 +946,7 @@ void VecVehicle::reverseMvAng() {
     }
 }
 
-void VecVehicle::setStopTargetMvAngTwd(const GeometricActor* prm_pActor_target) {
+void LocoVehicle::setStopTargetMvAngTwd(const GeometricActor* prm_pActor_target) {
     setStopTargetMvAngTwd(
         prm_pActor_target->_x,
         prm_pActor_target->_y,
@@ -954,7 +954,7 @@ void VecVehicle::setStopTargetMvAngTwd(const GeometricActor* prm_pActor_target) 
     );
 }
 
-void VecVehicle::setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
+void LocoVehicle::setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
     coord vx = prm_tx - _pActor->_x;
     coord vy = prm_ty - _pActor->_y;
     coord vz = prm_tz - _pActor->_z;
@@ -969,7 +969,7 @@ void VecVehicle::setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz)
     }
 }
 
-void VecVehicle::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
+void LocoVehicle::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
                                    angvelo prm_angvelo, angacce prm_angacce,
                                    int prm_way, bool prm_optimize_ang) {
     angle out_d_rz;
@@ -1065,7 +1065,7 @@ void VecVehicle::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
     _taget_face_alltime_flg = false;
 }
 
-void VecVehicle::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
+void LocoVehicle::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                                 angvelo prm_angvelo, angacce prm_angacce,
                                 int prm_way, bool prm_optimize_ang) {
     coord vx = prm_tx - _pActor->_x;
@@ -1086,7 +1086,7 @@ void VecVehicle::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
 }
 
 
-void VecVehicle::turnFaceAng(axis prm_axis,
+void LocoVehicle::turnFaceAng(axis prm_axis,
                              angle prm_distance,
                              angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_distance);
@@ -1098,7 +1098,7 @@ void VecVehicle::turnFaceAng(axis prm_axis,
 }
 
 
-void VecVehicle::turnRzFaceAngTo(angle prm_rz_target,
+void LocoVehicle::turnRzFaceAngTo(angle prm_rz_target,
                                  angvelo prm_angvelo, angacce prm_angacce,
                                  int prm_way) {
     if (getFaceAngDistance(AXIS_Z, prm_rz_target, prm_way) > 0) {
@@ -1113,7 +1113,7 @@ void VecVehicle::turnRzFaceAngTo(angle prm_rz_target,
     _taget_face_alltime_flg = false;
 }
 
-void VecVehicle::turnRyFaceAngTo(angle prm_ry_target,
+void LocoVehicle::turnRyFaceAngTo(angle prm_ry_target,
                                  angvelo prm_angvelo, angacce prm_angacce,
                                  int prm_way) {
     if (getFaceAngDistance(AXIS_Y, prm_ry_target, prm_way) > 0) {
@@ -1128,7 +1128,7 @@ void VecVehicle::turnRyFaceAngTo(angle prm_ry_target,
     _taget_face_alltime_flg = false;
 }
 
-void VecVehicle::rollFaceAngTo(angle prm_rx_target,
+void LocoVehicle::rollFaceAngTo(angle prm_rx_target,
                                angvelo prm_angvelo, angacce prm_angacce,
                                int prm_way) {
     if (getFaceAngDistance(AXIS_X, prm_rx_target, prm_way) > 0) {
@@ -1141,7 +1141,7 @@ void VecVehicle::rollFaceAngTo(angle prm_rx_target,
     setStopTargetFaceAng(AXIS_X, prm_rx_target);
 }
 
-void VecVehicle::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
+void LocoVehicle::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
                                  angvelo prm_angvelo, angacce prm_angacce,
                                  int prm_way, bool prm_optimize_ang) {
     angle out_d_rz;
@@ -1230,7 +1230,7 @@ void VecVehicle::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
     setStopTargetRyMvAng(prm_ry_target);
 }
 
-void VecVehicle::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
+void LocoVehicle::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                               angvelo prm_angvelo, angacce prm_angacce,
                               int prm_way, bool prm_optimize_ang) {
     coord vx = prm_tx - _pActor->_x;
@@ -1250,7 +1250,7 @@ void VecVehicle::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
     }
 }
 
-void VecVehicle::turnRzMvAng(angle prm_rz_distance,
+void LocoVehicle::turnRzMvAng(angle prm_rz_distance,
                              angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_rz_distance);
     setRzMvAngVelo(ABS(prm_angvelo) * s);
@@ -1258,7 +1258,7 @@ void VecVehicle::turnRzMvAng(angle prm_rz_distance,
     setStopTargetRzMvAng(_rz_mv+prm_rz_distance);
 }
 
-void VecVehicle::turnRyMvAng(angle prm_ry_distance,
+void LocoVehicle::turnRyMvAng(angle prm_ry_distance,
                              angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_ry_distance);
     setRyMvAngVelo(ABS(prm_angvelo) * s);
@@ -1266,7 +1266,7 @@ void VecVehicle::turnRyMvAng(angle prm_ry_distance,
     setStopTargetRyMvAng(_ry_mv+prm_ry_distance);
 }
 
-void VecVehicle::turnRzMvAngTo(angle prm_rz_target,
+void LocoVehicle::turnRzMvAngTo(angle prm_rz_target,
                                angvelo prm_angvelo, angacce prm_angacce,
                                int prm_way) {
     if (getRzMvAngDistance(prm_rz_target, prm_way) > 0) {
@@ -1279,7 +1279,7 @@ void VecVehicle::turnRzMvAngTo(angle prm_rz_target,
     setStopTargetRzMvAng(prm_rz_target);
 }
 
-void VecVehicle::turnRyMvAngTo(angle prm_ry_target,
+void LocoVehicle::turnRyMvAngTo(angle prm_ry_target,
                                angvelo prm_angvelo, angacce prm_angacce,
                                int prm_way) {
     if (getRyMvAngDistance(prm_ry_target, prm_way) > 0) {
@@ -1292,28 +1292,28 @@ void VecVehicle::turnRyMvAngTo(angle prm_ry_target,
     setStopTargetRyMvAng(prm_ry_target);
 }
 
-void VecVehicle::takeoverFrom(VecVehicle* const prm_pVecVehicle) {
+void LocoVehicle::takeoverFrom(LocoVehicle* const prm_pLocoVehicle) {
     // キャラの移動方角単位ベクトル
-    _vX = prm_pVecVehicle->_vX;
-    _vY = prm_pVecVehicle->_vY;
-    _vZ = prm_pVecVehicle->_vZ;
+    _vX = prm_pLocoVehicle->_vX;
+    _vY = prm_pLocoVehicle->_vY;
+    _vZ = prm_pLocoVehicle->_vZ;
     // 移動方角のZ軸回転角
-    _rz_mv = prm_pVecVehicle->_rz_mv;
+    _rz_mv = prm_pLocoVehicle->_rz_mv;
     // 移動方角のY軸回転角
-    _ry_mv = prm_pVecVehicle->_ry_mv;
+    _ry_mv = prm_pLocoVehicle->_ry_mv;
     // 移動速度
-    _velo_mv = prm_pVecVehicle->_velo_mv;
+    _velo_mv = prm_pLocoVehicle->_velo_mv;
     // 移動速度上限
-    _top_velo_mv = prm_pVecVehicle->_top_velo_mv;
+    _top_velo_mv = prm_pLocoVehicle->_top_velo_mv;
     // 移動速度下限
-    _bottom_velo_mv = prm_pVecVehicle->_bottom_velo_mv;
+    _bottom_velo_mv = prm_pLocoVehicle->_bottom_velo_mv;
     // 移動加速度
-    _acc_mv = prm_pVecVehicle->_acc_mv;
+    _acc_mv = prm_pLocoVehicle->_acc_mv;
     // 移動躍度
-    //_jerkMv = prm_pVecVehicle->_jerkMv;
+    //_jerkMv = prm_pLocoVehicle->_jerkMv;
 }
 
-void VecVehicle::stopTurningMvAng() {
+void LocoVehicle::stopTurningMvAng() {
     _is_targeting_rz_mv = false;
     _rz_mv_targeting_stop_flg = false;
     _is_targeting_ry_mv = false;
@@ -1325,7 +1325,7 @@ void VecVehicle::stopTurningMvAng() {
     setRzRyMvAngAcce(0, 0);
 }
 
-void VecVehicle::stopTurningFaceAng() {
+void LocoVehicle::stopTurningFaceAng() {
     _is_targeting_face[AXIS_X] = false;
     _is_targeting_face[AXIS_Y] = false;
     _is_targeting_face[AXIS_Z] = false;
@@ -1340,7 +1340,7 @@ void VecVehicle::stopTurningFaceAng() {
     setFaceAngAcce(AXIS_Y, 0);
 }
 
-bool VecVehicle::isTurningFaceAng() const {
+bool LocoVehicle::isTurningFaceAng() const {
     if (_is_targeting_face[AXIS_X] ||
         _is_targeting_face[AXIS_Y] ||
         _is_targeting_face[AXIS_Z] ) {
@@ -1355,7 +1355,7 @@ bool VecVehicle::isTurningFaceAng() const {
     }
 }
 
-bool VecVehicle::isTurningMvAng() const {
+bool LocoVehicle::isTurningMvAng() const {
     if (_is_targeting_rz_mv || _is_targeting_ry_mv) {
         return true;
     } else {
@@ -1367,7 +1367,7 @@ bool VecVehicle::isTurningMvAng() const {
     }
 }
 
-void VecVehicle::stop() {
+void LocoVehicle::stop() {
    setMvAcce(0);
    setMvVelo(0);
    if (_pAsstMv) {
@@ -1375,7 +1375,7 @@ void VecVehicle::stop() {
    }
 }
 
-VecVehicle::~VecVehicle() {
+LocoVehicle::~LocoVehicle() {
     GGAF_DELETE_NULLABLE(_pAsstMv);
     GGAF_DELETE_NULLABLE(_pAsstFaceAng);
     GGAF_DELETE_NULLABLE(_pAsstMvAng);
@@ -1486,7 +1486,7 @@ VecVehicle::~VecVehicle() {
 // 上記の移動体系とはまったく別に、独立して X軸、Y軸、Z軸に平行な移動指定ができる。
 // 「X軸方向移動速度」「Y軸方向移動速度」「Z軸方向移動速度」を設定すると、毎フレーム(_x,_y,_z)にそれぞれの移動増分が
 // 加算される。
-// （※→この機能は AxisVehicle に集約され独立したクラスとなりました！）
+// （※→この機能は CoordVehicle に集約され独立したクラスとなりました！）
 
 //2010/02/19追記
 // ※たまに「RyRz」という表現が存在する（「RzRy」と異なる）が、これは「Y軸回転 → Z軸回転の順番の移動方角」を表しているので注意。

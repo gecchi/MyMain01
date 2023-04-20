@@ -1,6 +1,6 @@
 #include "MyWave001.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
@@ -18,12 +18,12 @@ MyWave001::MyWave001(const char* prm_name) :
 
 void MyWave001::initialize() {
     //exec(FLIP_OSCILLATE_LOOP, 2);
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->setRzMvAngVelo(0);
-    //_pVecVehicle->setFaceAngVelo(AXIS_Z, 2*1000);
-    //_pVecVehicle->setRzMvAng(0);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->setRzMvAngVelo(0);
+    //_pLocoVehicle->setFaceAngVelo(AXIS_Z, 2*1000);
+    //_pLocoVehicle->setRzMvAng(0);
     //setRzFaceAng(0);
-    pVecVehicle->setMvVelo(20000);
+    pLocoVehicle->setMvVelo(20000);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(7);
     pChecker->setColliAABox(0,  -10000,  -10000,  -10000,   10000,   10000,   10000, true, true, true);
@@ -50,7 +50,7 @@ void MyWave001::initialize() {
 }
 
 void MyWave001::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafDx::Scaler* const pScaler = getScaler();
 
     if (hasJustChangedToActive()) {
@@ -62,7 +62,7 @@ void MyWave001::processBehavior() {
         setPositionAt(pMYSHIP);
         setRzFaceAng(pMYSHIP->_rz);
         setRyFaceAng(pMYSHIP->_ry);
-        pVecVehicle->setRzRyMvAng(pMYSHIP->_rz, pMYSHIP->_ry);
+        pLocoVehicle->setRzRyMvAng(pMYSHIP->_rz, pMYSHIP->_ry);
         //		_x = pMYSHIP->_x;
         //		_y = pMYSHIP->_y;
         //		_z = pMYSHIP->_z;
@@ -71,7 +71,7 @@ void MyWave001::processBehavior() {
         //behaveUvFlip();
         //À•W‚É”½‰f
         pScaler->behave();
-        pVecVehicle->behave();
+        pLocoVehicle->behave();
     }
 }
 

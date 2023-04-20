@@ -3,7 +3,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
@@ -42,9 +42,9 @@ void EnemyUnomia::onCreateModel() {
 }
 
 void EnemyUnomia::initialize() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->linkFaceAngByMvAng(true);
-    pVecVehicle->setRollFaceAngVelo(-4000);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->linkFaceAngByMvAng(true);
+    pLocoVehicle->setRollFaceAngVelo(-4000);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
@@ -76,7 +76,7 @@ void EnemyUnomia::onActive() {
 }
 
 void EnemyUnomia::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_ENTRY: {
@@ -94,7 +94,7 @@ void EnemyUnomia::processBehavior() {
         case PHASE_MOVE01_1: {
             if (pPhase->hasJustChanged()) {
                 //Ž©‹@‚Ö•ûŒü“]Š·
-                pVecVehicle->turnMvAngTwd(
+                pLocoVehicle->turnMvAngTwd(
                                pMYSHIP->_x, _y, pMYSHIP->_z,
                                2000, 0,
                                TURN_CLOSE_TO, true
@@ -111,7 +111,7 @@ void EnemyUnomia::processBehavior() {
 //                    pActor_shot = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
 //                    if (pActor_shot) {
 //                        pActor_shot->setPositionAt(this);
-//                        pActor_shot->getVecVehicle()->setRzRyMvAng(paAng_way[i], D90ANG);
+//                        pActor_shot->getLocoVehicle()->setRzRyMvAng(paAng_way[i], D90ANG);
 //                    }
 //                }
 //                GGAF_DELETEARR(paAng_way);
@@ -130,7 +130,7 @@ void EnemyUnomia::processBehavior() {
         }
     }
 
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
 }
 
 void EnemyUnomia::processJudgement() {

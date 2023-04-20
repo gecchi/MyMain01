@@ -103,8 +103,6 @@ public:
     pixcoord _harf_width_px;
     /** [r]çÇÇ≥(px)ÇÃîºï™ */
     pixcoord _harf_height_px;
-//    Align _align;
-//    Valign _valign;
 
 public:
     /**
@@ -127,15 +125,9 @@ public:
 
     virtual void setPositionAt(const GeoElem* prm_pGeoElem) override;
 
-//    virtual void setAlign(Align prm_align, Valign prm_valign);
-//    virtual void setAlign(Align prm_align);
-//    virtual void setValign(Valign prm_valign);
-
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }
-//    float getModelWidth();
-//    float getModelHeight();
 
     int isOutOfView() override {
         return 0;

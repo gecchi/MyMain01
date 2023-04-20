@@ -49,7 +49,7 @@ private:
         }
     };
 
-    static std::map<std::string, RepeatSeq::Seq> mapSeq;
+    static std::map<std::string, RepeatSeq::Seq> _mapSeq;
 
 #ifdef _MSC_VER
     //TODO:VC++2005以降(x86) の volatile は、メモリバリア効果がある（と思う）。
@@ -58,7 +58,6 @@ private:
 #else
     static volatile std::atomic<bool> _is_lock;
 #endif
-
 
 public:
     /**
@@ -69,6 +68,7 @@ public:
      */
     static void create(std::string ID, int min, int max);
     static void create(const char* ID, int min, int max);
+
     /**
      * IDの順序オブジェクトが作成済みか調べる .
      * @param ID 順序オブジェクトID

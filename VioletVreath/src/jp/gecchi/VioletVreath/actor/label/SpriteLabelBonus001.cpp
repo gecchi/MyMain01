@@ -1,6 +1,6 @@
 #include "SpriteLabelBonus001.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 
@@ -37,16 +37,16 @@ void SpriteLabelBonus001::initialize() {
 
 void SpriteLabelBonus001::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
     setPositionAt(prm_pOrgActor);
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->takeoverFrom(prm_pOrgActor->getVecVehicle());
-    pVecVehicle->setMvAcce(300);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->takeoverFrom(prm_pOrgActor->getLocoVehicle());
+    pLocoVehicle->setMvAcce(300);
     setAlpha(0.7);
     getPhase()->reset(PHASE_INIT);
 }
 
 void SpriteLabelBonus001::processBehavior() {
     const Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
@@ -57,12 +57,12 @@ void SpriteLabelBonus001::processBehavior() {
             //‚µ‚Î‚ç‚­’¼i
             if (pPhase->hasArrivedFrameAt(60)) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·1
-                pVecVehicle->turnMvAngTwd(pCam,
+                pLocoVehicle->turnMvAngTwd(pCam,
                                       D_ANG(3), 0, TURN_CLOSE_TO, true);
             }
             if (pPhase->hasArrivedFrameAt(60+30)) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·2
-                pVecVehicle->turnMvAngTwd(pCam,
+                pLocoVehicle->turnMvAngTwd(pCam,
                                       D_ANG(1), 0, TURN_CLOSE_TO, true);
             }
 
@@ -91,7 +91,7 @@ void SpriteLabelBonus001::processBehavior() {
             break;
     }
 
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
 }
 
 SpriteLabelBonus001::~SpriteLabelBonus001() {

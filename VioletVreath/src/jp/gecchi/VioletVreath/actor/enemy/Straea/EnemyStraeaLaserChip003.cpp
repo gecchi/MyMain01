@@ -1,7 +1,7 @@
 #include "EnemyStraeaLaserChip003.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
@@ -22,9 +22,9 @@ void EnemyStraeaLaserChip003::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setCullingDraw(false);
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->setMvVelo(30000);
-    pVecVehicle->linkFaceAngByMvAng(true);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->setMvVelo(30000);
+    pLocoVehicle->linkFaceAngByMvAng(true);
 }
 
 void EnemyStraeaLaserChip003::onActive() {
@@ -36,7 +36,7 @@ void EnemyStraeaLaserChip003::onActive() {
 
 void EnemyStraeaLaserChip003::processBehavior() {
     pVehicleLeader_->behave();
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
 }
 
 void EnemyStraeaLaserChip003::processJudgement() {

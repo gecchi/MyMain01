@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -10,7 +10,7 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmWeak.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmHead.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmBody.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleFaceAngAssistant.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 
@@ -154,13 +154,13 @@ void EnemyErmione::onActive() {
 }
 
 void EnemyErmione::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pVecVehicle->setMvVelo(10);
+            pLocoVehicle->setMvVelo(10);
             pPhase->changeNext();
             break;
         }
@@ -178,9 +178,9 @@ void EnemyErmione::processBehavior() {
             if (pPhase->hasArrivedFrameAt(frame_of_entering)) {
                 setHitAble(true);
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
-                pVecVehicle->setMvAngTwd(pMYSHIP);
-                pVecVehicle->setMvVelo(PX_C(2));
-                pVecVehicle->asstFaceAng()->turnByDtTwd(
+                pLocoVehicle->setMvAngTwd(pMYSHIP);
+                pLocoVehicle->setMvVelo(PX_C(2));
+                pLocoVehicle->asstFaceAng()->turnByDtTwd(
                         pMYSHIP, TURN_CLOSE_TO, true, 60*30,
                         0.4, 0.6, 0, true);
 
@@ -191,9 +191,9 @@ void EnemyErmione::processBehavior() {
 
         case PHASE_MOVE: {
             if (pPhase->hasJustChanged()) {
-                pVecVehicle->setFaceAngVelo(AXIS_X, 55);
-                pVecVehicle->setFaceAngVelo(AXIS_Y, 53);
-                pVecVehicle->setFaceAngVelo(AXIS_Z, 51);
+                pLocoVehicle->setFaceAngVelo(AXIS_X, 55);
+                pLocoVehicle->setFaceAngVelo(AXIS_Y, 53);
+                pLocoVehicle->setFaceAngVelo(AXIS_Z, 51);
             }
             break;
         }
@@ -203,7 +203,7 @@ void EnemyErmione::processBehavior() {
         }
     }
     getAlphaFader()->behave();
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
     getMorpher()->behave();
     getSeTransmitter()->behave();
 }

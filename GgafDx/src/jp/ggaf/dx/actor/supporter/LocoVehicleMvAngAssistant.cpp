@@ -1,13 +1,13 @@
-#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAngAssistant.h"
 
 #include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 
 using namespace GgafDx;
 
-VecVehicleMvAngAssistant::VecVehicleMvAngAssistant(VecVehicle* prm_pMaster) : GgafCore::Object(),
+LocoVehicleMvAngAssistant::LocoVehicleMvAngAssistant(LocoVehicle* prm_pMaster) : GgafCore::Object(),
         _pMaster(prm_pMaster) {
     _smthMvRzAng._t_velo = _pMaster->_angvelo_rz_mv;
     _smthMvRzAng._t_acce = _pMaster->_angacce_rz_mv;
@@ -41,10 +41,10 @@ VecVehicleMvAngAssistant::VecVehicleMvAngAssistant(VecVehicle* prm_pMaster) : Gg
     _pnd_ry.zero_acc_end_flg = 0;
 }
 
-void VecVehicleMvAngAssistant::behave() {
+void LocoVehicleMvAngAssistant::behave() {
     if (_smthMvRzAng.isTransitioning()) {
         _smthMvRzAng.behave();
-        _pMaster->setRzMvAngVelo(_smthMvRzAng._t_velo - _smthMvRzAng._t_acce); //‚±‚¤‚µ‚È‚¢‚Æ—ÍŽÔ‚Ìbehave‚Å‚Q‰ñ_acce‘«‚µž‚Ü‚ê‚é‚µ
+        _pMaster->setRzMvAngVelo(_smthMvRzAng._t_velo - _smthMvRzAng._t_acce); //‚±‚¤‚µ‚È‚¢‚ÆˆÚ“®ŽÔ—¼‚Ìbehave‚Å‚Q‰ñ_acce‘«‚µž‚Ü‚ê‚é‚µ
         _pMaster->setRzMvAngAcce(_smthMvRzAng._t_acce);
     } else {
         if (_pnd_rz.target_num > 0) {
@@ -69,7 +69,7 @@ void VecVehicleMvAngAssistant::behave() {
     }
     if (_smthMvRyAng.isTransitioning()) {
         _smthMvRyAng.behave();
-        _pMaster->setRyMvAngVelo(_smthMvRyAng._t_velo - _smthMvRyAng._t_acce); //‚±‚¤‚µ‚È‚¢‚Æ—ÍŽÔ‚Ìbehave‚Å‚Q‰ñ_acce‘«‚µž‚Ü‚ê‚é‚µ
+        _pMaster->setRyMvAngVelo(_smthMvRyAng._t_velo - _smthMvRyAng._t_acce); //‚±‚¤‚µ‚È‚¢‚ÆˆÚ“®ŽÔ—¼‚Ìbehave‚Å‚Q‰ñ_acce‘«‚µž‚Ü‚ê‚é‚µ
         _pMaster->setRyMvAngAcce(_smthMvRyAng._t_acce);
     } else {
         if (_pnd_ry.target_num > 0) {
@@ -94,7 +94,7 @@ void VecVehicleMvAngAssistant::behave() {
     }
 }
 
-void VecVehicleMvAngAssistant::turnRzByDt(
+void LocoVehicleMvAngAssistant::turnRzByDt(
                         angle prm_distance, int prm_target_frames,
                         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                         bool prm_zero_acc_end_flg ) {
@@ -106,7 +106,7 @@ void VecVehicleMvAngAssistant::turnRzByDt(
                            prm_p1,prm_p2,prm_end_angvelo,
                            prm_zero_acc_end_flg);
 }
-void VecVehicleMvAngAssistant::turnRyByDt(
+void LocoVehicleMvAngAssistant::turnRyByDt(
                         angle prm_distance, int prm_target_frames,
                         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                         bool prm_zero_acc_end_flg ) {
@@ -119,7 +119,7 @@ void VecVehicleMvAngAssistant::turnRyByDt(
                            prm_zero_acc_end_flg);
 }
 
-void VecVehicleMvAngAssistant::turnRzByVd(
+void LocoVehicleMvAngAssistant::turnRzByVd(
         angvelo prm_top_angvelo, angle prm_distance,
         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
@@ -130,10 +130,11 @@ void VecVehicleMvAngAssistant::turnRzByVd(
                                 prm_p1,prm_p2, prm_end_angvelo,
                                 prm_zero_acc_end_flg);
 }
-void VecVehicleMvAngAssistant::turnRyByVd(
+void LocoVehicleMvAngAssistant::turnRyByVd(
         angvelo prm_top_angvelo, angle prm_distance,
         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
-        bool prm_zero_acc_end_flg) {
+        bool prm_zero_acc_end_flg)
+{
     _smthMvRyAng._t_value = 0;
     _smthMvRyAng._t_velo = _pMaster->_angvelo_ry_mv;
     _smthMvRyAng._t_acce = _pMaster->_angacce_ry_mv;
@@ -143,29 +144,34 @@ void VecVehicleMvAngAssistant::turnRyByVd(
 }
 
 
-void VecVehicleMvAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
-                                         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
-                                         bool prm_zero_acc_end_flg) {
+void LocoVehicleMvAngAssistant::turnRzByDtTo(
+        angle prm_rz_target, int prm_way, int prm_target_frames,
+        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
+        bool prm_zero_acc_end_flg)
+{
     angle distance = _pMaster->getRzMvAngDistance(prm_rz_target, prm_way);
     turnRzByDt(distance, prm_target_frames,
                prm_p1, prm_p2, prm_end_angvelo,
                prm_zero_acc_end_flg);
 }
-void VecVehicleMvAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int prm_target_frames,
-                                         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
-                                         bool prm_zero_acc_end_flg) {
+
+void LocoVehicleMvAngAssistant::turnRyByDtTo(
+        angle prm_ry_target, int prm_way, int prm_target_frames,
+        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
+        bool prm_zero_acc_end_flg)
+{
     angle distance = _pMaster->getRyMvAngDistance(prm_ry_target, prm_way);
     turnRyByDt(distance, prm_target_frames,
                prm_p1, prm_p2, prm_end_angvelo,
                prm_zero_acc_end_flg);
 }
 
-void VecVehicleMvAngAssistant::turnRzRyByDtTo(
+void LocoVehicleMvAngAssistant::turnRzRyByDtTo(
         angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
         int prm_target_frames,
         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
-        bool prm_zero_acc_end_flg) {
-
+        bool prm_zero_acc_end_flg)
+{
     angle out_rz_distance;
     angle out_ry_distance;
     if (prm_optimize_ang) {
@@ -175,7 +181,6 @@ void VecVehicleMvAngAssistant::turnRzRyByDtTo(
         out_rz_distance = _pMaster->getRzMvAngDistance(prm_rz_target, prm_way);
         out_ry_distance = _pMaster->getRyMvAngDistance(prm_ry_target, prm_way);
     }
-
     turnRzByDt(out_rz_distance, prm_target_frames,
                prm_p1, prm_p2, prm_end_angvelo,
                prm_zero_acc_end_flg);
@@ -184,11 +189,12 @@ void VecVehicleMvAngAssistant::turnRzRyByDtTo(
                prm_zero_acc_end_flg);
 }
 
-void VecVehicleMvAngAssistant::turnByDtTwd(
+void LocoVehicleMvAngAssistant::turnByDtTwd(
         coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
         int prm_target_frames,
         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
-        bool prm_zero_acc_end_flg) {
+        bool prm_zero_acc_end_flg)
+{
     coord vx = prm_tx - _pMaster->_pActor->_x;
     coord vy = prm_ty - _pMaster->_pActor->_y;
     coord vz = prm_tz - _pMaster->_pActor->_z;
@@ -208,11 +214,12 @@ void VecVehicleMvAngAssistant::turnByDtTwd(
     }
 }
 
-void VecVehicleMvAngAssistant::turnByDtTwd(
+void LocoVehicleMvAngAssistant::turnByDtTwd(
                     GeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
                     int prm_target_frames,
                     double prm_p1, double prm_p2, angvelo prm_end_angvelo,
-                    bool prm_zero_acc_end_flg) {
+                    bool prm_zero_acc_end_flg)
+{
     turnByDtTwd(
             prm_pActor_target->_x, prm_pActor_target->_y, prm_pActor_target->_z, prm_way, prm_optimize_ang,
             prm_target_frames,
@@ -221,31 +228,34 @@ void VecVehicleMvAngAssistant::turnByDtTwd(
 }
 
 
-void VecVehicleMvAngAssistant::turnRzByVdTo(
+void LocoVehicleMvAngAssistant::turnRzByVdTo(
         angvelo prm_top_angvelo, angle prm_rz_target, int prm_way,
         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
-        bool prm_zero_acc_end_flg) {
+        bool prm_zero_acc_end_flg)
+{
     angle distance = _pMaster->getRzMvAngDistance(prm_rz_target, prm_way);
     turnRzByVd(prm_top_angvelo, distance,
                     prm_p1, prm_p2, prm_end_angvelo,
                     prm_zero_acc_end_flg);
 }
 
-void VecVehicleMvAngAssistant::turnRyByVdTo(
+void LocoVehicleMvAngAssistant::turnRyByVdTo(
         angvelo prm_top_angvelo, angle prm_ry_target, int prm_way,
         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
-        bool prm_zero_acc_end_flg) {
+        bool prm_zero_acc_end_flg)
+{
     angle distance = _pMaster->getRyMvAngDistance(prm_ry_target, prm_way);
     turnRyByVd(prm_top_angvelo, distance,
                     prm_p1, prm_p2, prm_end_angvelo,
                     prm_zero_acc_end_flg);
 }
 
-void VecVehicleMvAngAssistant::turnRzRyByVdTo(
+void LocoVehicleMvAngAssistant::turnRzRyByVdTo(
         angvelo prm_top_angvelo,
         angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
-        bool prm_zero_acc_end_flg) {
+        bool prm_zero_acc_end_flg)
+{
     angle out_rz_distance;
     angle out_ry_distance;
     if (prm_optimize_ang) {
@@ -283,12 +293,12 @@ void VecVehicleMvAngAssistant::turnRzRyByVdTo(
     }
 }
 
-void VecVehicleMvAngAssistant::turnByVdTwd(
+void LocoVehicleMvAngAssistant::turnByVdTwd(
         angvelo prm_top_angvelo,
         coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
-        bool prm_zero_acc_end_flg) {
-
+        bool prm_zero_acc_end_flg)
+{
     coord vx = prm_tx - _pMaster->_pActor->_x;
     coord vy = prm_ty - _pMaster->_pActor->_y;
     coord vz = prm_tz - _pMaster->_pActor->_z;
@@ -308,12 +318,12 @@ void VecVehicleMvAngAssistant::turnByVdTwd(
     }
 }
 
-void VecVehicleMvAngAssistant::turnByVdTwd(
+void LocoVehicleMvAngAssistant::turnByVdTwd(
         angvelo prm_top_angvelo,
         GeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
-        bool prm_zero_acc_end_flg) {
-
+        bool prm_zero_acc_end_flg)
+{
     turnByVdTwd(
             prm_top_angvelo,
             prm_pActor_target->_x, prm_pActor_target->_y, prm_pActor_target->_z, prm_way, prm_optimize_ang,
@@ -321,11 +331,11 @@ void VecVehicleMvAngAssistant::turnByVdTwd(
             prm_zero_acc_end_flg);
 }
 
-void VecVehicleMvAngAssistant::turnRzPendulum(coord prm_target1, coord prm_target2,
-                                           int prm_twist_num,
-                                           int prm_first_way, int prm_target_frames,
-                                           double prm_p1, double prm_p2, angvelo prm_end_angvelo,
-                                           bool prm_zero_acc_end_flg) {
+void LocoVehicleMvAngAssistant::turnRzPendulum(coord prm_target1, coord prm_target2,
+                                               int prm_twist_num,
+                                               int prm_first_way, int prm_target_frames,
+                                               double prm_p1, double prm_p2, angvelo prm_end_angvelo,
+                                               bool prm_zero_acc_end_flg) {
     _pnd_rz.count = 0;
     _pnd_rz.target_num = 2;
     _pnd_rz.target[0] = prm_target1;
@@ -343,11 +353,11 @@ void VecVehicleMvAngAssistant::turnRzPendulum(coord prm_target1, coord prm_targe
                  _pnd_rz.end_angvelo,
                  _pnd_rz.zero_acc_end_flg);
 }
-void VecVehicleMvAngAssistant::turnRyPendulum(coord prm_target1, coord prm_target2,
-                                           int prm_twist_num,
-                                           int prm_first_way, int prm_target_frames,
-                                           double prm_p1, double prm_p2, angvelo prm_end_angvelo,
-                                           bool prm_zero_acc_end_flg) {
+void LocoVehicleMvAngAssistant::turnRyPendulum(coord prm_target1, coord prm_target2,
+                                               int prm_twist_num,
+                                               int prm_first_way, int prm_target_frames,
+                                               double prm_p1, double prm_p2, angvelo prm_end_angvelo,
+                                               bool prm_zero_acc_end_flg) {
     _pnd_ry.count = 0;
     _pnd_ry.target_num = 2;
     _pnd_ry.target[0] = prm_target1;
@@ -366,7 +376,7 @@ void VecVehicleMvAngAssistant::turnRyPendulum(coord prm_target1, coord prm_targe
                  _pnd_ry.zero_acc_end_flg);
 }
 
-VecVehicleMvAngAssistant::~VecVehicleMvAngAssistant() {
+LocoVehicleMvAngAssistant::~LocoVehicleMvAngAssistant() {
 }
 
 

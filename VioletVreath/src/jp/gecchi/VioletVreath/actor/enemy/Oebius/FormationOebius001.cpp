@@ -1,6 +1,6 @@
 #include "FormationOebius001.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
@@ -113,9 +113,9 @@ void FormationOebius001::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row
     pOebius->setFaceAngTwd(pOebius->_x + (pOebius->_x - geo_.x),
                            pOebius->_y + (pOebius->_y - geo_.y),
                            pOebius->_z + (pOebius->_z - geo_.z) );
-    pOebius->getVecVehicle()->setMvAngByFaceAng();
-    pOebius->getVecVehicle()->setMvVelo(0);
-    pOebius->getVecVehicle()->setMvAcce(80);
+    pOebius->getLocoVehicle()->setMvAngByFaceAng();
+    pOebius->getLocoVehicle()->setMvVelo(0);
+    pOebius->getLocoVehicle()->setMvAcce(80);
 
 //    float sr = ANG_SIN(RCNV(0, formation_row_num_ , prm_row , D0ANG, D360ANG));
 //    float sg = ANG_COS(RCNV(0, formation_row_num_ , prm_row , D0ANG, D360ANG));

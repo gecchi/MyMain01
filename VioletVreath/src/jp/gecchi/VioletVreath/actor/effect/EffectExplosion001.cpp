@@ -3,7 +3,7 @@
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/core/scene/Scene.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -35,7 +35,7 @@ void EffectExplosion001::processBehavior() {
     _sx+= 100;
     _sy+= 100;
     getUvFlipper()->behave();
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
     getScaler()->behave();
 }
 
@@ -47,7 +47,7 @@ void EffectExplosion001::processJudgement() {
 }
 
 void EffectExplosion001::onInactive() {
-    getVecVehicle()->stop();
+    getLocoVehicle()->stop();
 }
 
 

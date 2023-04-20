@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_GEOVEHICLE_H_
-#define GGAF_DX_GEOVEHICLE_H_
+#ifndef GGAF_DX_NAVIVEHICLE_H_
+#define GGAF_DX_NAVIVEHICLE_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "ActorVehicle.h"
 
@@ -15,7 +15,7 @@ namespace GgafDx {
  * @since 2022/05/09
  * @author Masatoshi Tsuge
  */
-class GeoVehicle : public ActorVehicle {
+class NaviVehicle : public ActorVehicle {
 
 public:
     /** [r]移動速度 */
@@ -49,7 +49,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  駕籠に乗るActor
      */
-    explicit GeoVehicle(GeometricActor* prm_pActor);
+    explicit NaviVehicle(GeometricActor* prm_pActor);
 
     /**
      * 移動速度の上限下限を強制強制する .
@@ -85,7 +85,6 @@ public:
      * @param prm_velo 移動速度
      */
     void setVeloTwd(angle prm_rz, angle prm_ry, velo prm_velo);
-
 
     /**
      * XYZ軸ベクトル成分で、移動速度を設定する .
@@ -139,9 +138,9 @@ public:
      */
     virtual void behave();
 
-    virtual ~GeoVehicle();
+    virtual ~NaviVehicle();
 };
 
 }
-#endif /*GGAF_DX_GEOVEHICLE_H_*/
+#endif /*GGAF_DX_NAVIVEHICLE_H_*/
 

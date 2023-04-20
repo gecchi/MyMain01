@@ -1,6 +1,6 @@
 #include "VreathMagic.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectVreathMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
@@ -146,7 +146,7 @@ void VreathMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         pEffect_->setPositionAt(pMYSHIP);
         pEffect_->setCullingDraw(false);
-        pEffect_->getVecVehicle()->setFaceAngVelo(AXIS_Z, 100);
+        pEffect_->getLocoVehicle()->setFaceAngVelo(AXIS_Z, 100);
         pEffect_->setScale(1000);
         pEffect_->activate();
     }
@@ -169,7 +169,7 @@ void VreathMagic::processCastFinish(int prm_now_level, int prm_new_level, int pr
 void VreathMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         pEffect_->setScale(1000);
-        pEffect_->getVecVehicle()->setFaceAngVelo(AXIS_Z, 3000);
+        pEffect_->getLocoVehicle()->setFaceAngVelo(AXIS_Z, 3000);
     }
 }
 

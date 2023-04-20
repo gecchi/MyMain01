@@ -1,11 +1,11 @@
 #include "Shot001.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/manager/CurveSourceConnection.h"
-#include "jp/ggaf/dx/util/curve/FixedVelocityCurveVecVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedVelocityCurveLocoVehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/FixedVelocityCurveManufacture.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
@@ -36,23 +36,23 @@ void Shot001::initialize() {
 void Shot001::onActive() {
     getStatus()->reset();
     setHitAble(true, false);
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->linkFaceAngByMvAng(true);
-    pVecVehicle->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
-    pVecVehicle->setRollFaceAngVelo(RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->linkFaceAngByMvAng(true);
+    pLocoVehicle->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
+    pLocoVehicle->setRollFaceAngVelo(RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
     pVehicleLeader_->start(RELATIVE_COORD_DIRECTION);
     getScaler()->beat(30,5,0,2,-1);
-//    _TRACE_(FUNC_NAME<<" id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getVecVehicle()->_rz_mv<<"\t"<<getVecVehicle()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+//    _TRACE_(FUNC_NAME<<" id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getLocoVehicle()->_rz_mv<<"\t"<<getLocoVehicle()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
 }
 
 void Shot001::processBehavior() {
-//    _TRACE_(FUNC_NAME<<" before id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getVecVehicle()->_rz_mv<<"\t"<<getVecVehicle()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+//    _TRACE_(FUNC_NAME<<" before id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getLocoVehicle()->_rz_mv<<"\t"<<getLocoVehicle()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     //座標に反映
     pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
     getScaler()->behave();
-//    _TRACE_(FUNC_NAME<<" after id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getVecVehicle()->_rz_mv<<"\t"<<getVecVehicle()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+//    _TRACE_(FUNC_NAME<<" after id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getLocoVehicle()->_rz_mv<<"\t"<<getLocoVehicle()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
 }
 
 void Shot001::processJudgement() {

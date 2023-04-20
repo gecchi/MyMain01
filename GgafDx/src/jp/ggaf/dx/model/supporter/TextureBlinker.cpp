@@ -6,12 +6,12 @@
 
 using namespace GgafDx;
 
-TextureBlinker::TextureBlinker(Model* prm_pModel)  : GgafCore::TransitionValueSet<float, 1 > (),
+TextureBlinker::TextureBlinker(Model* prm_pModel)  : GgafCore::ValueTransitioner<float, 1 > (),
 _pModel(prm_pModel) {
     setRange(0.0f, 1000.0f);
 }
 void TextureBlinker::reset() {
-    GgafCore::TransitionValueSet<float, 1 >::reset();
+    GgafCore::ValueTransitioner<float, 1 >::reset();
     setRange(0.0f, 1000.0f);
 }
 

@@ -2,7 +2,7 @@
 
 #include "EnemyIda.h"
 #include "util/MgrUtil.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/manager/CurveManufactureConnection.h"
@@ -43,8 +43,8 @@ EnemyIdaBase::EnemyIdaBase(const char* prm_name) :
 }
 
 void EnemyIdaBase::initialize() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->linkFaceAngByMvAng(true);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->linkFaceAngByMvAng(true);
 }
 
 void EnemyIdaBase::onActive() {
@@ -52,7 +52,7 @@ void EnemyIdaBase::onActive() {
 }
 
 void EnemyIdaBase::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
@@ -62,7 +62,7 @@ void EnemyIdaBase::processBehavior() {
         case PHASE_MOVE: {
             if (pPhase->hasJustChanged()) {
                 pVehicleLeader_->start(RELATIVE_COORD);
-                getVecVehicle()->setMvVelo(PX_C(2));
+                getLocoVehicle()->setMvVelo(PX_C(2));
             }
             pVehicleLeader_->behave();
             if (pVehicleLeader_->isFinished()) {
@@ -71,12 +71,12 @@ void EnemyIdaBase::processBehavior() {
             break;
         }
         case PHASE_END: {
-            getVecVehicle()->stop();
-            getVecVehicle()->stopTurningMvAng();
+            getLocoVehicle()->stop();
+            getLocoVehicle()->stopTurningMvAng();
             break;
         }
     }
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
 }
 
 void EnemyIdaBase::processJudgement() {

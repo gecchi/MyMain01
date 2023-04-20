@@ -1,7 +1,7 @@
 #include "EffectExplosion002.h"
 
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 
 
@@ -33,7 +33,7 @@ void EffectExplosion002::processBehavior() {
     _sx+= 100;
     _sy+= 100;
     getUvFlipper()->behave();
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
     getScaler()->behave();
 }
 

@@ -1,6 +1,6 @@
 #include "EnemyRatislavia.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
@@ -93,7 +93,7 @@ void EnemyRatislavia::onActive() {
 }
 
 void EnemyRatislavia::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
@@ -156,7 +156,7 @@ void EnemyRatislavia::processBehavior() {
         }
     }
 
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
     getAlphaFader()->behave();
 }
 

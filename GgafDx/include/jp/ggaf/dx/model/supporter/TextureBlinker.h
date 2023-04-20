@@ -1,7 +1,7 @@
 #ifndef GGAF_DX_TEXTUREBLINKER_H_
 #define GGAF_DX_TEXTUREBLINKER_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/core/util/TransitionValueSet.hpp"
+#include "jp/ggaf/core/util/ValueTransitioner.hpp"
 
 namespace GgafDx {
 
@@ -17,7 +17,7 @@ namespace GgafDx {
  * @since 2009/05/22
  * @author Masatoshi Tsuge
  */
-class TextureBlinker : public GgafCore::TransitionValueSet<float, 1 > {
+class TextureBlinker : public GgafCore::ValueTransitioner<float, 1 > {
 
 public:
     /** 対象アクター */

@@ -1,6 +1,6 @@
 #include "MyBunshinShot001.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -23,8 +23,8 @@ void MyBunshinShot001::initialize() {
     pChecker->addCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(50), -PX_C(50), -PX_C(50),
                               PX_C(50),  PX_C(50),  PX_C(50));
-    getVecVehicle()->setRollFaceAngVelo(D_ANG(-12));
-    getVecVehicle()->linkFaceAngByMvAng(true);
+    getLocoVehicle()->setRollFaceAngVelo(D_ANG(-12));
+    getLocoVehicle()->linkFaceAngByMvAng(true);
 }
 
 void MyBunshinShot001::onActive() {
@@ -33,7 +33,7 @@ void MyBunshinShot001::onActive() {
 }
 
 void MyBunshinShot001::processBehavior() {
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
 }
 
 void MyBunshinShot001::processJudgement() {

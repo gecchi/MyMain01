@@ -1,6 +1,6 @@
 #include "LockonCursor001_Sub.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
@@ -32,7 +32,7 @@ void LockonCursor001_Sub::onActive() {
     getUvFlipper()->setActivePtnToTop();
     setAlpha(0.01);
     _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
-    getVecVehicle()->setFaceAngVelo(AXIS_Z, 1000);        //‰E‰ñ“]
+    getLocoVehicle()->setFaceAngVelo(AXIS_Z, 1000);        //‰E‰ñ“]
     //getSeTransmitter()->play3D(0); //ƒƒbƒNƒIƒ“SE
     if (pTarget_) {
         setPositionAt(pTarget_);
@@ -44,7 +44,7 @@ void LockonCursor001_Sub::onActive() {
 }
 
 void LockonCursor001_Sub::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
     if (pPhase->getCurrent() == LOCKON001_PHASE_LOCK) {
         if (getAlpha() < 0.7) {
@@ -58,17 +58,17 @@ void LockonCursor001_Sub::processBehavior() {
         }
         //k¬Š®—¹ŒãAMain‚Ìƒr[ƒg‚É‡‚í‚¹‚é
         _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
-        pVecVehicle->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->getVecVehicle()->_angvelo_face[AXIS_Z];
+        pLocoVehicle->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->getLocoVehicle()->_angvelo_face[AXIS_Z];
         if (pTarget_) {
             if (pTarget_->isActiveInTheTree() || pTarget_->isActivateScheduled()) {
                 if (ABS(pTarget_->_x-_x) <= PX_C(200) &&
                     ABS(pTarget_->_y-_y) <= PX_C(200) &&
                     ABS(pTarget_->_z-_z) <= PX_C(200)) {
                     setPositionAt(pTarget_);
-                    pVecVehicle->setMvVelo(0);
+                    pLocoVehicle->setMvVelo(0);
                 } else {
-                    pVecVehicle->setMvAngTwd(pTarget_);
-                    pVecVehicle->setMvVelo(PX_C(200));
+                    pLocoVehicle->setMvAngTwd(pTarget_);
+                    pLocoVehicle->setMvVelo(PX_C(200));
                 }
             } else {
                 pPhase->change(LOCKON001_PHASE_RELEASE);
@@ -82,14 +82,14 @@ void LockonCursor001_Sub::processBehavior() {
         pTarget_ = nullptr;
         addAlpha(-0.05);
         _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
-        pVecVehicle->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->getVecVehicle()->_angvelo_face[AXIS_Z];
+        pLocoVehicle->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->getLocoVehicle()->_angvelo_face[AXIS_Z];
         if ( getAlpha() < 0.0f) {
             inactivate();
         }
     }
 
     getUvFlipper()->behave();
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
     LockonCursor001::processBehavior();
 }
 
@@ -107,11 +107,11 @@ void LockonCursor001_Sub::lockon(GgafDx::GeometricActor* prm_pTarget) {
         return;
     }
     pTarget_ = prm_pTarget;
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
     if (pPhase->getCurrent() == LOCKON001_PHASE_LOCK) {
     } else if (pPhase->getCurrent() == LOCKON001_PHASE_RELEASE) {
-        pVecVehicle->setFaceAngVelo(AXIS_Z, 1000);   //‰E‰ñ“]
+        pLocoVehicle->setFaceAngVelo(AXIS_Z, 1000);   //‰E‰ñ“]
         pPhase->change(LOCKON001_PHASE_LOCK);
     }
 
@@ -119,10 +119,10 @@ void LockonCursor001_Sub::lockon(GgafDx::GeometricActor* prm_pTarget) {
 void LockonCursor001_Sub::releaseLockon() {
 
     if (isActiveInTheTree()) {
-        GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+        GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
         GgafCore::Phase* pPhase = getPhase();
         if (pPhase->getCurrent() == LOCKON001_PHASE_LOCK) {
-            pVecVehicle->setFaceAngVelo(AXIS_Z, pVecVehicle->_angvelo_face[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
+            pLocoVehicle->setFaceAngVelo(AXIS_Z, pLocoVehicle->_angvelo_face[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
             pPhase->change(LOCKON001_PHASE_RELEASE);
         } else if (pPhase->getCurrent() == LOCKON001_PHASE_RELEASE) {
             //‰½‚à–³‚µ

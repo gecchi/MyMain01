@@ -1,6 +1,6 @@
 #include "MyTorpedoBlast.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
@@ -21,7 +21,7 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
 void MyTorpedoBlast::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
-    getVecVehicle()->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(0), D_ANG(6));
+    getLocoVehicle()->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(0), D_ANG(6));
     setHitAble(true);
 }
 
@@ -31,7 +31,7 @@ void MyTorpedoBlast::onReset() {
     //onInactive() onActive()‚Å‚ÌÀ‘•‚ğ”ğ‚¯‚é
     getStatus()->reset();
     getWorldCollisionChecker()->setColliSphere(0, PX_C(10));
-    getVecVehicle()->setMvVelo(0);
+    getLocoVehicle()->setMvVelo(0);
     setScale(R_SC(1));
     GgafDx::Scaler* const pScaler = getScaler();
     pScaler->setRange(R_SC(1), R_SC(400));
@@ -44,7 +44,7 @@ void MyTorpedoBlast::processBehavior() {
         sayonara();//–c‚ç‚ñ‚Å‚µ‚Ú‚Ş‚ªI—¹
     } else {
         getWorldCollisionChecker()->setColliSphere(0, _sx); //“–‚½‚è”»’è‚à•Ï‰»
-        getVecVehicle()->behave();
+        getLocoVehicle()->behave();
         pScaler->behave();
     }
 }

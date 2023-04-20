@@ -83,9 +83,9 @@ void SpriteLabelTest::initialize() {
 }
 
 void SpriteLabelTest::processBehavior() {
-    //_pVecVehicle->setFaceAngVelo(AXIS_X, D_ANG(1));
-//    pVecVehicle->setFaceAngVelo(AXIS_Z, D_ANG(1));
-//    pVecVehicle->behave();
+    //_pLocoVehicle->setFaceAngVelo(AXIS_X, D_ANG(1));
+//    pLocoVehicle->setFaceAngVelo(AXIS_Z, D_ANG(1));
+//    pLocoVehicle->behave();
 
 //    if (GgafDx::Input::isPressedKey(DIK_P)) {
 //        addScale(100);

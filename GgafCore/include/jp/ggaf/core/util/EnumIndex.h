@@ -23,28 +23,29 @@ namespace GgafCore {
  *     };
  *
  *     EnumIndex itm(ITEM_KEY_CONFIG, ITEM_BACK);
- *     int n, e;
- *     n = itm.n(ITEM_KEY_CONFIG);      //n = 0
- *     n = itm.n(ITEM_SOUND_CONFIG);    //n = 1
- *     n = itm.n(ITEM_SCREEN_CONFIG);   //n = 2
- *     n = itm.n(ITEM_BACK);            //n = 3
+ *     int index, enm; //index=順序, enm=列挙値
+ *     index = itm.index(ITEM_KEY_CONFIG);      //index = 0
+ *     index = itm.index(ITEM_SOUND_CONFIG);    //index = 1
+ *     index = itm.index(ITEM_SCREEN_CONFIG);   //index = 2
+ *     index = itm.index(ITEM_BACK);            //index = 3
  *
- *     e = itm.e(0);                    //e = ITEM_KEY_CONFIG    = 0
- *     e = itm.e(1);                    //e = ITEM_SOUND_CONFIG  = 1
- *     e = itm.e(2);                    //e = ITEM_SCREEN_CONFIG = 2
- *     e = itm.e(3);                    //e = ITEM_BACK          = 3
+ *     enm = itm.enm(0);                    //enm = ITEM_KEY_CONFIG    = 0
+ *     enm = itm.enm(1);                    //enm = ITEM_SOUND_CONFIG  = 1
+ *     enm = itm.enm(2);                    //enm = ITEM_SCREEN_CONFIG = 2
+ *     enm = itm.enm(3);                    //enm = ITEM_BACK          = 3
  *
- *     itm.remove(ITEM_SOUND_CONFIG);   //ITEM_SOUND_CONFIGを削除
+ *     itm.remove(ITEM_SOUND_CONFIG);   //ITEM_SOUND_CONFIGを削除したことにする。
  *
- *     n = itm.n(ITEM_KEY_CONFIG);      //n = 0
- *     n = itm.n(ITEM_SOUND_CONFIG);    //エラー（デバッグビルド時)
- *     n = itm.n(ITEM_SCREEN_CONFIG);   //n = 1
- *     n = itm.n(ITEM_BACK);            //n = 2
- *
- *     e = itm.e(0);                    //e = ITEM_KEY_CONFIG    = 0
- *     e = itm.e(1);                    //e = ITEM_SCREEN_CONFIG = 2
- *     e = itm.e(2);                    //e = ITEM_BACK          = 3
- *     e = itm.e(3);                    //e = -1; (範囲外は-1)
+ *     //列挙値をパラメータにして、順序を得る。
+ *     index = itm.index(ITEM_KEY_CONFIG);      //index = 0
+ *     index = itm.index(ITEM_SOUND_CONFIG);    //エラー（デバッグビルド時)
+ *     index = itm.index(ITEM_SCREEN_CONFIG);   //index = 1
+ *     index = itm.index(ITEM_BACK);            //index = 2
+ *     //順序をパラメータにして、列挙値を得る。
+ *     enm = itm.enm(0);                    //enm = ITEM_KEY_CONFIG    = 0
+ *     enm = itm.enm(1);                    //enm = ITEM_SCREEN_CONFIG = 2
+ *     enm = itm.enm(2);                    //enm = ITEM_BACK          = 3
+ *     enm = itm.enm(3);                    //enm = -1; (範囲外は-1)
  *
  * </code></pre>
  * @version 1.00
@@ -54,7 +55,7 @@ namespace GgafCore {
 class EnumIndex : public Object {
 public:
     /** 列挙の値：順序(0～) */
-    std::map<int, int> _n;
+    std::map<int, int> _index;
     int _enum_start;
     int _enum_end;
 
@@ -67,7 +68,7 @@ public:
         _enum_start = prm_enum_start;
         _enum_end = prm_enum_end;
         for (int i = 0; i <= prm_enum_end-prm_enum_start; i++) {
-            _n[(prm_enum_start+i)] = i;
+            _index[(prm_enum_start+i)] = i;
         }
     }
 
@@ -76,22 +77,22 @@ public:
      */
     inline void reset() {
         for (int i = 0; i <= _enum_end-_enum_start; i++) {
-            _n[(_enum_start+i)] = i;
+            _index[(_enum_start+i)] = i;
         }
     }
 
     /**
      * 列挙の値から、順序(0～)を得る .
-     * @param prm_key 列挙の値
+     * @param prm_enm_value 列挙の値
      * @return 順序(0～)
      */
-    inline int n(int prm_key) {
+    inline int index(int prm_enum_value) {
 #ifdef MY_DEBUG
-        if (_n.find(prm_key) == _n.end()) {
-            throwCriticalException("EnumIndex#n() 列挙値 prm_key="<<prm_key<<" はremoveされたか存在しません");
+        if (_index.find(prm_enum_value) == _index.end()) {
+            throwCriticalException("EnumIndex#index() 列挙値 prm_enum_value="<<prm_enum_value<<" はremoveされたか存在しません");
         }
 #endif
-        return _n[prm_key];
+        return _index[prm_enum_value];
     }
 
     /**
@@ -100,11 +101,11 @@ public:
      * @param prm_index 順序(0～)
      * @return 元の列挙の値 or 順序範囲外の場合は -1
      */
-    inline int e(int prm_index) {
-        if ((int)_n.size() <= prm_index) {
+    inline int enm(int prm_index) {
+        if ((int)_index.size() <= prm_index) {
             return -1;
         }
-        std::map<int, int>::iterator it = _n.begin();
+        std::map<int, int>::iterator it = _index.begin();
         for (int i = 0; i < prm_index; i++) {
             ++it;
         }
@@ -116,10 +117,10 @@ public:
      * @param prm_key 削除する列挙要素の値
      */
     void remove(int prm_key) {
-        _n.erase(prm_key);
+        _index.erase(prm_key);
         //value を詰めて振り直し
         int i = 0;
-        for (std::map<int, int>::iterator it = _n.begin(); it != _n.end(); ++it) {
+        for (std::map<int, int>::iterator it = _index.begin(); it != _index.end(); ++it) {
             it->second = i;
             i++;
         }
@@ -131,22 +132,21 @@ public:
      */
     void remove(int prm_from, int prm_to) {
         for (int i = prm_from; i <= prm_to; i++) {
-            _n.erase(i);
+            _index.erase(i);
         }
         //value を詰めて振り直し
         int i = 0;
-        for (std::map<int, int>::iterator it = _n.begin(); it != _n.end(); ++it) {
+        for (std::map<int, int>::iterator it = _index.begin(); it != _index.end(); ++it) {
             it->second = i;
             i++;
         }
     }
 
-
-    void dump() {
-        for (std::map<int, int>::iterator it = _n.begin(); it != _n.end(); ++it) {
-            std::cout << it->first << "->" << it->second << std::endl;
-        }
-    }
+//    void dump() {
+//        for (std::map<int, int>::iterator it = _index.begin(); it != _index.end(); ++it) {
+//            std::cout << it->first << "->" << it->second << std::endl;
+//        }
+//    }
 
     ~EnumIndex() {
     }

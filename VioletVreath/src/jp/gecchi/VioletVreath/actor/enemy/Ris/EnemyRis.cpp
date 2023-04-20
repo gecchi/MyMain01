@@ -1,6 +1,6 @@
 #include "EnemyRis.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
@@ -38,9 +38,9 @@ void EnemyRis::onCreateModel() {
 
 void EnemyRis::initialize() {
     setHitAble(true);
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->linkFaceAngByMvAng(true);
-    pVecVehicle->setRollFaceAngVelo(5000);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->linkFaceAngByMvAng(true);
+    pLocoVehicle->setRollFaceAngVelo(5000);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAABox(0, -30000, -30000, -30000, 30000, 30000, 30000);
@@ -52,7 +52,7 @@ void EnemyRis::onActive() {
 }
 
 void EnemyRis::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：カーブ移動開始】
             if (pVehicleLeader_) {
@@ -93,7 +93,7 @@ void EnemyRis::processBehavior() {
                 }
             }
             //自機へ方向転換
-            pVecVehicle->turnMvAngTwd(pMYSHIP,
+            pLocoVehicle->turnMvAngTwd(pMYSHIP,
                                   3000, 0,
                                   TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
@@ -102,10 +102,10 @@ void EnemyRis::processBehavior() {
         case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
             if (_z-10000 < pMYSHIP->_z && pMYSHIP->_z < _z+10000) {
                 //自機とZ軸が接近したらグルッと逆回転で方向転換
-                pVecVehicle->turnMvAngTwd(MyShip::lim_x_behaind_ - 500000 , _y, _z,
+                pLocoVehicle->turnMvAngTwd(MyShip::lim_x_behaind_ - 500000 , _y, _z,
                                       10000, 0,
                                       TURN_CLOSE_TO, true);
-                pVecVehicle->setMvAcce(100);
+                pLocoVehicle->setMvAcce(100);
                 iMovePatternNo_++;
             } else {
                 //自機とZ軸が接近するまで待つ
@@ -119,7 +119,7 @@ void EnemyRis::processBehavior() {
     if (pVehicleLeader_) {
         pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
     }
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
     //getSeTransmitter()->behave();
 }
 

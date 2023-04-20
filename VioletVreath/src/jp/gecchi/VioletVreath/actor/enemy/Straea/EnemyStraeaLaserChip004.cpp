@@ -1,7 +1,7 @@
 #include "EnemyStraeaLaserChip004.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
@@ -42,11 +42,11 @@ void EnemyStraeaLaserChip004::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->setMvVelo(10000);
-    pVecVehicle->setMvAcce(300);
-    //pVecVehicle->forceMvVeloRange(0, 70000);
-    pVecVehicle->linkFaceAngByMvAng(true);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->setMvVelo(10000);
+    pLocoVehicle->setMvAcce(300);
+    //pLocoVehicle->forceMvVeloRange(0, 70000);
+    pLocoVehicle->linkFaceAngByMvAng(true);
     pVehicleLeader_->stop();
     _force_alpha = 1.50; //最初はちょっと明るめ
 }
@@ -68,7 +68,7 @@ void EnemyStraeaLaserChip004::processBehaviorHeadChip() {
         pVehicleLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
     }
     pVehicleLeader_->behave(); //←途中でちょんぎれたらだめじゃん
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
 }
 
 void EnemyStraeaLaserChip004::processJudgement() {

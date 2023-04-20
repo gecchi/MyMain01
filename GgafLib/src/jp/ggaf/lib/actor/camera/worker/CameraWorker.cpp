@@ -1,11 +1,11 @@
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
 #include "jp/ggaf/dx/actor/GeometricActor.h"
-#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/AxisVehicleAssistantA.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleFaceAngAssistant.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
@@ -124,11 +124,11 @@ void CameraWorker::setUpVec(coord tx, coord ty, coord tz) {
     _pUp->setPosition(tx,ty,tz);
 }
 void CameraWorker::stopMvCam() {
-    _pCam->getAxisVehicle()->stop();
+    _pCam->getCoordVehicle()->stop();
 }
 
 void CameraWorker::stopMvVp() {
-    _pVp->getAxisVehicle()->stop();
+    _pVp->getCoordVehicle()->stop();
 }
 
 CameraWorker::~CameraWorker() {

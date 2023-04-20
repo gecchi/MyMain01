@@ -80,7 +80,7 @@ public:
      * initialize() Ç‹Ç≈Ç…ê›íËÇµÇƒâ∫Ç≥Ç¢ÅB
      * @param prm_pVehicleLeader
      */
-    void setCurveVecVehicleLeader(GgafDx::VehicleLeader* prm_pVehicleLeader) {
+    void setCurveLocoVehicleLeader(GgafDx::VehicleLeader* prm_pVehicleLeader) {
         pVehicleLeader_ = prm_pVehicleLeader;
     }
 

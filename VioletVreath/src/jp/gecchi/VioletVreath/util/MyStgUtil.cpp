@@ -4,7 +4,7 @@
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinWateringLaserChip001.h"
@@ -112,9 +112,9 @@ GgafDx::FigureActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord
                 pActor_shot->setPosition(prm_x + paGeo[i].x,
                                       prm_y + paGeo[i].y,
                                       prm_z + paGeo[i].z);
-                pActor_shot->getVecVehicle()->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
-                pActor_shot->getVecVehicle()->setMvVelo(now_velo);
-                pActor_shot->getVecVehicle()->setMvAcce(now_acce);
+                pActor_shot->getLocoVehicle()->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
+                pActor_shot->getLocoVehicle()->setMvVelo(now_velo);
+                pActor_shot->getLocoVehicle()->setMvAcce(now_acce);
 //                pActor_shot->_rz = Rz;
 //                pActor_shot->_ry = Ry;
                 if (pFunc_call_back_dispatched) {
@@ -272,26 +272,26 @@ GgafDx::FigureActor* MyStgUtil::activateExplosionEffectOf(GgafDx::GeometricActor
         case EF_EXPLOSION001: {
             pE = CommonScene_dispatchForce(EffectExplosion001);
             pE->setPositionAt(prm_pActor);
-            pE->getVecVehicle()->takeoverFrom(prm_pActor->getVecVehicle());
+            pE->getLocoVehicle()->takeoverFrom(prm_pActor->getLocoVehicle());
             break;
         }
         case EF_EXPLOSION002: {
             pE = CommonScene_dispatchForce(EffectExplosion002);
             pE->setPositionAt(prm_pActor);
-            pE->getVecVehicle()->takeoverFrom(prm_pActor->getVecVehicle());
+            pE->getLocoVehicle()->takeoverFrom(prm_pActor->getLocoVehicle());
             break;
         }
         case EF_EXPLOSION003: {
             pE = CommonScene_dispatchForce(EffectExplosion003);
             pE->setPositionAt(prm_pActor);
-            pE->getVecVehicle()->takeoverFrom(prm_pActor->getVecVehicle());
+            pE->getLocoVehicle()->takeoverFrom(prm_pActor->getLocoVehicle());
             break;
         }
         case EF_EXPLOSION001_STAY: {
             pE = CommonScene_dispatchForce(EffectExplosion001);
             pE->setPositionAt(prm_pActor);
-            pE->getVecVehicle()->setMvVelo(0);
-            pE->getVecVehicle()->setMvAcce(0);
+            pE->getLocoVehicle()->setMvVelo(0);
+            pE->getLocoVehicle()->setMvAcce(0);
             break;
         }
         default: {
@@ -329,7 +329,7 @@ GgafDx::FigureActor* MyStgUtil::activateDamagedEffectOf(GgafDx::GeometricActor* 
     if (pE) {
         //出現座標を設定
         pE->setPositionAt(prm_pActor);
-        pE->getVecVehicle()->takeoverFrom(prm_pActor->getVecVehicle());
+        pE->getLocoVehicle()->takeoverFrom(prm_pActor->getLocoVehicle());
     }
     return pE;
 }
@@ -516,7 +516,7 @@ GgafDx::FigureActor* MyStgUtil::activateDestroyedEffectOf(GgafDx::GeometricActor
     if (pE) {
         //出現座標を設定
         pE->setPositionAt(prm_pActor);
-        pE->getVecVehicle()->takeoverFrom(prm_pActor->getVecVehicle());
+        pE->getLocoVehicle()->takeoverFrom(prm_pActor->getLocoVehicle());
     }
     return pE;
 }
@@ -647,7 +647,7 @@ GgafDx::FigureActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDx::Geome
             SpriteLabelBonus001* pLabel = CommonScene_dispatchForce(SpriteLabelBonus001);
             pLabel->onDispatched(prm_pActor); //初期設定が行われる
             pLabel->setPositionAt(prm_pActor);
-            pLabel->getVecVehicle()->takeoverFrom(prm_pActor->getVecVehicle());
+            pLabel->getLocoVehicle()->takeoverFrom(prm_pActor->getLocoVehicle());
             int addscore = prm_pActor->getStatus()->get(STAT_FormationDestroyedAddScorePoint); //フォーメーション全滅得点
             std::string s = XTOS(addscore);
             pLabel->update(s.c_str());
@@ -655,7 +655,7 @@ GgafDx::FigureActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDx::Geome
 
             EffectTurbo002* pTurbo002 = CommonScene_dispatchForce(EffectTurbo002);
             pTurbo002->setPositionAt(prm_pActor);
-            pTurbo002->getVecVehicle()->takeoverFrom(prm_pActor->getVecVehicle());
+            pTurbo002->getLocoVehicle()->takeoverFrom(prm_pActor->getLocoVehicle());
             break;
         }
 //            case 2: {
@@ -676,7 +676,7 @@ GgafDx::FigureActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDx::Geome
 //        if (pE) {
 //            //出現座標を設定
 //            pE->setPositionAt(prm_pActor);
-//            pE->getVecVehicle()->takeoverFrom(prm_pActor->getVecVehicle());
+//            pE->getLocoVehicle()->takeoverFrom(prm_pActor->getLocoVehicle());
 //        }
     return pE;
 }

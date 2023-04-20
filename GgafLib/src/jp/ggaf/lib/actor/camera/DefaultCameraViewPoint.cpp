@@ -1,9 +1,9 @@
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 
-#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/AxisVehicleAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistantA.h"
 
 
 
@@ -17,13 +17,13 @@ void DefaultCameraViewPoint::initialize() {
 }
 
 void DefaultCameraViewPoint::processBehavior() {
-    getAxisVehicle()->behave();
-    getVecVehicle()->behave();
+    getCoordVehicle()->behave();
+    getLocoVehicle()->behave();
 }
 
 void DefaultCameraViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t, double prm_p1, double prm_p2) {
     //ƒJƒƒ‰‚Ê‚é‚Á‚ÆˆÚ“®
-    getAxisVehicle()->asst()->slideVxyzMvByDtTo(
+    getCoordVehicle()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_p1, prm_p2, 0, true);
 }

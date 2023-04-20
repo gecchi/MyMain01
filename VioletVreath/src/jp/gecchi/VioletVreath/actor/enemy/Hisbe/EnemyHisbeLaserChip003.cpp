@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
@@ -29,7 +29,7 @@ void EnemyHisbeLaserChip003::initialize() {
     setScaleR(5.0);
     setCullingDraw(false);
 
-    getVecVehicle()->linkFaceAngByMvAng(true);
+    getLocoVehicle()->linkFaceAngByMvAng(true);
     sp_index_ = 0;
 }
 
@@ -43,7 +43,7 @@ void EnemyHisbeLaserChip003::onActive() {
 }
 
 void EnemyHisbeLaserChip003::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
 
     if (pFeatureScene_) {
         pVehicleLeader_->_x_start_in_loop -= pFeatureScene_->getFeatureParam1();
@@ -51,13 +51,13 @@ void EnemyHisbeLaserChip003::processBehavior() {
     if (sp_index_ > (pVehicleLeader_->_pManufacture->_pCurve->_rnum -1)) {
 
     } else {
-        pVecVehicle->setMvVelo(pVehicleLeader_->getSegmentDistance(sp_index_));
+        pLocoVehicle->setMvVelo(pVehicleLeader_->getSegmentDistance(sp_index_));
         sp_index_++;
     }
-    //pVehicleLeader_->behave(); 内部で pVecVehicle->_velo_mv を参照し次フレーム数決定してるので、
-    //１フレームで次の点に到達するべく、pVehicleLeader_->behave(); の前に pVecVehicle->setMvVelo() で設定しなければいけない。
+    //pVehicleLeader_->behave(); 内部で pLocoVehicle->_velo_mv を参照し次フレーム数決定してるので、
+    //１フレームで次の点に到達するべく、pVehicleLeader_->behave(); の前に pLocoVehicle->setMvVelo() で設定しなければいけない。
     pVehicleLeader_->behave();
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
     WateringLaserChip::processBehavior();
 }
 void EnemyHisbeLaserChip003::processSettlementBehavior() {

@@ -4,7 +4,7 @@
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeP.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeN.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 
 
 
@@ -58,18 +58,18 @@ void FormationAntiope001::processBehavior() {
 
             if (pP && pN) {
                 pP->setPositionAt(&entry_pos);
-                pP->getVecVehicle()->setMvAngTwd(&twd_pos_p);
-                pP->setRzFaceAng(pP->getVecVehicle()->_rz_mv);
-                pP->setRyFaceAng(pP->getVecVehicle()->_ry_mv);
-                pP->getVecVehicle()->stop();
+                pP->getLocoVehicle()->setMvAngTwd(&twd_pos_p);
+                pP->setRzFaceAng(pP->getLocoVehicle()->_rz_mv);
+                pP->setRyFaceAng(pP->getLocoVehicle()->_ry_mv);
+                pP->getLocoVehicle()->stop();
                 pP->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
 
                 pN->setPositionAt(&entry_pos);
-                pN->getVecVehicle()->setMvAngTwd(&twd_pos_p);
-                pN->getVecVehicle()->reverseMvAng(); //”½“]
-                pN->setRzFaceAng(pN->getVecVehicle()->_rz_mv);
-                pN->setRyFaceAng(pN->getVecVehicle()->_ry_mv);
-                pN->getVecVehicle()->stop();
+                pN->getLocoVehicle()->setMvAngTwd(&twd_pos_p);
+                pN->getLocoVehicle()->reverseMvAng(); //”½“]
+                pN->setRzFaceAng(pN->getLocoVehicle()->_rz_mv);
+                pN->setRyFaceAng(pN->getLocoVehicle()->_ry_mv);
+                pN->getLocoVehicle()->stop();
                 pN->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
 
                 //ƒyƒAƒŠƒ“ƒO

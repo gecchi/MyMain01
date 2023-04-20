@@ -1,7 +1,7 @@
 #ifndef GGAF_DX_ALPHAFADER_H_
 #define GGAF_DX_ALPHAFADER_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/core/util/TransitionValueSet.hpp"
+#include "jp/ggaf/core/util/ValueTransitioner.hpp"
 
 namespace GgafDx {
 
@@ -13,7 +13,7 @@ namespace GgafDx {
  * @since 2010/07/28
  * @author Masatoshi Tsuge
  */
-class AlphaFader : public GgafCore::TransitionValueSet<float, 1 > {
+class AlphaFader : public GgafCore::ValueTransitioner<float, 1 > {
 
 public:
     /** [r]対象アクター */

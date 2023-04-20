@@ -578,6 +578,11 @@ void Spacetime::cnvWorldCoordToView(coord prm_world_x, coord prm_world_y, coord 
 }
 
 void Spacetime::executeWorldHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
+#ifdef MY_DEBUG
+    if (_is_running_processHitCheck == false) {
+        throwCriticalException("executeWorldHitCheck() は、processHitCheck() 内でしか実行できません。");
+    }
+#endif
     if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
         Spacetime::_pWorldQuadtreeRounder->executeAll(prm_kind_groupA, prm_kind_groupB);
     } else {
@@ -585,8 +590,12 @@ void Spacetime::executeWorldHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_gro
     }
 }
 
-
 void Spacetime::executeViewHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
+#ifdef MY_DEBUG
+    if (_is_running_processHitCheck == false) {
+        throwCriticalException("executeViewHitCheck() は、processHitCheck() 内でしか実行できません。");
+    }
+#endif
     Spacetime::_pViewQuadtreeRounder->executeAll(prm_kind_groupA, prm_kind_groupB);
 }
 void Spacetime::processFinal() {

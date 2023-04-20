@@ -12,13 +12,13 @@
 #include "jp/ggaf/lib/util/Quaternion.hpp"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Colorist.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
@@ -121,8 +121,8 @@ void MyBunshin::onActive() {
     setAlpha(0); //!!
 //    getAlphaFader()->transitionLinearToTop(120);
     resetMaterialColor(); //!!
-//    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-//    pVecVehicle->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_); //分身のクルクル速度
+//    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+//    pLocoVehicle->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_); //分身のクルクル速度
 }
 
 void MyBunshin::processBehavior() {
@@ -132,7 +132,7 @@ void MyBunshin::processBehavior() {
 void MyBunshin::processSettlementBehavior() {
 
     changeGeoLocal(); //ローカル座標の操作とする。
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
 
     //ロックオン対象へ方向を向ける
 //    _is_thunder_lock = false;
@@ -155,32 +155,32 @@ void MyBunshin::processSettlementBehavior() {
 
 //            setRzRyFaceAng(rz_target, ry_target);
             //こここここここｋ
-            pVecVehicle->turnRzRyFaceAngTo(
+            pLocoVehicle->turnRzRyFaceAngTo(
                             rz_target, ry_target,
                             D_ANG(5), D_ANG(0),
                             TURN_CLOSE_TO, false);
         } else {
 //            setRzRyFaceAng(0, 0);
-            pVecVehicle->turnRzRyFaceAngTo(
+            pLocoVehicle->turnRzRyFaceAngTo(
                             D_ANG(0), D_ANG(0),
                             D_ANG(5), D_ANG(0),
                             TURN_CLOSE_TO, false);
         }
 //        if (pLockonCtrler_->pMainLockonCursor_->hasJustReleaseLockon()) {
-//            pVecVehicle->turnRzRyFaceAngTo(
+//            pLocoVehicle->turnRzRyFaceAngTo(
 //                            0, 0,
 //                            D_ANG(10), D_ANG(0),
 //                            TURN_CLOSE_TO, false);
 //        }
 //        if (pLockonCtrler_->pMainLockonCursor_->hasJustReleaseLockon()) {
-//            pVecVehicle->turnRzRyFaceAngTo(
+//            pLocoVehicle->turnRzRyFaceAngTo(
 //                            0, rz_local_copy_,
 //                            D_ANG(10), D_ANG(0),
 //                            TURN_CLOSE_TO, false);
 //        }
     }
 
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
     getScaler()->behave();
     getAlphaFader()->behave(); //!!
     getColorist()->behave();   //!!
@@ -211,9 +211,9 @@ void MyBunshin::processChangeGeoFinal() {
     //            if (pSnipeShot) {
     //                getSeTransmitter()->play3D(SE_FIRE_SHOT);
     //                pSnipeShot->setPositionAt(this);
-    //                pSnipeShot->getVecVehicle()->setRzRyMvAng(_rz, _ry);
-    //                pSnipeShot->getVecVehicle()->setMvVelo(PX_C(70));
-    //                pSnipeShot->getVecVehicle()->setMvAcce(100);
+    //                pSnipeShot->getLocoVehicle()->setRzRyMvAng(_rz, _ry);
+    //                pSnipeShot->getLocoVehicle()->setMvVelo(PX_C(70));
+    //                pSnipeShot->getLocoVehicle()->setMvAcce(100);
     //            }
             } else {
                 if (pMyShip->shot_level_ >= 1) {
@@ -221,9 +221,9 @@ void MyBunshin::processChangeGeoFinal() {
                     if (pShot) {
                         getSeTransmitter()->play3D(SE_FIRE_SHOT);
                         pShot->setPositionAt(this);
-                        pShot->getVecVehicle()->setRzRyMvAng(_rz, _ry);
-                        pShot->getVecVehicle()->setMvVelo(PX_C(70));
-                        pShot->getVecVehicle()->setMvAcce(100);
+                        pShot->getLocoVehicle()->setRzRyMvAng(_rz, _ry);
+                        pShot->getLocoVehicle()->setMvVelo(PX_C(70));
+                        pShot->getLocoVehicle()->setMvAcce(100);
                     }
                 }
                 if (pMyShip->shot_level_ == 2) {
@@ -300,7 +300,7 @@ void MyBunshin::onHit(const GgafCore::Actor* prm_pOtherActor) {
 
 void MyBunshin::effectFreeModeIgnited() {
     pBunshinController_->effectFreeModeIgnited();
-//    getVecVehicle()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_*2); //分身の速いクルクル
+//    getLocoVehicle()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_*2); //分身の速いクルクル
     getColorist()->flush(1.0, 5, 5, 3); //!!
 }
 
@@ -323,7 +323,7 @@ void MyBunshin::effectFreeModeLaunch() {
     }
 }
 void MyBunshin::effectFreeModePause() {
-//    getVecVehicle()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_);
+//    getLocoVehicle()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_);
     pBunshinController_->effectFreeModePause();
 }
 
@@ -362,8 +362,8 @@ void MyBunshin::effectFreeModePause() {
 //    bool is_local = _is_local;
 //    if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
 //    coord d = prm_target_radius_pos - _y;
-//    getVecVehicle()->setRzRyMvAng(D90ANG, D0ANG); //Y軸方向
-//    getVecVehicle()->asstMv()->slideByDt(d, prm_spent_frames, 0.2, 0.8, 0, true);
+//    getLocoVehicle()->setRzRyMvAng(D90ANG, D0ANG); //Y軸方向
+//    getLocoVehicle()->asstMv()->slideByDt(d, prm_spent_frames, 0.2, 0.8, 0, true);
 //    if (!is_local) { changeGeoFinal(); }  //座標系を戻す
 //}
 
@@ -385,9 +385,9 @@ void MyBunshin::effectFreeModePause() {
 //    if (_is_local) {
 //        _rz = UTIL::simplifyAng(_rz+prm_ang_expanse);
 //    } else {
-//        GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-//        if (pVecVehicle->isTurningFaceAng()) {
-//            pVecVehicle->_target_face[AXIS_Z] = UTIL::simplifyAng(pVecVehicle->_target_face[AXIS_Z]+prm_ang_expanse);
+//        GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+//        if (pLocoVehicle->isTurningFaceAng()) {
+//            pLocoVehicle->_target_face[AXIS_Z] = UTIL::simplifyAng(pLocoVehicle->_target_face[AXIS_Z]+prm_ang_expanse);
 //        } else {
 //            _rz_local = UTIL::simplifyAng(_rz_local+prm_ang_expanse);
 //        }
@@ -401,7 +401,7 @@ void MyBunshin::effectFreeModePause() {
 //void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames) {
 //    bool is_local = _is_local;
 //    if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
-//    getVecVehicle()->asstFaceAng()->turnRzRyByDtTo(prm_target_ang_expanse, D_ANG(0), TURN_CLOSE_TO, true,
+//    getLocoVehicle()->asstFaceAng()->turnRzRyByDtTo(prm_target_ang_expanse, D_ANG(0), TURN_CLOSE_TO, true,
 //                                                    prm_spent_frames, 0.3, 0.5, 0, true);
 //    if (!is_local) { changeGeoFinal(); }  //座標系を戻す
 //}

@@ -6,7 +6,7 @@
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
@@ -72,7 +72,7 @@ void EnemyRatislaviaEye::onCreateModel() {
 
 void EnemyRatislaviaEye::initialize() {
     setHitAble(true);
-    getVecVehicle()->linkFaceAngByMvAng(true);
+    getLocoVehicle()->linkFaceAngByMvAng(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliSphere(0, 200000);
@@ -84,13 +84,13 @@ void EnemyRatislaviaEye::onActive() {
     getPhase()->reset(PHASE_MOVE);
     setPositionAt(pRatislavia_);
     setFaceAngAs(pRatislavia_);
-    getVecVehicle()->setRzRyMvAngVelo(pRatislavia_->getVecVehicle()->_angvelo_face[AXIS_Z],
-                                  pRatislavia_->getVecVehicle()->_angvelo_face[AXIS_Y]);
+    getLocoVehicle()->setRzRyMvAngVelo(pRatislavia_->getLocoVehicle()->_angvelo_face[AXIS_Z],
+                                  pRatislavia_->getLocoVehicle()->_angvelo_face[AXIS_Y]);
 }
 
 void EnemyRatislaviaEye::processBehavior() {
     setPositionAt(pRatislavia_);
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_MOVE: {
@@ -103,15 +103,15 @@ void EnemyRatislaviaEye::processBehavior() {
             if (pPhase->getFrame() > 240) {
                 pPhase->changeNext();
             }
-            pVecVehicle->takeoverFrom(pRatislavia_->getVecVehicle());
-            pVecVehicle->setRzRyMvAngVelo(pRatislavia_->getVecVehicle()->_angvelo_face[AXIS_Z],
-                                      pRatislavia_->getVecVehicle()->_angvelo_face[AXIS_Y]);
+            pLocoVehicle->takeoverFrom(pRatislavia_->getLocoVehicle());
+            pLocoVehicle->setRzRyMvAngVelo(pRatislavia_->getLocoVehicle()->_angvelo_face[AXIS_Z],
+                                      pRatislavia_->getLocoVehicle()->_angvelo_face[AXIS_Y]);
             break;
         }
 
         case PHASE_TURN: {
             if (pPhase->hasJustChanged()) {
-                pVecVehicle->turnMvAngTwd(pMYSHIP,
+                pLocoVehicle->turnMvAngTwd(pMYSHIP,
                                         D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
             if (pPhase->getFrame() > 240) {
@@ -122,7 +122,7 @@ void EnemyRatislaviaEye::processBehavior() {
 
         case PHASE_FIRE_BEGIN: {
             if (pPhase->hasJustChanged()) {
-                //_pVecVehicle->turnMvAngTwd(pMYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
+                //_pLocoVehicle->turnMvAngTwd(pMYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
                 pEffect_->activate();
             }
             pEffect_->setPositionAt(this);
@@ -133,7 +133,7 @@ void EnemyRatislaviaEye::processBehavior() {
         }
         case PHASE_IN_FIRE: {
             if (pPhase->hasJustChanged()) {
-                pVecVehicle->turnMvAngTwd(pMYSHIP,
+                pLocoVehicle->turnMvAngTwd(pMYSHIP,
                                         10, 0, TURN_CLOSE_TO, false);
             }
             LaserChip* pChip = pLaserChipDepo_->dispatch();
@@ -149,8 +149,8 @@ void EnemyRatislaviaEye::processBehavior() {
         case PHASE_FIRE_END: {
             if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(1, 0.0, 180); //•Â‚¶‚é
-                pVecVehicle->setRzRyMvAngVelo(pRatislavia_->getVecVehicle()->_angvelo_face[AXIS_Z],
-                                          pRatislavia_->getVecVehicle()->_angvelo_face[AXIS_Y]);
+                pLocoVehicle->setRzRyMvAngVelo(pRatislavia_->getLocoVehicle()->_angvelo_face[AXIS_Z],
+                                          pRatislavia_->getLocoVehicle()->_angvelo_face[AXIS_Y]);
             }
             //d’¼
             if (pPhase->getFrame() >= 300) {
@@ -164,7 +164,7 @@ void EnemyRatislaviaEye::processBehavior() {
         }
     }
 
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
     getMorpher()->behave();
     getSeTransmitter()->behave();
 }

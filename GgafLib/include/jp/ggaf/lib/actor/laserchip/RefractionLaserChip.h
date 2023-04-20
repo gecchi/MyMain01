@@ -13,8 +13,8 @@ namespace GgafLib {
  * ・移動方向は直進、但し一定間隔で移動方向が変化 <BR>
  * と言うべきか、ダライアスのボスの多段レーザーと言うべきか、そんな感じ。<BR>
  * デポジトリ登録前にconfig()で設定してください。<BR>
- * 先頭チップは  GgafDx::VecVehicle#behave() で移動します。<BR>
- * dispatch() したら、初期座標と VecVehicle（速度・方向）を設定して下さい。<BR>
+ * 先頭チップは  GgafDx::LocoVehicle#behave() で移動します。<BR>
+ * dispatch() したら、初期座標と LocoVehicle（速度・方向）を設定して下さい。<BR>
  * @version 1.00
  * @since 2010/01/19
  * @author Masatoshi Tsuge
@@ -97,8 +97,8 @@ public:
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
      * その際、本クラスの processBehavior() メソッドも呼び出してください。
      * 内部処理は、
-     * 先頭チップは、GgafDx::VecVehicle#behave() を実行により移動を行います。
-     * 屈折中は GgafDx::VecVehicle#behave() による移動は行いません。
+     * 先頭チップは、GgafDx::LocoVehicle#behave() を実行により移動を行います。
+     * 屈折中は GgafDx::LocoVehicle#behave() による移動は行いません。
      * 先頭以外のチップ以外は、先頭チップに追従するという処理を行います。
      */
     virtual void processBehavior() override;
@@ -119,7 +119,7 @@ public:
      * 先頭チップのみコールバックされます。<BR>
      * 実際には存在しない0回目の屈折終了からスタートする。<BR>
      * 0回目の屈折終了は onActive() 時にコールバックされます。<BR>
-     * オーバーライドし、屈折後の次の移動方向と速度を力車Aに設定する実装を
+     * オーバーライドし、屈折後の次の移動方向と速度を移動車両Aに設定する実装を
      * 行ってください。<BR>
      * @param prm_num_refraction 屈折カウント(何回目の屈折終了か)(0～)
      */

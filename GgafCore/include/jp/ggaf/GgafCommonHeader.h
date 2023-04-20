@@ -394,7 +394,7 @@ template<class VAL_TYPE>
 class TransitionValue;
 
 template<class VAL_TYPE, int N>
-class TransitionValueSet;
+class ValueTransitioner;
 
 class GarbageBox;
 class Phase;

@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_VECVEHICLEMVASSISTANT_H_
-#define GGAF_DX_VECVEHICLEMVASSISTANT_H_
+#ifndef GGAF_DX_LOCOVEHICLEMVASSISTANT_H_
+#define GGAF_DX_LOCOVEHICLEMVASSISTANT_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
@@ -7,22 +7,22 @@
 namespace GgafDx {
 
 /**
- * 力車の助手A .
- * 師匠(力車)の移動速度の補佐を行います。
+ * 移動車両の助手A .
+ * 師匠(移動車両)の移動速度の補佐を行います。
  * @version 1.00
  * @since 2013/12/05
  * @author Masatoshi Tsuge
  */
-class VecVehicleMvAssistant : public GgafCore::Object {
-    friend class VecVehicle;
+class LocoVehicleMvAssistant : public GgafCore::Object {
+    friend class LocoVehicle;
 
 private:
     /** [r]師匠 */
-    VecVehicle* const _pMaster;
+    LocoVehicle* const _pMaster;
     GgafCore::TrapezoidalVeloValue<int> _smthMv;
 
     /**
-     * 力車の助手が振る舞う .
+     * 移動車両の助手が振る舞う .
      * 師匠が振る舞う(behave())時に、自動で呼び出されるので気にしないでよいです。
      */
     virtual void behave();
@@ -32,7 +32,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit VecVehicleMvAssistant(VecVehicle* prm_pMaster);
+    explicit LocoVehicleMvAssistant(LocoVehicle* prm_pMaster);
 
 
     /**
@@ -125,9 +125,9 @@ public:
         return _smthMv.hasJustFinishedTransitioning();
     }
 
-    virtual ~VecVehicleMvAssistant();
+    virtual ~LocoVehicleMvAssistant();
 };
 
 }
-#endif /*GGAF_DX_VECVEHICLEMVASSISTANT_H_*/
+#endif /*GGAF_DX_LOCOVEHICLEMVASSISTANT_H_*/
 

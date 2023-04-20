@@ -1,7 +1,7 @@
 #include "EffectBlink003.h"
 
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 
 
 
@@ -24,12 +24,12 @@ void EffectBlink003::onActive() {
     getScaler()->setRange(1, 128000);
     setScale(getScaler()->getBottom());
     setFaceAngZero();
-    getVecVehicle()->setRollPitchYawFaceAngVelo(11000,7000,5000);
+    getLocoVehicle()->setRollPitchYawFaceAngVelo(11000,7000,5000);
 }
 
 void EffectBlink003::processBehavior() {
     EffectBlink::processBehavior();
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
 }
 
 EffectBlink003::~EffectBlink003() {

@@ -5,7 +5,7 @@
 
 using namespace GgafCore;
 
-std::map<std::string, RepeatSeq::Seq> RepeatSeq::mapSeq;
+std::map<std::string, RepeatSeq::Seq> RepeatSeq::_mapSeq;
 
 #ifdef _MSC_VER
 volatile bool RepeatSeq::_is_lock = false;
@@ -26,8 +26,8 @@ void RepeatSeq::create(std::string ID, int min, int max) {
     }
 #endif
     _TRACE_("シークエンスを作成します。 RepeatSeq::create("<<ID<<","<<min<<","<<max<<")");
-    mapSeq.insert(std::make_pair(ID, Seq()));
-    mapSeq[ID].init(min, max);
+    _mapSeq.insert(std::make_pair(ID, Seq()));
+    _mapSeq[ID].init(min, max);
 }
 
 void RepeatSeq::create(const char* ID, int min, int max) {
@@ -37,14 +37,14 @@ void RepeatSeq::create(const char* ID, int min, int max) {
     }
 #endif
     _TRACE_("シークエンスを作成します。 RepeatSeq::create("<<ID<<","<<min<<","<<max<<")");
-    mapSeq.insert(std::make_pair(std::string(ID), Seq()));
-    mapSeq[ID].init(min, max);
+    _mapSeq.insert(std::make_pair(std::string(ID), Seq()));
+    _mapSeq[ID].init(min, max);
 }
 void RepeatSeq::set(std::string& ID, int val) {
 #ifdef MY_DEBUG
     if (isExist(ID) ) {
 #endif
-        mapSeq[ID].set(val);
+        _mapSeq[ID].set(val);
 #ifdef MY_DEBUG
     } else {
         throwCriticalException("ID="<<ID<<"は存在しません");
@@ -56,7 +56,7 @@ void RepeatSeq::set(const char* ID, int val) {
 #ifdef MY_DEBUG
     if (isExist(ID) ) {
 #endif
-        mapSeq[ID].set(val);
+        _mapSeq[ID].set(val);
 #ifdef MY_DEBUG
     } else {
         throwCriticalException("ID="<<ID<<"は存在しません。");
@@ -68,7 +68,7 @@ void RepeatSeq::setMax(std::string& ID) {
 #ifdef MY_DEBUG
     if (isExist(ID) ) {
 #endif
-        mapSeq[ID].setMax();
+        _mapSeq[ID].setMax();
 #ifdef MY_DEBUG
     } else {
         throwCriticalException("ID="<<ID<<"は存在しません");
@@ -80,7 +80,7 @@ void RepeatSeq::setMax(const char* ID) {
 #ifdef MY_DEBUG
     if (isExist(ID) ) {
 #endif
-        mapSeq[ID].setMax();
+        _mapSeq[ID].setMax();
 #ifdef MY_DEBUG
     } else {
         throwCriticalException("ID="<<ID<<"は存在しません。");
@@ -92,7 +92,7 @@ void RepeatSeq::setMin(std::string& ID) {
 #ifdef MY_DEBUG
     if (isExist(ID) ) {
 #endif
-    mapSeq[ID].setMin();
+    _mapSeq[ID].setMin();
 #ifdef MY_DEBUG
     } else {
         throwCriticalException("ID="<<ID<<"は存在しません");
@@ -104,7 +104,7 @@ void RepeatSeq::setMin(const char* ID) {
 #ifdef MY_DEBUG
     if (isExist(ID) ) {
 #endif
-    mapSeq[ID].setMin();
+    _mapSeq[ID].setMin();
 #ifdef MY_DEBUG
     } else {
         throwCriticalException("ID="<<ID<<"は存在しません。");
@@ -115,7 +115,7 @@ void RepeatSeq::setMin(const char* ID) {
 bool RepeatSeq::isExist(std::string& ID) {
     WAIT_LOCK;
     RepeatSeq::_is_lock = true;
-    bool ret = mapSeq.find(ID) != mapSeq.end();
+    bool ret = _mapSeq.find(ID) != _mapSeq.end();
     RepeatSeq::_is_lock = false;
     return ret;
 }
@@ -123,7 +123,7 @@ bool RepeatSeq::isExist(std::string& ID) {
 bool RepeatSeq::isExist(const char* ID) {
     WAIT_LOCK;
     RepeatSeq::_is_lock = true;
-    bool ret = mapSeq.find(ID) != mapSeq.end();
+    bool ret = _mapSeq.find(ID) != _mapSeq.end();
     RepeatSeq::_is_lock = false;
     return ret;
 }
@@ -133,7 +133,7 @@ int RepeatSeq::nextVal(std::string& ID) {
 #ifdef MY_DEBUG
     if (isExist(ID) ) {
 #endif
-        return mapSeq[ID].nextVal();
+        return _mapSeq[ID].nextVal();
 #ifdef MY_DEBUG
     } else {
         throwCriticalException("ID="<<ID<<"は存在しません");
@@ -144,7 +144,7 @@ int RepeatSeq::nextVal(const char* ID) {
 #ifdef MY_DEBUG
     if (isExist(ID) ) {
 #endif
-        return mapSeq[ID].nextVal();
+        return _mapSeq[ID].nextVal();
 #ifdef MY_DEBUG
     } else {
         throwCriticalException("ID="<<ID<<"は存在しません。");

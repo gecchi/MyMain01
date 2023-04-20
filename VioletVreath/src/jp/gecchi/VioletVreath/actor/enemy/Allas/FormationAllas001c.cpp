@@ -1,7 +1,7 @@
 #include "FormationAllas001c.h"
 
 #include "EnemyAllas.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 
 

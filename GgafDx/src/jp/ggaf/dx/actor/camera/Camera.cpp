@@ -1,7 +1,7 @@
 #include "jp/ggaf/dx/actor/camera/Camera.h"
 
 #include "jp/ggaf/dx/Config.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
 #include "jp/ggaf/dx/actor/camera/CameraUpVector.h"
 #include "jp/ggaf/dx/Caretaker.h"
@@ -74,7 +74,7 @@ _zf(-_cameraZ_org*(_dep+1.0)-_zn)
 
     setPosition(0, 0, DX_C(_cameraZ_org));
     setFaceAngTwd(0,0,0);
-    getVecVehicle()->setMvAngTwd(0,0,0);
+    getLocoVehicle()->setMvAngTwd(0,0,0);
     setHitAble(false);
 
     pCARETAKER->_pID3DDevice9->GetViewport(&_viewport);

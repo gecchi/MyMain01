@@ -1,7 +1,7 @@
 #ifndef GGAF_DX_SCALER_H_
 #define GGAF_DX_SCALER_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/core/util/TransitionValueSet.hpp"
+#include "jp/ggaf/core/util/ValueTransitioner.hpp"
 
 namespace GgafDx {
 
@@ -19,12 +19,12 @@ namespace GgafDx {
  * 本クラスでは、スケールとスケーリングという単語を次の意味で使用している箇所がある。
  * スケール・・・現在（のフレーム）の拡大縮小状態、スケール値
  * スケーリング・・・フレーム間の拡大縮小状態の遷移
- * 2009/05/22 VecVehicle から分割した。
+ * 2009/05/22 LocoVehicle から分割した。
  * @version 1.00
  * @since 2009/05/22
  * @author Masatoshi Tsuge
  */
-class Scaler : public GgafCore::TransitionValueSet<scale, 3 > {
+class Scaler : public GgafCore::ValueTransitioner<scale, 3 > {
 
 public:
     /** [r]対象アクター */

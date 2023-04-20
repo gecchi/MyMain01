@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_AXISVEHICLEASSISTANT_H_
-#define GGAF_DX_AXISVEHICLEASSISTANT_H_
+#ifndef GGAF_DX_COORDVEHICLEASSISTANT_H_
+#define GGAF_DX_COORDVEHICLEASSISTANT_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
@@ -14,12 +14,12 @@ namespace GgafDx {
  * @since 2013/12/16
  * @author Masatoshi Tsuge
  */
-class AxisVehicleAssistantA : public GgafCore::Object {
-    friend class AxisVehicle;
+class CoordVehicleAssistantA : public GgafCore::Object {
+    friend class CoordVehicle;
 
 private:
     /** [r]師匠 */
-    AxisVehicle* _pMaster;
+    CoordVehicle* _pMaster;
     /** X軸方向加速装置 */
     GgafCore::TrapezoidalVeloValue<coord> _smthVxMv;
     /** Y軸方向加速装置 */
@@ -34,7 +34,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit AxisVehicleAssistantA(AxisVehicle* prm_pMaster);
+    explicit CoordVehicleAssistantA(CoordVehicle* prm_pMaster);
 
     /**
      * X軸方向でなめらかな移動速度を変化させるシークエンスを実行(時間・距離指定、速度変動) .
@@ -290,9 +290,9 @@ public:
         _smthVzMv.stopTransitioning();
     }
 
-    virtual ~AxisVehicleAssistantA();
+    virtual ~CoordVehicleAssistantA();
 };
 
 }
-#endif /*GGAF_DX_AXISVEHICLEASSISTANT_H_*/
+#endif /*GGAF_DX_COORDVEHICLEASSISTANT_H_*/
 

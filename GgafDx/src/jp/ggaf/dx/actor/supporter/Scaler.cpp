@@ -6,7 +6,7 @@
 
 using namespace GgafDx;
 
-Scaler::Scaler(GeometricActor* prm_pActor) : GgafCore::TransitionValueSet<scale, 3 > (),
+Scaler::Scaler(GeometricActor* prm_pActor) : GgafCore::ValueTransitioner<scale, 3 > (),
 _pActor(prm_pActor) {
     _apActorScale[0] = &(prm_pActor->_sx);
     _apActorScale[1] = &(prm_pActor->_sy);
@@ -14,7 +14,7 @@ _pActor(prm_pActor) {
     setRange(0, MAX_SCALE);
 }
 void Scaler::reset() {
-    GgafCore::TransitionValueSet<scale, 3 >::reset();
+    GgafCore::ValueTransitioner<scale, 3 >::reset();
     setRange(0, MAX_SCALE);
 }
 scale Scaler::getValue(int idx) {

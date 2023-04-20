@@ -6,7 +6,7 @@
 #include "jp/gecchi/VioletVreath/manager/XpmManager.h"
 #include "jp/ggaf/core/util/ResourceConnection.hpp"
 #include "jp/ggaf/core/util/Xpm.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
@@ -129,9 +129,9 @@ void FormationOebius002::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row
     pOebius->setFaceAngTwd(pOebius->_x + (pOebius->_x - geo_.x),
                            pOebius->_y + (pOebius->_y - geo_.y),
                            pOebius->_z + (pOebius->_z - geo_.z) );
-    pOebius->getVecVehicle()->setMvAngByFaceAng();
-    pOebius->getVecVehicle()->setMvVelo(0);
-    pOebius->getVecVehicle()->setMvAcce(80);
+    pOebius->getLocoVehicle()->setMvAngByFaceAng();
+    pOebius->getLocoVehicle()->setMvVelo(0);
+    pOebius->getLocoVehicle()->setMvAcce(80);
 
     //F‚ğİ’è
     GgafCore::Xpm* pXpM = pXpmCon_->peek();

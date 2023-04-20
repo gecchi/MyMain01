@@ -1,6 +1,6 @@
 #include "Planet001.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "Planet001Atmosphere.h"
 #include "jp/ggaf/dx/util/Input.h"
@@ -42,13 +42,13 @@ void Planet001::initialize() {
     setScale(1000*1000);
     setRzFaceAng(D90ANG - D_ANG(30));
     setRyFaceAng(D45ANG);
-    getVecVehicle()->setRollFaceAngVelo(500); //自転の速さ
+    getLocoVehicle()->setRollFaceAngVelo(500); //自転の速さ
 
     pAtmosphere_->setScale(_sx);
     pAtmosphere_->setPositionAt(this);
 }
 void Planet001::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
 
 //    //巨大オブジェクト移動テスト
 //    if (GgafDx::Input::isPressedKey(DIK_I)) {
@@ -94,7 +94,7 @@ void Planet001::processBehavior() {
 //        _TRACE_("Planet001  "<<_x<<","<<_y<<","<<_z<<" scale="<<_rx);
 //    }
     //_x = _x - PX_C(1);
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
 
     pAtmosphere_->setScale(_sx);
     pAtmosphere_->setPositionAt(this);

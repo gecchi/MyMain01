@@ -1,6 +1,6 @@
 #include "Jiki.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
@@ -57,11 +57,11 @@ void Jiki::onReset() {
 
 void Jiki::onActive() {
     getUvFlipper()->setActivePtnToTop();
-    getVecVehicle()->setFaceAngVelo(AXIS_Z, 1000);
+    getLocoVehicle()->setFaceAngVelo(AXIS_Z, 1000);
 }
 
 void Jiki::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
     VirtualButton* pVb = &(pCARETAKER->getSpacetime()->getWorld()->vb_);
     if (pVb->isPressed(0, VB_BUTTON1)) {
@@ -86,7 +86,7 @@ void Jiki::processBehavior() {
         }
     }
     getUvFlipper()->behave();
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
 }
 
 void Jiki::processJudgement() {

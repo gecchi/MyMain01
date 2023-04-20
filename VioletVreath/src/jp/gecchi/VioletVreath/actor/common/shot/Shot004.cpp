@@ -1,6 +1,6 @@
 #include "Shot004.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
@@ -30,11 +30,11 @@ void Shot004::initialize() {
 void Shot004::onReset() {
     setScaleR(3.0);
     setCullingDraw(false);
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->setRollFaceAngVelo(D_ANG(3));
-    pVecVehicle->setMvVelo(30000);
-    pVecVehicle->setMvAcce(1000);
-    pVecVehicle->linkFaceAngByMvAng(true);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->setRollFaceAngVelo(D_ANG(3));
+    pLocoVehicle->setMvVelo(30000);
+    pLocoVehicle->setMvAcce(1000);
+    pLocoVehicle->linkFaceAngByMvAng(true);
 }
 
 void Shot004::onActive() {
@@ -47,7 +47,7 @@ void Shot004::processBehavior() {
     //’e‚È‚Ì‚Å•s—v
 
     //À•W‚É”½‰f
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
 }
 
 void Shot004::processJudgement() {

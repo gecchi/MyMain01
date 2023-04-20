@@ -273,7 +273,13 @@ void Caretaker::presentBehave() {
 }
 void Caretaker::presentJudge() {
     _pSpacetime->judge();
+#ifdef MY_DEBUG
+    _pSpacetime->_is_running_processHitCheck = true;
+#endif
     _pSpacetime->processHitCheck(); //Spacetime‚Ì‚Ý
+#ifdef MY_DEBUG
+    _pSpacetime->_is_running_processHitCheck = false;
+#endif
 }
 
 void Caretaker::presentMaterialize() {

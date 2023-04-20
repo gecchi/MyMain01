@@ -1,10 +1,10 @@
 #include "jp/ggaf/lib/actor/camera/worker/AroundViewCamWorker.h"
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/util/Quaternion.hpp"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"

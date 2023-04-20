@@ -1,7 +1,7 @@
 #ifndef GGAF_DX_GEOMETRICACTOR_H_
 #define GGAF_DX_GEOMETRICACTOR_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/dx/actor/BaseActor.h"
+#include "jp/ggaf/core/actor/MainActor.h"
 
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include <D3dx9math.h>
@@ -17,7 +17,7 @@ namespace GgafDx {
  * @since 2008/09/08
  * @author Masatoshi Tsuge
  */
-class GeometricActor : public BaseActor {
+class GeometricActor : public GgafCore::MainActor {
 
 private:
     /**
@@ -26,12 +26,12 @@ private:
     void processFinal() override {
     }
 
-    /** [r]力車(前進、後退、旋回による移動支援)  */
-    VecVehicle* _pVecVehicle;
+    /** [r]移動車両(前進、後退、旋回による移動支援)  */
+    LocoVehicle* _pLocoVehicle;
     /** [r]駕籠(平行移動支援) */
-    AxisVehicle* _pAxisVehicle;
+    CoordVehicle* _pCoordVehicle;
 
-    GeoVehicle* _pGeoVehicle;
+    NaviVehicle* _pNaviVehicle;
 
     /** [r]拡大縮小支援 */
     Scaler* _pScaler;
@@ -175,18 +175,18 @@ public:
         return _pChecker;
     }
     /**
-     * 本アクターの力車を取得 .
-     * @return 力車
+     * 本アクターの移動車両を取得 .
+     * @return 移動車両
      */
-    VecVehicle* getVecVehicle();
+    LocoVehicle* getLocoVehicle();
 
     /**
      * 本アクターの駕籠(平行移動支援)オブジェクトを取得 .
      * @return 駕籠(平行移動支援)オブジェクト
      */
-    AxisVehicle* getAxisVehicle();
+    CoordVehicle* getCoordVehicle();
 
-    GeoVehicle* getGeoVehicle();
+    NaviVehicle* getNaviVehicle();
 
     virtual VehicleLeader* createCurveVehicleLeader(CurveManufacture* prm_pCurveManufacture);
 
@@ -622,7 +622,7 @@ public:
      * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
-     * 力車(getVecVehicle()) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 移動車両(getLocoVehicle()) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_kind     種別
      * @param prm_pGeoActor 従属させるアクター
@@ -649,7 +649,7 @@ public:
      * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
-     * 力車(getVecVehicle()) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 移動車両(getLocoVehicle()) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_pGeoActor 従属させるアクター
      * @param prm_x_init_local  従属アクターのローカル(this)位置からのX座標位置

@@ -3,7 +3,7 @@
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/core/util/Status.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 
@@ -44,26 +44,26 @@ public:
 //            case MyStgUtil::EF_EXPLOSION001: {
 //                pE = CommonScene_dispatchForce(EffectExplosion001);
 //                pE->setPositionAt(this);
-//                pE->getVecVehicle()->takeoverFrom(this->getVecVehicle());
+//                pE->getLocoVehicle()->takeoverFrom(this->getLocoVehicle());
 //                break;
 //            }
 //            case MyStgUtil::EF_EXPLOSION002: {
 //                pE = CommonScene_dispatchForce(EffectExplosion002);
 //                pE->setPositionAt(this);
-//                pE->getVecVehicle()->takeoverFrom(this->getVecVehicle());
+//                pE->getLocoVehicle()->takeoverFrom(this->getLocoVehicle());
 //                break;
 //            }
 //            case MyStgUtil::EF_EXPLOSION003: {
 //                pE = CommonScene_dispatchForce(EffectExplosion003);
 //                pE->setPositionAt(this);
-//                pE->getVecVehicle()->takeoverFrom(this->getVecVehicle());
+//                pE->getLocoVehicle()->takeoverFrom(this->getLocoVehicle());
 //                break;
 //            }
 //            case MyStgUtil::EF_EXPLOSION001_STAY: {
 //                pE = CommonScene_dispatchForce(EffectExplosion001);
 //                pE->setPositionAt(this);
-//                pE->getVecVehicle()->setMvVelo(0);
-//                pE->getVecVehicle()->setMvAcce(0);
+//                pE->getLocoVehicle()->setMvVelo(0);
+//                pE->getLocoVehicle()->setMvAcce(0);
 //                break;
 //            }
 //            default: {

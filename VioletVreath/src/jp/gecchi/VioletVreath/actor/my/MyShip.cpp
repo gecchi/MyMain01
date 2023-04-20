@@ -2,8 +2,8 @@
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/util/CollisionChecker.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
@@ -340,16 +340,16 @@ void MyShip::initialize() {
 /////////////TEST
       pChecker->setColliAACube(0, PX_C(40));
 
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->setMvVelo(0);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->setMvVelo(0);
 
     //setMaterialColor(1.0, 0.5, 0.5);
     setAlpha(1.0);
-    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
-    pAxisVehicle->forceVeloXYZRange(-veloTurboTop_, veloTurboTop_);
-    pAxisVehicle->setAcceXYZZero();
+    GgafDx::CoordVehicle* const pCoordVehicle = getCoordVehicle();
+    pCoordVehicle->forceVeloXYZRange(-veloTurboTop_, veloTurboTop_);
+    pCoordVehicle->setAcceXYZZero();
 
-    getVecVehicle()->setRollFaceAngVelo(300);
+    getLocoVehicle()->setRollFaceAngVelo(300);
 }
 
 
@@ -396,8 +396,8 @@ void MyShip::onInactive() {
 }
 void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VVB_PLAY;
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::CoordVehicle* const pCoordVehicle = getCoordVehicle();
     //操作拒否
     if (!can_control_) {
         return;
@@ -416,7 +416,7 @@ void MyShip::processBehavior() {
         }
 
         if (pVbPlay->isPushedDown(0, VVB_TURBO)) {
-            if (pAxisVehicle->_velo_x == 0 && pAxisVehicle->_velo_y == 0 && pAxisVehicle->_velo_z == 0) {
+            if (pCoordVehicle->_velo_x == 0 && pCoordVehicle->_velo_y == 0 && pCoordVehicle->_velo_z == 0) {
                 //ターボ移動完全に終了しないと次のターボは実行不可
                 moveTurbo();
                 UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
@@ -430,58 +430,58 @@ void MyShip::processBehavior() {
             if (pVbPlay->isPressed(0, VVB_TURBO)) {
                 //ターボボタンを押し続けることで、速度減衰がゆるやかになり、
                 //移動距離を伸ばす
-                pAxisVehicle->_velo_x *= 0.96;
-                pAxisVehicle->_velo_y *= 0.96;
-                pAxisVehicle->_velo_z *= 0.96;
+                pCoordVehicle->_velo_x *= 0.96;
+                pCoordVehicle->_velo_y *= 0.96;
+                pCoordVehicle->_velo_z *= 0.96;
             } else {
                 //ターボを離した場合、速度減衰。
-                pAxisVehicle->_velo_x *= 0.8;
-                pAxisVehicle->_velo_y *= 0.8;
-                pAxisVehicle->_velo_z *= 0.8;
+                pCoordVehicle->_velo_x *= 0.8;
+                pCoordVehicle->_velo_y *= 0.8;
+                pCoordVehicle->_velo_z *= 0.8;
             }
-            if (ABS(pAxisVehicle->_velo_x) <= 2) {
-                pAxisVehicle->_velo_x = 0;
+            if (ABS(pCoordVehicle->_velo_x) <= 2) {
+                pCoordVehicle->_velo_x = 0;
             }
-            if (ABS(pAxisVehicle->_velo_y) <= 2) {
-                pAxisVehicle->_velo_y = 0;
+            if (ABS(pCoordVehicle->_velo_y) <= 2) {
+                pCoordVehicle->_velo_y = 0;
             }
-            if (ABS(pAxisVehicle->_velo_z) <= 2) {
-                pAxisVehicle->_velo_z = 0;
+            if (ABS(pCoordVehicle->_velo_z) <= 2) {
+                pCoordVehicle->_velo_z = 0;
             }
         }
 
         if (pVbPlay->isDoublePushedDown(0, VVB_OPTION,8,8) ) {
-            pAxisVehicle->setXYZZero(); //ターボ移動中でも停止する。（ターボキャンセル的になる！）
+            pCoordVehicle->setXYZZero(); //ターボ移動中でも停止する。（ターボキャンセル的になる！）
         }
     }
 
     //スピンが勢いよく回っているならば速度を弱める
     angvelo MZ = angRxTopVelo_MZ_-3000; //3000は通常旋回時に速度を弱めてangRxTopVelo_MZ_を超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
-    if (pVecVehicle->_angvelo_face[AXIS_X] >= MZ) {
-        pVecVehicle->_angvelo_face[AXIS_X] *= 0.93;
-        //_getVecVehicle()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_*2);
-    } else if (pVecVehicle->_angvelo_face[AXIS_X] <= -MZ) {
-        pVecVehicle->_angvelo_face[AXIS_X] *= 0.93;
-        //_getVecVehicle()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_*2);
+    if (pLocoVehicle->_angvelo_face[AXIS_X] >= MZ) {
+        pLocoVehicle->_angvelo_face[AXIS_X] *= 0.93;
+        //_getLocoVehicle()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_*2);
+    } else if (pLocoVehicle->_angvelo_face[AXIS_X] <= -MZ) {
+        pLocoVehicle->_angvelo_face[AXIS_X] *= 0.93;
+        //_getLocoVehicle()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_*2);
     }
 
     //旋回しない移動方向の場合、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTargetFaceAngの第4引数より角速度がゆるい場合受け入れ）
     if (pSenakai_[mv_way_] == 0) {
-        angle dist = pVecVehicle->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
+        angle dist = pLocoVehicle->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
         if (0 <= dist && dist < D180ANG) {
-            getVecVehicle()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_);
+            getLocoVehicle()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_);
         } else if (-1*D180ANG < dist && dist < 0) {
-            getVecVehicle()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_);
+            getLocoVehicle()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_);
         }
-        pVecVehicle->setMvAcce(0);
-        pVecVehicle->setStopTargetFaceAng(AXIS_X, 0, TURN_BOTH, angRxTopVelo_MZ_);
+        pLocoVehicle->setMvAcce(0);
+        pLocoVehicle->setStopTargetFaceAng(AXIS_X, 0, TURN_BOTH, angRxTopVelo_MZ_);
     }
 
     ////////////////////////////////////////////////////
 
     //座標に反映
-    pVecVehicle->behave();
-    pAxisVehicle->behave();
+    pLocoVehicle->behave();
+    pCoordVehicle->behave();
     getSeTransmitter()->behave();
 
     if (invincible_frames_ > 0) {
@@ -660,9 +660,9 @@ void MyShip::processBehavior() {
             if (pSnipeShot) {
                 getSeTransmitter()->play3D(SE_FIRE_SHOT);
                 pSnipeShot->setPositionAt(this);
-                pSnipeShot->getVecVehicle()->setRzRyMvAng(_rz, _ry);
-                pSnipeShot->getVecVehicle()->setMvVelo(PX_C(100));
-                pSnipeShot->getVecVehicle()->setMvAcce(100);
+                pSnipeShot->getLocoVehicle()->setRzRyMvAng(_rz, _ry);
+                pSnipeShot->getLocoVehicle()->setMvVelo(PX_C(100));
+                pSnipeShot->getLocoVehicle()->setMvAcce(100);
             }
         } else {
             //スナイプショット以外時
@@ -671,9 +671,9 @@ void MyShip::processBehavior() {
                 if (pShot) {
                     getSeTransmitter()->play3D(SE_FIRE_SHOT);
                     pShot->setPositionAt(this);
-                    pShot->getVecVehicle()->setRzRyMvAng(_rz, _ry);
-                    pShot->getVecVehicle()->setMvVelo(PX_C(70));
-                    pShot->getVecVehicle()->setMvAcce(80);
+                    pShot->getLocoVehicle()->setRzRyMvAng(_rz, _ry);
+                    pShot->getLocoVehicle()->setMvVelo(PX_C(70));
+                    pShot->getLocoVehicle()->setMvAcce(80);
                 }
             }
 
@@ -1087,12 +1087,12 @@ void MyShip::moveNomal() {
     if (is_just_change_mv_way_) {
         angle rz, ry;
         Direction26Util::cnvDirNo2RzRy(mv_way, rz, ry);
-        getVecVehicle()->setRzRyMvAng(rz, ry);
+        getLocoVehicle()->setRzRyMvAng(rz, ry);
         //旋廻
         int sgn_turn = pSenakai_[mv_way] > pSenakai_[prev_way_] ? 1 : -1;
         if (sgn_turn != 0) {
-            getVecVehicle()->setFaceAngAcce(AXIS_X, sgn_turn*angRxAcce_MZ_);
-            getVecVehicle()->setStopTargetFaceAng(AXIS_X, pSenakai_[mv_way],
+            getLocoVehicle()->setFaceAngAcce(AXIS_X, sgn_turn*angRxAcce_MZ_);
+            getLocoVehicle()->setStopTargetFaceAng(AXIS_X, pSenakai_[mv_way],
                                               TURN_CLOSE_TO,
                                               angRxTopVelo_MZ_);
         }
@@ -1100,21 +1100,21 @@ void MyShip::moveNomal() {
 }
 
 void MyShip::moveTurbo() {
-    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
+    GgafDx::CoordVehicle* const pCoordVehicle = getCoordVehicle();
     double vx,vy,vz;
     Direction26Util::cnvDirNo2Vec(mv_way_, vx, vy, vz);
-    pAxisVehicle->addVeloX(veloBeginMT_ * vx);
-    pAxisVehicle->addVeloY(veloBeginMT_ * vy);
-    pAxisVehicle->addVeloZ(veloBeginMT_ * vz);
+    pCoordVehicle->addVeloX(veloBeginMT_ * vx);
+    pCoordVehicle->addVeloY(veloBeginMT_ * vy);
+    pCoordVehicle->addVeloZ(veloBeginMT_ * vz);
     angle rz, ry;
     Direction26Util::cnvDirNo2RzRy(mv_way_, rz, ry);
-    getVecVehicle()->setRzRyMvAng(rz, ry);
+    getLocoVehicle()->setRzRyMvAng(rz, ry);
 
     //旋廻
     angle senkai = pSenakai_[mv_way_];
     if (senkai != 0) {
         double senkai_spin_speed_rate = (1.0 * D90ANG / senkai); //旋回時、90度-90度に傾く場合 1.0、1.0 となる。
-        getVecVehicle()->setRollFaceAngVelo(angRxVelo_BeginMZT_ * senkai_spin_speed_rate);
+        getLocoVehicle()->setRollFaceAngVelo(angRxVelo_BeginMZT_ * senkai_spin_speed_rate);
     }
 }
 

@@ -41,12 +41,12 @@ class BoardActor : public FigureActor, public IAlignAbleActor {
      * @return
      */
     GgafCore::GroupHead* appendGroupChildAsFk(GeometricActor* prm_pGeoActor,
-                                             int prm_x_init_local,
-                                             int prm_y_init_local,
-                                             int prm_z_init_local,
-                                             int prm_rx_init_local,
-                                             int prm_ry_init_local,
-                                             int prm_rz_init_local) override {
+                                              int prm_x_init_local,
+                                              int prm_y_init_local,
+                                              int prm_z_init_local,
+                                              int prm_rx_init_local,
+                                              int prm_ry_init_local,
+                                              int prm_rz_init_local) override {
         throwCriticalException("使用不可です。");
         return nullptr;
     }
@@ -58,9 +58,6 @@ public:
     BoardEffect* const _pBoardEffect;
     /** [r]UVフリッパー(パラパラアニメ) */
     UvFlipper* const _pUvFlipper;
-
-//    Align _align;
-//    Valign _valign;
 
 public:
     /**
@@ -78,11 +75,6 @@ public:
                CollisionChecker* prm_pChecker = nullptr);
 
     virtual void processDraw() override;
-
-//    virtual void setAlign(Align prm_align, Valign prm_valign);
-//    virtual void setAlign(Align prm_align);
-//    virtual void setValign(Valign prm_valign);
-
     virtual void setPositionAt(const GeometricActor* prm_pActor) override;
     virtual void setPositionAt(const GeoElem* prm_pGeoElem) override;
     virtual void setScale(scale s) override;
@@ -104,9 +96,6 @@ public:
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }
-
-//    float getModelWidth();
-//    float getModelHeight();
 
     int isOutOfView() override {
         return 0;

@@ -1,7 +1,7 @@
 #include "EnemyErelmanCore002.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
@@ -31,7 +31,7 @@ EnemyErelmanCore002::EnemyErelmanCore002(const char* prm_name, EnemyErelmanContr
 }
 
 void EnemyErelmanCore002::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Phase* pPhase = getPhase();
@@ -39,7 +39,7 @@ void EnemyErelmanCore002::processBehavior() {
         case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pVecVehicle->setRollFaceAngVelo(D_ANG(3));
+            pLocoVehicle->setRollFaceAngVelo(D_ANG(3));
             pPhase->changeNext();
             break;
         }
@@ -62,7 +62,7 @@ void EnemyErelmanCore002::processBehavior() {
 
         case PHASE_WAIT01: {
             if (pPhase->hasJustChanged()) {
-                pVecVehicle->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
+                pLocoVehicle->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
             }
             if (pPhase->hasArrivedFrameAt(10*60*60)) {
                 pPhase->changeNext();
@@ -86,7 +86,7 @@ void EnemyErelmanCore002::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
 }
 
 EnemyErelmanCore002::~EnemyErelmanCore002() {

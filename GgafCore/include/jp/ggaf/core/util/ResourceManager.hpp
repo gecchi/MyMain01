@@ -82,7 +82,6 @@ protected:
     static volatile std::atomic<bool> _is_waiting_to_connect;
 #endif
 
-
     /** [r]マネージャ名称 */
     char* _manager_name;
     /** [r]ResourceConnectionオブジェクトのリストの先頭のポインタ。終端はnullptr */
@@ -146,8 +145,6 @@ public:
 
 // ---------------------------------------------------------------------//
 
-
-
 #ifdef _MSC_VER
 
 template<class T>
@@ -171,7 +168,6 @@ volatile std::atomic<bool> ResourceManager<T>::_is_waiting_to_connect(false);
 template<class T>
 ResourceManager<T>::ResourceManager(const char* prm_manager_name) : Object() {
     _TRACE3_("ResourceManager<T>::ResourceManager(" << prm_manager_name << ")");
-
     int len = strlen(prm_manager_name);
     _manager_name = NEW char[len+1];
     strcpy(_manager_name, prm_manager_name);
@@ -181,7 +177,6 @@ ResourceManager<T>::ResourceManager(const char* prm_manager_name) : Object() {
 template<class T>
 ResourceConnection<T>* ResourceManager<T>::find(const char* prm_idstr) {
     ResourceConnection<T>* pCurrent = _pConn_first;
-
     while (pCurrent) {
         //_TRACE_("pCurrent->_idstr -> "<<(pCurrent->_idstr)<<" prm_idstr="<<prm_idstr);
         if (strcmp(pCurrent->_idstr, prm_idstr) == 0) {
@@ -228,7 +223,6 @@ ResourceConnection<T>* ResourceManager<T>::connect(const char* prm_idstr, void* 
     }
     _is_waiting_to_connect = false;
     _is_connecting_resource = true;
-
     //TODO:簡易的な排他。ほぼ完璧だが完全ではない。
     ResourceConnection<T>* pObj = nullptr;
     for (int i = 0; ResourceConnection<T>::_is_closing_resource; i++) {
@@ -317,7 +311,6 @@ void ResourceManager<T>::dump() {
 //    }
 //    return n;
 //}
-
 
 template<class T>
 ResourceManager<T>::~ResourceManager() {

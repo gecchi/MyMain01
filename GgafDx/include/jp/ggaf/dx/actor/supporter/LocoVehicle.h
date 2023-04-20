@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_VECVEHICLE_H_
-#define GGAF_DX_VECVEHICLE_H_
+#ifndef GGAF_DX_LOCOMOTIONVEHICLE_H_
+#define GGAF_DX_LOCOMOTIONVEHICLE_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "ActorVehicle.h"
 
@@ -9,27 +9,27 @@
 namespace GgafDx {
 
 /**
- * アクターの移動支援の力車(前進、後退、旋回) .
+ * アクターの移動支援(前進、後退、旋回) .
  * それはさて置き、つまりは座標計算支援（共通化）クラスです。<BR>
  * GeometricActor のメンバの<BR>
  *  _x,  _y,  _z  ・・・ アクターの座標<BR>
  * _rx, _ry, _rz  ・・・ アクターの軸回転角度<BR>
  * を変化させます。方向ベクトル、速度、距離、時間、によって管理操作するために作成したクラス。<BR>
- * 共通の基本的な移動、回転は力車に任せて、<BR>
+ * 共通の基本的な移動、回転は移動車両に任せて、<BR>
  * アクター固有の特殊な移動回転動作を processBehave() に直接記述。という設計思想。<BR>
  * @version 1.00
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class VecVehicle : public ActorVehicle {
+class LocoVehicle : public ActorVehicle {
 
 private:
-    /** [r]力車の助手A(移動速度の補佐) */
-    VecVehicleMvAssistant* _pAsstMv;
-    /** [r]力車の助手B(軸回転方角角速度の補佐) */
-    VecVehicleFaceAngAssistant* _pAsstFaceAng;
-    /** [r]力車の助手C(移動方角角速度の補佐) */
-    VecVehicleMvAngAssistant* _pAsstMvAng;
+    /** [r]移動車両の助手A(移動速度の補佐) */
+    LocoVehicleMvAssistant* _pAsstMv;
+    /** [r]移動車両の助手B(軸回転方角角速度の補佐) */
+    LocoVehicleFaceAngAssistant* _pAsstFaceAng;
+    /** [r]移動車両の助手C(移動方角角速度の補佐) */
+    LocoVehicleMvAngAssistant* _pAsstMvAng;
 
 public:
     /** [r]対象アクター */
@@ -40,25 +40,25 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
-    explicit VecVehicle(GeometricActor* prm_pActor);
+    explicit LocoVehicle(GeometricActor* prm_pActor);
 
     /**
-     * 力車の助手A(移動速度の補佐)を取得 .
-     * @return 力車の助手A
+     * 移動車両の助手A(移動速度の補佐)を取得 .
+     * @return 移動車両の助手A
      */
-    VecVehicleMvAssistant* asstMv();
+    LocoVehicleMvAssistant* asstMv();
 
     /**
-     * 力車の助手B(軸回転方角角速度の補佐)を取得 .
-     * @return 力車の助手B
+     * 移動車両の助手B(軸回転方角角速度の補佐)を取得 .
+     * @return 移動車両の助手B
      */
-    VecVehicleFaceAngAssistant* asstFaceAng();
+    LocoVehicleFaceAngAssistant* asstFaceAng();
 
     /**
-     * 力車の助手C(移動方角角速度の補佐)を取得 .
-     * @return 力車の助手C
+     * 移動車両の助手C(移動方角角速度の補佐)を取得 .
+     * @return 移動車両の助手C
      */
-    VecVehicleMvAngAssistant* asstMvAng();
+    LocoVehicleMvAngAssistant* asstMvAng();
 
     void reset();
 
@@ -1142,11 +1142,11 @@ public:
     }
 
     /**
-     * 力車の仕事を引継ぐ .
-     * 他の VecVehicle オブジェクトを状態を自身に引継ぐ .
-     * @param prm_pVecVehicle 引継元
+     * 移動車両の仕事を引継ぐ .
+     * 他の LocoVehicle オブジェクトを状態を自身に引継ぐ .
+     * @param prm_pLocoVehicle 引継元
      */
-    void takeoverFrom(VecVehicle* const prm_pVecVehicle);
+    void takeoverFrom(LocoVehicle* const prm_pLocoVehicle);
 
     /**
      * 移動を停止します。
@@ -1154,15 +1154,15 @@ public:
     void stop();
 
     /**
-     * 力車が振る舞う .
-     * 力車機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
-     * 逆に力車を必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
+     * 移動車両が振る舞う .
+     * 移動車両機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
+     * 逆に移動車両を必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
      */
     virtual void behave();
 
-    virtual ~VecVehicle();
+    virtual ~LocoVehicle();
 };
 
 }
-#endif /*GGAF_DX_VECVEHICLE_H_*/
+#endif /*GGAF_DX_LOCOMOTIONVEHICLE_H_*/
 

@@ -106,24 +106,7 @@ void DefaultMassSpriteActor::processDraw() {
     while (pDrawActor) {
         if (pDrawActor->getModel() == pMassSpriteModel && pDrawActor->_hash_technique == hash_technique) {
             pDefaultMassSpriteActor = (DefaultMassSpriteActor*)pDrawActor;
-//            Align align = pDefaultMassSpriteActor->_align;
-//            Valign valign = pDefaultMassSpriteActor->_valign;
-
             memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX);
-//            if (align == ALIGN_CENTER) {
-//                paInstancedata->local_x = 0;
-//            } else if (align == ALIGN_LEFT) {
-//                paInstancedata->local_x = model_half_width;
-//            } else { //ALIGN_RIGHT
-//                paInstancedata->local_x = -model_half_width;
-//            }
-//            if (valign == VALIGN_MIDDLE) {
-//                paInstancedata->local_y = 0;
-//            } else if (valign == VALIGN_TOP) {
-//                paInstancedata->local_y = -model_half_height;
-//            } else {  //VALIGN_BOTTOM
-//                paInstancedata->local_y = model_half_height;
-//            }
             pDefaultMassSpriteActor->getUvFlipper()->getUV(u,v);
             paInstancedata->offset_u = u;
             paInstancedata->offset_v = v;

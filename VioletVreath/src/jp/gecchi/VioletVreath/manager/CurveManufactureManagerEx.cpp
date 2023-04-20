@@ -16,7 +16,7 @@ CurveManufacture* CurveManufactureManagerEx::processCreateResource(const char* p
 
     if (strcmp("EnemyEres_curve", prm_idstr) == 0) {
         pCurveManuf = NEW FixedFrameCurveManufacture("Spl_HAN", 60*30);
-        pCurveManuf->setMoveDriver(CurveManufacture::MoveDriver::AxisVehicle);
+        pCurveManuf->setMoveDriver(CurveManufacture::MoveDriver::CoordVehicle);
     } else if (strcmp("Shot001_curve", prm_idstr) == 0) {
         pCurveManuf = NEW FixedVelocityCurveManufacture("Spl_HAN", 10000);
     }

@@ -2,6 +2,7 @@
 #define GGAF_DX_FIGUREACTOR_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
+
 #include "jp/ggaf/dx/manager/ModelManager.h"
 #include "jp/ggaf/dx/manager/EffectManager.h"
 

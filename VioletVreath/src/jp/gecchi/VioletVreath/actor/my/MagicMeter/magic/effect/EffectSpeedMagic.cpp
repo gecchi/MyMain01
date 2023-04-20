@@ -1,6 +1,6 @@
 #include "EffectSpeedMagic.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -30,7 +30,7 @@ void EffectSpeedMagic::onActive() {
 
 void EffectSpeedMagic::processBehavior() {
     getUvFlipper()->behave();
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
     getScaler()->behave();
 }
 

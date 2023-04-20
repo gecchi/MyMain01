@@ -1,6 +1,6 @@
 #include "EffectBlink002.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 
 
 
@@ -24,12 +24,12 @@ void EffectBlink002::initialize() {
 void EffectBlink002::onActive() {
     EffectBlink::onActive();
     //getUvFlipper()->setActivePtnToTop();
-    getVecVehicle()->setFaceAngVelo(AXIS_Z, 4000);
+    getLocoVehicle()->setFaceAngVelo(AXIS_Z, 4000);
 }
 
 void EffectBlink002::processBehavior() {
     EffectBlink::processBehavior();
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
 }
 
 EffectBlink002::~EffectBlink002() {

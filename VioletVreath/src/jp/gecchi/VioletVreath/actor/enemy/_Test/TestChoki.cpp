@@ -1,6 +1,6 @@
 #include "TestChoki.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -26,7 +26,7 @@ void TestChoki::onActive() {
 }
 
 void TestChoki::processBehavior() {
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
     //getSeTransmitter()->behave();
     dispStamina();
 }

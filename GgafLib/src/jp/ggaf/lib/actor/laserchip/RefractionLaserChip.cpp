@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/actor/laserchip/RefractionLaserChip.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 
 
@@ -30,18 +30,18 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
     _begining_rx = _rx;
     _begining_ry = _ry;
     _begining_rz = _rz;
-    _begining_rz_mv = getVecVehicle()->_rz_mv;
-    _begining_ry_mv = getVecVehicle()->_ry_mv;
-    _begining_velo_mv   = getVecVehicle()->_velo_mv;
+    _begining_rz_mv = getLocoVehicle()->_rz_mv;
+    _begining_ry_mv = getLocoVehicle()->_ry_mv;
+    _begining_velo_mv   = getLocoVehicle()->_velo_mv;
     _prev_x  = _x;
     _prev_y  = _y;
     _prev_z  = _z;
     _prev_rx = _rx;
     _prev_ry = _ry;
     _prev_rz = _rz;
-    _prev_rz_mv = getVecVehicle()->_rz_mv;
-    _prev_ry_mv = getVecVehicle()->_ry_mv;
-    _prev_velo_mv   = getVecVehicle()->_velo_mv;
+    _prev_rz_mv = getLocoVehicle()->_rz_mv;
+    _prev_ry_mv = getLocoVehicle()->_ry_mv;
+    _prev_velo_mv   = getLocoVehicle()->_velo_mv;
     _prev_is_refracting = false;
     _is_fix_begin_pos = true;
     _refraction_end_frames = 0;
@@ -73,7 +73,7 @@ void RefractionLaserChip::onActive() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     RefractionLaserChip* pChip_infront =  (RefractionLaserChip*)_pChip_infront;
     //レーザーチップ出現時処理
     if (pChip_infront == nullptr) {
@@ -85,9 +85,9 @@ void RefractionLaserChip::onActive() {
         _begining_rx = _rx;
         _begining_ry = _ry;
         _begining_rz = _rz;
-        _begining_rz_mv = pVecVehicle->_rz_mv;
-        _begining_ry_mv = pVecVehicle->_ry_mv;
-        _begining_velo_mv   = pVecVehicle->_velo_mv;
+        _begining_rz_mv = pLocoVehicle->_rz_mv;
+        _begining_ry_mv = pLocoVehicle->_ry_mv;
+        _begining_velo_mv   = pLocoVehicle->_velo_mv;
         _cnt_refraction = 0;
         _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction + 1;
         _frame_refraction_out = _frame_refraction_enter + _frame_standstill_refraction;
@@ -111,8 +111,8 @@ void RefractionLaserChip::onActive() {
             _rx = _begining_rx;
             _ry = _begining_ry;
             _rz = _begining_rz;
-            pVecVehicle->setRzRyMvAng(_begining_rz_mv, _begining_ry_mv);
-            pVecVehicle->setMvVelo(_begining_velo_mv);
+            pLocoVehicle->setRzRyMvAng(_begining_rz_mv, _begining_ry_mv);
+            pLocoVehicle->setMvVelo(_begining_velo_mv);
         }
         _cnt_refraction = 0;
         _frame_refraction_enter = INT_MAX;
@@ -137,13 +137,13 @@ void RefractionLaserChip::onInactive() {
     //RefractionLaser はそこに溜まり込んでしまう。これは回避すること。
     if (_pChip_behind) {
         RefractionLaserChip* const pChip_behind = (RefractionLaserChip*)_pChip_behind;
-        GgafDx::VecVehicle* const pChip_behind_pVecVehicle = pChip_behind->getVecVehicle();
-        GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+        GgafDx::LocoVehicle* const pChip_behind_pLocoVehicle = pChip_behind->getLocoVehicle();
+        GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
         pChip_behind->_rx = _rx;
         pChip_behind->_ry = _ry;
         pChip_behind->_rz = _rz;
-        pChip_behind_pVecVehicle->setRzRyMvAng(pVecVehicle->_rz_mv, pVecVehicle->_ry_mv);
-        pChip_behind_pVecVehicle->setMvVelo(pVecVehicle->_velo_mv);
+        pChip_behind_pLocoVehicle->setRzRyMvAng(pLocoVehicle->_rz_mv, pLocoVehicle->_ry_mv);
+        pChip_behind_pLocoVehicle->setMvVelo(pLocoVehicle->_velo_mv);
         pChip_behind->_cnt_refraction = _cnt_refraction;
         pChip_behind->_frame_refraction_enter = _frame_refraction_enter;
         pChip_behind->_frame_refraction_out = _frame_refraction_out;
@@ -177,7 +177,7 @@ void RefractionLaserChip::processBehavior() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     RefractionLaserChip* pChip_infront =  (RefractionLaserChip*)_pChip_infront;
     if (getActiveFrame() > 1) { //１フレーム目は、設定座標で表示させるため。移動させない
         //ActorDepository::dispatch() は
@@ -192,9 +192,9 @@ void RefractionLaserChip::processBehavior() {
             _prev_rx = _rx;
             _prev_ry = _ry;
             _prev_rz = _rz;
-            _prev_rz_mv = pVecVehicle->_rz_mv;
-            _prev_ry_mv = pVecVehicle->_ry_mv;
-            _prev_velo_mv   = pVecVehicle->_velo_mv;
+            _prev_rz_mv = pLocoVehicle->_rz_mv;
+            _prev_ry_mv = pLocoVehicle->_ry_mv;
+            _prev_velo_mv   = pLocoVehicle->_velo_mv;
             _prev_is_refracting = _is_refracting;
             _prev_pRefractionEffect = _pRefractionEffect;
 
@@ -228,7 +228,7 @@ void RefractionLaserChip::processBehavior() {
                     //getBehaveingFrame() は次フレームで+1されるので+1しておく必要がある
                     //座標を変えず方向だけ転換
                     coord x = _x; coord y = _y; coord z = _z;
-                    pVecVehicle->behave(); //
+                    pLocoVehicle->behave(); //
                     _x = x; _y = y; _z = z;
                     _is_refracting = false;
                     return;
@@ -236,9 +236,9 @@ void RefractionLaserChip::processBehavior() {
             }
 
             if (!_is_refracting) {
-                //_is_refracting中は停止しなくてはいけないためgetVecVehicle()->behave()を実行しない。
-                //pVecVehicle->behave();以外で座標を操作している場合は、完全な停止にならないので注意
-                pVecVehicle->behave();
+                //_is_refracting中は停止しなくてはいけないためgetLocoVehicle()->behave()を実行しない。
+                //pLocoVehicle->behave();以外で座標を操作している場合は、完全な停止にならないので注意
+                pLocoVehicle->behave();
             }
 
         } else {
@@ -249,9 +249,9 @@ void RefractionLaserChip::processBehavior() {
             _prev_rx = _rx;
             _prev_ry = _ry;
             _prev_rz = _rz;
-            _prev_rz_mv = pVecVehicle->_rz_mv;
-            _prev_ry_mv = pVecVehicle->_ry_mv;
-            _prev_velo_mv   = pVecVehicle->_velo_mv;
+            _prev_rz_mv = pLocoVehicle->_rz_mv;
+            _prev_ry_mv = pLocoVehicle->_ry_mv;
+            _prev_velo_mv   = pLocoVehicle->_velo_mv;
             _prev_is_refracting = _is_refracting;
             _prev_pRefractionEffect = _pRefractionEffect;
             _x  = pChip_infront->_prev_x;
@@ -260,8 +260,8 @@ void RefractionLaserChip::processBehavior() {
             _rx = pChip_infront->_prev_rx;
             _ry = pChip_infront->_prev_ry;
             _rz = pChip_infront->_prev_rz;
-            pVecVehicle->setRzRyMvAng(pChip_infront->_prev_rz_mv, pChip_infront->_prev_ry_mv);
-            pVecVehicle->setMvVelo(pChip_infront->_prev_velo_mv);
+            pLocoVehicle->setRzRyMvAng(pChip_infront->_prev_rz_mv, pChip_infront->_prev_ry_mv);
+            pLocoVehicle->setMvVelo(pChip_infront->_prev_velo_mv);
             _is_refracting =  pChip_infront->_prev_is_refracting;
             _pRefractionEffect = pChip_infront->_prev_pRefractionEffect;
             if (_pChip_behind == nullptr) {

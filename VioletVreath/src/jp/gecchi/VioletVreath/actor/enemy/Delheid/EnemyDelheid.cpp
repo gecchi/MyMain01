@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/util/CollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
@@ -106,8 +106,8 @@ void EnemyDelheid::processBehavior() {
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pVehicleLeader_->start(RELATIVE_COORD_DIRECTION, 3); //Å‚‚Å‚R‰ñƒ‹[ƒv‚·‚é—\’è
-            getVecVehicle()->setMvAcce(0);
-            getVecVehicle()->keepOnTurningFaceAngTwd(pMYSHIP,
+            getLocoVehicle()->setMvAcce(0);
+            getLocoVehicle()->keepOnTurningFaceAngTwd(pMYSHIP,
                                                     D_ANG(1), 0, TURN_CLOSE_TO, false);
             pPhase->changeNext();
             break;
@@ -184,10 +184,10 @@ void EnemyDelheid::processBehavior() {
         }
     }
     //-----------------------------------------------
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->_angvelo_face[AXIS_X] = pVecVehicle->_velo_mv/2;
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->_angvelo_face[AXIS_X] = pLocoVehicle->_velo_mv/2;
     pVehicleLeader_->behave(); //ƒJ[ƒuˆÚ“®‚·‚é‚æ‚¤‚ÉDriver‚ğ‘€ì
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
     getMorpher()->behave();
 }
 

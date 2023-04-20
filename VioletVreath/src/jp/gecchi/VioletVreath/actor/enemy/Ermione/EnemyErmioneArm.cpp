@@ -3,11 +3,11 @@
 
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleFaceAngAssistant.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafLib;
@@ -39,7 +39,7 @@ void EnemyErmioneArm::onActive() {
 void EnemyErmioneArm::processBehavior() {
 
     changeGeoLocal(); //ローカル座標の操作とする。
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
@@ -103,13 +103,13 @@ void EnemyErmioneArm::processBehavior() {
                     } else if (D180ANG <= ry_target && ry_target <= D360ANG - aiming_movable_limit_ang_) {
                         ry_target = D360ANG - aiming_movable_limit_ang_;
                     }
-                    pVecVehicle->turnRzRyFaceAngTo(
+                    pLocoVehicle->turnRzRyFaceAngTo(
                                     rz_target, ry_target,
                                     aiming_ang_velo_, aiming_ang_velo_*0.01,
                                     TURN_CLOSE_TO, false);
                 }
             }
-            if (pVecVehicle->isTurningFaceAng()) {
+            if (pLocoVehicle->isTurningFaceAng()) {
                 // 待機
             } else {
                 pPhase->change(PHASE_NOTHING);
@@ -122,7 +122,7 @@ void EnemyErmioneArm::processBehavior() {
             break;
     }
 
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
     changeGeoFinal();
     //pScaler_->behave();
     if (_pActor_base) {

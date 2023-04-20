@@ -2,7 +2,7 @@
 
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 
 
 
@@ -27,14 +27,14 @@ void WorldBound001::initialize() {
     dxcoord world_r = pCam->getZFar(); //¢ŠE‹«ŠE‹…”¼Œa
     dxcoord world_bound_model_r = 1.0f; //WorldBound001‚Ìƒ‚ƒfƒ‹‚Í”¼ŒaDIRECTX‹——£1‚Ì‹…‚Å‚ ‚é
     setScaleR((world_r*0.989)/world_bound_model_r);
-    //getVecVehicle()->setRollPitchYawFaceAngVelo(D_ANG(11),D_ANG(7),D_ANG(5)); //‰ñ‚µ‚Ä‚à‚ ‚ñ‚Ü‚èH
+    //getLocoVehicle()->setRollPitchYawFaceAngVelo(D_ANG(11),D_ANG(7),D_ANG(5)); //‰ñ‚µ‚Ä‚à‚ ‚ñ‚Ü‚èH
 }
 
 void WorldBound001::onActive() {
 }
 
 void WorldBound001::processBehavior() {
-    //getVecVehicle()->behave();
+    //getLocoVehicle()->behave();
 }
 
 void WorldBound001::processJudgement() {

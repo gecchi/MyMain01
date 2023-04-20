@@ -1,7 +1,7 @@
 #include "EffectWormhole001.h"
 
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 
@@ -26,7 +26,7 @@ void EffectWormhole001::onActive() {
     getScaler()->setRange(30000, 1000); //スケーリング・範囲
     setScale(30000);
     getScaler()->transitionLinearUntil(1000, 30);//スケーリング・60F費やして1000に縮小
-    getVecVehicle()->setFaceAngVelo(AXIS_Z, 1000);        //回転
+    getLocoVehicle()->setFaceAngVelo(AXIS_Z, 1000);        //回転
 }
 
 void EffectWormhole001::processBehavior() {
@@ -39,7 +39,7 @@ void EffectWormhole001::processBehavior() {
         pScaler->setRange(1000, 2000);
         pScaler->beat(30, 2, 0, 26, -1); //無限ループ
     }
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
     pScaler->behave();
 }
 

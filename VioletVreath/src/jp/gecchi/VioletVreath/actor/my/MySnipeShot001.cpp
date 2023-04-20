@@ -1,6 +1,6 @@
 #include "MySnipeShot001.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -23,8 +23,8 @@ void MySnipeShot001::initialize() {
     pChecker->addCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(80), -PX_C(5), -PX_C(5),
                                 PX_C(80),  PX_C(5),  PX_C(5));
-    getVecVehicle()->setRollFaceAngVelo(D_ANG(12));
-    getVecVehicle()->linkFaceAngByMvAng(true);
+    getLocoVehicle()->setRollFaceAngVelo(D_ANG(12));
+    getLocoVehicle()->linkFaceAngByMvAng(true);
 }
 
 void MySnipeShot001::onActive() {
@@ -33,7 +33,7 @@ void MySnipeShot001::onActive() {
 }
 
 void MySnipeShot001::processBehavior() {
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
 }
 
 void MySnipeShot001::processJudgement() {

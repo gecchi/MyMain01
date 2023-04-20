@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
@@ -1802,9 +1802,9 @@ GgafDx::FigureActor* StgUtil::shotWay001(coord prm_x, coord prm_y, coord prm_z,
             pActor_shot->setPosition(prm_x + x,
                                      prm_y + y,
                                      prm_z + z);
-            pActor_shot->getVecVehicle()->setRzRyMvAng(prm_rz, prm_ry);
-            pActor_shot->getVecVehicle()->setMvVelo(now_velo);
-            pActor_shot->getVecVehicle()->setMvAcce(now_acce);
+            pActor_shot->getLocoVehicle()->setRzRyMvAng(prm_rz, prm_ry);
+            pActor_shot->getLocoVehicle()->setMvVelo(now_velo);
+            pActor_shot->getLocoVehicle()->setMvAcce(now_acce);
             if (pFunc_call_back_dispatched) {
                 pFunc_call_back_dispatched(pActor_shot, dispatch_num, n);
             }
@@ -1893,9 +1893,9 @@ GgafDx::FigureActor* StgUtil::shotWay002(coord prm_x, coord prm_y, coord prm_z,
                 pActor_shot->setPosition(prm_x + paGeo[i].x,
                                          prm_y + paGeo[i].y,
                                          prm_z + paGeo[i].z);
-                pActor_shot->getVecVehicle()->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
-                pActor_shot->getVecVehicle()->setMvVelo(now_velo);
-                pActor_shot->getVecVehicle()->setMvAcce(now_acce);
+                pActor_shot->getLocoVehicle()->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
+                pActor_shot->getLocoVehicle()->setMvVelo(now_velo);
+                pActor_shot->getLocoVehicle()->setMvAcce(now_acce);
                 if (pFunc_call_back_dispatched) {
                     pFunc_call_back_dispatched(pActor_shot, dispatch_num, n, i);
                 }
@@ -2011,9 +2011,9 @@ GgafDx::FigureActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
                     pActor_shot->setPosition(prm_x + papaGeo[i][j].x,
                                              prm_y + papaGeo[i][j].y,
                                              prm_z + papaGeo[i][j].z);
-                    pActor_shot->getVecVehicle()->setRzRyMvAng(papaGeo[i][j].rz, papaGeo[i][j].ry);
-                    pActor_shot->getVecVehicle()->setMvVelo(now_velo);
-                    pActor_shot->getVecVehicle()->setMvAcce(now_acce);
+                    pActor_shot->getLocoVehicle()->setRzRyMvAng(papaGeo[i][j].rz, papaGeo[i][j].ry);
+                    pActor_shot->getLocoVehicle()->setMvVelo(now_velo);
+                    pActor_shot->getLocoVehicle()->setMvAcce(now_acce);
                     if (pFunc_call_back_dispatched) {
                         pFunc_call_back_dispatched(pActor_shot, dispatch_num, n, depo_no, i, j);
                     }
@@ -2103,9 +2103,9 @@ GgafDx::FigureActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
                 pActor_shot->setPosition(prm_x + paGeo[i].x,
                                          prm_y + paGeo[i].y,
                                          prm_z + paGeo[i].z);
-                pActor_shot->getVecVehicle()->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
-                pActor_shot->getVecVehicle()->setMvVelo(now_velo);
-                pActor_shot->getVecVehicle()->setMvAcce(now_acce);
+                pActor_shot->getLocoVehicle()->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
+                pActor_shot->getLocoVehicle()->setMvVelo(now_velo);
+                pActor_shot->getLocoVehicle()->setMvAcce(now_acce);
 //                pActor_shot->_rz = Rz;
 //                pActor_shot->_ry = Ry;
                 if (pFunc_call_back_dispatched) {

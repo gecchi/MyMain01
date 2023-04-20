@@ -1,10 +1,10 @@
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/NaviVehicle.h"
 
 #include "jp/ggaf/dx/util/Util.h"
 
 using namespace GgafDx;
 
-GeoVehicle::GeoVehicle(GeometricActor* prm_pActor)  : ActorVehicle(prm_pActor) {
+NaviVehicle::NaviVehicle(GeometricActor* prm_pActor)  : ActorVehicle(prm_pActor) {
     _velo = 0;
     _top_velo = INT_MAX;
     _bottom_velo = 0;
@@ -20,10 +20,10 @@ GeoVehicle::GeoVehicle(GeometricActor* prm_pActor)  : ActorVehicle(prm_pActor) {
 }
 
 
-void GeoVehicle::forceVeloRange(velo prm_velo01, velo prm_velo02) {
+void NaviVehicle::forceVeloRange(velo prm_velo01, velo prm_velo02) {
 #ifdef MY_DEBUG
     if (prm_velo01 < 0 || prm_velo02 < 0) {
-        throwCriticalException("GeoVehicle::forceVeloRange() 負の速度を範囲設定することはできません。"
+        throwCriticalException("NaviVehicle::forceVeloRange() 負の速度を範囲設定することはできません。"
                                " prm_velo01="<<prm_velo01<<",prm_velo02="<<prm_velo02<<"");
     }
 #endif
@@ -38,10 +38,10 @@ void GeoVehicle::forceVeloRange(velo prm_velo01, velo prm_velo02) {
     setVeloByVc(_velo_vc_x, _velo_vc_y, _velo_vc_z);
 }
 
-void GeoVehicle::forceAcceRange(acce prm_acce01, acce prm_acce02) {
+void NaviVehicle::forceAcceRange(acce prm_acce01, acce prm_acce02) {
 #ifdef MY_DEBUG
     if (prm_acce01 < 0 || prm_acce02 < 0) {
-        throwCriticalException("GeoVehicle::forceAcceRange() 負の加速度を範囲設定することはできません。"
+        throwCriticalException("NaviVehicle::forceAcceRange() 負の加速度を範囲設定することはできません。"
                                " prm_acce01="<<prm_acce01<<",prm_acce02="<<prm_acce02<<"");
     }
 #endif
@@ -57,7 +57,7 @@ void GeoVehicle::forceAcceRange(acce prm_acce01, acce prm_acce02) {
 }
 
 
-void GeoVehicle::setVeloTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_velo) {
+void NaviVehicle::setVeloTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_velo) {
     if (prm_velo == 0) {
         _velo_vc_x = _bottom_velo;
         _velo_vc_y = 0;
@@ -97,13 +97,13 @@ void GeoVehicle::setVeloTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_v
     _velo = velo_xyz;
 }
 
-void GeoVehicle::setVeloTwd(angle prm_rz, angle prm_ry, velo prm_velo) {
+void NaviVehicle::setVeloTwd(angle prm_rz, angle prm_ry, velo prm_velo) {
     double vx, vy, vz;
     UTIL::convRzRyToVector(prm_rz, prm_ry, vx, vy, vz);
     setVeloByVc(vx*prm_velo, vy*prm_velo, vz*prm_velo);
 }
 
-void GeoVehicle::setVeloByVc(velo prm_velo_vc_x, velo prm_velo_vc_y, velo prm_velo_vc_z) {
+void NaviVehicle::setVeloByVc(velo prm_velo_vc_x, velo prm_velo_vc_y, velo prm_velo_vc_z) {
     double p = 1.0*prm_velo_vc_x*prm_velo_vc_x +
                1.0*prm_velo_vc_y*prm_velo_vc_y +
                1.0*prm_velo_vc_z*prm_velo_vc_z;
@@ -145,11 +145,11 @@ void GeoVehicle::setVeloByVc(velo prm_velo_vc_x, velo prm_velo_vc_y, velo prm_ve
         return;
     }
 }
-void GeoVehicle::setVeloZero() {
+void NaviVehicle::setVeloZero() {
     setVeloByVc(0,0,0);
 }
 
-void GeoVehicle::setAcceTwd(coord prm_tx, coord prm_ty, coord prm_tz, acce prm_acce) {
+void NaviVehicle::setAcceTwd(coord prm_tx, coord prm_ty, coord prm_tz, acce prm_acce) {
     acce acce_xyz = prm_acce;
     if (prm_acce > _top_acce) {
         acce_xyz = _top_acce;
@@ -174,7 +174,7 @@ void GeoVehicle::setAcceTwd(coord prm_tx, coord prm_ty, coord prm_tz, acce prm_a
     }
 }
 
-void GeoVehicle::setAcceByVc(acce prm_acce_vc_x, acce prm_acce_vc_y, acce prm_acce_vc_z) {
+void NaviVehicle::setAcceByVc(acce prm_acce_vc_x, acce prm_acce_vc_y, acce prm_acce_vc_z) {
     double p = 1.0 * prm_acce_vc_x * prm_acce_vc_x +
                1.0 * prm_acce_vc_y * prm_acce_vc_y +
                1.0 * prm_acce_vc_z * prm_acce_vc_z;
@@ -207,14 +207,14 @@ void GeoVehicle::setAcceByVc(acce prm_acce_vc_x, acce prm_acce_vc_y, acce prm_ac
     }
 }
 
-void GeoVehicle::setAcceZero() {
+void NaviVehicle::setAcceZero() {
     _acce_vc_x = _bottom_acce;
     _acce_vc_y = 0;
     _acce_vc_z = 0;
     _acce = _bottom_acce;
 }
 
-void GeoVehicle::behave() {
+void NaviVehicle::behave() {
     if (_acce != 0) {
         setVeloByVc(_velo_vc_x+_acce_vc_x,
                     _velo_vc_y+_acce_vc_y,
@@ -226,5 +226,5 @@ void GeoVehicle::behave() {
     _pActor->_z += _velo_vc_z;
 }
 
-GeoVehicle::~GeoVehicle() {
+NaviVehicle::~NaviVehicle() {
 }

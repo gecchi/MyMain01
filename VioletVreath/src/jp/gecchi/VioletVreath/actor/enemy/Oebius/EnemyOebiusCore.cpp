@@ -1,7 +1,7 @@
 #include "EnemyOebiusCore.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -53,9 +53,9 @@ void EnemyOebiusCore::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->linkFaceAngByMvAng(true);
-    pVecVehicle->forceMvVeloRange(PX_C(15));
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->linkFaceAngByMvAng(true);
+    pLocoVehicle->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyOebiusCore::onActive() {
@@ -64,7 +64,7 @@ void EnemyOebiusCore::onActive() {
 }
 
 void EnemyOebiusCore::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Phase* pPhase = getPhase();
@@ -72,7 +72,7 @@ void EnemyOebiusCore::processBehavior() {
         case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pVecVehicle->setRollFaceAngVelo(D_ANG(3));
+            pLocoVehicle->setRollFaceAngVelo(D_ANG(3));
             pPhase->changeNext();
             break;
         }
@@ -95,8 +95,8 @@ void EnemyOebiusCore::processBehavior() {
 
         case PHASE_WAIT01: {
             if (pPhase->hasJustChanged()) {
-//                pVecVehicle->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, false);
-                pVecVehicle->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.031), D_ANG(0.071));
+//                pLocoVehicle->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, false);
+                pLocoVehicle->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.031), D_ANG(0.071));
             }
             if (pPhase->hasArrivedFrameAt(10*60*60)) {
                 pPhase->changeNext();
@@ -120,7 +120,7 @@ void EnemyOebiusCore::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
 }
 
 void EnemyOebiusCore::processJudgement() {

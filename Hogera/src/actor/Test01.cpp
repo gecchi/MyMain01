@@ -1,6 +1,6 @@
 #include "Test01.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/util/Input.h"
@@ -62,11 +62,11 @@ void Test01::onReset() {
 
 void Test01::onActive() {
     getUvFlipper()->setActivePtnToTop();
-    getVecVehicle()->setFaceAngVelo(AXIS_Z, 1000);
+    getLocoVehicle()->setFaceAngVelo(AXIS_Z, 1000);
 }
 
 void Test01::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
 
     if (GgafDx::Input::isPressedKey(DIK_D)) {
@@ -82,7 +82,7 @@ void Test01::processBehavior() {
         _y -= PX_C(2);
     }
     getUvFlipper()->behave();
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
 }
 
 void Test01::processJudgement() {

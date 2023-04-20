@@ -244,9 +244,6 @@ public:
      */
     virtual void processCloseDone() {};
 
-
-
-
     virtual ~Curtain() {
 
     }

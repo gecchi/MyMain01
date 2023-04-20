@@ -1,7 +1,7 @@
 #include "EnemyIda.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
@@ -40,7 +40,7 @@ void EnemyIda::onCreateModel() {
 }
 
 void EnemyIda::initialize() {
-    getVecVehicle()->linkFaceAngByMvAng(true);
+    getLocoVehicle()->linkFaceAngByMvAng(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
@@ -54,12 +54,12 @@ void EnemyIda::onActive() {
 void EnemyIda::processBehavior() {
     changeGeoLocal(); //ローカル座標系へ
 
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             setHitAble(false);
-            pVecVehicle->setRollFaceAngVelo(D_ANG(4));
+            pLocoVehicle->setRollFaceAngVelo(D_ANG(4));
             setAlpha(0);
             pPhase->changeNext();
             break;
@@ -97,13 +97,13 @@ void EnemyIda::processBehavior() {
 
             angle rz_target, ry_target;
             UTIL::convVectorToRzRy(tvx, tvy, tvz, rz_target, ry_target); //RzRyに置き換える
-            pVecVehicle->setRzRyMvAng(rz_target, ry_target);
+            pLocoVehicle->setRzRyMvAng(rz_target, ry_target);
             break;
         }
     }
 
     getAlphaFader()->behave();
-    pVecVehicle->behave();
+    pLocoVehicle->behave();
 
     changeGeoFinal(); //絶対座標系へ
 }

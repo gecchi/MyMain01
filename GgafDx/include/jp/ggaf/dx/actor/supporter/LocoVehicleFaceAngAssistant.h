@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_VECVEHICLEFACEANGASSISTANT_H_
-#define GGAF_DX_VECVEHICLEFACEANGASSISTANT_H_
+#ifndef GGAF_DX_LOCOVEHICLEFACEANGASSISTANT_H_
+#define GGAF_DX_LOCOVEHICLEFACEANGASSISTANT_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
 
 #include "jp/ggaf/core/Object.h"
@@ -8,14 +8,14 @@
 namespace GgafDx {
 
 /**
- * 力車の助手B .
- * 師匠(力車)の軸回転方角角速度の補佐を行います。
+ * 移動車両の助手B .
+ * 師匠(移動車両)の軸回転方角角速度の補佐を行います。
  * @version 1.00
  * @since 2013/12/05
  * @author Masatoshi Tsuge
  */
-class VecVehicleFaceAngAssistant : public GgafCore::Object {
-    friend class VecVehicle;
+class LocoVehicleFaceAngAssistant : public GgafCore::Object {
+    friend class LocoVehicle;
 
 private:
     struct Twist {
@@ -32,13 +32,13 @@ private:
     };
 
     /** [r]師匠 */
-    VecVehicle* const _pMaster;
+    LocoVehicle* const _pMaster;
     GgafCore::TrapezoidalVeloValue<int> _smthFaceAng[3];
     /** ツイスト情報 */
     Twist _tw[3];
 
     /**
-     * 力車の助手が振る舞う .
+     * 移動車両の助手が振る舞う .
      * 師匠が振る舞う(behave())時に、自動で呼び出されるので気にしないでよいです。
      */
     virtual void behave();
@@ -48,7 +48,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit VecVehicleFaceAngAssistant(VecVehicle* prm_pMaster);
+    explicit LocoVehicleFaceAngAssistant(LocoVehicle* prm_pMaster);
 
 
     /**
@@ -312,9 +312,9 @@ public:
         _tw[AXIS_Z].target_num = 0;
     }
 
-    virtual ~VecVehicleFaceAngAssistant();
+    virtual ~LocoVehicleFaceAngAssistant();
 };
 
 }
-#endif /*GGAF_DX_VECVEHICLEFACEANGASSISTANT_H_*/
+#endif /*GGAF_DX_LOCOVEHICLEFACEANGASSISTANT_H_*/
 

@@ -1,6 +1,6 @@
 #include "EffectMagic001.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 
 
 
@@ -22,11 +22,11 @@ void EffectMagic001::initialize() {
 }
 
 void EffectMagic001::onActive() {
-    getVecVehicle()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
+    getLocoVehicle()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
 }
 
 void EffectMagic001::processBehavior() {
-    getVecVehicle()->behave();
+    getLocoVehicle()->behave();
 }
 
 void EffectMagic001::processJudgement() {

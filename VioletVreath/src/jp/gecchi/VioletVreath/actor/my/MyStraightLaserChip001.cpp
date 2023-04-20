@@ -1,7 +1,7 @@
 #include "MyStraightLaserChip001.h"
 
 #include "jp/ggaf/core/util/RingLinkedList.hpp"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/manager/TextureConnection.h"
 #include "jp/ggaf/dx/model/Model.h"
@@ -39,7 +39,7 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
 
 void MyStraightLaserChip001::initialize() {
     pOrg_ = pMYSHIP;
-    getVecVehicle()->setRzRyMvAng(0,0);
+    getLocoVehicle()->setRzRyMvAng(0,0);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAABox_WHD(0,PX_C(300),PX_C(80),PX_C(80));
@@ -58,8 +58,8 @@ void MyStraightLaserChip001::onActive() {
     default_stamina_ = getStatus()->get(STAT_Stamina);
     StraightLaserChip::onActive();
 
-    getVecVehicle()->setMvVelo(100000);
-    getVecVehicle()->setMvAcce(1000);
+    getLocoVehicle()->setMvVelo(100000);
+    getLocoVehicle()->setMvAcce(1000);
 }
 
 void MyStraightLaserChip001::processBehavior() {

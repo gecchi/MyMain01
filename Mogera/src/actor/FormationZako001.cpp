@@ -1,6 +1,6 @@
 #include "FormationZako001.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
@@ -69,7 +69,7 @@ void FormationZako001::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, 
     pZako->setFaceAngTwd(entry_pos_.rz,
                          entry_pos_.ry,
                          0);
-    pZako->getVecVehicle()->setMvAngByFaceAng();
+    pZako->getLocoVehicle()->setMvAngByFaceAng();
 }
 
 void FormationZako001::onFinshLeading(GgafDx::FigureActor* prm_pActor) {

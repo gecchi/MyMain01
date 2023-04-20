@@ -1,10 +1,10 @@
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
 #include "jp/ggaf/lib/LibConfig.h"
-#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/AxisVehicleAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistantA.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
@@ -52,13 +52,13 @@ void DefaultCamera::initialize() {
 }
 
 void DefaultCamera::processBehavior() {
-    getAxisVehicle()->behave();
-    getVecVehicle()->behave();
+    getCoordVehicle()->behave();
+    getLocoVehicle()->behave();
     GgafDx::Camera::processBehavior();
 }
 
 void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t, double prm_p1, double prm_p2) {
-    getAxisVehicle()->asst()->slideVxyzMvByDtTo(
+    getCoordVehicle()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_p1, prm_p2, 0, true);
 }
@@ -69,7 +69,7 @@ void DefaultCamera::slideMvTo(GgafDx::GeometricActor* pTarget, frame t, double p
 
 void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t,
                        double prm_x_p1, double prm_y_p1, double prm_z_p1) {
-    getAxisVehicle()->asst()->slideVxyzMvByDtTo(
+    getCoordVehicle()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_x_p1, prm_x_p1, 0,
                               prm_y_p1, prm_y_p1, 0,
@@ -94,7 +94,7 @@ dir26 DefaultCamera::getVpDirNo() {
 }
 
 bool DefaultCamera::isSliding() {
-    return getAxisVehicle()->asst()->isSliding();
+    return getCoordVehicle()->asst()->isSliding();
 }
 
 DefaultCamera::~DefaultCamera() {

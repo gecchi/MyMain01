@@ -1,9 +1,9 @@
 #include "EnemyAntiope.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -50,8 +50,8 @@ void EnemyAntiope::onActive() {
 }
 
 void EnemyAntiope::processBehavior() {
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::CoordVehicle* const pCoordVehicle = getCoordVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Phase* pPhase = getPhase();
@@ -59,9 +59,9 @@ void EnemyAntiope::processBehavior() {
          case PHASE_INIT: {
              setHitAble(false);
              setAlpha(0);
-             pVecVehicle->stop();
-             pVecVehicle->setRollFaceAngVelo(D_ANG(10));
-             pAxisVehicle->setXYZZero();
+             pLocoVehicle->stop();
+             pLocoVehicle->setRollFaceAngVelo(D_ANG(10));
+             pCoordVehicle->setXYZZero();
              pPhase->changeNext();
              break;
          }
@@ -84,24 +84,24 @@ void EnemyAntiope::processBehavior() {
 
          case PHASE_MOVE01: { //放物線のような動き
              if (pPhase->hasJustChanged()) {
-                 pVecVehicle->setMvVelo(PX_C(30));
-                 pVecVehicle->setMvAcce(-1000);
+                 pLocoVehicle->setMvVelo(PX_C(30));
+                 pLocoVehicle->setMvAcce(-1000);
                  //平行移動速度の方向ベクトル mv_velo_twd_ はフォーメーションが設定
-                 pAxisVehicle->setVeloXYZ(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
+                 pCoordVehicle->setVeloXYZ(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
              }
 
-             if (pVecVehicle->_velo_mv <= (-PX_C(30) + 1000)) {
+             if (pLocoVehicle->_velo_mv <= (-PX_C(30) + 1000)) {
                  if (pP_) {
-                     pVecVehicle->stop();
-                     pAxisVehicle->setXYZZero();
+                     pLocoVehicle->stop();
+                     pCoordVehicle->setXYZZero();
                      pPhase->change(PHASE_LEAVE);
                  } else {
-                     pAxisVehicle->setVeloXYZ(
-                                  mv_velo_twd_.x + (pVecVehicle->_vX * pVecVehicle->_velo_mv),
-                                  mv_velo_twd_.y + (pVecVehicle->_vY * pVecVehicle->_velo_mv),
-                                  mv_velo_twd_.z + (pVecVehicle->_vZ * pVecVehicle->_velo_mv)
+                     pCoordVehicle->setVeloXYZ(
+                                  mv_velo_twd_.x + (pLocoVehicle->_vX * pLocoVehicle->_velo_mv),
+                                  mv_velo_twd_.y + (pLocoVehicle->_vY * pLocoVehicle->_velo_mv),
+                                  mv_velo_twd_.z + (pLocoVehicle->_vZ * pLocoVehicle->_velo_mv)
                                 );
-                     pVecVehicle->stop();
+                     pLocoVehicle->stop();
                      pPhase->change(PHASE_RUSH);
                  }
              }
@@ -123,8 +123,8 @@ void EnemyAntiope::processBehavior() {
          case PHASE_RUSH: {
              //相方がいなくなった場合
              if (pPhase->hasJustChanged()) {
-                 pAxisVehicle->execGravitationMvSequenceTwd(pMYSHIP, PX_C(30), 200, PX_C(50));
-                 pVecVehicle->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);
+                 pCoordVehicle->execGravitationMvSequenceTwd(pMYSHIP, PX_C(30), 200, PX_C(50));
+                 pLocoVehicle->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);
              }
              break;
          }
@@ -134,9 +134,9 @@ void EnemyAntiope::processBehavior() {
          }
      }
 
-//    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pVecVehicle->_velo_mv<<") "<<_pVecVehicle->_vX<<","<<_pVecVehicle->_vY<<","<<_pVecVehicle->_vZ<<"");
-    pVecVehicle->behave();
-    pAxisVehicle->behave();
+//    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pLocoVehicle->_velo_mv<<") "<<_pLocoVehicle->_vX<<","<<_pLocoVehicle->_vY<<","<<_pLocoVehicle->_vZ<<"");
+    pLocoVehicle->behave();
+    pCoordVehicle->behave();
     pAlphaFader->behave();
 }
 

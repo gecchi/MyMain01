@@ -4,11 +4,11 @@
 #include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
-#include "jp/ggaf/dx/util/curve/FixedFrameCurveAxisVehicleLeader.h"
-#include "jp/ggaf/dx/util/curve/FixedFrameCurveVecVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveCoordVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveLocoVehicleLeader.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Eres/EnemyEresShot001.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
@@ -48,7 +48,7 @@ EnemyEres::EnemyEres(const char* prm_name, GgafCore::ActorDepository* prm_pDepo_
 
     pCurveManufConn_ = connectToCurveManufactureManager("EnemyEres_curve");
     pVehicleLeader_ = createCurveVehicleLeader(pCurveManufConn_->peek());
-//    ((FixedFrameCurveAxisVehicleLeader*)pVehicleLeader_)->setGravitationParam(200, PX_C(100));
+//    ((FixedFrameCurveCoordVehicleLeader*)pVehicleLeader_)->setGravitationParam(200, PX_C(100));
 
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
@@ -65,10 +65,10 @@ void EnemyEres::onActive() {
     setHitAble(true);
     getStatus()->reset();
     iMovePatternNo_ = 0;
-    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    pVecVehicle->linkFaceAngByMvAng(true);
-    pVecVehicle->setRollFaceAngVelo(2000);
-//    pVecVehicle->setMvVelo(3000);
+    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->linkFaceAngByMvAng(true);
+    pLocoVehicle->setRollFaceAngVelo(2000);
+//    pLocoVehicle->setMvVelo(3000);
     pVehicleLeader_->start(RELATIVE_COORD); //カーブ移動を開始
 }
 
@@ -84,22 +84,22 @@ void EnemyEres::processBehavior() {
             pTama = (GgafDx::FigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
                 pTama->setPositionAt(this);
-                pTama->getVecVehicle()->setRzRyMvAng(-D90ANG + way[i], D90ANG);
+                pTama->getLocoVehicle()->setRzRyMvAng(-D90ANG + way[i], D90ANG);
             }
         }
         for (int i = 16; i < 32; i++) {
             pTama = (GgafDx::FigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
                 pTama->setPositionAt(this);
-                pTama->getVecVehicle()->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
+                pTama->getLocoVehicle()->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
             }
         }
 
         iMovePatternNo_++;
     }
     pVehicleLeader_->behave(); //カーブ移動を進める
-    getAxisVehicle()->behave();
-    getVecVehicle()->behave(); //次の座標へ移動
+    getCoordVehicle()->behave();
+    getLocoVehicle()->behave(); //次の座標へ移動
     //getSeTransmitter()->behave();
 }
 
