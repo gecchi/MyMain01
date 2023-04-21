@@ -12,7 +12,6 @@
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -84,14 +83,14 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
 }
 bool MenuBoardKeyConfig::condSelectNext() {
     if (input_mode_ == 0) {
-        return VVB->isAutoRepeat(0, VVB_UI_DOWN);
+        return VVB->isAutoRepeat(0, VV_VB_UI_DOWN);
     } else {
         return false;
     }
 }
 bool MenuBoardKeyConfig::condSelectPrev() {
     if (input_mode_ == 0) {
-        return VVB->isAutoRepeat(0, VVB_UI_UP);
+        return VVB->isAutoRepeat(0, VV_VB_UI_UP);
     } else {
         return false;
     }
@@ -132,6 +131,11 @@ void MenuBoardKeyConfig::onRise() {
     paVBConfig[ITEM_VIEW      ].pJoy->update(CONFIG::VV_JOY_VIEW      .c_str());
     paVBConfig[ITEM_PAUSE     ].pJoy->update(CONFIG::VV_JOY_PAUSE     .c_str());
 
+    for (int i = ITEM_UP; i < ITEM_BANPEI; i++) {
+        paVBConfig[i].pKey->dispDefaultFont();
+        paVBConfig[i].pJoy->dispDefaultFont();
+    }
+
     MenuBoard::onRise();
 
     input_mode_ = 0;
@@ -144,7 +148,6 @@ void MenuBoardKeyConfig::processBehavior() {
 //        }
 //    }
     MenuBoard::processBehavior();
-
     //サブメニュー判定
     MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu();
     if (pSubConfirm->hasJustDecidedOk()) {
@@ -178,13 +181,17 @@ void MenuBoardKeyConfig::processBehavior() {
         CONFIG::_properties.setValue("VV_JOY_TURBO"     , paVBConfig[ITEM_TURBO     ].pJoy->getDrawString());
         CONFIG::_properties.setValue("VV_JOY_OPTION"    , paVBConfig[ITEM_CONTROLL  ].pJoy->getDrawString());
         CONFIG::_properties.setValue("VV_JOY_POWERUP"   , paVBConfig[ITEM_MAGIC     ].pJoy->getDrawString());
-        CONFIG::_properties.setValue("VV_JOY_VIEW"      , paVBConfig[ITEM_VIEW       ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("VV_JOY_VIEW"      , paVBConfig[ITEM_VIEW      ].pJoy->getDrawString());
         CONFIG::_properties.setValue("VV_JOY_PAUSE"     , paVBConfig[ITEM_PAUSE     ].pJoy->getDrawString());
         CONFIG::_properties.write(CONFIG::_load_properties_filename);
         CONFIG::loadProperties(CONFIG::_load_properties_filename); //再反映
-        //実行中アプリへも反映
-        pCARETAKER->initVB();
 
+        pCARETAKER->initVB();
+        for (int i = ITEM_UP; i < ITEM_BANPEI; i++) {
+            paVBConfig[i].pKey->dispDefaultFont();
+            paVBConfig[i].pJoy->dispDefaultFont();
+        }
+        //実行中アプリへも反映
         sinkCurrentSubMenu(); //確認メニュー閉じる
         sinkMe();        //自身メニュー閉じる
     } else if (pSubConfirm->hasJustDecidedCancel()) {
@@ -211,6 +218,7 @@ void MenuBoardKeyConfig::processBehavior() {
         } else {
             int DIK_pushed = GgafDx::Input::getFirstPushedDownKey();
             if (DIK_pushed != -1 && 0x00 <= DIK_pushed && DIK_pushed <= 0xD1) {
+                paVBConfig[index].pKey->dispChangesFont();
                 paVBConfig[index].pKey->update(VirtualButton::_mapVBK2Str[DIK_pushed].c_str());
                 paVBConfig[index].pKey->getAlphaFader()->beat(10, 5, 0, 5, 6.5);
                 paVBConfig[index].pJoy->getAlphaFader()->transitionLinearToTop(5);
@@ -219,14 +227,14 @@ void MenuBoardKeyConfig::processBehavior() {
 
             vbj VBJ_pushed = VirtualButton::getFirstPushedDownVirtualJoyButton(0);
             if (VBJ_pushed != -1) {
-                 paVBConfig[index].pJoy->update(VirtualButton::_mapVBJ2Str[VBJ_pushed].c_str());
-                 paVBConfig[index].pJoy->getAlphaFader()->beat(10, 5, 0, 5, 6.5);
-                 paVBConfig[index].pKey->getAlphaFader()->transitionLinearToTop(5);
-                 input_mode_ = 2;
+                paVBConfig[index].pKey->dispChangesFont();
+                paVBConfig[index].pJoy->update(VirtualButton::_mapVBJ2Str[VBJ_pushed].c_str());
+                paVBConfig[index].pJoy->getAlphaFader()->beat(10, 5, 0, 5, 6.5);
+                paVBConfig[index].pKey->getAlphaFader()->transitionLinearToTop(5);
+                input_mode_ = 2;
             }
         }
     }
-
 }
 
 void MenuBoardKeyConfig::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_index) {

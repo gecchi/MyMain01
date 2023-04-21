@@ -667,7 +667,14 @@ void ICharacterChip<T, N, L>::prepare2() {
                 if (draw_chr != chr_blank) {
                     pInstancePart->px_local_x = (float)px_x;
                     pInstancePart->px_local_y = (float)px_y;
-                    pUvFlipper->getUV(draw_chr-chr_ptn_zero, u, v);
+                    int c = draw_chr - chr_ptn_zero;
+                    if (c > pUvFlipper->_pattno_uvflip_max) {
+                        _TRACE_("【警告】 prepare2() draw_chr="<< draw_chr<<"["<<((char)draw_chr)<<"]は、パターン番号=" <<c<<"となり、"
+                                "範囲外(最大パターン番号=" << pUvFlipper->_pattno_uvflip_max << ")なので、表示できません。" <<
+                                "しかたないので[?] に置き換えました。要確認");
+                        c = (int)'?' - chr_ptn_zero;
+                    }
+                    pUvFlipper->getUV(c, u, v);
                     pInstancePart->offset_u = u;
                     pInstancePart->offset_v = v;
                     ++pInstancePart;

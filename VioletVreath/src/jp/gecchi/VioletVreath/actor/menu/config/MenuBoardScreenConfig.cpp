@@ -292,7 +292,7 @@ bool MenuBoardScreenConfig::condSelectNext() {
     if (getSelectedIndex() == ITEM_CANCEL) { //CANCELから先へ進めなくする
         return false;
     } else {
-        return VVB->isAutoRepeat(0, VVB_UI_DOWN);
+        return VVB->isAutoRepeat(0, VV_VB_UI_DOWN);
     }
 }
 
@@ -300,7 +300,7 @@ bool MenuBoardScreenConfig::condSelectPrev() {
     if (getSelectedIndex() == 0) { //先頭アイテム
         return false;
     } else {
-        return VVB->isAutoRepeat(0, VVB_UI_UP);
+        return VVB->isAutoRepeat(0, VV_VB_UI_UP);
     }
 }
 
@@ -455,41 +455,41 @@ void MenuBoardScreenConfig::processBehavior() {
     }
     //各設定項目の←→時の処理
     if (selected_index == ITEM_FULL_SCREEN) {
-        if (pVVB->isPushedDown(0, VVB_UI_LEFT)) {
+        if (pVVB->isPushedDown(0, VV_VB_UI_LEFT)) {
             selectItemBySubCursor(SUBCUR_FULL_SCREEN, VALUE_FULL_SCREEN_TRUE);
             CONFIG::_properties.setValue("FULL_SCREEN", true);
             replaceItem();
-        } else if (pVVB->isPushedDown(0, VVB_UI_RIGHT)) {
+        } else if (pVVB->isPushedDown(0, VV_VB_UI_RIGHT)) {
             selectItemBySubCursor(SUBCUR_FULL_SCREEN, VALUE_FULL_SCREEN_FALSE);
             CONFIG::_properties.setValue("FULL_SCREEN", false);
             replaceItem();
         }
     } else if (selected_index == ITEM_DUAL_VIEW) {
-        if (pVVB->isPushedDown(0, VVB_UI_LEFT)) {
+        if (pVVB->isPushedDown(0, VV_VB_UI_LEFT)) {
             selectItemBySubCursor(SUBCUR_DUAL_VIEW, VALUE_DUAL_VIEW_TRUE);
             CONFIG::_properties.setValue("DUAL_VIEW", true);
             replaceItem();
-        } else if (pVVB->isPushedDown(0, VVB_UI_RIGHT)) {
+        } else if (pVVB->isPushedDown(0, VV_VB_UI_RIGHT)) {
             selectItemBySubCursor(SUBCUR_DUAL_VIEW, VALUE_DUAL_VIEW_FALSE);
             CONFIG::_properties.setValue("DUAL_VIEW", false);
             replaceItem();
         }
     } else if (selected_index == ITEM_SWAP_VIEW) {
-        if (pVVB->isPushedDown(0, VVB_UI_LEFT)) {
+        if (pVVB->isPushedDown(0, VV_VB_UI_LEFT)) {
             selectItemBySubCursor(SUBCUR_SWAP_VIEW, VALUE_SWAP_VIEW_FALSE);
             CONFIG::_properties.setValue("SWAP_VIEW", false);
-        } else if (pVVB->isPushedDown(0, VVB_UI_RIGHT)) {
+        } else if (pVVB->isPushedDown(0, VV_VB_UI_RIGHT)) {
             selectItemBySubCursor(SUBCUR_SWAP_VIEW, VALUE_SWAP_VIEW_TRUE);
             CONFIG::_properties.setValue("SWAP_VIEW", true);
         }
     } else if (selected_index == ITEM_FIXED_VIEW_ASPECT) {
-        if (pVVB->isPushedDown(0, VVB_UI_LEFT)) {
+        if (pVVB->isPushedDown(0, VV_VB_UI_LEFT)) {
             selectItemBySubCursor(SUBCUR_FIXED_VIEW_ASPECT, VALUE_FIXED_VIEW_TRUE);
             CONFIG::_properties.setValue("FIXED_VIEW_ASPECT", true);
             if (!pWorld->need_reboot_) {
                 pCARETAKER->chengeViewAspect(true);
             }
-        } else if (pVVB->isPushedDown(0, VVB_UI_RIGHT)) {
+        } else if (pVVB->isPushedDown(0, VV_VB_UI_RIGHT)) {
             selectItemBySubCursor(SUBCUR_FIXED_VIEW_ASPECT, VALUE_FIXED_VIEW_FALSE);
             CONFIG::_properties.setValue("FIXED_VIEW_ASPECT", false);
             if (!pWorld->need_reboot_) {
@@ -497,7 +497,7 @@ void MenuBoardScreenConfig::processBehavior() {
             }
         }
 //    } else if (selected_index == ITEM_PRIMARY_VIEW_PRESENT_POSITION) {
-//        if (pVVB->isAutoRepeat(0, VVB_UI_RIGHT)) {
+//        if (pVVB->isAutoRepeat(0, VV_VB_UI_RIGHT)) {
 //            int i = getSelectedIndexOnSubCursor(SUBCUR_PRIMARY_VIEW_PRESENT_POSITION);
 //            if (i == VALUE_POS_9) {
 //                i = VALUE_POS_1;
@@ -509,7 +509,7 @@ void MenuBoardScreenConfig::processBehavior() {
 //            if (!pWorld->need_reboot_) {
 //                pCARETAKER->chengeViewPos1(i+1 - VALUE_POS_1);
 //            }
-//        } else if (pVVB->isAutoRepeat(0, VVB_UI_LEFT)) {
+//        } else if (pVVB->isAutoRepeat(0, VV_VB_UI_LEFT)) {
 //            int i = getSelectedIndexOnSubCursor(SUBCUR_PRIMARY_VIEW_PRESENT_POSITION);
 //            if (i == VALUE_POS_1) {
 //                i = VALUE_POS_9;
@@ -523,7 +523,7 @@ void MenuBoardScreenConfig::processBehavior() {
 //            }
 //        }
     } else if (selected_index == ITEM_PRIMARY_VIEW_PRESENT_POSITION) {
-        if (pVVB->isAutoRepeat(0, VVB_UI_RIGHT)) {
+        if (pVVB->isAutoRepeat(0, VV_VB_UI_RIGHT)) {
             int i = getSelectedIndexOnSubCursor(SUBCUR_PRIMARY_VIEW_PRESENT_POSITION);
             if (i == VALUE_POS1_9) {
                 i = VALUE_POS1_1;
@@ -533,7 +533,7 @@ void MenuBoardScreenConfig::processBehavior() {
             selectItemBySubCursor(SUBCUR_PRIMARY_VIEW_PRESENT_POSITION, i);
             CONFIG::_properties.setValue("PRIMARY_VIEW_PRESENT_POSITION", i+1 - VALUE_POS1_1);
             pCARETAKER->chengeViewPos1(i+1 - VALUE_POS1_1);
-        } else if (pVVB->isAutoRepeat(0, VVB_UI_LEFT)) {
+        } else if (pVVB->isAutoRepeat(0, VV_VB_UI_LEFT)) {
             int i = getSelectedIndexOnSubCursor(SUBCUR_PRIMARY_VIEW_PRESENT_POSITION);
             if (i == VALUE_POS1_1) {
                 i = VALUE_POS1_9;
@@ -545,7 +545,7 @@ void MenuBoardScreenConfig::processBehavior() {
             pCARETAKER->chengeViewPos1(i+1 - VALUE_POS1_1);
         }
     } else if (selected_index == ITEM_SECONDARY_VIEW_PRESENT_POSITION) {
-        if (pVVB->isAutoRepeat(0, VVB_UI_RIGHT)) {
+        if (pVVB->isAutoRepeat(0, VV_VB_UI_RIGHT)) {
             int i = getSelectedIndexOnSubCursor(SUBCUR_SECONDARY_VIEW_PRESENT_POSITION);
             if (i == VALUE_POS2_9) {
                 i = VALUE_POS2_1;
@@ -555,7 +555,7 @@ void MenuBoardScreenConfig::processBehavior() {
             selectItemBySubCursor(SUBCUR_SECONDARY_VIEW_PRESENT_POSITION, i);
             CONFIG::_properties.setValue("PRIMARY_VIEW_PRESENT_POSITION", i+1 - VALUE_POS2_1);
             pCARETAKER->chengeViewPos2(i+1 - VALUE_POS2_1);
-        } else if (pVVB->isAutoRepeat(0, VVB_UI_LEFT)) {
+        } else if (pVVB->isAutoRepeat(0, VV_VB_UI_LEFT)) {
             int i = getSelectedIndexOnSubCursor(SUBCUR_SECONDARY_VIEW_PRESENT_POSITION);
             if (i == VALUE_POS2_1) {
                 i = VALUE_POS2_9;
@@ -567,8 +567,8 @@ void MenuBoardScreenConfig::processBehavior() {
             pCARETAKER->chengeViewPos2(i+1 - VALUE_POS2_1);
         }
 //    } else if (selected_index == ITEM_PRIMARY_VIEW_FULL_SCREEN_RESOLUTION) {
-//        bool is_right = pVVB->isAutoRepeat(0, VVB_UI_RIGHT);
-//        bool is_left = pVVB->isAutoRepeat(0, VVB_UI_LEFT);
+//        bool is_right = pVVB->isAutoRepeat(0, VV_VB_UI_RIGHT);
+//        bool is_left = pVVB->isAutoRepeat(0, VV_VB_UI_LEFT);
 //        if (is_right || is_left) {
 //            if (is_right) {
 //                if (rezo_index_ >= rezo_num_-1) {
@@ -592,8 +592,8 @@ void MenuBoardScreenConfig::processBehavior() {
 //            }
 //        }
     } else if (selected_index == ITEM_PRIMARY_VIEW_FULL_SCREEN_RESOLUTION) {
-        bool is_right = pVVB->isAutoRepeat(0, VVB_UI_RIGHT);
-        bool is_left = pVVB->isAutoRepeat(0, VVB_UI_LEFT);
+        bool is_right = pVVB->isAutoRepeat(0, VV_VB_UI_RIGHT);
+        bool is_left = pVVB->isAutoRepeat(0, VV_VB_UI_LEFT);
         if (is_right || is_left) {
             if (is_right) {
                 if (rezo1_index_ >= rezo1_num_-1) {
@@ -617,8 +617,8 @@ void MenuBoardScreenConfig::processBehavior() {
             }
         }
     } else if (selected_index == ITEM_SECONDARY_VIEW_FULL_SCREEN_RESOLUTION) {
-        bool is_right = pVVB->isAutoRepeat(0, VVB_UI_RIGHT);
-        bool is_left = pVVB->isAutoRepeat(0, VVB_UI_LEFT);
+        bool is_right = pVVB->isAutoRepeat(0, VV_VB_UI_RIGHT);
+        bool is_left = pVVB->isAutoRepeat(0, VV_VB_UI_LEFT);
         if (rezo2_num_ > 0) {
             if (is_right || is_left) {
                 if (is_right) {

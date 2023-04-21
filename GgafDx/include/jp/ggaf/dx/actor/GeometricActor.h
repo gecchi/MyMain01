@@ -242,6 +242,9 @@ public:
      */
     virtual void processSettlementBehavior() override;
 
+    /**
+     * processJudgement() を実行後、当たり判定の為に八分木（四分木）に登録する .
+     */
     virtual void judge() override;
 
     /**
@@ -543,7 +546,7 @@ public:
     virtual void setRyFaceAng(angle prm_face);
 
     /**
-     * Z軸方角のアングル値を設定 .
+     * X軸方角のアングル値を設定 .
      * @param prm_face アングル値(-360,000～360,000)
      */
     virtual void setRxFaceAng(angle prm_face);

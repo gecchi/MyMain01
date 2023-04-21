@@ -22,6 +22,9 @@ public:
 
     virtual void processBehavior() override;
 
+    void dispDefaultFont();
+    void dispChangesFont();
+
     virtual ~LabelFix16Font01();
 
 };

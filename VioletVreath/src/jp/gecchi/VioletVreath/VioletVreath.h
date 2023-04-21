@@ -52,31 +52,31 @@
 #define ATTRIBUTE_PA          (0x4U)    //100
 
 //VirtualButton.h ‚Ì define ‚Ì•Ê–¼‚ð’è‹`
-#define VVB_SHOT1    VB_BUTTON1
-#define VVB_SHOT2    VB_BUTTON2
-#define VVB_OPTION   VB_BUTTON3
-#define VVB_VIEW     VB_BUTTON4
-#define VVB_TURBO    VB_BUTTON5
-#define VVB_POWERUP  VB_BUTTON6
+#define VV_VB_SHOT1    VB_BUTTON1
+#define VV_VB_SHOT2    VB_BUTTON2
+#define VV_VB_OPTION   VB_BUTTON3
+#define VV_VB_VIEW     VB_BUTTON4
+#define VV_VB_TURBO    VB_BUTTON5
+#define VV_VB_POWERUP  VB_BUTTON6
 
-#define VVB_PAUSE  VB_PAUSE
-#define VVB_UP     VB_UP
-#define VVB_DOWN   VB_DOWN
-#define VVB_LEFT   VB_LEFT
-#define VVB_RIGHT  VB_RIGHT
+#define VV_VB_PAUSE  VB_PAUSE
+#define VV_VB_UP     VB_UP
+#define VV_VB_DOWN   VB_DOWN
+#define VV_VB_LEFT   VB_LEFT
+#define VV_VB_RIGHT  VB_RIGHT
 
-#define VVB_VIEW_UP    VB_S1_UP
-#define VVB_VIEW_DOWN  VB_S1_DOWN
-#define VVB_VIEW_LEFT  VB_S1_LEFT
-#define VVB_VIEW_RIGHT VB_S1_RIGHT
+#define VV_VB_VIEW_UP    VB_S1_UP
+#define VV_VB_VIEW_DOWN  VB_S1_DOWN
+#define VV_VB_VIEW_LEFT  VB_S1_LEFT
+#define VV_VB_VIEW_RIGHT VB_S1_RIGHT
 
-#define VVB_UI_UP      VB_UI_UP
-#define VVB_UI_DOWN    VB_UI_DOWN
-#define VVB_UI_LEFT    VB_UI_LEFT
-#define VVB_UI_RIGHT   VB_UI_RIGHT
-#define VVB_UI_EXECUTE VB_UI_EXECUTE
-#define VVB_UI_CANCEL  VB_UI_CANCEL
-#define VVB_UI_DEBUG   VB_UI_DEBUG
+#define VV_VB_UI_UP      VB_UI_UP
+#define VV_VB_UI_DOWN    VB_UI_DOWN
+#define VV_VB_UI_LEFT    VB_UI_LEFT
+#define VV_VB_UI_RIGHT   VB_UI_RIGHT
+#define VV_VB_UI_EXECUTE VB_UI_EXECUTE
+#define VV_VB_UI_CANCEL  VB_UI_CANCEL
+#define VV_VB_UI_DEBUG   VB_UI_DEBUG
 
 
 //STAT_DEFAULT_ACTOR_KIND‚Í0

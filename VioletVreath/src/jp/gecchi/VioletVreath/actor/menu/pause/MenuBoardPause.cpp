@@ -70,16 +70,16 @@ void MenuBoardPause::onRise() {
     MenuBoard::onRise();
 }
 bool MenuBoardPause::condSelectNext() {
-    return VVB->isAutoRepeat(0, VVB_UI_DOWN);
+    return VVB->isAutoRepeat(0, VV_VB_UI_DOWN);
 }
 bool MenuBoardPause::condSelectPrev() {
-    return VVB->isAutoRepeat(0, VVB_UI_UP);
+    return VVB->isAutoRepeat(0, VV_VB_UI_UP);
 }
 bool MenuBoardPause::condSelectExNext() {
-    return VVB->isAutoRepeat(0, VVB_UI_RIGHT);
+    return VVB->isAutoRepeat(0, VV_VB_UI_RIGHT);
 }
 bool MenuBoardPause::condSelectExPrev() {
-    return VVB->isAutoRepeat(0, VVB_UI_LEFT);
+    return VVB->isAutoRepeat(0, VV_VB_UI_LEFT);
 }
 
 void MenuBoardPause::processBehavior() {

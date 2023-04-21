@@ -33,7 +33,6 @@ public:
      */
     BoardSetEffect(const char* prm_effect_name);
 
-
     virtual void setParamPerFrame() override {};
 
     /**

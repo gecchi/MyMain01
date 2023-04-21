@@ -438,7 +438,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     //    |                                |     /    ／ |vT|*0.9   並んだ際に仮自 が 的 を追い     |       ｜    |      |
     //    |                                |    /   ／              越さないようにするため          |       ｜    |      |
     //    |        設定される加速度の方向  |   /  ／                                                |       ｜    |      |
-    //    |   setAcceByVc(vVTx,vVTy,vVTz)  ^  / ┐ 現在の移動方向ベクトルNaviVehicle                 |       自    v      v
+    //    |   setAcceByVc(vVTx,vVTy,vVTz)  ^  / ┐ 現在の移動方向ベクトルNaviVehicle                |       自    v      v
     //    |※メソッド内でMAX_ACCE_RENGE    | /／ (_velo_vc_x,_velo_vc_x,_velo_vc_z)                 |
     //    |  範囲に調整される              自                                                    ---+---------------------------
     //    |                      座標(_x,_y,_z)=ベクトルの基点(0,0,0)                               |

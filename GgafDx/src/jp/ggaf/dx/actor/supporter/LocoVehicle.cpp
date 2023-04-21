@@ -407,16 +407,16 @@ void LocoVehicle::setFaceAngVelo(axis prm_axis, angvelo prm_angvelo) {
 }
 
 void LocoVehicle::setRollPitchYawFaceAngVelo(angvelo prm_axis_x_angvelo,
-                                         angvelo prm_axis_z_angvelo,
-                                         angvelo prm_axis_y_angvelo) {
+                                             angvelo prm_axis_z_angvelo,
+                                             angvelo prm_axis_y_angvelo) {
     setFaceAngVelo(AXIS_X, prm_axis_x_angvelo);
     setFaceAngVelo(AXIS_Z, prm_axis_z_angvelo);
     setFaceAngVelo(AXIS_Y, prm_axis_y_angvelo);
 }
 
 void LocoVehicle::forceFaceAngVeloRange(axis prm_axis,
-                                    angvelo prm_angvelo01,
-                                    angvelo prm_angvelo02) {
+                                        angvelo prm_angvelo01,
+                                        angvelo prm_angvelo02) {
     if (prm_angvelo01 < prm_angvelo02) {
         _top_angvelo_face[prm_axis] = prm_angvelo02;
         _bottom_angvelo_face[prm_axis] = prm_angvelo01;
@@ -432,10 +432,10 @@ void LocoVehicle::setFaceAngAcce(axis prm_axis, angacce prm_angacce) {
 }
 
 void LocoVehicle::setStopTargetFaceAngTwd(axis prm_axis,
-                                      coord prm_tx,
-                                      coord prm_ty,
-                                      int prm_allow_way,
-                                      angvelo prm_allow_angvelo) {
+                                          coord prm_tx,
+                                          coord prm_ty,
+                                          int prm_allow_way,
+                                          angvelo prm_allow_angvelo) {
     setStopTargetFaceAng(
       prm_axis,
       UTIL::getAngle2D(prm_tx - (_pActor->_x), prm_ty - (_pActor->_y)),
@@ -445,9 +445,9 @@ void LocoVehicle::setStopTargetFaceAngTwd(axis prm_axis,
 }
 
 void LocoVehicle::setStopTargetFaceAng(axis prm_axis,
-                                   angle prm_target,
-                                   int prm_allow_way,
-                                   angvelo prm_allow_angvelo) {
+                                       angle prm_target,
+                                       int prm_allow_way,
+                                       angvelo prm_allow_angvelo) {
     _is_targeting_face[prm_axis] = true;
     _face_targeting_stop_flg[prm_axis] = true;
     _target_face[prm_axis] = UTIL::simplifyAng(prm_target);

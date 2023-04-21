@@ -58,11 +58,11 @@ void MenuBoardConfig::onActive() {
 }
 
 bool MenuBoardConfig::condSelectNext() {
-    return VVB->isAutoRepeat(0, VVB_UI_DOWN);
+    return VVB->isAutoRepeat(0, VV_VB_UI_DOWN);
 }
 
 bool MenuBoardConfig::condSelectPrev() {
-    return VVB->isAutoRepeat(0, VVB_UI_UP);
+    return VVB->isAutoRepeat(0, VV_VB_UI_UP);
 }
 
 void MenuBoardConfig::onRise() {

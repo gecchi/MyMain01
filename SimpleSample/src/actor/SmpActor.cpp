@@ -14,14 +14,12 @@ SmpActor::SmpActor(const char* prm_name) :
 void SmpActor::initialize() {
     //座標設定
     setPosition(0, 0, 0);
-    //移動車両にキャラのZ軸回転の角速度を設定(毎フレーム2度)
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setFaceAngVelo(AXIS_Z, D_ANG(2));
 }
 
 void SmpActor::processBehavior() {
     //キャラをボタン入力で移動
     static GgafLib::VirtualButton* pVb = ((SmpSpacetime*)pCARETAKER->getSpacetime())->getVB();
+    //移動量(初期カメラ位置で2ピクセル分)
     static const coord d = PX_C(2);
     if (pVb->isPressed(0, VB_BUTTON1)) {
         //ボタン１（スペースキー）を押しながらの場合
@@ -46,7 +44,8 @@ void SmpActor::processBehavior() {
             _y -= d; //下移動
         }
     }
-    getLocoVehicle()->behave(); //移動車両を活動させる（Z軸回転する）
+    //回転アニメーションする(Z軸回転角度に1度加算する)
+    addRzFaceAng(D_ANG(1));
 }
 
 SmpActor::~SmpActor() {

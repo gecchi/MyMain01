@@ -77,10 +77,10 @@ MenuBoardSoundConfig::MenuBoardSoundConfig(const char* prm_name) :
 
 }
 bool MenuBoardSoundConfig::condSelectNext() {
-    return VVB->isAutoRepeat(0, VVB_UI_DOWN);
+    return VVB->isAutoRepeat(0, VV_VB_UI_DOWN);
 }
 bool MenuBoardSoundConfig::condSelectPrev() {
-    return VVB->isAutoRepeat(0, VVB_UI_UP);
+    return VVB->isAutoRepeat(0, VV_VB_UI_UP);
 }
 void MenuBoardSoundConfig::onRise() {
     selectItem(ITEM_SE_VOL); //カーソルの初期選択アイテムを設定
@@ -120,21 +120,21 @@ void MenuBoardSoundConfig::processBehavior() {
     VirtualButton* pVVB = VVB;
     int index = getSelectedIndex();
     if (index == ITEM_SE_VOL) {
-        if (pVVB->isAutoRepeat(0, VVB_UI_RIGHT)) {
+        if (pVVB->isAutoRepeat(0, VV_VB_UI_RIGHT)) {
             GgafDx::Sound::addSeMasterVolume(+10);
-        } else if (pVVB->isAutoRepeat(0, VVB_UI_LEFT)) {
+        } else if (pVVB->isAutoRepeat(0, VV_VB_UI_LEFT)) {
             GgafDx::Sound::addSeMasterVolume(-10);
         }
     } else if (index == ITEM_BGM_VOL) {
-        if (pVVB->isAutoRepeat(0, VVB_UI_RIGHT)) {
+        if (pVVB->isAutoRepeat(0, VV_VB_UI_RIGHT)) {
             GgafDx::Sound::addBgmMasterVolume(+10);
-        } else if (pVVB->isAutoRepeat(0, VVB_UI_LEFT)) {
+        } else if (pVVB->isAutoRepeat(0, VV_VB_UI_LEFT)) {
             GgafDx::Sound::addBgmMasterVolume(-10);
         }
     } else if (index == ITEM_MASTER_VOL) {
-        if (pVVB->isAutoRepeat(0, VVB_UI_RIGHT)) {
+        if (pVVB->isAutoRepeat(0, VV_VB_UI_RIGHT)) {
             GgafDx::Sound::addAppMasterVolume(+10);
-        } else if (pVVB->isAutoRepeat(0, VVB_UI_LEFT)) {
+        } else if (pVVB->isAutoRepeat(0, VV_VB_UI_LEFT)) {
             GgafDx::Sound::addAppMasterVolume(-10);
         }
     }

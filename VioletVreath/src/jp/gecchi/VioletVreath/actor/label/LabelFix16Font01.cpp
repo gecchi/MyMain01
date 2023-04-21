@@ -17,10 +17,19 @@ void LabelFix16Font01::onCreateModel() {
 }
 
 void LabelFix16Font01::initialize() {
+    addModel("Ranking_16Font");
 }
 
 void LabelFix16Font01::processBehavior() {
     getAlphaFader()->behave();
+}
+
+void LabelFix16Font01::dispDefaultFont() {
+    changeModelByIndex(0);
+}
+
+void LabelFix16Font01::dispChangesFont() {
+    changeModelByIndex(1);
 }
 
 LabelFix16Font01::~LabelFix16Font01() {

@@ -33,10 +33,10 @@ MenuBoardResolutionSelect::MenuBoardResolutionSelect(const char* prm_name) :
     setTransition(10, -PX_C(100), PX_C(0)); //-100px左から右へスライド
 }
 bool MenuBoardResolutionSelect::condSelectNext() {
-    return VVB->isAutoRepeat(0, VVB_UI_RIGHT);
+    return VVB->isAutoRepeat(0, VV_VB_UI_RIGHT);
 }
 bool MenuBoardResolutionSelect::condSelectPrev() {
-    return VVB->isAutoRepeat(0, VVB_UI_LEFT);
+    return VVB->isAutoRepeat(0, VV_VB_UI_LEFT);
 }
 bool MenuBoardResolutionSelect::condSelectExNext() {
     return false;

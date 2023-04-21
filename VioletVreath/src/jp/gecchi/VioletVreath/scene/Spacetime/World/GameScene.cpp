@@ -62,8 +62,8 @@ void GameScene::initialize() {
 }
 
 void GameScene::onReset() {
-    VVB_UI->clear();
-    pCARETAKER->setVB(VVB_UI);
+    VV_VB_UI->clear();
+    pCARETAKER->setVB(VV_VB_UI);
     DefaultScene* pChildScene;
     ScenePhase* pPhase = getPhase();
     for (PhaseSceneMap::const_iterator it = pPhase->_mapPhase2Scene.begin(); it != pPhase->_mapPhase2Scene.end(); ++it) {
@@ -88,7 +88,7 @@ void GameScene::processBehavior() {
     Spacetime* pSpacetime = pCARETAKER->getSpacetime();
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
-    if (VVB->isPushedDown(0, VVB_UI_DEBUG) || GgafDx::Input::isPushedDownKey(DIK_Q)) {
+    if (VVB->isPushedDown(0, VV_VB_UI_DEBUG) || GgafDx::Input::isPushedDownKey(DIK_Q)) {
         if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
             pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
         } else {
@@ -100,8 +100,8 @@ void GameScene::processBehavior() {
     switch (pPhase->getPrevWhenChanged()) {
         case PHASE_MAIN: {
             _TRACE_(FUNC_NAME<<" Phase has Just Changed 'From' PHASE_MAIN");
-            VVB_UI->clear();
-            pCARETAKER->setVB(VVB_UI);  //元に戻す
+            VV_VB_UI->clear();
+            pCARETAKER->setVB(VV_VB_UI);  //元に戻す
             break;
         }
 
@@ -129,8 +129,8 @@ void GameScene::processBehavior() {
                 _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_PRE_TITLE)");
                 getBgmConductor()->performFromTheBegining(BGM_DEMO);
             }
-            //VVB_UI_EXECUTE で、スキップしてTITLEへ
-            if (VVB->isPushedDown(0, VVB_UI_EXECUTE)) { //skip
+            //VV_VB_UI_EXECUTE で、スキップしてTITLEへ
+            if (VVB->isPushedDown(0, VV_VB_UI_EXECUTE)) { //skip
                 pPhase->changeWithSceneFlipping(PHASE_TITLE);
             }
             //EVENT_PREGAMETITLESCENE_FINISH イベント受付
@@ -151,8 +151,8 @@ void GameScene::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_DEMO)");
             }
-            //VVB_UI_EXECUTE で、スキップしてTITLEへ
-            if (VVB->isPushedDown(0, VVB_UI_EXECUTE)) {
+            //VV_VB_UI_EXECUTE で、スキップしてTITLEへ
+            if (VVB->isPushedDown(0, VV_VB_UI_EXECUTE)) {
                 pPhase->changeWithSceneFlipping(PHASE_TITLE);
             }
 
@@ -174,8 +174,8 @@ void GameScene::processBehavior() {
             //##########  ゲームメイン  ##########
             if (pPhase->hasJustChanged()) {
                 _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_MAIN)");
-                VVB_PLAY->clear();
-                pCARETAKER->setVB(VVB_PLAY); //プレイ用に変更
+                VV_VB_PLAY->clear();
+                pCARETAKER->setVB(VV_VB_PLAY); //プレイ用に変更
             }
 
             //今ポーズではない時
@@ -189,13 +189,13 @@ void GameScene::processBehavior() {
                 //通常進行時処理はココ
                 //
 #ifdef MY_DEBUG
-                if (VVB->isPushedDown(0, VVB_PAUSE) || GgafDx::Input::isPushedDownKey(DIK_ESCAPE) || is_frame_advance_) {
+                if (VVB->isPushedDown(0, VV_VB_PAUSE) || GgafDx::Input::isPushedDownKey(DIK_ESCAPE) || is_frame_advance_) {
                     //ポーズではないときに、ポーズキーを押して離した場合の処理
                     //ポーズ発生時直後の初期処理はココへ
                     pauseGame();
                 }
 #else
-                if (VVB->isPushedDown(0, VVB_PAUSE) || is_frame_advance_) {
+                if (VVB->isPushedDown(0, VV_VB_PAUSE) || is_frame_advance_) {
                     //ポーズではないときに、ポーズキーを押して離した場合の処理
                     //ポーズ発生時直後の初期処理はココへ
                     pauseGame();
@@ -220,7 +220,7 @@ void GameScene::processBehavior() {
                     //ポーズ時に、ポーズキーを押して離した場合の処理
                     //ポーズ解除時直後の初期処理はココへ
                     _TRACE_("UNPAUSE!");
-                    pCARETAKER->setVB(VVB_PLAY);
+                    pCARETAKER->setVB(VV_VB_PLAY);
                     pPhase->getGazedScene()->unpause();//ポーズ解除！！
                 }
             }
@@ -335,7 +335,7 @@ void GameScene::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
     } else if (prm_event_val == EVENT_GO_TO_TITLE) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GO_TO_TITLE)");
         _TRACE_("UNPAUSE!(because EVENT_GO_TO_TITLE)");
-        pCARETAKER->setVB(VVB_PLAY);
+        pCARETAKER->setVB(VV_VB_PLAY);
         pPhase->getGazedScene()->unpause();//ポーズ解除！！
         pPhase->change(PHASE_FINISH);
     }
@@ -348,7 +348,7 @@ void GameScene::processJudgement() {
 void GameScene::pauseGame() {
     is_frame_advance_ = false;
     _TRACE_("PAUSE!");
-    pCARETAKER->setVB(VVB_UI);  //入力はＵＩに切り替え
+    pCARETAKER->setVB(VV_VB_UI);  //入力はＵＩに切り替え
     getPhase()->getGazedScene()->pause(); //ポーズ！！
     pMenuBoardPause_->rise(PX_C(100), PX_C(20));
 }

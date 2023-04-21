@@ -73,7 +73,7 @@ void FontBoardActor::createVertexInstanceData(void* prm, GgafDx::MassModel::Vert
 
 void FontBoardActor::processDraw() {
     int draw_set_num = 0; //MassBoardActorの同じモデルで同じテクニックが
-                       //連続しているカウント数。同一描画深度は一度に描画する。
+                          //連続しているカウント数。同一描画深度は一度に描画する。
     VERTEX_instancedata* paInstancedata = FontBoardActor::_aInstancedata;
     GgafDx::FigureActor* pDrawActor = this;
     FontBoardActor* pFontBoardActor = nullptr;

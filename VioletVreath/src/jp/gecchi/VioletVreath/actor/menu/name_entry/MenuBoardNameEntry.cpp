@@ -78,11 +78,11 @@ void MenuBoardNameEntry::setNameFontBoard(FontSpriteActor* prm_pInputedName,
 }
 
 bool MenuBoardNameEntry::condDecision() {
-    if (VVB->isPushedDown(0, VVB_UI_EXECUTE)) {
+    if (VVB->isPushedDown(0, VV_VB_UI_EXECUTE)) {
         return true;
     } else if (pMousePointer_ && pMousePointer_->isReleasedUpButton(0)) {
         return true;
-    } else if (VVB->isPushedDown(0, VVB_UI_CANCEL) &&
+    } else if (VVB->isPushedDown(0, VV_VB_UI_CANCEL) &&
                getSelectedIndex() == ITEM_INDEX_BS_) {
         //特別に[BS]でキャンセルボタン押した場合は。[BS]を「決定（振る舞い）」したことにする
         getSeTransmitter()->play(SE_CANCEL);
@@ -93,8 +93,8 @@ bool MenuBoardNameEntry::condDecision() {
 }
 
 bool MenuBoardNameEntry::condCancel() {
-    if (VVB->isPushedDown(0, VVB_UI_CANCEL)) {
-        //「メニューアイテム：任意」で、VVB_UI_CANCEL ボタンの場合は
+    if (VVB->isPushedDown(0, VV_VB_UI_CANCEL)) {
+        //「メニューアイテム：任意」で、VV_VB_UI_CANCEL ボタンの場合は
         //そのアイテムを「キャンセル」した事とする。(当たり前だが)
         getSeTransmitter()->play(SE_CANCEL);
         return true;
@@ -107,25 +107,25 @@ bool MenuBoardNameEntry::condSelectNext() {
     if (getSelectedIndex() == ITEM_INDEX_BS_) {  //BSから先へ進めなくする
         return false;
     } else {
-        return VVB->isAutoRepeat(0, VVB_UI_RIGHT);
+        return VVB->isAutoRepeat(0, VV_VB_UI_RIGHT);
     }
 }
 bool MenuBoardNameEntry::condSelectPrev() {
     if (getSelectedIndex() == 0) { //先頭文字からさらに戻れなくする
         return false;
     } else {
-        return VVB->isAutoRepeat(0, VVB_UI_LEFT);
+        return VVB->isAutoRepeat(0, VV_VB_UI_LEFT);
     }
 }
 bool MenuBoardNameEntry::condSelectExNext() {
     if (getSelectedIndex() == ITEM_INDEX_OK_) { //OKから下へは進めなくする
         return false;
     } else {
-        return VVB->isAutoRepeat(0, VVB_UI_DOWN);
+        return VVB->isAutoRepeat(0, VV_VB_UI_DOWN);
     }
 }
 bool MenuBoardNameEntry::condSelectExPrev() {
-    return VVB->isAutoRepeat(0, VVB_UI_UP);
+    return VVB->isAutoRepeat(0, VV_VB_UI_UP);
 }
 
 void MenuBoardNameEntry::selectNext(bool prm_smooth) { //右の時

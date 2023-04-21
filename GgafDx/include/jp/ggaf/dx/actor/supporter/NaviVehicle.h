@@ -118,9 +118,10 @@ public:
      * XYZ軸ベクトル成分で、移動加速度を設定する .
      * 移動加速度下限～ 移動加速度上限 の範囲外を設定した場合、
      * 方向はそのままで、直近の範囲内に納められて設定される。
-     * @param prm_acce_vc_x
-     * @param prm_acce_vc_y
-     * @param prm_acce_vc_z
+     * したがって、自身から目標物への方向ベクトルを渡すと、うまい具合にホーミング軌道になります。
+     * @param prm_acce_vc_x 移動加速度方向ベクトルX軸成分
+     * @param prm_acce_vc_y 移動加速度方向ベクトルY軸成分
+     * @param prm_acce_vc_z 移動加速度方向ベクトルZ軸成分
      */
     void setAcceByVc(acce prm_acce_vc_x, acce prm_acce_vc_y, acce prm_acce_vc_z);
 

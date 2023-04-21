@@ -41,7 +41,6 @@ BoardEffect::BoardEffect(const char* prm_effect_name) : Effect(prm_effect_name) 
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
 }
 
-
 BoardEffect::~BoardEffect() {
 }
 
