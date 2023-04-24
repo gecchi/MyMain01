@@ -96,15 +96,15 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
     _w_r =  1.0 * CONFIG::GAME_BUFFER_WIDTH / CONFIG::RENDER_TARGET_BUFFER_WIDTH;
     _h_r =  1.0 * CONFIG::GAME_BUFFER_HEIGHT / CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
 
-    _primary_buffer_source_left = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_LEFT*_w_r;
-    _primary_buffer_source_top = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_TOP*_h_r;
-    _primary_buffer_source_width = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
-    _primary_buffer_source_height = CONFIG::PRIMARY_VIEW_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
+    _primary_buffer_source_left = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT*_w_r;
+    _primary_buffer_source_top = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_TOP*_h_r;
+    _primary_buffer_source_width = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
+    _primary_buffer_source_height = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
 
-    _secondary_buffer_source_left = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_LEFT*_w_r;
-    _secondary_buffer_source_top = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_TOP*_h_r;
-    _secondary_buffer_source_width = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
-    _secondary_buffer_source_height = CONFIG::SECONDARY_VIEW_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
+    _secondary_buffer_source_left = CONFIG::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT*_w_r;
+    _secondary_buffer_source_top = CONFIG::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_TOP*_h_r;
+    _secondary_buffer_source_width = CONFIG::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH*_w_r;
+    _secondary_buffer_source_height = CONFIG::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT*_h_r;
 
 //TODO:ƒtƒHƒO‚¢‚Â‚©
 //    _colFog.r = 0.0;

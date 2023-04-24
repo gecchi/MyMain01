@@ -18,9 +18,9 @@ using namespace Mogera;
 MgrSpacetime::MgrSpacetime(const char* prm_name, MgrCamera* prm_pCam) :
         GgafLib::DefaultSpacetime(prm_name, prm_pCam) {
     pWorld_ = nullptr;
-    UTIL::left_top_x_ = CONFIG::DUAL_VIEW ? PX_C(pCARETAKER->_aRect_HarfRenderBufferSource[PRIMARY_VIEW].left) :
+    UTIL::left_top_x_ = CONFIG::DUAL_SCREEN ? PX_C(pCARETAKER->_aRect_HarfRenderBufferSource[PRIMARY_SCREEN].left) :
                                             PX_C(pCARETAKER->_rectRenderBufferSource.left);
-    UTIL::left_top_y_ = CONFIG::DUAL_VIEW ? PX_C(pCARETAKER->_aRect_HarfRenderBufferSource[PRIMARY_VIEW].top) :
+    UTIL::left_top_y_ = CONFIG::DUAL_SCREEN ? PX_C(pCARETAKER->_aRect_HarfRenderBufferSource[PRIMARY_SCREEN].top) :
                                             PX_C(pCARETAKER->_rectRenderBufferSource.top);
     UTIL::center_x_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_WIDTH / 2);
     UTIL::center_y_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_HEIGHT / 2);
@@ -49,12 +49,12 @@ void MgrSpacetime::processBehavior() {
     pVb_->update(); //“ü—Íó‹µXV
 
 //    bool b1 = pVb_->isPressed(0, VB_UP);
-//    bool b2 = pVb_->wasPressedAtLeastOnce(VB_UP, 10);
-//    bool b3 = pVb_->wasPressedAtLeastOnce(VB_UP, 3);
+//    bool b2 = pVb_->wasPressedAtLeastOnce(0, VB_UP, 10);
+//    bool b3 = pVb_->wasPressedAtLeastOnce(0, VB_UP, 3);
 //    _TRACE_(getBehaveingFrame() <<":"<<b1<<":"<<b2<<":"<<b3);
-    bool b1 = pVb_->arePushedDownAtOnce(VB_LEFT, VB_UP, VB_RIGHT, 1);
-//    bool b2 = pVb_->arePushedDownAtOnce(VB_LEFT, VB_UP, VB_RIGHT, 10);
-//    bool b3 = pVb_->arePushedDownAtOnce(VB_LEFT, VB_UP, VB_RIGHT, 60);
+    bool b1 = pVb_->arePushedDownAtOnce(0, VB_LEFT, VB_UP, VB_RIGHT, 1);
+//    bool b2 = pVb_->arePushedDownAtOnce(0, VB_LEFT, VB_UP, VB_RIGHT, 10);
+//    bool b3 = pVb_->arePushedDownAtOnce(0, VB_LEFT, VB_UP, VB_RIGHT, 60);
 //    _TRACE_(getBehaveingFrame() <<":"<<b1<<":"<<b2<<":"<<b3);
     if (b1) {
         _TRACE_(getBehaveingFrame() <<":"<<b1);

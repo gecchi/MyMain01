@@ -30,8 +30,8 @@
 #define connectToEffectManager(X) ((GgafDx::EffectConnection*)(pCARETAKER)->_pEffectManager->connect((X), this))
 
 
-#define PRIMARY_VIEW 0
-#define SECONDARY_VIEW 1
+#define PRIMARY_SCREEN 0
+#define SECONDARY_SCREEN 1
 
 #undef pCARETAKER
 #define pCARETAKER ((GgafDx::Caretaker*)GgafCore::Caretaker::ask())
@@ -218,9 +218,9 @@ public:
     /** [r] Present領域(フルスクリーン時、またはウィンドウ＆アスペクトFIXの場合)、[0]:１画面目、[1]:２画面目 (ピクセル) */
     RECT _aRect_Present[2];
     /** [r] １画面目アダプタ番号、 _aRect_HarfRenderBufferSource[] の序数 0 ～ */
-    int _primary_game_view_display_no;
+    int _primary_screen_display_no;
     /** [r] ２画面目アダプタ番号、 _aRect_HarfRenderBufferSource[] の序数 0 ～ */
-    int _secondary_game_view_display_no;
+    int _secondary_screen_display_no;
 
 public:
     CurveSourceManager* _pCurveSrcManager;

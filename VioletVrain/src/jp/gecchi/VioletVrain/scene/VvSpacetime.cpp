@@ -12,9 +12,9 @@ using namespace VioletVrain;
 VvSpacetime::VvSpacetime(const char* prm_name, VvCamera* prm_pCam) :
         GgafLib::DefaultSpacetime(prm_name, prm_pCam) {
     pWorld_ = nullptr;
-    UTIL::left_top_x_ = CONFIG::DUAL_VIEW ? PX_C(pCARETAKER->_aRect_HarfRenderBufferSource[PRIMARY_VIEW].left) :
+    UTIL::left_top_x_ = CONFIG::DUAL_SCREEN ? PX_C(pCARETAKER->_aRect_HarfRenderBufferSource[PRIMARY_SCREEN].left) :
                                               PX_C(pCARETAKER->_rectRenderBufferSource.left);
-    UTIL::left_top_y_ = CONFIG::DUAL_VIEW ? PX_C(pCARETAKER->_aRect_HarfRenderBufferSource[PRIMARY_VIEW].top) :
+    UTIL::left_top_y_ = CONFIG::DUAL_SCREEN ? PX_C(pCARETAKER->_aRect_HarfRenderBufferSource[PRIMARY_SCREEN].top) :
                                                       PX_C(pCARETAKER->_rectRenderBufferSource.top);
     UTIL::center_x_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_WIDTH / 2);
     UTIL::center_y_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_HEIGHT / 2);
