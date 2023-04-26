@@ -5,6 +5,7 @@
 #include "jp/ggaf/core/Caretaker.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
+#include <map>
 
 
 /**
@@ -29,9 +30,6 @@
 
 #define connectToEffectManager(X) ((GgafDx::EffectConnection*)(pCARETAKER)->_pEffectManager->connect((X), this))
 
-
-#define PRIMARY_SCREEN 0
-#define SECONDARY_SCREEN 1
 
 #undef pCARETAKER
 #define pCARETAKER ((GgafDx::Caretaker*)GgafCore::Caretaker::ask())
@@ -62,7 +60,7 @@ private:
     /** フルスクリーン時、DirectXのバックバッファ、添字はディスプレイアダプタ番号  */
     IDirect3DSurface9** _papBackBuffer;
 
-    /** デバイス作成時パラメーター配列、添字はディスプレイアダブタ番号 */
+    /** デバイス作成時パラメーター配列、添字はディスプレイアダブタ番号(但し、最低 MAX_SCREENS あり) */
     D3DPRESENT_PARAMETERS* _paPresetPrm;
     /** 今回採用されているデバイス配列、添字はディスプレイアダブタ番号（WDDM使用時のみ必要） */
     D3DDISPLAYMODEEX* _paDisplayMode;
@@ -100,8 +98,8 @@ private:
      * ウィンドウモード時、ウィンドウサイズに応じた描画範囲を再設定する。
      * @param prm_pHWnd
      */
-    void adjustGameWindow(HWND prm_pHWnd);
-
+//    void adjustGameWindow(HWND prm_pHWnd);
+    void adjustGameWindow();
     /**
      * 表示位置番号に対応する矩形座標範囲(ピクセル)を取得する。
      * @param prm_pos 表示位置番号
@@ -146,6 +144,10 @@ public:
 
     /** 使用可能なデバイスのアダプタ数 */
     int _num_adapter;
+
+    /** D3DPRESENT_PARAMETERS数。最低 MAX_SCREENS。MAX_SCREENSよりアダプタ数が大きい場合はアダプタ数 */
+    int _num_PresetPrm;
+
     /** 使用可能なデバイスのアダプタの情報セット */
     Adapter* _paAvailableAdapter;
     ///////////////////////////////////////////////////////////
@@ -185,8 +187,20 @@ public:
     HWND _pHWndPrimary;
     /** [r] 2画面目のウィンドウハンドル  */
     HWND _pHWndSecondary;
-    /** [r] ウィンドウハンドル  */
+    /** [r] ウィンドウハンドルの配列、要素の添字は D3DPRESENT_PARAMETERS要素番号(アダプタ番号含む) */
     HWND* _paHWnd;
+//    /** [r] 0,1,2 => Primary, Secondary, tertiary のディスプレイ番号 */
+//    std::map<int, int> _mapIndexToDisplayNo;
+    /** [r] アダプタ番号 => スクリーンプライオリティ。0:PRIMARY_SCREEN/1:SECONDARY_SCREEN/2:TERTIARY */
+    std::map<int, int> _mapAdpToPry;
+    /** [r] D3DPRESENT_PARAMETERS要素番号(アダプタ番号含む） => スクリーンプライオリティ。0:PRIMARY_SCREEN/1:SECONDARY_SCREEN/2:TERTIARY */
+    std::map<int, int> _mapPreAdpToPry;
+
+    /** [r] HWND => スクリーンプライオリティ。0:PRIMARY_SCREEN/1:SECONDARY_SCREEN/2:TERTIARY */
+    std::map<HWND, int> _mapHwndToPry;
+    /** [r] HWND => アダプタ番号 */
+    std::map<HWND, int> _mapHwndToDisplayNo;
+
     /** [r] 本アプリケーションのインスタンスハンドル */
     HINSTANCE _hInstance;
     /** [r] デバッグモード時、ワイヤーフレーム表示 */
@@ -210,16 +224,16 @@ public:
     /** [r] ゲームバッファ領域(ピクセル的な系) */
     RECT _rectGameBuffer;
     /** [r] フルスクリーン時、レンダリングターゲットテクスチャからのコピー元領域(ピクセル) */
-    RECT _rectRenderBufferSource;
+//    RECT _aRectRenderBufferSource[PRIMARY_SCREEN];
     /** [r] フルスクリーン時、レンダリングターゲットテクスチャからのコピー元領域の、[0]:左半分領域、[1]:右半分領域 (ピクセル) */
-    RECT _aRect_HarfRenderBufferSource[2];
+    RECT _aRectRenderBufferSource[MAX_SCREENS];
     /** [r] 最終表示フロントバッファフレームの領域、[0]:１画面目、[1]:２画面目 (ピクセル) */
-    RECT _aRect_FullScreen[2];
+    RECT _aRect_FullScreen[MAX_SCREENS];
     /** [r] Present領域(フルスクリーン時、またはウィンドウ＆アスペクトFIXの場合)、[0]:１画面目、[1]:２画面目 (ピクセル) */
-    RECT _aRect_Present[2];
-    /** [r] １画面目アダプタ番号、 _aRect_HarfRenderBufferSource[] の序数 0 ～ */
+    RECT _aRect_Present[MAX_SCREENS];
+    /** [r] １画面目アダプタ番号、 _aRectRenderBufferSource[] の序数 0 ～ */
     int _primary_screen_display_no;
-    /** [r] ２画面目アダプタ番号、 _aRect_HarfRenderBufferSource[] の序数 0 ～ */
+    /** [r] ２画面目アダプタ番号、 _aRectRenderBufferSource[] の序数 0 ～ */
     int _secondary_screen_display_no;
 
 public:
@@ -338,10 +352,13 @@ public:
     void resetDotByDotWindowsize(int d);
     void resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_height);
 
-    void chengeViewPos1(int pos);
-    void chengeViewPos2(int pos);
-    void chengeViewPos(HWND prm_pHWnd, int pos);
-    void chengeViewAspect(bool prm_b);
+    void chengePrimaryScreenPresentPos(int pos);
+    void chengeSecondaryScreenPresentPos(int pos);
+    void chengeScreenPresentPos(HWND prm_pHWnd, int pos);
+
+    void chengeViewAspect1(bool prm_b);
+    void chengeViewAspect2(bool prm_b);
+    void chengeViewAspect(HWND prm_pHWnd, bool prm_b);
 
     /**
      * ウィンドウを縁無しの最大化にする（ボーダーレス・フルスクリーン・ウィンドウ） .

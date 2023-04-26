@@ -359,7 +359,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 pCaretaker->resetDotByDotWindowsize(3);
             } else if(wParam == MY_IDM_SAVE) {
                 if (!CONFIG::FULL_SCREEN) {
-                    if (CONFIG::DUAL_SCREEN) {
+                    if (CONFIG::NUMBER_OF_SCREENS_USED > 1) {
                         RECT cRect1, cRect2;
                         GetClientRect(hWnd1, &cRect1);
                         GetClientRect(hWnd2, &cRect2);
@@ -391,7 +391,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
                         CONFIG::_properties.setValue("PRIMARY_SCREEN_PRESENT_POSITION", CONFIG::PRIMARY_SCREEN_PRESENT_POSITION);
                     }
-                    CONFIG::_properties.setValue("FIXED_SCREEN_ASPECT", CONFIG::FIXED_SCREEN_ASPECT);
+                    CONFIG::_properties.setValue("PRIMARY_SCREEN_ASPECT_RATIO_FIXED", CONFIG::PRIMARY_SCREEN_ASPECT_RATIO_FIXED);
 
                     CONFIG::_properties.write(CONFIG::_load_properties_filename); //プロパティ保存
                     CONFIG::loadProperties(CONFIG::_load_properties_filename); //プロパティ再反映
@@ -404,27 +404,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                     PostQuitMessage(0);
                 }
             } else if(wParam == MY_IDM_VPOS_1) {
-                pCaretaker->chengeViewPos(hWnd, 1);
+                pCaretaker->chengeScreenPresentPos(hWnd, 1);
             } else if(wParam == MY_IDM_VPOS_2) {
-                pCaretaker->chengeViewPos(hWnd, 2);
+                pCaretaker->chengeScreenPresentPos(hWnd, 2);
             } else if(wParam == MY_IDM_VPOS_3) {
-                pCaretaker->chengeViewPos(hWnd, 3);
+                pCaretaker->chengeScreenPresentPos(hWnd, 3);
             } else if(wParam == MY_IDM_VPOS_4) {
-                pCaretaker->chengeViewPos(hWnd, 4);
+                pCaretaker->chengeScreenPresentPos(hWnd, 4);
             } else if(wParam == MY_IDM_VPOS_5) {
-                pCaretaker->chengeViewPos(hWnd, 5);
+                pCaretaker->chengeScreenPresentPos(hWnd, 5);
             } else if(wParam == MY_IDM_VPOS_6) {
-                pCaretaker->chengeViewPos(hWnd, 6);
+                pCaretaker->chengeScreenPresentPos(hWnd, 6);
             } else if(wParam == MY_IDM_VPOS_7) {
-                pCaretaker->chengeViewPos(hWnd, 7);
+                pCaretaker->chengeScreenPresentPos(hWnd, 7);
             } else if(wParam == MY_IDM_VPOS_8) {
-                pCaretaker->chengeViewPos(hWnd, 8);
+                pCaretaker->chengeScreenPresentPos(hWnd, 8);
             } else if(wParam == MY_IDM_VPOS_9) {
-                pCaretaker->chengeViewPos(hWnd, 9);
+                pCaretaker->chengeScreenPresentPos(hWnd, 9);
             } else if(wParam == MY_IDM_ASPECT_FIXED) {
-                pCaretaker->chengeViewAspect(true);
+                pCaretaker->chengeViewAspect(hWnd, true);
             } else if(wParam == MY_IDM_ASPECT_STRETCH) {
-                pCaretaker->chengeViewAspect(false);
+                pCaretaker->chengeViewAspect(hWnd, false);
             }
             break;
         }

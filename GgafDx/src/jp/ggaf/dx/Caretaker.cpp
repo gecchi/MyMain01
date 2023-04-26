@@ -44,11 +44,11 @@ Caretaker::Caretaker() : GgafCore::Caretaker() {
         _primary_screen_display_no = 0;
         _secondary_screen_display_no = 1;
     }
-    if (CONFIG::SWAP_SCREEN && CONFIG::DUAL_SCREEN) {
-        int wk = _primary_screen_display_no;
-        _primary_screen_display_no = _secondary_screen_display_no;
-        _secondary_screen_display_no = wk;
-    }
+//    if (CONFIG::SWAP_SCREEN && CONFIG::DUAL_SCREEN) {
+//        int wk = _primary_screen_display_no;
+//        _primary_screen_display_no = _secondary_screen_display_no;
+//        _secondary_screen_display_no = wk;
+//    }
 
     _hInstance = GetModuleHandle(0);
     _vs_v = 0;
@@ -61,6 +61,7 @@ Caretaker::Caretaker() : GgafCore::Caretaker() {
     _pRenderTextureSurface = nullptr;
     _pRenderTextureZ = nullptr;
     _num_adapter = 1;
+    _num_PresetPrm = _num_adapter > MAX_SCREENS ? _num_adapter : MAX_SCREENS;
     _paAvailableAdapter = nullptr;
     _paAdapterRezos = nullptr;
 
@@ -97,22 +98,19 @@ Caretaker::Caretaker() : GgafCore::Caretaker() {
 }
 void Caretaker::resetDotByDotWindowsize(int d) {
     if (!CONFIG::FULL_SCREEN) {
-        if (CONFIG::DUAL_SCREEN) {
-            resetWindowsize(_pHWndPrimary, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*d, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*d);
-            resetWindowsize(_pHWndSecondary, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*d, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*d);
-        } else {
-            resetWindowsize(_pHWndPrimary, CONFIG::RENDER_TARGET_BUFFER_WIDTH*d, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*d);
+        for (int pry = PRIMARY_SCREEN; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
+            int adapter = CONFIG::SCREEN_DISPLAY_NO[pry];
+            resetWindowsize(_paHWnd[adapter], CONFIG::RENDER_TARGET_BUFFER_WIDTH/CONFIG::NUMBER_OF_SCREENS_USED*d, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*d);
         }
     }
 }
 void Caretaker::resetInitWindowsize() {
     //初期ウィンドウサイズにリセット
     if (!CONFIG::FULL_SCREEN) {
-        if (CONFIG::DUAL_SCREEN) {
-            resetWindowsize(_pHWndPrimary, CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH, CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT);
-            resetWindowsize(_pHWndSecondary, CONFIG::SECONDARY_SCREEN_WINDOW_WIDTH, CONFIG::SECONDARY_SCREEN_WINDOW_HEIGHT);
-        } else {
-            resetWindowsize(_pHWndPrimary, CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH, CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT);
+        for (int pry = PRIMARY_SCREEN; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
+            int adapter = CONFIG::SCREEN_DISPLAY_NO[pry];
+            resetWindowsize(_paHWnd[adapter],
+                            CONFIG::SCREEN_WINDOW[pry].WIDTH, CONFIG::SCREEN_WINDOW[pry].HEIGHT);
         }
     }
 }
@@ -144,48 +142,46 @@ void Caretaker::resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord clien
     );
 }
 
-void Caretaker::chengeViewPos(HWND prm_pHWnd, int pos) {
+void Caretaker::chengeScreenPresentPos(HWND prm_pHWnd, int pos) {
     if (!CONFIG::FULL_SCREEN) {
-        if (CONFIG::DUAL_SCREEN) {
-            if (prm_pHWnd == _pHWndPrimary) {
-                CONFIG::PRIMARY_SCREEN_PRESENT_POSITION = pos;
-            } else if (prm_pHWnd == _pHWndSecondary) {
-                CONFIG::SECONDARY_SCREEN_PRESENT_POSITION = pos;
-            }
-        } else {
-            if (prm_pHWnd == _pHWndPrimary) {
-                CONFIG::PRIMARY_SCREEN_PRESENT_POSITION = pos;
-            }
-        }
-        if (!CONFIG::FULL_SCREEN && prm_pHWnd) {
-            _adjustGameWindow = true;
-        }
+        int pry = _mapHwndToPry[prm_pHWnd];
+        CONFIG::SCREEN_PRESENT_POSITION[pry] = pos;
+        _adjustGameWindow = true;
     }
 }
-void Caretaker::chengeViewPos1(int pos) {
+void Caretaker::chengePrimaryScreenPresentPos(int pos) {
     if (!CONFIG::FULL_SCREEN) {
         CONFIG::PRIMARY_SCREEN_PRESENT_POSITION = pos;
-    }
-    if (!CONFIG::FULL_SCREEN) {
         _adjustGameWindow = true;
     }
 }
-void Caretaker::chengeViewPos2(int pos) {
+void Caretaker::chengeSecondaryScreenPresentPos(int pos) {
     if (!CONFIG::FULL_SCREEN) {
-        if (CONFIG::DUAL_SCREEN) {
-            CONFIG::SECONDARY_SCREEN_PRESENT_POSITION = pos;
-        }
-    }
-    if (!CONFIG::FULL_SCREEN) {
+        CONFIG::SECONDARY_SCREEN_PRESENT_POSITION = pos;
         _adjustGameWindow = true;
     }
 }
-void Caretaker::chengeViewAspect(bool prm_b) {
+void Caretaker::chengeViewAspect(HWND prm_pHWnd, bool prm_b) {
     if (!CONFIG::FULL_SCREEN) {
-        CONFIG::FIXED_SCREEN_ASPECT = prm_b;
+        int pry = _mapHwndToPry[prm_pHWnd];
+        CONFIG::SCREEN_ASPECT_RATIO_FIXED[pry] = prm_b;
         _adjustGameWindow = true;
     }
 }
+
+void Caretaker::chengeViewAspect1(bool prm_b) {
+    if (!CONFIG::FULL_SCREEN) {
+        CONFIG::PRIMARY_SCREEN_ASPECT_RATIO_FIXED = prm_b;
+        _adjustGameWindow = true;
+    }
+}
+void Caretaker::chengeViewAspect2(bool prm_b) {
+    if (!CONFIG::FULL_SCREEN) {
+        CONFIG::SECONDARY_SCREEN_ASPECT_RATIO_FIXED = prm_b;
+        _adjustGameWindow = true;
+    }
+}
+
 void Caretaker::setDisplaySizeInfo() {
     //アダプタ情報格納
     for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
@@ -249,89 +245,37 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
             _TRACE_("--- " << adapter_no+1 << "画面目 の解像度設定 --->");
             int rezo_num = _paAdapterRezos[adapter_no].rezo_num;
             RezoInfo* paRezos = _paAdapterRezos[adapter_no].paRezoInfo;
-
-            if (CONFIG::DUAL_SCREEN) {
-                //２画面フルスクリーン時
-                if (adapter_no == _primary_screen_display_no) {
-                    //ゲーム画面１画面目
-                    if (allow_chang_rezo && CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH > 0) {
-                        //解像度変更許可
-                        int n = checkAppropriateDisplaySize(
-                                    paRezos, rezo_num,
-                                    (UINT)CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH,
-                                    (UINT)CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT
-                                );
-                        CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH  = (pixcoord)(paRezos[n].width);
-                        CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT = (pixcoord)(paRezos[n].height);
-                    } else {
-                        //解像度変更無し
-                        D3DDISPLAYMODE structD3DDisplayMode0;
-                        hr = _pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode0);
-                        checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。1");
-                        CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH  = (pixcoord)(structD3DDisplayMode0.Width);
-                        CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT = (pixcoord)(structD3DDisplayMode0.Height);
-                    }
-                    _paPresetPrm[_primary_screen_display_no].BackBufferWidth  = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-                    _paPresetPrm[_primary_screen_display_no].BackBufferHeight = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
-                } else if (adapter_no == _secondary_screen_display_no) {
-                    //ゲーム画面２画面目
-                    if (allow_chang_rezo && CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH > 0) {
-                        //解像度変更許可
-                        int n = checkAppropriateDisplaySize(
-                                    paRezos, rezo_num,
-                                    (UINT)CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH,
-                                    (UINT)CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT
-                                );
-                        CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH  = (pixcoord)(paRezos[n].width);
-                        CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT = (pixcoord)(paRezos[n].height);
-                    } else {
-                        //解像度変更無し
-                        D3DDISPLAYMODE structD3DDisplayMode1;
-                        hr = _pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode1);
-                        checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。3");
-                        CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH  = (pixcoord)(structD3DDisplayMode1.Width);
-                        CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT = (pixcoord)(structD3DDisplayMode1.Height);
-                    }
-                    _paPresetPrm[_secondary_screen_display_no].BackBufferWidth  = CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH;
-                    _paPresetPrm[_secondary_screen_display_no].BackBufferHeight = CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT;
+            int pry = _mapAdpToPry[adapter_no];
+            if (pry >= 0) {
+                if (allow_chang_rezo && CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH > 0) {
+                    //解像度変更許可
+                    int n = checkAppropriateDisplaySize(
+                                paRezos, rezo_num,
+                                (UINT)CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH,
+                                (UINT)CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT
+                            );
+                    CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH = (pixcoord)(paRezos[n].width);
+                    CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT = (pixcoord)(paRezos[n].height);
                 } else {
-                    //メモ：ゲーム画面３画面目以降１画面目・２画面目の解像度は、現状の解像度をそのまま設定。
-                    D3DDISPLAYMODE structD3DDisplayMode;
-                    hr = _pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode);
-                    _paPresetPrm[adapter_no].BackBufferWidth  = (pixcoord)(structD3DDisplayMode.Width);
-                    _paPresetPrm[adapter_no].BackBufferHeight = (pixcoord)(structD3DDisplayMode.Height);
-                    checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。4");
-                    _TRACE_("adapter_no="<<adapter_no << "の画面は、現状の "<<
-                            _paPresetPrm[adapter_no].BackBufferWidth<<"x"<<_paPresetPrm[adapter_no].BackBufferHeight<<" に設定");
+                    //解像度変更無し
+                    D3DDISPLAYMODE structD3DDisplayMode0;
+                    hr = _pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode0);
+                    checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。5");
+                    CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH  = (pixcoord)(structD3DDisplayMode0.Width);
+                    CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT = (pixcoord)(structD3DDisplayMode0.Height);
                 }
-
+                _paPresetPrm[adapter_no].BackBufferWidth  = CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH;
+                _paPresetPrm[adapter_no].BackBufferHeight = CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT;
             } else {
-                //１画面フルスクリーン時
-                if (adapter_no == _primary_screen_display_no) {
-                    if (allow_chang_rezo && CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH > 0) {
-                        //解像度変更許可
-                        int n = checkAppropriateDisplaySize(
-                                    paRezos, rezo_num,
-                                    (UINT)CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH,
-                                    (UINT)CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT
-                                );
-                        CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH = (pixcoord)(paRezos[n].width);
-                        CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT = (pixcoord)(paRezos[n].height);
-                    } else {
-                        //解像度変更無し
-                        D3DDISPLAYMODE structD3DDisplayMode0;
-                        hr = _pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode0);
-                        checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。5");
-                        CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH  = (pixcoord)(structD3DDisplayMode0.Width);
-                        CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT = (pixcoord)(structD3DDisplayMode0.Height);
-                    }
-                    _paPresetPrm[_primary_screen_display_no].BackBufferWidth  = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-                    _paPresetPrm[_primary_screen_display_no].BackBufferHeight = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
-                } else {
-                    _paPresetPrm[adapter_no].BackBufferWidth  = 0;
-                    _paPresetPrm[adapter_no].BackBufferHeight = 0;
-                }
-
+                //映らないダミー画面
+                //メモ：ゲーム画面３画面目以降１画面目・２画面目の解像度は、現状の解像度をそのまま設定。
+                D3DDISPLAYMODE structD3DDisplayMode;
+                hr = _pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode);
+                _paPresetPrm[adapter_no].BackBufferWidth  = (pixcoord)(structD3DDisplayMode.Width);
+                _paPresetPrm[adapter_no].BackBufferHeight = (pixcoord)(structD3DDisplayMode.Height);
+                checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。4");
+                _TRACE_("adapter_no="<<adapter_no << "の画面は、現状の "<<
+                        _paPresetPrm[adapter_no].BackBufferWidth<<"x"<<_paPresetPrm[adapter_no].BackBufferHeight<<" に設定");
             }
             //上書き更新
             _paDisplayMode[adapter_no].Width  = _paPresetPrm[adapter_no].BackBufferWidth;
@@ -353,225 +297,85 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
     _rectGameBuffer.right  = _rectGameBuffer.left + CONFIG::GAME_BUFFER_WIDTH;
     _rectGameBuffer.bottom = _rectGameBuffer.top  + CONFIG::GAME_BUFFER_HEIGHT;
 
-    if (CONFIG::DUAL_SCREEN) {
-        _aRect_HarfRenderBufferSource[PRIMARY_SCREEN].left   = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT;
-        _aRect_HarfRenderBufferSource[PRIMARY_SCREEN].top    = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_TOP;
-        _aRect_HarfRenderBufferSource[PRIMARY_SCREEN].right  = _aRect_HarfRenderBufferSource[PRIMARY_SCREEN].left + CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH;
-        _aRect_HarfRenderBufferSource[PRIMARY_SCREEN].bottom = _aRect_HarfRenderBufferSource[PRIMARY_SCREEN].top  + CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT;
-
-        _aRect_HarfRenderBufferSource[SECONDARY_SCREEN].left   = CONFIG::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT;
-        _aRect_HarfRenderBufferSource[SECONDARY_SCREEN].top    = CONFIG::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_TOP;
-        _aRect_HarfRenderBufferSource[SECONDARY_SCREEN].right  = _aRect_HarfRenderBufferSource[SECONDARY_SCREEN].left + CONFIG::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH;
-        _aRect_HarfRenderBufferSource[SECONDARY_SCREEN].bottom = _aRect_HarfRenderBufferSource[SECONDARY_SCREEN].top  + CONFIG::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT;
-    } else {
-        _rectRenderBufferSource.left   = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT;
-        _rectRenderBufferSource.top    = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_TOP;
-        _rectRenderBufferSource.right  = _rectRenderBufferSource.left + CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH;
-        _rectRenderBufferSource.bottom = _rectRenderBufferSource.top  + CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT;
+    for (int pry = PRIMARY_SCREEN; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
+        _aRectRenderBufferSource[pry].left   = CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].LEFT;
+        _aRectRenderBufferSource[pry].top    = CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].TOP;
+        _aRectRenderBufferSource[pry].right  = _aRectRenderBufferSource[pry].left + CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].WIDTH;
+        _aRectRenderBufferSource[pry].bottom = _aRectRenderBufferSource[pry].top  + CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].HEIGHT;
     }
 
     //表示領域設定
     if (CONFIG::FULL_SCREEN) {
-        //フルスクリーンモード
-        if (CONFIG::DUAL_SCREEN) {
-            _aRect_FullScreen[PRIMARY_SCREEN].top    = 0;
-            _aRect_FullScreen[PRIMARY_SCREEN].left   = 0;
-            _aRect_FullScreen[PRIMARY_SCREEN].right  = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-            _aRect_FullScreen[PRIMARY_SCREEN].bottom = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
-            _aRect_FullScreen[SECONDARY_SCREEN].top    = 0;
-            _aRect_FullScreen[SECONDARY_SCREEN].left   = 0;
-            _aRect_FullScreen[SECONDARY_SCREEN].right  = CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH;
-            _aRect_FullScreen[SECONDARY_SCREEN].bottom = CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT;
 
-            //「フルスクリーンモード・２画面使用・RENDER_TARGET_BUFFERサイズ無視
-            if (CONFIG::FIXED_SCREEN_ASPECT) {
-                //「フルスクリーンモード・２画面使用・縦横比FIX」の１画面目フロントバッファ描画領域
-                LONG fix_width  = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH  * CONFIG::PRIMARY_SCREEN_WIDTH_RATIO;
-                LONG fix_height = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT * CONFIG::PRIMARY_SCREEN_HEIGHT_RATIO;
-                if (1.0f * CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH / CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT > 1.0f * fix_width / fix_height) {
+        for (int pry = PRIMARY_SCREEN; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
+            //フルスクリーンモード使用
+            _aRect_FullScreen[pry].top    = 0;
+            _aRect_FullScreen[pry].left   = 0;
+            _aRect_FullScreen[pry].right  = CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH;
+            _aRect_FullScreen[pry].bottom = CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT;
+
+            //「フルスクリーンモード使用・RENDER_TARGET_BUFFERサイズ無視」
+            if (CONFIG::SCREEN_ASPECT_RATIO_FIXED[pry]) {
+                //「フルスクリーンモード使用・縦横比FIX」のフロントバッファ描画領域
+                LONG fix_width  = CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].WIDTH  * CONFIG::SCREEN_RATIO[pry].WIDTH;
+                LONG fix_height = CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].HEIGHT * CONFIG::SCREEN_RATIO[pry].HEIGHT;
+                if (1.0f * CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH / CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
-                    double rate = 1.0 * CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT / fix_height; //縮小率=縦幅の比率
-                    _aRect_Present[PRIMARY_SCREEN].left   = (CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH / 2.0) - (fix_width * rate / 2.0);
-                    _aRect_Present[PRIMARY_SCREEN].top    = 0;
-                    _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + (fix_width * rate);
-                    _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + (fix_height * rate);
+                    double rate = 1.0 * CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT / fix_height; //縮小率=縦幅の比率
+                    _aRect_Present[pry].left   = (CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH / 2.0) - (fix_width * rate / 2.0);
+                    _aRect_Present[pry].top    = 0;
+                    _aRect_Present[pry].right  = _aRect_Present[pry].left + (fix_width * rate);
+                    _aRect_Present[pry].bottom = _aRect_Present[pry].top  + (fix_height * rate);
                 } else {
                     //より縦長になってしまっている
-                    double rate = 1.0 * CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH / fix_width; //縮小率=横幅の比率
-                    _aRect_Present[PRIMARY_SCREEN].left   = 0;
-                    _aRect_Present[PRIMARY_SCREEN].top    = (CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT / 2.0) - (fix_height * rate / 2.0);
-                    _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + (fix_width * rate);
-                    _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + (fix_height * rate);
+                    double rate = 1.0 * CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH / fix_width; //縮小率=横幅の比率
+                    _aRect_Present[pry].left   = 0;
+                    _aRect_Present[pry].top    = (CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[pry].right  = _aRect_Present[pry].left + (fix_width * rate);
+                    _aRect_Present[pry].bottom = _aRect_Present[pry].top  + (fix_height * rate);
                 }
-                //「フルスクリーンモード・２画面使用・縦横比FIX」の２画面目フロントバッファ描画領域
-                fix_width  = CONFIG::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH  * CONFIG::SECONDARY_SCREEN_WIDTH_RATIO;
-                fix_height = CONFIG::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT * CONFIG::SECONDARY_SCREEN_HEIGHT_RATIO;
-                if (1.0f * CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH / CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT > 1.0f * fix_width / fix_height) {
-                    //より横長になってしまっている
-                    double rate = 1.0 * CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT / fix_height; //縮小率=縦幅の比率
-                    _aRect_Present[SECONDARY_SCREEN].left   = (CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH / 2.0) - (fix_width * rate / 2.0);
-                    _aRect_Present[SECONDARY_SCREEN].top    = 0;
-                    _aRect_Present[SECONDARY_SCREEN].right  = _aRect_Present[SECONDARY_SCREEN].left + (fix_width * rate);
-                    _aRect_Present[SECONDARY_SCREEN].bottom = _aRect_Present[SECONDARY_SCREEN].top  + (fix_height * rate);
-                } else {
-                    //より縦長になってしまっている
-                    double rate = 1.0 * CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH / fix_width; //縮小率=横幅の比率
-                    _aRect_Present[SECONDARY_SCREEN].left   = 0;
-                    _aRect_Present[SECONDARY_SCREEN].top    = (CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT / 2.0) - (fix_height * rate / 2.0);
-                    _aRect_Present[SECONDARY_SCREEN].right  = _aRect_Present[SECONDARY_SCREEN].left + (fix_width * rate);
-                    _aRect_Present[SECONDARY_SCREEN].bottom = _aRect_Present[SECONDARY_SCREEN].top  + (fix_height * rate);
-                }
-                setPositionPresentRect(CONFIG::PRIMARY_SCREEN_PRESENT_POSITION, _aRect_Present[PRIMARY_SCREEN],
-                                       CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH, CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT);
-                setPositionPresentRect(CONFIG::SECONDARY_SCREEN_PRESENT_POSITION, _aRect_Present[SECONDARY_SCREEN],
-                                       CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH, CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT);
+                setPositionPresentRect(CONFIG::SCREEN_PRESENT_POSITION[pry], _aRect_Present[pry],
+                                       CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH, CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT);
             } else {
-                //「フルスクリーンモード・２画面使用・縦横比ストレッチ」の１画面目フロントバッファ描画領域
-                _aRect_Present[PRIMARY_SCREEN].left   = 0;
-                _aRect_Present[PRIMARY_SCREEN].top    = 0;
-                _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-                _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
-                //「フルスクリーンモード・２画面使用・縦横比ストレッチ」の２画面目フロントバッファ描画領域
-                _aRect_Present[SECONDARY_SCREEN].left   = 0;
-                _aRect_Present[SECONDARY_SCREEN].top    = 0;
-                _aRect_Present[SECONDARY_SCREEN].right  = _aRect_Present[SECONDARY_SCREEN].left + CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH;
-                _aRect_Present[SECONDARY_SCREEN].bottom = _aRect_Present[SECONDARY_SCREEN].top  + CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT;
+                //「フルスクリーンモード使用・縦横比ストレッチ」のフロントバッファ描画領域
+                _aRect_Present[pry].left   = 0;
+                _aRect_Present[pry].top    = 0;
+                _aRect_Present[pry].right  = _aRect_Present[pry].left + CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH;
+                _aRect_Present[pry].bottom = _aRect_Present[pry].top  + CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT;
             }
-        } else {
-            //フルスクリーンモード・１画面使用
-            _aRect_FullScreen[PRIMARY_SCREEN].top    = 0;
-            _aRect_FullScreen[PRIMARY_SCREEN].left   = 0;
-            _aRect_FullScreen[PRIMARY_SCREEN].right  = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-            _aRect_FullScreen[PRIMARY_SCREEN].bottom = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
-            _aRect_FullScreen[SECONDARY_SCREEN] = _aRect_FullScreen[PRIMARY_SCREEN];
-
-            //「フルスクリーンモード・１画面使用・RENDER_TARGET_BUFFERサイズ無視」
-            if (CONFIG::FIXED_SCREEN_ASPECT) {
-                //「フルスクリーンモード・１画面使用・縦横比FIX」のフロントバッファ描画領域
-                LONG fix_width  = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH  * CONFIG::PRIMARY_SCREEN_WIDTH_RATIO;
-                LONG fix_height = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT * CONFIG::PRIMARY_SCREEN_HEIGHT_RATIO;
-                if (1.0f * CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH / CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT > 1.0f * fix_width / fix_height) {
-                    //より横長になってしまっている
-                    double rate = 1.0 * CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT / fix_height; //縮小率=縦幅の比率
-                    _aRect_Present[PRIMARY_SCREEN].left   = (CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH / 2.0) - (fix_width * rate / 2.0);
-                    _aRect_Present[PRIMARY_SCREEN].top    = 0;
-                    _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + (fix_width * rate);
-                    _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + (fix_height * rate);
-                } else {
-                    //より縦長になってしまっている
-                    double rate = 1.0 * CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH / fix_width; //縮小率=横幅の比率
-                    _aRect_Present[PRIMARY_SCREEN].left   = 0;
-                    _aRect_Present[PRIMARY_SCREEN].top    = (CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT / 2.0) - (fix_height * rate / 2.0);
-                    _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + (fix_width * rate);
-                    _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + (fix_height * rate);
-                }
-                _aRect_Present[SECONDARY_SCREEN] = _aRect_Present[PRIMARY_SCREEN];
-                setPositionPresentRect(CONFIG::PRIMARY_SCREEN_PRESENT_POSITION, _aRect_Present[PRIMARY_SCREEN],
-                                       CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH, CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT);
-                setPositionPresentRect(CONFIG::PRIMARY_SCREEN_PRESENT_POSITION, _aRect_Present[SECONDARY_SCREEN],
-                                       CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH, CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT);
-            } else {
-                //「フルスクリーンモード・１画面使用・縦横比ストレッチ」のフロントバッファ描画領域
-                _aRect_Present[PRIMARY_SCREEN].left   = 0;
-                _aRect_Present[PRIMARY_SCREEN].top    = 0;
-                _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-                _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
-                _aRect_Present[SECONDARY_SCREEN] = _aRect_Present[PRIMARY_SCREEN];
-            }
-
         }
+
     } else {
         //ウィンドウモード
-        if (CONFIG::DUAL_SCREEN) {
-            //ウィンドウモード・２窓使用
-            if (CONFIG::FIXED_SCREEN_ASPECT) {
-                LONG fix_width = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH*CONFIG::PRIMARY_SCREEN_WIDTH_RATIO;
-                LONG fix_height = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT*CONFIG::PRIMARY_SCREEN_HEIGHT_RATIO;
-                //「ウィンドウモード・２窓使用・縦横比FIX・ピクセルストレッチ」の１窓目フロントバッファ描画領域
-                if (1.0f * CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH / CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT > 1.0f * fix_width / fix_height) {
+        for (int pry = PRIMARY_SCREEN; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
+            //ウィンドウモード使用
+            if (CONFIG::PRIMARY_SCREEN_ASPECT_RATIO_FIXED) {
+                //「ウィンドウモード使用・縦横比FIX」のフロントバッファ描画領域
+                LONG fix_width  = CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].WIDTH  * CONFIG::SCREEN_RATIO[pry].WIDTH;
+                LONG fix_height = CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].HEIGHT * CONFIG::SCREEN_RATIO[pry].HEIGHT;
+                if (1.0f * CONFIG::SCREEN_WINDOW[pry].WIDTH / CONFIG::SCREEN_WINDOW[pry].HEIGHT > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
-                    double rate = 1.0 * CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT / fix_height; //縮小率=縦幅の比率
-                    _aRect_Present[PRIMARY_SCREEN].left   = (CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH / 2.0) - (fix_width * rate / 2.0);
-                    _aRect_Present[PRIMARY_SCREEN].top    = 0;
-                    _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + (fix_width * rate);
-                    _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + (fix_height * rate);
+                    double rate = 1.0 * CONFIG::SCREEN_WINDOW[pry].HEIGHT / fix_height; //縮小率=縦幅の比率
+                    _aRect_Present[pry].left   = (CONFIG::SCREEN_WINDOW[pry].WIDTH / 2.0) - (fix_width * rate / 2.0);
+                    _aRect_Present[pry].top    = 0;
+                    _aRect_Present[pry].right  = _aRect_Present[pry].left + (fix_width * rate);
+                    _aRect_Present[pry].bottom = _aRect_Present[pry].top  + (fix_height * rate);
                 } else {
                     //より縦長になってしまっている
-                    double rate = 1.0 * CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH / fix_width; //縮小率=横幅の比率
-                    _aRect_Present[PRIMARY_SCREEN].left   = 0;
-                    _aRect_Present[PRIMARY_SCREEN].top    = (CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT / 2.0) - (fix_height * rate / 2.0);
-                    _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + (fix_width * rate);
-                    _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + (fix_height * rate);
+                    double rate = 1.0 * CONFIG::SCREEN_WINDOW[pry].WIDTH / fix_width; //縮小率=横幅の比率
+                    _aRect_Present[pry].left   = 0;
+                    _aRect_Present[pry].top    = (CONFIG::SCREEN_WINDOW[pry].HEIGHT / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[pry].right  = _aRect_Present[pry].left + (fix_width * rate);
+                    _aRect_Present[pry].bottom = _aRect_Present[pry].top  + (fix_height * rate);
                 }
-
-                fix_width = CONFIG::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH*CONFIG::SECONDARY_SCREEN_WIDTH_RATIO;
-                fix_height = CONFIG::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT*CONFIG::SECONDARY_SCREEN_HEIGHT_RATIO;
-                //「ウィンドウモード・２窓使用・縦横比FIX」の２窓目フロントバッファ描画領域
-                if (1.0f * CONFIG::SECONDARY_SCREEN_WINDOW_WIDTH / CONFIG::SECONDARY_SCREEN_WINDOW_HEIGHT > 1.0f * fix_width / fix_height) {
-                    //より横長になってしまっている
-                    double rate = 1.0 * CONFIG::SECONDARY_SCREEN_WINDOW_HEIGHT / fix_height; //縮小率=縦幅の比率
-                    _aRect_Present[SECONDARY_SCREEN].left   = (CONFIG::SECONDARY_SCREEN_WINDOW_WIDTH / 2.0) - (fix_width * rate / 2.0);
-                    _aRect_Present[SECONDARY_SCREEN].top    = 0;
-                    _aRect_Present[SECONDARY_SCREEN].right  = _aRect_Present[SECONDARY_SCREEN].left + (fix_width * rate);
-                    _aRect_Present[SECONDARY_SCREEN].bottom = _aRect_Present[SECONDARY_SCREEN].top  + (fix_height * rate);
-                } else {
-                    //より縦長になってしまっている
-                    double rate = 1.0 * CONFIG::SECONDARY_SCREEN_WINDOW_WIDTH / fix_width; //縮小率=横幅の比率
-                    _aRect_Present[SECONDARY_SCREEN].left   = 0;
-                    _aRect_Present[SECONDARY_SCREEN].top    = (CONFIG::SECONDARY_SCREEN_WINDOW_HEIGHT / 2.0) - (fix_height * rate / 2.0);
-                    _aRect_Present[SECONDARY_SCREEN].right  = _aRect_Present[SECONDARY_SCREEN].left + (fix_width * rate);
-                    _aRect_Present[SECONDARY_SCREEN].bottom = _aRect_Present[SECONDARY_SCREEN].top  + (fix_height * rate);
-                }
-
-                setPositionPresentRect(CONFIG::PRIMARY_SCREEN_PRESENT_POSITION, _aRect_Present[PRIMARY_SCREEN],
-                                       CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH, CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT);
-                setPositionPresentRect(CONFIG::SECONDARY_SCREEN_PRESENT_POSITION, _aRect_Present[SECONDARY_SCREEN],
-                                       CONFIG::SECONDARY_SCREEN_WINDOW_WIDTH, CONFIG::SECONDARY_SCREEN_WINDOW_HEIGHT);
+                setPositionPresentRect(CONFIG::SCREEN_PRESENT_POSITION[pry], _aRect_Present[pry],
+                                       CONFIG::SCREEN_WINDOW[pry].WIDTH, CONFIG::SCREEN_WINDOW[pry].HEIGHT);
             } else {
-                //「ウィンドウモード・２窓使用・縦横比ストレッチ」の１窓目フロントバッファ描画領域
-                _aRect_Present[PRIMARY_SCREEN].left   = 0;
-                _aRect_Present[PRIMARY_SCREEN].top    = 0;
-                _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH;
-                _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT;
-                //「ウィンドウモード・２窓使用・縦横比ストレッチ」の２窓目フロントバッファ描画領域
-                _aRect_Present[SECONDARY_SCREEN].left   = 0;
-                _aRect_Present[SECONDARY_SCREEN].top    = 0;
-                _aRect_Present[SECONDARY_SCREEN].right  = _aRect_Present[SECONDARY_SCREEN].left + CONFIG::SECONDARY_SCREEN_WINDOW_WIDTH;
-                _aRect_Present[SECONDARY_SCREEN].bottom = _aRect_Present[SECONDARY_SCREEN].top  + CONFIG::SECONDARY_SCREEN_WINDOW_HEIGHT;
-            }
-        } else {
-            //ウィンドウモード・１窓使用
-            if (CONFIG::FIXED_SCREEN_ASPECT) {
-                LONG fix_width = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH*CONFIG::PRIMARY_SCREEN_WIDTH_RATIO;
-                LONG fix_height = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT*CONFIG::PRIMARY_SCREEN_HEIGHT_RATIO;
-                //「ウィンドウモード・１窓使用・縦横比FIX」のフロントバッファ描画領域
-                if (1.0f * CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH / CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT > 1.0f * fix_width / fix_height) {
-                    //より横長になってしまっている
-                    double rate = 1.0 * CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT / fix_height; //縮小率=縦幅の比率
-                    _aRect_Present[PRIMARY_SCREEN].left   = (CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH / 2.0) - (fix_width * rate / 2.0);
-                    _aRect_Present[PRIMARY_SCREEN].top    = 0;
-                    _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + (fix_width * rate);
-                    _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + (fix_height * rate);
-                } else {
-                    //より縦長になってしまっている
-                    double rate = 1.0 * CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH / fix_width; //縮小率=横幅の比率
-                    _aRect_Present[PRIMARY_SCREEN].left   = 0;
-                    _aRect_Present[PRIMARY_SCREEN].top    = (CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT / 2.0) - (fix_height * rate / 2.0);
-                    _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + (fix_width * rate);
-                    _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + (fix_height * rate);
-                }
-                _aRect_Present[SECONDARY_SCREEN] = _aRect_Present[PRIMARY_SCREEN];
-                setPositionPresentRect(CONFIG::PRIMARY_SCREEN_PRESENT_POSITION, _aRect_Present[PRIMARY_SCREEN],
-                                       CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH, CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT);
-                setPositionPresentRect(CONFIG::PRIMARY_SCREEN_PRESENT_POSITION, _aRect_Present[SECONDARY_SCREEN],
-                                       CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH, CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT);
-            } else {
-                //「ウィンドウモード・１窓使用・縦横比ストレッチ」のフロントバッファ描画領域
-                _aRect_Present[PRIMARY_SCREEN].left   = 0;
-                _aRect_Present[PRIMARY_SCREEN].top    = 0;
-                _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH;
-                _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT;
-                _aRect_Present[SECONDARY_SCREEN] = _aRect_Present[PRIMARY_SCREEN];
+                //「ウィンドウモード使用・縦横比ストレッチ」のフロントバッファ描画領域
+                _aRect_Present[pry].left   = 0;
+                _aRect_Present[pry].top    = 0;
+                _aRect_Present[pry].right  = _aRect_Present[pry].left + CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH;
+                _aRect_Present[pry].bottom = _aRect_Present[pry].top  + CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT;
             }
         }
     }
@@ -580,15 +384,15 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
     _TRACE_("初期設定");
     _TRACE_(" _primary_screen_display_no = "<<_primary_screen_display_no );
     _TRACE_(" _secondary_screen_display_no = "<<_secondary_screen_display_no );
-    if (CONFIG::DUAL_SCREEN) {
-        _TRACE_(" _aRect_HarfRenderBufferSource[PRIMARY_SCREEN].left   = "<<_aRect_HarfRenderBufferSource[PRIMARY_SCREEN].left  );
-        _TRACE_(" _aRect_HarfRenderBufferSource[PRIMARY_SCREEN].top    = "<<_aRect_HarfRenderBufferSource[PRIMARY_SCREEN].top   );
-        _TRACE_(" _aRect_HarfRenderBufferSource[PRIMARY_SCREEN].right  = "<<_aRect_HarfRenderBufferSource[PRIMARY_SCREEN].right );
-        _TRACE_(" _aRect_HarfRenderBufferSource[PRIMARY_SCREEN].bottom = "<<_aRect_HarfRenderBufferSource[PRIMARY_SCREEN].bottom);
-        _TRACE_(" _aRect_HarfRenderBufferSource[SECONDARY_SCREEN].left   = "<<_aRect_HarfRenderBufferSource[SECONDARY_SCREEN].left  );
-        _TRACE_(" _aRect_HarfRenderBufferSource[SECONDARY_SCREEN].top    = "<<_aRect_HarfRenderBufferSource[SECONDARY_SCREEN].top   );
-        _TRACE_(" _aRect_HarfRenderBufferSource[SECONDARY_SCREEN].right  = "<<_aRect_HarfRenderBufferSource[SECONDARY_SCREEN].right );
-        _TRACE_(" _aRect_HarfRenderBufferSource[SECONDARY_SCREEN].bottom = "<<_aRect_HarfRenderBufferSource[SECONDARY_SCREEN].bottom);
+    if (Config::NUMBER_OF_SCREENS_USED > 1) {
+        _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].left   = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].left  );
+        _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].top    = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].top   );
+        _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].right  = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].right );
+        _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].bottom = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].bottom);
+        _TRACE_(" _aRectRenderBufferSource[SECONDARY_SCREEN].left   = "<<_aRectRenderBufferSource[SECONDARY_SCREEN].left  );
+        _TRACE_(" _aRectRenderBufferSource[SECONDARY_SCREEN].top    = "<<_aRectRenderBufferSource[SECONDARY_SCREEN].top   );
+        _TRACE_(" _aRectRenderBufferSource[SECONDARY_SCREEN].right  = "<<_aRectRenderBufferSource[SECONDARY_SCREEN].right );
+        _TRACE_(" _aRectRenderBufferSource[SECONDARY_SCREEN].bottom = "<<_aRectRenderBufferSource[SECONDARY_SCREEN].bottom);
         _TRACE_(" _aRect_Present[PRIMARY_SCREEN].left   = "<<_aRect_Present[PRIMARY_SCREEN].left  );
         _TRACE_(" _aRect_Present[PRIMARY_SCREEN].top    = "<<_aRect_Present[PRIMARY_SCREEN].top   );
         _TRACE_(" _aRect_Present[PRIMARY_SCREEN].right  = "<<_aRect_Present[PRIMARY_SCREEN].right );
@@ -598,10 +402,10 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
         _TRACE_(" _aRect_Present[SECONDARY_SCREEN].right  = "<<_aRect_Present[SECONDARY_SCREEN].right );
         _TRACE_(" _aRect_Present[SECONDARY_SCREEN].bottom = "<<_aRect_Present[SECONDARY_SCREEN].bottom);
     } else {
-        _TRACE_(" _rectRenderBufferSource.left   = "<<_rectRenderBufferSource.left  );
-        _TRACE_(" _rectRenderBufferSource.top    = "<<_rectRenderBufferSource.top   );
-        _TRACE_(" _rectRenderBufferSource.right  = "<<_rectRenderBufferSource.right );
-        _TRACE_(" _rectRenderBufferSource.bottom = "<<_rectRenderBufferSource.bottom);
+        _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].left   = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].left  );
+        _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].top    = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].top   );
+        _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].right  = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].right );
+        _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].bottom = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].bottom);
         _TRACE_(" _aRect_Present[PRIMARY_SCREEN].left   = "<<_aRect_Present[PRIMARY_SCREEN].left  );
         _TRACE_(" _aRect_Present[PRIMARY_SCREEN].top    = "<<_aRect_Present[PRIMARY_SCREEN].top   );
         _TRACE_(" _aRect_Present[PRIMARY_SCREEN].right  = "<<_aRect_Present[PRIMARY_SCREEN].right );
@@ -612,7 +416,7 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
 
 
 int Caretaker::checkAppropriateDisplaySize(Caretaker::RezoInfo* prm_paRezos, int prm_rezo_num,
-                                     UINT prm_width, UINT prm_height) {
+                                           UINT prm_width, UINT prm_height) {
     _TRACE_("checkAppropriateDisplaySize() 所望解像度、"<<prm_width<<"x"<<prm_height);
 
     for (int n = 0; n < prm_rezo_num; n++) {
@@ -709,20 +513,13 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                            &caps);             // [out] デバイスの能力が格納される
 
     _num_adapter = caps.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
+    _num_PresetPrm = _num_adapter > MAX_SCREENS ? _num_adapter : MAX_SCREENS; //D3DPRESENT_PARAMETERS数
     _TRACE_("_num_adapter = "<< _num_adapter);
 
     if (CONFIG::FULL_SCREEN) {
-        if (CONFIG::DUAL_SCREEN) {
-            if (_num_adapter < 2) {
-                _TRACE_("【警告】２画面フルスクリーン設定ですが、マルチモニタを検出できません。強制的に１画面フルスクリーンで起動します");
-                MessageBox(_pHWndPrimary,
-                           "【警告】２画面フルスクリーン設定ですが、マルチモニタを検出できません。\n強制的に１画面フルスクリーンで起動します",
-                           "WARNING", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
-                _primary_screen_display_no = 0;
-                _secondary_screen_display_no = 1;
-                CONFIG::DUAL_SCREEN = false;
-                CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH_BK  = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-                CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT_BK = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
+        if (Config::NUMBER_OF_SCREENS_USED > 1) {
+            if (_num_adapter < Config::NUMBER_OF_SCREENS_USED) {
+                throwCriticalException("NUMBER_OF_SCREENS_USED="<<(Config::NUMBER_OF_SCREENS_USED)<<"が範囲外です。"<<_num_adapter<<"画面のマルチモニタしか検出できません。");
             } else {
                 if (_num_adapter < CONFIG::PRIMARY_SCREEN_DISPLAY_NO+1 || _num_adapter < CONFIG::SECONDARY_SCREEN_DISPLAY_NO+1) {
                     throwCriticalException("範囲外のディスプレイアダプタ番号を指定しています。アダプタ番号は 0～"<<_num_adapter-1<<" が有効です。\n"
@@ -740,6 +537,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                                            "PRIMARY_SCREEN_DISPLAY_NO="<<CONFIG::PRIMARY_SCREEN_DISPLAY_NO);
             } else {
                 //_secondary_screen_display_no は、_primary_screen_display_no とかぶらないようにしておく
+                //TODO:NUMBER_OF_SCREENS_USED化
                 if (_secondary_screen_display_no == 0) {
                     _secondary_screen_display_no = _primary_screen_display_no + 1;
                 } else {
@@ -750,38 +548,37 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     }
 
     //_paPresetPrm[] を設定していきます。
-    int preset_prm_num = _num_adapter > 2 ? _num_adapter : 2;
-    _paPresetPrm = NEW D3DPRESENT_PARAMETERS[preset_prm_num];
+    _paPresetPrm = NEW D3DPRESENT_PARAMETERS[_num_PresetPrm];
 
-    for (int n = 0; n < preset_prm_num; n++) {
-        ZeroMemory(&_paPresetPrm[n], sizeof(D3DPRESENT_PARAMETERS));
+    for (int pre_adp = 0; pre_adp < _num_PresetPrm; pre_adp++) {
+        ZeroMemory(&_paPresetPrm[pre_adp], sizeof(D3DPRESENT_PARAMETERS));
     }
-    for (int n = 0; n < preset_prm_num; n++) {
+    for (int pre_adp = 0; pre_adp < _num_PresetPrm; pre_adp++) {
         //ウィンドウ時・フルスクリーン時共通
-        _paPresetPrm[n].BackBufferCount        = 1;            //バックバッファの数
-        _paPresetPrm[n].EnableAutoDepthStencil = TRUE;         //バックバッファの Zバッファの自動作成
-        _paPresetPrm[n].AutoDepthStencilFormat = D3DFMT_D24S8; //深度ステンシルバッファ //D3DFMT_D16;
-        _paPresetPrm[n].Flags                  = 0;            //0にしておく
+        _paPresetPrm[pre_adp].BackBufferCount        = 1;            //バックバッファの数
+        _paPresetPrm[pre_adp].EnableAutoDepthStencil = TRUE;         //バックバッファの Zバッファの自動作成
+        _paPresetPrm[pre_adp].AutoDepthStencilFormat = D3DFMT_D24S8; //深度ステンシルバッファ //D3DFMT_D16;
+        _paPresetPrm[pre_adp].Flags                  = 0;            //0にしておく
         if (CONFIG::FULL_SCREEN) {
             //フルスクリーン時共通（全画面）
-            _paPresetPrm[n].BackBufferFormat           = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
-            _paPresetPrm[n].Windowed                   = false; //フルスクリーンモード時
-            _paPresetPrm[n].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //リフレッシュレート
-            _paPresetPrm[n].PresentationInterval       = D3DPRESENT_INTERVAL_DEFAULT; //スワップのタイミング
-            _paPresetPrm[n].SwapEffect                 = D3DSWAPEFFECT_DISCARD;
-            _paPresetPrm[n].EnableAutoDepthStencil = FALSE; //Zバッファの自動作成無効
+            _paPresetPrm[pre_adp].BackBufferFormat           = D3DFMT_X8R8G8B8; //D3DFMT_A8R8G8B8; //D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;
+            _paPresetPrm[pre_adp].Windowed                   = false; //フルスクリーンモード時
+            _paPresetPrm[pre_adp].FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT; //リフレッシュレート
+            _paPresetPrm[pre_adp].PresentationInterval       = D3DPRESENT_INTERVAL_DEFAULT; //スワップのタイミング
+            _paPresetPrm[pre_adp].SwapEffect                 = D3DSWAPEFFECT_DISCARD;
+            _paPresetPrm[pre_adp].EnableAutoDepthStencil     = FALSE; //Zバッファの自動作成無効
             //【メモ】
             //EnableAutoDepthStencil = FALSE;
             //とすると、レンダリングステートの D3DRS_ZENABLE が FALSE になるだけのように見える。
             //従って「無効」にしただけであり、「使用不可」ではないのだろう・・・。
         } else {
             //ウィンドウ時共通（全ウィンドウ）
-            _paPresetPrm[n].BackBufferFormat           = D3DFMT_UNKNOWN; //現在の表示モードフォーマット
-            _paPresetPrm[n].Windowed                   = true; //ウィンドウモード時
-            _paPresetPrm[n].FullScreen_RefreshRateInHz = 0; //リフレッシュレート
-            _paPresetPrm[n].PresentationInterval       = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
-            _paPresetPrm[n].SwapEffect                 = D3DSWAPEFFECT_COPY; //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
-            _paPresetPrm[n].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
+            _paPresetPrm[pre_adp].BackBufferFormat           = D3DFMT_UNKNOWN; //現在の表示モードフォーマット
+            _paPresetPrm[pre_adp].Windowed                   = true; //ウィンドウモード時
+            _paPresetPrm[pre_adp].FullScreen_RefreshRateInHz = 0; //リフレッシュレート
+            _paPresetPrm[pre_adp].PresentationInterval       = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
+            _paPresetPrm[pre_adp].SwapEffect                 = D3DSWAPEFFECT_COPY; //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
+            _paPresetPrm[pre_adp].EnableAutoDepthStencil = TRUE; //Z バッファの自動作成
         }
     }
 
@@ -816,75 +613,73 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 //    }
 
     //マルチサンプル
-    for (int n = 0; n < preset_prm_num; n++) {
-        if(n == _primary_screen_display_no || n == _secondary_screen_display_no) {
-            _paPresetPrm[n].MultiSampleType = multiSampleType; //マルチサンプルの数
-            _paPresetPrm[n].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0); //マルチサンプルの品質レベル
+    for (int pre_adp = 0; pre_adp < _num_PresetPrm; pre_adp++) {
+        if (pre_adp == _primary_screen_display_no || pre_adp == _secondary_screen_display_no) {
+            _paPresetPrm[pre_adp].MultiSampleType = multiSampleType; //マルチサンプルの数
+            _paPresetPrm[pre_adp].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0); //マルチサンプルの品質レベル
         } else {
-            _paPresetPrm[n].MultiSampleType = D3DMULTISAMPLE_NONE;//D3DMULTISAMPLE_NONE;
-            _paPresetPrm[n].MultiSampleQuality = 0;
+            _paPresetPrm[pre_adp].MultiSampleType = D3DMULTISAMPLE_NONE;//D3DMULTISAMPLE_NONE;
+            _paPresetPrm[pre_adp].MultiSampleQuality = 0;
         }
     }
 
     //バックバッファサイズ
-    for (int n = 0; n < preset_prm_num; n++) {
+    for (int pre_adp = 0; pre_adp < _num_PresetPrm; pre_adp++) {
+        int pry = _mapAdpToPry[pre_adp];
         if (CONFIG::FULL_SCREEN) {
             //フルスクリーン時（フルスクリーンチェックで上書きされるかもしれないけどデフォルト値を設定)
-            if (n == _primary_screen_display_no) {
-                _paPresetPrm[n].BackBufferWidth  = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-                _paPresetPrm[n].BackBufferHeight = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
-            } else if (n == _primary_screen_display_no) {
-                _paPresetPrm[n].BackBufferWidth  = CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH;
-                _paPresetPrm[n].BackBufferHeight = CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT;
+            if (pry >= 0) {
+                _paPresetPrm[pre_adp].BackBufferWidth  = CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH;
+                _paPresetPrm[pre_adp].BackBufferHeight = CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT;
             } else {
                 //あまりの画面
-                _paPresetPrm[n].BackBufferWidth  = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-                _paPresetPrm[n].BackBufferHeight = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
+                _paPresetPrm[pre_adp].BackBufferWidth  = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
+                _paPresetPrm[pre_adp].BackBufferHeight = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
             }
         } else {
             //ウィンドウ時 （実際には_paPresetPrm[_primary_screen_display_no] しか使用されない）
-            _paPresetPrm[n].BackBufferWidth  = CONFIG::RENDER_TARGET_BUFFER_WIDTH;
-            _paPresetPrm[n].BackBufferHeight = CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
+            _paPresetPrm[pre_adp].BackBufferWidth  = CONFIG::RENDER_TARGET_BUFFER_WIDTH;
+            _paPresetPrm[pre_adp].BackBufferHeight = CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
         }
     }
 
-    _paDisplayMode = NEW D3DDISPLAYMODEEX[preset_prm_num];
-    for (int n = 0; n < preset_prm_num; n++) {
-        _paDisplayMode[n].Size = sizeof(_paDisplayMode[n]);
-        _paDisplayMode[n].Width = _paPresetPrm[n].BackBufferWidth;
-        _paDisplayMode[n].Height = _paPresetPrm[n].BackBufferHeight;
-        _paDisplayMode[n].Format = _paPresetPrm[n].BackBufferFormat;
-        _paDisplayMode[n].RefreshRate = _paPresetPrm[n].FullScreen_RefreshRateInHz;
-        _paDisplayMode[n].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
+    _paDisplayMode = NEW D3DDISPLAYMODEEX[_num_PresetPrm];
+    for (int pre_adp = 0; pre_adp < _num_PresetPrm; pre_adp++) {
+        _paDisplayMode[pre_adp].Size = sizeof(_paDisplayMode[pre_adp]);
+        _paDisplayMode[pre_adp].Width = _paPresetPrm[pre_adp].BackBufferWidth;
+        _paDisplayMode[pre_adp].Height = _paPresetPrm[pre_adp].BackBufferHeight;
+        _paDisplayMode[pre_adp].Format = _paPresetPrm[pre_adp].BackBufferFormat;
+        _paDisplayMode[pre_adp].RefreshRate = _paPresetPrm[pre_adp].FullScreen_RefreshRateInHz;
+        _paDisplayMode[pre_adp].ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
     }
 
     _papSwapChain = NEW IDirect3DSwapChain9*[_num_adapter];
     _papBackBuffer =NEW IDirect3DSurface9*[_num_adapter];
-    for (int n = 0; n < _num_adapter; n++) {
-        _papSwapChain[n] = nullptr;
-        _papBackBuffer[n] = nullptr;
+    for (int adp = 0; adp < _num_adapter; adp++) {
+        _papSwapChain[adp] = nullptr;
+        _papBackBuffer[adp] = nullptr;
     }
     _paAvailableAdapter = NEW Adapter[_num_adapter];
     _paAdapterRezos = NEW AdapterRezos[_num_adapter];
     pCARETAKER->setDisplaySizeInfo();
     pCARETAKER->setAppropriateDisplaySize();
-    _paHWnd = NEW HWND[preset_prm_num];
-    for (int i = 0; i < preset_prm_num; i++) {
-        _paHWnd[i] = nullptr;
+    _paHWnd = NEW HWND[_num_PresetPrm];
+    for (int pre_adp = 0; pre_adp < _num_PresetPrm; pre_adp++) {
+        _paHWnd[pre_adp] = nullptr;
+        _mapAdpToPry[pre_adp] = -1;
     }
     GgafCore::Rgb rgb = GgafCore::Rgb(CONFIG::BORDER_COLOR);
     prm_wndclass1.hbrBackground = CreateSolidBrush(RGB(rgb._red, rgb._green, rgb._blue));
     prm_wndclass2.hbrBackground = CreateSolidBrush(RGB(rgb._red, rgb._green, rgb._blue));
     // ウインドウの生成
     if (CONFIG::FULL_SCREEN) {
-        if (CONFIG::DUAL_SCREEN) {
+        if (Config::NUMBER_OF_SCREENS_USED > 1) {
             //フルスクリーンモード・２画面使用
             WNDCLASSEX wc = prm_wndclass2;
             wc.lpszClassName = "dummy"; //TODO:４画面時に大丈夫か要確認
 
-            for (int n = 0; n < _num_adapter; n++) {
-                if (n == _primary_screen_display_no) {
-
+            for (int adp = 0; adp < _num_adapter; adp++) {
+                if (adp == _primary_screen_display_no) {
                     RegisterClassEx(&prm_wndclass1);
                     _paHWnd[_primary_screen_display_no] =
                             CreateWindowEx(
@@ -901,7 +696,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                                 prm_wndclass1.hInstance,
                                 nullptr
                             );
-                } else if (n == _secondary_screen_display_no) {
+                } else if (adp == _secondary_screen_display_no) {
                     RegisterClassEx(&prm_wndclass2);
                     _paHWnd[_secondary_screen_display_no] =
                             CreateWindowEx(
@@ -920,7 +715,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                            );
                 } else {
                     RegisterClassEx(&wc);
-                    _paHWnd[n] =
+                    _paHWnd[adp] =
                             CreateWindowEx(
                                 WS_EX_APPWINDOW,
                                 wc.lpszClassName,
@@ -928,8 +723,8 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                                 WS_POPUP | WS_VISIBLE,
                                 CW_USEDEFAULT,
                                 CW_USEDEFAULT,
-                                _paPresetPrm[n].BackBufferWidth,
-                                _paPresetPrm[n].BackBufferHeight,
+                                _paPresetPrm[adp].BackBufferWidth,
+                                _paPresetPrm[adp].BackBufferHeight,
                                 HWND_DESKTOP,
                                 nullptr,
                                 wc.hInstance,
@@ -957,7 +752,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                     );
         }
     } else {
-        if (CONFIG::DUAL_SCREEN) {
+        if (Config::NUMBER_OF_SCREENS_USED > 1) {
             //ウインドモード・２窓使用
             RegisterClassEx(&prm_wndclass1);
             _paHWnd[_primary_screen_display_no] =
@@ -1012,11 +807,35 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         }
     }
     //Windowハンドルを個別指定
-    for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
-        _paPresetPrm[adapter_no].hDeviceWindow = _paHWnd[adapter_no];
+    _mapHwndToPry[nullptr] = -1;
+    _mapHwndToDisplayNo[nullptr] = -1;
+
+    for (int pre_adp = 0; pre_adp < _num_PresetPrm; pre_adp++) {
+        HWND hwnd = _paHWnd[pre_adp]; //注意：アダプタ以上の要素には null が入っている
+        _paPresetPrm[pre_adp].hDeviceWindow = hwnd;
+
+        _mapAdpToPry[pre_adp] = -1;
+        if (hwnd) {
+            _mapHwndToDisplayNo[hwnd] = pre_adp;
+            if (pre_adp == _primary_screen_display_no) {
+                _mapAdpToPry[pre_adp] = PRIMARY_SCREEN;
+                _mapHwndToPry[hwnd] = PRIMARY_SCREEN;
+            } else if  (pre_adp == _secondary_screen_display_no) {
+                _mapAdpToPry[pre_adp] = SECONDARY_SCREEN;
+                _mapHwndToPry[hwnd] = SECONDARY_SCREEN;
+            }
+        }
+
+
+        if (pre_adp == _primary_screen_display_no) {
+            _mapPreAdpToPry[pre_adp] = PRIMARY_SCREEN;
+        } else if (pre_adp == _secondary_screen_display_no) {
+            _mapPreAdpToPry[pre_adp] = SECONDARY_SCREEN;
+        }
     }
-    _pHWndSecondary = _paHWnd[_secondary_screen_display_no];
     _pHWndPrimary   = _paHWnd[_primary_screen_display_no];
+    _pHWndSecondary = _paHWnd[_secondary_screen_display_no];
+
     //_pHWndPrimary の有無が
     //ウィンドウプロシージャの WM_SETFOCUS 時の排他になっているので、
     //２画面目 → １画面目の順で代入すること。
@@ -1032,20 +851,18 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         //ウィンドウモード時、クライアント領域を所望の大きさにするため、
         //タイトルバー、リサイズボーダーの厚さを考慮し再設定。
         //ウィンドウモード時
-        if (CONFIG::DUAL_SCREEN) {
-            resetWindowsize(_pHWndPrimary  , CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH, CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT);
-            resetWindowsize(_pHWndSecondary, CONFIG::SECONDARY_SCREEN_WINDOW_WIDTH, CONFIG::SECONDARY_SCREEN_WINDOW_HEIGHT);
-        } else {
-            resetWindowsize(_pHWndPrimary  , CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH, CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT);
+        for (int pry = PRIMARY_SCREEN; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
+            int adpter = CONFIG::SCREEN_DISPLAY_NO[pry];
+            resetWindowsize(_paHWnd[adpter],
+                    CONFIG::SCREEN_WINDOW[pry].WIDTH, CONFIG::SCREEN_WINDOW[pry].HEIGHT);
         }
     }
 
     //アクティブに
-    ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
-    UpdateWindow(_pHWndPrimary);
-    if (CONFIG::DUAL_SCREEN) {
-        ShowWindow(_pHWndSecondary, SW_SHOWNORMAL);
-        UpdateWindow(_pHWndSecondary);
+    for (int pry = PRIMARY_SCREEN; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
+        int adpter = CONFIG::SCREEN_DISPLAY_NO[pry];
+        ShowWindow(_paHWnd[adpter], SW_SHOWNORMAL);
+        UpdateWindow(_paHWnd[adpter]);
     }
 
     _pCurveSrcManager = createCurveSourceManager();
@@ -1149,7 +966,7 @@ HRESULT Caretaker::initDevice() {
     // <------------------------------------------------ NVIDIA PerfHUD 用 end
     _TRACE_("_primary_screen_display_no="<<_primary_screen_display_no);
     _TRACE_("_secondary_screen_display_no="<<_secondary_screen_display_no);
-    for (int n = 0; n < _num_adapter; n++) {
+    for (int n = 0; n < _num_PresetPrm; n++) {
         _TRACE_("_paPresetPrm["<<n<<"].BackBufferWidth            = "<<_paPresetPrm[n].BackBufferWidth            );
         _TRACE_("_paPresetPrm["<<n<<"].BackBufferHeight           = "<<_paPresetPrm[n].BackBufferHeight           );
         _TRACE_("_paPresetPrm["<<n<<"].BackBufferFormat           = "<<_paPresetPrm[n].BackBufferFormat           );
@@ -1191,7 +1008,7 @@ HRESULT Caretaker::initDevice() {
         _TRACE_("ご使用のビデオカードでは、正しく動作しない恐れがあります。");
     }
     UINT adapter = _primary_screen_display_no;
-    if (CONFIG::FULL_SCREEN && CONFIG::DUAL_SCREEN) {
+    if (CONFIG::FULL_SCREEN && Config::NUMBER_OF_SCREENS_USED > 1) {
         //＜フルスクリーン かつ デュアルビュー の場合＞
         //デバイス作成を試み _pID3DDevice9 へ設定する。
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
@@ -1338,7 +1155,7 @@ HRESULT Caretaker::initDevice() {
     //たぶん、正規の方法じゃない。苦肉の策・・・。
     //2015/09/02 追記・要調査
     //あぁ、ひょっとしたら、モニタ座標情報が、フルスクリーン前の物を取得してるからだろうか・・・
-    if (_can_wddm && CONFIG::FULL_SCREEN && CONFIG::DUAL_SCREEN) {
+    if (_can_wddm && CONFIG::FULL_SCREEN && Config::NUMBER_OF_SCREENS_USED > 1) {
         hr = releaseFullScreenRenderTarget();
         hr = restoreFullScreenRenderTarget();
     }
@@ -1550,78 +1367,17 @@ _TRACE_("restoreFullScreenRenderTarget() 1");
         return D3D_OK;
     }
     HRESULT hr;
-    //描画先となるテクスチャを別途作成（バックバッファ的な使用を行う）
-//    hr = _pID3DDevice9->CreateTexture(
-//                                CONFIG::RENDER_TARGET_BUFFER_WIDTH,
-//                                CONFIG::RENDER_TARGET_BUFFER_HEIGHT,
-//                                1, //MipLevel Mip無し
-//                                D3DUSAGE_RENDERTARGET,
-//                                _paPresetPrm[_primary_screen_display_no].BackBufferFormat,
-//                                D3DPOOL_DEFAULT,
-//                                &_pRenderTexture,
-//                                nullptr);
- //   returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャ("<<CONFIG::RENDER_TARGET_BUFFER_WIDTH<<"x"<<CONFIG::RENDER_TARGET_BUFFER_HEIGHT<<")の作成に失敗。\nサイズを確認して下さい。");
-    //RenderTarget(描画先)をテクスチャへ切り替え
-//    hr = _pRenderTexture->GetSurfaceLevel(
-//                            0,   //ミップマップのレベル
-//                            &_pRenderTextureSurface
-//                          );
-
-    //hr = _pID3DDevice9->CreateRenderTarget(Width, Height, Format, MultiSample, MultisampleQuality, Lockable, ppSurface, pSharedHandle)
-    //STDMETHOD(CreateRenderTarget)(THIS_ UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,DWORD MultisampleQuality,BOOL Lockable,IDirect3DSurface9** ppSurface,HANDLE* pSharedHandle) PURE;
-
-        hr = _pID3DDevice9->CreateRenderTarget(
-            CONFIG::RENDER_TARGET_BUFFER_WIDTH,
-            CONFIG::RENDER_TARGET_BUFFER_HEIGHT,
-            _paPresetPrm[_primary_screen_display_no].BackBufferFormat,
-            D3DMULTISAMPLE_NONE, //D3DMULTISAMPLE_TYPE MultiSample,
-            0, //DWORD MultisampleQuality,
-            true, //BOOL Lockable,
-            &_pRenderTextureSurface,
-            nullptr //HANDLE* pHandle
-        );
-
-
-
-_TRACE_("restoreFullScreenRenderTarget() 2");
-//    LPDIRECT3DTEXTURE9 pIDirect3DTexture9;
-//    HRESULT hr = D3DXCreateTextureFromFileEx(
-//                     _pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice,
-//                     texture_file_name.c_str(), // [in] LPCTSTR pSrcFile,
-//                     D3DX_DEFAULT,              // [in] UINT Widths,
-//                     D3DX_DEFAULT,              // [in] UINT Height,
-//                     D3DX_DEFAULT,              // [in] UINT MipLevels,  //D3DX_DEFAULT,
-//                     0,                         // [in] DWORD Usage,
-//                     D3DFMT_UNKNOWN,            // [in] D3DFORMAT Format,
-//                     D3DPOOL_DEFAULT,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
-//                     D3DX_FILTER_POINT,         // [in] DWORD Filter, D3DX_FILTER_POINTでボヤケナイ. D3DX_FILTER_LINEAR
-//                     D3DX_DEFAULT,              // [in] DWORD MipFilter,
-//                     0,                         // [in] D3DCOLOR ColorKey,
-//                     _pD3DXIMAGE_INFO,          // [out] D3DXIMAGE_INFO *pSrcInfo,
-//                     nullptr,                   // [in] PALETTEENTRY *pPalette,
-//                     &pIDirect3DTexture9        // [out] LPDIRECT3DTEXTURE9* ppTexture
-//                );
-
-//オブジェクト判定サーフェイス作成例
-//// デバイスの描画バッファを取得
-//g_pD3DDev->GetRenderTarget(0, &pDevSurface);
-//
-//// バックバッファサーフェイスの属性を取得
-//D3DSURFACE_DESC DevSufDesc;
-//pDevSurface->GetDesc( &DevSufDesc );
-//
-//// オブジェクト判定サーフェイスの作成
-//g_pD3DDev->CreateRenderTarget(
-//        DevSufDesc.Width,
-//        DevSufDesc.Height,
-//        DevSufDesc.Format,
-//        DevSufDesc.MultiSampleType,
-//        0,
-//        true,
-//        &pColorSurface, NULL);
-
-
-
+    //描画先となるサーフェイスを別途作成（バックバッファ的な使用を行う）
+    hr = _pID3DDevice9->CreateRenderTarget(
+        CONFIG::RENDER_TARGET_BUFFER_WIDTH,
+        CONFIG::RENDER_TARGET_BUFFER_HEIGHT,
+        _paPresetPrm[_primary_screen_display_no].BackBufferFormat,
+        D3DMULTISAMPLE_NONE, //D3DMULTISAMPLE_TYPE MultiSample,
+        0, //DWORD MultisampleQuality,
+        true, //BOOL Lockable,
+        &_pRenderTextureSurface,
+        nullptr //HANDLE* pHandle
+    );
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャのサーフェイス取得に失敗しました。");
     hr = _pID3DDevice9->SetRenderTarget(0, _pRenderTextureSurface);
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャへ SetRenderTarget 出来ませんでした。");
@@ -1652,27 +1408,13 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。4");
 
     //アダプタに関連付けられたスワップチェーンを取得してバックバッファ取得
-
-    if (CONFIG::DUAL_SCREEN) {
-
-
+    //ここは、 adapter 0, 1, 2, ･･･の順で GetSwapChain() すること
+    if (Config::NUMBER_OF_SCREENS_USED > 1) {
         for (int adapter = 0; adapter < _num_adapter; adapter++) {
-            if (adapter == _primary_screen_display_no) {
-                hr = _pID3DDevice9->GetSwapChain(adapter, &_papSwapChain[_primary_screen_display_no] );
-                returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました(0)。adapter="<<adapter);
-                hr = _papSwapChain[_primary_screen_display_no]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_papBackBuffer[_primary_screen_display_no] );
-                returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました(0)。adapter="<<adapter);
-            } else if (adapter == _secondary_screen_display_no) {
-                hr = _pID3DDevice9->GetSwapChain( adapter, &_papSwapChain[_secondary_screen_display_no] );
-                returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました(1)。adapter="<<adapter);
-                hr = _papSwapChain[_secondary_screen_display_no]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_papBackBuffer[_secondary_screen_display_no] );
-                returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました(1)。adapter="<<adapter);
-             } else {
-                hr = _pID3DDevice9->GetSwapChain( adapter, &_papSwapChain[adapter] );
-                returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました(2)。adapter="<<adapter);
-                hr = _papSwapChain[adapter]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_papBackBuffer[adapter] );
-                returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました(2)。adapter="<<adapter);
-             }
+            hr = _pID3DDevice9->GetSwapChain( adapter, &_papSwapChain[adapter] );
+            returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました(2)。adapter="<<adapter);
+            hr = _papSwapChain[adapter]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_papBackBuffer[adapter] );
+            returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました(2)。adapter="<<adapter);
         }
     } else {
         hr = _pID3DDevice9->GetSwapChain( 0, &_papSwapChain[_primary_screen_display_no] );
@@ -1682,22 +1424,21 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
     }
 
     //フルスクリーン時、バックバッファとフロントバッファを背景色で塗る
-    if (CONFIG::DUAL_SCREEN) {
-        hr = _pID3DDevice9->StretchRect(
-                _pRenderTextureSurface, &_aRect_HarfRenderBufferSource[PRIMARY_SCREEN],
-                _papBackBuffer[_primary_screen_display_no], &_aRect_FullScreen[PRIMARY_SCREEN],
-                D3DTEXF_NONE);
-        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_SCREEN 1画面目、背景色塗に失敗しました。(1)\n"
-                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_papBackBuffer[_primary_screen_display_no]="<<_papBackBuffer[_primary_screen_display_no]);
-        hr = _pID3DDevice9->StretchRect(
-                _pRenderTextureSurface, &_aRect_HarfRenderBufferSource[SECONDARY_SCREEN],
-                _papBackBuffer[_secondary_screen_display_no], &_aRect_FullScreen[SECONDARY_SCREEN],
-                D3DTEXF_NONE);
-        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_SCREEN 2画面目、背景色塗に失敗しました。(1)\n"
-                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_papBackBuffer[_primary_screen_display_no]="<<_papBackBuffer[_secondary_screen_display_no]);
+    if (Config::NUMBER_OF_SCREENS_USED > 1) {
+        for (int adapter = 0; adapter < _num_adapter; adapter++) {
+            int pry = _mapAdpToPry[adapter];
+            if (pry >= 0) {
+                hr = _pID3DDevice9->StretchRect(
+                        _pRenderTextureSurface, &_aRectRenderBufferSource[pry],
+                        _papBackBuffer[adapter], &_aRect_FullScreen[pry],
+                        D3DTEXF_NONE);
+                checkDxException(hr, D3D_OK, "FULL_SCREEN "<<adapter<<"画面目、背景色塗に失敗しました。(1)\n"
+                                             "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_papBackBuffer[adapter]="<<_papBackBuffer[adapter]);
+            }
+        }
     } else {
         hr = _pID3DDevice9->StretchRect(
-                _pRenderTextureSurface, &_rectRenderBufferSource,
+                _pRenderTextureSurface, &_aRectRenderBufferSource[PRIMARY_SCREEN],
                 _papBackBuffer[_primary_screen_display_no], &_aRect_FullScreen[PRIMARY_SCREEN],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(1)");
@@ -1706,23 +1447,21 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
     hr = _pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
     returnWhenFailed(hr, D3D_OK, "Present(nullptr, nullptr, nullptr, nullptr)に失敗しました。");
     //フリップしてもう一度背景色で塗る
-    if (CONFIG::DUAL_SCREEN) {
-        hr = _pID3DDevice9->StretchRect(
-                _pRenderTextureSurface, &_aRect_HarfRenderBufferSource[PRIMARY_SCREEN],
-                _papBackBuffer[_primary_screen_display_no], &_aRect_FullScreen[PRIMARY_SCREEN],
-                D3DTEXF_NONE);
-        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_SCREEN 1画面目、背景色塗に失敗しました。(2)\n"
-                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_papBackBuffer[_primary_screen_display_no]="<<_papBackBuffer[_primary_screen_display_no]);
-
-        hr = _pID3DDevice9->StretchRect(
-                _pRenderTextureSurface, &_aRect_HarfRenderBufferSource[SECONDARY_SCREEN],
-                _papBackBuffer[_secondary_screen_display_no], &_aRect_FullScreen[SECONDARY_SCREEN],
-                D3DTEXF_NONE);
-        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_SCREEN 2画面目、背景色塗に失敗しました。(2)\n"
-                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_papBackBuffer[_primary_screen_display_no]="<<_papBackBuffer[_primary_screen_display_no]);
+    if (Config::NUMBER_OF_SCREENS_USED > 1) {
+        for (int adapter = 0; adapter < _num_adapter; adapter++) {
+            int pry = _mapAdpToPry[adapter];
+            if (pry >= 0) {
+                hr = _pID3DDevice9->StretchRect(
+                        _pRenderTextureSurface, &_aRectRenderBufferSource[pry],
+                        _papBackBuffer[adapter], &_aRect_FullScreen[pry],
+                        D3DTEXF_NONE);
+                checkDxException(hr, D3D_OK, "FULL_SCREEN "<<adapter<<"画面目、背景色塗に失敗しました。(2)\n"
+                                             "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_papBackBuffer[adapter]="<<_papBackBuffer[adapter]);
+            }
+        }
     } else {
         hr = _pID3DDevice9->StretchRect(
-                _pRenderTextureSurface, &_rectRenderBufferSource,
+                _pRenderTextureSurface, &_aRectRenderBufferSource[PRIMARY_SCREEN],
                 _papBackBuffer[_primary_screen_display_no], &_aRect_FullScreen[PRIMARY_SCREEN],
                 D3DTEXF_NONE
                 );
@@ -1739,7 +1478,7 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
 }
 void Caretaker::setFullScreenWindowPos() {
     EnumDisplayMonitors(nullptr, nullptr, Caretaker::updateMoniterPixcoordCallback, (LPARAM)this);
-    if (CONFIG::DUAL_SCREEN) {
+    if (Config::NUMBER_OF_SCREENS_USED > 1) {
         for (int n = 0; n < _num_adapter; n++) {
             pixcoord full_screen_x = _paAvailableAdapter[n].rcMonitor.left;
             pixcoord full_screen_y = _paAvailableAdapter[n].rcMonitor.top;
@@ -1754,7 +1493,7 @@ void Caretaker::setFullScreenWindowPos() {
                 SetCursorPos(full_screen_x, full_screen_y);
             }
         }
-    } else {
+    } else { //TODO:上と融合したい
         for (int n = 0; n < _num_adapter; n++) {
             if (n == _primary_screen_display_no) {
                 pixcoord full_screen_x = _paAvailableAdapter[n].rcMonitor.left;
@@ -1775,7 +1514,6 @@ void Caretaker::setFullScreenWindowPos() {
 
 HRESULT Caretaker::releaseFullScreenRenderTarget() {
     GGAF_RELEASE_BY_FROCE(_pRenderTextureSurface);
-//    GGAF_RELEASE_BY_FROCE(_pRenderTexture);
     GGAF_RELEASE_BY_FROCE(_pRenderTextureZ);
     for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
         IDirect3DSurface9* p1 = _papBackBuffer[adapter_no];
@@ -1783,12 +1521,6 @@ HRESULT Caretaker::releaseFullScreenRenderTarget() {
         IDirect3DSwapChain9* p2 = _papSwapChain[adapter_no];
         GGAF_RELEASE_BY_FROCE(p2);
     }
-//    GGAF_RELEASE_BY_FROCE(_papBackBuffer[_primary_screen_display_no]);
-//    GGAF_RELEASE_BY_FROCE(_papSwapChain[_primary_screen_display_no]);
-//    if (CONFIG::DUAL_SCREEN) {
-//        GGAF_RELEASE_BY_FROCE(_papBackBuffer[_secondary_screen_display_no]);
-//        GGAF_RELEASE_BY_FROCE(_papSwapChain[_secondary_screen_display_no]);
-//    }
     return D3D_OK;
 }
 
@@ -1898,45 +1630,61 @@ void Caretaker::presentVisualize() {
     HRESULT hr;
     if (pCARETAKER->_is_device_lost_flg == false) {
         if (_adjustGameWindow) {
-            adjustGameWindow(_pHWndPrimary);
-            adjustGameWindow(_pHWndSecondary);
+//            adjustGameWindow(_pHWndPrimary);
+//            adjustGameWindow(_pHWndSecondary);
+            adjustGameWindow();
         }
 
         //Present
         if (CONFIG::FULL_SCREEN) {
-            if (CONFIG::DUAL_SCREEN) {
-                //２画面使用・フルスクリーン
+            //フルスクリーン
+            for (int pry = PRIMARY_SCREEN; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
+                int adapter = Config::SCREEN_DISPLAY_NO[pry];
                 hr = pDevice->StretchRect(
-                        _pRenderTextureSurface, &_aRect_HarfRenderBufferSource[PRIMARY_SCREEN],
-                        _papBackBuffer[_primary_screen_display_no], &_aRect_Present[PRIMARY_SCREEN],
-                        D3DTEXF_LINEAR); //TODO:D3DTEXF_LINEARをオプション指定にするか？
-                //checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_SCREEN 1画面目 StretchRect() に失敗しました。");
-                hr = pDevice->StretchRect(
-                        _pRenderTextureSurface, &_aRect_HarfRenderBufferSource[SECONDARY_SCREEN],
-                        _papBackBuffer[_secondary_screen_display_no], &_aRect_Present[SECONDARY_SCREEN],
-                        D3DTEXF_LINEAR);
-                //checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_SCREEN 2画面目 StretchRect() に失敗しました。");
-                hr = pDevice->Present(nullptr, nullptr, nullptr, nullptr);
-            } else {
-                //１画面使用・フルスクリーン
-                hr = pDevice->StretchRect(
-                        _pRenderTextureSurface, &_rectRenderBufferSource,
-                        _papBackBuffer[_primary_screen_display_no], &_aRect_Present[PRIMARY_SCREEN],
+                        _pRenderTextureSurface, &_aRectRenderBufferSource[pry],
+                        _papBackBuffer[adapter], &_aRect_Present[pry],
                         D3DTEXF_LINEAR);
                 //checkDxException(hr, D3D_OK, "FULL_SCREEN StretchRect() に失敗しました。");
-                hr = pDevice->Present(nullptr, nullptr, nullptr, nullptr);
             }
+            hr = pDevice->Present(nullptr, nullptr, nullptr, nullptr);
+//            if (CONFIG::DUAL_SCREEN) {
+//                //２画面使用・フルスクリーン
+//                hr = pDevice->StretchRect(
+//                        _pRenderTextureSurface, &_aRectRenderBufferSource[PRIMARY_SCREEN],
+//                        _papBackBuffer[_primary_screen_display_no], &_aRect_Present[PRIMARY_SCREEN],
+//                        D3DTEXF_LINEAR); //TODO:D3DTEXF_LINEARをオプション指定にするか？
+//                //checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_SCREEN 1画面目 StretchRect() に失敗しました。");
+//                hr = pDevice->StretchRect(
+//                        _pRenderTextureSurface, &_aRectRenderBufferSource[SECONDARY_SCREEN],
+//                        _papBackBuffer[_secondary_screen_display_no], &_aRect_Present[SECONDARY_SCREEN],
+//                        D3DTEXF_LINEAR);
+//                //checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_SCREEN 2画面目 StretchRect() に失敗しました。");
+//                hr = pDevice->Present(nullptr, nullptr, nullptr, nullptr);
+//            } else {
+//                //１画面使用・フルスクリーン
+//                hr = pDevice->StretchRect(
+//                        _pRenderTextureSurface, &_aRectRenderBufferSource[PRIMARY_SCREEN],
+//                        _papBackBuffer[_primary_screen_display_no], &_aRect_Present[PRIMARY_SCREEN],
+//                        D3DTEXF_LINEAR);
+//                //checkDxException(hr, D3D_OK, "FULL_SCREEN StretchRect() に失敗しました。");
+//                hr = pDevice->Present(nullptr, nullptr, nullptr, nullptr);
+//            }
         } else {
-            if (CONFIG::DUAL_SCREEN) {
-                //２画面使用・ウィンドウモード
-                hr = pDevice->Present(&_aRect_HarfRenderBufferSource[PRIMARY_SCREEN], &_aRect_Present[PRIMARY_SCREEN], _pHWndPrimary, nullptr);
-                if (hr == D3D_OK) {
-                    hr = pDevice->Present(&_aRect_HarfRenderBufferSource[SECONDARY_SCREEN], &_aRect_Present[SECONDARY_SCREEN], _pHWndSecondary, nullptr);
-                }
-            } else {
-                //１画面使用・ウィンドウモード
-                hr = pDevice->Present(&_rectRenderBufferSource, &_aRect_Present[PRIMARY_SCREEN], nullptr, nullptr);
+            //ウィンドウモード
+            for (int pry = PRIMARY_SCREEN; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
+                int adapter = Config::SCREEN_DISPLAY_NO[pry];
+                hr = pDevice->Present(&_aRectRenderBufferSource[pry], &_aRect_Present[pry], _paHWnd[adapter], nullptr);
             }
+//            if (CONFIG::DUAL_SCREEN) {
+//                //２画面使用・ウィンドウモード
+//                hr = pDevice->Present(&_aRectRenderBufferSource[PRIMARY_SCREEN], &_aRect_Present[PRIMARY_SCREEN], _pHWndPrimary, nullptr);
+//                if (hr == D3D_OK) {
+//                    hr = pDevice->Present(&_aRectRenderBufferSource[SECONDARY_SCREEN], &_aRect_Present[SECONDARY_SCREEN], _pHWndSecondary, nullptr);
+//                }
+//            } else {
+//                //１画面使用・ウィンドウモード
+//                hr = pDevice->Present(&_aRectRenderBufferSource[PRIMARY_SCREEN], &_aRect_Present[PRIMARY_SCREEN], nullptr, nullptr);
+//            }
         }
         if (hr == S_PRESENT_OCCLUDED) {
             _TRACE_("【情報】HRESULT = S_PRESENT_OCCLUDED ");
@@ -2024,12 +1772,10 @@ void Caretaker::presentVisualize() {
         //解像度変更を考慮
         if (CONFIG::FULL_SCREEN) {
             //一旦戻す
-            CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH_BK;
-            CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT_BK;
-            CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH = CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH_BK;
-            CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT = CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT_BK;
-            CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH_BK;
-            CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT_BK;
+            for (int pry = PRIMARY_SCREEN; pry < MAX_SCREENS; ++pry) {
+                CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH = CONFIG::SCREEN_FULL_SCREEN_BK[pry].WIDTH;
+                CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT = CONFIG::SCREEN_FULL_SCREEN_BK[pry].HEIGHT;
+            }
             pCARETAKER->setDisplaySizeInfo();
             pCARETAKER->setAppropriateDisplaySize(false);
             //checkAppropriateDisplaySize() による解像度変更はしない
@@ -2038,41 +1784,24 @@ void Caretaker::presentVisualize() {
             //アプリ終了時に変更後の解像度のまま残るため？
 
             //バックバッファサイズ
-            if(CONFIG::DUAL_SCREEN) {
-                //フルスクリーンモード・２画面使用 (フルスクリーンチェックで上書きされるかもしれない)
-                _paPresetPrm[_primary_screen_display_no].BackBufferWidth  = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-                _paPresetPrm[_primary_screen_display_no].BackBufferHeight = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
-                _paPresetPrm[_secondary_screen_display_no].BackBufferWidth  = CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH;
-                _paPresetPrm[_secondary_screen_display_no].BackBufferHeight = CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT;
-            } else {
-                //フルスクリーンモード・１画面使用 (フルスクリーンチェックで上書きされるかもしれない)
-                _paPresetPrm[_primary_screen_display_no].BackBufferWidth  = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-                _paPresetPrm[_primary_screen_display_no].BackBufferHeight = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
-                _paPresetPrm[_secondary_screen_display_no].BackBufferWidth  = 0;
-                _paPresetPrm[_secondary_screen_display_no].BackBufferHeight = 0;
+            for (int pry = PRIMARY_SCREEN; pry < MAX_SCREENS; ++pry) {
+                int adpter = Config::SCREEN_DISPLAY_NO[pry];
+                _paPresetPrm[adpter].BackBufferWidth  = CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH;
+                _paPresetPrm[adpter].BackBufferHeight = CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT;
             }
-
             //下のrestoreFullScreenRenderTarget() で似たようなことをやってるのでいらんかも
-            if (CONFIG::DUAL_SCREEN) {
-                SetWindowPos(_paHWnd[_primary_screen_display_no], NULL, 0, 0,
-                        _paPresetPrm[_primary_screen_display_no].BackBufferWidth,
-                        _paPresetPrm[_primary_screen_display_no].BackBufferHeight,
-                        SWP_NOMOVE | SWP_NOZORDER);
-                SetWindowPos(_paHWnd[_secondary_screen_display_no], NULL, 0, 0,
-                        _paPresetPrm[_secondary_screen_display_no].BackBufferWidth,
-                        _paPresetPrm[_secondary_screen_display_no].BackBufferHeight,
-                        SWP_NOMOVE | SWP_NOZORDER);
-            } else {
-                SetWindowPos(_paHWnd[_primary_screen_display_no], NULL, 0, 0,
-                        _paPresetPrm[_primary_screen_display_no].BackBufferWidth,
-                        _paPresetPrm[_primary_screen_display_no].BackBufferHeight,
+            for (int pry = PRIMARY_SCREEN; pry < MAX_SCREENS; ++pry) {
+                int adpter = Config::SCREEN_DISPLAY_NO[pry];
+                SetWindowPos(_paHWnd[adpter], NULL, 0, 0,
+                        _paPresetPrm[adpter].BackBufferWidth,
+                        _paPresetPrm[adpter].BackBufferHeight,
                         SWP_NOMOVE | SWP_NOZORDER);
             }
         }
         //デバイスリセットを試みる
         _TRACE_("【デバイスロスト処理】デバイスリセット BEGIN ------>");
         for (int i = 0; i < 100*60*10; i++) {
-            if (CONFIG::FULL_SCREEN && CONFIG::DUAL_SCREEN) {
+            if (CONFIG::FULL_SCREEN && Config::NUMBER_OF_SCREENS_USED > 1) {
                 hr = pDevice->Reset(_paPresetPrm);
             } else {
                 hr = pDevice->Reset(&(_paPresetPrm[_primary_screen_display_no]));
@@ -2213,103 +1942,110 @@ void Caretaker::clean() {
     _TRACE_(FUNC_NAME<<" end");
 }
 
-void Caretaker::adjustGameWindow(HWND prm_pHWnd) {
-    RECT rect;
-    if (prm_pHWnd && !CONFIG::FULL_SCREEN ) {
+//void Caretaker::adjustGameWindow(HWND prm_pHWnd) {
+void Caretaker::adjustGameWindow() {
+
+    if (!CONFIG::FULL_SCREEN ) {
         //ウィンドウモード時
         HRESULT hr;
         hr = _pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
-        hr = _pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
-        if (CONFIG::DUAL_SCREEN) {
-            hr = _pID3DDevice9->Present(nullptr, nullptr, _pHWndSecondary, nullptr);
-        }
-        if (::GetClientRect(prm_pHWnd, &rect)) {
-            LONG c_width= rect.right;
-            LONG c_height = rect.bottom;
-
-            LONG fix_width, fix_height;
-            int pos1, pos2;
-            if (CONFIG::DUAL_SCREEN) {
-                pos1 = CONFIG::PRIMARY_SCREEN_PRESENT_POSITION;
-                pos2 = CONFIG::SECONDARY_SCREEN_PRESENT_POSITION;
-            } else {
-                pos1 = CONFIG::PRIMARY_SCREEN_PRESENT_POSITION;
-                pos2 = CONFIG::SECONDARY_SCREEN_PRESENT_POSITION; //とりあえず
+        for (int n = 0; n < _num_PresetPrm; n++) {
+            if (!_paHWnd[n]) {
+                continue;
             }
+            hr = _pID3DDevice9->Present(nullptr, nullptr, _paHWnd[n], nullptr);
+        }
 
-            //ウィンドウモード時・RENDER_TARGET_BUFFERサイズ無視
-            if (CONFIG::FIXED_SCREEN_ASPECT) {
-                //ウィンドウモード時・アスペクト比固定
-                if (CONFIG::DUAL_SCREEN) {
-                    if (prm_pHWnd == _pHWndPrimary) {
+        for (int n = 0; n < _num_PresetPrm; n++) {
+            if (!_paHWnd[n]) {
+                continue;
+            }
+            RECT rect;
+            if (::GetClientRect(_paHWnd[n], &rect)) {
+                LONG c_width= rect.right;
+                LONG c_height = rect.bottom;
+                LONG fix_width, fix_height;
+                int pos;
+                if (_paHWnd[n] == _pHWndPrimary) {
+                     pos = CONFIG::PRIMARY_SCREEN_PRESENT_POSITION;
+                } else if (_paHWnd[n] == _pHWndSecondary) {
+                     pos = CONFIG::SECONDARY_SCREEN_PRESENT_POSITION;
+                }
+
+                if ((_paHWnd[n] == _pHWndPrimary && CONFIG::PRIMARY_SCREEN_ASPECT_RATIO_FIXED) ||
+                    (_paHWnd[n] == _pHWndSecondary && CONFIG::SECONDARY_SCREEN_ASPECT_RATIO_FIXED)	)
+                {
+                    //ウィンドウモード時・アスペクト比固定
+                    if (_paHWnd[n] == _pHWndPrimary) {
                         fix_width  = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH  * CONFIG::PRIMARY_SCREEN_WIDTH_RATIO;
                         fix_height = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT * CONFIG::PRIMARY_SCREEN_HEIGHT_RATIO;
-                    } else {
+                    } else if (_paHWnd[n] == _pHWndSecondary) {
                         fix_width  = CONFIG::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH  * CONFIG::SECONDARY_SCREEN_WIDTH_RATIO;
                         fix_height = CONFIG::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT * CONFIG::SECONDARY_SCREEN_HEIGHT_RATIO;
                     }
+
+                    if (1.0f * c_width / c_height > 1.0f * fix_width / fix_height) {
+                        //より横長になってしまっている
+                        double rate = 1.0 * c_height / fix_height; //縮小率=縦幅の比率
+
+                        if (_paHWnd[n] == _pHWndPrimary) {
+                            _aRect_Present[PRIMARY_SCREEN].left   = (c_width / 2.0) - (fix_width * rate / 2.0);
+                            _aRect_Present[PRIMARY_SCREEN].top    = 0;
+                            _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + (fix_width * rate);
+                            _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + (fix_height * rate);
+                            setPositionPresentRect(pos, _aRect_Present[PRIMARY_SCREEN], c_width, c_height);
+                        } else if (_paHWnd[n]  == _pHWndSecondary) {
+                            _aRect_Present[SECONDARY_SCREEN].left   = (c_width / 2.0) - (fix_width * rate / 2.0);
+                            _aRect_Present[SECONDARY_SCREEN].top    = 0;
+                            _aRect_Present[SECONDARY_SCREEN].right  = _aRect_Present[SECONDARY_SCREEN].left + (fix_width * rate);
+                            _aRect_Present[SECONDARY_SCREEN].bottom = _aRect_Present[SECONDARY_SCREEN].top  + (fix_height * rate);
+                            setPositionPresentRect(pos, _aRect_Present[SECONDARY_SCREEN], c_width, c_height);
+                        }
+
+                    } else {
+                        //より縦長になってしまっている
+                        double rate = 1.0 * c_width / fix_width; //縮小率=横幅の比率
+                        if (_paHWnd[n] == _pHWndPrimary) {
+                            _aRect_Present[PRIMARY_SCREEN].left   = 0;
+                            _aRect_Present[PRIMARY_SCREEN].top    = (c_height / 2.0) - (fix_height * rate / 2.0);
+                            _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + (fix_width * rate);
+                            _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + (fix_height * rate);
+                            setPositionPresentRect(pos, _aRect_Present[PRIMARY_SCREEN], c_width, c_height);
+                        } else if (_paHWnd[n] == _pHWndSecondary) {
+                            _aRect_Present[SECONDARY_SCREEN].left   = 0;
+                            _aRect_Present[SECONDARY_SCREEN].top    = (c_height / 2.0) - (fix_height * rate / 2.0);
+                            _aRect_Present[SECONDARY_SCREEN].right  = _aRect_Present[SECONDARY_SCREEN].left + (fix_width * rate);
+                            _aRect_Present[SECONDARY_SCREEN].bottom = _aRect_Present[SECONDARY_SCREEN].top  + (fix_height * rate);
+                            setPositionPresentRect(pos, _aRect_Present[SECONDARY_SCREEN], c_width, c_height);
+                        }
+
+                    }
                 } else {
-                    fix_width  = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH  * CONFIG::PRIMARY_SCREEN_WIDTH_RATIO;
-                    fix_height = CONFIG::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT * CONFIG::PRIMARY_SCREEN_HEIGHT_RATIO;
-                }
+                    //ウィンドウモード時・縦横ストレッチ
+                    if (::GetClientRect(_paHWnd[n], &rect)) {
+                        if (_paHWnd[n] == _pHWndPrimary) {
+                            _aRect_Present[PRIMARY_SCREEN] = rect;
+                        } else if (_paHWnd[n] == _pHWndSecondary) {
+                            _aRect_Present[SECONDARY_SCREEN] = rect;
+                        }
 
-                if (1.0f * c_width / c_height > 1.0f * fix_width / fix_height) {
-                    //より横長になってしまっている
-                    double rate = 1.0 * c_height / fix_height; //縮小率=縦幅の比率
-                    if (prm_pHWnd == _pHWndPrimary) {
-                        _aRect_Present[PRIMARY_SCREEN].left   = (c_width / 2.0) - (fix_width * rate / 2.0);
-                        _aRect_Present[PRIMARY_SCREEN].top    = 0;
-                        _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + (fix_width * rate);
-                        _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + (fix_height * rate);
-                        setPositionPresentRect(pos1, _aRect_Present[PRIMARY_SCREEN], c_width, c_height);
-                    } else {
-                        _aRect_Present[SECONDARY_SCREEN].left   = (c_width / 2.0) - (fix_width * rate / 2.0);
-                        _aRect_Present[SECONDARY_SCREEN].top    = 0;
-                        _aRect_Present[SECONDARY_SCREEN].right  = _aRect_Present[SECONDARY_SCREEN].left + (fix_width * rate);
-                        _aRect_Present[SECONDARY_SCREEN].bottom = _aRect_Present[SECONDARY_SCREEN].top  + (fix_height * rate);
-                        setPositionPresentRect(pos2, _aRect_Present[SECONDARY_SCREEN], c_width, c_height);
-                    }
-
-                } else {
-                    //より縦長になってしまっている
-                    double rate = 1.0 * c_width / fix_width; //縮小率=横幅の比率
-                    if (prm_pHWnd == _pHWndPrimary) {
-                        _aRect_Present[PRIMARY_SCREEN].left   = 0;
-                        _aRect_Present[PRIMARY_SCREEN].top    = (c_height / 2.0) - (fix_height * rate / 2.0);
-                        _aRect_Present[PRIMARY_SCREEN].right  = _aRect_Present[PRIMARY_SCREEN].left + (fix_width * rate);
-                        _aRect_Present[PRIMARY_SCREEN].bottom = _aRect_Present[PRIMARY_SCREEN].top  + (fix_height * rate);
-                        setPositionPresentRect(pos1, _aRect_Present[PRIMARY_SCREEN], c_width, c_height);
-                    } else {
-                        _aRect_Present[SECONDARY_SCREEN].left   = 0;
-                        _aRect_Present[SECONDARY_SCREEN].top    = (c_height / 2.0) - (fix_height * rate / 2.0);
-                        _aRect_Present[SECONDARY_SCREEN].right  = _aRect_Present[SECONDARY_SCREEN].left + (fix_width * rate);
-                        _aRect_Present[SECONDARY_SCREEN].bottom = _aRect_Present[SECONDARY_SCREEN].top  + (fix_height * rate);
-                        setPositionPresentRect(pos2, _aRect_Present[SECONDARY_SCREEN], c_width, c_height);
                     }
                 }
-            } else {
-                //ウィンドウモード時・縦横ストレッチ
-                if (::GetClientRect(prm_pHWnd, &rect)) {
-                    if (prm_pHWnd == _pHWndPrimary) {
-                        _aRect_Present[PRIMARY_SCREEN] = rect;
-                    } else {
-                        _aRect_Present[SECONDARY_SCREEN] = rect;
-                    }
 
-                }
             }
         }
+
 #ifdef MY_DEBUG
-        _TRACE_("Caretaker::adjustGameWindow(" << (prm_pHWnd == _pHWndPrimary ? "Primary" : "Secondary") <<") コール");
-        if (CONFIG::DUAL_SCREEN) {
-            _TRACE_(" _aRect_HarfRenderBufferSource[PRIMARY_SCREEN].left   = "<<_aRect_HarfRenderBufferSource[PRIMARY_SCREEN].left  );
-            _TRACE_(" _aRect_HarfRenderBufferSource[PRIMARY_SCREEN].top    = "<<_aRect_HarfRenderBufferSource[PRIMARY_SCREEN].top   );
-            _TRACE_(" _aRect_HarfRenderBufferSource[PRIMARY_SCREEN].right  = "<<_aRect_HarfRenderBufferSource[PRIMARY_SCREEN].right );
-            _TRACE_(" _aRect_HarfRenderBufferSource[PRIMARY_SCREEN].bottom = "<<_aRect_HarfRenderBufferSource[PRIMARY_SCREEN].bottom);
-            _TRACE_(" _aRect_HarfRenderBufferSource[SECONDARY_SCREEN].left   = "<<_aRect_HarfRenderBufferSource[SECONDARY_SCREEN].left  );
-            _TRACE_(" _aRect_HarfRenderBufferSource[SECONDARY_SCREEN].top    = "<<_aRect_HarfRenderBufferSource[SECONDARY_SCREEN].top   );
-            _TRACE_(" _aRect_HarfRenderBufferSource[SECONDARY_SCREEN].right  = "<<_aRect_HarfRenderBufferSource[SECONDARY_SCREEN].right );
-            _TRACE_(" _aRect_HarfRenderBufferSource[SECONDARY_SCREEN].bottom = "<<_aRect_HarfRenderBufferSource[SECONDARY_SCREEN].bottom);
+        //_TRACE_("Caretaker::adjustGameWindow(" << (prm_pHWnd == _pHWndPrimary ? "Primary" : "Secondary") <<") コール");
+        if (Config::NUMBER_OF_SCREENS_USED > 1) {
+            _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].left   = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].left  );
+            _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].top    = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].top   );
+            _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].right  = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].right );
+            _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].bottom = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].bottom);
+            _TRACE_(" _aRectRenderBufferSource[SECONDARY_SCREEN].left   = "<<_aRectRenderBufferSource[SECONDARY_SCREEN].left  );
+            _TRACE_(" _aRectRenderBufferSource[SECONDARY_SCREEN].top    = "<<_aRectRenderBufferSource[SECONDARY_SCREEN].top   );
+            _TRACE_(" _aRectRenderBufferSource[SECONDARY_SCREEN].right  = "<<_aRectRenderBufferSource[SECONDARY_SCREEN].right );
+            _TRACE_(" _aRectRenderBufferSource[SECONDARY_SCREEN].bottom = "<<_aRectRenderBufferSource[SECONDARY_SCREEN].bottom);
             _TRACE_(" _aRect_Present[PRIMARY_SCREEN].left   = "<<_aRect_Present[PRIMARY_SCREEN].left  );
             _TRACE_(" _aRect_Present[PRIMARY_SCREEN].top    = "<<_aRect_Present[PRIMARY_SCREEN].top   );
             _TRACE_(" _aRect_Present[PRIMARY_SCREEN].right  = "<<_aRect_Present[PRIMARY_SCREEN].right );
@@ -2319,10 +2055,10 @@ void Caretaker::adjustGameWindow(HWND prm_pHWnd) {
             _TRACE_(" _aRect_Present[SECONDARY_SCREEN].right  = "<<_aRect_Present[SECONDARY_SCREEN].right );
             _TRACE_(" _aRect_Present[SECONDARY_SCREEN].bottom = "<<_aRect_Present[SECONDARY_SCREEN].bottom);
         } else {
-            _TRACE_(" _rectRenderBufferSource.left   = "<<_rectRenderBufferSource.left  );
-            _TRACE_(" _rectRenderBufferSource.top    = "<<_rectRenderBufferSource.top   );
-            _TRACE_(" _rectRenderBufferSource.right  = "<<_rectRenderBufferSource.right );
-            _TRACE_(" _rectRenderBufferSource.bottom = "<<_rectRenderBufferSource.bottom);
+            _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].left   = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].left  );
+            _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].top    = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].top   );
+            _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].right  = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].right );
+            _TRACE_(" _aRectRenderBufferSource[PRIMARY_SCREEN].bottom = "<<_aRectRenderBufferSource[PRIMARY_SCREEN].bottom);
             _TRACE_(" _aRect_Present[PRIMARY_SCREEN].left   = "<<_aRect_Present[PRIMARY_SCREEN].left  );
             _TRACE_(" _aRect_Present[PRIMARY_SCREEN].top    = "<<_aRect_Present[PRIMARY_SCREEN].top   );
             _TRACE_(" _aRect_Present[PRIMARY_SCREEN].right  = "<<_aRect_Present[PRIMARY_SCREEN].right );
@@ -2515,8 +2251,8 @@ Caretaker::~Caretaker() {
 //    フロントバッファ    ／                    ／       |    ／                    ／
 //    (ディスプレイ)    ／                    ／         |  ／                    ／
 //                      ￣￣￣￣￣￣￣￣￣￣￣           |  ￣￣￣￣￣￣￣￣￣￣￣
-//                     PRIMARY_SCREEN_FULL_SCREEN_WIDTH x  |   SECONDARY_SCREEN_FULL_SCREEN_WIDTH x
-//                       PRIMARY_SCREEN_FULL_SCREEN_HEIGHT |     SECONDARY_SCREEN_FULL_SCREEN_HEIGHT
+//                   PRIMARY_SCREEN_FULL_SCREEN_WIDTH x  |   SECONDARY_SCREEN_FULL_SCREEN_WIDTH x
+//                     PRIMARY_SCREEN_FULL_SCREEN_HEIGHT |     SECONDARY_SCREEN_FULL_SCREEN_HEIGHT
 //
 //                               ↑                                 ↑
 //                               ｜ Present (flip)                  ｜ Present (flip)

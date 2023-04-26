@@ -18,10 +18,10 @@ using namespace Mogera;
 MgrSpacetime::MgrSpacetime(const char* prm_name, MgrCamera* prm_pCam) :
         GgafLib::DefaultSpacetime(prm_name, prm_pCam) {
     pWorld_ = nullptr;
-    UTIL::left_top_x_ = CONFIG::DUAL_SCREEN ? PX_C(pCARETAKER->_aRect_HarfRenderBufferSource[PRIMARY_SCREEN].left) :
-                                            PX_C(pCARETAKER->_rectRenderBufferSource.left);
-    UTIL::left_top_y_ = CONFIG::DUAL_SCREEN ? PX_C(pCARETAKER->_aRect_HarfRenderBufferSource[PRIMARY_SCREEN].top) :
-                                            PX_C(pCARETAKER->_rectRenderBufferSource.top);
+    UTIL::left_top_x_ = CONFIG::NUMBER_OF_SCREENS_USED > 1 ? PX_C(pCARETAKER->_aRectRenderBufferSource[PRIMARY_SCREEN].left) :
+                                            PX_C(pCARETAKER->_aRectRenderBufferSource[PRIMARY_SCREEN].left);
+    UTIL::left_top_y_ = CONFIG::NUMBER_OF_SCREENS_USED > 1 ? PX_C(pCARETAKER->_aRectRenderBufferSource[PRIMARY_SCREEN].top) :
+                                            PX_C(pCARETAKER->_aRectRenderBufferSource[PRIMARY_SCREEN].top);
     UTIL::center_x_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_WIDTH / 2);
     UTIL::center_y_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_HEIGHT / 2);
 

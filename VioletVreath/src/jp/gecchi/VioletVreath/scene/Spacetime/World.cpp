@@ -107,19 +107,19 @@ void World::initialize() {
     bringSceneMediator()->appendGroupChild(pLabel_need_reboot_);
     pLabel_need_reboot_->update(PX_C(cx), PX_C(cy/2), "", ALIGN_CENTER, VALIGN_MIDDLE);
 
-    std::string fix_str = CONFIG::FIXED_SCREEN_ASPECT ? "ASPECT FIX" : "VIEW STRETCH";
+    std::string fix_str = CONFIG::PRIMARY_SCREEN_ASPECT_RATIO_FIXED ? "ASPECT FIX" : "VIEW STRETCH";
     pixcoord w1,h1,w2,h2;
     pixcoord w1_bk,h1_bk,w2_bk,h2_bk;
     w1 = h1 = w2 = h2 = 0;
     w1_bk = h1_bk = w2_bk = h2_bk = 0;
     bool is_warn_dual_view = false;
-    if (CONFIG::FULL_SCREEN && !CONFIG::DUAL_SCREEN && CONFIG::_properties.getBool("DUAL_SCREEN")) {
+    if (CONFIG::FULL_SCREEN && CONFIG::NUMBER_OF_SCREENS_USED == 1 && CONFIG::_properties.getInt("NUMBER_OF_SCREENS_USED") > 1) {
         //２画面フルスクリーン指定なのに、無理やり１画面フルスクリーンに設定された。
         is_warn_dual_view = true;
     }
     bool is_warn1 = false;
     bool is_warn2 = false;
-    if (CONFIG::DUAL_SCREEN) {
+    if (CONFIG::NUMBER_OF_SCREENS_USED > 1) {
         if (CONFIG::FULL_SCREEN) {
             w1 = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
             h1 = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
@@ -162,11 +162,11 @@ void World::initialize() {
         }
     }
 
-    if (CONFIG::DUAL_SCREEN) {
+    if (CONFIG::NUMBER_OF_SCREENS_USED > 1) {
         //解像度情報表示
         pLabel_resolution1_->update(
             PX_C(cx/2), PX_C(cy),
-            ("DISPLAY["+XTOS(CONFIG::PRIMARY_SCREEN_DISPLAY_NO)+"] / VIEW[0]\n"+
+            ("DISPLAY["+XTOS(CONFIG::PRIMARY_SCREEN_DISPLAY_NO)+"] / GAME SCREEN[0]\n"+
               XTOS(w1)+"*"+XTOS(h1)+"\n"+
               fix_str).c_str()
         );
@@ -178,7 +178,7 @@ void World::initialize() {
         }
         pLabel_resolution2_->update(
             PX_C(cx+(cx/2)), PX_C(cy),
-            ("DISPLAY["+XTOS(CONFIG::SECONDARY_SCREEN_DISPLAY_NO)+"] / VIEW[1]\n"+
+            ("DISPLAY["+XTOS(CONFIG::SECONDARY_SCREEN_DISPLAY_NO)+"] / GAME SCREEN[1]\n"+
                     XTOS(w2)+"*"+XTOS(h2)+"\n"+
                     fix_str).c_str()
         );
