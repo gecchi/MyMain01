@@ -142,11 +142,11 @@ public:
         }
     };
 
-    /** 使用可能なデバイスのアダプタ数 */
+    /** 使用可能なデバイスのディスプレイアダプタ数 */
     int _num_adapter;
 
     /** D3DPRESENT_PARAMETERS数。最低 MAX_SCREENS。MAX_SCREENSよりアダプタ数が大きい場合はアダプタ数 */
-    int _num_PresetPrm;
+//    int _num_PresetPrm;
 
     /** 使用可能なデバイスのアダプタの情報セット */
     Adapter* _paAvailableAdapter;
@@ -189,17 +189,22 @@ public:
     HWND _pHWndSecondary;
     /** [r] ウィンドウハンドルの配列、要素の添字は D3DPRESENT_PARAMETERS要素番号(アダプタ番号含む) */
     HWND* _paHWnd;
+    /** [r] window数。ウインドウモード時は NUMBER_OF_SCREENS_USED、フルスクリーン時はアダプタ数。 */
+    int _num_window;
+    int _screen_display_no[MAX_SCREENS]; //
+    /** [r]windowインデックス(=フルスクリーン時はアダプタインデックス) → スクリーンプライオリティ。0:PRIMARY_SCREEN/1:SECONDARY_SCREEN/2:TERTIARY */
+    int* _paWindowNoToScreenPry;
 //    /** [r] 0,1,2 => Primary, Secondary, tertiary のディスプレイ番号 */
 //    std::map<int, int> _mapIndexToDisplayNo;
-    /** [r] アダプタ番号 => スクリーンプライオリティ。0:PRIMARY_SCREEN/1:SECONDARY_SCREEN/2:TERTIARY */
-    std::map<int, int> _mapAdpToPry;
-    /** [r] D3DPRESENT_PARAMETERS要素番号(アダプタ番号含む） => スクリーンプライオリティ。0:PRIMARY_SCREEN/1:SECONDARY_SCREEN/2:TERTIARY */
-    std::map<int, int> _mapPreAdpToPry;
+//    /** [r] アダプタ番号 => スクリーンプライオリティ。0:PRIMARY_SCREEN/1:SECONDARY_SCREEN/2:TERTIARY */
+//    std::map<int, int> _mapAdpToPry;
+//    /** [r] D3DPRESENT_PARAMETERS要素番号(アダプタ番号含む） => スクリーンプライオリティ。0:PRIMARY_SCREEN/1:SECONDARY_SCREEN/2:TERTIARY */
+//    std::map<int, int> _mapPreAdpToPry;
 
     /** [r] HWND => スクリーンプライオリティ。0:PRIMARY_SCREEN/1:SECONDARY_SCREEN/2:TERTIARY */
     std::map<HWND, int> _mapHwndToPry;
     /** [r] HWND => アダプタ番号 */
-    std::map<HWND, int> _mapHwndToDisplayNo;
+    std::map<HWND, int> _mapHwndToWindowNo;
 
     /** [r] 本アプリケーションのインスタンスハンドル */
     HINSTANCE _hInstance;
@@ -232,9 +237,9 @@ public:
     /** [r] Present領域(フルスクリーン時、またはウィンドウ＆アスペクトFIXの場合)、[0]:１画面目、[1]:２画面目 (ピクセル) */
     RECT _aRect_Present[MAX_SCREENS];
     /** [r] １画面目アダプタ番号、 _aRectRenderBufferSource[] の序数 0 ～ */
-    int _primary_screen_display_no;
+//    int _primary_screen_adpter_no;
     /** [r] ２画面目アダプタ番号、 _aRectRenderBufferSource[] の序数 0 ～ */
-    int _secondary_screen_display_no;
+//    int _secondary_screen_adpter_no;
 
 public:
     CurveSourceManager* _pCurveSrcManager;
