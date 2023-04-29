@@ -271,10 +271,6 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         //_num_window はウィンドウ数に一致
         _num_window = Config::NUMBER_OF_SCREENS_USED;
     }
-    _paHWnd = NEW HWND[_num_window];
-    for (int wno = 0; wno < _num_window; wno++) {
-        _paHWnd[wno] = nullptr;
-    }
     //_paWindowNoToScreenPry 作成
     _paWindowNoToScreenPry = NEW int[_num_window];
     if (CONFIG::FULL_SCREEN) {
@@ -423,11 +419,17 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     pCARETAKER->setAppropriateDisplaySize();
 
     // ウインドウの生成
+    _paHWnd = NEW HWND[_num_window];
+    for (int wno = 0; wno < _num_window; wno++) {
+        _paHWnd[wno] = nullptr;
+    }
     GgafCore::Rgb rgb = GgafCore::Rgb(CONFIG::BORDER_COLOR);
     prm_wndclass1.hbrBackground = CreateSolidBrush(RGB(rgb._red, rgb._green, rgb._blue));
     prm_wndclass2.hbrBackground = CreateSolidBrush(RGB(rgb._red, rgb._green, rgb._blue));
     if (CONFIG::FULL_SCREEN) {
-        for (int wno = 0; wno < _num_window; wno++) {
+        if (CONFIG::NUMBER_OF_SCREENS_USED == 1) {
+            //１画面フルスクリーン
+            int wno = _screen_display_no[PRIMARY_SCREEN];
             WNDCLASSEX wc = prm_wndclass1;
             RegisterClassEx(&wc);
             _paHWnd[wno] =
@@ -445,8 +447,30 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                         wc.hInstance,
                         nullptr
                     );
+        } else {
+            //２画面以上のフルスクリーンは、マルチヘッドのため、全部の画面にウィンドウを作成
+            for (int wno = 0; wno < _num_window; wno++) {
+                WNDCLASSEX wc = prm_wndclass1;
+                RegisterClassEx(&wc);
+                _paHWnd[wno] =
+                        CreateWindowEx(
+                            WS_EX_APPWINDOW,
+                            wc.lpszClassName,
+                            prm_title1,
+                            WS_POPUP | WS_VISIBLE,
+                            CW_USEDEFAULT,
+                            CW_USEDEFAULT,
+                            _paPresetPrm[wno].BackBufferWidth,
+                            _paPresetPrm[wno].BackBufferHeight,
+                            HWND_DESKTOP,
+                            nullptr,
+                            wc.hInstance,
+                            nullptr
+                        );
+            }
         }
     } else {
+        //ウィンドウモード時
         for (int wno = 0; wno < _num_window; wno++) {
             WNDCLASSEX wc = prm_wndclass1;
             RegisterClassEx(&wc);
