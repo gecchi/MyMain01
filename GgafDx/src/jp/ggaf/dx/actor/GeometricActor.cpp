@@ -556,7 +556,7 @@ void GeometricActor::getViewPosition(coord& out_view_x, coord& out_view_y) {
 #endif
     pCARETAKER->getSpacetime()->
             cnvWorldCoordToView(_x, _y, _z,
-                    out_view_x, out_view_y);
+                                out_view_x, out_view_y);
 }
 
 void GeometricActor::setFaceAngAs(const GeometricActor* prm_pActor) {

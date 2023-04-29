@@ -109,23 +109,31 @@ public:
     double _w_r;
     double _h_r;
 
+    struct BufferRect {
+        pixcoord left;
+        pixcoord top;
+        pixcoord width;
+        pixcoord height;
+    };
     /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標のX座標(主画面) */
-    pixcoord _primary_buffer_source_left;
-    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標のY座標(主画面) */
-    pixcoord _primary_buffer_source_top;
-    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標空の幅(主画面) */
-    pixcoord _primary_buffer_source_width;
-    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標空の高さ(主画面) */
-    pixcoord _primary_buffer_source_height;
-
-    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標のX座標(副画面) */
-    pixcoord _secondary_buffer_source_left;
-    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標のY座標(副画面) */
-    pixcoord _secondary_buffer_source_top;
-    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標空の幅(副画面) */
-    pixcoord _secondary_buffer_source_width;
-    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標空の高さ(副画面) */
-    pixcoord _secondary_buffer_source_height;
+    BufferRect _buffer_source[MAX_SCREENS];
+//    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標のX座標(主画面) */
+//    pixcoord _primary_buffer_source_left;
+//    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標のY座標(主画面) */
+//    pixcoord _primary_buffer_source_top;
+//    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標空の幅(主画面) */
+//    pixcoord _primary_buffer_source_width;
+//    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標空の高さ(主画面) */
+//    pixcoord _primary_buffer_source_height;
+//
+//    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標のX座標(副画面) */
+//    pixcoord _secondary_buffer_source_left;
+//    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標のY座標(副画面) */
+//    pixcoord _secondary_buffer_source_top;
+//    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標空の幅(副画面) */
+//    pixcoord _secondary_buffer_source_width;
+//    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標空の高さ(副画面) */
+//    pixcoord _secondary_buffer_source_height;
 
     static WorldOctree* _pWorldOctree;
     static WorldOctreeRounder* _pWorldOctreeRounder;
@@ -188,6 +196,7 @@ public:
 
     /**
      * ワールド座標をビュー座標変換する .
+     *
      * @param prm_world_x ワールド座標X軸要素
      * @param prm_world_y ワールド座標Y軸要素
      * @param prm_world_z ワールド座標Z軸要素

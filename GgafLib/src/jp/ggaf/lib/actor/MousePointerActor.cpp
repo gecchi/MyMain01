@@ -13,43 +13,40 @@ using namespace GgafLib;
 MousePointerActor::MousePointerActor(const char* prm_name, const char* prm_model)
       : DefaultBoardActor(prm_name, prm_model) {
     DefaultSpacetime* pSpacetime = pCARETAKER->getSpacetime();
-    _coord_primary_buffer_source_left = PX_C(pSpacetime->_primary_buffer_source_left);
-    _coord_primary_buffer_source_top = PX_C(pSpacetime->_primary_buffer_source_top);
-    _coord_secondary_buffer_source_left = PX_C(pSpacetime->_secondary_buffer_source_left);
-    _coord_secondary_buffer_source_top = PX_C(pSpacetime->_secondary_buffer_source_top);
+//    _coord_primary_buffer_source_left = PX_C(pSpacetime->_primary_buffer_source_left);
+//    _coord_primary_buffer_source_top = PX_C(pSpacetime->_primary_buffer_source_top);
+//    _coord_secondary_buffer_source_left = PX_C(pSpacetime->_secondary_buffer_source_left);
+//    _coord_secondary_buffer_source_top = PX_C(pSpacetime->_secondary_buffer_source_top);
     _last_hWnd = pCARETAKER->_pHWndPrimary;
     _pHitActor = nullptr;
     _is_select_able = false;
 }
 
 void MousePointerActor::processSettlementBehavior() {
-    DefaultSpacetime* pSpacetime = pCARETAKER->getSpacetime();
+    DefaultCaretaker* pCaretaker = pCARETAKER;
+    DefaultSpacetime* pSpacetime = pCaretaker->getSpacetime();
     //マウスの座標を取得
     GetCursorPos(&_mouse_point);
     // カーソル位置からウィンドウハンドル取得
     HWND hWnd = WindowFromPoint(_mouse_point);
-    if (hWnd == pCARETAKER->_pHWndPrimary || hWnd == pCARETAKER->_pHWndSecondary) {
-        _last_hWnd = hWnd;
+    for (int wno = 0; wno < pCaretaker->_num_window; wno++) {
+        if (hWnd == pCaretaker->_paHWnd[wno]) {
+            _last_hWnd = hWnd;
+            break;
+        }
     }
     // スクリーン座標をクライアント座標に変換する
     ScreenToClient(_last_hWnd, &_mouse_point);
-//    _TRACE_("_last_hWnd="<<_last_hWnd<<"   _pHWndSecondary="<<pCARETAKER->_pHWndSecondary<<"/_pHWndPrimary="<<pCARETAKER->_pHWndPrimary);
-    if (_last_hWnd == pCARETAKER->_pHWndSecondary) {
-        RECT& rect_Present = pCARETAKER->_aRect_Present[SECONDARY_SCREEN];
+    int last_pry = pCaretaker->_mapHwndToPry[_last_hWnd];
+    if (last_pry >= 0) {
+        RECT& rect_Present = pCaretaker->_aRect_Present[last_pry];
         pixcoord cPresent_w = rect_Present.right - rect_Present.left;
         pixcoord cPresent_h = rect_Present.bottom - rect_Present.top;
-        pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* pSpacetime->_secondary_buffer_source_width) / (1.0* cPresent_w));
-        pixcoord y = (_mouse_point.y - rect_Present.top)  * ((1.0* pSpacetime->_secondary_buffer_source_height) / (1.0* cPresent_h));
-        _x = PX_C(x) + _coord_secondary_buffer_source_left;
-        _y = PX_C(y) + _coord_secondary_buffer_source_top;
-    } else if (_last_hWnd == pCARETAKER->_pHWndPrimary) {
-        RECT& rect_Present = pCARETAKER->_aRect_Present[PRIMARY_SCREEN];
-        pixcoord cPresent_w = rect_Present.right - rect_Present.left;
-        pixcoord cPresent_h = rect_Present.bottom - rect_Present.top;
-        pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* pSpacetime->_primary_buffer_source_width) / (1.0* cPresent_w));
-        pixcoord y = (_mouse_point.y - rect_Present.top)  * ((1.0* pSpacetime->_primary_buffer_source_height) / (1.0* cPresent_h));
-        _x = PX_C(x) + _coord_primary_buffer_source_left;
-        _y = PX_C(y) + _coord_primary_buffer_source_top;
+        pixcoord x = (_mouse_point.x - rect_Present.left) * ((1.0* pSpacetime->_buffer_source[last_pry].width)  / (1.0* cPresent_w));
+        pixcoord y = (_mouse_point.y - rect_Present.top)  * ((1.0* pSpacetime->_buffer_source[last_pry].height) / (1.0* cPresent_h));
+        _x = PX_C(x) + PX_C(pSpacetime->_buffer_source[last_pry].left);
+        _y = PX_C(y) + PX_C(pSpacetime->_buffer_source[last_pry].top);
+
 //        _TRACE_("x,y="<<x<<","<<y<<"");
 //        _TRACE_("rect_Present="<<rect_Present.right<<","<<rect_Present.left<<","<<rect_Present.bottom<<","<<rect_Present.top<<"");
 //        _TRACE_("cPresent_w,cPresent_h="<<cPresent_w<<","<<cPresent_h<<"");

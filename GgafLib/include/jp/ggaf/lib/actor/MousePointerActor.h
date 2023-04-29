@@ -30,10 +30,10 @@ protected:
 //    pixcoord _secondary_buffer_source_width;
 //    pixcoord _secondary_buffer_source_height;
 
-    coord _coord_primary_buffer_source_left;
-    coord _coord_primary_buffer_source_top;
-    coord _coord_secondary_buffer_source_left;
-    coord _coord_secondary_buffer_source_top;
+//    coord _coord_primary_buffer_source_left;
+//    coord _coord_primary_buffer_source_top;
+//    coord _coord_secondary_buffer_source_left;
+//    coord _coord_secondary_buffer_source_top;
 
     HWND _last_hWnd;
 //    GgafCore::Actor* _pSelectActor_prev;

@@ -166,7 +166,7 @@ void World::initialize() {
         //‰ð‘œ“xî•ñ•\Ž¦
         pLabel_resolution1_->update(
             PX_C(cx/2), PX_C(cy),
-            ("DISPLAY["+XTOS(CONFIG::PRIMARY_SCREEN_DISPLAY_NO)+"] / GAME SCREEN[0]\n"+
+            ("DISPLAY["+XTOS(pCARETAKER->_screen_display_no[PRIMARY_SCREEN])+"] / PRIMARY GAME SCREEN \n"+
               XTOS(w1)+"*"+XTOS(h1)+"\n"+
               fix_str).c_str()
         );
@@ -178,7 +178,7 @@ void World::initialize() {
         }
         pLabel_resolution2_->update(
             PX_C(cx+(cx/2)), PX_C(cy),
-            ("DISPLAY["+XTOS(CONFIG::SECONDARY_SCREEN_DISPLAY_NO)+"] / GAME SCREEN[1]\n"+
+            ("DISPLAY["+XTOS(pCARETAKER->_screen_display_no[SECONDARY_SCREEN])+"] / SECONDARY GAME SCREEN\n"+
                     XTOS(w2)+"*"+XTOS(h2)+"\n"+
                     fix_str).c_str()
         );

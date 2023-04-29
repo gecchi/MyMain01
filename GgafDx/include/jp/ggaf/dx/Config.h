@@ -8,13 +8,11 @@
 #endif
 #define CONFIG GgafDx::Config
 
-#define MAX_SCREENS 2
+#define MAX_SCREENS 25
 #define PRIMARY_SCREEN 0
 #define SECONDARY_SCREEN 1
 
 namespace GgafDx {
-
-
 
 class Config: public GgafCore::Config {
 public:

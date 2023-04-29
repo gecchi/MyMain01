@@ -39,6 +39,7 @@ void AroundViewCamWorker::onActive() {
 }
 
 void AroundViewCamWorker::processBehavior() {
+    DefaultCaretaker* pCaretaker = pCARETAKER;
     //TODO:精度を上げるアイディア
     //マウスポイントの履歴を取り、mdx,mdy,mdzは、３フレームほど過去との差にすると回転軸が安定するだろう
     long mdx,mdy,mdz;
@@ -63,24 +64,17 @@ void AroundViewCamWorker::processBehavior() {
     GetCursorPos(&mouse_point);
     // カーソル位置からウィンドウハンドル取得
     HWND hWnd = WindowFromPoint(mouse_point);
-//    if (pCARETAKER->_sync_frame_time) {
-//        _onScreen = false;
-//        _hWnd_last = nullptr;
-//        _isPressed0 = false;
-//        _isPressed1 = false;
-//        _isPressed2 = false;
-//    } else {
-        if (pCARETAKER->_pHWndPrimary == hWnd) {
+
+    _onScreen = false;
+    _hWnd_last = nullptr;
+    for (int wno = 0; wno < pCaretaker->_num_window; wno++) {
+        if (hWnd == pCaretaker->_paHWnd[wno]) {
             _onScreen = true;
             _hWnd_last = hWnd;
-        } else if (pCARETAKER->_pHWndSecondary && pCARETAKER->_pHWndSecondary == hWnd) {
-            _onScreen = true;
-            _hWnd_last = hWnd;
-        } else {
-            _onScreen = false;
-            _hWnd_last = nullptr;
+            break;
         }
-//    }
+    }
+
     if (_onScreen && (isPushedMouseButton0 || isPushedMouseButton1 || isPushedMouseButton2)) {
         mdx = mdy = mdz = 0;
         RECT cRect; // クライアント領域の矩形

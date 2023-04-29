@@ -185,8 +185,8 @@ public:
     EffectManager* _pEffectManager;
     /** [r] 1画面目のウィンドウハンドル  */
     HWND _pHWndPrimary;
-    /** [r] 2画面目のウィンドウハンドル  */
-    HWND _pHWndSecondary;
+//    /** [r] 2画面目のウィンドウハンドル  */
+//    HWND _pHWndSecondary;
     /** [r] ウィンドウハンドルの配列、要素の添字は D3DPRESENT_PARAMETERS要素番号(アダプタ番号含む) */
     HWND* _paHWnd;
     /** [r] window数。ウインドウモード時は NUMBER_OF_SCREENS_USED、フルスクリーン時はアダプタ数。 */
@@ -237,7 +237,7 @@ public:
     /** [r] Present領域(フルスクリーン時、またはウィンドウ＆アスペクトFIXの場合)、[0]:１画面目、[1]:２画面目 (ピクセル) */
     RECT _aRect_Present[MAX_SCREENS];
     /** [r] １画面目アダプタ番号、 _aRectRenderBufferSource[] の序数 0 ～ */
-//    int _primary_screen_adpter_no;
+    int _primary_screen_adpter_no;
     /** [r] ２画面目アダプタ番号、 _aRectRenderBufferSource[] の序数 0 ～ */
 //    int _secondary_screen_adpter_no;
 
