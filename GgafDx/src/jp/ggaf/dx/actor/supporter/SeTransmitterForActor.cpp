@@ -13,7 +13,7 @@
 
 using namespace GgafDx;
 
-frame SeTransmitterForActor::_se_delay_max_depth = MSEC_F(CONFIG::SE_DELAY_MSEC_MAX_DEPTH);
+frame SeTransmitterForActor::_se_delay_max_depth = MSEC_F(CONFIG::FRAME_OF_SE_DELAY_MAX_DEPTH);
 
 SeTransmitterForActor::SeTransmitterForActor(GeometricActor* prm_pActor) : SeTransmitter() ,
         _pActor(prm_pActor),

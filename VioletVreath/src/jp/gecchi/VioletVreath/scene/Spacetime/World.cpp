@@ -107,7 +107,9 @@ void World::initialize() {
     bringSceneMediator()->appendGroupChild(pLabel_need_reboot_);
     pLabel_need_reboot_->update(PX_C(cx), PX_C(cy/2), "", ALIGN_CENTER, VALIGN_MIDDLE);
 
-    std::string fix_str = CONFIG::PRIMARY_SCREEN_ASPECT_RATIO_FIXED ? "ASPECT FIX" : "VIEW STRETCH";
+    std::string primary_fix_str = CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01] ? "ASPECT FIX" : "VIEW STRETCH";
+    std::string secondary_fix_str = CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN02] ? "ASPECT FIX" : "VIEW STRETCH";
+
     pixcoord w1,h1,w2,h2;
     pixcoord w1_bk,h1_bk,w2_bk,h2_bk;
     w1 = h1 = w2 = h2 = 0;
@@ -121,14 +123,14 @@ void World::initialize() {
     bool is_warn2 = false;
     if (CONFIG::NUMBER_OF_SCREENS_USED > 1) {
         if (CONFIG::FULL_SCREEN) {
-            w1 = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-            h1 = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
-            w2 = CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH;
-            h2 = CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT;
-            w1_bk = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH_BK;
-            h1_bk = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT_BK;
-            w2_bk = CONFIG::SECONDARY_SCREEN_FULL_SCREEN_WIDTH_BK;
-            h2_bk = CONFIG::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT_BK;
+            w1 = CONFIG::SCREEN_FULL_SCREEN[SCREEN01].WIDTH;
+            h1 = CONFIG::SCREEN_FULL_SCREEN[SCREEN01].HEIGHT;
+            w2 = CONFIG::SCREEN_FULL_SCREEN[SCREEN02].WIDTH;
+            h2 = CONFIG::SCREEN_FULL_SCREEN[SCREEN02].HEIGHT;
+            w1_bk = CONFIG::SCREEN_FULL_SCREEN_BK[SCREEN01].WIDTH;
+            h1_bk = CONFIG::SCREEN_FULL_SCREEN_BK[SCREEN01].HEIGHT;
+            w2_bk = CONFIG::SCREEN_FULL_SCREEN_BK[SCREEN02].WIDTH;
+            h2_bk = CONFIG::SCREEN_FULL_SCREEN_BK[SCREEN02].HEIGHT;
             if (w1 != w1_bk || h1 != h1_bk) {
                 is_warn1 = true;
             }
@@ -136,10 +138,10 @@ void World::initialize() {
                 is_warn2 = true;
             }
         } else {
-            w1 = CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH;
-            h1 = CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT;
-            w2 = CONFIG::SECONDARY_SCREEN_WINDOW_WIDTH;
-            h2 = CONFIG::SECONDARY_SCREEN_WINDOW_HEIGHT;
+            w1 = CONFIG::SCREEN_WINDOW[SCREEN01].WIDTH;
+            h1 = CONFIG::SCREEN_WINDOW[SCREEN01].HEIGHT;
+            w2 = CONFIG::SCREEN_WINDOW[SCREEN02].WIDTH;
+            h2 = CONFIG::SCREEN_WINDOW[SCREEN02].HEIGHT;
             w1_bk = w1;
             h1_bk = h1;
             w2_bk = w2;
@@ -147,16 +149,16 @@ void World::initialize() {
         }
     } else {
         if (CONFIG::FULL_SCREEN) {
-            w1 = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-            h1 = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
-            w1_bk = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_WIDTH_BK;
-            h1_bk = CONFIG::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT_BK;
+            w1 = CONFIG::SCREEN_FULL_SCREEN[SCREEN01].WIDTH;
+            h1 = CONFIG::SCREEN_FULL_SCREEN[SCREEN01].HEIGHT;
+            w1_bk = CONFIG::SCREEN_FULL_SCREEN_BK[SCREEN01].WIDTH;
+            h1_bk = CONFIG::SCREEN_FULL_SCREEN_BK[SCREEN01].HEIGHT;
             if (w1 != w1_bk || h1 != h1_bk) {
                 is_warn1 = true;
             }
         } else {
-            w1 = CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH;
-            h1 = CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT;
+            w1 = CONFIG::SCREEN_WINDOW[SCREEN01].WIDTH;
+            h1 = CONFIG::SCREEN_WINDOW[SCREEN01].HEIGHT;
             w1_bk = w1;
             h1_bk = h1;
         }
@@ -166,9 +168,9 @@ void World::initialize() {
         //‰ğ‘œ“xî•ñ•\¦
         pLabel_resolution1_->update(
             PX_C(cx/2), PX_C(cy),
-            ("DISPLAY["+XTOS(pCARETAKER->_screen_display_no[PRIMARY_SCREEN])+"] / PRIMARY GAME SCREEN \n"+
+            ("DISPLAY["+XTOS(pCARETAKER->_screen_display_no[SCREEN01])+"] / PRIMARY GAME SCREEN \n"+
               XTOS(w1)+"*"+XTOS(h1)+"\n"+
-              fix_str).c_str()
+              primary_fix_str).c_str()
         );
         if (is_warn1) {
             pLabel_warn1_->update(
@@ -178,9 +180,9 @@ void World::initialize() {
         }
         pLabel_resolution2_->update(
             PX_C(cx+(cx/2)), PX_C(cy),
-            ("DISPLAY["+XTOS(pCARETAKER->_screen_display_no[SECONDARY_SCREEN])+"] / SECONDARY GAME SCREEN\n"+
+            ("DISPLAY["+XTOS(pCARETAKER->_screen_display_no[SCREEN02])+"] / SECONDARY GAME SCREEN\n"+
                     XTOS(w2)+"*"+XTOS(h2)+"\n"+
-                    fix_str).c_str()
+                    secondary_fix_str).c_str()
         );
         if (is_warn2) {
             pLabel_warn2_->update(
@@ -194,7 +196,7 @@ void World::initialize() {
         pLabel_resolution1_->update(
             PX_C(cx), PX_C(cy),
             (""+XTOS(w1)+"*"+XTOS(h1)+"\n"+
-                    fix_str).c_str()
+                    primary_fix_str).c_str()
         );
         if (is_warn1) {
             pLabel_warn1_->update(

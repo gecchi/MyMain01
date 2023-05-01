@@ -27,15 +27,9 @@
 
 using namespace IkdLib;
 
-
-//#ifdef _MSC_VER
-//
-//#else
-//#define nullptr 0
-//#endif
-
 namespace {
-double playTime_g = 1; // 1 sec.
+//double playTime_g = 1; // 1 sec.
+double playTime_g = 0.5; // 1 sec.
 }
 
 PCMPlayer::PCMPlayer() :
@@ -150,7 +144,6 @@ bool PCMPlayer::setDecoder(PCMDecoder* prm_pPcmDecoder) {
     if (!prm_pPcmDecoder->getWaveFormatEx(_pWaveFormat)) {
         return false;
     }
-
     _pBufferDesc->dwSize = sizeof(DSBUFFERDESC);
     _pBufferDesc->dwFlags = DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLFREQUENCY | DSBCAPS_GLOBALFOCUS | DSBCAPS_CTRLPOSITIONNOTIFY;
     _pBufferDesc->dwBufferBytes = _pWaveFormat->nAvgBytesPerSec * playTime_g;
@@ -261,7 +254,7 @@ unsigned __stdcall PCMPlayer::streamThread(void* playerPtr) {
     bool waitFinish = false;
 
     while (player->_is_terminate == false) {
-        if (pCARETAKER->_sync_frame_time) {
+        if (pCARETAKER->_sync_frame_time || pCARETAKER->_is_device_lost_flg) {
             _TRACE_("PCMPlayer::streamThread() ‰‰‘t’â~’†EEE");
             Sleep(100);
             continue;

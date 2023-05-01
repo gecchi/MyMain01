@@ -32,7 +32,7 @@
 HINSTANCE hInst; // 現在のインターフェイス
 TCHAR szTitle[MAX_LOADSTRING]; // タイトル バーのテキスト
 TCHAR szWindowClass[MAX_LOADSTRING]; // メイン ウィンドウ クラス名
-HWND hWnd1, hWnd2;
+//HWND hWnd1, hWnd2;
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
@@ -140,8 +140,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     wcex1.lpszMenuName = nullptr;//MAKEINTRESOURCE(IDC_VIOLETVREATH);//nullptr; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
     wcex1.lpszClassName = szWindowClass;
     wcex1.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_SMALL));
-    WNDCLASSEX wcex2 = wcex1;
-    wcex2.lpszClassName = "secondary";
+//    WNDCLASSEX wcex2 = wcex1;
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
     MSG msg;
 #ifdef MY_DEBUG
@@ -149,7 +148,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 #endif
         //管理者の誕生
         VioletVreath::Caretaker crtkr;
-        crtkr.createWindow(wcex1, wcex2, szTitle, "secondary", dwStyle, dwStyle, hWnd1, hWnd2);
+        crtkr.createWindow(wcex1, szTitle,  dwStyle);
         // ループ・ザ・ループ
         while (true) {
             if (::PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
@@ -361,37 +360,37 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 if (!CONFIG::FULL_SCREEN) {
                     if (CONFIG::NUMBER_OF_SCREENS_USED > 1) {
                         RECT cRect1, cRect2;
-                        GetClientRect(hWnd1, &cRect1);
-                        GetClientRect(hWnd2, &cRect2);
+                        GetClientRect(pCaretaker->getHWND(SCREEN01), &cRect1);
+                        GetClientRect(pCaretaker->getHWND(SCREEN02), &cRect2);
                         pixcoord cw1 = cRect1.right - cRect1.left;
                         pixcoord ch1 = cRect1.bottom - cRect1.top;
                         pixcoord cw2 = cRect2.right - cRect2.left;
                         pixcoord ch2 = cRect2.bottom - cRect2.top;
-                        CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH  = cw1;
-                        CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT = ch1;
-                        CONFIG::SECONDARY_SCREEN_WINDOW_WIDTH  = cw2;
-                        CONFIG::SECONDARY_SCREEN_WINDOW_HEIGHT = ch2;
-                        CONFIG::_properties.setValue("PRIMARY_SCREEN_WINDOW_WIDTH" , CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH);
-                        CONFIG::_properties.setValue("PRIMARY_SCREEN_WINDOW_HEIGHT", CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT);
-                        CONFIG::_properties.setValue("SECONDARY_SCREEN_WINDOW_WIDTH" , CONFIG::SECONDARY_SCREEN_WINDOW_WIDTH);
-                        CONFIG::_properties.setValue("SECONDARY_SCREEN_WINDOW_HEIGHT", CONFIG::SECONDARY_SCREEN_WINDOW_HEIGHT);
+                        CONFIG::SCREEN_WINDOW[SCREEN01].WIDTH  = cw1;
+                        CONFIG::SCREEN_WINDOW[SCREEN01].HEIGHT = ch1;
+                        CONFIG::SCREEN_WINDOW[SCREEN02].WIDTH  = cw2;
+                        CONFIG::SCREEN_WINDOW[SCREEN02].HEIGHT = ch2;
+                        CONFIG::_properties.setValue("SCREEN01_WINDOW_WIDTH" , CONFIG::SCREEN_WINDOW[SCREEN01].WIDTH);
+                        CONFIG::_properties.setValue("SCREEN01_WINDOW_HEIGHT", CONFIG::SCREEN_WINDOW[SCREEN01].HEIGHT);
+                        CONFIG::_properties.setValue("SCREEN02_WINDOW_WIDTH" , CONFIG::SCREEN_WINDOW[SCREEN02].WIDTH);
+                        CONFIG::_properties.setValue("SCREEN02_WINDOW_HEIGHT", CONFIG::SCREEN_WINDOW[SCREEN02].HEIGHT);
 
-                        CONFIG::_properties.setValue("PRIMARY_SCREEN_PRESENT_POSITION", CONFIG::PRIMARY_SCREEN_PRESENT_POSITION);
-                        CONFIG::_properties.setValue("SECONDARY_SCREEN_PRESENT_POSITION", CONFIG::SECONDARY_SCREEN_PRESENT_POSITION);
+                        CONFIG::_properties.setValue("SCREEN01_PRESENT_POSITION", CONFIG::SCREEN_PRESENT_POSITION[SCREEN01]);
+                        CONFIG::_properties.setValue("SCREEN02_PRESENT_POSITION", CONFIG::SCREEN_PRESENT_POSITION[SCREEN02]);
 
                     } else {
                         RECT cRect1;
-                        GetClientRect(hWnd1, &cRect1);
+                        GetClientRect(pCaretaker->getHWND(SCREEN01), &cRect1);
                         pixcoord cw1 = cRect1.right - cRect1.left;
                         pixcoord ch1 = cRect1.bottom - cRect1.top;
-                        CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH  = cw1;
-                        CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT = ch1;
-                        CONFIG::_properties.setValue("PRIMARY_SCREEN_WINDOW_WIDTH" , CONFIG::PRIMARY_SCREEN_WINDOW_WIDTH);
-                        CONFIG::_properties.setValue("PRIMARY_SCREEN_WINDOW_HEIGHT", CONFIG::PRIMARY_SCREEN_WINDOW_HEIGHT);
+                        CONFIG::SCREEN_WINDOW[SCREEN01].WIDTH  = cw1;
+                        CONFIG::SCREEN_WINDOW[SCREEN01].HEIGHT = ch1;
+                        CONFIG::_properties.setValue("SCREEN01_WINDOW_WIDTH" , CONFIG::SCREEN_WINDOW[SCREEN01].WIDTH);
+                        CONFIG::_properties.setValue("SCREEN01_WINDOW_HEIGHT", CONFIG::SCREEN_WINDOW[SCREEN01].HEIGHT);
 
-                        CONFIG::_properties.setValue("PRIMARY_SCREEN_PRESENT_POSITION", CONFIG::PRIMARY_SCREEN_PRESENT_POSITION);
+                        CONFIG::_properties.setValue("SCREEN01_PRESENT_POSITION", CONFIG::SCREEN_PRESENT_POSITION[SCREEN01]);
                     }
-                    CONFIG::_properties.setValue("PRIMARY_SCREEN_ASPECT_RATIO_FIXED", CONFIG::PRIMARY_SCREEN_ASPECT_RATIO_FIXED);
+                    CONFIG::_properties.setValue("SCREEN01_ASPECT_RATIO_FIXED", CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01]);
 
                     CONFIG::_properties.write(CONFIG::_load_properties_filename); //プロパティ保存
                     CONFIG::loadProperties(CONFIG::_load_properties_filename); //プロパティ再反映

@@ -5,7 +5,7 @@
 using namespace VVViewer;
 
 #define MY_IDM_RESET_WINDOW_SIZE  10
-HWND hWnd1, hWnd2;
+//HWND hWnd1, hWnd2;
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 BOOL CustmizeSysMenu(HWND hWnd);
@@ -24,19 +24,16 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     wcex1.lpfnWndProc = (WNDPROC)WndProc;
     wcex1.hInstance = hInstance;
     wcex1.hCursor = LoadCursor(nullptr, IDC_ARROW);
-    wcex1.lpszClassName = "primary";
-    WNDCLASSEX wcex2 = wcex1;
-    wcex2.lpszClassName = "secondary";
+    wcex1.lpszClassName = "VVViewer";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
     //管理者の誕生
     VvvCaretaker crtkr;
     //ゲームループ
     MSG msg;
-    crtkr.createWindow(wcex1, wcex2,
-                     "VVViewer[1]", "VVViewer[2]", //タイトル文字列
-                     dwStyle, dwStyle,
-                     hWnd1, hWnd2);
-    DragAcceptFiles(hWnd1, TRUE);
+    crtkr.createWindow(wcex1,
+                      "VVViewer", //タイトル文字列
+                      dwStyle);
+    DragAcceptFiles(crtkr.getHWND(SCREEN01), TRUE);
     //ループ本体
     while (true) {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {

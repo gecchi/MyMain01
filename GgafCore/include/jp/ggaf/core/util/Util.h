@@ -17,6 +17,7 @@
 
 #define XTOS(X) (GgafCore::Util::_xtos_(X))
 #define STOI(X) (GgafCore::Util::_stoi_(X))
+#define ZPAD(X,LEN) (GgafCore::Util::_pad_(X,'0',(LEN)) )
 #define ABS(X) (GgafCore::Util::_abs_(X))
 #define SGN(X) (GgafCore::Util::_sgn_(X))
 #define MAX3(a,b,c) (GgafCore::Util::_max3_((a),(b),(c)))
@@ -292,6 +293,21 @@ public:
      */
     static inline bool _zerod_eq_(double val, double epsilon = 1e-13) {
         return (-epsilon < val && val < epsilon);
+    }
+
+    /**
+     * パッディング文字を返す
+     * @tparam T データ型
+     * @param prm_x データ
+     * @param prm_c 埋める文字
+     * @param prm_keta 全体の文字数
+     * @return prm_x の左に prm_c で埋めた、全体の文字数 prm_keta の文字列
+     */
+    template<typename T>
+    static inline std::string _pad_(T prm_x, char prm_c, int prm_keta) {
+        std::ostringstream oss;
+        oss << std::setfill(prm_c) << std::right << std::setw(prm_keta) << prm_x;
+        return oss.str();
     }
 
     /**

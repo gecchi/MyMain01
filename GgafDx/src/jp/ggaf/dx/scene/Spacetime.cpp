@@ -97,7 +97,7 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
     _h_r =  1.0 * CONFIG::GAME_BUFFER_HEIGHT / CONFIG::RENDER_TARGET_BUFFER_HEIGHT;
 
 
-    for (int pry = PRIMARY_SCREEN; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
+    for (int pry = SCREEN01; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
         _buffer_source[pry].left   = CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].LEFT*_w_r;
         _buffer_source[pry].top    = CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].TOP*_h_r;
         _buffer_source[pry].width  = CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].WIDTH*_w_r;

@@ -5,7 +5,8 @@
 using namespace IkdLib;
 
 namespace {
-const unsigned int requestSize_g = 4096; // 読み込み単位
+//const unsigned int requestSize_g = 4096; // 読み込み単位
+const unsigned int requestSize_g = 2048; // 読み込み単位
 }
 
 //! コンストラクタ

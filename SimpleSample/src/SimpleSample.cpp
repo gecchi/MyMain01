@@ -18,8 +18,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     //管理者の誕生
     SmpCaretaker crtkr;
     //ウィンドウ作成
-    HWND hWnd1;
-    crtkr.createWindow(WndProc, "SimpleSampleWindow", hWnd1);
+    crtkr.createWindow(WndProc, "SimpleSampleWindow");
     //メインループ処理
     MSG msg;
     while (true) {

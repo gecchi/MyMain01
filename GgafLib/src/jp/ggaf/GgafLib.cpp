@@ -22,6 +22,8 @@ HINSTANCE get_WinMain_hInstance() {
 }
 
 HINSTANCE get_WinMain_hPrevInstance() {
+    //hPrevInstance には意味がありません。
+    //16 ビット Windows で使用されましたが、現在は常に 0 です。
     WinMain_hPrevInstance = 0;
     return WinMain_hPrevInstance;
 }
@@ -59,20 +61,20 @@ void LibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
                 if (!CONFIG::FULL_SCREEN) {
                     pCARETAKER->_adjustGameWindow = true;
                 }
+                pCARETAKER->syncTimeFrame();
             }
-            GgafCore::Caretaker::_pCaretaker->syncTimeFrame();
             break;
         }
         case WM_SIZING: {
-            GgafCore::Caretaker::_pCaretaker->syncTimeFrame();
+            pCARETAKER->syncTimeFrame();
             break;
         }
         case WM_MOVING: {
-            GgafCore::Caretaker::_pCaretaker->syncTimeFrame();
+            pCARETAKER->syncTimeFrame();
             break;
         }
         case WM_CONTEXTMENU: {
-            GgafCore::Caretaker::_pCaretaker->syncTimeFrame();
+            pCARETAKER->syncTimeFrame();
             break;
         }
         case WM_SETFOCUS: {

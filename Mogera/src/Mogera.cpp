@@ -25,20 +25,15 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     wcex1.lpfnWndProc = (WNDPROC)WndProc;
     wcex1.hInstance = hInstance;
     wcex1.hCursor = LoadCursor(nullptr, IDC_ARROW);
-    wcex1.lpszClassName = "primary";
-    WNDCLASSEX wcex2 = wcex1;
-    wcex2.lpszClassName = "secondary";
+    wcex1.lpszClassName = "Mogera";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
-    HWND hWnd1, hWnd2;
+    //管理者の誕生
     MgrCaretaker crtkr;
     //ゲームループ
     MSG msg;
     try {
-        //管理者の誕生
-        crtkr.createWindow(wcex1, wcex2,
-                         "Mogera[1]", "Mogera[2]", //タイトル文字列
-                         dwStyle, dwStyle,
-                         hWnd1, hWnd2); //HWNDが代入されます(戻り値)
+        //ウィンドウ生成
+        crtkr.createWindow(wcex1, "Mogera", dwStyle);
         //ループ本体
         while (true) {
             if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {

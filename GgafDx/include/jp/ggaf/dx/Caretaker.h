@@ -34,6 +34,23 @@
 #undef pCARETAKER
 #define pCARETAKER ((GgafDx::Caretaker*)GgafCore::Caretaker::ask())
 
+#define SCREEN01 0
+#define SCREEN02 1
+#define SCREEN03 2
+#define SCREEN04 3
+#define SCREEN05 4
+#define SCREEN06 5
+#define SCREEN07 6
+#define SCREEN08 7
+#define SCREEN09 8
+#define SCREEN10 9
+#define SCREEN11 10
+#define SCREEN12 11
+#define SCREEN13 12
+#define SCREEN14 13
+#define SCREEN15 14
+#define SCREEN16 15
+
 namespace GgafDx {
 
 /**
@@ -65,7 +82,6 @@ private:
     /** 今回採用されているデバイス配列、添字はディスプレイアダブタ番号（WDDM使用時のみ必要） */
     D3DDISPLAYMODEEX* _paDisplayMode;
 
-
 private:
     /**
      * WDDMかどうか判定し、デバイスを作成 .
@@ -91,14 +107,11 @@ private:
 
     HRESULT releaseFullScreenRenderTarget();
 
-
     void setFullScreenWindowPos();
 
     /**
      * ウィンドウモード時、ウィンドウサイズに応じた描画範囲を再設定する。
-     * @param prm_pHWnd
      */
-//    void adjustGameWindow(HWND prm_pHWnd);
     void adjustGameWindow();
     /**
      * 表示位置番号に対応する矩形座標範囲(ピクセル)を取得する。
@@ -119,7 +132,6 @@ private:
                                                        LPRECT   lprcMonitor,
                                                        LPARAM   dwData    );
 public:
-
     ///////////////////////////////////////////////////////////
     class Adapter {
     public:
@@ -141,21 +153,18 @@ public:
             GGAF_DELETEARR_NULLABLE(paModes);
         }
     };
-
     /** 使用可能なデバイスのディスプレイアダプタ数 */
     int _num_adapter;
-
-    /** D3DPRESENT_PARAMETERS数。最低 MAX_SCREENS。MAX_SCREENSよりアダプタ数が大きい場合はアダプタ数 */
-//    int _num_PresetPrm;
-
-    /** 使用可能なデバイスのアダプタの情報セット */
+    /** 使用可能なデバイスのアダプタの情報セット、要素数は _num_adapter  */
     Adapter* _paAvailableAdapter;
     ///////////////////////////////////////////////////////////
+
     struct RezoInfo {
         UINT width;
         UINT height;
         std::string item_str;
     };
+
     class AdapterRezos {
     public:
         int rezo_num;
@@ -175,9 +184,10 @@ public:
             GGAF_DELETEARR_NULLABLE(paRezoInfo);
         }
     };
-    /** 使用可能なデバイスのアダプタの解像度情報セット */
+    /** 使用可能なデバイスのアダプタの解像度情報セット、要素数は _num_adapter */
     AdapterRezos* _paAdapterRezos;
     ////////////////////////////////////////////////////////////
+
     TextureManager* _pTextureManager;
     /** モデル(Model)資源管理者 */
     ModelManager* _pModelManager;
@@ -185,23 +195,16 @@ public:
     EffectManager* _pEffectManager;
     /** [r] 1画面目のウィンドウハンドル  */
     HWND _pHWndPrimary;
-//    /** [r] 2画面目のウィンドウハンドル  */
-//    HWND _pHWndSecondary;
     /** [r] ウィンドウハンドルの配列、要素の添字は D3DPRESENT_PARAMETERS要素番号(アダプタ番号含む) */
     HWND* _paHWnd;
     /** [r] window数。ウインドウモード時は NUMBER_OF_SCREENS_USED、フルスクリーン時はアダプタ数。 */
     int _num_window;
-    int _screen_display_no[MAX_SCREENS]; //
-    /** [r]windowインデックス(=フルスクリーン時はアダプタインデックス) → スクリーンプライオリティ。0:PRIMARY_SCREEN/1:SECONDARY_SCREEN/2:TERTIARY */
-    int* _paWindowNoToScreenPry;
-//    /** [r] 0,1,2 => Primary, Secondary, tertiary のディスプレイ番号 */
-//    std::map<int, int> _mapIndexToDisplayNo;
-//    /** [r] アダプタ番号 => スクリーンプライオリティ。0:PRIMARY_SCREEN/1:SECONDARY_SCREEN/2:TERTIARY */
-//    std::map<int, int> _mapAdpToPry;
-//    /** [r] D3DPRESENT_PARAMETERS要素番号(アダプタ番号含む） => スクリーンプライオリティ。0:PRIMARY_SCREEN/1:SECONDARY_SCREEN/2:TERTIARY */
-//    std::map<int, int> _mapPreAdpToPry;
 
-    /** [r] HWND => スクリーンプライオリティ。0:PRIMARY_SCREEN/1:SECONDARY_SCREEN/2:TERTIARY */
+    int _screen_display_no[MAX_SCREENS];
+    /** [r]windowインデックス(=フルスクリーン時はアダプタインデックス) → スクリーンプライオリティ。0:SCREEN01/1:SCREEN02/2:TERTIARY */
+    int* _paWindowNoToScreenPry;
+
+    /** [r] HWND => スクリーンプライオリティ。0:SCREEN01/1:SCREEN02/2:TERTIARY */
     std::map<HWND, int> _mapHwndToPry;
     /** [r] HWND => アダプタ番号 */
     std::map<HWND, int> _mapHwndToWindowNo;
@@ -229,7 +232,7 @@ public:
     /** [r] ゲームバッファ領域(ピクセル的な系) */
     RECT _rectGameBuffer;
     /** [r] フルスクリーン時、レンダリングターゲットテクスチャからのコピー元領域(ピクセル) */
-//    RECT _aRectRenderBufferSource[PRIMARY_SCREEN];
+//    RECT _aRectRenderBufferSource[SCREEN01];
     /** [r] フルスクリーン時、レンダリングターゲットテクスチャからのコピー元領域の、[0]:左半分領域、[1]:右半分領域 (ピクセル) */
     RECT _aRectRenderBufferSource[MAX_SCREENS];
     /** [r] 最終表示フロントバッファフレームの領域、[0]:１画面目、[1]:２画面目 (ピクセル) */
@@ -270,83 +273,31 @@ public:
      */
     int checkAppropriateDisplaySize(Caretaker::RezoInfo* prm_paRezos, int prm_rezo_num,
                                     UINT prm_width, UINT prm_height);
-    /**
-     * ウィンドウ生成処理 .
-     * @param prm_wndclass1 １画面目のWNDCLASSEXパラメータ
-     * @param prm_wndclass2 ２画面目のWNDCLASSEXパラメータ
-     * @param prm_title1 １画面目のタイトル
-     * @param prm_title2 ２画面目のタイトル
-     * @param prm_dwStyle1 ウィンドウモード時のウインドウ1のスタイル定数(WS_OVERLAPPEDWINDOW 等)
-     * @param prm_dwStyle2 ウィンドウモード時のウインドウ2のスタイル定数(WS_OVERLAPPEDWINDOW 等)
-     * @param out_hWnd1 （戻り値）１画面目のウィンドウハンドル
-     * @param out_hWnd2 （戻り値）２画面目のウィンドウハンドル
-     */
-    void createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
-                      const char* prm_title1   , const char* prm_title2,
-                      DWORD       prm_dwStyle1 , DWORD       prm_dwStyle2,
-                      HWND&       out_hWnd1    , HWND&       out_hWnd2);
 
     /**
      * ウィンドウ生成処理 .
-     * @param prm_wndclass1 WNDCLASSEXパラメータ
-     * @param prm_title1    タイトル
-     * @param prm_dwStyle1  ウィンドウモード時のウインドウ1のスタイル定数
-     * @param out_hWnd1     （戻り値）１画面目のウィンドウハンドル
-     */
-    void createWindow(WNDCLASSEX& prm_wndclass1,
-                      const char* prm_title1   ,
-                      DWORD       prm_dwStyle1 ,
-                      HWND&       out_hWnd1     );
-
-    /**
-     * ウィンドウ生成処理 .
-     * 標準的なウィンドウを作成します。
-     * @param prm_WndProc ウィンドウプロシージャ関数
-     * @param prm_title1 １画面目のタイトル
-     * @param prm_title2 ２画面目のタイトル
-     * @param out_hWnd1 （戻り値）１画面目のウィンドウハンドル
-     * @param out_hWnd2 （戻り値）２画面目のウィンドウハンドル
+     * @param prm_WndProc ウィンドウプロシージャ
+     * @param prm_title ウィンドウタイトル（２画面目以降、タイトル末尾に"(2)"と画面番号が勝手に付与）
      */
     void createWindow(WNDPROC prm_WndProc,
-                      const char* prm_title1, const char* prm_title2,
-                      HWND&       out_hWnd1 , HWND&       out_hWnd2  );
+                      const char* prm_title);
 
     /**
      * ウィンドウ生成処理 .
-     * 標準的なウィンドウを作成します。
-     * @param prm_WndProc ウィンドウプロシージャ関数
-     * @param prm_title1 １画面目のタイトル
-     * @param out_hWnd1 （戻り値）１画面目のウィンドウハンドル
+     * @param prm_wndclass ウィンドウのWNDCLASSEXパラメータ
+     * @param prm_title ウィンドウタイトル（２画面目以降、タイトル末尾に"(2)"と画面番号が勝手に付与）
+     * @param prm_dwStyle ウィンドウモード時のスタイル定数
      */
-    void createWindow(WNDPROC prm_WndProc,
-                      const char* prm_title1,
-                      HWND& out_hWnd1);
+    void createWindow(WNDCLASSEX& prm_wndclass,
+                      const char* prm_title   ,
+                      DWORD       prm_dwStyle );
 
-    /**
-     * ウィンドウ生成処理 .
-     * ウィンドウモード時のウインドウスタイル定数は WS_OVERLAPPEDWINDOW が設定されます。
-     * @param prm_wndclass1 １画面目のWNDCLASSEXパラメータ
-     * @param prm_wndclass2 ２画面目のWNDCLASSEXパラメータ
-     * @param prm_title1 １画面目のタイトル
-     * @param prm_title2 ２画面目のタイトル
-     * @param out_hWnd1 （戻り値）１画面目のウィンドウハンドル
-     * @param out_hWnd2 （戻り値）２画面目のウィンドウハンドル
-     */
-    void createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
-                      const char* prm_title1   , const char* prm_title2,
-                      HWND&       out_hWnd1    , HWND&       out_hWnd2);
-
-    /**
-     * ウィンドウ生成処理 .
-     * ウィンドウモード時のウインドウスタイル定数は WS_OVERLAPPEDWINDOW が設定されます。
-     * @param prm_wndclass1 １画面目のWNDCLASSEXパラメータ
-     * @param prm_title1 １画面目のタイトル
-     * @param out_hWnd1 （戻り値）１画面目のウィンドウハンドル
-     */
-    void createWindow(WNDCLASSEX& prm_wndclass1,
-                      const char* prm_title1   ,
-                      HWND&       out_hWnd1     );
-
+    int getNumWindow() {
+        return _num_window;
+    }
+    HWND getHWND(int prm_pry) {
+        return _paHWnd[prm_pry];
+    }
     /**
      * ウィンドウのサイズを再設定 .
      * @param hWnd 再設定するウィンドウのHWND

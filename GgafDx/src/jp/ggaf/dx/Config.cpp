@@ -2,11 +2,9 @@
 
 #include <Shlwapi.h>
 
-
 using namespace GgafDx;
 
 bool Config::FULL_SCREEN = false;
-//bool Config::DUAL_SCREEN = false;
 int Config::NUMBER_OF_SCREENS_USED = 1;
 
 pixcoord Config::GAME_BUFFER_WIDTH = 1600;
@@ -21,79 +19,15 @@ bool Config::PRJ_2D_MODE = false;
 pixcoord Config::RENDER_TARGET_BUFFER_WIDTH = Config::GAME_BUFFER_WIDTH;
 pixcoord Config::RENDER_TARGET_BUFFER_HEIGHT = Config::GAME_BUFFER_HEIGHT;
 
-int Config::SCREEN_DISPLAY_NO[MAX_SCREENS] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-int& Config::PRIMARY_SCREEN_DISPLAY_NO = Config::SCREEN_DISPLAY_NO[PRIMARY_SCREEN];
-int& Config::SECONDARY_SCREEN_DISPLAY_NO = Config::SCREEN_DISPLAY_NO[SECONDARY_SCREEN];
+int Config::SCREEN_DISPLAY_NO[MAX_SCREENS];
 
-Config::GGAFRECT<pixcoord> Config::SCREEN_RENDER_BUFFER_SOURCE[MAX_SCREENS] = {
-        { 0, 0, Config::RENDER_TARGET_BUFFER_WIDTH, Config::RENDER_TARGET_BUFFER_HEIGHT},
-        { Config::RENDER_TARGET_BUFFER_WIDTH/2, 0, Config::RENDER_TARGET_BUFFER_WIDTH/2, Config::RENDER_TARGET_BUFFER_HEIGHT }
-};
-pixcoord& Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT   = Config::SCREEN_RENDER_BUFFER_SOURCE[PRIMARY_SCREEN].LEFT;
-pixcoord& Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_TOP    = Config::SCREEN_RENDER_BUFFER_SOURCE[PRIMARY_SCREEN].TOP;
-pixcoord& Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH  = Config::SCREEN_RENDER_BUFFER_SOURCE[PRIMARY_SCREEN].WIDTH;
-pixcoord& Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT = Config::SCREEN_RENDER_BUFFER_SOURCE[PRIMARY_SCREEN].HEIGHT;
-pixcoord& Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT    = Config::SCREEN_RENDER_BUFFER_SOURCE[SECONDARY_SCREEN].LEFT;
-pixcoord& Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_TOP     = Config::SCREEN_RENDER_BUFFER_SOURCE[SECONDARY_SCREEN].TOP;
-pixcoord& Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH   = Config::SCREEN_RENDER_BUFFER_SOURCE[SECONDARY_SCREEN].WIDTH;
-pixcoord& Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT  = Config::SCREEN_RENDER_BUFFER_SOURCE[SECONDARY_SCREEN].HEIGHT;
-
-
-Config::GGAFSIZE<pixcoord> Config::SCREEN_WINDOW[MAX_SCREENS] = {
-        { 800, 600 },
-        { 800, 600 },
-        { 800, 600 },
-        { 800, 600 },
-        { 800, 600 }
-};
-pixcoord& Config::PRIMARY_SCREEN_WINDOW_WIDTH    = Config::SCREEN_WINDOW[PRIMARY_SCREEN].WIDTH;
-pixcoord& Config::PRIMARY_SCREEN_WINDOW_HEIGHT   = Config::SCREEN_WINDOW[PRIMARY_SCREEN].HEIGHT;
-pixcoord& Config::SECONDARY_SCREEN_WINDOW_WIDTH  = Config::SCREEN_WINDOW[SECONDARY_SCREEN].WIDTH;
-pixcoord& Config::SECONDARY_SCREEN_WINDOW_HEIGHT = Config::SCREEN_WINDOW[SECONDARY_SCREEN].HEIGHT;
-
-//0の場合現在の解像度でフルスクリーン
-Config::GGAFSIZE<pixcoord> Config::SCREEN_FULL_SCREEN[MAX_SCREENS] = {
-        {0, 0},
-        {0, 0},
-        {0, 0},
-        {0, 0},
-        {0, 0}
-};
-pixcoord& Config::PRIMARY_SCREEN_FULL_SCREEN_WIDTH    = Config::SCREEN_FULL_SCREEN[PRIMARY_SCREEN].WIDTH;
-pixcoord& Config::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT   = Config::SCREEN_FULL_SCREEN[PRIMARY_SCREEN].HEIGHT;
-pixcoord& Config::SECONDARY_SCREEN_FULL_SCREEN_WIDTH  = Config::SCREEN_FULL_SCREEN[SECONDARY_SCREEN].WIDTH;
-pixcoord& Config::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT = Config::SCREEN_FULL_SCREEN[SECONDARY_SCREEN].HEIGHT;
-
-Config::GGAFSIZE<pixcoord> Config::SCREEN_FULL_SCREEN_BK[MAX_SCREENS] = {
-        {Config::PRIMARY_SCREEN_FULL_SCREEN_WIDTH, Config::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT},
-        {Config::SECONDARY_SCREEN_FULL_SCREEN_WIDTH, Config::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT}
-};
-pixcoord& Config::PRIMARY_SCREEN_FULL_SCREEN_WIDTH_BK    = Config::SCREEN_FULL_SCREEN_BK[PRIMARY_SCREEN].WIDTH;
-pixcoord& Config::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT_BK   = Config::SCREEN_FULL_SCREEN_BK[PRIMARY_SCREEN].HEIGHT;
-pixcoord& Config::SECONDARY_SCREEN_FULL_SCREEN_WIDTH_BK  = Config::SCREEN_FULL_SCREEN_BK[SECONDARY_SCREEN].WIDTH;
-pixcoord& Config::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT_BK = Config::SCREEN_FULL_SCREEN_BK[SECONDARY_SCREEN].HEIGHT;
-
-bool Config::SCREEN_ASPECT_RATIO_FIXED[MAX_SCREENS] = { false, false, false, false, false };
-bool& Config::PRIMARY_SCREEN_ASPECT_RATIO_FIXED = SCREEN_ASPECT_RATIO_FIXED[PRIMARY_SCREEN];
-bool& Config::SECONDARY_SCREEN_ASPECT_RATIO_FIXED = SCREEN_ASPECT_RATIO_FIXED[SECONDARY_SCREEN];
-
-bool Config::SWAP_SCREEN = false;
-
-int Config::SCREEN_PRESENT_POSITION[MAX_SCREENS] = { 6, 6, 6, 6, 6,};
-int& Config::PRIMARY_SCREEN_PRESENT_POSITION = SCREEN_PRESENT_POSITION[PRIMARY_SCREEN];
-int& Config::SECONDARY_SCREEN_PRESENT_POSITION = SCREEN_PRESENT_POSITION[SECONDARY_SCREEN];
-
-Config::GGAFSIZE<double> Config::SCREEN_RATIO[MAX_SCREENS] = {
-        {1.0, 1.0},
-        {1.0, 1.0},
-        {1.0, 1.0},
-        {1.0, 1.0},
-        {1.0, 1.0}
-};
-double& Config::PRIMARY_SCREEN_WIDTH_RATIO    = Config::SCREEN_RATIO[PRIMARY_SCREEN].WIDTH;
-double& Config::PRIMARY_SCREEN_HEIGHT_RATIO   = Config::SCREEN_RATIO[PRIMARY_SCREEN].HEIGHT;
-double& Config::SECONDARY_SCREEN_WIDTH_RATIO  = Config::SCREEN_RATIO[SECONDARY_SCREEN].WIDTH;
-double& Config::SECONDARY_SCREEN_HEIGHT_RATIO = Config::SCREEN_RATIO[SECONDARY_SCREEN].HEIGHT;
+Config::GGAFRECT<pixcoord> Config::SCREEN_RENDER_BUFFER_SOURCE[MAX_SCREENS];
+Config::GGAFSIZE<pixcoord> Config::SCREEN_WINDOW[MAX_SCREENS];
+Config::GGAFSIZE<pixcoord> Config::SCREEN_FULL_SCREEN[MAX_SCREENS]; //0の場合現在の解像度でフルスクリーン
+Config::GGAFSIZE<pixcoord> Config::SCREEN_FULL_SCREEN_BK[MAX_SCREENS];
+bool Config::SCREEN_ASPECT_RATIO_FIXED[MAX_SCREENS];
+int Config::SCREEN_PRESENT_POSITION[MAX_SCREENS];
+Config::GGAFSIZE<double> Config::SCREEN_RATIO[MAX_SCREENS];
 
 std::string Config::BORDER_COLOR = "#222222";
 std::string Config::BG_COLOR = "#000000";
@@ -102,7 +36,7 @@ int Config::MASTER_VOLUME = 800;
 int Config::BGM_VOLUME = 800;
 int Config::SE_VOLUME = 800;
 int Config::MAX_SE_AT_ONCE = 16;
-int Config::SE_DELAY_MSEC_MAX_DEPTH = 3000;
+int Config::FRAME_OF_SE_DELAY_MAX_DEPTH = 3000;
 double Config::SE_VOLUME_RATE_MAX_DEPTH=0.2;
 
 std::string Config::DIRNAME_RESOURCE_SKIN_XXX_MODEL = "model";
@@ -189,9 +123,6 @@ void Config::loadProperties(std::string prm_properties_filename) {
     if (GgafCore::Config::_properties.isExistKey("FULL_SCREEN")) {
         Config::FULL_SCREEN = GgafCore::Config::_properties.getBool("FULL_SCREEN");
     }
-//    if (GgafCore::Config::_properties.isExistKey("DUAL_SCREEN")) {
-//        Config::DUAL_SCREEN = GgafCore::Config::_properties.getBool("DUAL_SCREEN");
-//    }
     if (GgafCore::Config::_properties.isExistKey("NUMBER_OF_SCREENS_USED")) {
         Config::NUMBER_OF_SCREENS_USED = GgafCore::Config::_properties.getInt("NUMBER_OF_SCREENS_USED");
     }
@@ -223,7 +154,6 @@ void Config::loadProperties(std::string prm_properties_filename) {
         throwCriticalException("Config::RENDER_DEPTH_INDEXS_NUM_EX_FAR("<<Config::RENDER_DEPTH_INDEXS_NUM_EX_FAR<<")は、1 以上で設定が必要です");
     }
 
-
     if (GgafCore::Config::_properties.isExistKey("RENDER_DEPTH_STAGE_RATIO")) {
         Config::RENDER_DEPTH_STAGE_RATIO = GgafCore::Config::_properties.getDouble("RENDER_DEPTH_STAGE_RATIO");
     }
@@ -240,14 +170,31 @@ void Config::loadProperties(std::string prm_properties_filename) {
         Config::RENDER_TARGET_BUFFER_HEIGHT = GgafCore::Config::_properties.getInt("RENDER_TARGET_BUFFER_HEIGHT");
     }
 
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_SCREEN_DISPLAY_NO")) {
-        Config::PRIMARY_SCREEN_DISPLAY_NO = GgafCore::Config::_properties.getInt("PRIMARY_SCREEN_DISPLAY_NO");
+    //デフォルト値
+    for (int pry = 0; pry < MAX_SCREENS; pry++) {
+        Config::SCREEN_DISPLAY_NO[pry] = pry;
     }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_SCREEN_DISPLAY_NO")) {
-        Config::SECONDARY_SCREEN_DISPLAY_NO = GgafCore::Config::_properties.getInt("SECONDARY_SCREEN_DISPLAY_NO");
+    //個別設定値があれば上書き
+    for (int pry = 0; pry < MAX_SCREENS; pry++) {
+        std::string key = "SCREEN"+ ZPAD(pry+1, 2) + "_DISPLAY_NO"; //SCREEN01_DISPLAY_NO～SCREEN16_DISPLAY_NO
+        if (GgafCore::Config::_properties.isExistKey(key)) {
+            Config::SCREEN_DISPLAY_NO[pry] = GgafCore::Config::_properties.getInt(key) - 1;
+
+            if (Config::SCREEN_DISPLAY_NO[pry] < 0 || MAX_SCREENS <= Config::SCREEN_DISPLAY_NO[pry]) {
+                throwCriticalException(key << "=" << GgafCore::Config::_properties.getInt(key) <<" は範囲外です。\n"<<
+                                       "スクリーン番号は 1～"<<MAX_SCREENS<<" の範囲で設定してください。");
+            }
+
+        }
     }
 
-//    if (Config::DUAL_SCREEN) {
+    //デフォルト値
+    for (int pry = 0; pry < MAX_SCREENS; pry++) {
+        Config::SCREEN_RENDER_BUFFER_SOURCE[pry].LEFT   = 0;
+        Config::SCREEN_RENDER_BUFFER_SOURCE[pry].TOP    = 0;
+        Config::SCREEN_RENDER_BUFFER_SOURCE[pry].WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH;
+        Config::SCREEN_RENDER_BUFFER_SOURCE[pry].HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
+    }
     int a_width = Config::RENDER_TARGET_BUFFER_WIDTH / Config::NUMBER_OF_SCREENS_USED;
     int a_width_add = 0;
     for (int pry = 0; pry < Config::NUMBER_OF_SCREENS_USED; pry++) {
@@ -266,126 +213,171 @@ void Config::loadProperties(std::string prm_properties_filename) {
         }
         a_width_add += a_width;
     }
-
-//    if (Config::NUMBER_OF_SCREENS_USED > 1) {
-//        Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT   = 0;
-//        Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_TOP    = 0;
-//        Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH/2;
-//        Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
-//
-//        Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT   = Config::RENDER_TARGET_BUFFER_WIDTH/2;
-//        Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_TOP    = 0;
-//        Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH/2;
-//        Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
-//    } else {
-//        Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT   = 0;
-//        Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_TOP    = 0;
-//        Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH;
-//        Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
-//    }
-
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT")) {
-        Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT = GgafCore::Config::_properties.getInt("PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT");
+    //共通設定値があれば上書き
+    if (GgafCore::Config::_properties.isExistKey("SCREEN_RENDER_BUFFER_SOURCE_LEFT")) {
+        for (int pry = 0; pry < MAX_SCREENS; pry++) {
+            Config::SCREEN_RENDER_BUFFER_SOURCE[pry].LEFT = GgafCore::Config::_properties.getInt("SCREEN_RENDER_BUFFER_SOURCE_LEFT");
+        }
     }
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_TOP")) {
-        Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_TOP = GgafCore::Config::_properties.getInt("PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_TOP");
+    if (GgafCore::Config::_properties.isExistKey("SCREEN_RENDER_BUFFER_SOURCE_TOP")) {
+        for (int pry = 0; pry < MAX_SCREENS; pry++) {
+            Config::SCREEN_RENDER_BUFFER_SOURCE[pry].TOP = GgafCore::Config::_properties.getInt("SCREEN_RENDER_BUFFER_SOURCE_TOP");
+        }
     }
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH")) {
-        Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH = GgafCore::Config::_properties.getInt("PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH");
+    if (GgafCore::Config::_properties.isExistKey("SCREEN_RENDER_BUFFER_SOURCE_WIDTH")) {
+        for (int pry = 0; pry < MAX_SCREENS; pry++) {
+            Config::SCREEN_RENDER_BUFFER_SOURCE[pry].WIDTH = GgafCore::Config::_properties.getInt("SCREEN_RENDER_BUFFER_SOURCE_WIDTH");
+        }
     }
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT")) {
-        Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT = GgafCore::Config::_properties.getInt("PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT");
+    if (GgafCore::Config::_properties.isExistKey("SCREEN_RENDER_BUFFER_SOURCE_HEIGHT")) {
+        for (int pry = 0; pry < MAX_SCREENS; pry++) {
+            Config::SCREEN_RENDER_BUFFER_SOURCE[pry].HEIGHT = GgafCore::Config::_properties.getInt("SCREEN_RENDER_BUFFER_SOURCE_HEIGHT");
+        }
     }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT")) {
-        Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT = GgafCore::Config::_properties.getInt("SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT");
-    }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_TOP")) {
-        Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_TOP = GgafCore::Config::_properties.getInt("SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_TOP");
-    }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH")) {
-        Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH = GgafCore::Config::_properties.getInt("SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH");
-    }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT")) {
-        Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT = GgafCore::Config::_properties.getInt("SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT");
+    //個別設定値があれば上書き
+    for (int pry = 0; pry < MAX_SCREENS; pry++) {
+        std::string key = "SCREEN"+ ZPAD(pry+1, 2) + "_RENDER_BUFFER_SOURCE_LEFT"; //SCREEN01_RENDER_BUFFER_SOURCE_LEFT～SCREEN16_RENDER_BUFFER_SOURCE_LEFT
+        if (GgafCore::Config::_properties.isExistKey(key)) {
+            Config::SCREEN_RENDER_BUFFER_SOURCE[pry].LEFT = GgafCore::Config::_properties.getInt(key);
+        }
+        key = "SCREEN"+ ZPAD(pry+1, 2) + "_RENDER_BUFFER_SOURCE_TOP"; //SCREEN01_RENDER_BUFFER_SOURCE_TOP～SCREEN16_RENDER_BUFFER_SOURCE_TOP
+        if (GgafCore::Config::_properties.isExistKey(key)) {
+            Config::SCREEN_RENDER_BUFFER_SOURCE[pry].TOP = GgafCore::Config::_properties.getInt(key);
+        }
+        key = "SCREEN"+ ZPAD(pry+1, 2) + "_RENDER_BUFFER_SOURCE_WIDTH"; //SCREEN01_RENDER_BUFFER_SOURCE_WIDTH～SCREEN16_RENDER_BUFFER_SOURCE_WIDTH
+        if (GgafCore::Config::_properties.isExistKey(key)) {
+            Config::SCREEN_RENDER_BUFFER_SOURCE[pry].WIDTH = GgafCore::Config::_properties.getInt(key);
+        }
+        key = "SCREEN"+ ZPAD(pry+1, 2) + "_RENDER_BUFFER_SOURCE_HEIGHT"; //SCREEN01_RENDER_BUFFER_SOURCE_HEIGHT～SCREEN16_RENDER_BUFFER_SOURCE_HEIGHT
+        if (GgafCore::Config::_properties.isExistKey(key)) {
+            Config::SCREEN_RENDER_BUFFER_SOURCE[pry].HEIGHT = GgafCore::Config::_properties.getInt(key);
+        }
     }
 
-    Config::PRIMARY_SCREEN_WINDOW_WIDTH = PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH;
-    Config::PRIMARY_SCREEN_WINDOW_HEIGHT = PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT;
-    Config::SECONDARY_SCREEN_WINDOW_WIDTH = SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH;
-    Config::SECONDARY_SCREEN_WINDOW_HEIGHT = SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT;
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_SCREEN_WINDOW_WIDTH")) {
-        Config::PRIMARY_SCREEN_WINDOW_WIDTH = GgafCore::Config::_properties.getInt("PRIMARY_SCREEN_WINDOW_WIDTH");
+    //デフォルト値
+    for (int pry = 0; pry < MAX_SCREENS; pry++) {
+        Config::SCREEN_WINDOW[pry].WIDTH = SCREEN_RENDER_BUFFER_SOURCE[pry].WIDTH;
+        Config::SCREEN_WINDOW[pry].HEIGHT = SCREEN_RENDER_BUFFER_SOURCE[pry].HEIGHT;
     }
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_SCREEN_WINDOW_HEIGHT")) {
-        Config::PRIMARY_SCREEN_WINDOW_HEIGHT = GgafCore::Config::_properties.getInt("PRIMARY_SCREEN_WINDOW_HEIGHT");
+    //共通設定値があれば上書き
+    if (GgafCore::Config::_properties.isExistKey("SCREEN_WINDOW_WIDTH")) {
+        for (int pry = 0; pry < MAX_SCREENS; pry++) {
+            Config::SCREEN_WINDOW[pry].WIDTH = GgafCore::Config::_properties.getInt("SCREEN_WINDOW_WIDTH");
+        }
     }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_SCREEN_WINDOW_WIDTH")) {
-        Config::SECONDARY_SCREEN_WINDOW_WIDTH = GgafCore::Config::_properties.getInt("SECONDARY_SCREEN_WINDOW_WIDTH");
+    if (GgafCore::Config::_properties.isExistKey("SCREEN_WINDOW_HEIGHT")) {
+        for (int pry = 0; pry < MAX_SCREENS; pry++) {
+            Config::SCREEN_WINDOW[pry].HEIGHT = GgafCore::Config::_properties.getInt("SCREEN_WINDOW_HEIGHT");
+        }
     }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_SCREEN_WINDOW_HEIGHT")) {
-        Config::SECONDARY_SCREEN_WINDOW_HEIGHT = GgafCore::Config::_properties.getInt("SECONDARY_SCREEN_WINDOW_HEIGHT");
-    }
-
-
-    Config::PRIMARY_SCREEN_FULL_SCREEN_WIDTH = PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH;
-    Config::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT = PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT;
-    Config::SECONDARY_SCREEN_FULL_SCREEN_WIDTH = SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH;
-    Config::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT = SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT;
-    Config::PRIMARY_SCREEN_FULL_SCREEN_WIDTH_BK   = Config::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-    Config::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT_BK  = Config::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
-    Config::SECONDARY_SCREEN_FULL_SCREEN_WIDTH_BK   = Config::SECONDARY_SCREEN_FULL_SCREEN_WIDTH;
-    Config::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT_BK  = Config::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT;
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_SCREEN_FULL_SCREEN_WIDTH")) {
-        Config::PRIMARY_SCREEN_FULL_SCREEN_WIDTH = GgafCore::Config::_properties.getInt("PRIMARY_SCREEN_FULL_SCREEN_WIDTH");
-        Config::PRIMARY_SCREEN_FULL_SCREEN_WIDTH_BK   = Config::PRIMARY_SCREEN_FULL_SCREEN_WIDTH;
-    }
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_SCREEN_FULL_SCREEN_HEIGHT")) {
-        Config::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT = GgafCore::Config::_properties.getInt("PRIMARY_SCREEN_FULL_SCREEN_HEIGHT");
-        Config::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT_BK  = Config::PRIMARY_SCREEN_FULL_SCREEN_HEIGHT;
-    }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_SCREEN_FULL_SCREEN_WIDTH")) {
-        Config::SECONDARY_SCREEN_FULL_SCREEN_WIDTH = GgafCore::Config::_properties.getInt("SECONDARY_SCREEN_FULL_SCREEN_WIDTH");
-        Config::SECONDARY_SCREEN_FULL_SCREEN_WIDTH_BK   = Config::SECONDARY_SCREEN_FULL_SCREEN_WIDTH;
-    }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_SCREEN_FULL_SCREEN_HEIGHT")) {
-        Config::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT = GgafCore::Config::_properties.getInt("SECONDARY_SCREEN_FULL_SCREEN_HEIGHT");
-        Config::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT_BK  = Config::SECONDARY_SCREEN_FULL_SCREEN_HEIGHT;
+    //個別設定値があれば上書き
+    for (int pry = 0; pry < MAX_SCREENS; pry++) {
+        std::string key = "SCREEN"+ ZPAD(pry+1, 2) + "_WINDOW_WIDTH"; //SCREEN01_WINDOW_WIDTH～SCREEN16_WINDOW_WIDTH
+        if (GgafCore::Config::_properties.isExistKey(key)) {
+            Config::SCREEN_WINDOW[pry].WIDTH = GgafCore::Config::_properties.getInt(key);
+        }
+        key = "SCREEN"+ ZPAD(pry+1, 2) + "_WINDOW_HEIGHT"; //SCREEN01_WINDOW_HEIGHT～SCREEN16_WINDOW_HEIGHT
+        if (GgafCore::Config::_properties.isExistKey(key)) {
+            Config::SCREEN_WINDOW[pry].HEIGHT = GgafCore::Config::_properties.getInt(key);
+        }
     }
 
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_SCREEN_ASPECT_RATIO_FIXED")) {
-        Config::PRIMARY_SCREEN_ASPECT_RATIO_FIXED = GgafCore::Config::_properties.getBool("PRIMARY_SCREEN_ASPECT_RATIO_FIXED");
+    //デフォルト値（0の場合現在の解像度でフルスクリーン）
+    for (int pry = 0; pry < MAX_SCREENS; pry++) {
+        Config::SCREEN_FULL_SCREEN[pry].WIDTH = 0;
+        Config::SCREEN_FULL_SCREEN[pry].HEIGHT = 0;
+        Config::SCREEN_FULL_SCREEN_BK[pry].WIDTH  = Config::SCREEN_FULL_SCREEN[pry].WIDTH;
+        Config::SCREEN_FULL_SCREEN_BK[pry].HEIGHT = Config::SCREEN_FULL_SCREEN[pry].HEIGHT;
     }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_SCREEN_ASPECT_RATIO_FIXED")) {
-        Config::SECONDARY_SCREEN_ASPECT_RATIO_FIXED = GgafCore::Config::_properties.getBool("SECONDARY_SCREEN_ASPECT_RATIO_FIXED");
+    //共通設定値があれば上書き
+    if (GgafCore::Config::_properties.isExistKey("SCREEN_WINDOW_WIDTH")) {
+        for (int pry = 0; pry < MAX_SCREENS; pry++) {
+            Config::SCREEN_FULL_SCREEN[pry].WIDTH = GgafCore::Config::_properties.getInt("SCREEN_WINDOW_WIDTH");
+            Config::SCREEN_FULL_SCREEN_BK[pry].WIDTH = Config::SCREEN_FULL_SCREEN[pry].WIDTH;
+        }
     }
-    if (GgafCore::Config::_properties.isExistKey("SWAP_SCREEN")) {
-        Config::SWAP_SCREEN = GgafCore::Config::_properties.getBool("SWAP_SCREEN");
+    if (GgafCore::Config::_properties.isExistKey("SCREEN_WINDOW_HEIGHT")) {
+        for (int pry = 0; pry < MAX_SCREENS; pry++) {
+            Config::SCREEN_FULL_SCREEN[pry].HEIGHT = GgafCore::Config::_properties.getInt("SCREEN_WINDOW_HEIGHT");
+            Config::SCREEN_FULL_SCREEN_BK[pry].HEIGHT = Config::SCREEN_FULL_SCREEN[pry].HEIGHT;
+        }
+    }
+    //設定値があれば上書き（指定解像度でフルスクリーン）
+    for (int pry = 0; pry < MAX_SCREENS; pry++) {
+        std::string key = "SCREEN"+ ZPAD(pry+1, 2) + "_FULL_SCREEN_WIDTH"; //SCREEN01_WINDOW_WIDTH～SCREEN16_WINDOW_WIDTH
+        if (GgafCore::Config::_properties.isExistKey(key)) {
+            Config::SCREEN_FULL_SCREEN[pry].WIDTH = GgafCore::Config::_properties.getInt(key);
+            Config::SCREEN_FULL_SCREEN_BK[pry].WIDTH = Config::SCREEN_FULL_SCREEN[pry].WIDTH;
+        }
+        key = "SCREEN"+ ZPAD(pry+1, 2) + "_FULL_SCREEN_HEIGHT"; //SCREEN01_WINDOW_HEIGHT～SCREEN16_WINDOW_HEIGHT
+        if (GgafCore::Config::_properties.isExistKey(key)) {
+            Config::SCREEN_FULL_SCREEN[pry].HEIGHT = GgafCore::Config::_properties.getInt(key);
+            Config::SCREEN_FULL_SCREEN_BK[pry].HEIGHT = Config::SCREEN_FULL_SCREEN[pry].HEIGHT;
+        }
     }
 
-    if (Config::NUMBER_OF_SCREENS_USED > 1) {
-        Config::PRIMARY_SCREEN_PRESENT_POSITION = 6;
-        Config::SECONDARY_SCREEN_PRESENT_POSITION = 4;
-    } else {
-        Config::PRIMARY_SCREEN_PRESENT_POSITION = 5;
+    //デフォルト値
+    for (int pry = 0; pry < MAX_SCREENS; pry++) {
+        Config::SCREEN_ASPECT_RATIO_FIXED[pry] = true;
     }
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_SCREEN_PRESENT_POSITION")) {
-        Config::PRIMARY_SCREEN_PRESENT_POSITION = GgafCore::Config::_properties.getInt("PRIMARY_SCREEN_PRESENT_POSITION");
+    //共通設定値があれば上書き
+    if (GgafCore::Config::_properties.isExistKey("SCREEN_ASPECT_RATIO_FIXED")) {
+        for (int pry = 0; pry < MAX_SCREENS; pry++) {
+            Config::SCREEN_ASPECT_RATIO_FIXED[pry] = GgafCore::Config::_properties.getBool("SCREEN_ASPECT_RATIO_FIXED");
+        }
     }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_SCREEN_PRESENT_POSITION")) {
-        Config::SECONDARY_SCREEN_PRESENT_POSITION = GgafCore::Config::_properties.getInt("SECONDARY_SCREEN_PRESENT_POSITION");
+    //設定値があれば上書き
+    for (int pry = 0; pry < MAX_SCREENS; pry++) {
+        std::string key = "SCREEN"+ ZPAD(pry+1, 2) + "_ASPECT_RATIO_FIXED"; //SCREEN01_ASPECT_RATIO_FIXED～SCREEN16_ASPECT_RATIO_FIXED
+        if (GgafCore::Config::_properties.isExistKey(key)) {
+            Config::SCREEN_ASPECT_RATIO_FIXED[pry] = GgafCore::Config::_properties.getBool(key);
+        }
     }
 
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_SCREEN_WIDTH_RATIO")) {
-        Config::PRIMARY_SCREEN_WIDTH_RATIO = GgafCore::Config::_properties.getDouble("PRIMARY_SCREEN_WIDTH_RATIO");
+    //デフォルト値
+    for (int pry = 0; pry < MAX_SCREENS; pry++) {
+        Config::SCREEN_PRESENT_POSITION[pry] = 5;
     }
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_SCREEN_HEIGHT_RATIO")) {
-        Config::PRIMARY_SCREEN_HEIGHT_RATIO = GgafCore::Config::_properties.getDouble("PRIMARY_SCREEN_HEIGHT_RATIO");
+    //共通設定値があれば上書き
+    if (GgafCore::Config::_properties.isExistKey("SCREEN_PRESENT_POSITION")) {
+        for (int pry = 0; pry < MAX_SCREENS; pry++) {
+            Config::SCREEN_PRESENT_POSITION[pry] = GgafCore::Config::_properties.getInt("SCREEN_PRESENT_POSITION");
+        }
     }
-    if (GgafCore::Config::_properties.isExistKey("SECONDARY_SCREEN_WIDTH_RATIO")) {
-        Config::SECONDARY_SCREEN_WIDTH_RATIO = GgafCore::Config::_properties.getDouble("SECONDARY_SCREEN_WIDTH_RATIO");
+    //設定値があれば上書き
+    for (int pry = 0; pry < MAX_SCREENS; pry++) {
+        std::string key = "SCREEN"+ ZPAD(pry+1, 2) + "_PRESENT_POSITION"; //SCREEN01_PRESENT_POSITION～SCREEN16_PRESENT_POSITION
+        if (GgafCore::Config::_properties.isExistKey(key)) {
+            Config::SCREEN_PRESENT_POSITION[pry] = GgafCore::Config::_properties.getInt(key);
+        }
     }
-    if (GgafCore::Config::_properties.isExistKey("PRIMARY_SCREEN_HEIGHT_RATIO")) {
-        Config::SECONDARY_SCREEN_HEIGHT_RATIO = GgafCore::Config::_properties.getDouble("SECONDARY_SCREEN_HEIGHT_RATIO");
+
+    //デフォルト値
+    for (int pry = 0; pry < MAX_SCREENS; pry++) {
+        Config::SCREEN_RATIO[pry].WIDTH = 1.0;
+        Config::SCREEN_RATIO[pry].HEIGHT = 1.0;
+    }
+    //共通設定値があれば上書き
+    if (GgafCore::Config::_properties.isExistKey("SCREEN_WIDTH_RATIO")) {
+        for (int pry = 0; pry < MAX_SCREENS; pry++) {
+            Config::SCREEN_RATIO[pry].WIDTH  = GgafCore::Config::_properties.getDouble("SCREEN_WIDTH_RATIO");
+        }
+    }
+    if (GgafCore::Config::_properties.isExistKey("SCREEN_HEIGHT_RATIO")) {
+        for (int pry = 0; pry < MAX_SCREENS; pry++) {
+            Config::SCREEN_RATIO[pry].HEIGHT  = GgafCore::Config::_properties.getDouble("SCREEN_HEIGHT_RATIO");
+        }
+    }
+    //設定値で上書き
+    for (int pry = 0; pry < MAX_SCREENS; pry++) {
+        std::string key = "SCREEN"+ ZPAD(pry+1, 2) + "_WIDTH_RATIO"; //SCREEN01_WIDTH_RATIO～SCREEN16_WIDTH_RATIO
+        if (GgafCore::Config::_properties.isExistKey(key)) {
+            Config::SCREEN_RATIO[pry].WIDTH = GgafCore::Config::_properties.getDouble(key);
+        }
+        key = "SCREEN"+ ZPAD(pry+1, 2) + "_HEIGHT_RATIO"; //SCREEN01_HEIGHT_RATIO～SCREEN16_HEIGHT_RATIO
+        if (GgafCore::Config::_properties.isExistKey(key)) {
+            Config::SCREEN_RATIO[pry].HEIGHT = GgafCore::Config::_properties.getDouble(key);
+        }
     }
 
     if (GgafCore::Config::_properties.isExistKey("BORDER_COLOR")) {
@@ -406,13 +398,13 @@ void Config::loadProperties(std::string prm_properties_filename) {
     if (GgafCore::Config::_properties.isExistKey("MAX_SE_AT_ONCE")) {
         Config::MAX_SE_AT_ONCE = GgafCore::Config::_properties.getInt("MAX_SE_AT_ONCE");
     }
-    if (GgafCore::Config::_properties.isExistKey("SE_DELAY_MSEC_MAX_DEPTH")) {
-        Config::SE_DELAY_MSEC_MAX_DEPTH = GgafCore::Config::_properties.getInt("SE_DELAY_MSEC_MAX_DEPTH");
+    if (GgafCore::Config::_properties.isExistKey("FRAME_OF_SE_DELAY_MAX_DEPTH")) {
+        Config::FRAME_OF_SE_DELAY_MAX_DEPTH = GgafCore::Config::_properties.getInt("FRAME_OF_SE_DELAY_MAX_DEPTH");
     }
 
-    if (Config::SE_DELAY_MSEC_MAX_DEPTH*2 > GGAF_END_DELAY*1000) {
-        throwCriticalException("Config::SE_DELAY_MSEC_MAX_DEPTH("<<Config::SE_DELAY_MSEC_MAX_DEPTH<<")は、GGAF_END_DELAY*1000("<<(GGAF_END_DELAY*1000)<<")の半分以下である必要があります。\n"<<
-                "SE_DELAY_MSEC_MAX_DEPTH の設定値をもっと下げてください。");
+    if (Config::FRAME_OF_SE_DELAY_MAX_DEPTH*2 > GGAF_END_DELAY*1000) {
+        throwCriticalException("Config::FRAME_OF_SE_DELAY_MAX_DEPTH("<<Config::FRAME_OF_SE_DELAY_MAX_DEPTH<<")は、GGAF_END_DELAY*1000("<<(GGAF_END_DELAY*1000)<<")の半分以下である必要があります。\n"<<
+                "FRAME_OF_SE_DELAY_MAX_DEPTH の設定値をもっと下げてください。");
     }
 
     if (GgafCore::Config::_properties.isExistKey("SE_VOLUME_RATE_MAX_DEPTH")) {
@@ -563,7 +555,6 @@ void Config::loadProperties(std::string prm_properties_filename) {
         }
     }
 
-
     if (GgafCore::Config::_properties.isExistKey("ENABLE_WORLD_HIT_CHECK_2D")) {
         Config::ENABLE_WORLD_HIT_CHECK_2D = GgafCore::Config::_properties.getBool("ENABLE_WORLD_HIT_CHECK_2D");
     }
@@ -593,7 +584,6 @@ void Config::loadProperties(std::string prm_properties_filename) {
         Config::P2_JOY_STICK_DEVICE_NO  = GgafCore::Config::_properties.getInt("P2_JOY_STICK_DEVICE_NO");
     }
 
-
     _TRACE_("Config::FULL_SCREEN=" << Config::FULL_SCREEN);
     _TRACE_("Config::NUMBER_OF_SCREENS_USED=" << Config::NUMBER_OF_SCREENS_USED);
     _TRACE_("Config::GAME_BUFFER_WIDTH=" << Config::GAME_BUFFER_WIDTH);
@@ -607,37 +597,26 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::RENDER_TARGET_BUFFER_WIDTH=" << Config::RENDER_TARGET_BUFFER_WIDTH);
     _TRACE_("Config::RENDER_TARGET_BUFFER_HEIGHT=" << Config::RENDER_TARGET_BUFFER_HEIGHT);
 
-    _TRACE_("Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT=" << Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT   );
-    _TRACE_("Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_TOP=" << Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_TOP    );
-    _TRACE_("Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH=" << Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH  );
-    _TRACE_("Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT=" << Config::PRIMARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT );
-    _TRACE_("Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT=" << Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_LEFT   );
-    _TRACE_("Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_TOP=" << Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_TOP    );
-    _TRACE_("Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH=" << Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_WIDTH  );
-    _TRACE_("Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT=" << Config::SECONDARY_SCREEN_RENDER_BUFFER_SOURCE_HEIGHT );
-
-    _TRACE_("Config::PRIMARY_SCREEN_WINDOW_WIDTH=" << Config::PRIMARY_SCREEN_WINDOW_WIDTH);
-    _TRACE_("Config::PRIMARY_SCREEN_WINDOW_HEIGHT=" << Config::PRIMARY_SCREEN_WINDOW_HEIGHT);
-    _TRACE_("Config::SECONDARY_SCREEN_WINDOW_WIDTH=" << Config::SECONDARY_SCREEN_WINDOW_WIDTH);
-    _TRACE_("Config::SECONDARY_SCREEN_WINDOW_HEIGHT=" << Config::SECONDARY_SCREEN_WINDOW_HEIGHT);
-    _TRACE_("Config::PRIMARY_SCREEN_ASPECT_RATIO_FIXED=" << Config::PRIMARY_SCREEN_ASPECT_RATIO_FIXED);
-    _TRACE_("Config::SECONDARY_SCREEN_ASPECT_RATIO_FIXED=" << Config::SECONDARY_SCREEN_ASPECT_RATIO_FIXED);
-    _TRACE_("Config::PRIMARY_SCREEN_DISPLAY_NO=" << Config::PRIMARY_SCREEN_DISPLAY_NO);
-    _TRACE_("Config::SECONDARY_SCREEN_DISPLAY_NO=" << Config::SECONDARY_SCREEN_DISPLAY_NO);
-    _TRACE_("Config::SWAP_SCREEN=" << Config::SWAP_SCREEN);
-    _TRACE_("Config::PRIMARY_SCREEN_PRESENT_POSITION=" << Config::PRIMARY_SCREEN_PRESENT_POSITION);
-    _TRACE_("Config::SECONDARY_SCREEN_PRESENT_POSITION=" << Config::SECONDARY_SCREEN_PRESENT_POSITION);
-    _TRACE_("Config::PRIMARY_SCREEN_WIDTH_RATIO=" << Config::PRIMARY_SCREEN_WIDTH_RATIO);
-    _TRACE_("Config::PRIMARY_SCREEN_HEIGHT_RATIO=" << Config::PRIMARY_SCREEN_HEIGHT_RATIO);
-    _TRACE_("Config::SECONDARY_SCREEN_WIDTH_RATIO=" << Config::SECONDARY_SCREEN_WIDTH_RATIO);
-    _TRACE_("Config::SECONDARY_SCREEN_HEIGHT_RATIO=" << Config::SECONDARY_SCREEN_HEIGHT_RATIO);
+    for (int pry = 0; pry < Config::NUMBER_OF_SCREENS_USED; pry++) {
+        _TRACE_("Config::SCREEN_RENDER_BUFFER_SOURCE["<<pry<<"].LEFT="   << Config::SCREEN_RENDER_BUFFER_SOURCE[pry].LEFT   );
+        _TRACE_("Config::SCREEN_RENDER_BUFFER_SOURCE["<<pry<<"].TOP="    << Config::SCREEN_RENDER_BUFFER_SOURCE[pry].TOP    );
+        _TRACE_("Config::SCREEN_RENDER_BUFFER_SOURCE["<<pry<<"].WIDTH="  << Config::SCREEN_RENDER_BUFFER_SOURCE[pry].WIDTH  );
+        _TRACE_("Config::SCREEN_RENDER_BUFFER_SOURCE["<<pry<<"].HEIGHT=" << Config::SCREEN_RENDER_BUFFER_SOURCE[pry].HEIGHT );
+        _TRACE_("Config::SCREEN_WINDOW["<<pry<<"].WIDTH="  << Config::SCREEN_WINDOW[pry].WIDTH);
+        _TRACE_("Config::SCREEN_WINDOW["<<pry<<"].HEIGHT=" << Config::SCREEN_WINDOW[pry].HEIGHT);
+        _TRACE_("Config::SCREEN_ASPECT_RATIO_FIXED["<<pry<<"]=" << Config::SCREEN_ASPECT_RATIO_FIXED[pry]);
+        _TRACE_("Config::SCREEN_DISPLAY_NO["<<pry<<"]=" << Config::SCREEN_DISPLAY_NO[pry]);
+        _TRACE_("Config::SCREEN_PRESENT_POSITION["<<pry<<"]=" << Config::SCREEN_PRESENT_POSITION[pry]);
+        _TRACE_("Config::SCREEN_RATIO["<<pry<<"].WIDTH=" << Config::SCREEN_RATIO[pry].WIDTH);
+        _TRACE_("Config::SCREEN_RATIO["<<pry<<"].HEIGHT=" << Config::SCREEN_RATIO[pry].HEIGHT);
+    }
     _TRACE_("Config::BORDER_COLOR=" << Config::BORDER_COLOR);
     _TRACE_("Config::BG_COLOR=" << Config::BG_COLOR);
     _TRACE_("Config::MASTER_VOLUME=" << Config::MASTER_VOLUME);
     _TRACE_("Config::BGM_VOLUME=" << Config::BGM_VOLUME);
     _TRACE_("Config::SE_VOLUME=" << Config::SE_VOLUME);
     _TRACE_("Config::MAX_SE_AT_ONCE=" << Config::MAX_SE_AT_ONCE);
-    _TRACE_("Config::SE_DELAY_MSEC_MAX_DEPTH=" << Config::SE_DELAY_MSEC_MAX_DEPTH);
+    _TRACE_("Config::FRAME_OF_SE_DELAY_MAX_DEPTH=" << Config::FRAME_OF_SE_DELAY_MAX_DEPTH);
     _TRACE_("Config::SE_VOLUME_RATE_MAX_DEPTH=" << Config::SE_VOLUME_RATE_MAX_DEPTH);
 
     _TRACE_("Config::DIRNAME_RESOURCE_SKIN_XXX_MODEL=" << Config::DIRNAME_RESOURCE_SKIN_XXX_MODEL);
