@@ -79,7 +79,7 @@ Caretaker::Caretaker() : GgafCore::Caretaker() {
     _pHWndPrimary = nullptr;
     //コピー
     for (int pry = 0; pry < MAX_SCREENS; pry++) {
-        _screen_display_no[pry] = CONFIG::SCREEN_DISPLAY_NO[pry];
+        _screen_pry_to_adapter_no[pry] = CONFIG::SCREEN_DISPLAY_NO[pry];
     }
     _primary_screen_adpter_no = 0;
     _hInstance = GetModuleHandle(0);
@@ -100,7 +100,7 @@ Caretaker::Caretaker() : GgafCore::Caretaker() {
     _can_wddm = true;//とりあえず
     _papSwapChain = nullptr;
     _papBackBuffer = nullptr;
-    _paWindowNoToScreenPry = nullptr;
+    _paWindowNoToScreenPriority = nullptr;
     _paPresetPrm = nullptr;
     _paDisplayMode = nullptr;
     _paHWnd = nullptr;
@@ -217,18 +217,18 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
         }
 
         for (int pry = 0; pry < CONFIG::NUMBER_OF_SCREENS_USED; pry++) {
-            if (_num_adapter-1 < _screen_display_no[pry]) {
-                throwCriticalException("_screen_display_no["<<pry<<"]="<<_screen_display_no[pry]<<"は範囲外のディスプレイアダプタ番号です。"<<
+            if (_num_adapter-1 < _screen_pry_to_adapter_no[pry]) {
+                throwCriticalException("_screen_pry_to_adapter_no["<<pry<<"]="<<_screen_pry_to_adapter_no[pry]<<"は範囲外のディスプレイアダプタ番号です。"<<
                                        "アダプタ番号は 0～"<<_num_adapter-1<<" が有効です。");
             }
             for (int pry2 = 0; pry2 < CONFIG::NUMBER_OF_SCREENS_USED; pry2++) {
                 if (pry == pry2) {
                     continue;
                 }
-                if (_screen_display_no[pry] == _screen_display_no[pry2]) {
+                if (_screen_pry_to_adapter_no[pry] == _screen_pry_to_adapter_no[pry2]) {
                     throwCriticalException("同じディスプレイアダプタ番号を指定しています。\n"
-                                               "_screen_display_no["<<pry<<"]="<<_screen_display_no[pry]<<" と "
-                                               "_screen_display_no["<<pry2<<"]="<<_screen_display_no[pry2]<<" が重複していました。");
+                                               "_screen_pry_to_adapter_no["<<pry<<"]="<<_screen_pry_to_adapter_no[pry]<<" と "
+                                               "_screen_pry_to_adapter_no["<<pry2<<"]="<<_screen_pry_to_adapter_no[pry2]<<" が重複していました。");
                 }
             }
         }
@@ -236,28 +236,28 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
         _TRACE_("フルスクリーン時は指定されたアダプタ以外かぶらないようにしておく");
         _TRACE_("処理前");
         for (int pry = 0; pry < CONFIG::NUMBER_OF_SCREENS_USED; pry++) {
-            _TRACE_("_screen_display_no["<<pry<<"]="<<_screen_display_no[pry]);
+            _TRACE_("_screen_pry_to_adapter_no["<<pry<<"]="<<_screen_pry_to_adapter_no[pry]);
         }
         int wk_adp = CONFIG::NUMBER_OF_SCREENS_USED;
         for (int pry = CONFIG::NUMBER_OF_SCREENS_USED; pry < _num_adapter; pry++) {
             for (int pry2 = 0; pry2 < pry; pry2++) {
-                if (_screen_display_no[pry] == _screen_display_no[pry2]) {
-                    _screen_display_no[pry]=wk_adp;
+                if (_screen_pry_to_adapter_no[pry] == _screen_pry_to_adapter_no[pry2]) {
+                    _screen_pry_to_adapter_no[pry]=wk_adp;
                     wk_adp++;
                 }
             }
         }
         _TRACE_("処理後");
         for (int pry = 0; pry < CONFIG::NUMBER_OF_SCREENS_USED; pry++) {
-            _TRACE_("_screen_display_no["<<pry<<"]="<<_screen_display_no[pry]);
+            _TRACE_("_screen_pry_to_adapter_no["<<pry<<"]="<<_screen_pry_to_adapter_no[pry]);
         }
     } else {
         //ウィンドウ時
         for (int pry = 0; pry < MAX_SCREENS; pry++) {
-            _screen_display_no[pry]=pry;
+            _screen_pry_to_adapter_no[pry]=pry;
         }
     }
-    _primary_screen_adpter_no = _screen_display_no[SCREEN01];
+    _primary_screen_adpter_no = _screen_pry_to_adapter_no[SCREEN01];
 
     //_num_window を確定する
     //ウィンドウ数
@@ -270,16 +270,16 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
         //_num_window はウィンドウ数に一致
         _num_window = Config::NUMBER_OF_SCREENS_USED;
     }
-    //_paWindowNoToScreenPry 作成
-    _paWindowNoToScreenPry = NEW int[_num_window];
+    //_paWindowNoToScreenPriority 作成
+    _paWindowNoToScreenPriority = NEW int[_num_window];
     if (CONFIG::FULL_SCREEN) {
         //フルスクリーン時
         for (int wno = 0; wno < _num_window; wno++) {
-            _paWindowNoToScreenPry[wno] = -1;
+            _paWindowNoToScreenPriority[wno] = -1;
             for (int pry = 0; pry < CONFIG::NUMBER_OF_SCREENS_USED; pry++) { //pry=SCREEN01,SCREEN02
-                int adp_no = _screen_display_no[pry];
+                int adp_no = _screen_pry_to_adapter_no[pry];
                 if (wno == adp_no) {
-                    _paWindowNoToScreenPry[wno] = pry;
+                    _paWindowNoToScreenPriority[wno] = pry;
                     break;
                 }
             }
@@ -287,7 +287,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
     } else {
         //ウィンドウモード時
         for (int wno = 0; wno < _num_window; wno++) {
-            _paWindowNoToScreenPry[wno] = wno;
+            _paWindowNoToScreenPriority[wno] = wno;
         }
     }
 
@@ -358,7 +358,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
 
     //マルチサンプル
     for (int wno = 0; wno < _num_window; wno++) {
-        int pry = _paWindowNoToScreenPry[wno];
+        int pry = _paWindowNoToScreenPriority[wno];
         if (pry >= 0) {
             _paPresetPrm[wno].MultiSampleType = multiSampleType; //マルチサンプルの数
             _paPresetPrm[wno].MultiSampleQuality = qualityLevels - (qualityLevels > 0 ? 1 : 0); //マルチサンプルの品質レベル
@@ -370,7 +370,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
 
     //バックバッファサイズ
     for (int wno = 0; wno < _num_window; wno++) {
-        int pry = _paWindowNoToScreenPry[wno];
+        int pry = _paWindowNoToScreenPriority[wno];
         if (CONFIG::FULL_SCREEN) {
             //フルスクリーン時（フルスクリーンチェックで上書きされるかもしれないけどデフォルト値を設定)
             if (pry >= 0) {
@@ -428,7 +428,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
     if (CONFIG::FULL_SCREEN) {
         if (CONFIG::NUMBER_OF_SCREENS_USED == 1) {
             //１画面フルスクリーン
-            int wno = _screen_display_no[SCREEN01];
+            int wno = _screen_pry_to_adapter_no[SCREEN01];
             std::string title = std::string(prm_title);
             WNDCLASSEX wc = prm_wndclass;
             RegisterClassEx(&wc);
@@ -494,13 +494,13 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
     }
 
     //Windowハンドルを個別指定
-    _mapHwndToPry[nullptr] = -1;
+    _mapHwndToScreenPriority[nullptr] = -1;
     _mapHwndToWindowNo[nullptr] = -1;
     for (int wno = 0; wno < _num_window; wno++) {
         _paPresetPrm[wno].hDeviceWindow = _paHWnd[wno]; //注意：無効要素には null が入っている
         if (_paHWnd[wno]) {
             _mapHwndToWindowNo[_paHWnd[wno]] = wno;
-            _mapHwndToPry[_paHWnd[wno]] = _paWindowNoToScreenPry[wno];
+            _mapHwndToScreenPriority[_paHWnd[wno]] = _paWindowNoToScreenPriority[wno];
         }
     }
     _pHWndPrimary  = _paHWnd[_primary_screen_adpter_no];
@@ -523,7 +523,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
         //ウィンドウモード時
         for (int wno = 0; wno < _num_window; wno++) {
             if (_paHWnd[wno]) {
-                int pry = _paWindowNoToScreenPry[wno];
+                int pry = _paWindowNoToScreenPriority[wno];
                 resetWindowsize(_paHWnd[wno], CONFIG::SCREEN_WINDOW[pry].WIDTH, CONFIG::SCREEN_WINDOW[pry].HEIGHT);
             }
         }
@@ -1037,7 +1037,7 @@ _TRACE_("restoreFullScreenRenderTarget() 1");
     //フルスクリーン時、バックバッファとフロントバッファを背景色で塗る
     if (Config::NUMBER_OF_SCREENS_USED > 1) {
         for (int wno = 0; wno < _num_window; wno++) {
-            int pry = _paWindowNoToScreenPry[wno];
+            int pry = _paWindowNoToScreenPriority[wno];
             if (pry >= 0) {
                 hr = _pID3DDevice9->StretchRect(
                         _pRenderTextureSurface, &_aRectRenderBufferSource[pry],
@@ -1060,7 +1060,7 @@ _TRACE_("restoreFullScreenRenderTarget() 1");
     //フリップしてもう一度背景色で塗る
     if (Config::NUMBER_OF_SCREENS_USED > 1) {
         for (int wno = 0; wno < _num_window; wno++) {
-            int pry = _paWindowNoToScreenPry[wno];
+            int pry = _paWindowNoToScreenPriority[wno];
             if (pry >= 0) {
                 hr = _pID3DDevice9->StretchRect(
                         _pRenderTextureSurface, &_aRectRenderBufferSource[pry],
@@ -1125,7 +1125,7 @@ void Caretaker::setFullScreenWindowPos() {
 void Caretaker::resetDotByDotWindowsize(int d) {
     if (!CONFIG::FULL_SCREEN) {
         for (int pry = SCREEN01; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
-            int wno = _screen_display_no[pry];
+            int wno = _screen_pry_to_adapter_no[pry];
             resetWindowsize(_paHWnd[wno], CONFIG::RENDER_TARGET_BUFFER_WIDTH/CONFIG::NUMBER_OF_SCREENS_USED*d, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*d);
         }
     }
@@ -1134,7 +1134,7 @@ void Caretaker::resetInitWindowsize() {
     //初期ウィンドウサイズにリセット
     if (!CONFIG::FULL_SCREEN) {
         for (int pry = SCREEN01; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
-            int wno = _screen_display_no[pry];
+            int wno = _screen_pry_to_adapter_no[pry];
             resetWindowsize(_paHWnd[wno],
                             CONFIG::SCREEN_WINDOW[pry].WIDTH, CONFIG::SCREEN_WINDOW[pry].HEIGHT);
         }
@@ -1170,7 +1170,7 @@ void Caretaker::resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord clien
 
 void Caretaker::chengeScreenPresentPos(HWND prm_pHWnd, int pos) {
     if (!CONFIG::FULL_SCREEN) {
-        int pry = _mapHwndToPry[prm_pHWnd];
+        int pry = _mapHwndToScreenPriority[prm_pHWnd];
         CONFIG::SCREEN_PRESENT_POSITION[pry] = pos;
         _adjustGameWindow = true;
     }
@@ -1189,7 +1189,7 @@ void Caretaker::chengeSecondaryScreenPresentPos(int pos) {
 }
 void Caretaker::chengeViewAspect(HWND prm_pHWnd, bool prm_b) {
     if (!CONFIG::FULL_SCREEN) {
-        int pry = _mapHwndToPry[prm_pHWnd];
+        int pry = _mapHwndToScreenPriority[prm_pHWnd];
         CONFIG::SCREEN_ASPECT_RATIO_FIXED[pry] = prm_b;
         _adjustGameWindow = true;
     }
@@ -1270,7 +1270,7 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
             _TRACE_("--- " << adapter_no+1 << "画面目 の解像度設定 --->");
             int rezo_num = _paAdapterRezos[adapter_no].rezo_num;
             RezoInfo* paRezos = _paAdapterRezos[adapter_no].paRezoInfo;
-            int pry = _paWindowNoToScreenPry[adapter_no];
+            int pry = _paWindowNoToScreenPriority[adapter_no];
             if (pry >= 0) {
                 if (allow_chang_rezo && CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH > 0) {
                     //解像度変更許可
@@ -1582,7 +1582,7 @@ void Caretaker::presentVisualize() {
         if (CONFIG::FULL_SCREEN) {
             //フルスクリーン
             for (int pry = SCREEN01; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
-                int wno = _screen_display_no[pry];
+                int wno = _screen_pry_to_adapter_no[pry];
                 hr = pDevice->StretchRect(
                         _pRenderTextureSurface, &_aRectRenderBufferSource[pry],
                         _papBackBuffer[wno], &_aRect_Present[pry],
@@ -1592,7 +1592,7 @@ void Caretaker::presentVisualize() {
         } else {
             //ウィンドウモード
             for (int pry = SCREEN01; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
-                int wno = _screen_display_no[pry];
+                int wno = _screen_pry_to_adapter_no[pry];
                 hr = pDevice->Present(&_aRectRenderBufferSource[pry], &_aRect_Present[pry], _paHWnd[wno], nullptr);
             }
         }
@@ -1699,13 +1699,13 @@ void Caretaker::presentVisualize() {
 
             //バックバッファサイズ
             for (int pry = SCREEN01; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
-                int wno = _screen_display_no[pry];
+                int wno = _screen_pry_to_adapter_no[pry];
                 _paPresetPrm[wno].BackBufferWidth  = CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH;
                 _paPresetPrm[wno].BackBufferHeight = CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT;
             }
             //下のrestoreFullScreenRenderTarget() で似たようなことをやってるのでいらんかも
             for (int pry = SCREEN01; pry < CONFIG::NUMBER_OF_SCREENS_USED; ++pry) {
-                int wno = _screen_display_no[pry];
+                int wno = _screen_pry_to_adapter_no[pry];
                 if (_paHWnd[wno]) {
                     SetWindowPos(_paHWnd[wno], NULL, 0, 0,
                             _paPresetPrm[wno].BackBufferWidth,
@@ -1869,7 +1869,7 @@ void Caretaker::adjustGameWindow() {
         }
 
         for (int wno = 0; wno < _num_window; wno++) {
-            int pry = _paWindowNoToScreenPry[wno]; //ウィンドウモード時は必ず pry >= 0
+            int pry = _paWindowNoToScreenPriority[wno]; //ウィンドウモード時は必ず pry >= 0
             RECT rect;
             if (::GetClientRect(_paHWnd[wno], &rect)) {
                 LONG c_width= rect.right;
@@ -2029,7 +2029,7 @@ Caretaker::~Caretaker() {
     GGAF_DELETEARR(_paPresetPrm);
     GGAF_DELETEARR(_paDisplayMode);
     GGAF_DELETEARR(_paHWnd);
-    GGAF_DELETEARR(_paWindowNoToScreenPry);
+    GGAF_DELETEARR(_paWindowNoToScreenPriority);
     GGAF_RELEASE(_pID3DDevice9);
     GGAF_RELEASE(_pID3D9);
     _TRACE_(FUNC_NAME<<" 解放終了");

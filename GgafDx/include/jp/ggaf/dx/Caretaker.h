@@ -34,22 +34,24 @@
 #undef pCARETAKER
 #define pCARETAKER ((GgafDx::Caretaker*)GgafCore::Caretaker::ask())
 
-#define SCREEN01 0
-#define SCREEN02 1
-#define SCREEN03 2
-#define SCREEN04 3
-#define SCREEN05 4
-#define SCREEN06 5
-#define SCREEN07 6
-#define SCREEN08 7
-#define SCREEN09 8
-#define SCREEN10 9
-#define SCREEN11 10
-#define SCREEN12 11
-#define SCREEN13 12
-#define SCREEN14 13
-#define SCREEN15 14
-#define SCREEN16 15
+enum ScreenPriority {
+    SCREEN01 = 0,
+    SCREEN02,
+    SCREEN03,
+    SCREEN04,
+    SCREEN05,
+    SCREEN06,
+    SCREEN07,
+    SCREEN08,
+    SCREEN09,
+    SCREEN10,
+    SCREEN11,
+    SCREEN12,
+    SCREEN13,
+    SCREEN14,
+    SCREEN15,
+    SCREEN16,
+};
 
 namespace GgafDx {
 
@@ -193,19 +195,19 @@ public:
     ModelManager* _pModelManager;
     /** エフェクト(Effect)資源管理者 */
     EffectManager* _pEffectManager;
-    /** [r] 1画面目のウィンドウハンドル  */
+    /** [r] ゲームスクリーン0画面目 （_paHWnd[_screen_pry_to_adapter_no[0]]）のウィンドウハンドル  */
     HWND _pHWndPrimary;
     /** [r] ウィンドウハンドルの配列、要素の添字は D3DPRESENT_PARAMETERS要素番号(アダプタ番号含む) */
     HWND* _paHWnd;
     /** [r] window数。ウインドウモード時は NUMBER_OF_SCREENS_USED、フルスクリーン時はアダプタ数。 */
     int _num_window;
-
-    int _screen_display_no[MAX_SCREENS];
+    /** [r]フルスクリーン時、ゲームスクリーン[n]画面目のアダプタ番号 */
+    int _screen_pry_to_adapter_no[MAX_SCREENS];
     /** [r]windowインデックス(=フルスクリーン時はアダプタインデックス) → スクリーンプライオリティ。0:SCREEN01/1:SCREEN02/2:TERTIARY */
-    int* _paWindowNoToScreenPry;
+    int* _paWindowNoToScreenPriority;
 
     /** [r] HWND => スクリーンプライオリティ。0:SCREEN01/1:SCREEN02/2:TERTIARY */
-    std::map<HWND, int> _mapHwndToPry;
+    std::map<HWND, int> _mapHwndToScreenPriority;
     /** [r] HWND => アダプタ番号 */
     std::map<HWND, int> _mapHwndToWindowNo;
 
@@ -295,7 +297,7 @@ public:
     int getNumWindow() {
         return _num_window;
     }
-    HWND getHWND(int prm_pry) {
+    HWND getHWND(ScreenPriority prm_pry) {
         return _paHWnd[prm_pry];
     }
     /**

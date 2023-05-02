@@ -51,22 +51,22 @@ public:
     /** [r] 描画先サーフェイス高さのピクセルサイズ */
     static pixcoord RENDER_TARGET_BUFFER_HEIGHT;
 
-    /** [r] フルスクリーンモード時、[n]画面目のデイスプレイ番号(n:0～) */
+    /** [r] フルスクリーンモード時、ゲーム画面[n]画面目のデイスプレイ番号(n:0～) */
     static int SCREEN_DISPLAY_NO[MAX_SCREENS];
-    /** [r] 描画先サーフェイス（RENDER_TARGET_BUFFER）の中から、[n]画面目の実際にゲームに表示するコピー元バッファのクリッピング領域(LEFT/TOP/WIDTH/HEIGHT) */
+    /** [r] 描画先サーフェイス（RENDER_TARGET_BUFFER）の中から、ゲーム画面[n]画面目の実際にゲームに表示するコピー元バッファのクリッピング領域(LEFT/TOP/WIDTH/HEIGHT) */
     static GGAFRECT<pixcoord> SCREEN_RENDER_BUFFER_SOURCE[MAX_SCREENS];
-    /** [r] ウィンドウモードだった場合の[n]画面目のウィンドウの初期幅サイズ(WIDTH/HEIGHT) */
+    /** [r] ウィンドウモードだった場合の、ゲーム画面[n]画面目のウィンドウの初期幅サイズ(WIDTH/HEIGHT) */
     static GGAFSIZE<pixcoord> SCREEN_WINDOW[MAX_SCREENS];
-    /** [r] フルスクリーンモードだった場合の[n]画面目スクリーンの画面解像度(WIDTH/HEIGHT) */
+    /** [r] フルスクリーンモードだった場合の、ゲーム画面[n]画面目スクリーンの画面解像度(WIDTH/HEIGHT) */
     static GGAFSIZE<pixcoord> SCREEN_FULL_SCREEN[MAX_SCREENS];
-    /** [r] フルスクリーンモードだった場合の[n]画面目スクリーンの「補正前」の解像度(WIDTH/HEIGHT) */
+    /** [r] フルスクリーンモードだった場合の、ゲーム画面[n]画面目スクリーンの「補正前」の解像度(WIDTH/HEIGHT) */
     static GGAFSIZE<pixcoord> SCREEN_FULL_SCREEN_BK[MAX_SCREENS];
 
-    /** [r/w] [n]画面目表示領域アスペクト比をゲームバッファの縦横比で固定にするかどうか(true=固定/false=固定にしない) */
+    /** [r/w] ゲーム画面[n]画面目表示領域アスペクト比をゲームバッファの縦横比で固定にするかどうか(true=固定/false=固定にしない) */
     static bool SCREEN_ASPECT_RATIO_FIXED[MAX_SCREENS];
-    /** [r] ゲーム表示領域アスペクト比を固定時、[n]画面目の表示領域場所を指定(場所＝テンキーの数値) */
+    /** [r] ゲーム表示領域アスペクト比を固定時、ゲーム画面[n]画面目の表示領域場所を指定(場所＝テンキーの数値) */
     static int SCREEN_PRESENT_POSITION[MAX_SCREENS];
-    /** [r/w] ゲーム表示領域アスペクト比固定の場合、[n]画面目の表示領域の横幅調整乗率 */
+    /** [r/w] ゲーム表示領域アスペクト比固定の場合、ゲーム画面[n]画面目の表示領域の横幅調整乗率 */
     static GGAFSIZE<double> SCREEN_RATIO[MAX_SCREENS];
 
 

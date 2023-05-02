@@ -37,7 +37,7 @@ void MousePointerActor::processSettlementBehavior() {
     }
     // スクリーン座標をクライアント座標に変換する
     ScreenToClient(_last_hWnd, &_mouse_point);
-    int last_pry = pCaretaker->_mapHwndToPry[_last_hWnd];
+    int last_pry = pCaretaker->_mapHwndToScreenPriority[_last_hWnd];
     if (last_pry >= 0) {
         RECT& rect_Present = pCaretaker->_aRect_Present[last_pry];
         pixcoord cPresent_w = rect_Present.right - rect_Present.left;

@@ -374,10 +374,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                         CONFIG::_properties.setValue("SCREEN01_WINDOW_HEIGHT", CONFIG::SCREEN_WINDOW[SCREEN01].HEIGHT);
                         CONFIG::_properties.setValue("SCREEN02_WINDOW_WIDTH" , CONFIG::SCREEN_WINDOW[SCREEN02].WIDTH);
                         CONFIG::_properties.setValue("SCREEN02_WINDOW_HEIGHT", CONFIG::SCREEN_WINDOW[SCREEN02].HEIGHT);
-
                         CONFIG::_properties.setValue("SCREEN01_PRESENT_POSITION", CONFIG::SCREEN_PRESENT_POSITION[SCREEN01]);
                         CONFIG::_properties.setValue("SCREEN02_PRESENT_POSITION", CONFIG::SCREEN_PRESENT_POSITION[SCREEN02]);
-
+                        CONFIG::_properties.setValue("SCREEN01_ASPECT_RATIO_FIXED", CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01]);
+                        CONFIG::_properties.setValue("SCREEN02_ASPECT_RATIO_FIXED", CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN02]);
                     } else {
                         RECT cRect1;
                         GetClientRect(pCaretaker->getHWND(SCREEN01), &cRect1);
@@ -387,11 +387,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                         CONFIG::SCREEN_WINDOW[SCREEN01].HEIGHT = ch1;
                         CONFIG::_properties.setValue("SCREEN01_WINDOW_WIDTH" , CONFIG::SCREEN_WINDOW[SCREEN01].WIDTH);
                         CONFIG::_properties.setValue("SCREEN01_WINDOW_HEIGHT", CONFIG::SCREEN_WINDOW[SCREEN01].HEIGHT);
-
                         CONFIG::_properties.setValue("SCREEN01_PRESENT_POSITION", CONFIG::SCREEN_PRESENT_POSITION[SCREEN01]);
+                        CONFIG::_properties.setValue("SCREEN01_ASPECT_RATIO_FIXED", CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01]);
                     }
-                    CONFIG::_properties.setValue("SCREEN01_ASPECT_RATIO_FIXED", CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01]);
-
                     CONFIG::_properties.write(CONFIG::_load_properties_filename); //プロパティ保存
                     CONFIG::loadProperties(CONFIG::_load_properties_filename); //プロパティ再反映
                 }
