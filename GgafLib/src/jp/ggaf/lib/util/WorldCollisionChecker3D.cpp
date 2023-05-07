@@ -44,48 +44,6 @@ void WorldCollisionChecker3D::updateHitArea() {
     }
 }
 
-bool WorldCollisionChecker3D::isHit(const GgafDx::CollisionChecker* const prm_pOppChecker) {
-    GgafDx::CollisionArea* const pActiveCollisionArea = _pCollisionArea;
-    GgafDx::CollisionArea* const pOppActiveCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
-    const GgafDx::GeometricActor* const pActor = _pActor;                //相手のアクター
-    const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
-    const int colli_part_num = pActiveCollisionArea->_colli_part_num;
-    const int opp_colli_part_num = pOppActiveCollisionArea->_colli_part_num; //相手の当たり判定要素数
-    const coord pActor_x = pActor->_x;
-    const coord pActor_y = pActor->_y;
-    const coord pActor_z = pActor->_z;
-    const coord pOppActor_x = pOppActor->_x;
-    const coord pOppActor_y = pOppActor->_y;
-    const coord pOppActor_z = pOppActor->_z;
-    //複数の当たり判定要素をもつアクター同士の場合、
-    //まず最外境界AABoxで当たり判定を行って、ヒットすれば厳密に当たり判定を行う。
-    if (colli_part_num > 1 || opp_colli_part_num > 1) {
-#ifdef MY_DEBUG
-        WorldCollisionChecker::_num_check++;
-#endif
-        if (pActor_x + pActiveCollisionArea->_aabb_x2 >= pOppActor_x + pOppActiveCollisionArea->_aabb_x1) {
-            if (pActor_x + pActiveCollisionArea->_aabb_x1 <= pOppActor_x + pOppActiveCollisionArea->_aabb_x2) {
-                if (pActor_z + pActiveCollisionArea->_aabb_z2 >= pOppActor_z + pOppActiveCollisionArea->_aabb_z1) {
-                    if (pActor_z + pActiveCollisionArea->_aabb_z1 <= pOppActor_z + pOppActiveCollisionArea->_aabb_z2) {
-                        if (pActor_y + pActiveCollisionArea->_aabb_y2 >= pOppActor_y + pOppActiveCollisionArea->_aabb_y1) {
-                            if (pActor_y + pActiveCollisionArea->_aabb_y1 <= pOppActor_y + pOppActiveCollisionArea->_aabb_y2) {
-#ifdef MY_DEBUG
-                                WorldCollisionChecker::_num_zannen_check++;
-#endif
-                                goto CNT;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-#ifdef MY_DEBUG
-        WorldCollisionChecker::_num_otoku_check++;
-#endif
-        return false;
-    }
-
-CNT:
 
 
 //StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
@@ -129,6 +87,46 @@ CNT:
 //
 //};
 
+//                int shape_kind_bit = (shape_kind << 4) | opp_shape_kind;
+//                pFunc_isHit3D[shape_kind_bit](.....);
+
+bool WorldCollisionChecker3D::isHit(const GgafDx::CollisionChecker* const prm_pOppChecker) {
+    GgafDx::CollisionArea* const pActiveCollisionArea = _pCollisionArea;
+    GgafDx::CollisionArea* const pOppActiveCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
+    const GgafDx::GeometricActor* const pActor = _pActor;                //相手のアクター
+    const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
+    const int colli_part_num = pActiveCollisionArea->_colli_part_num;
+    const int opp_colli_part_num = pOppActiveCollisionArea->_colli_part_num; //相手の当たり判定要素数
+    const coord pActor_x = pActor->_x;
+    const coord pActor_y = pActor->_y;
+    const coord pActor_z = pActor->_z;
+    const coord pOppActor_x = pOppActor->_x;
+    const coord pOppActor_y = pOppActor->_y;
+    const coord pOppActor_z = pOppActor->_z;
+    //複数の当たり判定要素をもつアクター同士の場合、
+    //まず最外境界AABoxで当たり判定を行って、ヒットすれば厳密に当たり判定を行う。
+    if (colli_part_num > 1 || opp_colli_part_num > 1) {
+#ifdef MY_DEBUG
+        WorldCollisionChecker::_num_check++;
+#endif
+        if (pActor_x + pActiveCollisionArea->_aabb_x2 >= pOppActor_x + pOppActiveCollisionArea->_aabb_x1 &&
+            pActor_x + pActiveCollisionArea->_aabb_x1 <= pOppActor_x + pOppActiveCollisionArea->_aabb_x2 &&
+            pActor_z + pActiveCollisionArea->_aabb_z2 >= pOppActor_z + pOppActiveCollisionArea->_aabb_z1 &&
+            pActor_z + pActiveCollisionArea->_aabb_z1 <= pOppActor_z + pOppActiveCollisionArea->_aabb_z2 &&
+            pActor_y + pActiveCollisionArea->_aabb_y2 >= pOppActor_y + pOppActiveCollisionArea->_aabb_y1 &&
+            pActor_y + pActiveCollisionArea->_aabb_y1 <= pOppActor_y + pOppActiveCollisionArea->_aabb_y2
+        ) {
+#ifdef MY_DEBUG
+            WorldCollisionChecker::_num_zannen_check++;
+#endif
+            goto CNT;
+        }
+#ifdef MY_DEBUG
+        WorldCollisionChecker::_num_otoku_check++;
+#endif
+        return false;
+    }
+CNT:
 
     for (int i = 0; i < colli_part_num; i++) {
         const GgafDx::CollisionPart* const pColliPart = pActiveCollisionArea->_papColliPart[i];
@@ -140,25 +138,19 @@ CNT:
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 
-
-//                int shape_kind_bit = (shape_kind << 4) | opp_shape_kind;
-//                pFunc_isHit3D[shape_kind_bit](.....);
-
-
 #ifdef MY_DEBUG
                 WorldCollisionChecker::_num_check++;
 #endif
-
                 if (opp_shape_kind == COLLI_AABOX) {
                     //＜AAB と AAB＞
                     coord max_dx = pColliPart->_hdx + pOppColliPart->_hdx;
-                    if ((ucoord)( (pOppActor_x + pOppColliPart->_cx) - (pActor_x + pColliPart->_cx) + max_dx ) < (ucoord)(2*max_dx)) {
+                    if ((ucoord)( (pOppActor_x + pOppColliPart->_cx) - (pActor_x + pColliPart->_cx) + max_dx ) < (ucoord)(max_dx<<1)) {
                         //↑左辺計算が0より小さい場合 unsigned キャストにより正の大きな数になるので条件成立しない事を利用し、ABSの判定を一つ除去してる。
                         //BOX vs BOX の当たり判定頻度はパフォーマンスに大きな影響を与えるため、わずかでも高速化したいため。
                         coord max_dz = pColliPart->_hdz + pOppColliPart->_hdz;
-                        if ((ucoord)( (pOppActor_z + pOppColliPart->_cz) - (pActor_z + pColliPart->_cz) + max_dz ) < (ucoord)(2*max_dz)) {
+                        if ((ucoord)( (pOppActor_z + pOppColliPart->_cz) - (pActor_z + pColliPart->_cz) + max_dz ) < (ucoord)(max_dz<<1)) {
                             coord max_dy = pColliPart->_hdy + pOppColliPart->_hdy;
-                            if ((ucoord)( (pOppActor_y + pOppColliPart->_cy) - (pActor_y + pColliPart->_cy) + max_dy ) < (ucoord)(2*max_dy)) {
+                            if ((ucoord)( (pOppActor_y + pOppColliPart->_cy) - (pActor_y + pColliPart->_cy) + max_dy ) < (ucoord)(max_dy<<1)) {
                                 pActiveCollisionArea->_hit_colli_part_index = i;
                                 pOppActiveCollisionArea->_hit_colli_part_index = j;
                                 return true;
@@ -197,9 +189,7 @@ CNT:
                      }
                  }
             }
-
         } else if (shape_kind == COLLI_SPHERE) {
-
             for (int j = 0; j < opp_colli_part_num; j++) {
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
@@ -254,9 +244,7 @@ CNT:
                     }
                 }
             }
-
         } else if (shape_kind == COLLI_AAPRISM) {
-
             for (int j = 0; j < opp_colli_part_num; j++) {
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
@@ -294,9 +282,7 @@ CNT:
                     return false;
                 }
             }
-
         } else if (shape_kind == COLLI_AAPYRAMID) {
-
             for (int j = 0; j < opp_colli_part_num; j++) {
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
                 const int opp_shape_kind = pOppColliPart->_shape_kind;

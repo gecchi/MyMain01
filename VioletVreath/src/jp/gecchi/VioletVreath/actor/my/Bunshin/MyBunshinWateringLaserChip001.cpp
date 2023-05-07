@@ -26,7 +26,7 @@ using namespace VioletVreath;
 const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(512); //この値を大きくすると、最高速度が早くなる。
 //const double MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE = 1.0 / MAX_VELO_RENGE;
 const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 18; //MAX_VELO_RENGE に対する加速度、この値を大きくすると、カーブが緩くなる
-const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.6; //レーザー発射時の初期速度
+const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.7; //レーザー発射時の初期速度
 //const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用  (現在未使用)
 const acce MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
 const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/10; // ÷10 は、最低移動する各軸のINITIAL_VELOの割合

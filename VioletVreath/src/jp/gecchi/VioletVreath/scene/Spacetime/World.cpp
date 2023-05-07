@@ -319,7 +319,7 @@ void World::processBehavior() {
 
 #ifdef MY_DEBUG
 
-    sprintf(aBufDebug_, "%07uF, %05u/%05uACT, %04u/%04uDRAW, %06u(%06u/%03u)CHK3D(%05uACT), %02uCHK2D(%02uACT), %03.1fFPS(SLOW%d), V%03d",
+    sprintf(aBufDebug_, "%07uF, %05u/%05uACT, %04u/%04uDRAW, %06u(%06u/%03uDUP)CHK3D(%05uACT), %02uCHK2D(%02uACT), %03.1fFPS(SLOW%d), V%03d",
                             pCaretaker->_frame_of_Caretaker,
                             GgafCore::Caretaker::_num_active_actors,
                             GgafCore::Actor::_num_actors,
