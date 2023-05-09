@@ -39,9 +39,9 @@ EnemyGeria::EnemyGeria(const char* prm_name) :
     will_shot_ = false;
     velo_mv_begin_ = 0;
     frame_when_shot_ = 0;
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //爆発
-    pSeTx->set(SE_FIRE     , "SE_ENEMY_FIRE_SHOT_001");     //発射
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //爆発
+    pSeXmtr->set(SE_FIRE     , "SE_ENEMY_FIRE_SHOT_001");     //発射
     migration_length_ = PX_C(10000);
     mvd_ = 0;
 }
@@ -147,7 +147,7 @@ void EnemyGeria::processBehavior() {
                     shot_num_++;
                     will_shot_ = false;
                     effectFlush(3); //フラッシュ
-                    getSeTransmitter()->play3D(SE_FIRE);
+                    getSeXmtr()->play3D(SE_FIRE);
                 }
                 pPhase->change(PHASE_MOVE);
             }
@@ -192,7 +192,7 @@ void EnemyGeria::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTransmitter()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

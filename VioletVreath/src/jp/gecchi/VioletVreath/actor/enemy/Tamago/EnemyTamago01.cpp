@@ -31,8 +31,8 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     pConn_depo_ = connectToDepositoryManager("Shot001");
     //pDepo_shot_ = pConn_depo_->peek();
     pDepo_shot_ = nullptr;
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(0, "SE_EXPLOSION_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(0, "SE_EXPLOSION_001");
 }
 
 void EnemyTamago01::onCreateModel() {
@@ -182,7 +182,7 @@ void EnemyTamago01::processBehavior() {
     pLocoVehicle->behave();
     getScaler()->behave();
     getUvFlipper()->behave();
-    //getSeTransmitter()->behave();
+    //getSeXmtr()->behave();
 }
 
 void EnemyTamago01::processJudgement() {
@@ -195,7 +195,7 @@ void EnemyTamago01::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTransmitter()->play3D(0);
+        getSeXmtr()->play3D(0);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

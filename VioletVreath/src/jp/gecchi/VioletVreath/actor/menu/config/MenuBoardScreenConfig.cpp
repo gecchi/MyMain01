@@ -29,24 +29,17 @@ MenuBoardScreenConfig::MenuBoardScreenConfig(const char* prm_name) :
     const char* arrItemStr[ITEM_BANPEI] = {
             "SCREEN MODE(*)",
             "SCREEN NUM(*)",
-//            "SCREEN RESOLUTION(*)",
-            "SCREEN1 RESOLUTION(*)", "SCREEN2 RESOLUTION(*)",
-//            "SWAP SCREEN(*)",
-            "GAME VIEW ASPECT TYPE",
-//            "GAME VIEW POSITION",
-            "GAME VIEW POSITION1", "GAME VIEW POSITION2",
+            "SCREEN01 RESOLUTION(*)", "SCREEN02 RESOLUTION(*)",
+            "SCREEN01 ASPECT TYPE", "SCREEN02 ASPECT TYPE",
+            "SCREEN01 PRESENT POSITION", "SCREEN02 PRESENT POSITION",
 
             "OK", "OK & REBOOT", "CANCEL",
 
             "FULL SCREEN", "WINDOW MODE",
             "DUAL VIEW"  , "SINGLE VIEW",
-//            "",
             ""           , "",
-//            "NO"         , "YES",
-            "FIX"        , "STRETCH",
-//            "1", "2", "3", "4", "5", "6", "7", "8", "9",
-            "1", "2", "3", "4", "5", "6", "7", "8", "9",
-            "1", "2", "3", "4", "5", "6", "7", "8", "9"
+            "FIX", "STRETCH" ,   "FIX", "STRETCH",
+            "1", "2", "3", "4", "5", "6", "7", "8", "9",   "1", "2", "3", "4", "5", "6", "7", "8", "9"
     };
 
     setWidth(PX_C(40*32));
@@ -95,13 +88,12 @@ MenuBoardScreenConfig::MenuBoardScreenConfig(const char* prm_name) :
     setTransition(30, PX_C(0), -PX_C(100)); //トランジション（表示非表示時の挙動）
     addSubMenu(NEW MenuBoardConfirm("confirm")); //0番 Yes No 問い合わせメニューをサブメニューに追加
     //addSubMenu(NEW MenuBoardResolutionSelect("ResolutionSelect"));
-    in_FULL_SCREEN_                = CONFIG::FULL_SCREEN;
-    in_NUMBER_OF_SCREENS_USED_                  = CONFIG::NUMBER_OF_SCREENS_USED;
-//    in_SWAP_SCREEN_             = CONFIG::SWAP_SCREEN;
-    in_SCREEN01_ASPECT_RATIO_FIXED_     = CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01];
+    in_FULL_SCREEN_                 = CONFIG::FULL_SCREEN;
+    in_NUMBER_OF_SCREENS_USED_      = CONFIG::NUMBER_OF_SCREENS_USED;
+    in_SCREEN01_ASPECT_RATIO_FIXED_ = CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01];
+    in_SCREEN02_ASPECT_RATIO_FIXED_ = CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN02];
     in_SCREEN01_PRESENT_POSITION_   = CONFIG::SCREEN_PRESENT_POSITION[SCREEN01];
     in_SCREEN02_PRESENT_POSITION_   = CONFIG::SCREEN_PRESENT_POSITION[SCREEN02];
-//    in_SCREEN01_PRESENT_POSITION_  = CONFIG::SCREEN01_PRESENT_POSITION;
     replaceItem();
 }
 
@@ -112,41 +104,41 @@ void MenuBoardScreenConfig::replaceItem() {
 
     //設定項目アイテム配置
     setPositionItem(ITEM_FULL_SCREEN, x1, y1);  y1 += lh;
-    setPositionItem(ITEM_DUAL_SCREEN  , x1, y1);  y1 += lh;
+    setPositionItem(ITEM_DUAL_SCREEN, x1, y1);  y1 += lh;
     if (CONFIG::_properties.getBool("FULL_SCREEN")) {
         if (CONFIG::_properties.getInt("NUMBER_OF_SCREENS_USED") > 1) {
-//            getItem(ITEM_SCREEN01_FULL_SCREEN_RESOLUTION)->inactivate();
             getItem(ITEM_SCREEN01_FULL_SCREEN_RESOLUTION)->activate();
             getItem(ITEM_SCREEN02_FULL_SCREEN_RESOLUTION)->activate();
             setPositionItem(ITEM_SCREEN01_FULL_SCREEN_RESOLUTION  , x1, y1);  y1 += lh;
             setPositionItem(ITEM_SCREEN02_FULL_SCREEN_RESOLUTION  , x1, y1);  y1 += lh;
         } else {
             getItem(ITEM_SCREEN01_FULL_SCREEN_RESOLUTION)->activate();
-//            getItem(ITEM_SCREEN01_FULL_SCREEN_RESOLUTION)->inactivate();
             getItem(ITEM_SCREEN02_FULL_SCREEN_RESOLUTION)->inactivate();
             setPositionItem(ITEM_SCREEN01_FULL_SCREEN_RESOLUTION , x1, y1);  y1 += lh;
         }
     } else {
-//        getItem(ITEM_SCREEN01_FULL_SCREEN_RESOLUTION)->inactivate();
         getItem(ITEM_SCREEN01_FULL_SCREEN_RESOLUTION)->inactivate();
         getItem(ITEM_SCREEN02_FULL_SCREEN_RESOLUTION)->inactivate();
     }
-//    if (CONFIG::_properties.getInt("NUMBER_OF_SCREENS_USED") > 1) {
-//        getItem(ITEM_SWAP_SCREEN)->activate();
-//        setPositionItem(ITEM_SWAP_SCREEN, x1, y1);  y1 += lh;
-//    } else {
-//        getItem(ITEM_SWAP_SCREEN)->inactivate();
-//    }
-    setPositionItem(ITEM_SCREEN01_ASPECT_RATIO_FIXED, x1, y1);  y1 += lh;
+
     if (CONFIG::_properties.getInt("NUMBER_OF_SCREENS_USED") > 1) {
-//        getItem(ITEM_SCREEN01_PRESENT_POSITION)->inactivate();
+        getItem(ITEM_SCREEN01_ASPECT_RATIO_FIXED)->activate();
+        getItem(ITEM_SCREEN02_ASPECT_RATIO_FIXED)->activate();
+        setPositionItem(ITEM_SCREEN01_ASPECT_RATIO_FIXED, x1, y1);  y1 += lh;
+        setPositionItem(ITEM_SCREEN02_ASPECT_RATIO_FIXED, x1, y1);  y1 += lh;
+    } else {
+        getItem(ITEM_SCREEN01_ASPECT_RATIO_FIXED)->activate();
+        getItem(ITEM_SCREEN02_ASPECT_RATIO_FIXED)->inactivate();
+        setPositionItem(ITEM_SCREEN01_ASPECT_RATIO_FIXED, x1, y1);  y1 += lh;
+    }
+
+    if (CONFIG::_properties.getInt("NUMBER_OF_SCREENS_USED") > 1) {
         getItem(ITEM_SCREEN01_PRESENT_POSITION)->activate();
         getItem(ITEM_SCREEN02_PRESENT_POSITION)->activate();
         setPositionItem(ITEM_SCREEN01_PRESENT_POSITION, x1, y1);  y1 += lh;
         setPositionItem(ITEM_SCREEN02_PRESENT_POSITION, x1, y1);  y1 += lh;
     } else {
         getItem(ITEM_SCREEN01_PRESENT_POSITION)->activate();
-//        getItem(ITEM_SCREEN01_PRESENT_POSITION)->inactivate();
         getItem(ITEM_SCREEN02_PRESENT_POSITION)->inactivate();
         setPositionItem(ITEM_SCREEN01_PRESENT_POSITION, x1, y1);  y1 += lh;
     }
@@ -154,62 +146,57 @@ void MenuBoardScreenConfig::replaceItem() {
     setPositionItem(ITEM_OK_REBOOT , PX_C(250), PX_C(320));
     setPositionItem(ITEM_CANCEL    , PX_C(450), PX_C(320));
 
-    //設定項目の選択値アイテム配置
+    //設定項目の選択値アイテム配置 ////////////////////////////////////////////
     coord x2 = PX_C(700);  //選択値アイテムX座標
     coord y2 = PX_C(100);  //選択値アイテムY座標
     setPositionItem(VALUE_FULL_SCREEN_TRUE, x2, y2);  setPositionItem(VALUE_FULL_SCREEN_FALSE, x2+PX_C(200), y2);  y2 += lh;
-    setPositionItem(VALUE_DUAL_SCREEN_TRUE  , x2, y2);  setPositionItem(VALUE_DUAL_SCREEN_FALSE  , x2+PX_C(200), y2);  y2 += lh;
+    setPositionItem(VALUE_DUAL_SCREEN_TRUE, x2, y2);  setPositionItem(VALUE_DUAL_SCREEN_FALSE, x2+PX_C(200), y2);  y2 += lh;
 
     if (CONFIG::_properties.getBool("FULL_SCREEN")) {
         if (CONFIG::_properties.getInt("NUMBER_OF_SCREENS_USED") > 1) {
-//            getItem(VALUE_SCREEN01_FULL_SCREEN_RESOLUTION)->inactivate();
             getItem(VALUE_SCREEN01_FULL_SCREEN_RESOLUTION)->activate();
             getItem(VALUE_SCREEN02_FULL_SCREEN_RESOLUTION)->activate();
             setPositionItem(VALUE_SCREEN01_FULL_SCREEN_RESOLUTION , x2, y2);  y2 += lh;
             setPositionItem(VALUE_SCREEN02_FULL_SCREEN_RESOLUTION , x2, y2);  y2 += lh;
         } else {
             getItem(VALUE_SCREEN01_FULL_SCREEN_RESOLUTION)->activate();
-//            getItem(VALUE_SCREEN01_FULL_SCREEN_RESOLUTION)->inactivate();
             getItem(VALUE_SCREEN02_FULL_SCREEN_RESOLUTION)->inactivate();
             setPositionItem(VALUE_SCREEN01_FULL_SCREEN_RESOLUTION, x2, y2);  y2 += lh;
         }
     } else {
         getItem(VALUE_SCREEN01_FULL_SCREEN_RESOLUTION)->inactivate();
-        getItem(VALUE_SCREEN01_FULL_SCREEN_RESOLUTION)->inactivate();
         getItem(VALUE_SCREEN02_FULL_SCREEN_RESOLUTION)->inactivate();
     }
-
-//    if (CONFIG::_properties.getInt("NUMBER_OF_SCREENS_USED") > 1) {
-//        getItem(VALUE_SWAP_SCREEN_FALSE)->activate();  getItem(VALUE_SWAP_SCREEN_TRUE)->activate();
-//        setPositionItem(VALUE_SWAP_SCREEN_FALSE, x2, y2);   setPositionItem(VALUE_SWAP_SCREEN_TRUE, x2+PX_C(200), y2);  y2 += lh;
-//    } else {
-//        getItem(VALUE_SWAP_SCREEN_FALSE)->inactivate();    getItem(VALUE_SWAP_SCREEN_TRUE)->inactivate();
-//    }
-    setPositionItem(VALUE_FIXED_SCREEN_TRUE  , x2, y2);  setPositionItem(VALUE_FIXED_SCREEN_FALSE, x2+PX_C(200), y2);  y2 += lh;
-
     if (CONFIG::_properties.getInt("NUMBER_OF_SCREENS_USED") > 1) {
-//        for (int i = 0; i < 9; i++) {
-//            getItem(VALUE_POS_1 + i)->inactivate();
-//        }
+        getItem(VALUE_SCREEN01_FIXED_SCREEN_TRUE)->activate();  getItem(VALUE_SCREEN01_FIXED_SCREEN_FALSE)->activate();
+        getItem(VALUE_SCREEN02_FIXED_SCREEN_TRUE)->activate();  getItem(VALUE_SCREEN02_FIXED_SCREEN_FALSE)->activate();
+        setPositionItem(VALUE_SCREEN01_FIXED_SCREEN_TRUE, x2, y2);  setPositionItem(VALUE_SCREEN01_FIXED_SCREEN_FALSE, x2+PX_C(200), y2);  y2 += lh;
+        setPositionItem(VALUE_SCREEN02_FIXED_SCREEN_TRUE, x2, y2);  setPositionItem(VALUE_SCREEN02_FIXED_SCREEN_FALSE, x2+PX_C(200), y2);  y2 += lh;
+    } else {
+        getItem(VALUE_SCREEN01_FIXED_SCREEN_TRUE)->activate();    getItem(VALUE_SCREEN01_FIXED_SCREEN_FALSE)->activate();
+        getItem(VALUE_SCREEN02_FIXED_SCREEN_TRUE)->inactivate();  getItem(VALUE_SCREEN02_FIXED_SCREEN_FALSE)->inactivate();
+        setPositionItem(VALUE_SCREEN01_FIXED_SCREEN_TRUE, x2, y2);  setPositionItem(VALUE_SCREEN01_FIXED_SCREEN_FALSE, x2+PX_C(200), y2);  y2 += lh;
+    }
+    if (CONFIG::_properties.getInt("NUMBER_OF_SCREENS_USED") > 1) {
         for (int i = 0; i < 9; i++) {
             getItem(VALUE_POS1_1 + i)->activate();
             setPositionItem(VALUE_POS1_1 + i, x2+PX_C(i*20), y2);
-        }   y2 += lh;
+        }
+        y2 += lh;
         for (int i = 0; i < 9; i++) {
             getItem(VALUE_POS2_1 + i)->activate();
             setPositionItem(VALUE_POS2_1 + i , x2+PX_C(i*20), y2);
-        }   y2 += lh;
+        }
+        y2 += lh;
     } else {
         for (int i = 0; i < 9; i++) {
-            getItem(VALUE_POS1_1 + i)->inactivate();
+            getItem(VALUE_POS1_1 + i)->activate();
+             setPositionItem(VALUE_POS1_1 + i, x2+PX_C(i*20), y2);
         }
+        y2 += lh;
         for (int i = 0; i < 9; i++) {
             getItem(VALUE_POS2_1 + i)->inactivate();
         }
-//        for (int i = 0; i < 9; i++) {
-//            getItem(VALUE_POS_1 + i)->activate();
-//            setPositionItem(VALUE_POS_1 + i , x2+PX_C(i*20), y2);
-//        }   y2 += lh;
     }
 
     //設定項目の選択サブカーソル配置
@@ -227,40 +214,45 @@ void MenuBoardScreenConfig::replaceItem() {
 
     if (CONFIG::_properties.getBool("FULL_SCREEN")) {
         if (CONFIG::_properties.getInt("NUMBER_OF_SCREENS_USED") > 1) {
-//            getSubCursor(SUBCUR_SCREEN01_FULL_SCREEN_RESOLUTION)->inactivate();
             getSubCursor(SUBCUR_SCREEN01_FULL_SCREEN_RESOLUTION)->activate();
             getSubCursor(SUBCUR_SCREEN02_FULL_SCREEN_RESOLUTION)->activate();
             selectItemBySubCursor(SUBCUR_SCREEN01_FULL_SCREEN_RESOLUTION, VALUE_SCREEN01_FULL_SCREEN_RESOLUTION, false);
             selectItemBySubCursor(SUBCUR_SCREEN02_FULL_SCREEN_RESOLUTION, VALUE_SCREEN02_FULL_SCREEN_RESOLUTION, false);
         } else {
             getSubCursor(SUBCUR_SCREEN01_FULL_SCREEN_RESOLUTION)->activate();
-//            getSubCursor(SUBCUR_SCREEN01_FULL_SCREEN_RESOLUTION)->inactivate();
             getSubCursor(SUBCUR_SCREEN02_FULL_SCREEN_RESOLUTION)->inactivate();
             selectItemBySubCursor(SUBCUR_SCREEN01_FULL_SCREEN_RESOLUTION, VALUE_SCREEN01_FULL_SCREEN_RESOLUTION, false);
         }
     } else {
-//        getSubCursor(SUBCUR_SCREEN01_FULL_SCREEN_RESOLUTION)->inactivate();
         getSubCursor(SUBCUR_SCREEN01_FULL_SCREEN_RESOLUTION)->inactivate();
         getSubCursor(SUBCUR_SCREEN02_FULL_SCREEN_RESOLUTION)->inactivate();
     }
 
-//    if (CONFIG::_properties.getInt("NUMBER_OF_SCREENS_USED") > 1) {
-//        getSubCursor(SUBCUR_SWAP_SCREEN)->activate();
-//        if (CONFIG::_properties.getBool("SWAP_SCREEN")) {
-//            selectItemBySubCursor(SUBCUR_SWAP_SCREEN, VALUE_SWAP_SCREEN_TRUE, false);
-//        } else {
-//            selectItemBySubCursor(SUBCUR_SWAP_SCREEN, VALUE_SWAP_SCREEN_FALSE, false);
-//        }
-//    } else {
-//        getSubCursor(SUBCUR_SWAP_SCREEN)->inactivate();
-//    }
-    if (CONFIG::_properties.getBool("SCREEN01_ASPECT_RATIO_FIXED")) {
-        selectItemBySubCursor(SUBCUR_SCREEN01_ASPECT_RATIO_FIXED, VALUE_FIXED_SCREEN_TRUE, false);
-    } else {
-        selectItemBySubCursor(SUBCUR_SCREEN01_ASPECT_RATIO_FIXED, VALUE_FIXED_SCREEN_FALSE, false);
-    }
     if (CONFIG::_properties.getInt("NUMBER_OF_SCREENS_USED") > 1) {
-//        getSubCursor(SUBCUR_SCREEN01_PRESENT_POSITION)->inactivate();
+        getSubCursor(SUBCUR_SCREEN01_ASPECT_RATIO_FIXED)->activate();
+        getSubCursor(SUBCUR_SCREEN02_ASPECT_RATIO_FIXED)->activate();
+        if (CONFIG::_properties.getBool("SCREEN01_ASPECT_RATIO_FIXED")) {
+            selectItemBySubCursor(SUBCUR_SCREEN01_ASPECT_RATIO_FIXED, VALUE_SCREEN01_FIXED_SCREEN_TRUE, false);
+        } else {
+            selectItemBySubCursor(SUBCUR_SCREEN01_ASPECT_RATIO_FIXED, VALUE_SCREEN01_FIXED_SCREEN_FALSE, false);
+        }
+        if (CONFIG::_properties.getBool("SCREEN02_ASPECT_RATIO_FIXED")) {
+            selectItemBySubCursor(SUBCUR_SCREEN02_ASPECT_RATIO_FIXED, VALUE_SCREEN02_FIXED_SCREEN_TRUE, false);
+        } else {
+            selectItemBySubCursor(SUBCUR_SCREEN02_ASPECT_RATIO_FIXED, VALUE_SCREEN02_FIXED_SCREEN_FALSE, false);
+        }
+    } else {
+        getSubCursor(SUBCUR_SCREEN01_ASPECT_RATIO_FIXED)->activate();
+        getSubCursor(SUBCUR_SCREEN02_ASPECT_RATIO_FIXED)->inactivate();
+        selectItemBySubCursor(SUBCUR_SCREEN01_ASPECT_RATIO_FIXED, VALUE_SCREEN01_FIXED_SCREEN_TRUE, false);
+        if (CONFIG::_properties.getBool("SCREEN01_ASPECT_RATIO_FIXED")) {
+            selectItemBySubCursor(SUBCUR_SCREEN01_ASPECT_RATIO_FIXED, VALUE_SCREEN01_FIXED_SCREEN_TRUE, false);
+        } else {
+            selectItemBySubCursor(SUBCUR_SCREEN01_ASPECT_RATIO_FIXED, VALUE_SCREEN01_FIXED_SCREEN_FALSE, false);
+        }
+    }
+
+    if (CONFIG::_properties.getInt("NUMBER_OF_SCREENS_USED") > 1) {
         getSubCursor(SUBCUR_SCREEN01_PRESENT_POSITION)->activate();
         getSubCursor(SUBCUR_SCREEN02_PRESENT_POSITION)->activate();
         int pos1 = CONFIG::_properties.getInt("SCREEN01_PRESENT_POSITION");
@@ -269,15 +261,10 @@ void MenuBoardScreenConfig::replaceItem() {
         selectItemBySubCursor(SUBCUR_SCREEN02_PRESENT_POSITION, VALUE_POS2_1+(pos2-1), false);
     } else {
         getSubCursor(SUBCUR_SCREEN01_PRESENT_POSITION)->activate();
-//        getSubCursor(SUBCUR_SCREEN01_PRESENT_POSITION)->inactivate();
         getSubCursor(SUBCUR_SCREEN02_PRESENT_POSITION)->inactivate();
-//        int pos = CONFIG::_properties.getInt("SCREEN01_PRESENT_POSITION");
-//        selectItemBySubCursor(SUBCUR_SCREEN01_PRESENT_POSITION, VALUE_POS_1+(pos-1), false);
+        int pos1 = CONFIG::_properties.getInt("SCREEN01_PRESENT_POSITION");
+        selectItemBySubCursor(SUBCUR_SCREEN01_PRESENT_POSITION, VALUE_POS1_1+(pos1-1), false);
     }
-
-//    FontBoardActor* pLabelRezo  = (FontBoardActor*) getItem(VALUE_SCREEN01_FULL_SCREEN_RESOLUTION);
-//    std::string rezo = XTOS(CONFIG::_properties.getInt("SCREEN01_FULL_SCREEN_WIDTH")) + "X" + XTOS(CONFIG::_properties.getInt("SCREEN01_FULL_SCREEN_HEIGHT"));
-//    pLabelRezo->update(rezo.c_str());
 
     FontBoardActor* pLabelRezo1 = (FontBoardActor*) getItem(VALUE_SCREEN01_FULL_SCREEN_RESOLUTION);
     std::string rezo1 = XTOS(CONFIG::_properties.getInt("SCREEN01_FULL_SCREEN_WIDTH")) + "X" + XTOS(CONFIG::_properties.getInt("SCREEN01_FULL_SCREEN_HEIGHT"));
@@ -313,13 +300,11 @@ bool MenuBoardScreenConfig::condSelectExPrev() {
 }
 
 void MenuBoardScreenConfig::onRise() {
-    in_FULL_SCREEN_                = CONFIG::FULL_SCREEN;
-    in_NUMBER_OF_SCREENS_USED_    = CONFIG::NUMBER_OF_SCREENS_USED;
-//    in_SWAP_SCREEN_             = CONFIG::SWAP_SCREEN;
-    in_SCREEN01_ASPECT_RATIO_FIXED_     = CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01];
+    in_FULL_SCREEN_                 = CONFIG::FULL_SCREEN;
+    in_NUMBER_OF_SCREENS_USED_      = CONFIG::NUMBER_OF_SCREENS_USED;
+    in_SCREEN01_ASPECT_RATIO_FIXED_ = CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01];
     in_SCREEN01_PRESENT_POSITION_   = CONFIG::SCREEN_PRESENT_POSITION[SCREEN01];
     in_SCREEN02_PRESENT_POSITION_   = CONFIG::SCREEN_PRESENT_POSITION[SCREEN02];
-//    in_SCREEN01_PRESENT_POSITION_  = CONFIG::SCREEN01_PRESENT_POSITION;
     int num_adapter = pCARETAKER->_num_adapter;
     GgafDx::Caretaker::AdapterRezos* paAdapterRezos = pCARETAKER->_paAdapterRezos;
     if (num_adapter >= 1) {
@@ -383,32 +368,23 @@ void MenuBoardScreenConfig::processBehavior() {
                 pWorld->need_reboot_ = 1;
             }
 
-//            if (CONFIG::NUMBER_OF_SCREENS_USED > 1) {
-//                if (getSelectedIndexOnSubCursor(SUBCUR_DUAL_SCREEN) == ITEM_DUAL_SCREEN) {
-//                    CONFIG::_properties.setValue("SWAP_SCREEN", false);
-//                } else {
-//                    CONFIG::_properties.setValue("SWAP_SCREEN", true);
-//                }
-//            }
-//            if (CONFIG::SWAP_SCREEN != CONFIG::_properties.getBool("SWAP_SCREEN")) {
-//                pWorld->need_reboot_ = 1;
-//            }
-
             if (getSelectedIndexOnSubCursor(SUBCUR_SCREEN01_ASPECT_RATIO_FIXED) == ITEM_SCREEN01_ASPECT_RATIO_FIXED) {
                 CONFIG::_properties.setValue("SCREEN01_ASPECT_RATIO_FIXED", true);
             } else {
                 CONFIG::_properties.setValue("SCREEN01_ASPECT_RATIO_FIXED", false);
             }
-            //_TRACE_("CONFIG::FULL_SCREEN="<<CONFIG::FULL_SCREEN<<" CONFIG::SCREEN01_ASPECT_RATIO_FIXED="<<CONFIG::SCREEN01_ASPECT_RATIO_FIXED<<" CONFIG::_properties.getBool(\"SCREEN01_ASPECT_RATIO_FIXED\")="<<CONFIG::_properties.getBool("SCREEN01_ASPECT_RATIO_FIXED"));
             if (CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01] != CONFIG::_properties.getBool("SCREEN01_ASPECT_RATIO_FIXED")) {
                 pWorld->need_reboot_ = 1;
             }
 
-//            int pos = getSelectedIndexOnSubCursor(SUBCUR_SCREEN01_PRESENT_POSITION)+1 - VALUE_POS_1;
-//            CONFIG::_properties.setValue("SCREEN01_PRESENT_POSITION", pos);
-//            if (CONFIG::SCREEN01_PRESENT_POSITION != CONFIG::_properties.getInt("SCREEN01_PRESENT_POSITION")) {
-//                pWorld->need_reboot_ = 1;
-//            }
+            if (getSelectedIndexOnSubCursor(SUBCUR_SCREEN02_ASPECT_RATIO_FIXED) == ITEM_SCREEN02_ASPECT_RATIO_FIXED) {
+                CONFIG::_properties.setValue("SCREEN02_ASPECT_RATIO_FIXED", true);
+            } else {
+                CONFIG::_properties.setValue("SCREEN02_ASPECT_RATIO_FIXED", false);
+            }
+            if (CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN02] != CONFIG::_properties.getBool("SCREEN02_ASPECT_RATIO_FIXED")) {
+                pWorld->need_reboot_ = 1;
+            }
 
             int pos1 = getSelectedIndexOnSubCursor(SUBCUR_SCREEN01_PRESENT_POSITION)+1 - VALUE_POS1_1;
             CONFIG::_properties.setValue("SCREEN01_PRESENT_POSITION", pos1);
@@ -424,14 +400,11 @@ void MenuBoardScreenConfig::processBehavior() {
             //FULL_SCREEN、DUAL_SCREENは、アプリ実行中に変更できない。 現在値を保持
             bool tmp_FULL_SCREEN = CONFIG::FULL_SCREEN;
             bool tmp_NUMBER_OF_SCREENS_USED = CONFIG::NUMBER_OF_SCREENS_USED;//TODO：とりあえずコンパイルを通すために変更したです
-//            bool tmp_SWAP_SCREEN = CONFIG::SWAP_SCREEN;
             CONFIG::_properties.write(CONFIG::_load_properties_filename); //プロパティ保存
             CONFIG::loadProperties(CONFIG::_load_properties_filename); //プロパティ再反映
             //要再起動プロパティは、現ゲームに参照されては困るにで、直ぐに戻す。Mapに書き込んでるので再起動後に反映される
             CONFIG::FULL_SCREEN = tmp_FULL_SCREEN;
             CONFIG::NUMBER_OF_SCREENS_USED = tmp_NUMBER_OF_SCREENS_USED;
-//            CONFIG::SWAP_SCREEN = tmp_SWAP_SCREEN;
-
             //実行中アプリへ即時反映できるものは反映
             pCARETAKER->chengeViewAspect1(CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01]);
             if (CONFIG::NUMBER_OF_SCREENS_USED > 1) {
@@ -474,54 +447,34 @@ void MenuBoardScreenConfig::processBehavior() {
             CONFIG::_properties.setValue("NUMBER_OF_SCREENS_USED", 1);
             replaceItem();
         }
-//    } else if (selected_index == ITEM_SWAP_SCREEN) {
-//        if (pVVB->isPushedDown(0, VV_VB_UI_LEFT)) {
-//            selectItemBySubCursor(SUBCUR_SWAP_SCREEN, VALUE_SWAP_SCREEN_FALSE);
-//            CONFIG::_properties.setValue("SWAP_SCREEN", false);
-//        } else if (pVVB->isPushedDown(0, VV_VB_UI_RIGHT)) {
-//            selectItemBySubCursor(SUBCUR_SWAP_SCREEN, VALUE_SWAP_SCREEN_TRUE);
-//            CONFIG::_properties.setValue("SWAP_SCREEN", true);
-//        }
     } else if (selected_index == ITEM_SCREEN01_ASPECT_RATIO_FIXED) {
         if (pVVB->isPushedDown(0, VV_VB_UI_LEFT)) {
-            selectItemBySubCursor(SUBCUR_SCREEN01_ASPECT_RATIO_FIXED, VALUE_FIXED_SCREEN_TRUE);
+            selectItemBySubCursor(SUBCUR_SCREEN01_ASPECT_RATIO_FIXED, VALUE_SCREEN01_FIXED_SCREEN_TRUE);
             CONFIG::_properties.setValue("SCREEN01_ASPECT_RATIO_FIXED", true);
             if (!pWorld->need_reboot_) {
                 pCARETAKER->chengeViewAspect1(true);
             }
         } else if (pVVB->isPushedDown(0, VV_VB_UI_RIGHT)) {
-            selectItemBySubCursor(SUBCUR_SCREEN01_ASPECT_RATIO_FIXED, VALUE_FIXED_SCREEN_FALSE);
+            selectItemBySubCursor(SUBCUR_SCREEN01_ASPECT_RATIO_FIXED, VALUE_SCREEN01_FIXED_SCREEN_FALSE);
             CONFIG::_properties.setValue("SCREEN01_ASPECT_RATIO_FIXED", false);
             if (!pWorld->need_reboot_) {
                 pCARETAKER->chengeViewAspect1(false);
             }
         }
-//    } else if (selected_index == ITEM_SCREEN01_PRESENT_POSITION) {
-//        if (pVVB->isAutoRepeat(0, VV_VB_UI_RIGHT)) {
-//            int i = getSelectedIndexOnSubCursor(SUBCUR_SCREEN01_PRESENT_POSITION);
-//            if (i == VALUE_POS_9) {
-//                i = VALUE_POS_1;
-//            } else {
-//                i++;
-//            }
-//            selectItemBySubCursor(SUBCUR_SCREEN01_PRESENT_POSITION, i);
-//            CONFIG::_properties.setValue("SCREEN01_PRESENT_POSITION", i+1 - VALUE_POS_1);
-//            if (!pWorld->need_reboot_) {
-//                pCARETAKER->chengePrimaryScreenPresentPos(i+1 - VALUE_POS_1);
-//            }
-//        } else if (pVVB->isAutoRepeat(0, VV_VB_UI_LEFT)) {
-//            int i = getSelectedIndexOnSubCursor(SUBCUR_SCREEN01_PRESENT_POSITION);
-//            if (i == VALUE_POS_1) {
-//                i = VALUE_POS_9;
-//            } else {
-//                i--;
-//            }
-//            selectItemBySubCursor(SUBCUR_SCREEN01_PRESENT_POSITION, i);
-//            CONFIG::_properties.setValue("SCREEN01_PRESENT_POSITION", i+1 - VALUE_POS_1);
-//            if (!pCARETAKER->getSpacetime()->getWorld()->need_reboot_) {
-//                pCARETAKER->chengePrimaryScreenPresentPos(i+1 - VALUE_POS_1);
-//            }
-//        }
+    } else if (selected_index == ITEM_SCREEN02_ASPECT_RATIO_FIXED) {
+        if (pVVB->isPushedDown(0, VV_VB_UI_LEFT)) {
+            selectItemBySubCursor(SUBCUR_SCREEN02_ASPECT_RATIO_FIXED, VALUE_SCREEN02_FIXED_SCREEN_TRUE);
+            CONFIG::_properties.setValue("SCREEN02_ASPECT_RATIO_FIXED", true);
+            if (!pWorld->need_reboot_) {
+                pCARETAKER->chengeViewAspect2(true);
+            }
+        } else if (pVVB->isPushedDown(0, VV_VB_UI_RIGHT)) {
+            selectItemBySubCursor(SUBCUR_SCREEN02_ASPECT_RATIO_FIXED, VALUE_SCREEN02_FIXED_SCREEN_FALSE);
+            CONFIG::_properties.setValue("SCREEN02_ASPECT_RATIO_FIXED", false);
+            if (!pWorld->need_reboot_) {
+                pCARETAKER->chengeViewAspect2(false);
+            }
+        }
     } else if (selected_index == ITEM_SCREEN01_PRESENT_POSITION) {
         if (pVVB->isAutoRepeat(0, VV_VB_UI_RIGHT)) {
             int i = getSelectedIndexOnSubCursor(SUBCUR_SCREEN01_PRESENT_POSITION);
@@ -566,31 +519,6 @@ void MenuBoardScreenConfig::processBehavior() {
             CONFIG::_properties.setValue("SCREEN01_PRESENT_POSITION", i+1 - VALUE_POS2_1);
             pCARETAKER->chengeSecondaryScreenPresentPos(i+1 - VALUE_POS2_1);
         }
-//    } else if (selected_index == ITEM_SCREEN01_FULL_SCREEN_RESOLUTION) {
-//        bool is_right = pVVB->isAutoRepeat(0, VV_VB_UI_RIGHT);
-//        bool is_left = pVVB->isAutoRepeat(0, VV_VB_UI_LEFT);
-//        if (is_right || is_left) {
-//            if (is_right) {
-//                if (rezo_index_ >= rezo_num_-1) {
-//                    rezo_index_ = 0;
-//                } else {
-//                    rezo_index_++;
-//                }
-//            } else if (is_left) {
-//                if (rezo_index_ <= 0) {
-//                    rezo_index_ = rezo_num_-1;
-//                } else {
-//                    rezo_index_--;
-//                }
-//            }
-//            if (rezo_num_ > 0) {
-//                GgafDx::Caretaker::AdapterRezos* paAdapterRezos = pCARETAKER->_paAdapterRezos;
-//                FontBoardActor* pLabelRezo  = (FontBoardActor*) getItem(VALUE_SCREEN01_FULL_SCREEN_RESOLUTION);
-//                pLabelRezo->update(paAdapterRezos[0].paRezoInfo[rezo_index_].item_str.c_str());
-//                CONFIG::_properties.setValue("SCREEN01_FULL_SCREEN_WIDTH" , paAdapterRezos[0].paRezoInfo[rezo_index_].width);
-//                CONFIG::_properties.setValue("SCREEN01_FULL_SCREEN_HEIGHT", paAdapterRezos[0].paRezoInfo[rezo_index_].height);
-//            }
-//        }
     } else if (selected_index == ITEM_SCREEN01_FULL_SCREEN_RESOLUTION) {
         bool is_right = pVVB->isAutoRepeat(0, VV_VB_UI_RIGHT);
         bool is_left = pVVB->isAutoRepeat(0, VV_VB_UI_LEFT);
@@ -617,6 +545,10 @@ void MenuBoardScreenConfig::processBehavior() {
             }
         }
     } else if (selected_index == ITEM_SCREEN02_FULL_SCREEN_RESOLUTION) {
+        if (pCARETAKER->_num_adapter < 2) {
+            getSeXmtr()->play(SE_WRONG);
+            return;
+        }
         bool is_right = pVVB->isAutoRepeat(0, VV_VB_UI_RIGHT);
         bool is_left = pVVB->isAutoRepeat(0, VV_VB_UI_LEFT);
         if (rezo2_num_ > 0) {
@@ -643,7 +575,7 @@ void MenuBoardScreenConfig::processBehavior() {
         } else {
             //1画面なので、設定出来ない。
             if (is_right || is_left) {
-                getSeTransmitter()->play(SE_WRONG);
+                getSeXmtr()->play(SE_WRONG);
             }
         }
     }
@@ -651,13 +583,12 @@ void MenuBoardScreenConfig::processBehavior() {
 
 void MenuBoardScreenConfig::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_CANCEL) {
-        CONFIG::FULL_SCREEN               = in_FULL_SCREEN_              ;
-        CONFIG::NUMBER_OF_SCREENS_USED                 = in_NUMBER_OF_SCREENS_USED_                ;
-//        CONFIG::SWAP_SCREEN            = in_SWAP_SCREEN_           ;
-        CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01]    = in_SCREEN01_ASPECT_RATIO_FIXED_   ;
-        CONFIG::SCREEN_PRESENT_POSITION[SCREEN01]  = in_SCREEN01_PRESENT_POSITION_ ;
-        CONFIG::SCREEN_PRESENT_POSITION[SCREEN02]  = in_SCREEN02_PRESENT_POSITION_ ;
-        CONFIG::SCREEN_PRESENT_POSITION[SCREEN01] = in_SCREEN01_PRESENT_POSITION_;
+        CONFIG::FULL_SCREEN               = in_FULL_SCREEN_;
+        CONFIG::NUMBER_OF_SCREENS_USED              = in_NUMBER_OF_SCREENS_USED_;
+        CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01] = in_SCREEN01_ASPECT_RATIO_FIXED_;
+        CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN02] = in_SCREEN02_ASPECT_RATIO_FIXED_;
+        CONFIG::SCREEN_PRESENT_POSITION[SCREEN01]   = in_SCREEN01_PRESENT_POSITION_;
+        CONFIG::SCREEN_PRESENT_POSITION[SCREEN02]   = in_SCREEN02_PRESENT_POSITION_;
         pCARETAKER->chengeViewAspect1(CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01]);
         if (CONFIG::NUMBER_OF_SCREENS_USED > 1) {
             pCARETAKER->chengePrimaryScreenPresentPos(CONFIG::SCREEN_PRESENT_POSITION[SCREEN01]);

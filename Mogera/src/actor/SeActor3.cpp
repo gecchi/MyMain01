@@ -19,7 +19,7 @@ SeActor3::SeActor3(const char* prm_name) :
 //    pChecker->addCollisionArea(1);
 //    pChecker->setColliSphere(0, PX_C(20));
 //    setHitAble(true);
-    GgafDx::SeTransmitterForActor* se = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* se = getSeXmtr();
     se->set(0, "SE_ENEMY_FIRE_LASER_001");
     se->set(1, "SE_ENEMY_FIRE_LASER_002");
 }
@@ -31,13 +31,13 @@ void SeActor3::processBehavior() {
     VirtualButton* pVb = pCARETAKER->getSpacetime()->pVb_;
     static int D = 20;
     if (GgafDx::Input::isPushedDownKey(DIK_1)) {
-        getSeTransmitter()->play3D(0, true);
+        getSeXmtr()->play3D(0, true);
     }
     if (GgafDx::Input::isPushedDownKey(DIK_2)) {
-        getSeTransmitter()->stop(0);
+        getSeXmtr()->stop(0);
     }
     if (GgafDx::Input::isPushedDownKey(DIK_3)) {
-        getSeTransmitter()->play3D(1);
+        getSeXmtr()->play3D(1);
     }
     if (GgafDx::Input::isPushedDownKey(DIK_Q)) {
         setPosition(0, 0, 0);
@@ -66,7 +66,7 @@ void SeActor3::processBehavior() {
         }
     }
     getLocoVehicle()->behave(); //ˆÚ“®ŽÔ—¼‚ðŠˆ“®‚³‚¹‚éiZŽ²‰ñ“]‚·‚éj
-    getSeTransmitter()->behave(); //‚RDŒø‰ÊŠˆ“®
+    getSeXmtr()->behave(); //‚RDŒø‰ÊŠˆ“®
 }
 
 void SeActor3::onHit(const GgafCore::Actor* prm_pOtherActor) {

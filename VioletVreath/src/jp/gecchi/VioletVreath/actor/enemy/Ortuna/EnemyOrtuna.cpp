@@ -33,8 +33,8 @@ EnemyOrtuna::EnemyOrtuna(const char* prm_name) :
     _class_name = "EnemyOrtuna";
     _sx=_sy=_sz=100;
     stagnating_pos_frames_ = 1;
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
 }
 
 void EnemyOrtuna::onCreateModel() {
@@ -158,7 +158,7 @@ void EnemyOrtuna::processBehavior() {
     pLocoVehicle->behave();
     getMorpher()->behave();
     getAlphaFader()->behave();
-    //getSeTransmitter()->behave();
+    //getSeXmtr()->behave();
 }
 
 void EnemyOrtuna::processJudgement() {
@@ -171,7 +171,7 @@ void EnemyOrtuna::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTransmitter()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

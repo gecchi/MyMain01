@@ -35,7 +35,7 @@ void LockonCursor001_Main::onActive() {
     setScale(60000); //(6000%)
     getScaler()->transitionLinearUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
     getLocoVehicle()->setFaceAngVelo(AXIS_Z, 1000);        //回転
-    getSeTransmitter()->play3D(0); //ロックオンSE
+    getSeXmtr()->play3D(0); //ロックオンSE
 
     if (pTarget_) {
         setPositionAt(pTarget_);
@@ -124,7 +124,7 @@ void LockonCursor001_Main::lockon(GgafDx::GeometricActor* prm_pTarget) {
         pScaler->setRange(60000, 2000); //スケーリング・範囲
         pScaler->transitionLinearUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
         pLocoVehicle->setFaceAngVelo(AXIS_Z, 1000);   //回転
-        getSeTransmitter()->play3D(0); //ロックオンSE
+        getSeXmtr()->play3D(0); //ロックオンSE
         pPhase->change(LOCKON001_PHASE_FIRST_LOCK);
     }
 

@@ -249,14 +249,14 @@ MyShip::MyShip(const char* prm_name) :
     pSenakai_[DIR26( 1, 1, 0)] =  0;
     pSenakai_[DIR26( 1, 1, 1)] =  D_ANG(30);
 
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED     , "SE_MY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION   , "SE_MY_SE_EXPLOSION_001");
-    pSeTx->set(SE_TURBO       , "SE_MY_TURBO_001");
-    pSeTx->set(SE_CANT_TURBO  , "SE_MY_CANT_TURBO_001");
-    pSeTx->set(SE_FIRE_LASER  , "SE_MY_FIRE_LASER_001");
-    pSeTx->set(SE_FIRE_SHOT   , "SE_MY_FIRE_SHOT_001");
-    pSeTx->set(SE_FIRE_TORPEDO, "SE_MY_FIRE_TORPEDO_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_DAMAGED     , "SE_MY_DAMAGED_001");
+    pSeXmtr->set(SE_EXPLOSION   , "SE_MY_SE_EXPLOSION_001");
+    pSeXmtr->set(SE_TURBO       , "SE_MY_TURBO_001");
+    pSeXmtr->set(SE_CANT_TURBO  , "SE_MY_CANT_TURBO_001");
+    pSeXmtr->set(SE_FIRE_LASER  , "SE_MY_FIRE_LASER_001");
+    pSeXmtr->set(SE_FIRE_SHOT   , "SE_MY_FIRE_SHOT_001");
+    pSeXmtr->set(SE_FIRE_TORPEDO, "SE_MY_FIRE_TORPEDO_001");
 
     veloTurboTop_ = 30000;
     veloTurboBottom_ = 10000;
@@ -420,10 +420,10 @@ void MyShip::processBehavior() {
                 //ターボ移動完全に終了しないと次のターボは実行不可
                 moveTurbo();
                 UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
-                getSeTransmitter()->play3D(SE_TURBO);
+                getSeXmtr()->play3D(SE_TURBO);
             } else {
                 //ターボ移動中
-                getSeTransmitter()->play3D(SE_CANT_TURBO);
+                getSeXmtr()->play3D(SE_CANT_TURBO);
             }
         } else {
             //Notターボ開始時
@@ -482,7 +482,7 @@ void MyShip::processBehavior() {
     //座標に反映
     pLocoVehicle->behave();
     pCoordVehicle->behave();
-    getSeTransmitter()->behave();
+    getSeXmtr()->behave();
 
     if (invincible_frames_ > 0) {
         setHitAble(false);
@@ -566,7 +566,7 @@ void MyShip::processBehavior() {
             LaserChip* pLaserChip = pLaserChipDepo_->dispatch();
             if (pLaserChip) {
                 if (pLaserChip->getInfrontChip() == nullptr) {
-                    getSeTransmitter()->play3D(SE_FIRE_LASER);
+                    getSeXmtr()->play3D(SE_FIRE_LASER);
                 }
             }
         } else {
@@ -658,7 +658,7 @@ void MyShip::processBehavior() {
             //スナイプショット時
             MySnipeShot001* const pSnipeShot = (MySnipeShot001*)pDepo_MySnipeShots001_->dispatch();
             if (pSnipeShot) {
-                getSeTransmitter()->play3D(SE_FIRE_SHOT);
+                getSeXmtr()->play3D(SE_FIRE_SHOT);
                 pSnipeShot->setPositionAt(this);
                 pSnipeShot->getLocoVehicle()->setRzRyMvAng(_rz, _ry);
                 pSnipeShot->getLocoVehicle()->setMvVelo(PX_C(100));
@@ -669,7 +669,7 @@ void MyShip::processBehavior() {
             if (shot_level_ >= 1) {
                 MyShot001* const pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
                 if (pShot) {
-                    getSeTransmitter()->play3D(SE_FIRE_SHOT);
+                    getSeXmtr()->play3D(SE_FIRE_SHOT);
                     pShot->setPositionAt(this);
                     pShot->getLocoVehicle()->setRzRyMvAng(_rz, _ry);
                     pShot->getLocoVehicle()->setMvVelo(PX_C(70));
@@ -707,7 +707,7 @@ void MyShip::processBehavior() {
     //光子魚雷発射
     if (pVbPlay->isPushedDown(0, VV_VB_SHOT2)) {
         if (this->pTorpedoCtrler_->fire()) {
-            getSeTransmitter()->play3D(SE_FIRE_TORPEDO);
+            getSeXmtr()->play3D(SE_FIRE_TORPEDO);
         }
     }
 
@@ -730,7 +730,7 @@ void MyShip::processJudgement() {
     if (GgafDx::Input::isPushedDownKey(DIK_0)) {
         //自機爆発開催
         setHitAble(false);
-        getSeTransmitter()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_EXPLOSION);
         throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }
     //TODO:ダメージテスト TEST
@@ -751,7 +751,7 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
     if (UTIL::calcMyStamina(this, pOther) <= 0) {
         //自機爆発開催
         setHitAble(false);
-        getSeTransmitter()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_EXPLOSION);
         throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }
     int damage = vreath - getStatus()->get(STAT_Stamina);
@@ -1000,7 +1000,7 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
     if (pOther->lookUpKind() & KIND_ITEM)  {
     } else {
         UTIL::activateExplosionEffectOf(this);
-        getSeTransmitter()->play3D(SE_DAMAGED);
+        getSeXmtr()->play3D(SE_DAMAGED);
     }
 }
 

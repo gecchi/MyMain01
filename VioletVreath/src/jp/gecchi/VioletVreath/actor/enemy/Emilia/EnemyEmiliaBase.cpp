@@ -20,9 +20,9 @@ EnemyEmiliaBase::EnemyEmiliaBase(const char* prm_name, const char* prm_model, vo
     pFormationEmilia_ = nullptr;
     pOrg_ = nullptr;
     R_mv_velo_ = 0;
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //爆発
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
+    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //爆発
 }
 void EnemyEmiliaBase::onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_pFormationEmilia) {
     pOrg_ = prm_pOrg;
@@ -54,13 +54,13 @@ void EnemyEmiliaBase::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTransmitter()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_EXPLOSION);
         //下位クラスの個々の処理
         processStaminaEnd(pOtherActor);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeTransmitter()->play3D(SE_DAMAGED);
+        getSeXmtr()->play3D(SE_DAMAGED);
     }
 }
 

@@ -213,7 +213,7 @@ public:
      * 本アクターのサウンドエフェクト出力支援オブジェクトを取得 .
      * @return サウンドエフェクト出力支援オブジェクト
      */
-    SeTransmitterForActor* getSeTransmitter();
+    SeTransmitterForActor* getSeXmtr();
 
     /**
      * 判定処理事前処理 .

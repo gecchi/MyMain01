@@ -42,10 +42,10 @@ enum {
 EnemyDelheid::EnemyDelheid(const char* prm_name) :
         VvEnemyActor<DefaultMassMorphMeshActor>(prm_name, "Delheid", StatusReset(EnemyDelheid)) {
     _class_name = "EnemyDelheid";
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_UNDAMAGED, "SE_ENEMY_UNDAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
+    pSeXmtr->set(SE_UNDAMAGED, "SE_ENEMY_UNDAMAGED_001");
+    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
     pPhase2_ = createAnotherPhase();
     shot_begin_frame_ = 0;
     pVehicleLeader_ = nullptr;
@@ -230,15 +230,15 @@ void EnemyDelheid::onHit(const GgafCore::Actor* prm_pOtherActor) {
         bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //破壊された時(スタミナ <= 0)
-            getSeTransmitter()->play3D(SE_EXPLOSION);
+            getSeXmtr()->play3D(SE_EXPLOSION);
             sayonara();
         } else {
             //破壊されなかった時(スタミナ > 0)
-            getSeTransmitter()->play3D(SE_DAMAGED);
+            getSeXmtr()->play3D(SE_DAMAGED);
         }
     } else {
         //開いてないので当たらない
-        getSeTransmitter()->play3D(SE_UNDAMAGED);
+        getSeXmtr()->play3D(SE_UNDAMAGED);
     }
 }
 

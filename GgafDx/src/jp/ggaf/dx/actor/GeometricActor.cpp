@@ -87,7 +87,7 @@ VehicleLeader* GeometricActor::createCurveVehicleLeader(CurveManufacture* prm_pC
 }
 
 
-SeTransmitterForActor* GeometricActor::getSeTransmitter() {
+SeTransmitterForActor* GeometricActor::getSeXmtr() {
     return _pSeTransmitter ? _pSeTransmitter : _pSeTransmitter = NEW SeTransmitterForActor(this);
 }
 

@@ -42,8 +42,8 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pTorpedoCont
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     pTarget_ = nullptr;
     trz_ = try_ = 0;
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_TORPEDO");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_TORPEDO");
 }
 
 void MyTorpedo::initialize() {
@@ -249,7 +249,7 @@ void MyTorpedo::onHit(const GgafCore::Actor* prm_pOtherActor) {
 
     //爆風発生
     MyTorpedoBlast* pBlast = (MyTorpedoBlast*)(pTorpedoCtrler_->pDepo_TorpedoBlast_->dispatchForce());
-    getSeTransmitter()->play3D(SE_EXPLOSION);
+    getSeXmtr()->play3D(SE_EXPLOSION);
     pBlast->reset();
     pBlast->setPositionAt(this);
 }

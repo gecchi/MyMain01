@@ -54,14 +54,14 @@ public:
         coord t2_x, t2_y, t2_z;
         frame spent_frames_to_t2;
 
-        void setT2(double r, double x1, double y1, double z1, double x2, double y2, double z2) {
+        void setT2BySphere(double r, double x1, double y1, double z1, double x2, double y2, double z2) {
             UTIL::getIntersectionSphereAndVec(r, x1, y1, z1, x2, y2, z2,
                                               t2_x,t2_y,t2_z);
         }
     };
     AimInfo pass_p_[MAX_AIM_INFO_NUM];
     int pass_p_seq_;
-    AimInfo* getAimInfo() {
+    AimInfo* getFreshAimInfo() {
         pass_p_seq_++;
         if (pass_p_seq_ >= MAX_AIM_INFO_NUM) {
             pass_p_seq_ = 0;

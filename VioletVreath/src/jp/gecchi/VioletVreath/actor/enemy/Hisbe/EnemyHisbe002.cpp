@@ -43,10 +43,10 @@ EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
     pLaserChipDepo_->config(240, 1); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
     appendGroupChild(pLaserChipDepo_);
 
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
-    pSeTx->set(SE_FIRE     , "SE_ENEMY_FIRE_LASER_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
+    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
+    pSeXmtr->set(SE_FIRE     , "SE_ENEMY_FIRE_LASER_001");
 
 }
 
@@ -96,7 +96,7 @@ void EnemyHisbe002::processBehavior() {
                 pLaser->getLocoVehicle()->setRzRyMvAng(_rz, _ry);
                                    //レーザーのスプラインがRELATIVE_COORD_DIRECTIONのためMvAngの設定が必要。
                 if (pLaser->getInfrontChip() == nullptr) {
-                    getSeTransmitter()->play3D(SE_FIRE);
+                    getSeXmtr()->play3D(SE_FIRE);
                 }
             } else {
                 pPhase->change(PHASE_CLOSE);
@@ -121,7 +121,7 @@ void EnemyHisbe002::processBehavior() {
 
     pLocoVehicle->behave();
     getMorpher()->behave();
-    getSeTransmitter()->behave();
+    getSeXmtr()->behave();
 }
 
 void EnemyHisbe002::processJudgement() {
@@ -134,11 +134,11 @@ void EnemyHisbe002::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTransmitter()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeTransmitter()->play3D(SE_DAMAGED);
+        getSeXmtr()->play3D(SE_DAMAGED);
     }
 }
 

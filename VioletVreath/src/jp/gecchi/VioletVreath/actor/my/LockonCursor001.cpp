@@ -22,8 +22,8 @@ LockonCursor001::LockonCursor001(const char* prm_name, const char* prm_model) :
     setCullingDraw(false);  //α部分があるため、カリングをOFFするため透明オブジェクト扱いにする。
 
     setHitAble(false); //当たり判定無し
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(0, "SE_LOCKON_001"); //効果音定義
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(0, "SE_LOCKON_001"); //効果音定義
 }
 
 void LockonCursor001::initialize() {

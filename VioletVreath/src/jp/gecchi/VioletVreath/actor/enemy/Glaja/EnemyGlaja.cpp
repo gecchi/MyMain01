@@ -36,8 +36,8 @@ enum {
 EnemyGlaja::EnemyGlaja(const char* prm_name) :
         VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Glaja_1", StatusReset(EnemyGlaja)) {
     _class_name = "EnemyGlaja";
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
     pConn_pShot_ = connectToDepositoryManager("GlajaLance001");
     effectBlendOne(); //加算合成
     setScaleR(0.3);
@@ -181,7 +181,7 @@ void EnemyGlaja::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTransmitter()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

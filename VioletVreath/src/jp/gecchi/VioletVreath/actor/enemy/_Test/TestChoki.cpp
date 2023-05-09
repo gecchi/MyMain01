@@ -16,9 +16,9 @@ enum {
 
 TestChoki::TestChoki(const char* prm_name) : TestEnemy(prm_name, "TestChoki", StatusReset(TestChoki)) {
     _class_name = "TestChoki";
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_MIDDLE_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
+    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_MIDDLE_001");
 }
 
 void TestChoki::onActive() {
@@ -27,7 +27,7 @@ void TestChoki::onActive() {
 
 void TestChoki::processBehavior() {
     getLocoVehicle()->behave();
-    //getSeTransmitter()->behave();
+    //getSeXmtr()->behave();
     dispStamina();
 }
 
@@ -41,11 +41,11 @@ void TestChoki::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTransmitter()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeTransmitter()->play3D(SE_DAMAGED);
+        getSeXmtr()->play3D(SE_DAMAGED);
     }
 }
 

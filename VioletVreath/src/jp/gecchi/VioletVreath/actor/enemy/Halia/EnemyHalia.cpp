@@ -53,11 +53,11 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
         pLaserChipDepo_->put(pChip);
     }
     appendGroupChild(pLaserChipDepo_);
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_UNDAMAGED, "SE_ENEMY_UNDAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
-    pSeTx->set(SE_FIRE     , "SE_ENEMY_FIRE_LASER_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
+    pSeXmtr->set(SE_UNDAMAGED, "SE_ENEMY_UNDAMAGED_001");
+    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
+    pSeXmtr->set(SE_FIRE     , "SE_ENEMY_FIRE_LASER_001");
 
     //初期カメラZ位置
     const Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
@@ -172,7 +172,7 @@ void EnemyHalia::processBehavior() {
             LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
                 if (pLaser->getInfrontChip() == nullptr) {
-                    getSeTransmitter()->play3D(SE_FIRE);
+                    getSeXmtr()->play3D(SE_FIRE);
                 }
             } else {
                 pPhase->change(PHASE_CLOSE);
@@ -192,7 +192,7 @@ void EnemyHalia::processBehavior() {
     }
     pLocoVehicle->behave();
     getMorpher()->behave();
-    getSeTransmitter()->behave();
+    getSeXmtr()->behave();
     getAlphaFader()->behave();
 }
 
@@ -207,14 +207,14 @@ void EnemyHalia::onHit(const GgafCore::Actor* prm_pOtherActor) {
         bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //破壊された時(スタミナ <= 0)
-            getSeTransmitter()->play3D(SE_EXPLOSION);
+            getSeXmtr()->play3D(SE_EXPLOSION);
             sayonara();
         } else {
             //破壊されなかった時(スタミナ > 0)
-            getSeTransmitter()->play3D(SE_DAMAGED);
+            getSeXmtr()->play3D(SE_DAMAGED);
         }
     } else {
-        getSeTransmitter()->play3D(SE_UNDAMAGED);
+        getSeXmtr()->play3D(SE_UNDAMAGED);
     }
 }
 

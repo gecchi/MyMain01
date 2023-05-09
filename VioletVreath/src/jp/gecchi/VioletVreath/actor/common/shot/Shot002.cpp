@@ -17,8 +17,8 @@ Shot002::Shot002(const char* prm_name) :
         VvEnemyActor<DefaultMassMeshActor>(prm_name, "Flora", StatusReset(Shot002)) {
     _class_name = "Shot002";
 
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(0, "SE_EXPLOSION_002");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(0, "SE_EXPLOSION_002");
 }
 
 void Shot002::initialize() {
@@ -53,7 +53,7 @@ void Shot002::processBehavior() {
     //座標に反映
     pLocoVehicle->behave();
     getScaler()->behave();
-    getSeTransmitter()->behave();
+    getSeXmtr()->behave();
 }
 
 void Shot002::processJudgement() {
@@ -66,7 +66,7 @@ void Shot002::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTransmitter()->play3D(0);
+        getSeXmtr()->play3D(0);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

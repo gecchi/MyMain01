@@ -36,8 +36,8 @@ VreathItem::VreathItem(const char* prm_name, const char* prm_model, void* prm_pF
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 400000);
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(0, "SE_GET_ITEM_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(0, "SE_GET_ITEM_001");
 }
 
 void VreathItem::initialize() {
@@ -134,7 +134,7 @@ void VreathItem::processBehavior() {
         _sy -= 100;
         _sz -= 100;
         if (_sx < 5) {
-            getSeTransmitter()->play(0);
+            getSeXmtr()->play(0);
             pPhase->changeNothing();
             sayonara(); //èIóπ
         }

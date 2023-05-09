@@ -19,12 +19,12 @@ MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
     slide_from_offset_y_ = 0;
     target_x_ = _x;
     target_y_ = _y;
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_ON_RISEN      , "SE_MENU_ON_RISEN");
-    pSeTx->set(SE_MOVE_CURSOR   , "SE_MENU_MOVE_CURSOR");
-    pSeTx->set(SE_DECIDED       , "SE_MENU_DECIDED");
-    pSeTx->set(SE_CANCEL        , "SE_MENU_CANCEL");
-    pSeTx->set(SE_WRONG         , "SE_MENU_WRONG");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_ON_RISEN      , "SE_MENU_ON_RISEN");
+    pSeXmtr->set(SE_MOVE_CURSOR   , "SE_MENU_MOVE_CURSOR");
+    pSeXmtr->set(SE_DECIDED       , "SE_MENU_DECIDED");
+    pSeXmtr->set(SE_CANCEL        , "SE_MENU_CANCEL");
+    pSeXmtr->set(SE_WRONG         , "SE_MENU_WRONG");
 
     pMousePointer_ = pMOUSEPOINTER;
 
@@ -41,7 +41,7 @@ bool MenuBoard::condDecision() {
     if (VVB->isPushedDown(0, VV_VB_UI_EXECUTE)) {
         //「メニューアイテム：任意」で、VV_VB_UI_EXECUTE ボタンの場合は
         //そのアイテムを「決定」した事とする。(当たり前だが)
-        getSeTransmitter()->play(SE_DECIDED);
+        getSeXmtr()->play(SE_DECIDED);
         return true;
     } else if (VVB->isPushedDown(0, VV_VB_UI_CANCEL) &&
                _lstItems.getRelation(ITEM_RELATION_TO_CANCEL) != nullptr &&
@@ -50,15 +50,15 @@ bool MenuBoard::condDecision() {
         //「メニューアイテム：キャンセル」を「決定」したことにする。
         //現カーソルが「メニューアイテム：キャンセル」にあるかどうかの判断は、
         //relateAllItemToCancel() で定義されたアイテムのインデックスかどうかで判断。
-        getSeTransmitter()->play(SE_CANCEL);
+        getSeXmtr()->play(SE_CANCEL);
         return true;
     } else if (pMousePointer_ && pMousePointer_->isReleasedUpButton(0)) {
         GgafCore::Actor* pHitActor = pMousePointer_->getHitActor();
         if (_lstItems.getCurrent() == pHitActor) {
-            getSeTransmitter()->play(SE_DECIDED);
+            getSeXmtr()->play(SE_DECIDED);
             return true;
         } else {
-            getSeTransmitter()->play(SE_WRONG);
+            getSeXmtr()->play(SE_WRONG);
             return false;
         }
     } else {
@@ -70,7 +70,7 @@ bool MenuBoard::condCancel() {
     if (VVB->isPushedDown(0, VV_VB_UI_CANCEL)) {
         //「メニューアイテム：任意」で、VV_VB_UI_CANCEL ボタンの場合は
         //そのアイテムを「キャンセル」した事とする。(当たり前だが)
-        getSeTransmitter()->play(SE_CANCEL);
+        getSeXmtr()->play(SE_CANCEL);
         return true;
     } else {
         return false;
@@ -130,7 +130,7 @@ void MenuBoard::rise(coord prm_target_x, coord prm_target_y) {
 void MenuBoard::moveCursor(bool prm_smooth) {
     DefaultFramedBoardMenu::moveCursor(prm_smooth);
     if (prm_smooth) { //スムーズ移動trueすなわち、活動状態。
-        getSeTransmitter()->play(SE_MOVE_CURSOR);
+        getSeXmtr()->play(SE_MOVE_CURSOR);
     }
 }
 
@@ -156,7 +156,7 @@ void MenuBoard::onRise() {
     pLocoVehicle->setMvAngTwd(target_x_, target_y_);
     pLocoVehicle->asstMv()->slideByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
                                  0.2, 0.3, 0, true);
-    getSeTransmitter()->play(SE_ON_RISEN);
+    getSeXmtr()->play(SE_ON_RISEN);
 }
 
 void MenuBoard::processBehavior() {

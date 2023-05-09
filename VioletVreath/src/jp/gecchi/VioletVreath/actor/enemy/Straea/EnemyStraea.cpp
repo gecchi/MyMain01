@@ -78,9 +78,9 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
         }
     }
     GGAF_DELETEARR(paAng_way);
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_MIDDLE_001");
-    pSeTx->set(SE_FIRE     , "SE_ENEMY_FIRE_LASER_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_MIDDLE_001");
+    pSeXmtr->set(SE_FIRE     , "SE_ENEMY_FIRE_LASER_001");
 
     pConn_pShotDepo2_ = connectToDepositoryManager("Shot004Yellow");
     pConn_pShotDepo3_ = connectToDepositoryManager("Shot004Blue");
@@ -183,7 +183,7 @@ void EnemyStraea::processBehavior() {
                     }
                 }
                 if (can_fire) {
-                    getSeTransmitter()->play3D(SE_FIRE); //発射音
+                    getSeXmtr()->play3D(SE_FIRE); //発射音
                     effectFlush(2); //フラッシュ
                 }
             }
@@ -231,7 +231,7 @@ void EnemyStraea::processBehavior() {
             break;
         }
     }
-    getSeTransmitter()->behave();
+    getSeXmtr()->behave();
     pLocoVehicle->behave();
 }
 
@@ -314,7 +314,7 @@ void EnemyStraea::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTransmitter()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
         //固有打ち返し
         UTIL::shotWay003(this,

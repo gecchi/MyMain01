@@ -24,9 +24,9 @@ EnemyEtis::EnemyEtis(const char* prm_name) :
     width_x_ = 220*2*LEN_UNIT;
     height_z_ = 220*2*LEN_UNIT;
     depth_y_ = 36*2*LEN_UNIT;
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_MIDDLE_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
+    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_MIDDLE_001");
 }
 
 void EnemyEtis::onCreateModel() {
@@ -80,10 +80,10 @@ void EnemyEtis::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTransmitter()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
-        getSeTransmitter()->play3D(SE_DAMAGED);
+        getSeXmtr()->play3D(SE_DAMAGED);
         //破壊されなかった時(スタミナ > 0)
     }
 }

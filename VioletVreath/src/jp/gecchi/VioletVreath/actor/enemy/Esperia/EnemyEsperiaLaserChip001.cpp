@@ -29,8 +29,8 @@ EnemyEsperiaLaserChip001::EnemyEsperiaLaserChip001(const char* prm_name) :
     tx2_ = ty2_ = tz2_ = 0;
     begin_y_ = 0;
     turn_dy_ = 0;
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_FIRE , "SE_ENEMY_FIRE_LASER_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_FIRE , "SE_ENEMY_FIRE_LASER_001");
 }
 
 void EnemyEsperiaLaserChip001::initialize() {
@@ -113,7 +113,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
 
         case PHASE_INTO_MYSHIP: {
             if (pPhase->hasJustChanged()) {
-                getSeTransmitter()->play3D(SE_FIRE);
+                getSeXmtr()->play3D(SE_FIRE);
             }
             if (pPhase->getFrame() % 16U == 0) {
                 pLocoVehicle->turnMvAngTwd(tx2_, ty2_, tz2_,
@@ -132,7 +132,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
         }
     }
     pLocoVehicle->behave();
-    getSeTransmitter()->behave();
+    getSeXmtr()->behave();
 }
 
 void EnemyEsperiaLaserChip001::processJudgement() {

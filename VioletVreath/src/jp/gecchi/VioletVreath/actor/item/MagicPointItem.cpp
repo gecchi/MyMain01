@@ -40,8 +40,8 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, void
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 400000);
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_GET_ITEM, "SE_GET_ITEM_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_GET_ITEM, "SE_GET_ITEM_001");
 }
 
 void MagicPointItem::initialize() {
@@ -139,7 +139,7 @@ void MagicPointItem::processBehavior() {
         pMyShip->mp_ += 12; //‚±‚±’²®I
 
         if (_sx < 100) {
-            getSeTransmitter()->play(SE_GET_ITEM);
+            getSeXmtr()->play(SE_GET_ITEM);
             pPhase->changeNothing();
             sayonara(); //I—¹
         }

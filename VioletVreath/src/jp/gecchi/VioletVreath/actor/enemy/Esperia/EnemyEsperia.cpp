@@ -59,7 +59,7 @@ EnemyEsperia::EnemyEsperia(const char* prm_name) :
         paLocalPos_laser_[i].set(PX_C(-40) + (i*dX),  PX_C(10), 0); //レーザー発射元のローカル座標
     }
 
-    GgafDx::SeTransmitterForActor* pSetx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSetx = getSeXmtr();
     pSetx->set(SE_EXPLOSION  , "SE_EXPLOSION_MIDDLE_001");
     pSetx->set(SE_DAMAGED    , "SE_ENEMY_DAMAGED_001");
     pSetx->set(SE_HATCH_OPEN , "SE_HATCH_OPEN_001");
@@ -144,7 +144,7 @@ void EnemyEsperia::processBehavior() {
 
         case PHASE_HATCH_OPEN: {
             if (pPhase->hasJustChanged()) {
-                getSeTransmitter()->play3D(SE_HATCH_OPEN);
+                getSeXmtr()->play3D(SE_HATCH_OPEN);
                 getMorpher()->transitionLinearUntil(1, 1.0, 120);
             }
             if (pPhase->hasArrivedFrameAt(120)) {
@@ -270,7 +270,7 @@ void EnemyEsperia::processBehavior() {
                         }
                     }
 
-                    getSeTransmitter()->play3D(SE_FIRE); //発射音
+                    getSeXmtr()->play3D(SE_FIRE); //発射音
                     effectFlush(2); //フラッシュ
                     cnt_laserchip_ = 0;
                 }
@@ -332,7 +332,7 @@ void EnemyEsperia::processBehavior() {
 
         case PHASE_HATCH_CLOSE: {
             if (pPhase->hasJustChanged()) {
-                getSeTransmitter()->play3D(SE_HATCH_CLOSE);
+                getSeXmtr()->play3D(SE_HATCH_CLOSE);
                 getMorpher()->transitionLinearUntil(1, 0.0, 120);
             }
             if (pPhase->hasArrivedFrameAt(120)) {
@@ -362,11 +362,11 @@ void EnemyEsperia::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTransmitter()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeTransmitter()->play3D(SE_DAMAGED);
+        getSeXmtr()->play3D(SE_DAMAGED);
     }
 }
 

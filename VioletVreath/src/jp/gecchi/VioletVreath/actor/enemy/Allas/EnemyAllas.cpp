@@ -26,8 +26,8 @@ EnemyAllas::EnemyAllas(const char* prm_name) :
     pVehicleLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //爆発
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //爆発
 }
 
 void EnemyAllas::onCreateModel() {
@@ -131,7 +131,7 @@ void EnemyAllas::processBehavior() {
         pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
     }
     pLocoVehicle->behave();
-    //getSeTransmitter()->behave();
+    //getSeXmtr()->behave();
 }
 
 void EnemyAllas::processJudgement() {
@@ -144,7 +144,7 @@ void EnemyAllas::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTransmitter()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

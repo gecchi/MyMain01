@@ -54,10 +54,10 @@ EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* pr
     pEffect_ = NEW EffectRatislaviaEye001("EffectRatislaviaEye001");
     pEffect_->inactivate();
     appendGroupChild(pEffect_);
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_MIDDLE_001");
-    pSeTx->set(SE_FIRE     , "SE_ENEMY_FIRE_LASER_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
+    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_MIDDLE_001");
+    pSeXmtr->set(SE_FIRE     , "SE_ENEMY_FIRE_LASER_001");
 
     is_wake_ = false;
 }
@@ -139,7 +139,7 @@ void EnemyRatislaviaEye::processBehavior() {
             LaserChip* pChip = pLaserChipDepo_->dispatch();
             if (pChip) {
                 if (pChip->getInfrontChip() == nullptr) {
-                    getSeTransmitter()->play3D(SE_FIRE);
+                    getSeXmtr()->play3D(SE_FIRE);
                 }
             } else {
                 pPhase->changeNext();
@@ -166,7 +166,7 @@ void EnemyRatislaviaEye::processBehavior() {
 
     pLocoVehicle->behave();
     getMorpher()->behave();
-    getSeTransmitter()->behave();
+    getSeXmtr()->behave();
 }
 
 void EnemyRatislaviaEye::processJudgement() {
@@ -179,13 +179,13 @@ void EnemyRatislaviaEye::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTransmitter()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
         _TRACE_(FUNC_NAME<<" 上位になげるthrowEventUpperTree(RATISLAVIA_EXPLOSION)");
         throwEventUpperTree(RATISLAVIA_EXPLOSION); //親のEnemyRatislaviaを破壊するイベントを投げる
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeTransmitter()->play3D(SE_DAMAGED);
+        getSeXmtr()->play3D(SE_DAMAGED);
     }
 }
 

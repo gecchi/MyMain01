@@ -85,7 +85,7 @@ bool MenuBoardNameEntry::condDecision() {
     } else if (VVB->isPushedDown(0, VV_VB_UI_CANCEL) &&
                getSelectedIndex() == ITEM_INDEX_BS_) {
         //特別に[BS]でキャンセルボタン押した場合は。[BS]を「決定（振る舞い）」したことにする
-        getSeTransmitter()->play(SE_CANCEL);
+        getSeXmtr()->play(SE_CANCEL);
         return true;
     } else {
         return false;
@@ -96,7 +96,7 @@ bool MenuBoardNameEntry::condCancel() {
     if (VVB->isPushedDown(0, VV_VB_UI_CANCEL)) {
         //「メニューアイテム：任意」で、VV_VB_UI_CANCEL ボタンの場合は
         //そのアイテムを「キャンセル」した事とする。(当たり前だが)
-        getSeTransmitter()->play(SE_CANCEL);
+        getSeXmtr()->play(SE_CANCEL);
         return true;
     } else {
         return false;
@@ -311,7 +311,7 @@ void MenuBoardNameEntry::inputChar(const int prm_c) {
     int len = pLabelInputedName_->_len;
     if (len >= RANKINGTABLE_NAME_LEN) {
         //10文字以上の場合
-        getSeTransmitter()->play(SE_WRONG);
+        getSeXmtr()->play(SE_WRONG);
     } else {
         if (32 <= prm_c && prm_c <= 255) {
             if (pLabelInputedName_->isDispChr(prm_c)) {
@@ -321,7 +321,7 @@ void MenuBoardNameEntry::inputChar(const int prm_c) {
                 pLabelInputedName_->appendUpdate('?');
             }
         } else {
-            getSeTransmitter()->play(SE_WRONG);
+            getSeXmtr()->play(SE_WRONG);
         }
     }
 }

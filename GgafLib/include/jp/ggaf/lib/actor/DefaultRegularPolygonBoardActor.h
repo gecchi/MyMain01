@@ -15,7 +15,7 @@ namespace GgafLib {
  * <TR><TD>getPhase()</TD><TD>フェーズ管理</TD><TD>GgafCore::Phase</TD></TR>
  * <TR><TD>getLocoVehicle()</TD><TD>移動車両。移動支援(※正面方角回転機能はZ軸回転のみ有効)</TD><TD>GgafDx::LocoVehicle</TD></TR>
  * <TR><TD>getUvFlipper()</TD><TD>パラパラアニメーション支援</TD><TD>GgafDx::UvFlipper</TD></TR>
- * <TR><TD>getSeTransmitter()</TD><TD>効果音発生管理</TD><TD>GgafDx::SeTransmitter</TD></TR>
+ * <TR><TD>getSeXmtr()</TD><TD>効果音発生管理</TD><TD>GgafDx::SeTransmitter</TD></TR>
  * </TABLE>
  * @version 1.00
  * @since 2018/10/30

@@ -33,7 +33,7 @@ void LockonCursor001_Sub::onActive() {
     setAlpha(0.01);
     _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
     getLocoVehicle()->setFaceAngVelo(AXIS_Z, 1000);        //右回転
-    //getSeTransmitter()->play3D(0); //ロックオンSE
+    //getSeXmtr()->play3D(0); //ロックオンSE
     if (pTarget_) {
         setPositionAt(pTarget_);
         getPhase()->reset(LOCKON001_PHASE_LOCK);

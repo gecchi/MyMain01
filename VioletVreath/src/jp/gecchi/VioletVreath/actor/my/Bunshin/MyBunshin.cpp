@@ -92,10 +92,10 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinCont
     pTorpedoCtrler_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrler_);
     appendGroupChild(pTorpedoCtrler_);
 
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_FIRE_LASER,   "SE_MY_FIRE_LASER_002");
-    pSeTx->set(SE_FIRE_SHOT,    "SE_MY_FIRE_SHOT_002");
-    pSeTx->set(SE_FIRE_TORPEDO, "SE_MY_FIRE_TORPEDO_002");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_FIRE_LASER,   "SE_MY_FIRE_LASER_002");
+    pSeXmtr->set(SE_FIRE_SHOT,    "SE_MY_FIRE_SHOT_002");
+    pSeXmtr->set(SE_FIRE_TORPEDO, "SE_MY_FIRE_TORPEDO_002");
 
     pass_p_seq_ = 0;
     std::string name2 = std::string(prm_name) + "'s Geo2";
@@ -209,7 +209,7 @@ void MyBunshin::processChangeGeoFinal() {
                 //分身はスナイプショットは撃たない。
     //            MyBunshinSnipeShot001* const pSnipeShot = (MyBunshinSnipeShot001*)pDepo_MySnipeBunshinShot_->dispatch();
     //            if (pSnipeShot) {
-    //                getSeTransmitter()->play3D(SE_FIRE_SHOT);
+    //                getSeXmtr()->play3D(SE_FIRE_SHOT);
     //                pSnipeShot->setPositionAt(this);
     //                pSnipeShot->getLocoVehicle()->setRzRyMvAng(_rz, _ry);
     //                pSnipeShot->getLocoVehicle()->setMvVelo(PX_C(70));
@@ -219,7 +219,7 @@ void MyBunshin::processChangeGeoFinal() {
                 if (pMyShip->shot_level_ >= 1) {
                     MyBunshinShot001* const  pShot = (MyBunshinShot001*)pDepo_MyBunshinShot_->dispatch();
                     if (pShot) {
-                        getSeTransmitter()->play3D(SE_FIRE_SHOT);
+                        getSeXmtr()->play3D(SE_FIRE_SHOT);
                         pShot->setPositionAt(this);
                         pShot->getLocoVehicle()->setRzRyMvAng(_rz, _ry);
                         pShot->getLocoVehicle()->setMvVelo(PX_C(70));
@@ -258,7 +258,7 @@ void MyBunshin::processChangeGeoFinal() {
                 if (pLaserChip) {
                     pLaserChip->setOrg(this);
                     if (pLaserChip->getInfrontChip() == nullptr) {
-                        getSeTransmitter()->play3D(SE_FIRE_LASER);
+                        getSeXmtr()->play3D(SE_FIRE_LASER);
                     }
                 }
             } else if (_laser_kind == LASER_THUNDER) {
@@ -267,7 +267,7 @@ void MyBunshin::processChangeGeoFinal() {
                 if (pLaserChip) {
                     pLaserChip->setOrg(this);
                     if (pLaserChip->getInfrontChip() == nullptr) {
-                        getSeTransmitter()->play3D(SE_FIRE_LASER);
+                        getSeXmtr()->play3D(SE_FIRE_LASER);
                     }
                 }
             }
@@ -278,7 +278,7 @@ void MyBunshin::processChangeGeoFinal() {
         //光子魚雷発射
         if (pVbPlay->isPushedDown(0, VV_VB_SHOT2)) {
             if (pTorpedoCtrler_->fire()) {
-                getSeTransmitter()->play3D(SE_FIRE_TORPEDO);
+                getSeXmtr()->play3D(SE_FIRE_TORPEDO);
             }
         }
     } //getAlpha() > 0.5

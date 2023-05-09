@@ -23,8 +23,8 @@ EnemyIrce::EnemyIrce(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "Eres", StatusReset(EnemyErmione)) {
     _class_name = "EnemyIrce";
     iMovePatternNo_ = 0;
-    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
 }
 
 void EnemyIrce::onCreateModel() {
@@ -57,7 +57,7 @@ void EnemyIrce::processBehavior() {
                           50, 0, TURN_CLOSE_TO, true);
     pLocoVehicle->behave();
     getScaler()->behave();
-    //getSeTransmitter()->behave();
+    //getSeXmtr()->behave();
 }
 
 
@@ -71,7 +71,7 @@ void EnemyIrce::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        getSeTransmitter()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
