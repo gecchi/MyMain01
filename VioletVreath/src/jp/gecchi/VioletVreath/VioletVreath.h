@@ -588,7 +588,6 @@ class WorldBoundTransit;
 class XpmConnection;
 class XpmManager;
 //// forward declaration end
-
 }
 
 

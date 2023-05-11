@@ -8,6 +8,8 @@
 
 namespace VioletVreath {
 
+#define N_LASER_CHIP_DISPATCH (1)
+
 /**
  * 分身レーザーのチップ .
  * WateringLaserChip に ロックオン機能を追加。
@@ -29,9 +31,10 @@ class MyBunshinWateringLaserChip001 : public VvMyActor<GgafLib::WateringLaserChi
 
 public:
 
+    /** [r]同時フレーム内で複数 dispatch された場合の順番 (0 ～ N_LASER_CHIP_DISPATCH-1) */
+    int dispatch_index_;
     /** [r]ロックオンしている場合 true */
     bool is_lockon_;
-
     /** [r]レーザー発射元 */
     MyBunshin* pOrg_;
 
@@ -40,9 +43,6 @@ public:
 
     /** [r/w]レーザー最大速度（この値を大きくすると、最高速度が早くなる。） */
     static const velo MAX_VELO_RENGE;
-//    /** [r]計算用 */
-//    static const double INV_MAX_VELO_RENGE;
-
     /** 加速度範囲(0, MAX_ACCE_RENGE) */
     static const acce MAX_ACCE_RENGE;
 
@@ -51,15 +51,14 @@ public:
 
     /** [r/w]速度に対する加速度の割合（この値を大きくすると、カーブが緩くなる） */
     static const int R_MAX_ACCE;
-//    /** [r]計算用 */
-//    static const double RR_MAX_ACCE;
     /** 最低速度 */
     static const velo MIN_VELO_;
 
     static int tex_no_;
     static GgafDx::Model* pModel_;
 
-    MyBunshin::AimInfo* pAimInfo_;
+    /** 先端チップのAimInfo */
+    MyBunshin::AimInfo* pTipChip_AimInfo_;
 
     coord tmp_x_, tmp_y_, tmp_z_;
 

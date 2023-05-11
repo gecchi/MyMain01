@@ -10,15 +10,20 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene.h"
 
 namespace VioletVreath {
-
-//DECLARE_EVENT_VAL(EVENT_MyBunshin_ChangeGeoFinal);
-
 #define MAX_LASER_CHIP_NUM (85)
 #define MAX_AIM_INFO_NUM (MAX_LASER_CHIP_NUM / 2)
 
 #define LASER_KOANYA 0
 #define LASER_THUNDER 1
-//class MyBunshin : public GgafLib::DefaultMorphMeshActor {
+
+/**
+ * 分身 .
+ * 階層構造、全て FK で追加
+ * MyBunshinBase ＞ MyBunshinController ＞MyBunshin
+ * @version 1.00
+ * @since 2015/04/17
+ * @author Masatoshi Tsuge
+ */
 class MyBunshin : public VvEffectActor<GgafLib::DefaultMeshSetActor> {
 
 public:
@@ -100,7 +105,7 @@ public:
 
     AimInfo pass_p_[MAX_AIM_INFO_NUM];
     int pass_p_seq_;
-    AimInfo* getFreshAimInfo() {
+    AimInfo* getNewAimInfo() {
         pass_p_seq_++;
         if (pass_p_seq_ >= MAX_AIM_INFO_NUM) {
             pass_p_seq_ = 0;
@@ -166,18 +171,6 @@ public:
      */
     void effectFreeModePause();
 
-//    void setRadiusPosition(coord prm_radius_pos);
-//    void addRadiusPosition(coord prm_radius_pos);
-//    coord getRadiusPosition();
-
-//    void slideMvRadiusPosition(coord prm_target_radius_pos, frame prm_spent_frames);
-
-//    void setExpanse(angvelo prm_ang_expanse);
-//    void addExpanse(angvelo prm_ang_expanse);
-//    angvelo getExpanse();
-//    void turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames);
-
-//    bool setFaceAngAsMainLockon();
 };
 
 }

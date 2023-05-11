@@ -24,10 +24,8 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(512); //この値を大きくすると、最高速度が早くなる。
-//const double MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE = 1.0 / MAX_VELO_RENGE;
 const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 18; //MAX_VELO_RENGE に対する加速度、この値を大きくすると、カーブが緩くなる
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.7; //レーザー発射時の初期速度
-//const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用  (現在未使用)
 const acce MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
 const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/10; // ÷10 は、最低移動する各軸のINITIAL_VELOの割合
 GgafDx::Model* MyBunshinWateringLaserChip001::pModel_ = nullptr;
@@ -39,6 +37,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     _class_name = "MyBunshinWateringLaserChip001";
     default_stamina_ = getStatus()->get(STAT_Stamina);
     pOrg_ = nullptr;
+    dispatch_index_ = 0;
     pLockonCursor_ = nullptr;
     is_lockon_ = false;
     GgafDx::Model* pModel = getModel();
@@ -54,7 +53,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     sgn_vx0_ = 0;
     sgn_vy0_ = 0;
     sgn_vz0_ = 0;
-    pAimInfo_ = nullptr;
+    pTipChip_AimInfo_ = nullptr;
     inv_cnt_ = 0;
 }
 
@@ -81,48 +80,70 @@ void MyBunshinWateringLaserChip001::onActive() {
     getStatus()->reset();
     default_stamina_ = getStatus()->get(STAT_Stamina);
     VvMyActor<WateringLaserChip>::onActive();
-    pAimInfo_ = nullptr;
+    pTipChip_AimInfo_ = nullptr;
     inv_cnt_ = 0;
     sgn_vx0_ = 0;
     sgn_vy0_ = 0;
     sgn_vz0_ = 0;
     GgafDx::NaviVehicle* pNaviVehicle = getNaviVehicle();
-    pNaviVehicle->forceVeloRange(MIN_VELO_, MAX_VELO_RENGE);
-    pNaviVehicle->forceAcceRange(0, MAX_ACCE_RENGE);
+    pNaviVehicle->forceVeloRange(MIN_VELO_*N_LASER_CHIP_DISPATCH, MAX_VELO_RENGE*N_LASER_CHIP_DISPATCH);
+    pNaviVehicle->forceAcceRange(0, MAX_ACCE_RENGE*N_LASER_CHIP_DISPATCH);
 }
 
 void MyBunshinWateringLaserChip001::processBehavior() {
+    static const Spacetime* pSpaceTime =  pCARETAKER->getSpacetime();
+    static const double ZF_R = pSpaceTime->_x_bound_right - pSpaceTime->_x_bound_left;
+
     frame active_frame = getActiveFrame();
     double power = active_frame <= 300 ? UTIL::SHOT_POWER[active_frame] : UTIL::SHOT_POWER[300];
     getStatus()->set(STAT_AttackPowerRate, power);
     _power = power;
     GgafDx::NaviVehicle* const pNaviVehicle = getNaviVehicle();
-    MyBunshin::AimInfo* pAimInfo = pAimInfo_;
+    MyBunshin::AimInfo* pTipChip_AimInfo = pTipChip_AimInfo_;
 
     if (active_frame >= 60*10) {
         sayonara(); //保険のタイムアウト10秒
-    } else if (pAimInfo == nullptr || active_frame < 7) {
+    } else if (pTipChip_AimInfo == nullptr || active_frame < 5) {
         //なにもしない
     } else {
-        GgafDx::GeometricActor* pAimTarget = pAimInfo->pTarget;
+        GgafDx::GeometricActor* pAimTarget = pTipChip_AimInfo->pTarget;
         if (pAimTarget) {
-            frame aim_time_out_t1 = pAimInfo->aim_time_out_t1;
+            frame aim_time_out_t1 = pTipChip_AimInfo->aim_time_out_t1;
             //先端チップ時（消える可能性のあるLeaderChipにあらず！）、T1が相変わらずロックオンターゲットならば更新
-            if (getInfrontChip() == nullptr && pAimTarget == pLockonCursor_->pTarget_ && pAimInfo->spent_frames_to_t1 < aim_time_out_t1) {
-                pAimInfo->updateT1(pAimTarget->_x, pAimTarget->_y, pAimTarget->_z);  //t1更新
+            if (getInfrontChip() == nullptr && pAimTarget == pLockonCursor_->pTarget_ && pTipChip_AimInfo->spent_frames_to_t1 < aim_time_out_t1) {
+                pTipChip_AimInfo->updateT1(pAimTarget->_x, pAimTarget->_y, pAimTarget->_z);  //t1更新
             }
-            MyBunshinWateringLaserChip001* pAimLeaderChip = pAimInfo->pLeaderChip;
+            MyBunshinWateringLaserChip001* pAimLeaderChip = pTipChip_AimInfo->pLeaderChip;
             if (this == pAimLeaderChip) {
-                if (pAimInfo->spent_frames_to_t1 == 0) {
+                //リーダーチップの場合
+                if (pTipChip_AimInfo->spent_frames_to_t1 == 0) {
                     //●Leader が t1 へ Aim 中
                     if (pAimTarget->isActiveInTheTree() && active_frame < aim_time_out_t1)  {
                         //pAimTarget が存命 T1へAim
 
                         //TODO:ここを未来の座標に設定する。
-                        aimChip(pAimInfo->t1_x,
-                                pAimInfo->t1_y,
-                                pAimInfo->t1_z );
-
+//                        aimChip(pTipChip_AimInfo->t1_x,
+//                                pTipChip_AimInfo->t1_y,
+//                                pTipChip_AimInfo->t1_z );
+                        //////未来の座標
+                        coord aim_t1_x = pTipChip_AimInfo->t1_x;
+                        coord aim_t1_y = pTipChip_AimInfo->t1_y;
+                        coord aim_t1_z = pTipChip_AimInfo->t1_z;
+                        coord vx = aim_t1_x - pTipChip_AimInfo->t1_x_prev;
+                        coord vy = aim_t1_y - pTipChip_AimInfo->t1_y_prev;
+                        coord vz = aim_t1_z - pTipChip_AimInfo->t1_z_prev;
+                        if (vx == 0 &&  vy == 0 && vz == 0) {
+                            aimChip(aim_t1_x, aim_t1_y, aim_t1_z);
+                        } else {
+                            double out_nvx, out_nvy, out_nvz;
+                            UTIL::getNormalizedVector(vx, vy, vz, out_nvx, out_nvy, out_nvz);
+                            //ヒットBOX registerHitAreaCube_AutoGenMidColli(MAX_VELO_RENGE/4); より
+                            coord d_f = (MAX_VELO_RENGE/4 / 2)-1;
+                            aimChip(aim_t1_x + out_nvx*d_f,
+                                    aim_t1_y + out_nvy*d_f,
+                                    aim_t1_z + out_nvz*d_f);
+                        }
+                        //////未来の座標
                         int vx1 = pNaviVehicle->_velo_vc_x;
                         int vy1 = pNaviVehicle->_velo_vc_y;
                         int vz1 = pNaviVehicle->_velo_vc_z;
@@ -146,15 +167,15 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                             sgn_vx0_ = sgn_vx;
                         }
                         if (inv_cnt_ > 10) { //10回も速度の正負が入れ替わったら終了
-                            pAimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
+                            pTipChip_AimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
                         } else {
                             // t1 と衝突したら終了
-                            static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO;
+                            static const coord renge = MyBunshinWateringLaserChip001::MAX_VELO_RENGE;
                             static const ucoord renge2 = renge*2;
-                            if ( (ucoord)(_x - pAimInfo->t1_x + renge) <= renge2) {
-                                if ( (ucoord)(_y - pAimInfo->t1_y + renge) <= renge2) {
-                                    if ( (ucoord)(_z - pAimInfo->t1_z + renge) <= renge2) {
-                                        pAimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
+                            if ( (ucoord)(_x - pTipChip_AimInfo->t1_x + renge) <= renge2) {
+                                if ( (ucoord)(_y - pTipChip_AimInfo->t1_y + renge) <= renge2) {
+                                    if ( (ucoord)(_z - pTipChip_AimInfo->t1_z + renge) <= renge2) {
+                                        pTipChip_AimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
                                     }
                                 }
                             }
@@ -162,18 +183,11 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 
                     } else {
                         //初めは pAimTarget があったのに、途中で消えた。
-                        pAimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
+                        pTipChip_AimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
                     }
-                } else if (pAimInfo->spent_frames_to_t2 == 0) {
+                } else if (pTipChip_AimInfo->spent_frames_to_t2 == 0) {
                     //●Leader が t1 へ Aim し終わったあと
                     //t2を決める
-                    static const Spacetime* pSpaceTime =  pCARETAKER->getSpacetime();
-                    static const double ZF_R = UTIL::getDistance(
-                                                      0.0, 0.0, 0.0,
-                                                      (double)(pSpaceTime->_x_bound_right),
-                                                      (double)(pSpaceTime->_y_bound_top),
-                                                      (double)(pSpaceTime->_z_bound_far)
-                                                     ) * 1.2;
                     LaserChip* pB = getBehindChip();
                     if (pB) {
                         pB = pB->getBehindChip();
@@ -182,24 +196,24 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                         }
                     }
                     if (pB) {
-                        pAimInfo->setT2BySphere(ZF_R, pB->_x, pB->_y, pB->_z, _x, _y, _z);
+                        pTipChip_AimInfo->setT2BySphere(ZF_R, pB->_x, pB->_y, pB->_z, _x, _y, _z);
                     } else {
-                        pAimInfo->setT2BySphere(ZF_R, pOrg_->_x, pOrg_->_y, pOrg_->_z, _x, _y, _z);
+                        pTipChip_AimInfo->setT2BySphere(ZF_R, pOrg_->_x, pOrg_->_y, pOrg_->_z, _x, _y, _z);
                     }
                     coord t2_d = UTIL::getDistance(_x, _y, _z,
-                                                   pAimInfo->t2_x,
-                                                   pAimInfo->t2_y,
-                                                   pAimInfo->t2_z);
-                    pAimInfo->spent_frames_to_t2 = active_frame + (frame)(t2_d/MyBunshinWateringLaserChip001::MAX_VELO_RENGE); //t2到達時間概算
-                    aimChip(pAimInfo->t2_x,
-                            pAimInfo->t2_y,
-                            pAimInfo->t2_z );
+                                                   pTipChip_AimInfo->t2_x,
+                                                   pTipChip_AimInfo->t2_y,
+                                                   pTipChip_AimInfo->t2_z);
+                    pTipChip_AimInfo->spent_frames_to_t2 = active_frame + (frame)(t2_d/MyBunshinWateringLaserChip001::MAX_VELO_RENGE*N_LASER_CHIP_DISPATCH); //t2到達時間概算
+                    aimChip(pTipChip_AimInfo->t2_x,
+                            pTipChip_AimInfo->t2_y,
+                            pTipChip_AimInfo->t2_z );
                 } else {
                     //●Leader が t2 を設定したあと。
-                    if (active_frame < pAimInfo->spent_frames_to_t2)  {
-                        aimChip(pAimInfo->t2_x,
-                                pAimInfo->t2_y,
-                                pAimInfo->t2_z );
+                    if (active_frame < pTipChip_AimInfo->spent_frames_to_t2)  {
+                        aimChip(pTipChip_AimInfo->t2_x,
+                                pTipChip_AimInfo->t2_y,
+                                pTipChip_AimInfo->t2_z );
                     } else {
                         aimChip(_x + pNaviVehicle->_velo_vc_x*4+1,
                                 _y + pNaviVehicle->_velo_vc_y*4+1,
@@ -207,26 +221,11 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                     }
                 }
             } else {
-//                MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
-//                if (pF) {
-//                    pF = (MyBunshinWateringLaserChip001*)pF->getInfrontChip();
-//                    if (pF) {
-//                        pF = (MyBunshinWateringLaserChip001*)pF->getInfrontChip();
-//                        if (pF) {
-//                            pF = (MyBunshinWateringLaserChip001*)pF->getInfrontChip();
-//                        }
-//                    }
-//                }
-//                if (pF) {
-//                    aimChip(pF->_x,
-//                            pF->_y,
-//                            pF->_z );
-//                } else {
-//                }
-                //●Leader以外
-                if (pAimInfo->spent_frames_to_t1 == 0) {
+                //リーダーチップ以外
+                if (pTipChip_AimInfo->spent_frames_to_t1 == 0) {
                     //●Leader以外が t1 が定まるまでの動き
                     if (pAimLeaderChip) {
+                        //Leader以外で、Leaderに所属いているならば、Leaderの方角に Aim
                         aimChip(pAimLeaderChip->_x,
                                 pAimLeaderChip->_y,
                                 pAimLeaderChip->_z );
@@ -235,14 +234,14 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                 _y + pNaviVehicle->_velo_vc_y*4+1,
                                 _z + pNaviVehicle->_velo_vc_z*4+1 );
                     }
-                } else if (active_frame <= pAimInfo->spent_frames_to_t1) {
+                } else if (active_frame <= pTipChip_AimInfo->spent_frames_to_t1) {
                     //●Leader以外が t1 が定まってから t1 到達までの動き
-                    aimChip(pAimInfo->t1_x,
-                            pAimInfo->t1_y,
-                            pAimInfo->t1_z );
-                } else if (active_frame > pAimInfo->spent_frames_to_t1) {
+                    aimChip(pTipChip_AimInfo->t1_x,
+                            pTipChip_AimInfo->t1_y,
+                            pTipChip_AimInfo->t1_z );
+                } else if (active_frame > pTipChip_AimInfo->spent_frames_to_t1) {
                     //●Leader以外が t1 を通過
-                    if (pAimInfo->spent_frames_to_t2 == 0) {
+                    if (pTipChip_AimInfo->spent_frames_to_t2 == 0) {
                         //●その後 Leader以外が t2 が定まるまでの動き
                         if (pAimLeaderChip) {
                             aimChip(pAimLeaderChip->_x,
@@ -253,11 +252,11 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                     _y + pNaviVehicle->_velo_vc_y*4+1,
                                     _z + pNaviVehicle->_velo_vc_z*4+1 );
                         }
-                    } else if (active_frame <= pAimInfo->spent_frames_to_t2) {
+                    } else if (active_frame <= pTipChip_AimInfo->spent_frames_to_t2) {
                         //●その後 Leader以外が t2 が定まって、t2に向かうまでの動き
-                        //aimChip(pAimInfo->t2_x,
-                        //		pAimInfo->t2_y,
-                        //		pAimInfo->t2_z );
+                        //aimChip(pTipChip_AimInfo->t2_x,
+                        //		pTipChip_AimInfo->t2_y,
+                        //		pTipChip_AimInfo->t2_z );
 
                         //t2 ではなくて、あえて LeaderChip を優先で追いかける。そのほうがそれっぽい動きになる。
                         if (pAimLeaderChip) {
@@ -266,11 +265,11 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                     pAimLeaderChip->_z );
                         } else {
                             // LeaderChip がいないなら、仕方ないので本来の t2 へ
-                            aimChip(pAimInfo->t2_x,
-                                    pAimInfo->t2_y,
-                                    pAimInfo->t2_z );
+                            aimChip(pTipChip_AimInfo->t2_x,
+                                    pTipChip_AimInfo->t2_y,
+                                    pTipChip_AimInfo->t2_z );
                         }
-                    } else if (active_frame > pAimInfo->spent_frames_to_t2) {
+                    } else if (active_frame > pTipChip_AimInfo->spent_frames_to_t2) {
                         //●その後 Leader以外が t2 を通過した後の動き
                         if (pAimLeaderChip) {
                             aimChip(pAimLeaderChip->_x,
@@ -310,37 +309,46 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
             GgafDx::GeometricActor* pLockonTarget = pLockonCursor_->pTarget_;
             if (pLockonTarget && pLockonTarget->isActiveInTheTree()) {
                 //先端でロックオン中
-                pAimInfo_ = pOrg_->getFreshAimInfo();
-                pAimInfo_->pLeaderChip = this;
-                pAimInfo_->pTarget = pLockonTarget;
-                pAimInfo_->setT1(
-                        pAimInfo_->pTarget->_x,
-                        pAimInfo_->pTarget->_y,
-                        pAimInfo_->pTarget->_z);
+                pTipChip_AimInfo_ = pOrg_->getNewAimInfo();
+                pTipChip_AimInfo_->pLeaderChip = this;
+                pTipChip_AimInfo_->pTarget = pLockonTarget;
+                pTipChip_AimInfo_->setT1(
+                        pTipChip_AimInfo_->pTarget->_x,
+                        pTipChip_AimInfo_->pTarget->_y,
+                        pTipChip_AimInfo_->pTarget->_z);
                 // aim_time_out_t1 を概算で求めておく
                 coord t1_d = UTIL::getDistance(this, pLockonTarget);
-                pAimInfo_->aim_time_out_t1 = (t1_d / MyBunshinWateringLaserChip001::INITIAL_VELO)*1.2;
+                pTipChip_AimInfo_->aim_time_out_t1 = (t1_d / MyBunshinWateringLaserChip001::INITIAL_VELO*N_LASER_CHIP_DISPATCH);
             } else {
                 //先端でロックオンしていない
-                pAimInfo_ = pOrg_->getFreshAimInfo();
-                pAimInfo_->pLeaderChip = this;
-                pAimInfo_->pTarget = nullptr;
+                pTipChip_AimInfo_ = pOrg_->getNewAimInfo();
+                pTipChip_AimInfo_->pLeaderChip = this;
+                pTipChip_AimInfo_->pTarget = nullptr;
             }
         } else {
-            //先端以外は前のを受け継ぐ
-            pAimInfo_ = pF->pAimInfo_; //受け継ぐ
+            //先端以外は前のレーザーチップのを受け継ぐ
+            pTipChip_AimInfo_ = pF->pTipChip_AimInfo_; //参照
 #ifdef MY_DEBUG
-if (pAimInfo_ == nullptr) {
-throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
+if (pTipChip_AimInfo_ == nullptr) {
+throwCriticalException("pTipChip_AimInfo_ が引き継がれていません！"<<this<<
                        " _frame_of_life_when_activation="<<_frame_of_life_when_activation);
 }
 #endif
         }
         //活動開始初回フレーム、チップの速度と向きの初期設定
         setFaceAngAs(pOrg_);
-        setPositionAt(pOrg_);
-        pNaviVehicle->setVeloTwd(_rz, _ry, INITIAL_VELO); //初速はここで
+        //setPositionAt(pOrg_);
+        pNaviVehicle->setVeloTwd(_rz, _ry, INITIAL_VELO*N_LASER_CHIP_DISPATCH); //初速はここで
         pNaviVehicle->setAcceZero();
+        int n = N_LASER_CHIP_DISPATCH-1 - dispatch_index_;
+        if (n == 0) {
+            setPositionAt(pOrg_);
+        }
+        else {
+            setPosition(pOrg_->_x + ((pNaviVehicle->_velo_vc_x*n) / N_LASER_CHIP_DISPATCH) ,
+                        pOrg_->_y + ((pNaviVehicle->_velo_vc_y*n) / N_LASER_CHIP_DISPATCH) ,
+                        pOrg_->_z + ((pNaviVehicle->_velo_vc_z*n) / N_LASER_CHIP_DISPATCH));
+        }
     }
 
     //平均曲線座標設定。(レーザーを滑らかにするノーマライズ）
@@ -358,7 +366,7 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
                 //_x,_y,_z にはまだ変な値が入っている。
                 //中間座標に再設定
                 //座標の重みは、（ひとつ前, 自身, 一つ先）＝ (0.2, 0.5, 0.3)
-                if (pAimInfo_->pTarget) {
+                if (pTipChip_AimInfo_->pTarget) {
                     _x = tmp_x_ + (coord)((pB->tmp_x_-tmp_x_)*0.1 + (pF->tmp_x_-tmp_x_)*0.4);
                     _y = tmp_y_ + (coord)((pB->tmp_y_-tmp_y_)*0.1 + (pF->tmp_y_-tmp_y_)*0.4);
                     _z = tmp_z_ + (coord)((pB->tmp_z_-tmp_z_)*0.1 + (pF->tmp_z_-tmp_z_)*0.4);
@@ -368,7 +376,7 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
                     _z = tmp_z_ + (coord)((pB->tmp_z_-tmp_z_)*0.1 + (pF->tmp_z_-tmp_z_)*0.1);
                 }
             } else {
-                if (pAimInfo_->pTarget) {
+                if (pTipChip_AimInfo_->pTarget) {
                     //補正後の一つ前の座標と、自身の座標を直線で結んで、仮想の自分の後ろの点を作成。
                     //補正前の一つ前の座標、自身の座標、仮想の自分の後ろの点で平均を取る
                     coord v_b_x = _x - (pF->_x - _x);
@@ -400,14 +408,15 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
 
 void MyBunshinWateringLaserChip001::processJudgement() {
     if (isOutOfSpacetime()) {
-        if (pAimInfo_->pLeaderChip == this) {
-            pAimInfo_->t2_x = _x;
-            pAimInfo_->t2_y = _y;
-            pAimInfo_->t2_z = _z;
-            pAimInfo_->spent_frames_to_t2 = getActiveFrame();
-            if (pAimInfo_->spent_frames_to_t1 == 0) {
-                pAimInfo_->setT1(pAimInfo_->t2_x, pAimInfo_->t2_y, pAimInfo_->t2_z);
-                pAimInfo_->spent_frames_to_t1 = getActiveFrame();
+        if (pTipChip_AimInfo_->pLeaderChip == this) {
+            //T2情報を残しておく
+            pTipChip_AimInfo_->t2_x = _x;
+            pTipChip_AimInfo_->t2_y = _y;
+            pTipChip_AimInfo_->t2_z = _z;
+            pTipChip_AimInfo_->spent_frames_to_t2 = getActiveFrame();
+            if (pTipChip_AimInfo_->spent_frames_to_t1 == 0) {
+                pTipChip_AimInfo_->setT1(pTipChip_AimInfo_->t2_x, pTipChip_AimInfo_->t2_y, pTipChip_AimInfo_->t2_z);
+                pTipChip_AimInfo_->spent_frames_to_t1 = getActiveFrame();
             }
         }
         sayonara();
@@ -483,11 +492,11 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             getStatus()->set(STAT_Stamina, default_stamina_);
         }
-        MyBunshin::AimInfo* pAimInfo = pAimInfo_;
-        if (this == pAimInfo->pLeaderChip && pAimInfo->pTarget == prm_pOtherActor) {
+        MyBunshin::AimInfo* pTipChip_AimInfo = pTipChip_AimInfo_;
+        if (this == pTipChip_AimInfo->pLeaderChip && pTipChip_AimInfo->pTarget == prm_pOtherActor) {
             //先端が目標に見事命中した場合もT1終了
-            pAimInfo->setT1(_x, _y, _z);
-            pAimInfo->spent_frames_to_t1 = getActiveFrame();
+            pTipChip_AimInfo->setT1(_x, _y, _z);
+            pTipChip_AimInfo->spent_frames_to_t1 = getActiveFrame();
         }
 
     } else if (pOther->lookUpKind() & KIND_CHIKEI) {
@@ -497,38 +506,33 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
 }
 
 void MyBunshinWateringLaserChip001::onInactive() {
-    MyBunshin::AimInfo* pAimInfo = pAimInfo_;
-    if (pAimInfo && pAimInfo->pLeaderChip == this) {
-        if (pAimInfo->spent_frames_to_t2 == 0) {
-            frame aim_time_out_t1 = pAimInfo_->aim_time_out_t1;
-            static const Spacetime* pSpaceTime =  pCARETAKER->getSpacetime();
-            static const double zf_r = UTIL::getDistance(
-                                               0.0, 0.0, 0.0,
-                                               (double)(pSpaceTime->_x_bound_right),
-                                               (double)(pSpaceTime->_y_bound_top),
-                                               (double)(pSpaceTime->_z_bound_far)
-                                             ) * 1.2;
+    static const Spacetime* pSpaceTime =  pCARETAKER->getSpacetime();
+    static const double ZF_R = pSpaceTime->_x_bound_right - pSpaceTime->_x_bound_left;
 
+    MyBunshin::AimInfo* pTipChip_AimInfo = pTipChip_AimInfo_;
+    if (pTipChip_AimInfo && pTipChip_AimInfo->pLeaderChip == this) {
+        if (pTipChip_AimInfo->spent_frames_to_t2 == 0) {
+            frame aim_time_out_t1 = pTipChip_AimInfo_->aim_time_out_t1;
             MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
             if (pB) {
-                pAimInfo->setT2BySphere(zf_r, pB->_x, pB->_y, pB->_z, _x, _y, _z);
-                pAimInfo->spent_frames_to_t2 = getActiveFrame() + aim_time_out_t1;
+                pTipChip_AimInfo->setT2BySphere(ZF_R, pB->_x, pB->_y, pB->_z, _x, _y, _z);
+                pTipChip_AimInfo->spent_frames_to_t2 = getActiveFrame() + aim_time_out_t1;
             } else {
-                pAimInfo->setT2BySphere(zf_r, pOrg_->_x, pOrg_->_y, pOrg_->_z, _x, _y, _z);
-                pAimInfo->spent_frames_to_t2 = getActiveFrame() + aim_time_out_t1;
+                pTipChip_AimInfo->setT2BySphere(ZF_R, pOrg_->_x, pOrg_->_y, pOrg_->_z, _x, _y, _z);
+                pTipChip_AimInfo->spent_frames_to_t2 = getActiveFrame() + aim_time_out_t1;
             }
 
-            if (pAimInfo->spent_frames_to_t1 == 0) {
-                pAimInfo->setT1(pAimInfo->t2_x, pAimInfo->t2_y, pAimInfo->t2_z);
-                pAimInfo->spent_frames_to_t1 = getActiveFrame() + aim_time_out_t1;
+            if (pTipChip_AimInfo->spent_frames_to_t1 == 0) {
+                pTipChip_AimInfo->setT1(pTipChip_AimInfo->t2_x, pTipChip_AimInfo->t2_y, pTipChip_AimInfo->t2_z);
+                pTipChip_AimInfo->spent_frames_to_t1 = getActiveFrame() + aim_time_out_t1;
             }
 
         }
-        pAimInfo->pLeaderChip = nullptr;
+        pTipChip_AimInfo->pLeaderChip = nullptr;
     }
     pOrg_ = nullptr;
     pLockonCursor_ = nullptr;
-    pAimInfo_ = nullptr;
+    pTipChip_AimInfo_ = nullptr;
 
     VvMyActor<WateringLaserChip>::onInactive();
 }

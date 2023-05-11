@@ -38,8 +38,6 @@ enum {
     SE_FIRE_TORPEDO,
 };
 
-//MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) : DefaultMorphMeshActor(prm_name, "Eres_m") {
-//MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) : CubeMapMeshSetActor(prm_name, "4,Core4cm_") {
 MyBunshin::MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinController, MyBunshinBase* prm_pBase) :
         VvEffectActor<DefaultMeshSetActor>(prm_name, "myvic", StatusReset(MyBunshin)) {
 
@@ -254,11 +252,14 @@ void MyBunshin::processChangeGeoFinal() {
         if (pMyShip->is_shooting_laser_ && pVbPlay->isPressed(0, VV_VB_SHOT1)) {
             if (_laser_kind == LASER_KOANYA) {
                 //レーザー発射。
-                MyBunshinWateringLaserChip001* pLaserChip = (MyBunshinWateringLaserChip001*)pLaserChipDepo_->dispatch();
-                if (pLaserChip) {
-                    pLaserChip->setOrg(this);
-                    if (pLaserChip->getInfrontChip() == nullptr) {
-                        getSeXmtr()->play3D(SE_FIRE_LASER);
+                for (int i = 0; i < N_LASER_CHIP_DISPATCH; i++) {
+                    MyBunshinWateringLaserChip001* pLaserChip = (MyBunshinWateringLaserChip001*)pLaserChipDepo_->dispatch();
+                    if (pLaserChip) {
+                        pLaserChip->setOrg(this);
+                        pLaserChip->dispatch_index_ = i;
+                        if (pLaserChip->getInfrontChip() == nullptr) {
+                            getSeXmtr()->play3D(SE_FIRE_LASER);
+                        }
                     }
                 }
             } else if (_laser_kind == LASER_THUNDER) {
@@ -323,102 +324,9 @@ void MyBunshin::effectFreeModeLaunch() {
     }
 }
 void MyBunshin::effectFreeModePause() {
-//    getLocoVehicle()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_);
     pBunshinController_->effectFreeModePause();
 }
 
-//void MyBunshin::setRadiusPosition(coord prm_radius_pos) {
-//    if (_is_local) {
-//        _y = prm_radius_pos;
-//        if (_y < 1) {
-//            _y = 1;
-//        }
-//    } else {
-//        _y_local = prm_radius_pos;
-//        if (_y_local < 1) {
-//            _y_local = 1;
-//        }
-//    }
-//}
-//void MyBunshin::addRadiusPosition(coord prm_radius_pos) {
-//    if (_is_local) {
-//        _y += prm_radius_pos;
-//        if (_y < 1) {
-//            _y = 1;
-//        }
-//    } else {
-//        _y_local += prm_radius_pos;
-//        if (_y_local < 1) {
-//            _y_local = 1;
-//        }
-//    }
-//}
-//
-//coord MyBunshin::getRadiusPosition() {
-//    return _is_local ? _y : _y_local;
-//}
-
-//void MyBunshin::slideMvRadiusPosition(coord prm_target_radius_pos, frame prm_spent_frames) {
-//    bool is_local = _is_local;
-//    if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
-//    coord d = prm_target_radius_pos - _y;
-//    getLocoVehicle()->setRzRyMvAng(D90ANG, D0ANG); //Y軸方向
-//    getLocoVehicle()->asstMv()->slideByDt(d, prm_spent_frames, 0.2, 0.8, 0, true);
-//    if (!is_local) { changeGeoFinal(); }  //座標系を戻す
-//}
-
-//void MyBunshin::setExpanse(angvelo prm_ang_expanse) {
-//    if (_is_thunder_lock) {
-//        rz_local_copy_ = UTIL::simplifyAng(prm_ang_expanse);
-//    } else {
-//
-//        if (_is_local) {
-//            _rz = UTIL::simplifyAng(prm_ang_expanse);
-//        } else {
-//            _rz_local = UTIL::simplifyAng(prm_ang_expanse);
-//            rz_local_copy_ = _rz_local;
-//        }
-//    }
-//}
-
-//void MyBunshin::addExpanse(angvelo prm_ang_expanse) {
-//    if (_is_local) {
-//        _rz = UTIL::simplifyAng(_rz+prm_ang_expanse);
-//    } else {
-//        GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-//        if (pLocoVehicle->isTurningFaceAng()) {
-//            pLocoVehicle->_target_face[AXIS_Z] = UTIL::simplifyAng(pLocoVehicle->_target_face[AXIS_Z]+prm_ang_expanse);
-//        } else {
-//            _rz_local = UTIL::simplifyAng(_rz_local+prm_ang_expanse);
-//        }
-//    }
-//}
-
-//angvelo MyBunshin::getExpanse() {
-//    return _is_local ? _rz : _rz_local;
-//}
-
-//void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames) {
-//    bool is_local = _is_local;
-//    if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
-//    getLocoVehicle()->asstFaceAng()->turnRzRyByDtTo(prm_target_ang_expanse, D_ANG(0), TURN_CLOSE_TO, true,
-//                                                    prm_spent_frames, 0.3, 0.5, 0, true);
-//    if (!is_local) { changeGeoFinal(); }  //座標系を戻す
-//}
-//
-//bool MyBunshin::setFaceAngAsMainLockon() {
-//    bool is_local = _is_local;
-//    if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
-//    GgafDx::GeometricActor* pTargetActor = pLockonCtrler_->pMainLockonCursor_->pTarget_;
-//    bool r = false;
-//    if (pTargetActor) {
-//        r = true;
-//        setFaceAngAs(pTargetActor);
-//    }
-//    if (!is_local) { changeGeoFinal(); }  //座標系を戻す
-//    return r;
-//
-//}
 
 MyBunshin::~MyBunshin() {
     GGAF_DELETE(pGeo2_);
