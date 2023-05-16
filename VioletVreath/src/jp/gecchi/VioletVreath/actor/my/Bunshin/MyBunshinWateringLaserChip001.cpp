@@ -204,7 +204,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                                    pTipChip_AimInfo->t2_x,
                                                    pTipChip_AimInfo->t2_y,
                                                    pTipChip_AimInfo->t2_z);
-                    pTipChip_AimInfo->spent_frames_to_t2 = active_frame + (frame)(t2_d/MyBunshinWateringLaserChip001::MAX_VELO_RENGE*N_LASER_CHIP_DISPATCH); //t2到達時間概算
+                    pTipChip_AimInfo->spent_frames_to_t2 = active_frame + (frame)(t2_d/(MyBunshinWateringLaserChip001::MAX_VELO_RENGE*N_LASER_CHIP_DISPATCH)); //t2到達時間概算
                     aimChip(pTipChip_AimInfo->t2_x,
                             pTipChip_AimInfo->t2_y,
                             pTipChip_AimInfo->t2_z );
@@ -225,10 +225,16 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                 if (pTipChip_AimInfo->spent_frames_to_t1 == 0) {
                     //●Leader以外が t1 が定まるまでの動き
                     if (pAimLeaderChip) {
-                        //Leader以外で、Leaderに所属いているならば、Leaderの方角に Aim
-                        aimChip(pAimLeaderChip->_x,
-                                pAimLeaderChip->_y,
-                                pAimLeaderChip->_z );
+//                        //Leader以外で、Leaderに所属いているならば、Leaderの方角に Aim
+//                        aimChip(pAimLeaderChip->_x,
+//                                pAimLeaderChip->_y,
+//                                pAimLeaderChip->_z );
+                        coord aim_t1_x = pTipChip_AimInfo->t1_x;
+                        coord aim_t1_y = pTipChip_AimInfo->t1_y;
+                        coord aim_t1_z = pTipChip_AimInfo->t1_z;
+                        aimChip(aim_t1_x,
+                                aim_t1_y,
+                                aim_t1_z );
                     } else {
                         aimChip(_x + pNaviVehicle->_velo_vc_x*4+1,
                                 _y + pNaviVehicle->_velo_vc_y*4+1,
@@ -258,17 +264,24 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                         //		pTipChip_AimInfo->t2_y,
                         //		pTipChip_AimInfo->t2_z );
 
-                        //t2 ではなくて、あえて LeaderChip を優先で追いかける。そのほうがそれっぽい動きになる。
-                        if (pAimLeaderChip) {
-                            aimChip(pAimLeaderChip->_x,
-                                    pAimLeaderChip->_y,
-                                    pAimLeaderChip->_z );
-                        } else {
-                            // LeaderChip がいないなら、仕方ないので本来の t2 へ
-                            aimChip(pTipChip_AimInfo->t2_x,
-                                    pTipChip_AimInfo->t2_y,
-                                    pTipChip_AimInfo->t2_z );
-                        }
+//                        //t2 ではなくて、あえて LeaderChip を優先で追いかける。そのほうがそれっぽい動きになる。
+//                        if (pAimLeaderChip) {
+//                            aimChip(pAimLeaderChip->_x,
+//                                    pAimLeaderChip->_y,
+//                                    pAimLeaderChip->_z );
+//                        } else {
+//                            // LeaderChip がいないなら、仕方ないので本来の t2 へ
+//                            aimChip(pTipChip_AimInfo->t2_x,
+//                                    pTipChip_AimInfo->t2_y,
+//                                    pTipChip_AimInfo->t2_z );
+//                        }
+
+                        coord aim_t2_x = pTipChip_AimInfo->t2_x;
+                        coord aim_t2_y = pTipChip_AimInfo->t2_y;
+                        coord aim_t2_z = pTipChip_AimInfo->t2_z;
+                        aimChip(aim_t2_x,
+                                aim_t2_y,
+                                aim_t2_z );
                     } else if (active_frame > pTipChip_AimInfo->spent_frames_to_t2) {
                         //●その後 Leader以外が t2 を通過した後の動き
                         if (pAimLeaderChip) {
@@ -318,7 +331,7 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
                         pTipChip_AimInfo_->pTarget->_z);
                 // aim_time_out_t1 を概算で求めておく
                 coord t1_d = UTIL::getDistance(this, pLockonTarget);
-                pTipChip_AimInfo_->aim_time_out_t1 = (t1_d / MyBunshinWateringLaserChip001::INITIAL_VELO*N_LASER_CHIP_DISPATCH);
+                pTipChip_AimInfo_->aim_time_out_t1 = (t1_d / (MyBunshinWateringLaserChip001::INITIAL_VELO*N_LASER_CHIP_DISPATCH));
             } else {
                 //先端でロックオンしていない
                 pTipChip_AimInfo_ = pOrg_->getNewAimInfo();
@@ -359,49 +372,70 @@ throwCriticalException("pTipChip_AimInfo_ が引き継がれていません！"<<this<<
     if (getActiveFrame() > 3) {//FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
         MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
         if (pF && pF->isActive()) {
+
+            coord v_b_x = _x - (pF->_x - _x);
+            coord v_b_y = _y - (pF->_y - _y);
+            coord v_b_z = _z - (pF->_z - _z);
+
             MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
             if (pB && pB->isActive()) {
                 //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
                 //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
                 //_x,_y,_z にはまだ変な値が入っている。
                 //中間座標に再設定
-                //座標の重みは、（ひとつ前, 自身, 一つ先）＝ (0.2, 0.5, 0.3)
-                if (pTipChip_AimInfo_->pTarget) {
-                    _x = tmp_x_ + (coord)((pB->tmp_x_-tmp_x_)*0.1 + (pF->tmp_x_-tmp_x_)*0.4);
-                    _y = tmp_y_ + (coord)((pB->tmp_y_-tmp_y_)*0.1 + (pF->tmp_y_-tmp_y_)*0.4);
-                    _z = tmp_z_ + (coord)((pB->tmp_z_-tmp_z_)*0.1 + (pF->tmp_z_-tmp_z_)*0.4);
-                } else {
-                    _x = tmp_x_ + (coord)((pB->tmp_x_-tmp_x_)*0.1 + (pF->tmp_x_-tmp_x_)*0.1);
-                    _y = tmp_y_ + (coord)((pB->tmp_y_-tmp_y_)*0.1 + (pF->tmp_y_-tmp_y_)*0.1);
-                    _z = tmp_z_ + (coord)((pB->tmp_z_-tmp_z_)*0.1 + (pF->tmp_z_-tmp_z_)*0.1);
-                }
+                //座標の重みは、（ひとつ前, 自身, 一つ先）＝ (0.3, 0.4 0.3)
+//                if (pTipChip_AimInfo_->pTarget) {
+//                    _x = tmp_x_ + (coord)((pB->tmp_x_-tmp_x_)*0.3 + (pF->tmp_x_-tmp_x_)*0.3);
+//                    _y = tmp_y_ + (coord)((pB->tmp_y_-tmp_y_)*0.3 + (pF->tmp_y_-tmp_y_)*0.3);
+//                    _z = tmp_z_ + (coord)((pB->tmp_z_-tmp_z_)*0.3 + (pF->tmp_z_-tmp_z_)*0.3);
+//                } else {
+//                    _x = tmp_x_ + (coord)((pB->tmp_x_-tmp_x_)*0.3 + (pF->tmp_x_-tmp_x_)*0.3);
+//                    _y = tmp_y_ + (coord)((pB->tmp_y_-tmp_y_)*0.3 + (pF->tmp_y_-tmp_y_)*0.3);
+//                    _z = tmp_z_ + (coord)((pB->tmp_z_-tmp_z_)*0.3 + (pF->tmp_z_-tmp_z_)*0.3);
+//                }
+
+                _x = _x + (coord)((pB->_x-_x)*0.2 + (pF->_x-_x)*0.4);
+                _y = _y + (coord)((pB->_y-_y)*0.2 + (pF->_y-_y)*0.4);
+                _z = _z + (coord)((pB->_z-_z)*0.2 + (pF->_z-_z)*0.4);
             } else {
                 if (pTipChip_AimInfo_->pTarget) {
                     //補正後の一つ前の座標と、自身の座標を直線で結んで、仮想の自分の後ろの点を作成。
                     //補正前の一つ前の座標、自身の座標、仮想の自分の後ろの点で平均を取る
-                    coord v_b_x = _x - (pF->_x - _x);
-                    coord v_b_y = _y - (pF->_y - _y);
-                    coord v_b_z = _z - (pF->_z - _z);
-                    _x = tmp_x_ + (coord)((v_b_x-tmp_x_)*0.2 + (pF->tmp_x_-tmp_x_)*0.3);
-                    _y = tmp_y_ + (coord)((v_b_y-tmp_y_)*0.2 + (pF->tmp_y_-tmp_y_)*0.3);
-                    _z = tmp_z_ + (coord)((v_b_z-tmp_z_)*0.2 + (pF->tmp_z_-tmp_z_)*0.3);
+
+//                    _x = tmp_x_ + (coord)((v_b_x-tmp_x_)*0.3 + (pF->tmp_x_-tmp_x_)*0.3);
+//                    _y = tmp_y_ + (coord)((v_b_y-tmp_y_)*0.3 + (pF->tmp_y_-tmp_y_)*0.3);
+//                    _z = tmp_z_ + (coord)((v_b_z-tmp_z_)*0.3 + (pF->tmp_z_-tmp_z_)*0.3);
+                    _x = _x + (coord)((v_b_x-_x)*0.2 + (pF->_x-_x)*0.4);
+                    _y = _y + (coord)((v_b_y-_y)*0.2 + (pF->_y-_y)*0.4);
+                    _z = _z + (coord)((v_b_z-_z)*0.2 + (pF->_z-_z)*0.4);
                 }
 
             }
 
 //            //レーザーチップの向きを一つ前のチップに設定
 //            setFaceAngTwd(pF);
+
+//            UTIL::convVectorToRzRy(v_b_x, v_b_y, v_b_z,
+//                                   _rz, _ry );
+
+            UTIL::convVectorToRzRy(pNaviVehicle->_velo_vc_x,
+                                   pNaviVehicle->_velo_vc_y,
+                                   pNaviVehicle->_velo_vc_z,
+                                   _rz, _ry );
         } else {
+
+            UTIL::convVectorToRzRy(pNaviVehicle->_velo_vc_x,
+                                   pNaviVehicle->_velo_vc_y,
+                                   pNaviVehicle->_velo_vc_z,
+                                   _rz, _ry );
+
 //            //レーザーチップの向きを移動方向に設定（先端チップ）
 //            UTIL::convVectorToRzRy(pNaviVehicle->_velo_x,
 //                                   pNaviVehicle->_velo_y,
 //                                   pNaviVehicle->_velo_z,
 //                                   _rz, _ry );
         }
-        UTIL::convVectorToRzRy(pNaviVehicle->_velo_vc_x,
-                               pNaviVehicle->_velo_vc_y,
-                               pNaviVehicle->_velo_vc_z,
-                               _rz, _ry );
+
     }
     VvMyActor<WateringLaserChip>::processSettlementBehavior();
 }

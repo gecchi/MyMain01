@@ -8,7 +8,7 @@
 
 namespace VioletVreath {
 
-#define N_LASER_CHIP_DISPATCH (1)
+#define N_LASER_CHIP_DISPATCH (2)
 
 /**
  * 分身レーザーのチップ .
