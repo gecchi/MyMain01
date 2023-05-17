@@ -8,7 +8,7 @@
 
 namespace VioletVreath {
 
-#define N_LASER_CHIP_DISPATCH (2)
+#define N_DISPATCH_AT_ONCE (2)
 
 /**
  * 分身レーザーのチップ .
@@ -31,8 +31,6 @@ class MyBunshinWateringLaserChip001 : public VvMyActor<GgafLib::WateringLaserChi
 
 public:
 
-    /** [r]同時フレーム内で複数 dispatch された場合の順番 (0 ～ N_LASER_CHIP_DISPATCH-1) */
-    int dispatch_index_;
     /** [r]ロックオンしている場合 true */
     bool is_lockon_;
     /** [r]レーザー発射元 */
@@ -59,8 +57,6 @@ public:
 
     /** 先端チップのAimInfo */
     MyBunshin::AimInfo* pTipChip_AimInfo_;
-
-    coord tmp_x_, tmp_y_, tmp_z_;
 
     velo sgn_vx0_, sgn_vy0_, sgn_vz0_;
     int inv_cnt_;

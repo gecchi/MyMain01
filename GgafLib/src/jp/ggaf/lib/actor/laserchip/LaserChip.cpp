@@ -46,6 +46,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _power = 1.0f;
     _pUvFlipper = NEW GgafDx::UvFlipper();
     _pMassMeshModel->registerCallback_VertexInstanceDataInfo(LaserChip::createVertexInstanceData);
+    dispatch_index_ = 0;
     //モデル単位でセットすれば事足りるのだが、めんどうなので、アクター毎にセット
     static volatile bool is_init = LaserChip::initStatic(this); //静的メンバ初期化
 }

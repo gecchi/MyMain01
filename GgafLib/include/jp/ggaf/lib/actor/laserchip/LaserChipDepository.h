@@ -4,6 +4,7 @@
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
+#include <vector>
 
 namespace GgafLib {
 
@@ -89,9 +90,12 @@ public:
      * ストック切れ、或いは弾切れ中の場合は戻りに nullptr が返る。
      * 取得したチップの利用を終了する場合は sayonara() (或いはinactivate()) を実行してください。
      * 自動的にストックに戻ります。
+     * @param prm_offset_frames 活動状態にする遅延フレーム
      * @return 借り入れしたレーザーチップ。借り入れできない場合はnullptr
      */
     virtual LaserChip* dispatch(int prm_offset_frames = 1) override;
+
+    virtual std::vector<LaserChip*> dispatchN(int prm_number_of_chip, int prm_offset_frames = 1);
 
     /**
      * レーザーチップストックの追加 .

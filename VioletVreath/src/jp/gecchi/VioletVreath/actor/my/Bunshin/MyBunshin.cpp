@@ -149,8 +149,6 @@ void MyBunshin::processSettlementBehavior() {
             angle rz_target, ry_target;
             UTIL::convVectorToRzRy(tvx, tvy, tvz, rz_target, ry_target);
             //計算の結果、rz_target ry_target に向けば、ロックオン対象に向ける
-
-
 //            setRzRyFaceAng(rz_target, ry_target);
             //こここここここｋ
             pLocoVehicle->turnRzRyFaceAngTo(
@@ -164,18 +162,6 @@ void MyBunshin::processSettlementBehavior() {
                             D_ANG(5), D_ANG(0),
                             TURN_CLOSE_TO, false);
         }
-//        if (pLockonCtrler_->pMainLockonCursor_->hasJustReleaseLockon()) {
-//            pLocoVehicle->turnRzRyFaceAngTo(
-//                            0, 0,
-//                            D_ANG(10), D_ANG(0),
-//                            TURN_CLOSE_TO, false);
-//        }
-//        if (pLockonCtrler_->pMainLockonCursor_->hasJustReleaseLockon()) {
-//            pLocoVehicle->turnRzRyFaceAngTo(
-//                            0, rz_local_copy_,
-//                            D_ANG(10), D_ANG(0),
-//                            TURN_CLOSE_TO, false);
-//        }
     }
 
     pLocoVehicle->behave();
@@ -252,11 +238,11 @@ void MyBunshin::processChangeGeoFinal() {
         if (pMyShip->is_shooting_laser_ && pVbPlay->isPressed(0, VV_VB_SHOT1)) {
             if (_laser_kind == LASER_KOANYA) {
                 //レーザー発射。
-                for (int i = 0; i < N_LASER_CHIP_DISPATCH; i++) {
-                    MyBunshinWateringLaserChip001* pLaserChip = (MyBunshinWateringLaserChip001*)pLaserChipDepo_->dispatch();
+                std::vector<LaserChip*> lstLaserChip = pLaserChipDepo_->dispatchN(N_DISPATCH_AT_ONCE);
+                for (int i = 0; i < N_DISPATCH_AT_ONCE; i++) {
+                    MyBunshinWateringLaserChip001* pLaserChip = (MyBunshinWateringLaserChip001*)lstLaserChip[i];
                     if (pLaserChip) {
                         pLaserChip->setOrg(this);
-                        pLaserChip->dispatch_index_ = i;
                         if (pLaserChip->getInfrontChip() == nullptr) {
                             getSeXmtr()->play3D(SE_FIRE_LASER);
                         }

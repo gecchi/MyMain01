@@ -77,6 +77,10 @@ public:
     float _power;
 
     GgafDx::UvFlipper* _pUvFlipper;
+
+    /** [r]“¯ƒtƒŒ[ƒ€“à‚Å•¡” dispatch ‚³‚ê‚½ê‡‚Ì‡”Ô (0 ` ) */
+    int dispatch_index_;
+
 public:
     LaserChip(const char* prm_name, const char* prm_model);
 

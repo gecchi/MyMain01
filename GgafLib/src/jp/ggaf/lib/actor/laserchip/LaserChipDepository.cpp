@@ -31,6 +31,19 @@ void LaserChipDepository::config(int prm_num_continual_dispatch_max,
         _pEffectActor->inactivate();
     }
 }
+std::vector<LaserChip*> LaserChipDepository::dispatchN(int prm_number_of_chip, int prm_offset_frames) {
+    std::vector<LaserChip*> ret;
+    for (int i = 0; i < prm_number_of_chip; i++) {
+        LaserChip* pLaserChip = dispatch(prm_offset_frames);
+        if (pLaserChip) {
+            pLaserChip->dispatch_index_ = i;
+            ret.push_back(pLaserChip);
+        } else {
+            ret.push_back(nullptr);
+        }
+    }
+    return ret;
+}
 
 LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
     if (_num_continual_dispatch_count > _num_continual_dispatch_max) { //_num_continual_dispatch_max連続発射時、弾切れにする(_num_interval_frame_countをリセット)。
