@@ -31,6 +31,7 @@ void LaserChipDepository::config(int prm_num_continual_dispatch_max,
         _pEffectActor->inactivate();
     }
 }
+
 std::vector<LaserChip*> LaserChipDepository::dispatchN(int prm_number_of_chip, int prm_offset_frames) {
     std::vector<LaserChip*> ret;
     for (int i = 0; i < prm_number_of_chip; i++) {
@@ -93,8 +94,8 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
             }
             _pChip_prev_dispatch = pChip;
             _frame_of_behaving_prev_dispatch = pChip->getBehaveingFrame();
+            pChip->dispatch_index_ = 0;
             return pChip;
-
         } else {
             //dispatch()タイミングであったがdispatch()出来なかった場合
             _num_continual_dispatch_count = 0;

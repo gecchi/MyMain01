@@ -44,7 +44,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinCont
     _class_name = "MyBunshin";
     pBase_ = prm_pBase;
     pBunshinController_ = prm_pBunshinController;
-    _laser_kind = LASER_KOANYA; //LASER_THUNDER LASER_KOANYA
+    _laser_kind = LASER_KOANYA; //LASER_KOANYA; //LASER_THUNDER
 
     //自弾ストック
     pDepo_MyBunshinShot_ = NEW GgafCore::ActorDepository("Depo_MyBunshinShot");
@@ -250,13 +250,23 @@ void MyBunshin::processChangeGeoFinal() {
                 }
             } else if (_laser_kind == LASER_THUNDER) {
                 //TEST
-                MyBunshinStraightLaserChip001* pLaserChip = (MyBunshinStraightLaserChip001*)pLaserChipDepo_->dispatch();
-                if (pLaserChip) {
-                    pLaserChip->setOrg(this);
-                    if (pLaserChip->getInfrontChip() == nullptr) {
-                        getSeXmtr()->play3D(SE_FIRE_LASER);
+                std::vector<LaserChip*> lstLaserChip = pLaserChipDepo_->dispatchN(N_DISPATCH_AT_ONCE);
+                for (int i = 0; i < N_DISPATCH_AT_ONCE; i++) {
+                    MyBunshinStraightLaserChip001* pLaserChip = (MyBunshinStraightLaserChip001*)lstLaserChip[i];
+                    if (pLaserChip) {
+                        pLaserChip->setOrg(this);
+                        if (pLaserChip->getInfrontChip() == nullptr) {
+                            getSeXmtr()->play3D(SE_FIRE_LASER);
+                        }
                     }
                 }
+//                MyBunshinStraightLaserChip001* pLaserChip = (MyBunshinStraightLaserChip001*)pLaserChipDepo_->dispatch();
+//                if (pLaserChip) {
+//                    pLaserChip->setOrg(this);
+//                    if (pLaserChip->getInfrontChip() == nullptr) {
+//                        getSeXmtr()->play3D(SE_FIRE_LASER);
+//                    }
+//                }
             }
         } else {
             pLockonCtrler_->releaseAllLockon(); //ロックオン解除

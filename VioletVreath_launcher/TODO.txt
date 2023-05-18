@@ -1,1 +1,2 @@
 デモ画面で時期がわずかずつずっと上に移動する現象があったと思う。VB_PLAY.rep DEBUGシーン見て、次の壁シーン加速でおわり、VB_PLAY.repのカメラ移動のところで、GOTOTITLEしたと思う。
+LASER_THUNDER の末尾が中間ぶった切りになる場合がある（DISPATCH2で）

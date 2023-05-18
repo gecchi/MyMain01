@@ -23,12 +23,13 @@ using namespace VioletVreath;
 
 GgafDx::Model* MyBunshinStraightLaserChip001::pModel_  = nullptr;
 int MyBunshinStraightLaserChip001::tex_no_ = 0;
+const velo MyBunshinStraightLaserChip001::INITIAL_VELO = PX_C(512);
 
 MyBunshinStraightLaserChip001::MyBunshinStraightLaserChip001(const char* prm_name) :
         VvMyActor<StraightLaserChip>(prm_name, "MyLaserChip001", StatusReset(MyBunshinStraightLaserChip001)) {
     _class_name = "MyBunshinStraightLaserChip001";
     default_stamina_ = getStatus()->get(STAT_Stamina);
-    setMvVelo(PX_C(300));
+    setMvVelo(INITIAL_VELO*N_DISPATCH_AT_ONCE);
     pOrg_ = nullptr;
     pLockonCursor_ = nullptr;
     GgafDx::Model* pModel = getModel();
@@ -60,7 +61,6 @@ void MyBunshinStraightLaserChip001::onActive() {
     getStatus()->reset();
     default_stamina_ = getStatus()->get(STAT_Stamina);
     StraightLaserChip::onActive();
-    setMvVelo(PX_C(300));
 }
 
 void MyBunshinStraightLaserChip001::processBehavior() {
@@ -73,19 +73,35 @@ void MyBunshinStraightLaserChip001::processBehavior() {
         getSeXmtr()->behave();
     }
     StraightLaserChip::processBehavior();//座標を移動させてから呼び出すこと
-    //根元からレーザー表示のため強制的に座標補正
-    if (hasJustChangedToActive()) {
-        setPositionAt(pOrg_);
-    }
 }
 void MyBunshinStraightLaserChip001::processSettlementBehavior() {
+
+    //根元からレーザー表示のため強制的に座標補正
+    if (hasJustChangedToActive()) {
+        int n = N_DISPATCH_AT_ONCE-1 - dispatch_index_;
+        if (n == 0) {
+            setPositionAt(pOrg_);
+        } else {
+
+            double vx, vy, vz;
+            UTIL::convRzRyToVector(pOrg_->_rz, pOrg_->_ry,
+                                    vx, vy, vz);
+            setPosition(pOrg_->_x + (vx*MyBunshinStraightLaserChip001::INITIAL_VELO*n) ,
+                        pOrg_->_y + (vy*MyBunshinStraightLaserChip001::INITIAL_VELO*n) ,
+                        pOrg_->_z + (vz*MyBunshinStraightLaserChip001::INITIAL_VELO*n) );
+        }
+        setMvVelo(INITIAL_VELO*N_DISPATCH_AT_ONCE); //初速はここで
+    }
+
     MyBunshinStraightLaserChip001* pF = (MyBunshinStraightLaserChip001*) getInfrontChip();
     if (pF == nullptr) {
         //先端チップ
     } else {
         //ひねってみよう
-        setRxFaceAng(pF->_rx + D_ANG(45));
+        //setRxFaceAng(pF->_rx + D_ANG(45));
     }
+
+
     VvMyActor<StraightLaserChip>::processSettlementBehavior();
 }
 void MyBunshinStraightLaserChip001::processJudgement() {

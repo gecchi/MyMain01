@@ -98,7 +98,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 
     if (active_frame >= 60*10) {
         sayonara(); //保険のタイムアウト10秒
-    } else if (pTipChip_AimInfo == nullptr || active_frame < 2+N_DISPATCH_AT_ONCE) {
+    } else if (pTipChip_AimInfo == nullptr || active_frame < 4) {
         //なにもしない
     } else {
         GgafDx::GeometricActor* pAimTarget = pTipChip_AimInfo->pTarget;
@@ -328,11 +328,13 @@ throwCriticalException("pTipChip_AimInfo_ が引き継がれていません！"<<this<<
         int n = N_DISPATCH_AT_ONCE-1 - dispatch_index_;
         if (n == 0) {
             setPositionAt(pOrg_);
-        }
-        else {
+        } else {
             setPosition(pOrg_->_x + ((pNaviVehicle->_velo_vc_x*n) / N_DISPATCH_AT_ONCE) ,
                         pOrg_->_y + ((pNaviVehicle->_velo_vc_y*n) / N_DISPATCH_AT_ONCE) ,
                         pOrg_->_z + ((pNaviVehicle->_velo_vc_z*n) / N_DISPATCH_AT_ONCE));
+//            setPosition(pOrg_->_x + (pNaviVehicle->_velo_vc_x*n) ,
+//                        pOrg_->_y + (pNaviVehicle->_velo_vc_y*n) ,
+//                        pOrg_->_z + (pNaviVehicle->_velo_vc_z*n));
         }
     }
 
@@ -343,7 +345,7 @@ throwCriticalException("pTipChip_AimInfo_ が引き継がれていません！"<<this<<
     //したがって本クラスを継承した場合、継承クラスのprocessSettlementBehavior()では、先頭で呼び出した方が良い。
 
     MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
-    if (getActiveFrame() > 3) {//FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
+    if (getActiveFrame() > 2) {//FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
         if (pF && pF->isActive()) {
             MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
             if (pB && pB->isActive()) {
@@ -352,9 +354,9 @@ throwCriticalException("pTipChip_AimInfo_ が引き継がれていません！"<<this<<
                 //_x,_y,_z にはまだ変な値が入っている。
                 //中間座標に再設定
                 //座標の重みは、（ひとつ前, 自身, 一つ先）＝ (0.2, 0.3, 0.4)
-                _x = _x + (coord)((pB->_x-_x)*0.4 + (pF->_x-_x)*0.2);
-                _y = _y + (coord)((pB->_y-_y)*0.4 + (pF->_y-_y)*0.2);
-                _z = _z + (coord)((pB->_z-_z)*0.4 + (pF->_z-_z)*0.2);
+                _x = _x + (coord)((pB->_x-_x)*0.2 + (pF->_x-_x)*0.4);
+                _y = _y + (coord)((pB->_y-_y)*0.2 + (pF->_y-_y)*0.4);
+                _z = _z + (coord)((pB->_z-_z)*0.2 + (pF->_z-_z)*0.4);
             } else {
                 //レーザー末尾がはねる（髪の毛がはねるみたいになる）のを若干防ぐ
                 //一つ前の座標と、自身の座標を直線で結んで、仮想の自分の後ろの点を作成。
@@ -363,9 +365,9 @@ throwCriticalException("pTipChip_AimInfo_ が引き継がれていません！"<<this<<
                 coord v_b_x = _x - (pF->_x - _x);
                 coord v_b_y = _y - (pF->_y - _y);
                 coord v_b_z = _z - (pF->_z - _z);
-                _x = _x + (coord)((v_b_x-_x)*0.4 + (pF->_x-_x)*0.2);
-                _y = _y + (coord)((v_b_y-_y)*0.4 + (pF->_y-_y)*0.2);
-                _z = _z + (coord)((v_b_z-_z)*0.4 + (pF->_z-_z)*0.2);
+                _x = _x + (coord)((v_b_x-_x)*0.2 + (pF->_x-_x)*0.4);
+                _y = _y + (coord)((v_b_y-_y)*0.2 + (pF->_y-_y)*0.4);
+                _z = _z + (coord)((v_b_z-_z)*0.2 + (pF->_z-_z)*0.4);
             }
         }
 

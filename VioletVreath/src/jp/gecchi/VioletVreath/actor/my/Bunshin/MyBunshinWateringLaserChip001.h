@@ -8,8 +8,6 @@
 
 namespace VioletVreath {
 
-#define N_DISPATCH_AT_ONCE (2)
-
 /**
  * 分身レーザーのチップ .
  * WateringLaserChip に ロックオン機能を追加。
