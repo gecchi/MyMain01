@@ -24,11 +24,11 @@ public:
     velo _top_velo;
     /** [r]移動速度下限 */
     velo _bottom_velo;
-    /** [r]移動速度方向ベクトルX軸成分 */
+    /** [r]移動速度X軸成分(単位ベクトルではありません) */
     velo _velo_vc_x;
-    /** [r]移動速度方向ベクトルY軸成分 */
+    /** [r]移動速度Y軸成分(単位ベクトルではありません) */
     velo _velo_vc_y;
-    /** [r]移動速度方向ベクトルZ軸成分 */
+    /** [r]移動速度Z軸成分(単位ベクトルではありません) */
     velo _velo_vc_z;
 
     /** [r]移動加速度 */
@@ -37,11 +37,11 @@ public:
     acce _top_acce;
     /** [r]移動加速度下限*/
     acce _bottom_acce;
-    /** [r]移動加速度方向ベクトルX軸成分 */
+    /** [r]移動加速度X軸成分(単位ベクトルではありません) */
     acce _acce_vc_x;
-    /** [r]移動加速度方向ベクトルY軸成分 */
+    /** [r]移動加速度Y軸成分(単位ベクトルではありません) */
     acce _acce_vc_y;
-    /** [r]移動加速度方向ベクトルZ軸成分 */
+    /** [r]移動加速度Z軸成分(単位ベクトルではありません) */
     acce _acce_vc_z;
 
 public:
@@ -107,9 +107,9 @@ public:
      * 移動方向を座標、移動加速度を値で設定する .
      * 移動加速度下限～ 移動加速度上限 の範囲外を設定した場合、
      * 方向はそのままで、直近の範囲内に納められて設定される。
-     * @param prm_tx 移動方向X座標
-     * @param prm_ty 移動方向Y座標
-     * @param prm_tz 移動方向Z座標
+     * @param prm_tx 移動方向X座標(または、ターゲットの方向ベクトルX座標)
+     * @param prm_ty 移動方向Y座標(または、ターゲットの方向ベクトルY座標)
+     * @param prm_tz 移動方向Z座標(または、ターゲットの方向ベクトルZ座標)
      * @param prm_acce 移動加速度
      */
     void setAcceTwd(coord prm_tx, coord prm_ty, coord prm_tz, acce prm_acce);
@@ -119,9 +119,9 @@ public:
      * 移動加速度下限～ 移動加速度上限 の範囲外を設定した場合、
      * 方向はそのままで、直近の範囲内に納められて設定される。
      * したがって、自身から目標物への方向ベクトルを渡すと、うまい具合にホーミング軌道になります。
-     * @param prm_acce_vc_x 移動加速度方向ベクトルX軸成分
-     * @param prm_acce_vc_y 移動加速度方向ベクトルY軸成分
-     * @param prm_acce_vc_z 移動加速度方向ベクトルZ軸成分
+     * @param prm_acce_vc_x 移動加速度X軸成分(または、ターゲットの方向ベクトルX成分)
+     * @param prm_acce_vc_y 移動加速度Y軸成分(または、ターゲットの方向ベクトルY成分)
+     * @param prm_acce_vc_z 移動加速度Z軸成分(または、ターゲットの方向ベクトルZ成分)
      */
     void setAcceByVc(acce prm_acce_vc_x, acce prm_acce_vc_y, acce prm_acce_vc_z);
 

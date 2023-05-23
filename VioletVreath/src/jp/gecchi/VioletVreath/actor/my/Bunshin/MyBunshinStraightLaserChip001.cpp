@@ -23,13 +23,13 @@ using namespace VioletVreath;
 
 GgafDx::Model* MyBunshinStraightLaserChip001::pModel_  = nullptr;
 int MyBunshinStraightLaserChip001::tex_no_ = 0;
-const velo MyBunshinStraightLaserChip001::INITIAL_VELO = PX_C(512);
+const velo MyBunshinStraightLaserChip001::MAX_VELO = PX_C(512);
 
 MyBunshinStraightLaserChip001::MyBunshinStraightLaserChip001(const char* prm_name) :
         VvMyActor<StraightLaserChip>(prm_name, "MyLaserChip001", StatusReset(MyBunshinStraightLaserChip001)) {
     _class_name = "MyBunshinStraightLaserChip001";
     default_stamina_ = getStatus()->get(STAT_Stamina);
-    setMvVelo(INITIAL_VELO*N_DISPATCH_AT_ONCE);
+    setMvVelo(MAX_VELO*N_DISPATCH_AT_ONCE);
     pOrg_ = nullptr;
     pLockonCursor_ = nullptr;
     GgafDx::Model* pModel = getModel();
@@ -42,7 +42,7 @@ MyBunshinStraightLaserChip001::MyBunshinStraightLaserChip001(const char* prm_nam
 }
 
 void MyBunshinStraightLaserChip001::initialize() {
-    registerHitAreaCube_AutoGenMidColli(getMvVelo()/4);
+    registerHitAreaCube_AutoGenMidColli(MAX_VELO/4);
     setHitAble(true);
     setScaleR(6.0);
     setCullingDraw(false);
@@ -75,33 +75,34 @@ void MyBunshinStraightLaserChip001::processBehavior() {
     StraightLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 }
 void MyBunshinStraightLaserChip001::processSettlementBehavior() {
-
-    //根元からレーザー表示のため強制的に座標補正
     if (hasJustChangedToActive()) {
-        int n = N_DISPATCH_AT_ONCE-1 - dispatch_index_;
+        setMvVelo(MAX_VELO*_n_dispatch_at_once); //初速はここで
+        //根元からレーザー表示のため強制的に座標補正
+        int n = _n_dispatch_at_once-1 - _dispatch_index;
         if (n == 0) {
             setPositionAt(pOrg_);
         } else {
-
             double vx, vy, vz;
             UTIL::convRzRyToVector(pOrg_->_rz, pOrg_->_ry,
                                     vx, vy, vz);
-            setPosition(pOrg_->_x + (vx*MyBunshinStraightLaserChip001::INITIAL_VELO*n) ,
-                        pOrg_->_y + (vy*MyBunshinStraightLaserChip001::INITIAL_VELO*n) ,
-                        pOrg_->_z + (vz*MyBunshinStraightLaserChip001::INITIAL_VELO*n) );
+//            coord velo_mv = getMvVelo();
+//            setPosition(pOrg_->_x + (vx*(velo_mv/_n_dispatch_at_once)*n) ,
+//                        pOrg_->_y + (vy*(velo_mv/_n_dispatch_at_once)*n) ,
+//                        pOrg_->_z + (vz*(velo_mv/_n_dispatch_at_once)*n) );
+            velo v = (getMvVelo()*n) /_n_dispatch_at_once;
+            setPosition(pOrg_->_x + (vx*v) ,
+                        pOrg_->_y + (vy*v) ,
+                        pOrg_->_z + (vz*v) );
         }
-        setMvVelo(INITIAL_VELO*N_DISPATCH_AT_ONCE); //初速はここで
+        MyBunshinStraightLaserChip001* pF = (MyBunshinStraightLaserChip001*)getInfrontChip();
+        MyBunshinStraightLaserChip001* pB = (MyBunshinStraightLaserChip001*)getBehindChip();
+        if (pF == nullptr) {
+            //先端チップ
+        } else {
+            //ひねってみよう
+            //setRxFaceAng(pF->_rx + D_ANG(45));
+        }
     }
-
-    MyBunshinStraightLaserChip001* pF = (MyBunshinStraightLaserChip001*) getInfrontChip();
-    if (pF == nullptr) {
-        //先端チップ
-    } else {
-        //ひねってみよう
-        //setRxFaceAng(pF->_rx + D_ANG(45));
-    }
-
-
     VvMyActor<StraightLaserChip>::processSettlementBehavior();
 }
 void MyBunshinStraightLaserChip001::processJudgement() {

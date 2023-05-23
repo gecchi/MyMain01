@@ -21,12 +21,13 @@ using namespace VioletVreath;
 
 GgafDx::Model* MyStraightLaserChip001::pModel_  = nullptr;
 int MyStraightLaserChip001::tex_no_ = 0;
+const velo MyStraightLaserChip001::MAX_VELO = PX_C(512); //この値を大きくすると、最高速度が早くなる。
 
 MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
         VvMyActor<StraightLaserChip>(prm_name, "MyLaserChip001", StatusReset(MyStraightLaserChip001)) {
     _class_name = "MyStraightLaserChip001";
     default_stamina_ = getStatus()->get(STAT_Stamina);
-    setMvVelo(PX_C(300));
+    setMvVelo(MAX_VELO*N_DISPATCH_AT_ONCE);
     pOrg_ = nullptr;
     GgafDx::Model* pModel = getModel();
     if (!MyStraightLaserChip001::pModel_) {
@@ -42,8 +43,7 @@ void MyStraightLaserChip001::initialize() {
     getLocoVehicle()->setRzRyMvAng(0,0);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
-    pChecker->setColliAABox_WHD(0,PX_C(300),PX_C(80),PX_C(80));
-
+    pChecker->setColliAABox_WHD(0, MAX_VELO, MAX_VELO/4, MAX_VELO/4);
     setHitAble(true);
     setScaleR(5.0);
     setCullingDraw(false);
@@ -57,9 +57,8 @@ void MyStraightLaserChip001::onActive() {
     getStatus()->reset();
     default_stamina_ = getStatus()->get(STAT_Stamina);
     StraightLaserChip::onActive();
-
-    getLocoVehicle()->setMvVelo(100000);
-    getLocoVehicle()->setMvAcce(1000);
+    getLocoVehicle()->setMvVelo(MAX_VELO*_n_dispatch_at_once);
+//    getLocoVehicle()->setMvAcce(1000);
 }
 
 void MyStraightLaserChip001::processBehavior() {
@@ -74,7 +73,17 @@ void MyStraightLaserChip001::processBehavior() {
     StraightLaserChip::processBehavior();//座標を移動させてから呼び出すこと
     //根元からレーザー表示のため強制的に座標補正
     if (hasJustChangedToActive()) {
-        setPositionAt(pOrg_);
+
+        //根元からレーザー表示のため強制的に座標補正
+        int n = _n_dispatch_at_once-1 - _dispatch_index;
+        if (n == 0) {
+            setPositionAt(pOrg_);
+        } else {
+            coord velo_mv = getMvVelo();
+            setPosition(pOrg_->_x + ( (velo_mv/_n_dispatch_at_once)*n) ,
+                        pOrg_->_y ,
+                        pOrg_->_z );
+        }
     }
 }
 

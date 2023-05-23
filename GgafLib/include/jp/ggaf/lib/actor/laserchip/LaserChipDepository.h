@@ -98,7 +98,7 @@ public:
     /**
      * レーザーチップを、同時に複数個の借り入れを試みる .
      * 内部で dispatch() を複数回ループで発行。結果をリストで返す。
-     * dispatch() した順番は、LaserChipの dispatch_index_ メンバ変数に保持される。
+     * dispatch() した順番は、LaserChipの _dispatch_index メンバ変数に保持される。
      * @param prm_number_of_chip 借り入れしたいレーザーチップ個数
      * @param prm_offset_frames 活動状態にする遅延フレーム
      * @return レーザーチップリスト。要素数は prm_number_of_chip。dispatch()  できなかった要素には nullptr が入る

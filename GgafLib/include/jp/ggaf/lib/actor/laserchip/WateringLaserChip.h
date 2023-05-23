@@ -39,7 +39,7 @@ public:
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
      * その際 は、座標計算後、最後に本クラスの processBehavior() メソッドも呼び出してください。
      */
-    virtual void processBehavior() override;
+    virtual void processBehavior() override {}
 
     virtual void processJudgement() override {}
 

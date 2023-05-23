@@ -46,7 +46,8 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _power = 1.0f;
     _pUvFlipper = NEW GgafDx::UvFlipper();
     _pMassMeshModel->registerCallback_VertexInstanceDataInfo(LaserChip::createVertexInstanceData);
-    dispatch_index_ = 0;
+    _n_dispatch_at_once = 1;
+    _dispatch_index = 0;
     //モデル単位でセットすれば事足りるのだが、めんどうなので、アクター毎にセット
     static volatile bool is_init = LaserChip::initStatic(this); //静的メンバ初期化
 }
@@ -84,10 +85,6 @@ void LaserChip::onActive() {
 }
 
 void LaserChip::processSettlementBehavior() {
-//    if (getSceneMediator()->getPlatformScene()->_was_paused_flg) {
-//        GgafDx::MassMeshActor::processSettlementBehavior();
-//        return;
-//    }
     //ここだめ_was_paused_flg
 
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
@@ -141,6 +138,10 @@ void LaserChip::processSettlementBehavior() {
                    _chip_kind = 1; //発射元の末端テクスチャチップ
                 }
                 if (getActiveFrame() > 2 && pChip_infront->_pChip_infront == nullptr) {
+                    //途中でお尻が切れて、この条件が成立する場合。
+                    //pChip_behind が nullptr で２チップのみの構成という意味で、
+                    //つまり 4:中間先頭チップ  5:先端チップ の構成のみとない、表示するものが無い。
+                    //無駄に2チップ飛ばすことは意味がないので、sayonara()する。
                     _chip_kind = 0;
                     sayonara();
                     setHitAble(false);
@@ -372,10 +373,6 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     pChecker->setColliAACube(1, prm_edge_length);
     pChecker->setColliAACube(2, prm_edge_length);
     pChecker->setColliAACube(3, prm_edge_length);
-//    pChecker->enable(0);
-//    pChecker->disable(1);
-//    pChecker->disable(2);
-//    pChecker->disable(3);
     setHitAble(true);
 }
 

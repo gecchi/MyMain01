@@ -17,7 +17,7 @@ public:
     static int tex_no_;
     static GgafDx::Model* pModel_;
     /** [r/w]レーザー発射時の初期速度 */
-    static const velo INITIAL_VELO;
+    static const velo MAX_VELO;
 
 public:
     MyBunshinStraightLaserChip001(const char* prm_name);

@@ -291,10 +291,25 @@ void GeometricActor::processAfterDraw() {
 //    getEffect()->setAlphaMaster(((Scene*)getPlatformScene())->_scene_alpha);
 //    _TRACE_("this="<<getName()<<" PlathoneScene="<<((Scene*)getPlatformScene())->getName()<<" _scene_alpha="<<((Scene*)getPlatformScene())->_scene_alpha);
     //“–‚½‚è”»’è—Ìˆæ•\Ž¦
+    int draw_hit_area_kind = pCARETAKER->_draw_hit_area_kind;
     if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
-        pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-        drawHitArea();
-        pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, pCARETAKER->_d3dfillmode);
+        if (draw_hit_area_kind == 1) {
+            pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+            drawHitArea();
+            pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+        } else if (draw_hit_area_kind == 2) {
+            drawHitArea();
+        }
+    } else {
+        //pCARETAKER->_d3dfillmode == D3DFILL_SOLID
+        if (draw_hit_area_kind == 1) {
+            drawHitArea();
+        } else if (draw_hit_area_kind == 2) {
+            pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+            drawHitArea();
+            pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+        }
+
     }
 #endif
 }

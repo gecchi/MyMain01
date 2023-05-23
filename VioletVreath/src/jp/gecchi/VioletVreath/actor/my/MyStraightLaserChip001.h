@@ -15,7 +15,8 @@ public:
 
     static int tex_no_;
     static GgafDx::Model* pModel_;
-
+    /** [r/w]レーザー発射時の初期速度 */
+    static const velo MAX_VELO;
 public:
     MyStraightLaserChip001(const char* prm_name);
 

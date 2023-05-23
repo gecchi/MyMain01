@@ -16,9 +16,6 @@ void WateringLaserChip::onActive() {
     LaserChip::onActive();
 }
 
-void WateringLaserChip::processBehavior() {
-}
-
 WateringLaserChip::~WateringLaserChip() {
 }
 

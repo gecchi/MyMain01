@@ -40,7 +40,7 @@ MyBunshinController::MyBunshinController(const char* prm_name, MyBunshinBase* pr
     pBase_ = prm_pBase;
 
 ////////////
-    std::string bunshin_name = "Bunshin";
+    std::string bunshin_name = "MyBunshin" + XTOS(prm_pBase->bunshin_no_);
     pBunshin_ = NEW MyBunshin(bunshin_name.c_str(), this, prm_pBase);
     this->appendGroupChildAsFk(pBunshin_,
                           0, 0, 0,

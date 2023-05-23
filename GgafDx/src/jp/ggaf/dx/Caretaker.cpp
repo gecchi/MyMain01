@@ -128,6 +128,8 @@ Caretaker::Caretaker() : GgafCore::Caretaker() {
 
     _pCurveSrcManager = nullptr;
     _pCurveManufManager = nullptr;
+
+    _draw_hit_area_kind = 0;
 }
 
 void Caretaker::createWindow(WNDPROC prm_WndProc,

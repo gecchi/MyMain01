@@ -213,7 +213,7 @@ public:
 
     /** [r] 本アプリケーションのインスタンスハンドル */
     HINSTANCE _hInstance;
-    /** [r] デバッグモード時、ワイヤーフレーム表示 */
+    /** [r] ワイヤーフレーム表示 */
     D3DFILLMODE _d3dfillmode;
     /** [r] DirectX9のオブジェクト */
     IDirect3D9* _pID3D9;
@@ -246,6 +246,8 @@ public:
     /** [r] ２画面目アダプタ番号、 _aRectRenderBufferSource[] の序数 0 ～ */
 //    int _secondary_screen_adpter_no;
 
+    /** 0:無し、1:表示、2:ワイヤーフレーム表示 */
+    int _draw_hit_area_kind;
 public:
     CurveSourceManager* _pCurveSrcManager;
     CurveManufactureManager* _pCurveManufManager;

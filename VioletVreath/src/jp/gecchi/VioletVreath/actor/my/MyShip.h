@@ -29,6 +29,10 @@ namespace VioletVreath {
 #define MAX_BUNSHIN_NUM (10)
 /** １オプション当たりの最大可能ロックオン数 */
 #define MAX_LOCKON_NUM (8)
+
+
+/** レーザーの同時dispatch数 */
+#define N_DISPATCH_AT_ONCE (2)
 /**
  * 自機クラス
  * @version 1.00

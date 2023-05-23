@@ -37,7 +37,8 @@ std::vector<LaserChip*> LaserChipDepository::dispatchN(int prm_number_of_chip, i
     for (int i = 0; i < prm_number_of_chip; i++) {
         LaserChip* pLaserChip = dispatch(prm_offset_frames);
         if (pLaserChip) {
-            pLaserChip->dispatch_index_ = i;
+            pLaserChip->_n_dispatch_at_once = prm_number_of_chip;
+            pLaserChip->_dispatch_index = i;
             ret.push_back(pLaserChip);
         } else {
             ret.push_back(nullptr);
@@ -94,7 +95,8 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
             }
             _pChip_prev_dispatch = pChip;
             _frame_of_behaving_prev_dispatch = pChip->getBehaveingFrame();
-            pChip->dispatch_index_ = 0;
+            pChip->_n_dispatch_at_once = 1;
+            pChip->_dispatch_index = 0;
             return pChip;
         } else {
             //dispatch()タイミングであったがdispatch()出来なかった場合

@@ -44,7 +44,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinCont
     _class_name = "MyBunshin";
     pBase_ = prm_pBase;
     pBunshinController_ = prm_pBunshinController;
-    _laser_kind = LASER_KOANYA; //LASER_KOANYA; //LASER_THUNDER
+    _laser_kind = LASER_THUNDER; //LASER_KOANYA; //LASER_THUNDER
 
     //自弾ストック
     pDepo_MyBunshinShot_ = NEW GgafCore::ActorDepository("Depo_MyBunshinShot");
@@ -239,7 +239,7 @@ void MyBunshin::processChangeGeoFinal() {
             if (_laser_kind == LASER_KOANYA) {
                 //レーザー発射。
                 std::vector<LaserChip*> lstLaserChip = pLaserChipDepo_->dispatchN(N_DISPATCH_AT_ONCE);
-                for (int i = 0; i < N_DISPATCH_AT_ONCE; i++) {
+                for (int i = 0; i < lstLaserChip.size(); i++) {
                     MyBunshinWateringLaserChip001* pLaserChip = (MyBunshinWateringLaserChip001*)lstLaserChip[i];
                     if (pLaserChip) {
                         pLaserChip->setOrg(this);
@@ -251,7 +251,7 @@ void MyBunshin::processChangeGeoFinal() {
             } else if (_laser_kind == LASER_THUNDER) {
                 //TEST
                 std::vector<LaserChip*> lstLaserChip = pLaserChipDepo_->dispatchN(N_DISPATCH_AT_ONCE);
-                for (int i = 0; i < N_DISPATCH_AT_ONCE; i++) {
+                for (int i = 0; i < lstLaserChip.size(); i++) {
                     MyBunshinStraightLaserChip001* pLaserChip = (MyBunshinStraightLaserChip001*)lstLaserChip[i];
                     if (pLaserChip) {
                         pLaserChip->setOrg(this);

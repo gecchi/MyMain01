@@ -38,8 +38,6 @@ private:
     ucoord _hitarea_edge_length_3_2;
     coord _hitarea_edge_length_6;
     ucoord _hitarea_edge_length_6_2;
-    /** registerHitAreaCube_AutoGenMidColli() メソッドにより登録時の当たり判定立方体の１辺の長さの半分 */
-//    int _harf_hitarea_edge_length;
 
     /** 一つ前方のレーザーチップ */
     LaserChip* _pChip_infront;
@@ -77,9 +75,11 @@ public:
     float _power;
 
     GgafDx::UvFlipper* _pUvFlipper;
-
+    /** [r]同時フレーム内で複数 dispatch された場合のdispatch数(1 ～) */
+    int _n_dispatch_at_once;
     /** [r]同時フレーム内で複数 dispatch された場合の順番 (0 ～ ) */
-    int dispatch_index_;
+    int _dispatch_index;
+
 
 public:
     LaserChip(const char* prm_name, const char* prm_model);

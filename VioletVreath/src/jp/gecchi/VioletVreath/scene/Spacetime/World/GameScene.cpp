@@ -89,10 +89,24 @@ void GameScene::processBehavior() {
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
     if (VVB->isPushedDown(0, VV_VB_UI_DEBUG) || GgafDx::Input::isPushedDownKey(DIK_Q)) {
-        if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
-            pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
-        } else {
+        if (pCARETAKER->_d3dfillmode == D3DFILL_SOLID && pCARETAKER->_draw_hit_area_kind == 0) {
             pCARETAKER->_d3dfillmode = D3DFILL_WIREFRAME;
+            pCARETAKER->_draw_hit_area_kind = 1;
+        } else if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME && pCARETAKER->_draw_hit_area_kind == 1) {
+            pCARETAKER->_d3dfillmode = D3DFILL_WIREFRAME;
+            pCARETAKER->_draw_hit_area_kind = 2;
+        } else if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME && pCARETAKER->_draw_hit_area_kind == 2) {
+            pCARETAKER->_d3dfillmode = D3DFILL_WIREFRAME;
+            pCARETAKER->_draw_hit_area_kind = 0;
+        } else if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME && pCARETAKER->_draw_hit_area_kind == 0) {
+            pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
+            pCARETAKER->_draw_hit_area_kind = 1;
+        } else if (pCARETAKER->_d3dfillmode == D3DFILL_SOLID && pCARETAKER->_draw_hit_area_kind == 1) {
+            pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
+            pCARETAKER->_draw_hit_area_kind = 2;
+        } else if (pCARETAKER->_d3dfillmode == D3DFILL_SOLID && pCARETAKER->_draw_hit_area_kind == 2) {
+            pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
+            pCARETAKER->_draw_hit_area_kind = 0;
         }
     }
 #endif

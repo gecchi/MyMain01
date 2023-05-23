@@ -16,8 +16,6 @@ namespace VioletVreath {
 #define LASER_KOANYA 0
 #define LASER_THUNDER 1
 
-
-#define N_DISPATCH_AT_ONCE (2)
 /**
  * 分身 .
  * 階層構造、全て FK で追加

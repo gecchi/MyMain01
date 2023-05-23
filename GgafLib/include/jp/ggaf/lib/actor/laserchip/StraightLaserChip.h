@@ -56,7 +56,9 @@ public:
 
     virtual void initialize() override {}
 
-    virtual void processBehavior() override;
+    virtual void processBehavior() override {}
+
+    virtual void processSettlementBehavior() override;
 
     virtual void processJudgement() override {}
 
