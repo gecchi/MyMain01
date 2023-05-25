@@ -24,10 +24,10 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 const velo MyBunshinWateringLaserChip001::MAX_VELO = PX_C(512); //この値を大きくすると、最高速度が早くなる。
-const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 18; //MAX_VELO に対する加速度、この値を大きくすると、カーブが緩くなる
+const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 20; //MAX_VELO に対する加速度、この値を大きくすると、カーブが緩くなる
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO*0.7; //レーザー発射時の初期速度
 const acce MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO/R_MAX_ACCE;
-const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/20; // ÷8 は、最低移動する各軸のINITIAL_VELOの割合
+const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/3; // ÷3 は、最低移動する各軸のINITIAL_VELOの割合
 GgafDx::Model* MyBunshinWateringLaserChip001::pModel_ = nullptr;
 int MyBunshinWateringLaserChip001::tex_no_ = 0;
 
@@ -92,7 +92,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     double power = active_frame <= 300 ? UTIL::SHOT_POWER[active_frame] : UTIL::SHOT_POWER[300];
     getStatus()->set(STAT_AttackPowerRate, power);
     _power = power;
-    GgafDx::NaviVehicle* const pNaviVehicle = getNaviVehicle();
+    GgafDx::NaviVehicle* pNaviVehicle = getNaviVehicle();
     MyBunshin::AimInfo* pTipChip_AimInfo = pTipChip_AimInfo_;
 
     if (active_frame >= 60*10) {
@@ -102,9 +102,23 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     } else {
         GgafDx::GeometricActor* pAimTarget = pTipChip_AimInfo->pTarget;
         if (pAimTarget) {
+
+            //前方チップのNaviVehicleの影響を若干うけるようにしてなめらかにする試み
+            MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*) getBehindChip();
+            MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*) getInfrontChip();
+            if (pB) {
+                GgafDx::NaviVehicle* pB_pNaviVehicle = pB->getNaviVehicle();
+                pNaviVehicle->setVeloByVc(
+                        pNaviVehicle->_velo_vc_x*0.9 + pB_pNaviVehicle->_velo_vc_x*0.1,
+                        pNaviVehicle->_velo_vc_y*0.9 + pB_pNaviVehicle->_velo_vc_y*0.1,
+                        pNaviVehicle->_velo_vc_z*0.9 + pB_pNaviVehicle->_velo_vc_z*0.1
+                );
+            }
+
+
             frame aim_time_out_t1 = pTipChip_AimInfo->aim_time_out_t1;
             //先端チップ時（消える可能性のあるLeaderChipにあらず！）、T1が相変わらずロックオンターゲットならば更新
-            if (getInfrontChip() == nullptr && pAimTarget == pLockonCursor_->pTarget_ && pTipChip_AimInfo->spent_frames_to_t1 < aim_time_out_t1) {
+            if (pF == nullptr && pAimTarget == pLockonCursor_->pTarget_ && pTipChip_AimInfo->spent_frames_to_t1 < aim_time_out_t1) {
                 pTipChip_AimInfo->updateT1(pAimTarget->_x, pAimTarget->_y, pAimTarget->_z);  //t1更新
             }
             MyBunshinWateringLaserChip001* pAimLeaderChip = pTipChip_AimInfo->pLeaderChip;

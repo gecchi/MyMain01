@@ -44,7 +44,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinCont
     _class_name = "MyBunshin";
     pBase_ = prm_pBase;
     pBunshinController_ = prm_pBunshinController;
-    _laser_kind = LASER_THUNDER; //LASER_KOANYA; //LASER_THUNDER
+    _laser_kind = LASER_KOANYA; //LASER_KOANYA; //LASER_THUNDER
 
     //自弾ストック
     pDepo_MyBunshinShot_ = NEW GgafCore::ActorDepository("Depo_MyBunshinShot");
