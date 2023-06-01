@@ -164,7 +164,7 @@ void MyBunshinWateringLaserChip001::processBehavior_Aiming() {
 
             if (pTipChip_AimInfo->aim_time_out_t1 <= active_frame) {
                 //T1 タイムアウトで終了
-                _TRACE_("aimChip("<<pTipChip_AimInfo->t1_ahead_x<<","<<pTipChip_AimInfo->t1_ahead_y<<","<<pTipChip_AimInfo->t1_ahead_z<<") this=(" << _x << "," << _y << "," << _z << ") name="<<getName()<<"@"<<getActiveFrame()<<" T1 タイムアウト で done!!");
+                //_TRACE_("aimChip("<<pTipChip_AimInfo->t1_ahead_x<<","<<pTipChip_AimInfo->t1_ahead_y<<","<<pTipChip_AimInfo->t1_ahead_z<<") this=(" << _x << "," << _y << "," << _z << ") name="<<getName()<<"@"<<getActiveFrame()<<" T1 タイムアウト で done!!");
                 pPhase->changeImmediately(PHASE_T2);
                 goto L_PHASE_T2;
             }
@@ -399,7 +399,7 @@ bool MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ, bool chk_don
         if (lvT < _hitarea_edge_length) {
 //		if (lvT< MyBunshinWateringLaserChip001::MAX_VELO) {
             //諦める
-            _TRACE_("aimChip("<<tX<<","<<tY<<","<<tZ<<") this=(" << _x << "," << _y << "," << _z << ") name="<<getName()<<"@"<<getActiveFrame()<<" BOXHIT で done!!");
+            //_TRACE_("aimChip("<<tX<<","<<tY<<","<<tZ<<") this=(" << _x << "," << _y << "," << _z << ") name="<<getName()<<"@"<<getActiveFrame()<<" BOXHIT で done!!");
             return true;
         }
         //ターゲットの付近(pNaviVehicle->_top_velo*2)で、内積が負の場合、ターゲットを惜しくも通り越してしまったと考えられないだろうか。
@@ -416,7 +416,7 @@ bool MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ, bool chk_don
             coord dot = velo_vc_x*vTx + velo_vc_y*vTy + velo_vc_z*vTz;
             if (dot < 0) {
                 //諦める
-                _TRACE_("aimChip("<<tX<<","<<tY<<","<<tZ<<") this=(" << _x << "," << _y << "," << _z << ") name="<<getName()<<"@"<<getActiveFrame()<<" dot で done!!");
+                //_TRACE_("aimChip("<<tX<<","<<tY<<","<<tZ<<") this=(" << _x << "," << _y << "," << _z << ") name="<<getName()<<"@"<<getActiveFrame()<<" dot で done!!");
                 return true;
             }
         }
@@ -453,7 +453,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
              //目標に見事命中した場合もT1終了
             frame active_frame = getActiveFrame();
             if (pTipChip_AimInfo->aim_time_out_t1 > active_frame) {
-                _TRACE_("aimChip(" << pTipChip_AimInfo->t1_ahead_x << "," << pTipChip_AimInfo->t1_ahead_y << "," << pTipChip_AimInfo->t1_ahead_z << ") this=(" << _x << "," << _y << "," << _z << ") name=" << getName() << "@" << getActiveFrame() << " onHit で done!!");
+                //_TRACE_("aimChip(" << pTipChip_AimInfo->t1_ahead_x << "," << pTipChip_AimInfo->t1_ahead_y << "," << pTipChip_AimInfo->t1_ahead_z << ") this=(" << _x << "," << _y << "," << _z << ") name=" << getName() << "@" << getActiveFrame() << " onHit で done!!");
                 pTipChip_AimInfo->aim_time_out_t1 = active_frame;
             }
             getPhase()->change(PHASE_T2);
