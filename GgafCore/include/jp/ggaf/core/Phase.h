@@ -119,6 +119,8 @@ public:
      */
     virtual void change(int prm_phase_no);
 
+    virtual void changeImmediately(int prm_phase_no);
+
     /**
      * フェーズ番号を確率別で変更 .
      * 【記入例】<br>

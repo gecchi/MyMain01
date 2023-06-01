@@ -24,7 +24,7 @@ class LaserChip : public GgafDx::MassMeshActor {
     friend class NomalLaserChip;
     friend class LaserChipDepository;
 
-private:
+public:
 
     /** onAcive() でリセットされる振る舞い時フレーム数 */
     frame _frame_of_behaving_from_onActive;

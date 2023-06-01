@@ -60,6 +60,12 @@ void Phase::change(int prm_phase_no) {
     _phase_no_next = prm_phase_no;
 }
 
+void Phase::changeImmediately(int prm_phase_no) {
+    change(prm_phase_no);
+    update();
+}
+
+
 void Phase::changeProbab(uint32_t prm_p1, int prm_phase_no1, ...) {
     uint32_t r = (uint32_t)(RND(1,100));
     if (prm_p1 >= r) {

@@ -25,7 +25,17 @@ class MyBunshinWateringLaserChip001 : public VvMyActor<GgafLib::WateringLaserChi
      * @param vTy 目標Y座標
      * @param vTz 目標Z座標
      */
-    void aimChip(int vTx, int vTy, int vTz);
+
+    /**
+     * 的（ロックオン座標）へレーザーチップを移動させる為の座標を計算
+     * @param vTx 目標X座標
+     * @param vTy 目標Y座標
+     * @param vTz 目標Z座標
+     * @param chk_done true:まだAimさせる必要があるのかチェックする ／ false:チェックしない
+     * @return chk_done が true の場合のみ戻り値に意味がある
+     *         true：目標に到達したのでもういいよ。あるいは、目標を通り過ぎちゃったのでもういいよ。／false:まだまだAim頑張る
+     */
+    bool aimChip(int vTx, int vTy, int vTz, bool chk_done = false);
 
 public:
 
@@ -70,6 +80,8 @@ public:
     void onInactive() override;
 
     void processBehavior() override;
+
+    void processBehavior_Aiming();
 
     void processSettlementBehavior() override;
 
