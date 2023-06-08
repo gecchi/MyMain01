@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
 ////////////////////////////////////////////////////////////////////////////////
 // ggaf ライブラリ、GgafDx::MeshSetModel用シェーダー
 // 【概要】
@@ -24,12 +24,6 @@ float4 g_colLightAmbient;
 // Diffuseライト色（入射色）
 float4 g_colLightDiffuse;
 
-float g_zf;
-float g_alpha_master;
-//View変換行列
-float4x4 g_matView;
-//射影変換行列
-float4x4 g_matProj;
 //ワールド変換行列
 float4x4 g_matWorld001;
 float4x4 g_matWorld002;

@@ -1,4 +1,6 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
+#include "GgafDx_IPlaneEffect.fxh"
+
 ////////////////////////////////////////////////////////////////////////////////
 // ggaf ライブラリ、GgafDx::SpriteSetModel用シェーダー
 //
@@ -6,12 +8,8 @@
 // date:2009/03/06
 ////////////////////////////////////////////////////////////////////////////////
 
-float4x4 g_matView;   //View変換行列
-float4x4 g_matProj;   //射影変換行列
 float g_tex_blink_power;
 float g_tex_blink_threshold;
-float g_alpha_master;
-float g_zf;
 
 float4x4 g_matWorld001;
 float4x4 g_matWorld002;

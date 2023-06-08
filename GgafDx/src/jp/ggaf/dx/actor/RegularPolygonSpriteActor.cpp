@@ -33,8 +33,6 @@ _pUvFlipper(NEW UvFlipper()) {
     _pUvFlipper->locatePatternNo(_pRegularPolygonSpriteModel);
 
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //ƒfƒtƒHƒ‹ƒg‚Ì‰ñ“]~ˆÚ“®‚Ì•ÏŠ·s—ñ
-    _far_rate = -1.0f;
-
     _draw_fan_num = _pRegularPolygonSpriteModel->_angle_num;
     _cull_mode = _pRegularPolygonSpriteModel->_drawing_order == 1 ?  D3DCULL_CCW : D3DCULL_CW;
     _circumference_begin_position = 0;
@@ -66,8 +64,6 @@ void RegularPolygonSpriteActor::processDraw() {
     checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetValue(_pRegularPolygonSpriteEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
     checkDxException(hr, D3D_OK, "SetValue(_h_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_pRegularPolygonSpriteEffect->_h_far_rate, _far_rate );
-    checkDxException(hr, D3D_OK, "SetFloat(_h_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pRegularPolygonSpriteEffect->_h_sin_rz, sin_rz);
     checkDxException(hr, D3D_OK, "SetFloat(_h_sin_rz) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pRegularPolygonSpriteEffect->_h_cos_rz, cos_rz);

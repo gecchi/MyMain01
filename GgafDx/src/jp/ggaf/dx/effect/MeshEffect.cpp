@@ -7,15 +7,12 @@
 
 using namespace GgafDx;
 
-MeshEffect::MeshEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
+MeshEffect::MeshEffect(const char* prm_effect_name) : World3DimEffect(prm_effect_name) {
     _obj_class |= Obj_GgafDx_MeshEffect;
     Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     D3DLIGHT9* pLight = &(pCARETAKER->_d3dlight9_default);
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
-    //射影変換行列
-    hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
-    checkDxException(hr, D3D_OK, "SetMatrix(g_matProj) に失敗しました。");
     //ライト方向
     hr = _pID3DXEffect->SetValue("g_vecLightFrom_World", &(pLight->Direction), sizeof(D3DVECTOR) );
     checkDxException(hr, D3D_OK, "SetValue(g_vecLightFrom_World) に失敗しました。");
@@ -26,10 +23,7 @@ MeshEffect::MeshEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
     hr = _pID3DXEffect->SetValue("g_colLightAmbient", &(pLight->Ambient), sizeof(D3DCOLORVALUE));
     checkDxException(hr, D3D_OK, "SetValue(g_colLightAmbient) に失敗しました。");
 
-    hr = _pID3DXEffect->SetFloat("g_zf", pCam->getZFar());
-    checkDxException(hr, D3D_OK, "SetFloat(g_zf) に失敗しました。");
     //シェーダーハンドル
-    _h_matView = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
     _h_matWorld = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld" );
     _h_matInvWorld = _pID3DXEffect->GetParameterByName( nullptr, "g_matInvWorld" );
     _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
@@ -46,10 +40,9 @@ MeshEffect::MeshEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
 }
 
 void MeshEffect::setParamPerFrame() {
+    World3DimEffect::setParamPerFrame();
     Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
-    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
-    checkDxException(hr, D3D_OK, "SetMatrix(_h_matView) に失敗しました。_effect_name="<<_effect_name);
-    hr = _pID3DXEffect->SetValue(_h_posCam, pCam->getVecCamFromPoint(), sizeof(D3DXVECTOR3) );
+    HRESULT hr = _pID3DXEffect->SetValue(_h_posCam, pCam->getVecCamFromPoint(), sizeof(D3DXVECTOR3) );
     checkDxException(hr, D3D_OK, "SetValue(_h_posCam) に失敗しました。_effect_name="<<_effect_name);
 }
 

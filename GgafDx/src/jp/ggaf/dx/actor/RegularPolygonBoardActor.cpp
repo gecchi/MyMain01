@@ -82,7 +82,6 @@ void RegularPolygonBoardActor::processDraw() {
     angle a = UTIL::simplifyAng(_circumference_begin_position);
     float sin_rz = ANG_SIN(a);
     float cos_rz = ANG_COS(a);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pRegularPolygonBoardEffect->_h_sin_rz, sin_rz);
     checkDxException(hr, D3D_OK, "SetFloat(_h_sin_rz) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pRegularPolygonBoardEffect->_h_cos_rz, cos_rz);

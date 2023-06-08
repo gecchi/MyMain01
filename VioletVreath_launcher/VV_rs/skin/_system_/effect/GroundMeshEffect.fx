@@ -1,7 +1,5 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
 float4x4 g_matWorld;
-float4x4 g_matView;
-float4x4 g_matProj;
 
 float3 g_vecLightFrom_World;
 float4 g_colLightAmbient;
@@ -11,8 +9,6 @@ float4 g_colMaterialDiffuse;
 
 float g_tex_blink_power;
 float g_tex_blink_threshold;
-float g_alpha_master;
-float g_zf;
 
 sampler MyTextureSampler : register(s0);
 

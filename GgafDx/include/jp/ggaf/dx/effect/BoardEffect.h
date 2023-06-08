@@ -1,7 +1,8 @@
 #ifndef GGAF_DX_BOARDEFFECT_H_
 #define GGAF_DX_BOARDEFFECT_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/dx/effect/Effect.h"
+#include "Fix2DimEffect.h"
+#include "interface/IPlaneEffect.h"
 
 namespace GgafDx {
 
@@ -11,7 +12,7 @@ namespace GgafDx {
  * @since 2009/03/10
  * @author Masatoshi Tsuge
  */
-class BoardEffect : public Effect {
+class BoardEffect : public Fix2DimEffect, public IPlaneEffect {
     friend class EffectManager;
 
 public:

@@ -88,10 +88,11 @@
     <ClCompile Include="src\jp\ggaf\dx\effect\ex\CubeMapMeshSetEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\ex\CubeMapMorphMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\ex\WorldBoundEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\effect\Fix2DimEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\FramedBoardEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\FramedSpriteEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\effect\interface\IPlaneEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\MassBoardEffect.cpp" />
-    <ClCompile Include="src\jp\ggaf\dx\effect\MassEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\MassMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\MassMorphMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\MassPointSpriteEffect.cpp" />
@@ -106,6 +107,7 @@
     <ClCompile Include="src\jp\ggaf\dx\effect\SkinAniMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\SpriteEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\SpriteSetEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\effect\World3DimEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\exception\CriticalException.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\manager\BgmConnection.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\manager\BgmManager.cpp" />
@@ -264,10 +266,11 @@
     <ClInclude Include="include\jp\ggaf\dx\effect\ex\CubeMapMeshSetEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\ex\CubeMapMorphMeshEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\ex\WorldBoundEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dx\effect\fix2dimeffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\FramedBoardEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\FramedSpriteEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dx\effect\interface\iplaneeffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\MassBoardEffect.h" />
-    <ClInclude Include="include\jp\ggaf\dx\effect\MassEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\MassMeshEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\MassMorphMeshEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\MassPointSpriteEffect.h" />
@@ -282,6 +285,7 @@
     <ClInclude Include="include\jp\ggaf\dx\effect\SkinAniMeshEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\SpriteEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\SpriteSetEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dx\effect\world3dimeffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\exception\CriticalException.h" />
     <ClInclude Include="include\jp\ggaf\dx\manager\BgmConnection.h" />
     <ClInclude Include="include\jp\ggaf\dx\manager\BgmManager.h" />
@@ -359,7 +363,7 @@
     <ClInclude Include="include\jp\ggaf\dx\util\curve\FixedFrameCurveManufacture.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\curve\fixedvelocitycurvelocovehicleleader.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\curve\FixedVelocityCurveManufacture.h" />
-    <ClInclude Include="include\jp\ggaf\dx\util\curve\steppedcoordcurvelocovehicleleader.h" />
+    <ClInclude Include="include\jp\ggaf\dx\util\curve\SteppedCoordCurveLocoVehicleLeader.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\curve\SteppedCoordCurveManufacture.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\curve\VehicleLeader.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\GeoElem.h" />

@@ -1,7 +1,7 @@
 #ifndef GGAF_DX_MESHSETEFFECT_H_
 #define GGAF_DX_MESHSETEFFECT_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/dx/effect/Effect.h"
+#include "jp/ggaf/dx/effect/World3DimEffect.h"
 
 namespace GgafDx {
 
@@ -11,14 +11,12 @@ namespace GgafDx {
  * @since 2009/06/15
  * @author Masatoshi Tsuge
  */
-class MeshSetEffect : public Effect {
+class MeshSetEffect : public World3DimEffect {
     friend class EffectManager;
 
 public:
     D3DXHANDLE _h_tex_blink_power;
     D3DXHANDLE _h_tex_blink_threshold;
-    D3DXHANDLE _h_matView;
-    //D3DXHANDLE _h_matWorld;
     D3DXHANDLE _ah_matWorld[32];
     D3DXHANDLE _ah_materialDiffuse[32];
     D3DXHANDLE _ah_offset_u[32];

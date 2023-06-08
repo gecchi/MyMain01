@@ -864,6 +864,27 @@ public:
                                  float& out_nvx, float& out_nvy, float& out_nvz, float& out_d);
 
 
+    /**
+     * 3次元空間ベクトル V,W の成す角を求める。
+     * @param V
+     * @param W
+     * @return ベクトル V,W の成す角(ラジアン)
+     */
+    static float get3DRadAngle(D3DXVECTOR3& V, D3DXVECTOR3& W) {
+        //ベクトル V W の成す角を求める
+        //    V=(vx,vy,vz)=(bx-ax,by-ay,bz-az)
+        //    W=(wx,wy,wz)=(cx-ax,cy-ay,cz-az)
+        //    とするとV、Wベクトルがなす角は
+        //    cosα=(V、Wベクトルの内積）÷（Vの大きさ）÷（Wの大きさ）
+        //        =(vx*wx+vy*wy+vz*wz)   ÷ √(vx^2+vy^2+vz^2) ÷ √(wx^2+wy^2+wz^2)
+        FLOAT dot = D3DXVec3Dot(&V, &W);
+        FLOAT lV = D3DXVec3Length(&V);
+        FLOAT lW = D3DXVec3Length(&W);
+        FLOAT cosTh = dot / lV / lW;
+        return acos(cosTh);
+    }
+
+
     static void putMat(D3DXMATRIX* pMat) {
         _TRACE_( pMat->_11<<", "<< pMat->_12<<", "<< pMat->_13<<", "<< pMat->_14);
         _TRACE_( pMat->_21<<", "<< pMat->_22<<", "<< pMat->_23<<", "<< pMat->_24);

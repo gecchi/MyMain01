@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
 ////////////////////////////////////////////////////////////////////////////////
 // ggaf ライブラリ、MorphMeshModel用シェーダー
 // author : Masatoshi Tsuge
@@ -14,8 +14,6 @@ float g_specular_power;
 float3 g_posCam_World;
 
 float4x4 g_matWorld;  //World変換行列
-float4x4 g_matView;   //View変換行列
-float4x4 g_matProj;   //射影変換行列
 int g_morph_target_num;  //メッシュパターン数(モーフターゲット数）、現在未使用
 float g_weight1; //モーフターゲット１の重み
 float g_weight2; //モーフターゲット２の重み
@@ -32,8 +30,6 @@ float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 float4 g_colMaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
 float g_tex_blink_power;
 float g_tex_blink_threshold;
-float g_alpha_master;
-float g_zf;
 
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 //sampler MyTextureSampler : register(s0);

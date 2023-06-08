@@ -3,6 +3,8 @@
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 
+#include "jp/ggaf/dx/Config.h"
+
 namespace GgafDx {
 
 /**
@@ -23,8 +25,6 @@ public:
     RegularPolygonSpriteEffect* const _pRegularPolygonSpriteEffect;
     /** [r]UVフリッパー(パラパラアニメ) */
     UvFlipper* const _pUvFlipper;
-
-    float _far_rate;
 
     /** 何枚扇を描画するか */
     int _draw_fan_num;
@@ -48,18 +48,6 @@ public:
                               CollisionChecker* prm_pChecker );
 
     virtual void processDraw() override;
-
-    /**
-     * 遠くの座標でも強制表示 .
-     * @param prm_b
-     */
-    void drawAnyFar(bool prm_b) {
-        if (prm_b) {
-            _far_rate = 0.999f;
-        } else {
-            _far_rate = -1.0f;
-        }
-    }
 
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;

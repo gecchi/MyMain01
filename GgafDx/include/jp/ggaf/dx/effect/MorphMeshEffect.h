@@ -1,7 +1,7 @@
 #ifndef GGAF_DX_MORPHMESHEFFECT_H_
 #define GGAF_DX_MORPHMESHEFFECT_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/dx/effect/Effect.h"
+#include "jp/ggaf/dx/effect/World3DimEffect.h"
 
 namespace GgafDx {
 
@@ -11,7 +11,7 @@ namespace GgafDx {
  * @since 2009/05/08
  * @author Masatoshi Tsuge
  */
-class MorphMeshEffect : public Effect {
+class MorphMeshEffect : public World3DimEffect {
     friend class EffectManager;
 
 public:
@@ -19,7 +19,6 @@ public:
     D3DXHANDLE _h_tex_blink_threshold;
     D3DXHANDLE _h_morph_target_num;
     D3DXHANDLE _ah_weight[MAX_MORPH_TARGET+1];
-    D3DXHANDLE _h_matView;
     D3DXHANDLE _h_matWorld;
     D3DXHANDLE _h_colMaterialDiffuse;
     D3DXHANDLE _h_specular;

@@ -7,8 +7,10 @@
 
 using namespace GgafDx;
 
-FramedSpriteEffect::FramedSpriteEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
+FramedSpriteEffect::FramedSpriteEffect(const char* prm_effect_name) : World3DimEffect(prm_effect_name), IPlaneEffect(this) {
     _obj_class |= Obj_GgafDx_FramedSpriteEffect;
+    _obj_class |= Obj_GgafDx_IPlaneEffect;
+
     Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
@@ -16,17 +18,11 @@ FramedSpriteEffect::FramedSpriteEffect(const char* prm_effect_name) : Effect(prm
     hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
     checkDxException(hr, D3D_OK, "SetMatrix(g_matProj) に失敗しました。");
 
-    hr = _pID3DXEffect->SetFloat("g_zf", pCam->getZFar());
-    checkDxException(hr, D3D_OK, "SetFloat(g_zf) に失敗しました。");
-
     //シェーダーハンドル
-    _h_matView  = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
     _h_matWorldRotMv = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorldRotMv" );
     _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
-    _h_far_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_far_rate" );
-
     _h_alpha = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha" );
 
 //    _h_offset_u = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u" );
@@ -73,12 +69,6 @@ FramedSpriteEffect::FramedSpriteEffect(const char* prm_effect_name) : Effect(prm
     _h_frame_sy = _pID3DXEffect->GetParameterByName( nullptr, "g_frame_sy" );
     _h_center_sy = _pID3DXEffect->GetParameterByName( nullptr, "g_center_sy" );
 
-}
-
-void FramedSpriteEffect::setParamPerFrame() {
-    Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
-    HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
-    checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
 }
 
 FramedSpriteEffect::~FramedSpriteEffect() {

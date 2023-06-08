@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
 /**
  * @author Masatoshi Tsuge
  * @since 2010/12/21
@@ -16,10 +16,6 @@ float3 pos_camera;
 
 /** モデルのWorld変換行列 */
 float4x4 g_matWorld;
-/** モデルのView変換行列 */
-float4x4 g_matView;
-/** モデルの射影変換行列 */
-float4x4 g_matProj;
 /** モデルのWorld変換行列の逆行列 */
 float4x4 g_matInvWorld;
 /** ライトの方向 */
@@ -34,10 +30,6 @@ float4 g_colMaterialDiffuse;
 float g_tex_blink_power;
 /** モデルのテクスチャ点滅機能(GgafDx::TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
 float g_tex_blink_threshold;
-/** アルファカーテン(フェードイン・アウト)機能(GgafDx::AlphaCurtain参照)のマスターアルファ値(0.0～1.0) */
-float g_alpha_master;
-/** 現在の射影変換行列要素のzf。カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
-float g_zf;
 /** テクスチャのサンプラー(s0 レジスタにセットされたテクスチャを使う) */
 sampler MyTextureSampler : register(s0);
 sampler CubeMapTextureSampler : register(s1);

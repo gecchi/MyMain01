@@ -3,7 +3,6 @@
 #include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/util/Util.h"
-#include "jp/ggaf/dx/effect/MassEffect.h"
 #include "jp/ggaf/dx/model/MassModel.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
@@ -25,8 +24,7 @@ MassActor::MassActor(const char* prm_name,
                                    prm_effect_type,
                                    prm_technique,
                                    prm_pChecker),
-_pMassModel((MassModel*)_pModel),
-_pMassEffect((MassEffect*)_pEffect) {
+_pMassModel((MassModel*)_pModel) {
 
     _obj_class |= Obj_GgafDx_MassActor;
     _class_name = "MassActor";

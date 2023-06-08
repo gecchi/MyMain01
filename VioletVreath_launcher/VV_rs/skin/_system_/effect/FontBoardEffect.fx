@@ -1,18 +1,14 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_Fix2DimEffect.fxh"
+#include "GgafDx_IPlaneEffect.fxh"
+
 ////////////////////////////////////////////////////////////////////////////////
 // ggaf ライブラリ、FontBoardActor用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2016/03/14
 ////////////////////////////////////////////////////////////////////////////////
-float g_game_buffer_width; //画面幅(px)
-float g_game_buffer_height; //画面高さ(px)
-float g_inv_game_buffer_width; //画面幅(px)の逆数
-float g_inv_game_buffer_height; //画面高さ(px)の逆数
 float g_tex_blink_power;
 float g_tex_blink_threshold;
-float g_alpha_master;
-
 
 //s0レジスタのサンプラを使う(＝固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);

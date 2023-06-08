@@ -1,7 +1,8 @@
 #ifndef GGAF_DX_FRAMEDBOARDEFFECT_H_
 #define GGAF_DX_FRAMEDBOARDEFFECT_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/dx/effect/Effect.h"
+#include "Fix2DimEffect.h"
+#include "interface/IPlaneEffect.h"
 
 namespace GgafDx {
 
@@ -11,7 +12,8 @@ namespace GgafDx {
  * @since 2017/08/21
  * @author Masatoshi Tsuge
  */
-class FramedBoardEffect : public Effect {
+class FramedBoardEffect : public Fix2DimEffect, public IPlaneEffect {
+
     friend class EffectManager;
 
 public:

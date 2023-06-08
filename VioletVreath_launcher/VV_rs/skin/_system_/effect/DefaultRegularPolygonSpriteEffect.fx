@@ -1,4 +1,6 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
+#include "GgafDx_IPlaneEffect.fxh"
+
 ////////////////////////////////////////////////////////////////////////////////
 // ggaf ライブラリ、GgafDx::SpriteModel用シェーダー
 //
@@ -6,16 +8,11 @@
 // date:2009/03/06
 ////////////////////////////////////////////////////////////////////////////////
 float4x4 g_matWorld;  //World変換行列
-float4x4 g_matView;   //View変換行列
-float4x4 g_matProj;   //射影変換行列
 float4 g_colMaterialDiffuse;
 float g_offset_u; //テクスチャU座標増分
 float g_offset_v; //テクスチャV座標増分
 float g_tex_blink_power;
 float g_tex_blink_threshold;
-float g_alpha_master;
-float g_zf;
-float g_far_rate;
 float g_sin_rz;
 float g_cos_rz;
 float g_u_center;
@@ -48,11 +45,20 @@ OUT_VS VS_DefaultRegularPolygonSprite(
     const float4 posModel_View = mul(posModel_World, g_matView );       // View変換
     const float4 posModel_Proj = mul(posModel_View, g_matProj);         // 射影変換
     out_vs.posModel_Proj = posModel_Proj;                         // 出力に設定
+    //遠方時の表示方法。
+    /*
     if (g_far_rate > 0.0) {
         if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {
             out_vs.posModel_Proj.z = g_zf*g_far_rate; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
         }
     }
+
+    //αフォグ
+    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
+    }
+
+    */
     //dot by dot考慮
     out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
     //UVのオフセット(パターン番号による増分)加算

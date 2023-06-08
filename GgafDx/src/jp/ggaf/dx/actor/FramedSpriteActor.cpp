@@ -44,7 +44,6 @@ _lim_center_sy(R_SC( (_model_frame_height_px * 2.0) / _model_total_height_px )) 
     _pUvFlipper_frame->locatePatternNo(_pFramedSpriteModel->_col_frame_texture_split,
                                        _pFramedSpriteModel->_row_frame_texture_split );
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //ƒfƒtƒHƒ‹ƒg‚Ì‰ñ“]~ˆÚ“®‚Ì•ÏŠ·s—ñ
-    _far_rate = -1.0f;
 
     _align = ALIGN_CENTER;
     _valign = VALIGN_MIDDLE;
@@ -249,8 +248,6 @@ void FramedSpriteActor::processDraw() {
     checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetValue(_pFramedSpriteEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
     checkDxException(hr, D3D_OK, "SetValue(_h_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_pFramedSpriteEffect->_h_far_rate, _far_rate );
-    checkDxException(hr, D3D_OK, "SetFloat(_h_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pFramedSpriteModel->FramedSpriteModel::draw(this);
 }
 //void FramedSpriteActor::setAlign(Align prm_align, Valign prm_valign) {

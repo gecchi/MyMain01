@@ -3,7 +3,6 @@
 #include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/manager/ModelManager.h"
-#include "jp/ggaf/dx/effect/MassEffect.h"
 #include "jp/ggaf/dx/actor/MassActor.h"
 #include "jp/ggaf/dx/manager/TextureConnection.h"
 #include "jp/ggaf/dx/manager/EffectManager.h"

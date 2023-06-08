@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
 ////////////////////////////////////////////////////////////////////////////////
 // ggaf ライブラリ、GgafDx::BoneAniMeshModel用シェーダー
 //
@@ -40,10 +40,6 @@ float4x4 g_matWorld028;
 float4x4 g_matWorld029;
 float4x4 g_matWorld030;
 
-/** モデルのView変換行列 */
-float4x4 g_matView;
-/** モデルの射影変換行列 */
-float4x4 g_matProj;
 /** ライトの方向ベクトル（正規化済み） */
 float3 g_vecLightFrom_World;
 /** カメラ（視点）の位置ベクトル */
@@ -62,12 +58,6 @@ float g_specular_power;
 float g_tex_blink_power;
 /** モデルのテクスチャ色点滅機能(GgafDx::TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
 float g_tex_blink_threshold;
-/** フェードイン・アウト機能(GgafDx::AlphaCurtain参照)のためのマスターアルファ値(0.0～1.0) */
-float g_alpha_master;
-/** 現在の射影変換行列要素のzf。カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
-float g_zf;
-/** -1.0 or 0.999 。遠くでも表示を強制したい場合に0.999 が代入される。*/
-float g_far_rate;
 
 //s0レジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -179,20 +169,11 @@ OUT_VS VS_DefaultBoneAniMesh(
     out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
 
     //遠方時の表示方法。
-    if (g_far_rate > 0.0) {
-        if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {
-            //本来視野外のZでも、描画を強制するため、射影後のZ座標を上書き、
-            out_vs.posModel_Proj.z = g_zf*g_far_rate; //本来視野外のZでも、描画を強制するため g_zf*0.999 に上書き、
-        }
-    } else {
-        //αフォグ
-        if (out_vs.posModel_Proj.z > 0.666f*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-            //  z : 0.666*g_zf ～ 1.0*g_zf  → α : 1.0 ～ 0.0  となるようにするには
-            //  α = ( (0.0-1.0)*z - (0.666*g_zf*0.0) + (1.0*1.0*g_zf) ) / (1.0*g_zf-0.666*g_zf)
-            //  α = (3.0*(g_zf-z))/g_zf = (3.0*g_zf - 3.0*z)/g_zf = 3.0 - 3.0*z/g_zf
-            out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
-        }
+    //αフォグ
+    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
     }
+
     return out_vs;
 }
 

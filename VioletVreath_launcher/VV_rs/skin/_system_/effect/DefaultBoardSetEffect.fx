@@ -1,24 +1,13 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_Fix2DimEffect.fxh"
+#include "GgafDx_IPlaneEffect.fxh"
 ////////////////////////////////////////////////////////////////////////////////
 // ggaf ライブラリ、GgafDx::BoardSetModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2009/03/06
 ////////////////////////////////////////////////////////////////////////////////
-float g_game_buffer_width; //画面幅(px)
-float g_game_buffer_height; //画面高さ(px)
-float g_inv_game_buffer_width; //画面幅(px)の逆数
-float g_inv_game_buffer_height; //画面高さ(px)の逆数
 float g_tex_blink_power;
 float g_tex_blink_threshold;
-float g_alpha_master;
-//float g_offset_u; //テクスチャU座標増分
-//float g_offset_v; //テクスチャV座標増分
-//float g_transformed_x; //変換済みX座標(px)
-//float g_transformed_y; //変換済みY座標(px)
-//float g_depth_z; //深度Z (0 ～ +1)
-//float g_alpha; //α
-//
 
 float g_offset_u001;
 float g_offset_u002;

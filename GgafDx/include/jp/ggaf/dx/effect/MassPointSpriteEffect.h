@@ -2,7 +2,7 @@
 #define GGAF_DX_MASSPOINTSPRITEEFFECT_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
 
-#include "jp/ggaf/dx/effect/MassEffect.h"
+#include "jp/ggaf/dx/effect/World3DimEffect.h"
 
 namespace GgafDx {
 
@@ -12,11 +12,10 @@ namespace GgafDx {
  * @since 2009/03/09
  * @author Masatoshi Tsuge
  */
-class MassPointSpriteEffect : public MassEffect {
+class MassPointSpriteEffect : public World3DimEffect {
     friend class EffectManager;
 
 public:
-    D3DXHANDLE _h_matView;
     D3DXHANDLE _hTexSize;
     D3DXHANDLE _hTextureSplitRowcol;
     D3DXHANDLE _hInvTextureSplitRowcol;
@@ -27,9 +26,6 @@ public:
      * @return
      */
     MassPointSpriteEffect(const char* prm_effect_name);
-
-
-    virtual void setParamPerFrame() override;
 
     /**
      * デストラクタ<BR>

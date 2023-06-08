@@ -210,6 +210,9 @@
     <ClInclude Include="include\jp\ggaf\dx\effect\ex\WorldBoundEffect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\effect\interface\IPlaneEffect.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\effect\BoardEffect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -225,6 +228,9 @@
     <ClInclude Include="include\jp\ggaf\dx\effect\Effect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\effect\Fix2DimEffect.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\effect\FramedBoardEffect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -232,9 +238,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\effect\MassBoardEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\effect\MassEffect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\effect\MassMeshEffect.h">
@@ -277,6 +280,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\effect\SpriteSetEffect.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\effect\World3DimEffect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\exception\CriticalException.h">
@@ -761,6 +767,9 @@
     <ClCompile Include="src\jp\ggaf\dx\effect\ex\WorldBoundEffect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dx\effect\interface\IPlaneEffect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\effect\BoardEffect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -776,6 +785,9 @@
     <ClCompile Include="src\jp\ggaf\dx\effect\Effect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dx\effect\Fix2DimEffect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\effect\FramedBoardEffect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -783,9 +795,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\effect\MassBoardEffect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\effect\MassEffect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\effect\MassMeshEffect.cpp">
@@ -828,6 +837,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\effect\SpriteSetEffect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dx\effect\World3DimEffect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\exception\CriticalException.cpp">

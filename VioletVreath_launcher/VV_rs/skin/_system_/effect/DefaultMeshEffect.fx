@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
 /**
  * GgafLib::DefaultMeshActor 用シェーダー .
  * 静的モデル１つを描画する標準的なシェーダー。
@@ -23,10 +23,6 @@
 
 /** モデルのWorld変換行列 */
 float4x4 g_matWorld;
-/** モデルのView変換行列 */
-float4x4 g_matView;
-/** モデルの射影変換行列 */
-float4x4 g_matProj;
 /** モデルのWorld変換行列の逆行列 */
 float4x4 g_matInvWorld;
 /** ライトの方向ベクトル（正規化済み） */
@@ -47,11 +43,7 @@ float g_specular_power;
 float g_tex_blink_power;
 /** モデルのテクスチャ色点滅機能(GgafDx::TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
 float g_tex_blink_threshold;
-/** フェードイン・アウト機能(GgafDx::AlphaCurtain参照)のためのマスターアルファ値(0.0～1.0) */
-float g_alpha_master;
-/** 現在の射影変換行列要素のzf。カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
-float g_zf;
-/** -1.0 or 0.999 。遠くでも表示を強制したい場合に0.999 が代入される。*/
+/** -1.0 or 0.0～1.0。遠くでも表示を強制したい場合に 負の値 が代入される。*/
 float g_far_rate;
 
 float g_lambert_flg;
@@ -120,18 +112,19 @@ OUT_VS VS_DefaultMesh(
     out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
 
     //遠方時の表示方法。
-    if (g_far_rate > 0.0) {
-        if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {
+    if (g_far_rate < 0.0) {
+        //負の場合、どんな遠方でも表示する
+        if (out_vs.posModel_Proj.z > g_zf*0.999) {
             //本来視野外のZでも、描画を強制するため、射影後のZ座標を上書き、
-            out_vs.posModel_Proj.z = g_zf*g_far_rate; //本来視野外のZでも、描画を強制するため g_zf*0.999 に上書き、
+            out_vs.posModel_Proj.z = g_zf*0.999; //本来視野外のZでも、描画を強制するため g_zf*0.999 に上書き、
         }
     } else {
         //αフォグ
-        if (out_vs.posModel_Proj.z > 0.666f*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-            //  z : 0.666*g_zf ～ 1.0*g_zf  → α : 1.0 ～ 0.0  となるようにするには
-            //  α = ( (0.0-1.0)*z - (0.666*g_zf*0.0) + (1.0*1.0*g_zf) ) / (1.0*g_zf-0.666*g_zf)
-            //  α = (3.0*(g_zf-z))/g_zf = (3.0*g_zf - 3.0*z)/g_zf = 3.0 - 3.0*z/g_zf
-            out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
+        if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {   // 最遠の g_far_rate よりさらに奥の場合徐々に透明に
+            //  z : g_far_rate*g_zf ～ 1.0*g_zf  → α : 1.0 ～ 0.0  となるようにするには
+            //  α = ( (0-1)*z - (g_zf*0) + (1* (far_rate*g_zf)) ) / ((far_rate*g_zf)-g_zf)
+            //  α = (far_rate*g_zf - z) / (far_rate*g_zf - g_zf)
+            out_vs.color.a *= (  (g_far_rate*g_zf - out_vs.posModel_Proj.z) / ((g_far_rate-1.0)*g_zf) );
         }
     }
     return out_vs;
@@ -263,14 +256,19 @@ OUT_VS_BM VS_BumpMapping(
     out_vs.color = g_colMaterialDiffuse;
 
     //遠方時の表示方法。
-    if (g_far_rate > 0.0) {
-        if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {
-            out_vs.posModel_Proj.z = g_zf*g_far_rate; //本来視野外のZでも、描画を強制するため g_zf*0.999 に上書き、
+    if (g_far_rate < 0.0) {
+        //負の場合、どんな遠方でも表示する
+        if (out_vs.posModel_Proj.z > g_zf*0.999) {
+            //本来視野外のZでも、描画を強制するため、射影後のZ座標を上書き、
+            out_vs.posModel_Proj.z = g_zf*0.999; //本来視野外のZでも、描画を強制するため g_zf*0.999 に上書き、
         }
     } else {
         //αフォグ
-        if (out_vs.posModel_Proj.z > 0.666*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-            out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
+        if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {   // 最遠の g_far_rate よりさらに奥の場合徐々に透明に
+            //  z : g_far_rate*g_zf ～ 1.0*g_zf  → α : 1.0 ～ 0.0  となるようにするには
+            //  α = ( (0-1)*z - (g_zf*0) + (1* (far_rate*g_zf)) ) / ((far_rate*g_zf)-g_zf)
+            //  α = (far_rate*g_zf - z) / (far_rate*g_zf - g_zf)
+            out_vs.color.a *= (  (g_far_rate*g_zf - out_vs.posModel_Proj.z) / ((g_far_rate-1.0)*g_zf) );
         }
     }
 

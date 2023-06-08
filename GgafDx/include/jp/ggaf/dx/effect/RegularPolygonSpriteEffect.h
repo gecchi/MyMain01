@@ -1,7 +1,8 @@
 #ifndef GGAFDXREGULARPOLYGONSPRITEEFFECT_H_
 #define GGAFDXREGULARPOLYGONSPRITEEFFECT_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/dx/effect/Effect.h"
+#include "World3DimEffect.h"
+#include "interface/IPlaneEffect.h"
 
 namespace GgafDx {
 
@@ -11,18 +12,16 @@ namespace GgafDx {
  * @since 2018/10/18
  * @author Masatoshi Tsuge
  */
-class RegularPolygonSpriteEffect : public Effect {
+class RegularPolygonSpriteEffect : public World3DimEffect, public IPlaneEffect {
     friend class EffectManager;
 
 public:
     D3DXHANDLE _h_tex_blink_power;
     D3DXHANDLE _h_tex_blink_threshold;
-    D3DXHANDLE _h_matView;
     D3DXHANDLE _h_matWorld;
     D3DXHANDLE _h_colMaterialDiffuse;
     D3DXHANDLE _h_offset_u;
     D3DXHANDLE _h_offset_v;
-    D3DXHANDLE _h_far_rate;
     D3DXHANDLE _h_sin_rz;
     D3DXHANDLE _h_cos_rz;
 
@@ -36,8 +35,6 @@ public:
      * @return
      */
     RegularPolygonSpriteEffect(const char* prm_effect_name);
-
-    virtual void setParamPerFrame() override;
 
     /**
      * デストラクタ<BR>

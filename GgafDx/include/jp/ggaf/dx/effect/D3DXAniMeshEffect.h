@@ -1,7 +1,7 @@
 #ifndef GGAF_DX_D3DXANIMESHEFFECT_H_
 #define GGAF_DX_D3DXANIMESHEFFECT_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/dx/effect/Effect.h"
+#include "jp/ggaf/dx/effect/World3DimEffect.h"
 
 namespace GgafDx {
 
@@ -11,13 +11,12 @@ namespace GgafDx {
  * @since 2009/03/09
  * @author Masatoshi Tsuge
  */
-class D3DXAniMeshEffect : public Effect {
+class D3DXAniMeshEffect : public World3DimEffect {
     friend class EffectManager;
 
 public:
     D3DXHANDLE _h_tex_blink_power;
     D3DXHANDLE _h_tex_blink_threshold;
-    D3DXHANDLE _h_matView;
     D3DXHANDLE _h_matWorld;
     D3DXHANDLE _h_colMaterialDiffuse;
 
@@ -28,9 +27,6 @@ public:
      * @return
      */
     D3DXAniMeshEffect(const char* prm_effect_name);
-
-
-    virtual void setParamPerFrame() override;
 
     /**
      * デストラクタ<BR>

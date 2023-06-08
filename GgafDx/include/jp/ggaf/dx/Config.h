@@ -157,6 +157,9 @@ public:
 
     static int P1_JOY_STICK_DEVICE_NO;
     static int P2_JOY_STICK_DEVICE_NO;
+    /** [r] カメラ表示範囲の深度(zn)のどの割合より奥のオブジェクトをアルファフォグでぼやすか(0.0～1.0)。負の数(-1.0)で必ず表示。 */
+    static double DEFAULT_DRAW_FAR_RATE;
+
 public:
     static void loadProperties(std::string prm_properties_filename); //shadows
 };

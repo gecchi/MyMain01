@@ -39,6 +39,76 @@ class MyBunshinWateringLaserChip001 : public VvMyActor<GgafLib::WateringLaserChi
 
 public:
 
+    struct AimInfo {
+        MyBunshinWateringLaserChip001* pLeaderChip;
+        GgafDx::GeometricActor* pTarget;
+        /** T1 目標座標 */
+        coord t1_x, t1_y, t1_z;
+        coord t1_x_prev, t1_y_prev, t1_z_prev;
+        coord t1_ahead_x, t1_ahead_y, t1_ahead_z;
+        /** T1 へ到達した時点の active_frame が入る。 0 の場合 T1 へ Aim 中 */
+        //frame spent_frames_to_t1;
+        /** T1 へ到達する見込みの active_frame。 */
+        frame aim_time_out_t1;
+        /** T2 目標座標 */
+        coord t2_x, t2_y, t2_z;
+        /** T2 へ到達する見込みの active_frame。*/
+        frame aim_time_out_t2;
+        /**
+         * T1 目標座標設定 .
+         * @param x
+         * @param y
+         * @param z
+         */
+        void setT1_and_T1Ahead(coord x, coord y, coord z) {
+            t1_x_prev = t1_x = t1_ahead_x = x;
+            t1_y_prev = t1_y = t1_ahead_y = y;
+            t1_z_prev = t1_z = t1_ahead_z = z;
+        }
+        /**
+         * T1 目標座標更新 .
+         * @param x
+         * @param y
+         * @param z
+         */
+        void updateT1(coord x, coord y, coord z) {
+            t1_x_prev = t1_x;
+            t1_y_prev = t1_y;
+            t1_z_prev = t1_z;
+            t1_x = x;
+            t1_y = y;
+            t1_z = z;
+        }
+        void setT1Ahead(coord x, coord y, coord z) {
+            t1_ahead_x = x;
+            t1_ahead_y = y;
+            t1_ahead_z = z;
+        }
+        /**
+         * T2 目標座標を、球面とベクトルの延長線との交点に設定 .
+         * @param r 球面半径
+         * @param x1
+         * @param y1
+         * @param z1
+         * @param x2
+         * @param y2
+         * @param z2
+         */
+        void setT2BySphere(double r, double x1, double y1, double z1, double x2, double y2, double z2) {
+            UTIL::getIntersectionSphereAndVec(r, x1, y1, z1, x2, y2, z2,
+                                              t2_x,t2_y,t2_z);
+        }
+        void setT2(coord x, coord y, coord z) {
+            t2_x = x;
+            t2_y = y;
+            t2_z = z;
+        }
+    };
+
+
+
+
+
     /** [r]ロックオンしている場合 true */
     bool is_lockon_;
     /** [r]レーザー発射元 */
@@ -63,8 +133,45 @@ public:
     static int tex_no_;
     static GgafDx::Model* pModel_;
 
-    /** 先端チップのAimInfo */
-    MyBunshin::AimInfo* pTipChip_AimInfo_;
+    /** リーダーチップのAimInfo */
+    AimInfo* pLeaderChip_AimInfo_;
+    AimInfo aim_info_;
+
+    /**
+      * 新しい AimInfo を取得 .
+      * @return 新しい AimInfo
+      */
+     AimInfo* getNewAimInfo() {
+         aim_info_.pLeaderChip = nullptr;
+         aim_info_.pTarget = nullptr;
+         aim_info_.t1_x = 0;
+         aim_info_.t1_y = 0;
+         aim_info_.t1_z = 0;
+         aim_info_.t1_x_prev = 0;
+         aim_info_.t1_y_prev = 0;
+         aim_info_.t1_z_prev = 0;
+         aim_info_.t1_ahead_x = 0;
+         aim_info_.t1_ahead_y = 0;
+         aim_info_.t1_ahead_z = 0;
+         aim_info_.aim_time_out_t1 = 400;
+         aim_info_.t2_x = 0;
+         aim_info_.t2_y = 0;
+         aim_info_.t2_z = 0;
+         aim_info_.aim_time_out_t2 = 0;
+         pLeaderChip_AimInfo_ = &aim_info_;
+         return pLeaderChip_AimInfo_;
+     }
+
+     /**
+      * 新しい コピー AimInfo を取得 .
+      * @param pOrg
+      * @return
+      */
+     AimInfo* getNewAimInfoCopy(AimInfo* pOrg) {
+         aim_info_ = (*pOrg); //コピー
+         pLeaderChip_AimInfo_ = &aim_info_;
+         return pLeaderChip_AimInfo_;
+     }
 
     velo sgn_vx0_, sgn_vy0_, sgn_vz0_;
     int inv_cnt_;

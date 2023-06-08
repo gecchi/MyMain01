@@ -1,7 +1,8 @@
 #ifndef GGAF_DX_MASSBOARDEFFECT_H_
 #define GGAF_DX_MASSBOARDEFFECT_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/dx/effect/MassEffect.h"
+#include "Fix2DimEffect.h"
+#include "interface/IPlaneEffect.h"
 
 namespace GgafDx {
 
@@ -11,7 +12,7 @@ namespace GgafDx {
  * @since 2015/02/25
  * @author Masatoshi Tsuge
  */
-class MassBoardEffect : public MassEffect {
+class MassBoardEffect : public Fix2DimEffect, public IPlaneEffect {
     friend class EffectManager;
 
 public:
@@ -25,9 +26,6 @@ public:
      * @return
      */
     MassBoardEffect(const char* prm_effect_name);
-
-
-    virtual void setParamPerFrame() override {};
 
     /**
      * デストラクタ<BR>

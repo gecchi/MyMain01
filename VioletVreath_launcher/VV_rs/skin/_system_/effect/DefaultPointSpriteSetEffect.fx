@@ -1,11 +1,9 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
+#include "GgafDx_IPlaneEffect.fxh"
+
 //float4x4 g_matWorld;  //World変換行列
-float4x4 g_matView;   //View変換行列
-float4x4 g_matProj;   //射影変換行列
 
 float g_dist_CamZ_default;
-//float g_zn;
-float g_zf;
 float g_TexSize;  //読み込んだテクスチャ（正方形が前提）の幅テクセル数
 int g_TextureSplitRowcol; //テクスチャの縦横分割数。
                             //1：縦横１分割＝分割無し。
@@ -13,9 +11,6 @@ int g_TextureSplitRowcol; //テクスチャの縦横分割数。
                             //3：縦横３分割＝９個のアニメパターン
 float g_InvTextureSplitRowcol;
 float g_UvFlipPtnNo;
-
-//float4 g_colMaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
-float g_alpha_master;
 
 //ワールド変換行列
 float4x4 g_matWorld001;

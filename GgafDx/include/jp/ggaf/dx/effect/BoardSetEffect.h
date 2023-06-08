@@ -1,7 +1,8 @@
 #ifndef GGAF_DX_BOARDSETEFFECT_H_
 #define GGAF_DX_BOARDSETEFFECT_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/dx/effect/Effect.h"
+#include "Fix2DimEffect.h"
+#include "interface/IPlaneEffect.h"
 
 namespace GgafDx {
 
@@ -11,7 +12,8 @@ namespace GgafDx {
  * @since 2009/07/21
  * @author Masatoshi Tsuge
  */
-class BoardSetEffect : public Effect {
+class BoardSetEffect : public Fix2DimEffect, public IPlaneEffect {
+
     friend class EffectManager;
 
 public:
@@ -32,8 +34,6 @@ public:
      * @return
      */
     BoardSetEffect(const char* prm_effect_name);
-
-    virtual void setParamPerFrame() override {};
 
     /**
      * デストラクタ<BR>

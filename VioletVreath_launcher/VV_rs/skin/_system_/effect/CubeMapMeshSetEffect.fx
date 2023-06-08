@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
 ////////////////////////////////////////////////////////////////////////////////
 // author : Masatoshi Tsuge
 // date:2010/12/24
@@ -12,24 +12,14 @@ float g_specular;
 float g_specular_power;
 
 
-
-/** カメラのWorld位置 */
-//float3 pos_camera;
-
-float g_zf;
 float g_tex_blink_power;
 float g_tex_blink_threshold;
-float g_alpha_master;
 // ライトの方向
 float3 g_vecLightFrom_World;
 // Ambienライト色（入射色）
 float4 g_colLightAmbient;
 // Diffuseライト色（入射色）
 float4 g_colLightDiffuse;
-//View変換行列
-float4x4 g_matView;
-//射影変換行列
-float4x4 g_matProj;
 //ワールド変換行列
 float4x4 g_matWorld001;
 float4x4 g_matWorld002;

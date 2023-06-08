@@ -24,19 +24,22 @@
 #define Obj_GgafDx_SpriteSetEffect             (0x1000U)         //0b 00000000 00000000 00010000 00000000
 #define Obj_GgafDx_BoardEffect                 (0x2000U)         //0b 00000000 00000000 00100000 00000000
 #define Obj_GgafDx_BoardSetEffect              (0x4000U)         //0b 00000000 00000000 01000000 00000000
-#define Obj_GgafDx_MassEffect                  (0x8000U)         //0b 00000000 00000000 10000000 00000000
-#define Obj_GgafDx_MassBoardEffect             (0x10000U)        //0b 00000000 00000001 00000000 00000000
-#define Obj_GgafDx_PointSpriteEffect           (0x20000U)        //0b 00000000 00000010 00000000 00000000
-#define Obj_GgafDx_MassSpriteEffect            (0x40000U)        //0b 00000000 00000100 00000000 00000000
-#define Obj_GgafDx_MassMorphMeshEffect         (0x80000U)        //0b 00000000 00001000 00000000 00000000
-#define Obj_GgafDx_MassPointSpriteEffect       (0x100000U)       //0b 00000000 00010000 00000000 00000000
-#define Obj_GgafDx_PointSpriteSetEffect        (0x200000U)       //0b 00000000 00100000 00000000 00000000
-#define Obj_GgafDx_FramedBoardEffect           (0x400000U)       //0b 00000000 01000000 00000000 00000000
-#define Obj_GgafDx_RegularPolygonSpriteEffect  (0x800000U)       //0b 00000000 10000000 00000000 00000000
-#define Obj_GgafDx_RegularPolygonBoardEffect   (0x1000000U)      //0b 00000001 00000000 00000000 00000000
-#define Obj_GgafDx_BoneAniMeshEffect           (0x2000000U)      //0b 00000010 00000000 00000000 00000000
-#define Obj_GgafDx_SkinAniMeshEffect           (0x4000000U)      //0b 00000100 00000000 00000000 00000000
-#define Obj_GgafDx_FramedSpriteEffect          (0x8000000U)      //0b 00001000 00000000 00000000 00000000
+#define Obj_GgafDx_Fix2DimEffect               (0x8000U)         //0b 00000000 00000000 10000000 00000000
+#define Obj_GgafDx_IPlaneEffect                (0x10000U)        //0b 00000000 00000001 00000000 00000000
+#define Obj_GgafDx_World3DimEffect             (0x20000U)        //0b 00000000 00000010 00000000 00000000
+#define Obj_GgafDx_MassBoardEffect             (0x40000U)        //0b 00000000 00000100 00000000 00000000
+#define Obj_GgafDx_PointSpriteEffect           (0x80000U)        //0b 00000000 00001000 00000000 00000000
+#define Obj_GgafDx_MassSpriteEffect            (0x100000U)       //0b 00000000 00010000 00000000 00000000
+#define Obj_GgafDx_MassMorphMeshEffect         (0x200000U)       //0b 00000000 00100000 00000000 00000000
+#define Obj_GgafDx_MassPointSpriteEffect       (0x400000U)       //0b 00000000 01000000 00000000 00000000
+#define Obj_GgafDx_PointSpriteSetEffect        (0x800000U)       //0b 00000000 10000000 00000000 00000000
+#define Obj_GgafDx_FramedBoardEffect           (0x1000000U)      //0b 00000001 00000000 00000000 00000000
+#define Obj_GgafDx_RegularPolygonSpriteEffect  (0x2000000U)      //0b 00000010 00000000 00000000 00000000
+#define Obj_GgafDx_RegularPolygonBoardEffect   (0x4000000U)      //0b 00000100 00000000 00000000 00000000
+#define Obj_GgafDx_BoneAniMeshEffect           (0x8000000U)      //0b 00001000 00000000 00000000 00000000
+#define Obj_GgafDx_SkinAniMeshEffect           (0x10000000U)     //0b 00010000 00000000 00000000 00000000
+#define Obj_GgafDx_FramedSpriteEffect          (0x20000000U)     //0b 00100000 00000000 00000000 00000000
+
 
 namespace GgafDx {
 
@@ -56,14 +59,12 @@ class Effect : public GgafCore::Object {
 //    static D3DXMACRO _aD3DXMacro_Defines[3];
 
 public:
-    D3DXHANDLE _h_alpha_master;
-
-    D3DXHANDLE _h_dbd_offset_x;
-    D3DXHANDLE _h_dbd_offset_y;
     /** [r]エフェクト定義の識別名。(50文字まで) */
     char* _effect_name;
     /** [r]エフェクト */
     ID3DXEffect* _pID3DXEffect;
+
+    D3DXHANDLE _h_alpha_master;
 
 #ifdef MY_DEBUG
     bool _begin;

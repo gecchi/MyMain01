@@ -28,7 +28,7 @@ _pMeshEffect((MeshEffect*)_pEffect)
 {
     _obj_class |= Obj_GgafDx_MeshActor;
     _class_name = "MeshActor";
-    _far_rate = -1.0f;
+    _far_rate = CONFIG::DEFAULT_DRAW_FAR_RATE;
     _lambert_flg = 1.0f; //1.0:Half Lambert/ -1.0:Lambert
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
@@ -54,7 +54,7 @@ _pMeshEffect((MeshEffect*)_pEffect)
 {
     _obj_class |= Obj_GgafDx_MeshActor;
     _class_name = "MeshActor";
-    _far_rate = -1.0f;
+    _far_rate = CONFIG::DEFAULT_DRAW_FAR_RATE;
     _lambert_flg = 1.0f; //1.0:Half Lambert/ -1.0:Lambert
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }

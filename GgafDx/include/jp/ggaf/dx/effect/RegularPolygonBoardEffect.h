@@ -1,7 +1,8 @@
 #ifndef GGAF_DX_REGULARPOLYGONBOARDEFFECT_H_
 #define GGAF_DX_REGULARPOLYGONBOARDEFFECT_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/dx/effect/Effect.h"
+#include "Fix2DimEffect.h"
+#include "interface/IPlaneEffect.h"
 
 namespace GgafDx {
 
@@ -11,7 +12,7 @@ namespace GgafDx {
  * @since 2018/10/30
  * @author Masatoshi Tsuge
  */
-class RegularPolygonBoardEffect : public Effect {
+class RegularPolygonBoardEffect : public Fix2DimEffect, public IPlaneEffect {
     friend class EffectManager;
 
 public:
@@ -44,9 +45,6 @@ public:
      * @return
      */
     RegularPolygonBoardEffect(const char* prm_effect_name);
-
-
-    virtual void setParamPerFrame() override {};
 
     /**
      * デストラクタ<BR>

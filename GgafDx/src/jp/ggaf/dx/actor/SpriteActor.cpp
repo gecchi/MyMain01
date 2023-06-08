@@ -36,8 +36,7 @@ _pUvFlipper(NEW UvFlipper()) {
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
-    _far_rate = -1.0f;
-
+    _far_rate = CONFIG::DEFAULT_DRAW_FAR_RATE;
     _align = ALIGN_CENTER;
     _valign = VALIGN_MIDDLE;
 }

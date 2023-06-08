@@ -116,6 +116,7 @@ bool Config::ENABLE_WORLD_HIT_CHECK_2D = false;
 int Config::P1_JOY_STICK_DEVICE_NO = 0;
 int Config::P2_JOY_STICK_DEVICE_NO = 1;
 
+double Config::DEFAULT_DRAW_FAR_RATE = 0.7;
 
 void Config::loadProperties(std::string prm_properties_filename) {
     GgafCore::Config::loadProperties(prm_properties_filename);
@@ -584,6 +585,10 @@ void Config::loadProperties(std::string prm_properties_filename) {
         Config::P2_JOY_STICK_DEVICE_NO  = GgafCore::Config::_properties.getInt("P2_JOY_STICK_DEVICE_NO");
     }
 
+    if (GgafCore::Config::_properties.isExistKey("DEFAULT_DRAW_FAR_RATE")) {
+        Config::DEFAULT_DRAW_FAR_RATE = GgafCore::Config::_properties.getDouble("DEFAULT_DRAW_FAR_RATE");
+    }
+
     _TRACE_("Config::FULL_SCREEN=" << Config::FULL_SCREEN);
     _TRACE_("Config::NUMBER_OF_SCREENS_USED=" << Config::NUMBER_OF_SCREENS_USED);
     _TRACE_("Config::GAME_BUFFER_WIDTH=" << Config::GAME_BUFFER_WIDTH);
@@ -645,5 +650,6 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::P1_JOY_STICK_DEVICE_NO=" << Config::P1_JOY_STICK_DEVICE_NO);
     _TRACE_("Config::P2_JOY_STICK_DEVICE_NO=" << Config::P2_JOY_STICK_DEVICE_NO);
 
+    _TRACE_("Config::DEFAULT_DRAW_FAR_RATE=" << Config::DEFAULT_DRAW_FAR_RATE);
 }
 

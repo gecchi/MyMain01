@@ -1,4 +1,6 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
+#include "GgafDx_IPlaneEffect.fxh"
+
 /**
  * GgafLib::DefaultFramedSpriteActor 用シェーダー .
  * 板ポリゴンにテクスチャを貼り付けた擬似スプライトを１つ描画する標準的なシェーダー。
@@ -18,10 +20,6 @@
 
 /** モデルのWorld変換行列 */
 float4x4 g_matWorldRotMv;
-/** モデルのView変換行列 */
-float4x4 g_matView;
-/** モデルの射影変換行列 */
-float4x4 g_matProj;
 /** モデルのマテリアル色(ライトによる拡散反射時のモデルの色) */
 float4 g_colMaterialDiffuse;
 
@@ -29,12 +27,6 @@ float4 g_colMaterialDiffuse;
 float g_tex_blink_power;
 /** モデルのテクスチャ色点滅機能(GgafDx::TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
 float g_tex_blink_threshold;
-/** フェードイン・アウト機能(GgafDx::AlphaCurtain参照)のためのマスターアルファ値(0.0～1.0) */
-float g_alpha_master;
-/** 現在の射影変換行列要素のzf。カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
-float g_zf;
-/** -1.0 or 0.999 。遠くでも表示を強制したい場合に0.999 が代入される。*/
-float g_far_rate;
 
 /** テクスチャU座標増分（パターンNoにより増減） */
 float g_offset_u001;
@@ -106,7 +98,7 @@ OUT_VS VS_DefaultFramedSprite(
     float x; //X座標(dxcoord)
     float y; //Y座標(dxcoord)
     float center_flg = 0.0f;
-//center_flg = 1.0f; 
+//center_flg = 1.0f;
     //    ┌─┬─┬─┐
     //    │０│１│２│
     //    ├─┼─┼─┤
@@ -178,17 +170,16 @@ OUT_VS VS_DefaultFramedSprite(
         }
     }
 
-	prm_posModel_Local.x += (x + g_local_offset_x);
-	prm_posModel_Local.y += (y + g_local_offset_y);
-	//World*View*射影変換
+    prm_posModel_Local.x += (x + g_local_offset_x);
+    prm_posModel_Local.y += (y + g_local_offset_y);
+    //World*View*射影変換
     out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, g_matWorldRotMv ), g_matView ), g_matProj);  // 出力に設定
     //遠方時の表示方法。
-    if (g_far_rate > 0.0) {
-        if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {
-            //本来視野外のZでも、描画を強制するため、射影後のZ座標を上書き、
-            out_vs.posModel_Proj.z = g_zf*g_far_rate;
-        }
+    //αフォグ
+    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
     }
+
     //dot by dot考慮
     out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
 
@@ -216,8 +207,8 @@ float4 PS_DefaultFramedSprite(
         colOut = tex2D( MyTextureSampler_frame, prm_uv);
     } else {
         colOut = tex2D( MyTextureSampler, prm_uv);
-    } 
-	
+    }
+
     //求める色
     //float4 colTex = tex2D( MyTextureSampler, prm_uv); //テクスチャから色取得
     //テクスチャ色にマテリアルカラーとスペキュラーを考慮
@@ -241,7 +232,7 @@ float4 PS_Flush(
         colOut = tex2D( MyTextureSampler_frame, prm_uv)* FLUSH_COLOR;
     } else {
         colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR;
-    } 
+    }
     colOut.a = colOut.a * prm_color.a * g_alpha_master;
     return colOut;
 }

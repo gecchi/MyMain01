@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
 ////////////////////////////////////////////////////////////////////////////////
 // レーザーチップ用シェーダー
 //
@@ -73,11 +73,6 @@ float g_specular;
 float g_specular_power;
 float g_tex_blink_power;
 float g_tex_blink_threshold;
-float g_alpha_master;
-float g_zf;
-
-float4x4 g_matView;   //View変換行列
-float4x4 g_matProj;   //射影変換行列
 
 float3 g_vecLightFrom_World; // ライトの方向
 float4 g_colLightAmbient;   // Ambienライト色（入射色）

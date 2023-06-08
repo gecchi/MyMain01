@@ -4,6 +4,8 @@
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/actor/interface/IAlignAbleActor.h"
 
+#include "jp/ggaf/dx/Config.h"
+
 namespace GgafDx {
 
 /**
@@ -52,9 +54,9 @@ public:
      */
     void drawAnyFar(bool prm_b) {
         if (prm_b) {
-            _far_rate = 0.999f;
-        } else {
             _far_rate = -1.0f;
+        } else {
+            _far_rate = CONFIG::DEFAULT_DRAW_FAR_RATE;
         }
     }
 

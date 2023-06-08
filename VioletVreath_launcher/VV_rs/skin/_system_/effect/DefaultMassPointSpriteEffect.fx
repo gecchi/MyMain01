@@ -1,13 +1,8 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
 // author : Masatoshi Tsuge
 // date:2016/05/17
 
-float4x4 g_matView;   //View変換行列
-float4x4 g_matProj;   //射影変換行列
-
 float g_dist_CamZ_default;
-float g_zn;
-float g_zf;
 float g_TexSize;  //読み込んだテクスチャ（正方形が前提）の幅テクセル数
 int g_TextureSplitRowcol; //テクスチャの縦横分割数。
                             //1：縦横１分割＝分割無し。
@@ -21,7 +16,6 @@ float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 
 //float g_tex_blink_power;
 //float g_tex_blink_threshold;
-float g_alpha_master;
 
 //s0レジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);

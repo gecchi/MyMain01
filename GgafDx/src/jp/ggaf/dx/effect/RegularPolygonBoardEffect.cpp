@@ -6,24 +6,12 @@
 
 using namespace GgafDx;
 
-RegularPolygonBoardEffect::RegularPolygonBoardEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
+RegularPolygonBoardEffect::RegularPolygonBoardEffect(const char* prm_effect_name) : Fix2DimEffect(prm_effect_name), IPlaneEffect(this) {
     _obj_class |= Obj_GgafDx_RegularPolygonBoardEffect;
+    _obj_class |= Obj_GgafDx_IPlaneEffect;
+
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
-    static float game_buffer_width = (float)(CONFIG::GAME_BUFFER_WIDTH);
-    static float game_buffer_height = (float)(CONFIG::GAME_BUFFER_HEIGHT);
-    static float inv_game_buffer_width = 1.0f / game_buffer_width;
-    static float inv_game_buffer_height = 1.0f / game_buffer_height;
-    hr = _pID3DXEffect->SetFloat("g_game_buffer_width", game_buffer_width);
-    checkDxException(hr, D3D_OK, "SetFloat(g_game_buffer_width) に失敗しました。");
-    hr = _pID3DXEffect->SetFloat("g_game_buffer_height", game_buffer_height);
-    checkDxException(hr, D3D_OK, "SetFloat(g_game_buffer_height) に失敗しました。");
-    hr = _pID3DXEffect->SetFloat("g_inv_game_buffer_width", inv_game_buffer_width);
-    checkDxException(hr, D3D_OK, "SetFloat(g_inv_game_buffer_width) に失敗しました。");
-    hr = _pID3DXEffect->SetFloat("g_inv_game_buffer_height", inv_game_buffer_height);
-    checkDxException(hr, D3D_OK, "SetFloat(g_inv_game_buffer_height) に失敗しました。");
-
-    //ハンドル
     _h_offset_u = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u" );
     _h_offset_v = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v" );
     _h_transformed_x = _pID3DXEffect->GetParameterByName( nullptr, "g_transformed_x" );

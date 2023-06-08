@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
 
 ////////////////////////////////////////////////////////////////////////////////
 // MassWallActor用シェーダー
@@ -27,24 +27,17 @@ float g_fh_POS_YZ;
 float g_ah_POS_XY;
 float g_fh_POS_XY;
 
-
-float g_zf;
 float g_tex_blink_power;
 float g_tex_blink_threshold;
-float g_alpha_master;
 // ライトの方向
 float3 g_vecLightFrom_World;
 // Ambienライト色（入射色）
 float4 g_colLightAmbient;
 // Diffuseライト色（入射色）
 float4 g_colLightDiffuse;
-//View変換行列
-float4x4 g_matView;
-//射影変換行列
-float4x4 g_matProj;
+
 
 //プリズム姿勢(位置)定数
-
 #define POS_PRISM_XY_NN   17
 #define POS_PRISM_XY_NP   18
 #define POS_PRISM_XY_PN   20

@@ -1,24 +1,18 @@
-#include "GgafEffectConst.fxh"
+#include "GgafDx_World3DimEffect.fxh"
 ////////////////////////////////////////////////////////////////////////////////
 // ggaf ライブラリ、GgafDx::MassMeshModel用シェーダー
 // author : Masatoshi Tsuge
 // date:2016/02/17
 ////////////////////////////////////////////////////////////////////////////////
 
-float g_zf;
 float g_tex_blink_power;
 float g_tex_blink_threshold;
-float g_alpha_master;
 // ライトの方向
 float3 g_vecLightFrom_World;
 // Ambienライト色（入射色）
 float4 g_colLightAmbient;
 // Diffuseライト色（入射色）
 float4 g_colLightDiffuse;
-//View変換行列
-float4x4 g_matView;
-//射影変換行列
-float4x4 g_matProj;
 
 /** スペキュラーの範囲（ハーフベクトル・法線内積のg_specular乗） */
 float g_specular;

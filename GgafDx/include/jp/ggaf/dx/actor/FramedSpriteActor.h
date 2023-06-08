@@ -3,6 +3,7 @@
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/actor/interface/IAlignAbleActor.h"
+#include "jp/ggaf/dx/Config.h"
 
 namespace GgafDx {
 
@@ -43,10 +44,6 @@ public:
     /** [r]角がゆがまないで表示できる限界の _sy */
     const scale _lim_center_sy;
 
-    float _far_rate;
-//    Align _align;
-//    Valign _valign;
-
 public:
     /**
      * コンストラクタ .
@@ -67,18 +64,6 @@ public:
 
     inline UvFlipper* getFrameUvFlipper() {
         return _pUvFlipper_frame;
-    }
-
-    /**
-     * 遠くの座標でも強制表示 .
-     * @param prm_b
-     */
-    void drawAnyFar(bool prm_b) {
-        if (prm_b) {
-            _far_rate = 0.999f;
-        } else {
-            _far_rate = -1.0f;
-        }
     }
 
     inline UvFlipper* getUvFlipper() {

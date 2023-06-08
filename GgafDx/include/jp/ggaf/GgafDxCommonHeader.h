@@ -436,7 +436,10 @@ class BoneAniMeshModel;
 class SkinAniMeshModel;
 
 class Effect;
-class MassEffect;
+class Fix2DimEffect;
+class World3DimEffect;
+class IPlaneEffect;
+
 class MeshEffect;
 class D3DXAniMeshEffect;
 class MeshSetEffect;

@@ -95,7 +95,6 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinCont
     pSeXmtr->set(SE_FIRE_SHOT,    "SE_MY_FIRE_SHOT_002");
     pSeXmtr->set(SE_FIRE_TORPEDO, "SE_MY_FIRE_TORPEDO_002");
 
-    pass_p_seq_ = 0;
     std::string name2 = std::string(prm_name) + "'s Geo2";
     pGeo2_ = NEW GgafLib::DefaultGeometricActor(name2.c_str());
 }

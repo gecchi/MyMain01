@@ -103,8 +103,6 @@ void MorphMeshActor::processDraw() {
     const MorphMeshEffect* const pMorphMeshEffect = _pMorphMeshEffect;
     ID3DXEffect* const pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetMatrix(pMorphMeshEffect->_h_matView, pCam->getViewMatrix() );
-    checkDxException(hr, D3D_OK, "SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetInt(pMorphMeshEffect->_h_morph_target_num, _pMorphMeshModel->_morph_target_num);
     checkDxException(hr, D3D_OK, "SetInt(_h_morph_target_num) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (int pattern = 1; pattern <= _pMorphMeshModel->_morph_target_num; pattern++) {

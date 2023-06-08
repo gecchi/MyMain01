@@ -7,21 +7,12 @@
 
 using namespace GgafDx;
 
-BoardSetEffect::BoardSetEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
+BoardSetEffect::BoardSetEffect(const char* prm_effect_name) : Fix2DimEffect(prm_effect_name), IPlaneEffect(this) {
     _obj_class |= Obj_GgafDx_BoardSetEffect;
+    _obj_class |= Obj_GgafDx_IPlaneEffect;
+
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
-    static float game_buffer_width = (float)(CONFIG::GAME_BUFFER_WIDTH);
-    static float game_buffer_height = (float)(CONFIG::GAME_BUFFER_HEIGHT);
-    hr = _pID3DXEffect->SetFloat("g_game_buffer_width", game_buffer_width);
-    checkDxException(hr, D3D_OK, "SetFloat(g_game_buffer_width) に失敗しました。");
-    hr = _pID3DXEffect->SetFloat("g_game_buffer_height", game_buffer_height);
-    checkDxException(hr, D3D_OK, "SetFloat(g_game_buffer_height) に失敗しました。");
-
-    hr = _pID3DXEffect->SetFloat("g_inv_game_buffer_width", 1.0f / game_buffer_width);
-    checkDxException(hr, D3D_OK, "SetFloat(g_inv_game_buffer_width) に失敗しました。");
-    hr = _pID3DXEffect->SetFloat("g_inv_game_buffer_height", 1.0f / game_buffer_height);
-    checkDxException(hr, D3D_OK, "SetFloat(g_inv_game_buffer_height) に失敗しました。");
     //ハンドル
     _ah_alpha[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha001" );
     _ah_alpha[1] = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha002" );
