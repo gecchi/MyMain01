@@ -68,6 +68,8 @@ HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, vo
         checkDxException(hr, D3D_OK, "SetFloat(_h_specular) ‚É¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->SetFloat(pMeshEffect->_h_specular_power, _specular_power);
         checkDxException(hr, D3D_OK, "SetFloat(_h_specular_power) ‚É¸”s‚µ‚Ü‚µ‚½B");
+        hr = pID3DXEffect->SetFloat(pMeshEffect->_h_fog_starts_far_rate, _fog_starts_far_rate);
+        checkDxException(hr, D3D_OK, "SetFloat(_h_fog_starts_far_rate) ‚É¸”s‚µ‚Ü‚µ‚½B");
     }
 
     //•`‰æ

@@ -43,8 +43,6 @@ float g_specular_power;
 float g_tex_blink_power;
 /** モデルのテクスチャ色点滅機能(GgafDx::TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
 float g_tex_blink_threshold;
-/** -1.0 or 0.0～1.0。遠くでも表示を強制したい場合に 負の値 が代入される。*/
-float g_far_rate;
 
 float g_lambert_flg;
 
@@ -112,7 +110,7 @@ OUT_VS VS_DefaultMesh(
     out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
 
     //遠方時の表示方法。
-    if (g_far_rate < 0.0) {
+    if (g_fog_starts_far_rate < 0.0) {
         //負の場合、どんな遠方でも表示する
         if (out_vs.posModel_Proj.z > g_zf*0.999) {
             //本来視野外のZでも、描画を強制するため、射影後のZ座標を上書き、
@@ -120,13 +118,9 @@ OUT_VS VS_DefaultMesh(
         }
     } else {
         //αフォグ
-        if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {   // 最遠の g_far_rate よりさらに奥の場合徐々に透明に
-            //  z : g_far_rate*g_zf ～ 1.0*g_zf  → α : 1.0 ～ 0.0  となるようにするには
-            //  α = ( (0-1)*z - (g_zf*0) + (1* (far_rate*g_zf)) ) / ((far_rate*g_zf)-g_zf)
-            //  α = (far_rate*g_zf - z) / (far_rate*g_zf - g_zf)
-            out_vs.color.a *= (  (g_far_rate*g_zf - out_vs.posModel_Proj.z) / ((g_far_rate-1.0)*g_zf) );
-        }
+        out_vs.color.a *= getFogRate(out_vs.posModel_Proj.z);
     }
+
     return out_vs;
 }
 
@@ -256,7 +250,7 @@ OUT_VS_BM VS_BumpMapping(
     out_vs.color = g_colMaterialDiffuse;
 
     //遠方時の表示方法。
-    if (g_far_rate < 0.0) {
+    if (g_fog_starts_far_rate < 0.0) {
         //負の場合、どんな遠方でも表示する
         if (out_vs.posModel_Proj.z > g_zf*0.999) {
             //本来視野外のZでも、描画を強制するため、射影後のZ座標を上書き、
@@ -264,12 +258,7 @@ OUT_VS_BM VS_BumpMapping(
         }
     } else {
         //αフォグ
-        if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {   // 最遠の g_far_rate よりさらに奥の場合徐々に透明に
-            //  z : g_far_rate*g_zf ～ 1.0*g_zf  → α : 1.0 ～ 0.0  となるようにするには
-            //  α = ( (0-1)*z - (g_zf*0) + (1* (far_rate*g_zf)) ) / ((far_rate*g_zf)-g_zf)
-            //  α = (far_rate*g_zf - z) / (far_rate*g_zf - g_zf)
-            out_vs.color.a *= (  (g_far_rate*g_zf - out_vs.posModel_Proj.z) / ((g_far_rate-1.0)*g_zf) );
-        }
+        out_vs.color.a *= getFogRate(out_vs.posModel_Proj.z);
     }
 
     return out_vs;

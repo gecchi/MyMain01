@@ -133,12 +133,13 @@ public:
     static int tex_no_;
     static GgafDx::Model* pModel_;
 
-    /** リーダーチップのAimInfo */
+    /** 現在自身を制御している リーダーチップのAimInfo */
     AimInfo* pLeaderChip_AimInfo_;
+    /** 自身の AimInfoインスタンス */
     AimInfo aim_info_;
 
     /**
-      * 新しい AimInfo を取得 .
+      * 新しい状態で AimInfo を取得 .
       * @return 新しい AimInfo
       */
      AimInfo* getNewAimInfo() {
@@ -158,8 +159,7 @@ public:
          aim_info_.t2_y = 0;
          aim_info_.t2_z = 0;
          aim_info_.aim_time_out_t2 = 0;
-         pLeaderChip_AimInfo_ = &aim_info_;
-         return pLeaderChip_AimInfo_;
+         return &aim_info_;
      }
 
      /**
@@ -169,8 +169,7 @@ public:
       */
      AimInfo* getNewAimInfoCopy(AimInfo* pOrg) {
          aim_info_ = (*pOrg); //コピー
-         pLeaderChip_AimInfo_ = &aim_info_;
-         return pLeaderChip_AimInfo_;
+         return &aim_info_;
      }
 
     velo sgn_vx0_, sgn_vy0_, sgn_vz0_;

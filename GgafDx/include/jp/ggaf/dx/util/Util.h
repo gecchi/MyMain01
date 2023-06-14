@@ -763,12 +763,20 @@ public:
         double y2y2 = in_y2 * in_y2;
         double z2z2 = in_z2 * in_z2;
         double rr = in_r * in_r;
-        double t = (sqrt((-vyvy-vxvx)*z2z2+(2*vy*vz*in_y2+2*vx*vz*in_x2)*in_z2+(-vzvz-vxvx)*y2y2+2*vx*vy*in_x2*in_y2+(-vzvz-vyvy)*
-                    x2x2+rr*vzvz+rr*vyvy+rr*vxvx)-vz*in_z2-vy*in_y2-vx*in_x2)/(vzvz+vyvy+vxvx);
+        if (ZEROd_EQ(vzvz+vyvy+vxvx)) {
+            //0èúéZãÅÇﬂÇÍÇ»Ç¢
+            _TRACE_("ÅyåxçêÅzgetIntersectionSphereAndVec() 0èúéZÇÃÇΩÇﬂÅAåãâ ÇÕê≥ÇµÇ≠Ç†ÇËÇ‹ÇπÇÒ");
+            out_x = in_r;
+            out_y = 0;
+            out_z = 0;
+        } else {
+            double t = (sqrt((-vyvy-vxvx)*z2z2+(2*vy*vz*in_y2+2*vx*vz*in_x2)*in_z2+(-vzvz-vxvx)*y2y2+2*vx*vy*in_x2*in_y2+(-vzvz-vyvy)*
+                        x2x2+rr*vzvz+rr*vyvy+rr*vxvx)-vz*in_z2-vy*in_y2-vx*in_x2)/(vzvz+vyvy+vxvx);
 
-        out_x = in_x2 + t*vx;
-        out_y = in_y2 + t*vy;
-        out_z = in_z2 + t*vz;
+            out_x = in_x2 + t*vx;
+            out_y = in_y2 + t*vy;
+            out_z = in_z2 + t*vz;
+        }
     }
 
     /**

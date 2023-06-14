@@ -28,7 +28,6 @@ _pMeshEffect((MeshEffect*)_pEffect)
 {
     _obj_class |= Obj_GgafDx_MeshActor;
     _class_name = "MeshActor";
-    _far_rate = CONFIG::DEFAULT_DRAW_FAR_RATE;
     _lambert_flg = 1.0f; //1.0:Half Lambert/ -1.0:Lambert
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
@@ -54,7 +53,6 @@ _pMeshEffect((MeshEffect*)_pEffect)
 {
     _obj_class |= Obj_GgafDx_MeshActor;
     _class_name = "MeshActor";
-    _far_rate = CONFIG::DEFAULT_DRAW_FAR_RATE;
     _lambert_flg = 1.0f; //1.0:Half Lambert/ -1.0:Lambert
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
@@ -69,8 +67,6 @@ void MeshActor::processDraw() {
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_far_rate, _far_rate );
-    checkDxException(hr, D3D_OK, "SetFloat(_h_far_rate) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_lambert_flg, _lambert_flg );
     checkDxException(hr, D3D_OK, "SetFloat(_h_lambert_flg) に失敗しました。");
     if (_pBumpMapTextureConnection) {

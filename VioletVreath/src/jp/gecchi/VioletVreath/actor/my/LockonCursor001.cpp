@@ -3,8 +3,6 @@
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -29,6 +27,9 @@ LockonCursor001::LockonCursor001(const char* prm_name, const char* prm_model) :
 void LockonCursor001::initialize() {
 }
 
+void LockonCursor001::onCreateModel() {
+    getModel()->drawAnyFar();
+}
 
 void LockonCursor001::onReset() {
     getPhase()->reset(LOCKON001_PHASE_RELEASE);

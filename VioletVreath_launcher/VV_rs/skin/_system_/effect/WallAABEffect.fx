@@ -24,8 +24,6 @@ float3 g_vecLightFrom_World;
 float4 g_colLightAmbient;
 // Diffuseライト色（入射色）
 float4 g_colLightDiffuse;
-//View変換行列
-float4x4 g_matView;
 
 //ワールド変換行列
 float4x4 g_matWorld001;

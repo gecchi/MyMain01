@@ -19,7 +19,7 @@ World3DimEffect::World3DimEffect(const char* prm_effect_name) : Effect(prm_effec
     checkDxException(hr, D3D_OK, "SetMatrix(g_matProj) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     _h_matView = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
-
+    _h_fog_starts_far_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_fog_starts_far_rate" );
 }
 void World3DimEffect::setParamPerFrame() {
     Camera* pCam = pCARETAKER->getSpacetime()->getCamera();

@@ -3,7 +3,7 @@
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
-
+#include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/util/XFile/framework/Frm_Mesh.h"
 #include "jp/ggaf/dx/util/XFile/ToolBox/IOModel_X.h"
 #include "jp/ggaf/dx/manager/ModelManager.h"
@@ -106,6 +106,7 @@ public:
     /** [r/w]モデルのスペキュラーの強度（全体の倍率、0.0以外を設定するとスペキュラが有効になる） */
     float _specular_power;
 
+    float _fog_starts_far_rate;
     /** [r]モデル単位の初期処理が実行済みかどうか(draw時チェック＆変更) */
     bool _is_init_model;
 
@@ -188,6 +189,18 @@ public:
         return _pTexBlinker;
     }
 
+
+    virtual void setFogStartFarRate(float prm_fog_starts_far_rate) {
+        _fog_starts_far_rate = prm_fog_starts_far_rate;
+    }
+
+    virtual void resetFogStartFarRate() {
+        _fog_starts_far_rate = CONFIG::DEFAULT_DRAW_FAR_RATE;
+    }
+
+    virtual void drawAnyFar() {
+        setFogStartFarRate(-1.0);
+    }
     /**
      * 規定のテクスチャ（マテリアル番号0番のテクスチャ) を変更。
      * @param prm_material_no マテリアル番号（のテクスチャに置き換わる）

@@ -169,10 +169,17 @@ OUT_VS VS_DefaultBoneAniMesh(
     out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
 
     //遠方時の表示方法。
-    //αフォグ
-    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
+    if (g_fog_starts_far_rate < 0.0) {
+        //負の場合、どんな遠方でも表示する
+        if (out_vs.posModel_Proj.z > g_zf*0.999) {
+            //本来視野外のZでも、描画を強制するため、射影後のZ座標を上書き、
+            out_vs.posModel_Proj.z = g_zf*0.999; //本来視野外のZでも、描画を強制するため g_zf*0.999 に上書き、
+        }
+    } else {
+        //αフォグ
+        out_vs.color.a *= getFogRate(out_vs.posModel_Proj.z);
     }
+
 
     return out_vs;
 }

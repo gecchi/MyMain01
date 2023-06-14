@@ -61,6 +61,8 @@ HRESULT RegularPolygonSpriteModel::draw(FigureActor* prm_pActor_target, int prm_
         checkDxException(hr, D3D_OK, "SetFloat(_h_u_center) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_v_center, _v_center);
         checkDxException(hr, D3D_OK, "SetFloat(_h_v_center) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_fog_starts_far_rate, _fog_starts_far_rate);
+        checkDxException(hr, D3D_OK, "SetFloat(_h_fog_starts_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
     Effect* pEffect_active = EffectManager::_pEffect_active;
     if (FigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {

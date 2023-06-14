@@ -244,16 +244,14 @@ HRESULT MassPointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_
         checkDxException(hr, D3D_OK, "SetStreamSource 1 ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pDevice->SetIndices(nullptr);
         checkDxException(hr, D3D_OK, "SetIndices ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-//        hr = pID3DXEffect->SetFloat(pMassPointSpriteEffect->_h_tex_blink_power, _power_blink);
-//        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-//        hr = pID3DXEffect->SetFloat(pMassPointSpriteEffect->_h_tex_blink_threshold, _blink_threshold);
-//        checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_threshold) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->SetFloat(pMassPointSpriteEffect->_hTexSize, _texture_size_px);
         checkDxException(hr, D3D_OK, "SetFloat(_hTexSize) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->SetInt(pMassPointSpriteEffect->_hTextureSplitRowcol, _texture_split_rowcol);
         checkDxException(hr, D3D_OK, "SetInt(_hTextureSplitRowcol) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->SetFloat(pMassPointSpriteEffect->_hInvTextureSplitRowcol, _inv_texture_split_rowcol);
         checkDxException(hr, D3D_OK, "SetInt(_hInvTextureSplitRowcol) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        hr = pID3DXEffect->SetFloat(pMassPointSpriteEffect->_h_fog_starts_far_rate, _fog_starts_far_rate);
+        checkDxException(hr, D3D_OK, "SetFloat(_h_fog_starts_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
         if (_papTextureConnection[0]) {
             hr = pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);

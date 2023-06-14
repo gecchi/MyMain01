@@ -54,6 +54,8 @@ HRESULT SpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, 
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_tex_blink_threshold, _blink_threshold);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_threshold) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_fog_starts_far_rate, _fog_starts_far_rate);
+        checkDxException(hr, D3D_OK, "SetFloat(_h_fog_starts_far_rate) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_offset_u, u);
     checkDxException(hr, D3D_OK, "SetFloat(_h_offset_u) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

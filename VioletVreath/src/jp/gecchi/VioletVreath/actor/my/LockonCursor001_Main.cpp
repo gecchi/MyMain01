@@ -56,7 +56,7 @@ void LockonCursor001_Main::processBehavior() {
     GgafCore::Phase* pPhase = getPhase();
     if (pPhase->getCurrent() == LOCKON001_PHASE_LOCK || pPhase->getCurrent() == LOCKON001_PHASE_FIRST_LOCK) {
         if (getAlpha() < 1.0) {
-            addAlpha(0.01);
+            addAlpha(0.05);
         }
         if (!pScaler->isTransitioning()) {
             //èkè¨äÆóπå„ÅABeat

@@ -36,7 +36,6 @@ _pUvFlipper(NEW UvFlipper()) {
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //ƒfƒtƒHƒ‹ƒg‚Ì‰ñ“]~ˆÚ“®‚Ì•ÏŠ·s—ñ
-    _far_rate = CONFIG::DEFAULT_DRAW_FAR_RATE;
     _align = ALIGN_CENTER;
     _valign = VALIGN_MIDDLE;
 }
@@ -48,8 +47,6 @@ void SpriteActor::processDraw() {
     checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetValue(_pSpriteEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
     checkDxException(hr, D3D_OK, "SetValue(_h_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_pSpriteEffect->_h_far_rate, _far_rate );
-    checkDxException(hr, D3D_OK, "SetFloat(_h_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pSpriteModel->SpriteModel::draw(this);
 }
 

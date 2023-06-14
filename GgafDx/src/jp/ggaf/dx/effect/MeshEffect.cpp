@@ -34,7 +34,6 @@ MeshEffect::MeshEffect(const char* prm_effect_name) : World3DimEffect(prm_effect
     _h_specular = _pID3DXEffect->GetParameterByName( nullptr, "g_specular" );
     _h_specular_power = _pID3DXEffect->GetParameterByName( nullptr, "g_specular_power" );
     _h_posCam = _pID3DXEffect->GetParameterByName( nullptr, "g_posCam_World" );
-    _h_far_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_far_rate" );
     _h_lambert_flg = _pID3DXEffect->GetParameterByName( nullptr, "g_lambert_flg" );
 //    _h_colFog = _pID3DXEffect->GetParameterByName( nullptr, "g_colFog" );
 }

@@ -1,5 +1,6 @@
 #include "Planet001.h"
 
+#include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "Planet001Atmosphere.h"
@@ -22,7 +23,6 @@ Planet001::Planet001(const char* prm_name) :
     setZEnableDraw(true);        //Zバッファは考慮
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
 
-    drawAnyFar(true);//遠くても表示
     //大気圏エフェクトスプライト
     pAtmosphere_ = NEW Planet001Atmosphere("P001ATMOS");
     appendChild(pAtmosphere_);
@@ -33,6 +33,7 @@ Planet001::Planet001(const char* prm_name) :
 }
 
 void Planet001::onCreateModel() {
+    getModel()->drawAnyFar();//遠くても表示
 }
 
 void Planet001::initialize() {

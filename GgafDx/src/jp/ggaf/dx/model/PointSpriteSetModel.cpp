@@ -74,6 +74,8 @@ HRESULT PointSpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_s
         checkDxException(hr, D3D_OK, "SetInt(_hTextureSplitRowcol) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->SetFloat(pPointSpriteSetEffect->_hInvTextureSplitRowcol, _inv_texture_split_rowcol);
         checkDxException(hr, D3D_OK, "SetInt(_hInvTextureSplitRowcol) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        hr = pID3DXEffect->SetFloat(pPointSpriteSetEffect->_h_fog_starts_far_rate, _fog_starts_far_rate);
+        checkDxException(hr, D3D_OK, "SetFloat(_h_fog_starts_far_rate) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
 
     Effect* pEffect_active = EffectManager::_pEffect_active;

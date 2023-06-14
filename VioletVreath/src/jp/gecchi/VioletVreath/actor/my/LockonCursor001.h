@@ -31,6 +31,8 @@ public:
 
     virtual void initialize() override;
 
+    virtual void onCreateModel() override;
+
     virtual void processBehavior() override;
 
     virtual void onActive() override;

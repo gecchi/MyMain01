@@ -75,6 +75,8 @@ HRESULT BoneAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
         checkDxException(hr, D3D_OK, "SetFloat(_h_specular) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pBoneAniMeshEffect->_h_specular_power, _specular_power);
         checkDxException(hr, D3D_OK, "SetFloat(_h_specular_power) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pBoneAniMeshEffect->_h_fog_starts_far_rate, _fog_starts_far_rate);
+        checkDxException(hr, D3D_OK, "SetFloat(_h_fog_starts_far_rate) に失敗しました。");
     }
 
     //マテリアル・テクスチャの一発目をセット、

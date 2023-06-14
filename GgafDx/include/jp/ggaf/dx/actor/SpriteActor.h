@@ -26,10 +26,6 @@ public:
     /** [r]UVフリッパー(パラパラアニメ) */
     UvFlipper* const _pUvFlipper;
 
-    float _far_rate;
-//    Align _align;
-//    Valign _valign;
-
 public:
     /**
      * コンストラクタ .
@@ -47,18 +43,6 @@ public:
                 CollisionChecker* prm_pChecker );
 
     virtual void processDraw() override;
-
-    /**
-     * 遠くの座標でも強制表示 .
-     * @param prm_b
-     */
-    void drawAnyFar(bool prm_b) {
-        if (prm_b) {
-            _far_rate = -1.0f;
-        } else {
-            _far_rate = CONFIG::DEFAULT_DRAW_FAR_RATE;
-        }
-    }
 
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;

@@ -17,6 +17,7 @@ class World3DimEffect : public Effect {
 public:
 
     D3DXHANDLE _h_matView;
+    D3DXHANDLE _h_fog_starts_far_rate;
 
     /**
      * コンストラクタ<BR>

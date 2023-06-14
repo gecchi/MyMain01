@@ -62,6 +62,8 @@ HRESULT PointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
         checkDxException(hr, D3D_OK, "SetInt(_hInvTextureSplitRowcol) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->SetValue(pPointSpriteEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_h_fog_starts_far_rate, _fog_starts_far_rate);
+        checkDxException(hr, D3D_OK, "SetFloat(_h_fog_starts_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
     Effect* pEffect_active = EffectManager::_pEffect_active;
     if (FigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {

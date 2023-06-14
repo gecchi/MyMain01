@@ -34,6 +34,7 @@ _pTexBlinker(new TextureBlinker(this)) {
     _specular = 0.0f;
     _specular_power = 0.0f;
     _num_pass = 1;
+    _fog_starts_far_rate = CONFIG::DEFAULT_DRAW_FAR_RATE;
     D3DXMatrixIdentity(&_matBaseTransformMatrix);
     _TRACE3_("_model_id="<<_model_id<<" _id="<<_id);
 }

@@ -23,9 +23,6 @@ public:
     MeshModel* _pMeshModel;
     /** [r]エフェクト資源 */
     MeshEffect* const _pMeshEffect;
-
-    float _far_rate;
-
     float _lambert_flg;//1.0:Half Lambert/ -1.0:Lambert
 public:
     /**
@@ -62,18 +59,6 @@ public:
               CollisionChecker* prm_pChecker);
 
     virtual void processDraw() override;
-
-    /**
-     * 遠くの座標でも強制表示 .
-     * @param prm_b
-     */
-    void drawAnyFar(bool prm_b) {
-        if (prm_b) {
-            _far_rate = -1.0f;
-        } else {
-            _far_rate = CONFIG::DEFAULT_DRAW_FAR_RATE;
-        }
-    }
 
     void effectBumpMapping(const char* prm_cubemap_tex, frame prm_frame = MAX_FRAME);
 

@@ -72,13 +72,18 @@ OUT_VS VS_DefaultMassMesh(
     out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
     //αはマテリアルαを最優先とする（上書きする）
     out_vs.color.a = prm_color.a;
-    //αフォグ
-    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
+    //遠方時の表示方法。
+    if (g_fog_starts_far_rate < 0.0) {
+        //負の場合、どんな遠方でも表示する
+        if (out_vs.posModel_Proj.z > g_zf*0.999) {
+            //本来視野外のZでも、描画を強制するため、射影後のZ座標を上書き、
+            out_vs.posModel_Proj.z = g_zf*0.999; //本来視野外のZでも、描画を強制するため g_zf*0.999 に上書き、
+        }
+    } else {
+        //αフォグ
+        out_vs.color.a *= getFogRate(out_vs.posModel_Proj.z);
     }
-//    if (out_vs.posModel_Proj.z > g_zf*0.98) {
-//        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
-//    }
+
     return out_vs;
 }
 
