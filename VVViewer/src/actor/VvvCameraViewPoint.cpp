@@ -1,7 +1,5 @@
 #include "VvvCameraViewPoint.h"
 
-
-
 using namespace GgafLib;
 using namespace VVViewer;
 

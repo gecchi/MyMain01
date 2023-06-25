@@ -26,10 +26,6 @@ float4 g_colLightAmbient;
 float4 g_colLightDiffuse;
 /** モデルのマテリアル色（表面色）。いわゆる拡散光反射色で環境光反射色も兼ねる */
 float4 g_colMaterialDiffuse;
-/** モデルのテクスチャ点滅機能(GgafDx::TextureBlinker参照)の点滅強度 */
-float g_tex_blink_power;
-/** モデルのテクスチャ点滅機能(GgafDx::TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
-float g_tex_blink_threshold;
 /** テクスチャのサンプラー(s0 レジスタにセットされたテクスチャを使う) */
 sampler MyTextureSampler : register(s0);
 sampler CubeMapTextureSampler : register(s1);
@@ -129,11 +125,10 @@ float4 PS_CubeMapMesh(
 
     float4 colOut = (colTex2D * prm_color) + (colTexCube*g_reflectance) + s;
     //Blinkerを考慮
-    if (colTex2D.r >= g_tex_blink_threshold || colTex2D.g >= g_tex_blink_threshold || colTex2D.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
-    }
-
+    colOut = getBlinkColor(colOut, colTex2D);
     colOut.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master;
+
+
     return colOut;
 }
 
@@ -257,12 +252,11 @@ float4 PS_BumpMapping(
     //TODO:↑色計算もうちょっと頂点シェーダで処理できないものか・・・
     //float4 colOut = (colTex2D * prm_color) + (colTexCube*g_reflectance) + s;
 
-    //Blinkerを考慮
-    if (colTex2D.r >= g_tex_blink_threshold || colTex2D.g >= g_tex_blink_threshold || colTex2D.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
-    }
-
     colOut.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master;
+
+    //Blinkerを考慮
+    colOut = getBlinkColor(colOut, colTex2D);
+
     return colOut;
 }
 

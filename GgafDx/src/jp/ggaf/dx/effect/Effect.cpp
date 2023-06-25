@@ -91,7 +91,8 @@ Effect::Effect(const char* prm_effect_name) : GgafCore::Object() {
 
     _h_alpha_master = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha_master" );
     _pID3DXEffect->SetFloat(_h_alpha_master, 1.0); //マスターαデフォルトは1.0
-
+    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
+    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
 }
 
 std::string Effect::getEffectFileName(std::string prm_file) {

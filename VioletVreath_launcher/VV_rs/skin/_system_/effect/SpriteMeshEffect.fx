@@ -15,10 +15,7 @@ float4x4 g_matWorld;  //World変換行列
 float3 g_vecLightFrom_World; // ライトの方向
 float4 g_colLightAmbient;   // Ambienライト色（入射色）
 float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
-
 float4 g_colMaterialDiffuse;  //マテリアルの色
-float g_tex_blink_power;
-float g_tex_blink_threshold;
 
 float g_offset_u;
 float g_offset_v;
@@ -108,9 +105,7 @@ float4 PS_SpriteMesh(
     const float4 colTex = tex2D( MyTextureSampler, prm_uv);
     float4 colOut = colTex * prm_color;
     //Blinkerを考慮
-    if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
-    }
+    colOut = getBlinkColor(colOut, colTex);
     //マスターα
     colOut.a *= g_alpha_master;
     return colOut;

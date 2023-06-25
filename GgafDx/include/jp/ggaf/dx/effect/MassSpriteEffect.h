@@ -16,9 +16,6 @@ class MassSpriteEffect : public World3DimEffect, public IPlaneEffect {
     friend class EffectManager;
 
 public:
-    D3DXHANDLE _h_tex_blink_power;
-    D3DXHANDLE _h_tex_blink_threshold;
-public:
     /**
      * コンストラクタ<BR>
      * @param prm_effect_name エフェクト識別名。".fx"を追加するとエフェクトファイル名になる。

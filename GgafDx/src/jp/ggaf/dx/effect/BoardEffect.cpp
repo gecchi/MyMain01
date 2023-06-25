@@ -25,8 +25,6 @@ BoardEffect::BoardEffect(const char* prm_effect_name) : Fix2DimEffect(prm_effect
     _h_sx = _pID3DXEffect->GetParameterByName( nullptr, "g_sx" );
     _h_sy = _pID3DXEffect->GetParameterByName( nullptr, "g_sy" );
     _h_rz = _pID3DXEffect->GetParameterByName( nullptr, "g_rz" );
-    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
-    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
 }
 
 BoardEffect::~BoardEffect() {

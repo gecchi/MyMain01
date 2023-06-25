@@ -16,8 +16,6 @@ class BoardEffect : public Fix2DimEffect, public IPlaneEffect {
     friend class EffectManager;
 
 public:
-    D3DXHANDLE _h_tex_blink_power;
-    D3DXHANDLE _h_tex_blink_threshold;
     D3DXHANDLE _h_offset_u;
     D3DXHANDLE _h_offset_v;
     D3DXHANDLE _h_transformed_x;

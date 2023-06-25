@@ -25,8 +25,6 @@ RegularPolygonBoardEffect::RegularPolygonBoardEffect(const char* prm_effect_name
     _h_sx = _pID3DXEffect->GetParameterByName( nullptr, "g_sx" );
     _h_sy = _pID3DXEffect->GetParameterByName( nullptr, "g_sy" );
     _h_rz = _pID3DXEffect->GetParameterByName( nullptr, "g_rz" );
-    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
-    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
     _h_sin_rz = _pID3DXEffect->GetParameterByName( nullptr, "g_sin_rz" );
     _h_cos_rz = _pID3DXEffect->GetParameterByName( nullptr, "g_cos_rz" );
     _h_x_center = _pID3DXEffect->GetParameterByName( nullptr, "g_x_center" );

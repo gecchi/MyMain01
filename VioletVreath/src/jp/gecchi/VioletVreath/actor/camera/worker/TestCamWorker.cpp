@@ -9,7 +9,7 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-TestCamWorker::TestCamWorker(const char* prm_name, Camera* prm_pCamera) : CameraWorker(prm_name, (DefaultCamera*)prm_pCamera) {
+TestCamWorker::TestCamWorker(const char* prm_name, Camera* prm_pCamera) : DefaultCamWorker(prm_name, (DefaultCamera*)prm_pCamera) {
     _class_name = "TestCamWorker";
 }
 

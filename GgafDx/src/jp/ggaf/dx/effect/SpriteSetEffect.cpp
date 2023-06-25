@@ -114,8 +114,6 @@ SpriteSetEffect::SpriteSetEffect(const char* prm_effect_name) : World3DimEffect(
 //    _ah_alpha[22] = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha023" );
 //    _ah_alpha[23] = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha024" );
 
-    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
-    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
     _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
 }
 

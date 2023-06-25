@@ -26,10 +26,6 @@ float4 g_colMaterialDiffuse;
 float g_offset_u;
 /** テクスチャV座標増分（パターンNoにより増減） */
 float g_offset_v;
-/** モデルのテクスチャ色点滅機能(GgafDx::TextureBlinker参照)の点滅強度 */
-float g_tex_blink_power;
-/** モデルのテクスチャ色点滅機能(GgafDx::TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
-float g_tex_blink_threshold;
 
 /** テクスチャのサンプラー(s0 レジスタにセットされたテクスチャを使う) */
 sampler MyTextureSampler : register(s0);
@@ -98,10 +94,7 @@ float4 PS_DefaultSprite(
     //テクスチャ色にマテリアルカラーとスペキュラーを考慮
     float4 colOut = colTex * prm_color;
     //Blinkerを考慮
-    if (colTex.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
-    }
-
+    colOut = getBlinkColor(colOut, colTex);
     //マスターα
     colOut.a *= g_alpha_master;
     return colOut;

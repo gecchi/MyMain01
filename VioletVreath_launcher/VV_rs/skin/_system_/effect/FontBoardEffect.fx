@@ -7,9 +7,6 @@
 // author : Masatoshi Tsuge
 // date:2016/03/14
 ////////////////////////////////////////////////////////////////////////////////
-float g_tex_blink_power;
-float g_tex_blink_threshold;
-
 //s0レジスタのサンプラを使う(＝固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
 
@@ -62,9 +59,8 @@ float4 PS_FontBoard(
     float4 prm_color  : COLOR0
 ) : COLOR  {
     float4 colOut = tex2D( MyTextureSampler, prm_uv);
-    if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power;
-    }
+    //Blinkerを考慮
+    colOut = getBlinkColor(colOut);
     //α考慮
     colOut.a = colOut.a * prm_color.a * g_alpha_master;
     return colOut;

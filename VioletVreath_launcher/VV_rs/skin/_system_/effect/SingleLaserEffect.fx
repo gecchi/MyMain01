@@ -15,8 +15,6 @@
 float3 g_posCam_World;
 float g_specular;
 float g_specular_power;
-float g_tex_blink_power;
-float g_tex_blink_threshold;
 // ライトの方向
 float3 g_vecLightFrom_World;
 // Ambienライト色（入射色）

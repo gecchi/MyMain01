@@ -7,10 +7,6 @@
 // author : Masatoshi Tsuge
 // date:2009/03/06
 ////////////////////////////////////////////////////////////////////////////////
-
-float g_tex_blink_power;
-float g_tex_blink_threshold;
-
 float4x4 g_matWorld001;
 float4x4 g_matWorld002;
 float4x4 g_matWorld003;
@@ -229,9 +225,8 @@ float4 PS_DefaultSpriteSet(
 ) : COLOR  {
     //テクスチャをサンプリングして色取得（原色を取得）
     float4 colOut = tex2D( MyTextureSampler, prm_uv);
-    if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
-    }
+    //Blinkerを考慮
+    colOut = getBlinkColor(colOut);
     colOut.a = colOut.a * prm_color.a * g_alpha_master;
     return colOut;
 }

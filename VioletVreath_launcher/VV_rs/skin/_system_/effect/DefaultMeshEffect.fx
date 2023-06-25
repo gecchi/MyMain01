@@ -39,10 +39,7 @@ float4 g_colMaterialDiffuse;
 float g_specular;
 /** スペキュラーの強度 */
 float g_specular_power;
-/** モデルのテクスチャ色点滅機能(GgafDx::TextureBlinker参照)の点滅強度 */
-float g_tex_blink_power;
-/** モデルのテクスチャ色点滅機能(GgafDx::TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
-float g_tex_blink_threshold;
+
 
 float g_lambert_flg;
 
@@ -156,9 +153,7 @@ float4 PS_DefaultMesh(
     //出力色にスペキュラーを考慮
     colOut.rgb += s;
     //Blinkerを考慮
-    if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
-    }
+    colOut = getBlinkColor(colOut, colTex);
     //マスターα
     colOut.a *= g_alpha_master;
     return colOut;
@@ -345,6 +340,7 @@ float4 PS_Flush(
     colOut.a *= g_alpha_master;
     return colOut;
 }
+
 
 /**
  * 通常エフェクトのTechnique .

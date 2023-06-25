@@ -14,7 +14,9 @@ namespace GgafLib {
 class DefaultCamWorker : public CameraWorker {
 
 public:
-    DefaultCamWorker(const char* prm_name, DefaultCamera* prm_pCamera);
+    DefaultCamWorker(const char* prm_name, DefaultCamera* prm_pCamera,
+            frame prm_slide_frames = 60, double prm_slide_p1 = 0.3, double prm_slide_p2 = 0.7);
+
     virtual void processBehavior() override;
     virtual ~DefaultCamWorker();
 };

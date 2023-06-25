@@ -71,9 +71,6 @@
 float3 g_posCam_World;
 float g_specular;
 float g_specular_power;
-float g_tex_blink_power;
-float g_tex_blink_threshold;
-
 float3 g_vecLightFrom_World; // ライトの方向
 float4 g_colLightAmbient;   // Ambienライト色（入射色）
 float4 g_colLightDiffuse;   // Diffuseライト色（入射色）

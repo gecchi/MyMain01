@@ -15,8 +15,6 @@ class MeshEffect : public World3DimEffect {
     friend class EffectManager;
 
 public:
-    D3DXHANDLE _h_tex_blink_power;
-    D3DXHANDLE _h_tex_blink_threshold;
     D3DXHANDLE _h_matWorld;
     D3DXHANDLE _h_matInvWorld;
     D3DXHANDLE _h_colMaterialDiffuse;

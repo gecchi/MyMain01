@@ -17,8 +17,6 @@ class FramedSpriteEffect : public World3DimEffect, public IPlaneEffect {
     friend class EffectManager;
 
 public:
-    D3DXHANDLE _h_tex_blink_power;
-    D3DXHANDLE _h_tex_blink_threshold;
     D3DXHANDLE _h_matWorldRotMv;
     D3DXHANDLE _h_colMaterialDiffuse;
 

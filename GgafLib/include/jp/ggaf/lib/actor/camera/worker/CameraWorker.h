@@ -1,17 +1,14 @@
 #ifndef GGAF_LIB_CAMERAWORKER_H_
 #define GGAF_LIB_CAMERAWORKER_H_
 #include "jp/ggaf/GgafLibCommonHeader.h"
-#include "jp/ggaf/core/actor/MainActor.h"
 
-
-#define DEFAULT_CAMERA_SLIDE_FRAMES (60)
+#include "jp/ggaf/dx/actor/GeometricActor.h"
 
 namespace GgafLib {
 
 /**
  * カメラマン .
- * カメラ(VioletVreath::Camera)と、視点(VioletVreath::CameraViewPoint) を操り、
- * さらに UPの方向ベクトル pUp_ を管理します。
+ * カメラ(VioletVreath::Camera)と、視点(VioletVreath::CameraViewPoint)、 UPの方向ベクトル pUp_ を管理します。
  * @version 1.00
  * @since 2010/10/25
  * @author Masatoshi Tsuge
@@ -34,8 +31,13 @@ public:
 
     frame _frame_of_behaving_since_onSwitch;
 
+    frame _slide_frames;
+    double _slide_p1;
+    double _slide_p2;
+
 public:
-    CameraWorker(const char* prm_name, DefaultCamera* prm_pCamera);
+    CameraWorker(const char* prm_name, DefaultCamera* prm_pCamera,
+                 frame prm_slide_frames, double prm_slide_p1, double prm_slide_p2);
 
     static bool initStatic();
 
@@ -79,20 +81,51 @@ public:
     inline frame getSwitchedFrame() {
         return _frame_of_behaving_since_onSwitch;
     }
-
+    void slideMvCamTo(GgafDx::GeometricActor* pTarget) {
+        slideMvCamTo(pTarget, _slide_frames);
+    }
     void slideMvCamTo(GgafDx::GeometricActor* pTarget, frame t);
     void slideMvCamTo(GgafDx::GeometricActor* pTarget, frame t,
                       double prm_x_p1, double prm_y_p1, double prm_z_p1);
-    void slideMvCamTo(coord tx, coord ty, coord tz, frame t, double prm_p1=0.3, double prm_p2=0.7);
+
+    void slideMvCamTo(coord tx, coord ty, coord tz) {
+        slideMvCamTo(tx,ty,tz,_slide_frames);
+    }
+    void slideMvCamTo(coord tx, coord ty, coord tz, frame t) {
+        slideMvCamTo(tx,ty,tz,t,_slide_p1, _slide_p2);
+    }
+    void slideMvCamTo(coord tx, coord ty, coord tz, frame t, double prm_p1, double prm_p2);
+
     void slideMvCamTo(coord tx, coord ty, coord tz, frame t,
                       double prm_x_p1, double prm_y_p1, double prm_z_p1);
+
     void mvCamTo(coord tx, coord ty, coord tz);
 
     bool isCamSliding();
-    void slideMvVpTo(GgafDx::GeometricActor* pTarget, frame t);
-    void slideMvVpTo(coord tx, coord ty, coord tz, frame t, double prm_p1=0.3, double prm_p2=0.7);
 
-    void slideMvUpVecTo(coord tx, coord ty, coord tz, frame t, double prm_p1=0.3, double prm_p2=0.7);
+    void slideMvVpTo(GgafDx::GeometricActor* pTarget){
+        slideMvVpTo(pTarget, _slide_frames);
+    }
+    void slideMvVpTo(GgafDx::GeometricActor* pTarget, frame t){
+        slideMvVpTo(pTarget->_x, pTarget->_y, pTarget->_z, t);
+    }
+    void slideMvVpTo(coord tx, coord ty, coord tz) {
+        slideMvVpTo(tx, ty, tz, _slide_frames);
+    }
+    void slideMvVpTo(coord tx, coord ty, coord tz, frame t) {
+        slideMvVpTo(tx, ty, tz, t, _slide_p1, _slide_p2);
+    }
+    void slideMvVpTo(coord tx, coord ty, coord tz, frame t, double prm_p1, double prm_p2);
+
+
+    void slideMvUpVecTo(coord tx, coord ty, coord tz) {
+        slideMvUpVecTo(tx,ty,tz,_slide_frames);
+    }
+    void slideMvUpVecTo(coord tx, coord ty, coord tz, frame t) {
+        slideMvUpVecTo(tx,ty,tz,t,_slide_p1, _slide_p2);
+    }
+    void slideMvUpVecTo(coord tx, coord ty, coord tz, frame t, double prm_p1, double prm_p2);
+
 
     void setUpVec(coord tx, coord ty, coord tz);
 

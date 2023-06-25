@@ -7,10 +7,6 @@
 // author : Masatoshi Tsuge
 // date:2016/02/25
 ////////////////////////////////////////////////////////////////////////////////
-
-float g_tex_blink_power;
-float g_tex_blink_threshold;
-
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
 
@@ -68,9 +64,8 @@ float4 PS_DefaultMassSprite(
 
     //テクスチャをサンプリングして色取得（原色を取得）
     float4 colOut = tex2D( MyTextureSampler, prm_uv) * prm_color;
-    if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
-    }
+    //Blinkerを考慮
+    colOut = getBlinkColor(colOut);
     colOut.a = colOut.a * prm_color.a * g_alpha_master;
     return colOut;
 }

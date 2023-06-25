@@ -1,7 +1,7 @@
 #ifndef VAMSYSCAMWORKER_H_
 #define VAMSYSCAMWORKER_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
-#include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
+#include "jp/ggaf/lib/actor/camera/worker/DefaultCamWorker.h"
 
 #define VAM_POS_BEHIND_ZRIGHT_DOWN  DIR26(-1,-1,-1) // -13 ƒJƒƒ‰‚Í‚±‚Ì•ûŒü‚Íæ‚ç‚È‚¢
 #define VAM_POS_BEHIND_DOWN         DIR26(-1,-1, 0) // -12
@@ -39,7 +39,7 @@ namespace VioletVreath {
  * @since 2010/10/25
  * @author Masatoshi Tsuge
  */
-class VamSysCamWorker : public GgafLib::CameraWorker {
+class VamSysCamWorker : public GgafLib::DefaultCamWorker {
 public:
     /** Šp‚Ì•ûŒü(XYZ—v‘f‚É0‚ªŠÜ‚Ü‚ê‚È‚¢‚Wí‚Ì•ûŒü) ‘Î ‚»‚Ì—×Ú‚·‚éü•Ó‚Ì•ûŒü‚UŒÂ */
     static dir26 nbhd_dir_entity_[3*3*3][6];

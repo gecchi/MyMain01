@@ -15,8 +15,6 @@ class MassMorphMeshEffect : public World3DimEffect {
     friend class EffectManager;
 
 public:
-    D3DXHANDLE _h_tex_blink_power;
-    D3DXHANDLE _h_tex_blink_threshold;
     D3DXHANDLE _h_morph_target_num;
     D3DXHANDLE _h_colMaterialDiffuse;
     D3DXHANDLE _h_specular;

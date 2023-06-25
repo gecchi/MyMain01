@@ -26,8 +26,6 @@ MassMorphMeshEffect::MassMorphMeshEffect(const char* prm_effect_name) : World3Di
     //シェーダーハンドル
     _h_morph_target_num = _pID3DXEffect->GetParameterByName(nullptr, "g_morph_target_num");
     _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName(nullptr, "g_colMaterialDiffuse");
-    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
-    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
     _h_specular = _pID3DXEffect->GetParameterByName( nullptr, "g_specular" );
     _h_specular_power = _pID3DXEffect->GetParameterByName( nullptr, "g_specular_power" );
     _h_posCam = _pID3DXEffect->GetParameterByName( nullptr, "g_posCam_World" );

@@ -1,7 +1,7 @@
 #ifndef TESTCAMWORKER_H_
 #define TESTCAMWORKER_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
-#include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
+#include "jp/ggaf/lib/actor/camera/worker/DefaultCamWorker.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2010/10/25
  * @author Masatoshi Tsuge
  */
-class TestCamWorker : public GgafLib::CameraWorker {
+class TestCamWorker : public GgafLib::DefaultCamWorker {
 
 public:
     TestCamWorker(const char* prm_name, Camera* prm_pCamera);

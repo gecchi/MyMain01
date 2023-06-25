@@ -1,7 +1,5 @@
 #include "Font01.h"
 
-
-
 using namespace GgafLib;
 using namespace VVViewer;
 

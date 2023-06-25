@@ -1,7 +1,5 @@
 #include "VvvCameraUpVector.h"
 
-
-
 using namespace GgafLib;
 using namespace VVViewer;
 

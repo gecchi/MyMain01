@@ -4,11 +4,7 @@ float4x4 g_matWorld;
 float3 g_vecLightFrom_World;
 float4 g_colLightAmbient;
 float4 g_colLightDiffuse;
-
 float4 g_colMaterialDiffuse;
-
-float g_tex_blink_power;
-float g_tex_blink_threshold;
 
 sampler MyTextureSampler : register(s0);
 
@@ -82,9 +78,7 @@ float4 PS_GroundMesh(
     float4 colOut = colTex * prm_color;
 
     //Blinkerを考慮
-    if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
-    }
+    colOut = getBlinkColor(colOut, colTex);
     //マスターα
     colOut.a *= g_alpha_master;
     return colOut;

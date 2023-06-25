@@ -24,8 +24,6 @@ MassMeshEffect::MassMeshEffect(const char* prm_effect_name) : World3DimEffect(pr
     checkDxException(hr, D3D_OK, "SetValue(g_colLightAmbient) に失敗しました。");
 
     //シェーダーハンドル
-    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
-    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
     _h_specular = _pID3DXEffect->GetParameterByName( nullptr, "g_specular" );
     _h_specular_power = _pID3DXEffect->GetParameterByName( nullptr, "g_specular_power" );
     _h_posCam = _pID3DXEffect->GetParameterByName( nullptr, "g_posCam_World" );

@@ -17,7 +17,8 @@
 
 using namespace GgafLib;
 
-CameraWorker::CameraWorker(const char* prm_name, DefaultCamera* prm_pCamera) : GgafCore::MainActor(prm_name) {
+CameraWorker::CameraWorker(const char* prm_name, DefaultCamera* prm_pCamera,
+                          frame prm_slide_frames, double prm_slide_p1, double prm_slide_p2) : GgafCore::MainActor(prm_name) {
     _class_name = "CameraWorker";
     _t_x_VP =  0;
     _t_y_VP =  0;
@@ -32,7 +33,9 @@ CameraWorker::CameraWorker(const char* prm_name, DefaultCamera* prm_pCamera) : G
     _pCam = prm_pCamera;
     _pVp = (DefaultCameraViewPoint*)(_pCam->getCameraViewPoint());
     _pUp = (DefaultCameraUpVector*)(_pCam->getCameraUpVector());
-
+    _slide_frames = prm_slide_frames;
+    _slide_p1 = prm_slide_p1;
+    _slide_p2 = prm_slide_p2;
     static volatile bool is_init = CameraWorker::initStatic(); //静的メンバ初期化
 }
 
@@ -53,16 +56,16 @@ void CameraWorker::initialize() {
 }
 void CameraWorker::onActive() {
     //現在のターゲットを再ターゲット
-    slideMvCamTo(_t_x_CAM, _t_y_CAM, _t_z_CAM, DEFAULT_CAMERA_SLIDE_FRAMES);
-    slideMvVpTo(_t_x_VP, _t_y_VP, _t_z_VP, DEFAULT_CAMERA_SLIDE_FRAMES);
-    slideMvUpVecTo(_t_x_UP, _t_y_UP, _t_z_UP, DEFAULT_CAMERA_SLIDE_FRAMES);
+    slideMvCamTo(_t_x_CAM, _t_y_CAM, _t_z_CAM);
+    slideMvVpTo(_t_x_VP, _t_y_VP, _t_z_VP);
+    slideMvUpVecTo(_t_x_UP, _t_y_UP, _t_z_UP);
 }
 
 void CameraWorker::onSwitchCameraWork() {
     //現在のターゲットを再ターゲット
-    slideMvCamTo(_t_x_CAM, _t_y_CAM, _t_z_CAM, DEFAULT_CAMERA_SLIDE_FRAMES);
-    slideMvVpTo(_t_x_VP, _t_y_VP, _t_z_VP, DEFAULT_CAMERA_SLIDE_FRAMES);
-    slideMvUpVecTo(_t_x_UP, _t_y_UP, _t_z_UP, DEFAULT_CAMERA_SLIDE_FRAMES);
+    slideMvCamTo(_t_x_CAM, _t_y_CAM, _t_z_CAM);
+    slideMvVpTo(_t_x_VP, _t_y_VP, _t_z_VP);
+    slideMvUpVecTo(_t_x_UP, _t_y_UP, _t_z_UP);
 }
 
 void CameraWorker::onChangedToOtherCameraWork() {
@@ -75,10 +78,6 @@ void CameraWorker::slideMvCamTo(GgafDx::GeometricActor* pTarget, frame t) {
 void CameraWorker::slideMvCamTo(GgafDx::GeometricActor* pTarget, frame t,
                                 double prm_x_p1, double prm_y_p1, double prm_z_p1) {
     slideMvCamTo(pTarget->_x, pTarget->_y, pTarget->_z, t, prm_x_p1, prm_y_p1, prm_z_p1);
-}
-
-void CameraWorker::slideMvVpTo(GgafDx::GeometricActor* pTarget, frame t) {
-    slideMvVpTo(pTarget->_x, pTarget->_y, pTarget->_z, t);
 }
 
 void CameraWorker::slideMvCamTo(coord tx, coord ty, coord tz, frame t,

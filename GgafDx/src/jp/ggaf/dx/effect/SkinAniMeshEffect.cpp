@@ -27,8 +27,6 @@ SkinAniMeshEffect::SkinAniMeshEffect(const char* prm_effect_name) : World3DimEff
     _h_specular_power = _pID3DXEffect->GetParameterByName( nullptr, "g_specular_power" );
     _h_posCam = _pID3DXEffect->GetParameterByName( nullptr, "g_posCam_World" );
     _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
-    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
-    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
 
     _ah_matBone[0]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matBone001" );
     _ah_matBone[1]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matBone002" );

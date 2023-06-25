@@ -188,8 +188,6 @@ BoardSetEffect::BoardSetEffect(const char* prm_effect_name) : Fix2DimEffect(prm_
     _ah_depth_z[26] = _pID3DXEffect->GetParameterByName( nullptr, "g_depth_Z027" );
     _ah_depth_z[27] = _pID3DXEffect->GetParameterByName( nullptr, "g_depth_Z028" );
 
-    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
-    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
     _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
 }
 

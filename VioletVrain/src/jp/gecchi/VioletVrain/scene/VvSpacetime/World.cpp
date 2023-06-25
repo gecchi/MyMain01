@@ -36,6 +36,5 @@ void World::processJudgement() {
 }
 
 World::~World() {
-//    GGAF_DELETE(pBarVal_);
 }
 

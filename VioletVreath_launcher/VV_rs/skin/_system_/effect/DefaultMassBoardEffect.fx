@@ -6,8 +6,6 @@
 // author : Masatoshi Tsuge
 // date:2009/03/06
 ////////////////////////////////////////////////////////////////////////////////
-float g_tex_blink_power;
-float g_tex_blink_threshold;
 
 //s0レジスタのサンプラを使う(＝固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);

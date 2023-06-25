@@ -20,8 +20,6 @@
  * @author Masatoshi Tsuge
  * @since 2009/03/06
  */
-float g_tex_blink_power;
-float g_tex_blink_threshold;
 // ライトの方向
 float3 g_vecLightFrom_World;
 // Ambienライト色（入射色）
@@ -203,9 +201,7 @@ float4 PS_DefaultMeshSet(
     float4 colOut = colTex * prm_color + s;
 
     //Blinkerを考慮
-    if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
-    }
+    colOut = getBlinkColor(colOut, colTex);
     //マスターα
     colOut.a *= g_alpha_master;
     return colOut;

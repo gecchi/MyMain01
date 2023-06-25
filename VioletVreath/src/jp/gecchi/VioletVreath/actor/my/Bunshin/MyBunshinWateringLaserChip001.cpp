@@ -109,12 +109,8 @@ void MyBunshinWateringLaserChip001::processBehavior() {
             pLeaderChip_AimInfo->pTarget = nullptr;
         }
 
-        if (pLeaderChip_AimInfo->pTarget == nullptr) {
-            if (pLeaderChip_AimInfo->aim_time_out_t1 == 0) {
-                //なにもしない
-            } else {
-                processBehavior_Aiming();
-            }
+        if (pLeaderChip_AimInfo->pTarget == nullptr && pLeaderChip_AimInfo->aim_time_out_t1 == 0) {
+            //なにもしない
         } else {
             processBehavior_Aiming();
         }
@@ -207,31 +203,10 @@ L_PHASE_T2:
              if (pPhase->hasJustChanged() ) {
                  if (pLeaderChip_AimInfo->aim_time_out_t2 == 0) {
                      //T2 未設定だった場合、T2 の座標設定と概算を求める
-
-//                     LaserChip* pB = getBehindChip();
-//                     if (pB) { pB = pB->getBehindChip(); if (pB) {  pB = pB->getBehindChip(); }  }
-//                     if (pB) {
-//                         pLeaderChip_AimInfo->setT2BySphere(ZF_R, pB->_x, pB->_y, pB->_z, _x, _y, _z);
-//                     } else {
-//                         pLeaderChip_AimInfo->setT2BySphere(ZF_R, pOrg_->_x, pOrg_->_y, pOrg_->_z, _x, _y, _z);
-//                     }
-
                      LaserChip* pB = getBehindChip();
                      if (pB) { pB = pB->getBehindChip(); if (pB) {  pB = pB->getBehindChip(); }  }
                      if (pB) {
                          GgafDx::NaviVehicle* pB_pNaviVehicle = pB->getNaviVehicle();
-
-//                         velo vx = pNaviVehicle->_velo_vc_x*2 - pB_pNaviVehicle->_velo_vc_x;
-//                         velo vy = pNaviVehicle->_velo_vc_y*2 - pB_pNaviVehicle->_velo_vc_y;
-//                         velo vz = pNaviVehicle->_velo_vc_z*2 - pB_pNaviVehicle->_velo_vc_z;
-
-//                         pLeaderChip_AimInfo->setT2BySphere(
-//                                                ZF_R,
-//                                                _x, _y, _z,
-//                                                vx, vy, vz
-//                                              );
-
-
                          pLeaderChip_AimInfo->setT2BySphere(
                                                 ZF_R,
                                                 _x, _y, _z,
@@ -239,7 +214,6 @@ L_PHASE_T2:
                                                 _y + pB_pNaviVehicle->_acce_vc_y,
                                                 _z + pB_pNaviVehicle->_acce_vc_z
                                               );
-
                      } else {
                          pLeaderChip_AimInfo->setT2BySphere(
                                                 ZF_R,
@@ -402,15 +376,15 @@ throwCriticalException("pLeaderChip_AimInfo_ が引き継がれていません！"<<this<<
 
 void MyBunshinWateringLaserChip001::processJudgement() {
     if (isOutOfSpacetime()) {
-        if (pLeaderChip_AimInfo_->pLeaderChip == this) {
-            //T2情報を残しておく
-            pLeaderChip_AimInfo_->setT2(_x, _y, _z);
-            pLeaderChip_AimInfo_->aim_time_out_t2 = getActiveFrame();
-            if (pLeaderChip_AimInfo_->aim_time_out_t1 == 0) {
-                pLeaderChip_AimInfo_->setT1_and_T1Ahead(pLeaderChip_AimInfo_->t2_x, pLeaderChip_AimInfo_->t2_y, pLeaderChip_AimInfo_->t2_z);
-                pLeaderChip_AimInfo_->aim_time_out_t1 = getActiveFrame();
-            }
-        }
+//        if (pLeaderChip_AimInfo_->pLeaderChip == this) {
+//            //T2情報を残しておく
+//            pLeaderChip_AimInfo_->setT2(_x, _y, _z);
+//            pLeaderChip_AimInfo_->aim_time_out_t2 = getActiveFrame();
+//            if (pLeaderChip_AimInfo_->aim_time_out_t1 == 0) {
+//                pLeaderChip_AimInfo_->setT1_and_T1Ahead(pLeaderChip_AimInfo_->t2_x, pLeaderChip_AimInfo_->t2_y, pLeaderChip_AimInfo_->t2_z);
+//                pLeaderChip_AimInfo_->aim_time_out_t1 = getActiveFrame();
+//            }
+//        }
         sayonara();
     }
 }
@@ -534,28 +508,9 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
 void MyBunshinWateringLaserChip001::onInactive() {
     static const Spacetime* pSpaceTime =  pCARETAKER->getSpacetime();
     static const double ZF_R = pSpaceTime->_x_bound_right - pSpaceTime->_x_bound_left;
-
     //後続チップ(リーダーのpLeaderChip_AimInfo_を参照している)のために、pLeaderChip_AimInfo_の情報を後始末
-    AimInfo* pLeaderChip_AimInfo = pLeaderChip_AimInfo_;
-    if (pLeaderChip_AimInfo && pLeaderChip_AimInfo->pLeaderChip == this) {
-        if (pLeaderChip_AimInfo->aim_time_out_t2 == 0) {
-            frame aim_time_out_t1 = pLeaderChip_AimInfo_->aim_time_out_t1;
-            MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
-            if (pB) {
-                pLeaderChip_AimInfo->setT2BySphere(ZF_R, pB->_x, pB->_y, pB->_z, _x, _y, _z);
-                pLeaderChip_AimInfo->aim_time_out_t2 = getActiveFrame() + aim_time_out_t1;
-            } else {
-                pLeaderChip_AimInfo->setT2BySphere(ZF_R, pOrg_->_x, pOrg_->_y, pOrg_->_z, _x, _y, _z);
-                pLeaderChip_AimInfo->aim_time_out_t2 = getActiveFrame() + aim_time_out_t1;
-            }
-
-            if (pLeaderChip_AimInfo->aim_time_out_t1 == 0) {
-                pLeaderChip_AimInfo->setT1_and_T1Ahead(pLeaderChip_AimInfo->t2_x, pLeaderChip_AimInfo->t2_y, pLeaderChip_AimInfo->t2_z);
-                pLeaderChip_AimInfo->aim_time_out_t1 = getActiveFrame() + aim_time_out_t1;
-            }
-
-        }
-        pLeaderChip_AimInfo->pLeaderChip = nullptr;
+    if (pLeaderChip_AimInfo_->pLeaderChip == this) {
+        pLeaderChip_AimInfo_->pLeaderChip = nullptr;
     }
     pOrg_ = nullptr;
     pLockonCursor_ = nullptr;

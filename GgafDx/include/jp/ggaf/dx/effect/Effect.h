@@ -65,7 +65,8 @@ public:
     ID3DXEffect* _pID3DXEffect;
 
     D3DXHANDLE _h_alpha_master;
-
+    D3DXHANDLE _h_tex_blink_power;
+    D3DXHANDLE _h_tex_blink_threshold;
 #ifdef MY_DEBUG
     bool _begin;
 #endif

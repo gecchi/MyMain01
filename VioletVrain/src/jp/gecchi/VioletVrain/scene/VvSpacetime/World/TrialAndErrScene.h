@@ -8,9 +8,6 @@ namespace VioletVrain {
 class TrialAndErrScene : public GgafLib::DefaultScene {
 
 public:
-//    PointSpriteTest* pTest_;
-
-public:
     TrialAndErrScene(const char* prm_name);
     virtual void initialize() override;
     virtual void processBehavior() override;

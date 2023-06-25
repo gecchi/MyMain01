@@ -16,10 +16,8 @@
 #include "scene/VvvSpacetime/VvvWorld.h"
 #include "VvvCaretaker.h"
 
-
 using namespace GgafLib;
 using namespace VVViewer;
-
 
 VvvMousePointer::VvvMousePointer(const char* prm_name) :
         MousePointerActor(prm_name, "VvvMousePointer") {
@@ -37,7 +35,6 @@ void VvvMousePointer::onCreateModel() {
 }
 
 void VvvMousePointer::initialize() {
-
     pI_ = desireActor(GgafLib::DefaultMeshActor, "Guruguru", "Guruguru");
     WorldCollisionChecker* pChecker = pI_->getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
@@ -49,7 +46,6 @@ void VvvMousePointer::initialize() {
 
 void VvvMousePointer::onActive() {
 }
-
 
 void VvvMousePointer::processBehavior() {
     VvvWorld* pWorld  = pCARETAKER->getSpacetime()->pWorld_;

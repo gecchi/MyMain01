@@ -21,8 +21,6 @@ float g_depth_z; //深度Z (0 ～ +1)
 float g_sx; //X軸方向拡大率(1.0で等倍)
 float g_sy; //Y軸方向拡大率(1.0で等倍)
 float g_rz; //Z軸回転角（ラジアン）0～2π
-float g_tex_blink_power;
-float g_tex_blink_threshold;
 //s0レジスタのサンプラを使う(＝固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
 
@@ -71,9 +69,8 @@ float4 PS_DefaultBoard(
     float2 prm_uv      : TEXCOORD0
 ) : COLOR  {
     float4 colOut = tex2D( MyTextureSampler, prm_uv);
-    if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);
-    }
+    //Blinkerを考慮
+    colOut = getBlinkColor(colOut);
     colOut *= g_colMaterialDiffuse;
     colOut.a *= g_alpha_master;
     return colOut;

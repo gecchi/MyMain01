@@ -7,7 +7,7 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-MyShipDivingCamWorker::MyShipDivingCamWorker(const char* prm_name, Camera* prm_pCamera) : CameraWorker(prm_name, (DefaultCamera*)prm_pCamera) {
+MyShipDivingCamWorker::MyShipDivingCamWorker(const char* prm_name, Camera* prm_pCamera) : DefaultCamWorker(prm_name, (DefaultCamera*)prm_pCamera) {
     _class_name = "MyShipDivingCamWorker";
 }
 void MyShipDivingCamWorker::initialize() {

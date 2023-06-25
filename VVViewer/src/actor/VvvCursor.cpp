@@ -7,8 +7,6 @@
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
 
-
-
 using namespace GgafLib;
 using namespace VVViewer;
 

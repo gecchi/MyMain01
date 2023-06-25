@@ -19,12 +19,13 @@ public:
     bool _mdz_flg;
     double _mdz_vx, _mdz_vy, _mdz_vz, _mdz_t;
     int _mdz_total;
-
     bool _isPressed0,_isPressed1, _isPressed2;
     bool _onScreen;
     HWND _hWnd_last;
 public:
-    AroundViewCamWorker(const char* prm_name, DefaultCamera* prm_pCamera);
+    AroundViewCamWorker(const char* prm_name, DefaultCamera* prm_pCamera,
+                       frame prm_slide_frames = 60, double prm_slide_p1 = 0.3, double prm_slide_p2 = 0.7);
+
 
     virtual void initialize() override;
 

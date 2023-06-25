@@ -158,8 +158,6 @@ MeshSetEffect::MeshSetEffect(const char* prm_effect_name) : World3DimEffect(prm_
     _ah_offset_v[30] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v031" );
     _ah_offset_v[31] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v032" );
 
-    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
-    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
     _h_specular = _pID3DXEffect->GetParameterByName( nullptr, "g_specular" );
     _h_specular_power = _pID3DXEffect->GetParameterByName( nullptr, "g_specular_power" );
     _h_posCam = _pID3DXEffect->GetParameterByName( nullptr, "g_posCam_World" );

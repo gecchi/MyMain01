@@ -1,7 +1,5 @@
 #include "CameraViewPoint.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

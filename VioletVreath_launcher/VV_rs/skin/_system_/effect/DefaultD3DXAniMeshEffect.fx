@@ -12,8 +12,6 @@ float3 g_vecLightFrom_World; // ライトの方向
 float4 g_colLightAmbient;   // Ambienライト色（入射色）
 float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 float4 g_colMaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
-float g_tex_blink_power;
-float g_tex_blink_threshold;
 
 //s0レジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -79,11 +77,8 @@ float4 PS_DefaultD3DXAniMesh(
     //テクスチャをサンプリングして色取得（原色を取得）
     const float4 colTex = tex2D( MyTextureSampler, prm_uv);
     float4 colOut = colTex * prm_color;
-
     //Blinkerを考慮
-    if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);
-    }
+    colOut = getBlinkColor(colOut, colTex);
     //マスターα
     colOut.a *= g_alpha_master;
     return colOut;
@@ -96,11 +91,8 @@ float4 PS_DefaultD3DXAniMesh2(
     //テクスチャをサンプリングして色取得（原色を取得）
     const float4 colTex = tex2D( MyTextureSampler, prm_uv);
     float4 colOut = colTex * prm_color;
-
     //Blinkerを考慮
-    if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);
-    }
+    colOut = getBlinkColor(colOut, colTex);
     //マスターα
     colOut.a *= g_alpha_master;
     return colOut;

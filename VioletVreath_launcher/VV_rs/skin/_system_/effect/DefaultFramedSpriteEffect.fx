@@ -23,11 +23,6 @@ float4x4 g_matWorldRotMv;
 /** モデルのマテリアル色(ライトによる拡散反射時のモデルの色) */
 float4 g_colMaterialDiffuse;
 
-/** モデルのテクスチャ色点滅機能(GgafDx::TextureBlinker参照)の点滅強度 */
-float g_tex_blink_power;
-/** モデルのテクスチャ色点滅機能(GgafDx::TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
-float g_tex_blink_threshold;
-
 /** テクスチャU座標増分（パターンNoにより増減） */
 float g_offset_u001;
 float g_offset_u002;
@@ -221,10 +216,7 @@ float4 PS_DefaultFramedSprite(
     //テクスチャ色にマテリアルカラーとスペキュラーを考慮
     colOut = colOut * g_colMaterialDiffuse;
     //Blinkerを考慮
-    if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
-    }
-
+    colOut = getBlinkColor(colOut);
     //マスターα
     colOut.a *= g_alpha_master;
     return colOut;

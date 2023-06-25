@@ -14,9 +14,6 @@ float3 g_vecLightFrom_World; // ライトの方向
 float4 g_colLightAmbient;   // Ambienライト色（入射色）
 float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 
-//float g_tex_blink_power;
-//float g_tex_blink_threshold;
-
 //s0レジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
 

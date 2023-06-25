@@ -21,8 +21,6 @@ float g_depth_z; //[“xZ (0 ` +1)
 float g_sx; //X²•ûŒüŠg‘å—¦(1.0‚Å“™”{)
 float g_sy; //Y²•ûŒüŠg‘å—¦(1.0‚Å“™”{)
 float g_rz; //Z²‰ñ“]Špiƒ‰ƒWƒAƒ“j0`2ƒÎ
-float g_tex_blink_power;
-float g_tex_blink_threshold;
 float g_sin_rz;
 float g_cos_rz;
 float g_x_center;
@@ -94,9 +92,8 @@ float4 PS_DefaultRegularPolygonBoard(
     float2 prm_uv      : TEXCOORD0
 ) : COLOR  {
     float4 colOut = tex2D( MyTextureSampler, prm_uv);
-    if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);
-    }
+    //Blinker‚ğl—¶
+    colOut = getBlinkColor(colOut);
     colOut *= g_colMaterialDiffuse;
     colOut.a *= g_alpha_master;
     return colOut;

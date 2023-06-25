@@ -10,11 +10,13 @@
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraUpVector.h"
 
-
-
 using namespace GgafLib;
 
-AroundViewCamWorker::AroundViewCamWorker(const char* prm_name, DefaultCamera* prm_pCamera) : CameraWorker(prm_name, prm_pCamera) {
+AroundViewCamWorker::AroundViewCamWorker(
+        const char* prm_name, DefaultCamera* prm_pCamera,
+        frame prm_slide_frames, double prm_slide_p1, double prm_slide_p2)
+            : CameraWorker(prm_name, prm_pCamera,
+                           prm_slide_frames, prm_slide_p1, prm_slide_p2) {
     _class_name = "AroundViewCamWorker";
     _cd = 0;
     _mdz_flg = false;
@@ -33,9 +35,9 @@ void AroundViewCamWorker::onActive() {
     CameraWorker::onActive();
     //CameraWorker::onActive(); を上書きして、
     //その場座標をターゲット座標に上書き
-    slideMvCamTo(_pCam->_x, _pCam->_y, _pCam->_z, DEFAULT_CAMERA_SLIDE_FRAMES);
-    slideMvVpTo(_pVp->_x, _pVp->_y, _pVp->_z, DEFAULT_CAMERA_SLIDE_FRAMES);
-    slideMvUpVecTo(_pUp->_x, _pUp->_y, _pUp->_z, DEFAULT_CAMERA_SLIDE_FRAMES);
+    slideMvCamTo(_pCam->_x, _pCam->_y, _pCam->_z);
+    slideMvVpTo(_pVp->_x, _pVp->_y, _pVp->_z);
+    slideMvUpVecTo(_pUp->_x, _pUp->_y, _pUp->_z);
 }
 
 void AroundViewCamWorker::processBehavior() {
@@ -176,12 +178,12 @@ void AroundViewCamWorker::processBehavior() {
             Quaternion Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
             qu.mul(0, vx_eye, vy_eye, vz_eye); //R*P
             qu.mul(Q); //R*P*Q
-            slideMvCamTo(qu.i + _t_x_VP, qu.j + _t_y_VP, qu.k + _t_z_VP, DEFAULT_CAMERA_SLIDE_FRAMES);
+            slideMvCamTo(qu.i + _t_x_VP, qu.j + _t_y_VP, qu.k + _t_z_VP);
             //UPもまわす
             {
                 qu2.mul(0, _t_x_UP, _t_y_UP, _t_z_UP);//R*P
                 qu2.mul(Q); //R*P*Q
-                slideMvUpVecTo(qu2.i, qu2.j, qu2.k, DEFAULT_CAMERA_SLIDE_FRAMES);
+                slideMvUpVecTo(qu2.i, qu2.j, qu2.k);
             }
         }
         //カメラを中心に視点が回転移動
@@ -199,12 +201,12 @@ void AroundViewCamWorker::processBehavior() {
             Quaternion Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
             qu.mul(0, vx_cam, vy_cam, vz_cam);//R*P 回転軸が現在の進行方向ベクトルとなる
             qu.mul(Q); //R*P*Q
-            slideMvVpTo(qu.i + _t_x_CAM, qu.j + _t_y_CAM, qu.k + _t_z_CAM, DEFAULT_CAMERA_SLIDE_FRAMES);
+            slideMvVpTo(qu.i + _t_x_CAM, qu.j + _t_y_CAM, qu.k + _t_z_CAM);
             //UPもまわす
             {
                 qu2.mul(0, _t_x_UP, _t_y_UP, _t_z_UP); //R*P
                 qu2.mul(Q);  //R*P*Q
-                slideMvUpVecTo(qu2.i, qu2.j, qu2.k, DEFAULT_CAMERA_SLIDE_FRAMES);
+                slideMvUpVecTo(qu2.i, qu2.j, qu2.k);
             }
         }
         //カメラをと視点が平行移動
@@ -227,10 +229,10 @@ void AroundViewCamWorker::processBehavior() {
             double r = (d/_cd) * game_width;
             slideMvCamTo(_t_x_CAM + (qu.i*r),
                          _t_y_CAM + (qu.j*r),
-                         _t_z_CAM + (qu.k*r) , DEFAULT_CAMERA_SLIDE_FRAMES);
+                         _t_z_CAM + (qu.k*r) );
             slideMvVpTo(_t_x_VP + (qu.i*r),
                         _t_y_VP + (qu.j*r),
-                        _t_z_VP + (qu.k*r) , DEFAULT_CAMERA_SLIDE_FRAMES);
+                        _t_z_VP + (qu.k*r) );
         }
 
     } else if ((mdz != 0 && _onScreen) || (isPressedMouseButton0 && isPressedMouseButton1)) {
@@ -256,10 +258,10 @@ void AroundViewCamWorker::processBehavior() {
         if (mdx != 0 || mdy != 0 || mdz != 0) {
             slideMvCamTo(_t_x_CAM + _mdz_vx*r,
                          _t_y_CAM + _mdz_vy*r,
-                         _t_z_CAM + _mdz_vz*r , DEFAULT_CAMERA_SLIDE_FRAMES);
+                         _t_z_CAM + _mdz_vz*r );
             slideMvVpTo(_t_x_VP + _mdz_vx*r,
                         _t_y_VP + _mdz_vy*r,
-                        _t_z_VP + _mdz_vz*r , DEFAULT_CAMERA_SLIDE_FRAMES);
+                        _t_z_VP + _mdz_vz*r );
         }
         _mdz_flg = true;
     } else {

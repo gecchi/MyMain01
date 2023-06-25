@@ -29,9 +29,6 @@ float4 g_colLightAmbient;   // Ambienライト色（入射色）
 float4 g_colLightDiffuse;   // Diffuseライト色（入射色）
 
 float4 g_colMaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
-float g_tex_blink_power;
-float g_tex_blink_threshold;
-
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
 
@@ -319,9 +316,7 @@ float4 PS_DefaultMorphMesh(
 
     float4 colOut = (colTex2D * prm_color) + s;
     //Blinkerを考慮
-    if (colTex2D.r >= g_tex_blink_threshold || colTex2D.g >= g_tex_blink_threshold || colTex2D.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
-    }
+    colOut = getBlinkColor(colOut, colTex2D);
     colOut.a = prm_color.a * g_alpha_master;
     return colOut;
 }

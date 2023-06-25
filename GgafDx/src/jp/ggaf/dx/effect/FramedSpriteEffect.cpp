@@ -21,12 +21,7 @@ FramedSpriteEffect::FramedSpriteEffect(const char* prm_effect_name) : World3DimE
     //シェーダーハンドル
     _h_matWorldRotMv = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorldRotMv" );
     _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
-    _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
-    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
     _h_alpha = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha" );
-
-//    _h_offset_u = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u" );
-//    _h_offset_v = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v" );
 
     _ah_offset_u[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u001" );
     _ah_offset_u[1] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u002" );
@@ -59,8 +54,6 @@ FramedSpriteEffect::FramedSpriteEffect(const char* prm_effect_name) : World3DimE
 
     _h_depth_z = _pID3DXEffect->GetParameterByName( nullptr, "g_depth_Z" );
 
-    _h_tex_blink_power     = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
-    _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
     _h_colMaterialDiffuse  = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
 
     _h_frame_sx = _pID3DXEffect->GetParameterByName( nullptr, "g_frame_sx" );

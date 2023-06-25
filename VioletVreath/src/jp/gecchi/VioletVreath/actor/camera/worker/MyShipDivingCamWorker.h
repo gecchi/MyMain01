@@ -1,7 +1,7 @@
 #ifndef MYSHIPDIVINGCAMWORKER_H_
 #define MYSHIPDIVINGCAMWORKER_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
-#include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
+#include "jp/ggaf/lib/actor/camera/worker/DefaultCamWorker.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2010/11/11
  * @author Masatoshi Tsuge
  */
-class MyShipDivingCamWorker : public GgafLib::CameraWorker {
+class MyShipDivingCamWorker : public GgafLib::DefaultCamWorker {
 
 public:
     MyShipDivingCamWorker(const char* prm_name, Camera* prm_pCamera);

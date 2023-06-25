@@ -27,9 +27,6 @@ float g_ah_POS_YZ;
 float g_fh_POS_YZ;
 float g_ah_POS_XY;
 float g_fh_POS_XY;
-
-float g_tex_blink_power;
-float g_tex_blink_threshold;
 // ライトの方向
 float3 g_vecLightFrom_World;
 // Ambienライト色（入射色）
@@ -411,11 +408,9 @@ float4 PS_CubeMapMassWall(
 
     float4 colOut = (colTex2D * prm_color) + (colTexCube*g_reflectance) + s;
     //Blinkerを考慮
-    if (colTex2D.r >= g_tex_blink_threshold || colTex2D.g >= g_tex_blink_threshold || colTex2D.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
-    }
-
+    colOut = getBlinkColor(colOut, colTex2D);
     colOut.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master;
+
 
     return colOut;
 }

@@ -616,7 +616,7 @@ bool VamSysCamWorker::initStatic(Camera* prm_pCamera) {
     return true;
 }
 
-VamSysCamWorker::VamSysCamWorker(const char* prm_name, Camera* prm_pCamera) : CameraWorker(prm_name, (DefaultCamera*)prm_pCamera) {
+VamSysCamWorker::VamSysCamWorker(const char* prm_name, Camera* prm_pCamera) : DefaultCamWorker(prm_name, (DefaultCamera*)prm_pCamera) {
     _class_name = "VamSysCamWorker";
 
     static volatile bool is_init = VamSysCamWorker::initStatic(prm_pCamera); //Ã“Iƒƒ“ƒo‰Šú‰»
