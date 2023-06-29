@@ -477,6 +477,7 @@ class MyBunshinBase;
 class MyBunshinController;
 class MyBunshinShot001;
 class MyBunshinSnipeShot001;
+class MyBunshinStraightLaserChip001;
 class MyBunshinWateringLaserChip001;
 class MyLockonController;
 class MyMagicEnergy;

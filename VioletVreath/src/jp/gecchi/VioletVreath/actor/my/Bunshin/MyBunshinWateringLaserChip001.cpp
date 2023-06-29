@@ -158,7 +158,7 @@ void MyBunshinWateringLaserChip001::processBehavior_Aiming() {
                         double out_ahead_nvx, out_ahead_nvy, out_ahead_nvz;
                         UTIL::getNormalizedVector(ahead_vx, ahead_vy, ahead_vz,
                                                   out_ahead_nvx, out_ahead_nvy, out_ahead_nvz);
-                        //ヒットBOX 分ずらす
+                        //目標座標を、進行方向にヒットBOX分ずらす
                         static coord d_f = _hitarea_edge_length; //_hitarea_edge_length/2;
                         pLeaderChip_AimInfo->setT1Ahead(aim_t1_x + out_ahead_nvx*d_f,
                                                         aim_t1_y + out_ahead_nvy*d_f,
@@ -303,7 +303,7 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
                 D3DXVECTOR3 V(tx-x, ty-y, tz-z);
                 D3DXVECTOR3 W(C_DX(pNaviVehicle->_velo_vc_x), C_DX(pNaviVehicle->_velo_vc_y), C_DX(pNaviVehicle->_velo_vc_z));
                 float rad = UTIL::get3DRadAngle(V, W); //成す角
-                double rate_estimate = RCNV(0.0, PI, rad, 1.0, 4.0); //直線に近ければ 1.0 ～ 真逆 4.0
+                double rate_estimate = RCNV(0.0, PI, rad, 1.0, 4.5); //直線に近ければ 1.0 ～ 真逆 4.5 の割合を見積もる(※真横が往復で、約2.0 と考えた)
                 coord t1_d = UTIL::getDistance(this, pLockonTarget);
                 //距離÷初期速度 に割合を乗じて、到達時間を概算で見積もる。
                 pLeaderChip_AimInfo_->aim_time_out_t1 = getActiveFrame() + ((t1_d / pNaviVehicle->_velo) * rate_estimate);
@@ -481,7 +481,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
             getStatus()->set(STAT_Stamina, default_stamina_);
-            sayonara();
+//            sayonara();//痛感テスト
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             getStatus()->set(STAT_Stamina, default_stamina_);
