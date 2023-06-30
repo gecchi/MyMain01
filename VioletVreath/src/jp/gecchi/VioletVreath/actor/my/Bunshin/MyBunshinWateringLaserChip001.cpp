@@ -506,8 +506,6 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
 }
 
 void MyBunshinWateringLaserChip001::onInactive() {
-    static const Spacetime* pSpaceTime =  pCARETAKER->getSpacetime();
-    static const double ZF_R = pSpaceTime->_x_bound_right - pSpaceTime->_x_bound_left;
     //後続チップ(リーダーのpLeaderChip_AimInfo_を参照している)のために、pLeaderChip_AimInfo_の情報を後始末
     if (pLeaderChip_AimInfo_->pLeaderChip == this) {
         pLeaderChip_AimInfo_->pLeaderChip = nullptr;

@@ -1,2 +1,15 @@
 デモ画面で時期がわずかずつずっと上に移動する現象があったと思う。VB_PLAY.rep DEBUGシーン見て、次の壁シーン加速でおわり、VB_PLAY.repのカメラ移動のところで、GOTOTITLEしたと思う。
-LASER_THUNDER の末尾が中間ぶった切りになる場合がある（DISPATCH2で）
+LASER_THUNDER DISPATCH3 で出現位置に敵がいる場合、ぶった切りになるり、先端だけ表示されす部消える
+LASER_THUNDER と KOANYA の住み分け
+LASER_THUNDER はそのままでつよいので、KOANYAをもっとなにか無いか、ならではを考える。
+色のしきい値による点滅がおかしい、なんか全部光っとる。とくにボス
+
+
+        OP TURBO
+
+        1
+      P   2
+        V
+
+＋    ＋V
+
