@@ -32,7 +32,7 @@ namespace VioletVreath {
 
 
 /** レーザーの同時dispatch数 */
-#define N_DISPATCH_AT_ONCE (2)
+#define N_DISPATCH_AT_ONCE (3)
 /**
  * 自機クラス
  * @version 1.00

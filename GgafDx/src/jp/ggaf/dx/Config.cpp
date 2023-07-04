@@ -196,6 +196,10 @@ void Config::loadProperties(std::string prm_properties_filename) {
         Config::SCREEN_RENDER_BUFFER_SOURCE[pry].WIDTH  = Config::RENDER_TARGET_BUFFER_WIDTH;
         Config::SCREEN_RENDER_BUFFER_SOURCE[pry].HEIGHT = Config::RENDER_TARGET_BUFFER_HEIGHT;
     }
+    if (Config::NUMBER_OF_SCREENS_USED == 0) {
+        throwCriticalException("NUMBER_OF_SCREENS_USED が、0です。使用モニタ数は 1 以上を指定してください。");
+    }
+
     int a_width = Config::RENDER_TARGET_BUFFER_WIDTH / Config::NUMBER_OF_SCREENS_USED;
     int a_width_add = 0;
     for (int pry = 0; pry < Config::NUMBER_OF_SCREENS_USED; pry++) {

@@ -338,14 +338,21 @@ throwCriticalException("pLeaderChip_AimInfo_ が引き継がれていません！"<<this<<
         if (pF && pF->isActive()) {
             MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
             if (pB && pB->isActive()) {
-                //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
-                //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
-                //_x,_y,_z にはまだ変な値が入っている。
-                //中間座標に再設定
-                //座標の重みは、（ひとつ前, 自身, 一つ先）＝ (0.2, 0.3, 0.4)
-                _x = _x + (coord)((pB->_x-_x)*0.2 + (pF->_x-_x)*0.4);
-                _y = _y + (coord)((pB->_y-_y)*0.2 + (pF->_y-_y)*0.4);
-                _z = _z + (coord)((pB->_z-_z)*0.2 + (pF->_z-_z)*0.4);
+
+                if (_dispatch_index == 0) {
+                    _x = _x + (coord)((pB->_x-_x)*0.4 + (pF->_x-_x)*0.5);
+                    _y = _y + (coord)((pB->_y-_y)*0.4 + (pF->_y-_y)*0.5);
+                    _z = _z + (coord)((pB->_z-_z)*0.4 + (pF->_z-_z)*0.5);
+                } else {
+                    //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
+                    //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
+                    //_x,_y,_z にはまだ変な値が入っている。
+                    //中間座標に再設定
+                    //座標の重みは、（ひとつ前, 自身, 一つ先）＝ (0.2, 0.3, 0.4)
+                    _x = _x + (coord)((pB->_x-_x)*0.2 + (pF->_x-_x)*0.4);
+                    _y = _y + (coord)((pB->_y-_y)*0.2 + (pF->_y-_y)*0.4);
+                    _z = _z + (coord)((pB->_z-_z)*0.2 + (pF->_z-_z)*0.4);
+                }
             } else {
                 //レーザー末尾がはねる（髪の毛がはねるみたいになる）のを若干防ぐ
                 //一つ前の座標と、自身の座標を直線で結んで、仮想の自分の後ろの点を作成。
