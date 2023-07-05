@@ -24,13 +24,6 @@ class MyBunshinWateringLaserChip001 : public VvMyActor<GgafLib::WateringLaserChi
      * @param vTx 目標X座標
      * @param vTy 目標Y座標
      * @param vTz 目標Z座標
-     */
-
-    /**
-     * 的（ロックオン座標）へレーザーチップを移動させる為の座標を計算
-     * @param vTx 目標X座標
-     * @param vTy 目標Y座標
-     * @param vTz 目標Z座標
      * @param chk_done true:まだAimさせる必要があるのかチェックする ／ false:チェックしない
      * @return chk_done が true の場合のみ戻り値に意味がある
      *         true：目標に到達したのでもういいよ。あるいは、目標を通り過ぎちゃったのでもういいよ。／false:まだまだAim頑張る
@@ -46,8 +39,6 @@ public:
         coord t1_x, t1_y, t1_z;
         coord t1_x_prev, t1_y_prev, t1_z_prev;
         coord t1_ahead_x, t1_ahead_y, t1_ahead_z;
-        /** T1 へ到達した時点の active_frame が入る。 0 の場合 T1 へ Aim 中 */
-        //frame spent_frames_to_t1;
         /** T1 へ到達する見込みの active_frame。 */
         frame aim_time_out_t1;
         /** T2 目標座標 */
@@ -105,17 +96,12 @@ public:
         }
     };
 
-
-
-
-
     /** [r]ロックオンしている場合 true */
     bool is_lockon_;
     /** [r]レーザー発射元 */
     MyBunshin* pOrg_;
 
     const LockonCursor001_Main* pLockonCursor_;
-
 
     /** [r/w]レーザー最大速度（この値を大きくすると、最高速度が早くなる。） */
     static const velo MAX_VELO;

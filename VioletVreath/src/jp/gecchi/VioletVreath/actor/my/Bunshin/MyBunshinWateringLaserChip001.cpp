@@ -159,7 +159,7 @@ void MyBunshinWateringLaserChip001::processBehavior_Aiming() {
                         UTIL::getNormalizedVector(ahead_vx, ahead_vy, ahead_vz,
                                                   out_ahead_nvx, out_ahead_nvy, out_ahead_nvz);
                         //目標座標を、進行方向にヒットBOX分ずらす
-                        static coord d_f = _hitarea_edge_length; //_hitarea_edge_length/2;
+                        static coord d_f = _hitarea_edge_length/2;
                         pLeaderChip_AimInfo->setT1Ahead(aim_t1_x + out_ahead_nvx*d_f,
                                                         aim_t1_y + out_ahead_nvy*d_f,
                                                         aim_t1_z + out_ahead_nvz*d_f);
@@ -270,9 +270,6 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
         if (n == 0) {
             setPositionAt(pOrg_);
         } else {
-//            setPosition(pOrg_->_x + ((pNaviVehicle->_velo_vc_x/_n_dispatch_at_once) * n) ,
-//                        pOrg_->_y + ((pNaviVehicle->_velo_vc_y/_n_dispatch_at_once) * n) ,
-//                        pOrg_->_z + ((pNaviVehicle->_velo_vc_z/_n_dispatch_at_once) * n) );
             double v = 1.0*n / _n_dispatch_at_once;
             setPosition(pOrg_->_x + (pNaviVehicle->_velo_vc_x * v) ,
                         pOrg_->_y + (pNaviVehicle->_velo_vc_y * v) ,
@@ -337,16 +334,15 @@ throwCriticalException("pLeaderChip_AimInfo_ が引き継がれていません！"<<this<<
     if (getActiveFrame() > 2) {//FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
         if (pF && pF->isActive()) {
             MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
+            //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
+            //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
+            //_x,_y,_z にはまだ変な値が入っている。
             if (pB && pB->isActive()) {
-
-                if (_dispatch_index == 0) {
+                if (_dispatch_index == 0) { //N_DISPATCH_AT_ONCE の節目が角張るので平均化を強くした
                     _x = _x + (coord)((pB->_x-_x)*0.4 + (pF->_x-_x)*0.5);
                     _y = _y + (coord)((pB->_y-_y)*0.4 + (pF->_y-_y)*0.5);
                     _z = _z + (coord)((pB->_z-_z)*0.4 + (pF->_z-_z)*0.5);
                 } else {
-                    //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
-                    //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
-                    //_x,_y,_z にはまだ変な値が入っている。
                     //中間座標に再設定
                     //座標の重みは、（ひとつ前, 自身, 一つ先）＝ (0.2, 0.3, 0.4)
                     _x = _x + (coord)((pB->_x-_x)*0.2 + (pF->_x-_x)*0.4);
