@@ -106,7 +106,7 @@
     <ClInclude Include="include\jp\ggaf\lib\model\SingleLaserModel.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\DefaultScene.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\DefaultSpacetime.h" />
-    <ClInclude Include="include\jp\ggaf\lib\scene\FormationTableScene.h" />
+    <ClInclude Include="include\jp\ggaf\lib\scene\RotateFormationScene.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\WallScene.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\WallSectionScene.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliAABox.h" />
@@ -204,7 +204,7 @@
     <ClCompile Include="src\jp\ggaf\lib\model\SingleLaserModel.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\DefaultScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\DefaultSpacetime.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\scene\FormationTableScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\scene\RotateFormationScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\WallScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\WallSectionScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAABox.cpp" />

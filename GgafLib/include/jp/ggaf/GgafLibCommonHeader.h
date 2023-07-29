@@ -38,13 +38,13 @@ class VBReplayRecorder;
 
 class DefaultScene;
 class ScenePhase;
-class FormationTableScene;
+class RotateFormationScene;
 class WallScene;
 class WallSectionScene;
 
 class LibConfig;
 
-class DefaultSceneMediator;
+class DefaultSceneChief;
 class TreeFormation;
 class FkFormation;
 class DepositoryFormation;

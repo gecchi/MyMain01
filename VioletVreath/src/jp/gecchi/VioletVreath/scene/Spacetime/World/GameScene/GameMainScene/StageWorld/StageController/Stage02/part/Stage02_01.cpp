@@ -1,8 +1,8 @@
 #include "Stage02_01.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/sound/BgmConductor.h"
-#include "jp/ggaf/lib/scene/FormationTableScene.h"
+#include "jp/ggaf/lib/scene/RotateFormationScene.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "../Stage02PartController.h"
@@ -40,7 +40,7 @@ void Stage02_01::processBehavior() {
             }
             case 100: {
                 FormationGeria001* pF = (FormationGeria001*)receiveActor(80000000);
-                bringSceneMediator()->appendGroupChild(pF);
+                getSceneChief()->appendGroupChild(pF);
                 break;
             }
             case 400: {
@@ -54,15 +54,15 @@ void Stage02_01::processBehavior() {
             }
             case 1000: {
                 {
-                FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-1");
+                RotateFormationScene* ta = NEW RotateFormationScene("RotateFormationScene-1");
                 ta->setMaxPerformFrame(2000);
                 appendChild(ta);
-                ta->addToTable(((FormationRis001*)receiveActor(80000002)), 400);
-                ta->addToTable(((FormationRis002*)receiveActor(80000003)), 400);
-                ta->addToTable(((FormationRis001*)receiveActor(80000004)), 400);
-                ta->addToTable(((FormationRis002*)receiveActor(80000005)), 400);
-                ta->addToTable(((FormationRis001*)receiveActor(80000006)), 400);
-                ta->addToTable(((FormationRis002*)receiveActor(80000007)), 400);
+                ta->addFormation(((FormationRis001*)receiveActor(80000002)), 400);
+                ta->addFormation(((FormationRis002*)receiveActor(80000003)), 400);
+                ta->addFormation(((FormationRis001*)receiveActor(80000004)), 400);
+                ta->addFormation(((FormationRis002*)receiveActor(80000005)), 400);
+                ta->addFormation(((FormationRis001*)receiveActor(80000006)), 400);
+                ta->addFormation(((FormationRis002*)receiveActor(80000007)), 400);
                 }
                 break;
             }

@@ -1,21 +1,21 @@
-#include "jp/ggaf/lib/scene/FormationTableScene.h"
+#include "jp/ggaf/lib/scene/RotateFormationScene.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/core/actor/ex/Formation.h"
 
 
 
 using namespace GgafLib;
 
-FormationTableScene::FormationTableScene(const char* prm_name) :
+RotateFormationScene::RotateFormationScene(const char* prm_name) :
         DefaultScene(prm_name) {
-    _class_name = "FormationTableScene";
+    _class_name = "RotateFormationScene";
     _max_perform_frame = 0xffffffff;
     _frame_of_current_part_began = 0;
 }
 
 
-GgafCore::GroupHead* FormationTableScene::addToTable(GgafCore::Formation* prm_pFormationActor, frame prm_max_delay_offset) {
+GgafCore::GroupHead* RotateFormationScene::addFormation(GgafCore::Formation* prm_pFormationActor, frame prm_max_delay_offset) {
     if (prm_pFormationActor->instanceOf(Obj_ggaf_Formation)) {
         //OK
     } else {
@@ -23,12 +23,12 @@ GgafCore::GroupHead* FormationTableScene::addToTable(GgafCore::Formation* prm_pF
     }
     prm_pFormationActor->_offset_frames_end = FORMATION_END_DELAY;
     prm_pFormationActor->inactivate();
-    _table.addLast(NEW TblElem(prm_pFormationActor, prm_max_delay_offset), true);
+    _table.addLast(NEW FormationTblElem(prm_pFormationActor, prm_max_delay_offset), true);
 
-    return bringSceneMediator()->appendGroupChild(prm_pFormationActor);
+    return getSceneChief()->appendGroupChild(prm_pFormationActor);
 }
 
-void FormationTableScene::onActive() {
+void RotateFormationScene::onActive() {
     if (_table.length() > 0) {
         _frame_of_current_part_began = getActiveFrame();
         _table.first();
@@ -42,18 +42,18 @@ void FormationTableScene::onActive() {
 }
 
 
-void FormationTableScene::processBehavior() {
+void RotateFormationScene::processBehavior() {
 
     if (wasDeclaredEnd()) {
         //終了を待つのみ
     } else {
 
-        if (!bringSceneMediator()->getChildFirst()) {
+        if (!getSceneChief()->getChildFirst()) {
             sayonara(FORMATION_END_DELAY);
             return;
         }
 
-        TblElem* e = _table.getCurrent();
+        FormationTblElem* e = _table.getCurrent();
         GgafCore::Formation* pF = e->_pFormationActor;
         //全滅判定
         if (pF->_was_all_destroyed) {
@@ -72,7 +72,7 @@ void FormationTableScene::processBehavior() {
                     //このsayonara() により、本処理先頭の wasDeclaredEnd() が真となる
                 } else {
                     //余裕があるため次のパートをアクティブにする。
-                    TblElem* n = _table.next(); //アクティブを次のパートへ
+                    FormationTblElem* n = _table.next(); //アクティブを次のパートへ
                     n->_pFormationActor->activate();     //敵アクティブ
                     _frame_of_current_part_began = getActiveFrame();
                 }
@@ -93,7 +93,7 @@ void FormationTableScene::processBehavior() {
                         sayonara(FORMATION_END_DELAY); //0.5分後破棄(前パートが残存しているかも知れないため余裕をもたせる)
                         //このsayonara() により、本処理先頭の wasDeclaredEnd() が真となる
                     } else {
-                        TblElem* n = _table.next(); //アクティブを次のパートへ
+                        FormationTblElem* n = _table.next(); //アクティブを次のパートへ
                         n->_pFormationActor->activate();
                         _frame_of_current_part_began = getActiveFrame();
                     }
@@ -104,5 +104,5 @@ void FormationTableScene::processBehavior() {
     }
 }
 
-FormationTableScene::~FormationTableScene() {
+RotateFormationScene::~RotateFormationScene() {
 }

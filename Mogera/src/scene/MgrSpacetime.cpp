@@ -1,6 +1,6 @@
 #include "MgrSpacetime.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/core/scene/Scene.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
@@ -26,7 +26,7 @@ MgrSpacetime::MgrSpacetime(const char* prm_name, MgrCamera* prm_pCam) :
     UTIL::center_y_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_HEIGHT / 2);
 
     pActiveCamWorker_ = NEW MgrCameraWorker("MgrCameraWorker", prm_pCam);
-    bringSceneMediator()->appendGroupChild(pActiveCamWorker_); //基底デフォルトカメラワーク
+    getSceneChief()->appendGroupChild(pActiveCamWorker_); //基底デフォルトカメラワーク
 
     pVb_ = NEW VirtualButton();
     pVb_->remapK(0, VB_UI_DEBUG, VBK_Q     );

@@ -1,6 +1,6 @@
 #include "Stage01.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi001.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBound001.h"
@@ -27,27 +27,27 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
     appendChild(pScene_StagePartCtrler_);
     Sleep(2);
     pWorldBound_  = NEW WorldBound001("BG_SPACE");
-    bringSceneMediator()->appendGroupChild(pWorldBound_);
+    getSceneChief()->appendGroupChild(pWorldBound_);
 
     pHoshiBoshi_ = NEW HoshiBoshi001("HoshiBoshi001");
-    bringSceneMediator()->appendGroupChild(pHoshiBoshi_);
+    getSceneChief()->appendGroupChild(pHoshiBoshi_);
 
     pMessage_ = NEW LabelGecchi16Font("Stage01Msg");
-    bringSceneMediator()->appendGroupChild(pMessage_);
+    getSceneChief()->appendGroupChild(pMessage_);
     pMessage_->inactivate();
 
 
     pPlanet_ = NEW Planet001("Planet001");
-    bringSceneMediator()->appendGroupChild(KIND_EFFECT, pPlanet_);
+    getSceneChief()->appendGroupChild(KIND_EFFECT, pPlanet_);
 //    pHorizon_ = NEW Horizon001("Horizon001");
-//    bringSceneMediator()->appendGroupChild(KIND_CHIKEI, pHorizon_);
+//    getSceneChief()->appendGroupChild(KIND_CHIKEI, pHorizon_);
 
     //debug ---->
 //    EnemyHisbe* pTest = NEW EnemyHisbe("tst");
 //    pTest->setPosition(PX_C(0),PX_C(0), PX_C(100));
 //    pTest->setFaceAngTwd(PX_C(100), PX_C(100), PX_C(100));
 //    pTest->getLocoVehicle()->behave();
-//    bringSceneMediator()->appendGroupChild(pTest);
+//    getSceneChief()->appendGroupChild(pTest);
     //<-----debug
 
     fadeoutSceneWithBgm(0); //Å‰‚Í”ñ•\Ž¦

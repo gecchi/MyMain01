@@ -2,7 +2,7 @@
 
 #include <Shlwapi.h>
 #include <algorithm>
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/MorphMeshModel.h"
 #include "jp/ggaf/dx/model/SkinAniMeshModel.h"
@@ -72,16 +72,16 @@ public:
 
 VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pCamWorker_ = NEW VvvCamWorker("VvvCamWorker", pCARETAKER->getSpacetime()->getCamera());
-    bringSceneMediator()->appendGroupChild(pCamWorker_);
+    getSceneChief()->appendGroupChild(pCamWorker_);
     pCursor_ = NEW VvvCursor("Cursor");
-    bringSceneMediator()->appendGroupChild(pCursor_);
+    getSceneChief()->appendGroupChild(pCursor_);
     pGrid_ = NEW VvvGrid("GRID");
-    bringSceneMediator()->appendGroupChild(pGrid_);
+    getSceneChief()->appendGroupChild(pGrid_);
     vb_ = NEW VirtualButton();
     pFont01_info_ =  NEW Font01("Font01");
-    bringSceneMediator()->appendGroupChild(pFont01_info_);
+    getSceneChief()->appendGroupChild(pFont01_info_);
     pFont01_help_ =  NEW Font01("Font01");
-    bringSceneMediator()->appendGroupChild(pFont01_help_);
+    getSceneChief()->appendGroupChild(pFont01_help_);
     view_help_ = true;
     view_info_ = true;
     pVvvMousePointer_= nullptr;
@@ -109,7 +109,7 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 void VvvWorld::initialize() {
     pVvvMousePointer_ = desireActor(VvvMousePointer);
 //    pVvvMousePointer_->setDefaultKind(KIND_2DFIX_MOUSE_POINTER);
-    bringSceneMediator()->appendGroupChild(KIND_POINTER, pVvvMousePointer_);
+    getSceneChief()->appendGroupChild(KIND_POINTER, pVvvMousePointer_);
 
      pFont01_help_->setAlign(ALIGN_LEFT, VALIGN_TOP);
      pFont01_help_->setMaterialColor(1.0,0.5,0.2);
@@ -908,7 +908,7 @@ void VvvWorld::processDragAndDrop() {
             pChecker->addCollisionArea(1);
             pChecker->setColliSphere(0, DX_C(bound));
             pActor->setHitAble(true);
-            bringSceneMediator()->appendGroupChild(KIND_ACTOR, pActor);
+            getSceneChief()->appendGroupChild(KIND_ACTOR, pActor);
             ActorInfo* pActorInfo = NEW ActorInfo(pActor, pChecker, string(VvvCaretaker::dropfiles_), ext == "MODELX" ? true : false);
             listActorInfo_.addLast(pActorInfo);
             listActorInfo_.createIndex();
@@ -970,7 +970,7 @@ void VvvWorld::processDragAndDrop() {
             pNewActor->setPositionAt(pCurrentActor);
             pNewActor->setFaceAngAs(pCurrentActor);
             pNewActor->setScaleAt(pCurrentActor);
-            bringSceneMediator()->appendGroupChild(KIND_ACTOR, pNewActor);
+            getSceneChief()->appendGroupChild(KIND_ACTOR, pNewActor);
 
             dxcoord new_bound = pNewActor->getModel()->_bounding_sphere_radius * pNewActor->_rate_of_bounding_sphere_radius;
             pNewChecker->addCollisionArea(1);

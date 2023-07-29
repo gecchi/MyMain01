@@ -1,6 +1,6 @@
 #include "jp/ggaf/core/actor/ex/TreeFormation.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/util/Status.h"
 

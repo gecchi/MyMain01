@@ -1,6 +1,6 @@
 #include "EnemyEres.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
@@ -110,7 +110,7 @@ void EnemyEres::processJudgement() {
 }
 
 void EnemyEres::onHit(const GgafCore::Actor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
+    bool was_destroyed = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰ó‚³‚ê‚½Žž(ƒXƒ^ƒ~ƒi <= 0)
         getSeXmtr()->play3D(SE_EXPLOSION);
@@ -123,7 +123,7 @@ void EnemyEres::onHit(const GgafCore::Actor* prm_pOtherActor) {
 void EnemyEres::onInactive() {
     if (createActorDepository_) {
         //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
-        getSceneMediator()->appendChild(pDepo_shot001_->getGroupHead()->extract());
+        getSceneChief()->appendChild(pDepo_shot001_->getGroupHead()->extract());
         pDepo_shot001_->sayonara(SEC_F(5));//‰ð•ú—\–ñ
     }
     sayonara();

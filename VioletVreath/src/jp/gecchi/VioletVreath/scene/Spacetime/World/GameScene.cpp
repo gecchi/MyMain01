@@ -1,6 +1,6 @@
 #include "GameScene.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/sound/BgmConductor.h"
 #include "jp/gecchi/VioletVreath/actor/camera/VVCameraWorkerChanger.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker3D.h"
@@ -40,7 +40,7 @@ pStageWorld_(nullptr) {
     appendChild(pStageWorld_);
 
     pMenuBoardPause_ = NEW MenuBoardPause("MenuBoardPause");
-    bringSceneMediator()->appendGroupChild(pMenuBoardPause_);
+    getSceneChief()->appendGroupChild(pMenuBoardPause_);
 
     appendChild(NEW GamePreTitleScene("PreGameTitle"));   //PHASE_PRE_TITLE
     appendChild(NEW GameTitleScene("GameTitle"));         //PHASE_TITLE

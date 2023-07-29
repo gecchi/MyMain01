@@ -1,7 +1,7 @@
 #include "CommonScene.h"
 
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
@@ -13,7 +13,7 @@ using namespace VioletVreath;
 #define REGISTER_DEPO(TYPE, NUM)   do { \
         CommonScene_pCOMMON_DEPO(TYPE) = NEW GgafCore::ActorDepository("Depo_" #TYPE); \
         CommonScene_pCOMMON_DEPO(TYPE)->putn<TYPE>(NUM); \
-        bringSceneMediator()->appendGroupChild(CommonScene_pCOMMON_DEPO(TYPE)); \
+        getSceneChief()->appendGroupChild(CommonScene_pCOMMON_DEPO(TYPE)); \
 }while(0)
 #define REGISTER_LASERDEPO_STORE(TYPE, SET_NUM, LASER_NUM) do { \
     CommonScene_pCOMMON_DEPO_STORE(TYPE) = NEW GgafCore::ActorDepositoryStore("DepoStore_" #TYPE); \
@@ -24,7 +24,7 @@ using namespace VioletVreath;
         pLaserChipDepo->putn<TYPE>(LASER_NUM); \
         CommonScene_pCOMMON_DEPO_STORE(TYPE)->put(pLaserChipDepo); \
     } \
-    bringSceneMediator()->appendGroupChild(CommonScene_pCOMMON_DEPO_STORE(TYPE)); \
+    getSceneChief()->appendGroupChild(CommonScene_pCOMMON_DEPO_STORE(TYPE)); \
 }while(0)
 
 
@@ -98,7 +98,7 @@ void CommonScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3)
 
 
         //‚±‚±‚¾‚ß_was_paused_flg
-//        if (pActor->getSceneMediator()->getPlatformScene()->_was_paused_flg == false) {
+//        if (pActor->getSceneChief()->getPlatformScene()->_was_paused_flg == false) {
 //            if (pActor->lookUpKind() & KIND_ITEM) {
 //                //Item‚ÍƒXƒNƒ[ƒ‹‚Ì‰e‹¿‚ğó‚¯‚È‚¢
 //            } else {

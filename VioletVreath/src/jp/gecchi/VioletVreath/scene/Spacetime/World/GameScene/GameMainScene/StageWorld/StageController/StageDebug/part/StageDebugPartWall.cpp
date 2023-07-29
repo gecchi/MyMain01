@@ -1,7 +1,7 @@
 #include "StageDebugPartWall.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/lib/scene/FormationTableScene.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
+#include "jp/ggaf/lib/scene/RotateFormationScene.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
@@ -30,7 +30,7 @@ StageDebugPartWall::StageDebugPartWall(const char* prm_name) :
         pWall->setScaleR(scale_r);
         pDepo_wall->put(pWall);
     }
-    bringSceneMediator()->appendGroupChild(pDepo_wall);
+    getSceneChief()->appendGroupChild(pDepo_wall);
 
 
     //シーンセクション生成
@@ -72,11 +72,11 @@ StageDebugPartWall::StageDebugPartWall(const char* prm_name) :
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-    frame f[] = {1,100,1400,2000,5400,6000};
-    _paFrame_NextEvent = new frame[6];
-    memcpy(_paFrame_NextEvent, f, sizeof(f));
-    _event_num = 6;
-    requestActor(50000002, EnemyHisbe, "EnemyHisbe-50000002");
+	frame f[] = {1,100,1400,2000,5400,6000};
+	_paFrame_NextEvent = new frame[6];
+	memcpy(_paFrame_NextEvent, f, sizeof(f));
+	_event_num = 6;
+	requestActor(50000002, EnemyHisbe);
     // gen01 end
 }
 
@@ -98,41 +98,41 @@ void StageDebugPartWall::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-    if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
-        switch (getBehaveingFrame()) {
-            case 1: {
-                break;
-            }
-            case 100: {
-                EnemyHisbe* p = (EnemyHisbe*)receiveActor(50000002);
-                bringSceneMediator()->appendGroupChild(p);
-                p->_x = PX_C(2000);
-                p->_y = 0;
-                p->_z = 1000000;
-                //a
-                break;
-            }
-            case 1400: {
-                requestActor(50000000, FormationUnomia001a, "FormationUnomia001a-50000000");
-                break;
-            }
-            case 2000: {
-                bringSceneMediator()->appendGroupChild(receiveActor(50000000));
-                break;
-            }
-            case 5400: {
-                requestActor(50000001, FormationUnomia001b, "FormationUnomia001b-50000001");
-                break;
-            }
-            case 6000: {
-                bringSceneMediator()->appendGroupChild(receiveActor(50000001));
-                break;
-            }
-            default :
-                break;
-        }
-        _cnt_event = (_cnt_event < 6-1 ? _cnt_event+1 : _cnt_event);
-    }
+	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
+		switch (getBehaveingFrame()) {
+			case 1: {
+				break;
+			}
+			case 100: {
+				EnemyHisbe* p = (EnemyHisbe*)receiveActor(50000002);
+				getSceneChief()->appendGroupChild(p);
+				p->_x = PX_C(2000);
+				p->_y = 0;
+				p->_z = 1000000;
+				//a
+				break;
+			}
+			case 1400: {
+				requestActor(50000000, FormationUnomia001a);
+				break;
+			}
+			case 2000: {
+				getSceneChief()->appendGroupChild(receiveActor(50000000));
+				break;
+			}
+			case 5400: {
+				requestActor(50000001, FormationUnomia001b);
+				break;
+			}
+			case 6000: {
+				getSceneChief()->appendGroupChild(receiveActor(50000001));
+				break;
+			}
+			default :
+				break;
+		}
+		_cnt_event = (_cnt_event < 6-1 ? _cnt_event+1 : _cnt_event);
+	}
     // gen02 end
 
 ///////////////デバッグ///////////////////////////////

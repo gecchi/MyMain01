@@ -63,7 +63,7 @@ void Shot002::processJudgement() {
 }
 
 void Shot002::onHit(const GgafCore::Actor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
+    bool was_destroyed = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeXmtr()->play3D(0);

@@ -1,6 +1,6 @@
 #include "StageDebugPartController.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/sound/BgmConductor.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
@@ -33,73 +33,73 @@ StageDebugPartController::StageDebugPartController(const char* prm_name) : Stage
 	_paFrame_NextEvent = new frame[3290];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 3290;
-	requestActor(10000004, EnemyOebiusController002, "EnemyOebiusController002-10000004");
-	requestActor(10000005, EnemyOebiusController002, "EnemyOebiusController002-10000005");
-	requestActor(10000020, EnemyErelmanController002, "EnemyErelmanController002-10000020");
-	requestActor(10000021, EnemyErelmanController001, "EnemyErelmanController001-10000021");
-	requestActor(10000022, EnemyErmione, "EnemyErmione-10000022");
-	requestActor(10000025, EnemyEtis, "EnemyEtis-10000025");
-	requestActor(10000026, EnemyEtis, "EnemyEtis-10000026");
-	requestActor(10000027, EnemyEtis, "EnemyEtis-10000027");
-	requestActor(10000028, EnemyEtis, "EnemyEtis-10000028");
-	requestActor(10000029, EnemyEtis, "EnemyEtis-10000029");
-	requestActor(10000030, EnemyEtis, "EnemyEtis-10000030");
-	requestActor(10000031, EnemyEtis, "EnemyEtis-10000031");
-	requestActor(10000032, EnemyEtis, "EnemyEtis-10000032");
-	requestActor(10000033, EnemyEtis, "EnemyEtis-10000033");
-	requestActor(10000034, EnemyEtis, "EnemyEtis-10000034");
-	requestActor(10000035, EnemyEtis, "EnemyEtis-10000035");
-	requestActor(10000036, EnemyEtis, "EnemyEtis-10000036");
-	requestActor(10000037, EnemyEtis, "EnemyEtis-10000037");
-	requestActor(10000038, EnemyEtis, "EnemyEtis-10000038");
-	requestActor(10000039, EnemyEtis, "EnemyEtis-10000039");
-	requestActor(10000040, EnemyEtis, "EnemyEtis-10000040");
-	requestActor(10000041, EnemyEtis, "EnemyEtis-10000041");
-	requestActor(10000042, EnemyEtis, "EnemyEtis-10000042");
-	requestActor(10000043, EnemyEtis, "EnemyEtis-10000043");
-	requestActor(10000044, EnemyEtis, "EnemyEtis-10000044");
-	requestActor(10000045, EnemyEtis, "EnemyEtis-10000045");
-	requestActor(10000046, EnemyEtis, "EnemyEtis-10000046");
-	requestActor(10000047, EnemyEtis, "EnemyEtis-10000047");
-	requestActor(10000048, EnemyEtis, "EnemyEtis-10000048");
-	requestActor(10000049, EnemyEtis, "EnemyEtis-10000049");
-	requestActor(10000050, EnemyEtis, "EnemyEtis-10000050");
-	requestActor(10000051, EnemyEtis, "EnemyEtis-10000051");
-	requestActor(10000052, EnemyEtis, "EnemyEtis-10000052");
-	requestActor(10000053, EnemyEtis, "EnemyEtis-10000053");
-	requestActor(10000054, EnemyEtis, "EnemyEtis-10000054");
-	requestActor(10000055, EnemyEtis, "EnemyEtis-10000055");
-	requestActor(10000056, EnemyEtis, "EnemyEtis-10000056");
-	requestActor(10000057, EnemyEtis, "EnemyEtis-10000057");
-	requestActor(10000058, EnemyEtis, "EnemyEtis-10000058");
-	requestActor(10000059, EnemyEtis, "EnemyEtis-10000059");
-	requestActor(10000060, EnemyEtis, "EnemyEtis-10000060");
-	requestActor(10000061, EnemyEtis, "EnemyEtis-10000061");
-	requestActor(10000062, EnemyEtis, "EnemyEtis-10000062");
-	requestActor(10000063, EnemyEtis, "EnemyEtis-10000063");
-	requestActor(10000064, EnemyEtis, "EnemyEtis-10000064");
-	requestActor(10000065, EnemyEtis, "EnemyEtis-10000065");
-	requestActor(10000066, EnemyEtis, "EnemyEtis-10000066");
-	requestActor(10000067, EnemyEtis, "EnemyEtis-10000067");
-	requestActor(10000068, EnemyEtis, "EnemyEtis-10000068");
-	requestActor(10000069, EnemyEtis, "EnemyEtis-10000069");
-	requestActor(10000070, EnemyEtis, "EnemyEtis-10000070");
-	requestActor(10000071, EnemyEtis, "EnemyEtis-10000071");
-	requestActor(10000072, EnemyEtis, "EnemyEtis-10000072");
-	requestActor(10000073, EnemyEtis, "EnemyEtis-10000073");
-	requestActor(10000074, EnemyEtis, "EnemyEtis-10000074");
-	requestActor(10000075, EnemyEtis, "EnemyEtis-10000075");
-	requestActor(10000076, EnemyEtis, "EnemyEtis-10000076");
-	requestActor(10000077, EnemyEtis, "EnemyEtis-10000077");
-	requestActor(10000078, EnemyEtis, "EnemyEtis-10000078");
-	requestActor(10000079, EnemyEtis, "EnemyEtis-10000079");
-	requestActor(10000080, EnemyEtis, "EnemyEtis-10000080");
-	requestActor(10000081, EnemyEtis, "EnemyEtis-10000081");
-	requestActor(10000082, EnemyEtis, "EnemyEtis-10000082");
-	requestActor(10000083, EnemyEtis, "EnemyEtis-10000083");
-	requestActor(10000084, EnemyEtis, "EnemyEtis-10000084");
-	requestActor(10003225, EnemyDrastea, "EnemyDrastea-10003225");
-	requestActor(10003255, VarietyRatislavia002, "VarietyRatislavia002-10003255");
+	requestActor(10000004, EnemyOebiusController002);
+	requestActor(10000005, EnemyOebiusController002);
+	requestActor(10000020, EnemyErelmanController002);
+	requestActor(10000021, EnemyErelmanController001);
+	requestActor(10000022, EnemyErmione);
+	requestActor(10000025, EnemyEtis);
+	requestActor(10000026, EnemyEtis);
+	requestActor(10000027, EnemyEtis);
+	requestActor(10000028, EnemyEtis);
+	requestActor(10000029, EnemyEtis);
+	requestActor(10000030, EnemyEtis);
+	requestActor(10000031, EnemyEtis);
+	requestActor(10000032, EnemyEtis);
+	requestActor(10000033, EnemyEtis);
+	requestActor(10000034, EnemyEtis);
+	requestActor(10000035, EnemyEtis);
+	requestActor(10000036, EnemyEtis);
+	requestActor(10000037, EnemyEtis);
+	requestActor(10000038, EnemyEtis);
+	requestActor(10000039, EnemyEtis);
+	requestActor(10000040, EnemyEtis);
+	requestActor(10000041, EnemyEtis);
+	requestActor(10000042, EnemyEtis);
+	requestActor(10000043, EnemyEtis);
+	requestActor(10000044, EnemyEtis);
+	requestActor(10000045, EnemyEtis);
+	requestActor(10000046, EnemyEtis);
+	requestActor(10000047, EnemyEtis);
+	requestActor(10000048, EnemyEtis);
+	requestActor(10000049, EnemyEtis);
+	requestActor(10000050, EnemyEtis);
+	requestActor(10000051, EnemyEtis);
+	requestActor(10000052, EnemyEtis);
+	requestActor(10000053, EnemyEtis);
+	requestActor(10000054, EnemyEtis);
+	requestActor(10000055, EnemyEtis);
+	requestActor(10000056, EnemyEtis);
+	requestActor(10000057, EnemyEtis);
+	requestActor(10000058, EnemyEtis);
+	requestActor(10000059, EnemyEtis);
+	requestActor(10000060, EnemyEtis);
+	requestActor(10000061, EnemyEtis);
+	requestActor(10000062, EnemyEtis);
+	requestActor(10000063, EnemyEtis);
+	requestActor(10000064, EnemyEtis);
+	requestActor(10000065, EnemyEtis);
+	requestActor(10000066, EnemyEtis);
+	requestActor(10000067, EnemyEtis);
+	requestActor(10000068, EnemyEtis);
+	requestActor(10000069, EnemyEtis);
+	requestActor(10000070, EnemyEtis);
+	requestActor(10000071, EnemyEtis);
+	requestActor(10000072, EnemyEtis);
+	requestActor(10000073, EnemyEtis);
+	requestActor(10000074, EnemyEtis);
+	requestActor(10000075, EnemyEtis);
+	requestActor(10000076, EnemyEtis);
+	requestActor(10000077, EnemyEtis);
+	requestActor(10000078, EnemyEtis);
+	requestActor(10000079, EnemyEtis);
+	requestActor(10000080, EnemyEtis);
+	requestActor(10000081, EnemyEtis);
+	requestActor(10000082, EnemyEtis);
+	requestActor(10000083, EnemyEtis);
+	requestActor(10000084, EnemyEtis);
+	requestActor(10003225, EnemyDrastea);
+	requestActor(10003255, VarietyRatislavia002);
     // gen01 end
 }
 
@@ -118,202 +118,202 @@ void StageDebugPartController::processBehavior() {
 			}
 			case 5: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000025);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000085, EnemyEtis, "EnemyEtis-10000085");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000085, EnemyEtis);
 				break;
 			}
 			case 15: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000026);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000086, EnemyEtis, "EnemyEtis-10000086");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000086, EnemyEtis);
 				break;
 			}
 			case 25: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000027);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000087, EnemyEtis, "EnemyEtis-10000087");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000087, EnemyEtis);
 				break;
 			}
 			case 35: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000028);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000088, EnemyEtis, "EnemyEtis-10000088");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000088, EnemyEtis);
 				break;
 			}
 			case 45: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000029);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000089, EnemyEtis, "EnemyEtis-10000089");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000089, EnemyEtis);
 				break;
 			}
 			case 55: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000030);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000090, EnemyEtis, "EnemyEtis-10000090");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000090, EnemyEtis);
 				break;
 			}
 			case 65: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000031);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000091, EnemyEtis, "EnemyEtis-10000091");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000091, EnemyEtis);
 				break;
 			}
 			case 75: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000032);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000092, EnemyEtis, "EnemyEtis-10000092");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000092, EnemyEtis);
 				break;
 			}
 			case 85: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000033);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000093, EnemyEtis, "EnemyEtis-10000093");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000093, EnemyEtis);
 				break;
 			}
 			case 95: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000034);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000094, EnemyEtis, "EnemyEtis-10000094");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000094, EnemyEtis);
 				break;
 			}
 			case 100: {
-				requestScene(10000000, StageDebugPart01, "StageDebugPart01-10000000");
+				requestScene(10000000, StageDebugPart01);
 				EnemyOebiusController002* p2 = (EnemyOebiusController002*)receiveActor(10000004);
-				bringSceneMediator()->appendGroupChild(p2);
+				getSceneChief()->appendGroupChild(p2);
 				p2->setPosition(PX_C(800), 0, 0);
-				requestActor(10000013, EnemyOebiusController001, "EnemyOebiusController001-10000013");
+				requestActor(10000013, EnemyOebiusController001);
 				VarietyRatislavia002* pRatislavia = (VarietyRatislavia002*)receiveActor(10003255);
-				bringSceneMediator()->appendGroupChild(pRatislavia);
+				getSceneChief()->appendGroupChild(pRatislavia);
 				break;
 			}
 			case 105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000035);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000095, EnemyEtis, "EnemyEtis-10000095");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000095, EnemyEtis);
 				break;
 			}
 			case 115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000036);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000096, EnemyEtis, "EnemyEtis-10000096");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000096, EnemyEtis);
 				break;
 			}
 			case 125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000037);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000097, EnemyEtis, "EnemyEtis-10000097");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000097, EnemyEtis);
 				break;
 			}
 			case 135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000038);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000098, EnemyEtis, "EnemyEtis-10000098");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000098, EnemyEtis);
 				break;
 			}
 			case 145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000039);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000099, EnemyEtis, "EnemyEtis-10000099");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000099, EnemyEtis);
 				break;
 			}
 			case 155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000040);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000100, EnemyEtis, "EnemyEtis-10000100");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000100, EnemyEtis);
 				break;
 			}
 			case 165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000041);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000101, EnemyEtis, "EnemyEtis-10000101");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000101, EnemyEtis);
 				break;
 			}
 			case 175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000042);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000102, EnemyEtis, "EnemyEtis-10000102");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000102, EnemyEtis);
 				break;
 			}
 			case 185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000043);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000103, EnemyEtis, "EnemyEtis-10000103");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000103, EnemyEtis);
 				break;
 			}
 			case 195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000044);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000104, EnemyEtis, "EnemyEtis-10000104");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000104, EnemyEtis);
 				break;
 			}
 			case 200: {
-				requestActor(10000006, EnemyOebiusController002, "EnemyOebiusController002-10000006");
+				requestActor(10000006, EnemyOebiusController002);
 				break;
 			}
 			case 205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000045);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000105, EnemyEtis, "EnemyEtis-10000105");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000105, EnemyEtis);
 				break;
 			}
 			case 215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000046);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000106, EnemyEtis, "EnemyEtis-10000106");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000106, EnemyEtis);
 				break;
 			}
 			case 225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000047);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000107, EnemyEtis, "EnemyEtis-10000107");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000107, EnemyEtis);
 				break;
 			}
 			case 235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000048);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000108, EnemyEtis, "EnemyEtis-10000108");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000108, EnemyEtis);
 				break;
 			}
 			case 245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000049);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000109, EnemyEtis, "EnemyEtis-10000109");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000109, EnemyEtis);
 				break;
 			}
 			case 255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000050);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000110, EnemyEtis, "EnemyEtis-10000110");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000110, EnemyEtis);
 				break;
 			}
 			case 265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000051);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000111, EnemyEtis, "EnemyEtis-10000111");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000111, EnemyEtis);
 				break;
 			}
 			case 275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000052);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000112, EnemyEtis, "EnemyEtis-10000112");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000112, EnemyEtis);
 				break;
 			}
 			case 285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000053);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000113, EnemyEtis, "EnemyEtis-10000113");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000113, EnemyEtis);
 				break;
 			}
 			case 295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000054);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000114, EnemyEtis, "EnemyEtis-10000114");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000114, EnemyEtis);
 				break;
 			}
 			case 300: {
-				requestActor(10000014, EnemyOebiusController001, "EnemyOebiusController001-10000014");
+				requestActor(10000014, EnemyOebiusController001);
 				EnemyErmione* pE = (EnemyErmione*)receiveActor(10000022);
-				bringSceneMediator()->appendGroupChild(pE);
+				getSceneChief()->appendGroupChild(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);
 				pE->_z = RND(-6000000,6000000);
@@ -321,3561 +321,3561 @@ void StageDebugPartController::processBehavior() {
 			}
 			case 305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000055);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000115, EnemyEtis, "EnemyEtis-10000115");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000115, EnemyEtis);
 				break;
 			}
 			case 315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000056);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000116, EnemyEtis, "EnemyEtis-10000116");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000116, EnemyEtis);
 				break;
 			}
 			case 325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000057);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000117, EnemyEtis, "EnemyEtis-10000117");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000117, EnemyEtis);
 				break;
 			}
 			case 335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000058);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000118, EnemyEtis, "EnemyEtis-10000118");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000118, EnemyEtis);
 				break;
 			}
 			case 345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000059);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000119, EnemyEtis, "EnemyEtis-10000119");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000119, EnemyEtis);
 				break;
 			}
 			case 355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000060);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000120, EnemyEtis, "EnemyEtis-10000120");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000120, EnemyEtis);
 				break;
 			}
 			case 365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000061);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000121, EnemyEtis, "EnemyEtis-10000121");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000121, EnemyEtis);
 				break;
 			}
 			case 375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000062);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000122, EnemyEtis, "EnemyEtis-10000122");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000122, EnemyEtis);
 				break;
 			}
 			case 385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000063);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000123, EnemyEtis, "EnemyEtis-10000123");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000123, EnemyEtis);
 				break;
 			}
 			case 395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000064);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000124, EnemyEtis, "EnemyEtis-10000124");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000124, EnemyEtis);
 				break;
 			}
 			case 400: {
-				requestActor(10000007, EnemyOebiusController002, "EnemyOebiusController002-10000007");
+				requestActor(10000007, EnemyOebiusController002);
 				EnemyErelmanController002* pE1 = (EnemyErelmanController002*)receiveActor(10000020);
-				bringSceneMediator()->appendGroupChild(pE1);
+				getSceneChief()->appendGroupChild(pE1);
 				pE1->setPosition(PX_C(3400), PX_C(0), PX_C(3400));
 				break;
 			}
 			case 405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000065);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000125, EnemyEtis, "EnemyEtis-10000125");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000125, EnemyEtis);
 				break;
 			}
 			case 415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000066);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000126, EnemyEtis, "EnemyEtis-10000126");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000126, EnemyEtis);
 				break;
 			}
 			case 425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000067);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000127, EnemyEtis, "EnemyEtis-10000127");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000127, EnemyEtis);
 				break;
 			}
 			case 435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000068);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000128, EnemyEtis, "EnemyEtis-10000128");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000128, EnemyEtis);
 				break;
 			}
 			case 445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000069);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000129, EnemyEtis, "EnemyEtis-10000129");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000129, EnemyEtis);
 				break;
 			}
 			case 455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000070);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000130, EnemyEtis, "EnemyEtis-10000130");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000130, EnemyEtis);
 				break;
 			}
 			case 465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000071);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000131, EnemyEtis, "EnemyEtis-10000131");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000131, EnemyEtis);
 				break;
 			}
 			case 475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000072);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000132, EnemyEtis, "EnemyEtis-10000132");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000132, EnemyEtis);
 				break;
 			}
 			case 485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000073);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000133, EnemyEtis, "EnemyEtis-10000133");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000133, EnemyEtis);
 				break;
 			}
 			case 495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000074);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000134, EnemyEtis, "EnemyEtis-10000134");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000134, EnemyEtis);
 				break;
 			}
 			case 500: {
-				requestActor(10000015, EnemyOebiusController001, "EnemyOebiusController001-10000015");
+				requestActor(10000015, EnemyOebiusController001);
 				EnemyErelmanController001* pE2 = (EnemyErelmanController001*)receiveActor(10000021);
-				bringSceneMediator()->appendGroupChild(pE2);
+				getSceneChief()->appendGroupChild(pE2);
 				pE2->setPosition(PX_C(3400), PX_C(0), PX_C(0) );
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003225);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000075);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000135, EnemyEtis, "EnemyEtis-10000135");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000135, EnemyEtis);
 				break;
 			}
 			case 515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000076);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000136, EnemyEtis, "EnemyEtis-10000136");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000136, EnemyEtis);
 				break;
 			}
 			case 525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000077);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000137, EnemyEtis, "EnemyEtis-10000137");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000137, EnemyEtis);
 				break;
 			}
 			case 535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000078);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000138, EnemyEtis, "EnemyEtis-10000138");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000138, EnemyEtis);
 				break;
 			}
 			case 545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000079);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000139, EnemyEtis, "EnemyEtis-10000139");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000139, EnemyEtis);
 				break;
 			}
 			case 555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000080);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000140, EnemyEtis, "EnemyEtis-10000140");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000140, EnemyEtis);
 				break;
 			}
 			case 565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000081);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000141, EnemyEtis, "EnemyEtis-10000141");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000141, EnemyEtis);
 				break;
 			}
 			case 575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000082);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000142, EnemyEtis, "EnemyEtis-10000142");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000142, EnemyEtis);
 				break;
 			}
 			case 585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000083);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000143, EnemyEtis, "EnemyEtis-10000143");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000143, EnemyEtis);
 				break;
 			}
 			case 595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000084);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000144, EnemyEtis, "EnemyEtis-10000144");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000144, EnemyEtis);
 				break;
 			}
 			case 600: {
 				EnemyOebiusController002* p2 = (EnemyOebiusController002*)receiveActor(10000005);
-				bringSceneMediator()->appendGroupChild(p2);
+				getSceneChief()->appendGroupChild(p2);
 				p2->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
-				requestActor(10000008, EnemyOebiusController002, "EnemyOebiusController002-10000008");
+				requestActor(10000008, EnemyOebiusController002);
 				break;
 			}
 			case 605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000085);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000145, EnemyEtis, "EnemyEtis-10000145");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000145, EnemyEtis);
 				break;
 			}
 			case 615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000086);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000146, EnemyEtis, "EnemyEtis-10000146");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000146, EnemyEtis);
 				break;
 			}
 			case 625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000087);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000147, EnemyEtis, "EnemyEtis-10000147");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000147, EnemyEtis);
 				break;
 			}
 			case 635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000088);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000148, EnemyEtis, "EnemyEtis-10000148");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000148, EnemyEtis);
 				break;
 			}
 			case 645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000089);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000149, EnemyEtis, "EnemyEtis-10000149");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000149, EnemyEtis);
 				break;
 			}
 			case 655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000090);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000150, EnemyEtis, "EnemyEtis-10000150");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000150, EnemyEtis);
 				break;
 			}
 			case 665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000091);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000151, EnemyEtis, "EnemyEtis-10000151");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000151, EnemyEtis);
 				break;
 			}
 			case 675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000092);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000152, EnemyEtis, "EnemyEtis-10000152");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000152, EnemyEtis);
 				break;
 			}
 			case 685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000093);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000153, EnemyEtis, "EnemyEtis-10000153");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000153, EnemyEtis);
 				break;
 			}
 			case 695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000094);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000154, EnemyEtis, "EnemyEtis-10000154");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000154, EnemyEtis);
 				break;
 			}
 			case 700: {
 				EnemyOebiusController001* p3 = (EnemyOebiusController001*)receiveActor(10000013);
-				bringSceneMediator()->appendGroupChild(p3);
+				getSceneChief()->appendGroupChild(p3);
 				p3->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
-				requestActor(10000016, EnemyOebiusController001, "EnemyOebiusController001-10000016");
+				requestActor(10000016, EnemyOebiusController001);
 				break;
 			}
 			case 705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000095);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000155, EnemyEtis, "EnemyEtis-10000155");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000155, EnemyEtis);
 				break;
 			}
 			case 715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000096);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000156, EnemyEtis, "EnemyEtis-10000156");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000156, EnemyEtis);
 				break;
 			}
 			case 725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000097);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000157, EnemyEtis, "EnemyEtis-10000157");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000157, EnemyEtis);
 				break;
 			}
 			case 735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000098);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000158, EnemyEtis, "EnemyEtis-10000158");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000158, EnemyEtis);
 				break;
 			}
 			case 745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000099);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000159, EnemyEtis, "EnemyEtis-10000159");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000159, EnemyEtis);
 				break;
 			}
 			case 755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000100);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000160, EnemyEtis, "EnemyEtis-10000160");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000160, EnemyEtis);
 				break;
 			}
 			case 765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000101);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000161, EnemyEtis, "EnemyEtis-10000161");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000161, EnemyEtis);
 				break;
 			}
 			case 775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000102);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000162, EnemyEtis, "EnemyEtis-10000162");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000162, EnemyEtis);
 				break;
 			}
 			case 785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000103);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000163, EnemyEtis, "EnemyEtis-10000163");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000163, EnemyEtis);
 				break;
 			}
 			case 795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000104);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000164, EnemyEtis, "EnemyEtis-10000164");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000164, EnemyEtis);
 				break;
 			}
 			case 800: {
 				EnemyOebiusController002* p2 = (EnemyOebiusController002*)receiveActor(10000006);
-				bringSceneMediator()->appendGroupChild(p2);
+				getSceneChief()->appendGroupChild(p2);
 				p2->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
-				requestActor(10000009, EnemyOebiusController002, "EnemyOebiusController002-10000009");
+				requestActor(10000009, EnemyOebiusController002);
 				break;
 			}
 			case 805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000105);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000165, EnemyEtis, "EnemyEtis-10000165");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000165, EnemyEtis);
 				break;
 			}
 			case 815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000106);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000166, EnemyEtis, "EnemyEtis-10000166");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000166, EnemyEtis);
 				break;
 			}
 			case 825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000107);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000167, EnemyEtis, "EnemyEtis-10000167");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000167, EnemyEtis);
 				break;
 			}
 			case 835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000108);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000168, EnemyEtis, "EnemyEtis-10000168");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000168, EnemyEtis);
 				break;
 			}
 			case 845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000109);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000169, EnemyEtis, "EnemyEtis-10000169");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000169, EnemyEtis);
 				break;
 			}
 			case 855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000110);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000170, EnemyEtis, "EnemyEtis-10000170");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000170, EnemyEtis);
 				break;
 			}
 			case 865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000111);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000171, EnemyEtis, "EnemyEtis-10000171");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000171, EnemyEtis);
 				break;
 			}
 			case 875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000112);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000172, EnemyEtis, "EnemyEtis-10000172");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000172, EnemyEtis);
 				break;
 			}
 			case 885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000113);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000173, EnemyEtis, "EnemyEtis-10000173");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000173, EnemyEtis);
 				break;
 			}
 			case 895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000114);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000174, EnemyEtis, "EnemyEtis-10000174");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000174, EnemyEtis);
 				break;
 			}
 			case 900: {
 				EnemyOebiusController001* p3 = (EnemyOebiusController001*)receiveActor(10000014);
-				bringSceneMediator()->appendGroupChild(p3);
+				getSceneChief()->appendGroupChild(p3);
 				p3->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
-				requestActor(10000017, EnemyOebiusController001, "EnemyOebiusController001-10000017");
+				requestActor(10000017, EnemyOebiusController001);
 				break;
 			}
 			case 905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000115);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000175, EnemyEtis, "EnemyEtis-10000175");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000175, EnemyEtis);
 				break;
 			}
 			case 915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000116);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000176, EnemyEtis, "EnemyEtis-10000176");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000176, EnemyEtis);
 				break;
 			}
 			case 925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000117);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000177, EnemyEtis, "EnemyEtis-10000177");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000177, EnemyEtis);
 				break;
 			}
 			case 935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000118);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000178, EnemyEtis, "EnemyEtis-10000178");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000178, EnemyEtis);
 				break;
 			}
 			case 945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000119);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000179, EnemyEtis, "EnemyEtis-10000179");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000179, EnemyEtis);
 				break;
 			}
 			case 955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000120);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000180, EnemyEtis, "EnemyEtis-10000180");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000180, EnemyEtis);
 				break;
 			}
 			case 965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000121);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000181, EnemyEtis, "EnemyEtis-10000181");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000181, EnemyEtis);
 				break;
 			}
 			case 975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000122);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000182, EnemyEtis, "EnemyEtis-10000182");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000182, EnemyEtis);
 				break;
 			}
 			case 985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000123);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000183, EnemyEtis, "EnemyEtis-10000183");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000183, EnemyEtis);
 				break;
 			}
 			case 995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000124);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000184, EnemyEtis, "EnemyEtis-10000184");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000184, EnemyEtis);
 				break;
 			}
 			case 1000: {
 				appendChild(receiveScene(10000000));
 				EnemyOebiusController002* p2 = (EnemyOebiusController002*)receiveActor(10000007);
-				bringSceneMediator()->appendGroupChild(p2);
+				getSceneChief()->appendGroupChild(p2);
 				p2->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
-				requestActor(10000010, EnemyOebiusController002, "EnemyOebiusController002-10000010");
+				requestActor(10000010, EnemyOebiusController002);
 				break;
 			}
 			case 1005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000125);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000185, EnemyEtis, "EnemyEtis-10000185");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000185, EnemyEtis);
 				break;
 			}
 			case 1015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000126);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000186, EnemyEtis, "EnemyEtis-10000186");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000186, EnemyEtis);
 				break;
 			}
 			case 1025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000127);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000187, EnemyEtis, "EnemyEtis-10000187");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000187, EnemyEtis);
 				break;
 			}
 			case 1035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000128);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000188, EnemyEtis, "EnemyEtis-10000188");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000188, EnemyEtis);
 				break;
 			}
 			case 1045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000129);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000189, EnemyEtis, "EnemyEtis-10000189");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000189, EnemyEtis);
 				break;
 			}
 			case 1055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000130);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000190, EnemyEtis, "EnemyEtis-10000190");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000190, EnemyEtis);
 				break;
 			}
 			case 1065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000131);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000191, EnemyEtis, "EnemyEtis-10000191");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000191, EnemyEtis);
 				break;
 			}
 			case 1075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000132);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000192, EnemyEtis, "EnemyEtis-10000192");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000192, EnemyEtis);
 				break;
 			}
 			case 1085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000133);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000193, EnemyEtis, "EnemyEtis-10000193");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000193, EnemyEtis);
 				break;
 			}
 			case 1095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000134);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000194, EnemyEtis, "EnemyEtis-10000194");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000194, EnemyEtis);
 				break;
 			}
 			case 1100: {
 				EnemyOebiusController001* p3 = (EnemyOebiusController001*)receiveActor(10000015);
-				bringSceneMediator()->appendGroupChild(p3);
+				getSceneChief()->appendGroupChild(p3);
 				p3->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
-				requestActor(10000018, EnemyOebiusController001, "EnemyOebiusController001-10000018");
+				requestActor(10000018, EnemyOebiusController001);
 				break;
 			}
 			case 1105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000135);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000195, EnemyEtis, "EnemyEtis-10000195");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000195, EnemyEtis);
 				break;
 			}
 			case 1115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000136);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000196, EnemyEtis, "EnemyEtis-10000196");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000196, EnemyEtis);
 				break;
 			}
 			case 1125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000137);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000197, EnemyEtis, "EnemyEtis-10000197");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000197, EnemyEtis);
 				break;
 			}
 			case 1135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000138);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000198, EnemyEtis, "EnemyEtis-10000198");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000198, EnemyEtis);
 				break;
 			}
 			case 1145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000139);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000199, EnemyEtis, "EnemyEtis-10000199");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000199, EnemyEtis);
 				break;
 			}
 			case 1155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000140);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000200, EnemyEtis, "EnemyEtis-10000200");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000200, EnemyEtis);
 				break;
 			}
 			case 1165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000141);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000201, EnemyEtis, "EnemyEtis-10000201");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000201, EnemyEtis);
 				break;
 			}
 			case 1175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000142);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000202, EnemyEtis, "EnemyEtis-10000202");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000202, EnemyEtis);
 				break;
 			}
 			case 1185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000143);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000203, EnemyEtis, "EnemyEtis-10000203");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000203, EnemyEtis);
 				break;
 			}
 			case 1195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000144);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000204, EnemyEtis, "EnemyEtis-10000204");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000204, EnemyEtis);
 				break;
 			}
 			case 1200: {
 				EnemyOebiusController002* p2 = (EnemyOebiusController002*)receiveActor(10000008);
-				bringSceneMediator()->appendGroupChild(p2);
+				getSceneChief()->appendGroupChild(p2);
 				p2->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
-				requestActor(10000011, EnemyOebiusController002, "EnemyOebiusController002-10000011");
+				requestActor(10000011, EnemyOebiusController002);
 				break;
 			}
 			case 1205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000145);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000205, EnemyEtis, "EnemyEtis-10000205");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000205, EnemyEtis);
 				break;
 			}
 			case 1215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000146);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000206, EnemyEtis, "EnemyEtis-10000206");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000206, EnemyEtis);
 				break;
 			}
 			case 1225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000147);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000207, EnemyEtis, "EnemyEtis-10000207");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000207, EnemyEtis);
 				break;
 			}
 			case 1235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000148);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000208, EnemyEtis, "EnemyEtis-10000208");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000208, EnemyEtis);
 				break;
 			}
 			case 1245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000149);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000209, EnemyEtis, "EnemyEtis-10000209");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000209, EnemyEtis);
 				break;
 			}
 			case 1255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000150);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000210, EnemyEtis, "EnemyEtis-10000210");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000210, EnemyEtis);
 				break;
 			}
 			case 1265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000151);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000211, EnemyEtis, "EnemyEtis-10000211");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000211, EnemyEtis);
 				break;
 			}
 			case 1275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000152);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000212, EnemyEtis, "EnemyEtis-10000212");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000212, EnemyEtis);
 				break;
 			}
 			case 1285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000153);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000213, EnemyEtis, "EnemyEtis-10000213");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000213, EnemyEtis);
 				break;
 			}
 			case 1295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000154);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000214, EnemyEtis, "EnemyEtis-10000214");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000214, EnemyEtis);
 				break;
 			}
 			case 1300: {
 				EnemyOebiusController001* p3 = (EnemyOebiusController001*)receiveActor(10000016);
-				bringSceneMediator()->appendGroupChild(p3);
+				getSceneChief()->appendGroupChild(p3);
 				p3->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
-				requestActor(10000019, EnemyOebiusController001, "EnemyOebiusController001-10000019");
+				requestActor(10000019, EnemyOebiusController001);
 				break;
 			}
 			case 1305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000155);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000215, EnemyEtis, "EnemyEtis-10000215");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000215, EnemyEtis);
 				break;
 			}
 			case 1315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000156);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000216, EnemyEtis, "EnemyEtis-10000216");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000216, EnemyEtis);
 				break;
 			}
 			case 1325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000157);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000217, EnemyEtis, "EnemyEtis-10000217");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000217, EnemyEtis);
 				break;
 			}
 			case 1335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000158);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000218, EnemyEtis, "EnemyEtis-10000218");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000218, EnemyEtis);
 				break;
 			}
 			case 1345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000159);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000219, EnemyEtis, "EnemyEtis-10000219");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000219, EnemyEtis);
 				break;
 			}
 			case 1355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000160);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000220, EnemyEtis, "EnemyEtis-10000220");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000220, EnemyEtis);
 				break;
 			}
 			case 1365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000161);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000221, EnemyEtis, "EnemyEtis-10000221");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000221, EnemyEtis);
 				break;
 			}
 			case 1375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000162);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000222, EnemyEtis, "EnemyEtis-10000222");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000222, EnemyEtis);
 				break;
 			}
 			case 1385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000163);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000223, EnemyEtis, "EnemyEtis-10000223");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000223, EnemyEtis);
 				break;
 			}
 			case 1395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000164);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000224, EnemyEtis, "EnemyEtis-10000224");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000224, EnemyEtis);
 				break;
 			}
 			case 1400: {
 				EnemyOebiusController002* p2 = (EnemyOebiusController002*)receiveActor(10000009);
-				bringSceneMediator()->appendGroupChild(p2);
+				getSceneChief()->appendGroupChild(p2);
 				p2->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
-				requestActor(10000012, EnemyOebiusController002, "EnemyOebiusController002-10000012");
+				requestActor(10000012, EnemyOebiusController002);
 				break;
 			}
 			case 1405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000165);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000225, EnemyEtis, "EnemyEtis-10000225");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000225, EnemyEtis);
 				break;
 			}
 			case 1415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000166);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000226, EnemyEtis, "EnemyEtis-10000226");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000226, EnemyEtis);
 				break;
 			}
 			case 1425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000167);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000227, EnemyEtis, "EnemyEtis-10000227");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000227, EnemyEtis);
 				break;
 			}
 			case 1435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000168);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000228, EnemyEtis, "EnemyEtis-10000228");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000228, EnemyEtis);
 				break;
 			}
 			case 1445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000169);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000229, EnemyEtis, "EnemyEtis-10000229");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000229, EnemyEtis);
 				break;
 			}
 			case 1455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000170);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000230, EnemyEtis, "EnemyEtis-10000230");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000230, EnemyEtis);
 				break;
 			}
 			case 1465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000171);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000231, EnemyEtis, "EnemyEtis-10000231");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000231, EnemyEtis);
 				break;
 			}
 			case 1475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000172);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000232, EnemyEtis, "EnemyEtis-10000232");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000232, EnemyEtis);
 				break;
 			}
 			case 1485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000173);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000233, EnemyEtis, "EnemyEtis-10000233");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000233, EnemyEtis);
 				break;
 			}
 			case 1495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000174);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000234, EnemyEtis, "EnemyEtis-10000234");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000234, EnemyEtis);
 				break;
 			}
 			case 1500: {
 				EnemyOebiusController001* p3 = (EnemyOebiusController001*)receiveActor(10000017);
-				bringSceneMediator()->appendGroupChild(p3);
+				getSceneChief()->appendGroupChild(p3);
 				p3->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
 				break;
 			}
 			case 1505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000175);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000235, EnemyEtis, "EnemyEtis-10000235");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000235, EnemyEtis);
 				break;
 			}
 			case 1515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000176);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000236, EnemyEtis, "EnemyEtis-10000236");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000236, EnemyEtis);
 				break;
 			}
 			case 1525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000177);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000237, EnemyEtis, "EnemyEtis-10000237");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000237, EnemyEtis);
 				break;
 			}
 			case 1535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000178);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000238, EnemyEtis, "EnemyEtis-10000238");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000238, EnemyEtis);
 				break;
 			}
 			case 1545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000179);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000239, EnemyEtis, "EnemyEtis-10000239");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000239, EnemyEtis);
 				break;
 			}
 			case 1555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000180);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000240, EnemyEtis, "EnemyEtis-10000240");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000240, EnemyEtis);
 				break;
 			}
 			case 1565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000181);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000241, EnemyEtis, "EnemyEtis-10000241");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000241, EnemyEtis);
 				break;
 			}
 			case 1575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000182);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000242, EnemyEtis, "EnemyEtis-10000242");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000242, EnemyEtis);
 				break;
 			}
 			case 1585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000183);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000243, EnemyEtis, "EnemyEtis-10000243");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000243, EnemyEtis);
 				break;
 			}
 			case 1595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000184);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000244, EnemyEtis, "EnemyEtis-10000244");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000244, EnemyEtis);
 				break;
 			}
 			case 1600: {
 				EnemyOebiusController002* p2 = (EnemyOebiusController002*)receiveActor(10000010);
-				bringSceneMediator()->appendGroupChild(p2);
+				getSceneChief()->appendGroupChild(p2);
 				p2->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
 				break;
 			}
 			case 1605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000185);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000245, EnemyEtis, "EnemyEtis-10000245");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000245, EnemyEtis);
 				break;
 			}
 			case 1615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000186);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000246, EnemyEtis, "EnemyEtis-10000246");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000246, EnemyEtis);
 				break;
 			}
 			case 1625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000187);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000247, EnemyEtis, "EnemyEtis-10000247");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000247, EnemyEtis);
 				break;
 			}
 			case 1635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000188);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000248, EnemyEtis, "EnemyEtis-10000248");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000248, EnemyEtis);
 				break;
 			}
 			case 1645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000189);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000249, EnemyEtis, "EnemyEtis-10000249");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000249, EnemyEtis);
 				break;
 			}
 			case 1655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000190);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000250, EnemyEtis, "EnemyEtis-10000250");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000250, EnemyEtis);
 				break;
 			}
 			case 1665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000191);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000251, EnemyEtis, "EnemyEtis-10000251");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000251, EnemyEtis);
 				break;
 			}
 			case 1675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000192);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000252, EnemyEtis, "EnemyEtis-10000252");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000252, EnemyEtis);
 				break;
 			}
 			case 1685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000193);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000253, EnemyEtis, "EnemyEtis-10000253");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000253, EnemyEtis);
 				break;
 			}
 			case 1695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000194);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000254, EnemyEtis, "EnemyEtis-10000254");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000254, EnemyEtis);
 				break;
 			}
 			case 1700: {
 				EnemyOebiusController001* p3 = (EnemyOebiusController001*)receiveActor(10000018);
-				bringSceneMediator()->appendGroupChild(p3);
+				getSceneChief()->appendGroupChild(p3);
 				p3->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
 				break;
 			}
 			case 1705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000195);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000255, EnemyEtis, "EnemyEtis-10000255");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000255, EnemyEtis);
 				break;
 			}
 			case 1715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000196);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000256, EnemyEtis, "EnemyEtis-10000256");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000256, EnemyEtis);
 				break;
 			}
 			case 1725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000197);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000257, EnemyEtis, "EnemyEtis-10000257");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000257, EnemyEtis);
 				break;
 			}
 			case 1735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000198);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000258, EnemyEtis, "EnemyEtis-10000258");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000258, EnemyEtis);
 				break;
 			}
 			case 1745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000199);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000259, EnemyEtis, "EnemyEtis-10000259");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000259, EnemyEtis);
 				break;
 			}
 			case 1755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000200);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000260, EnemyEtis, "EnemyEtis-10000260");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000260, EnemyEtis);
 				break;
 			}
 			case 1765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000201);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000261, EnemyEtis, "EnemyEtis-10000261");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000261, EnemyEtis);
 				break;
 			}
 			case 1775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000202);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000262, EnemyEtis, "EnemyEtis-10000262");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000262, EnemyEtis);
 				break;
 			}
 			case 1785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000203);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000263, EnemyEtis, "EnemyEtis-10000263");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000263, EnemyEtis);
 				break;
 			}
 			case 1795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000204);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000264, EnemyEtis, "EnemyEtis-10000264");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000264, EnemyEtis);
 				break;
 			}
 			case 1800: {
 				EnemyOebiusController002* p2 = (EnemyOebiusController002*)receiveActor(10000011);
-				bringSceneMediator()->appendGroupChild(p2);
+				getSceneChief()->appendGroupChild(p2);
 				p2->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
 				break;
 			}
 			case 1805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000205);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000265, EnemyEtis, "EnemyEtis-10000265");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000265, EnemyEtis);
 				break;
 			}
 			case 1815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000206);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000266, EnemyEtis, "EnemyEtis-10000266");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000266, EnemyEtis);
 				break;
 			}
 			case 1825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000207);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000267, EnemyEtis, "EnemyEtis-10000267");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000267, EnemyEtis);
 				break;
 			}
 			case 1835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000208);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000268, EnemyEtis, "EnemyEtis-10000268");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000268, EnemyEtis);
 				break;
 			}
 			case 1845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000209);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000269, EnemyEtis, "EnemyEtis-10000269");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000269, EnemyEtis);
 				break;
 			}
 			case 1855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000210);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000270, EnemyEtis, "EnemyEtis-10000270");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000270, EnemyEtis);
 				break;
 			}
 			case 1865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000211);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000271, EnemyEtis, "EnemyEtis-10000271");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000271, EnemyEtis);
 				break;
 			}
 			case 1875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000212);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000272, EnemyEtis, "EnemyEtis-10000272");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000272, EnemyEtis);
 				break;
 			}
 			case 1885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000213);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000273, EnemyEtis, "EnemyEtis-10000273");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000273, EnemyEtis);
 				break;
 			}
 			case 1895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000214);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000274, EnemyEtis, "EnemyEtis-10000274");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000274, EnemyEtis);
 				break;
 			}
 			case 1900: {
 				EnemyOebiusController001* p3 = (EnemyOebiusController001*)receiveActor(10000019);
-				bringSceneMediator()->appendGroupChild(p3);
+				getSceneChief()->appendGroupChild(p3);
 				p3->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
-				requestActor(10003226, EnemyDrastea, "EnemyDrastea-10003226");
+				requestActor(10003226, EnemyDrastea);
 				break;
 			}
 			case 1905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000215);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000275, EnemyEtis, "EnemyEtis-10000275");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000275, EnemyEtis);
 				break;
 			}
 			case 1915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000216);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000276, EnemyEtis, "EnemyEtis-10000276");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000276, EnemyEtis);
 				break;
 			}
 			case 1925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000217);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000277, EnemyEtis, "EnemyEtis-10000277");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000277, EnemyEtis);
 				break;
 			}
 			case 1935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000218);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000278, EnemyEtis, "EnemyEtis-10000278");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000278, EnemyEtis);
 				break;
 			}
 			case 1945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000219);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000279, EnemyEtis, "EnemyEtis-10000279");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000279, EnemyEtis);
 				break;
 			}
 			case 1955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000220);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000280, EnemyEtis, "EnemyEtis-10000280");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000280, EnemyEtis);
 				break;
 			}
 			case 1965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000221);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000281, EnemyEtis, "EnemyEtis-10000281");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000281, EnemyEtis);
 				break;
 			}
 			case 1975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000222);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000282, EnemyEtis, "EnemyEtis-10000282");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000282, EnemyEtis);
 				break;
 			}
 			case 1985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000223);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000283, EnemyEtis, "EnemyEtis-10000283");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000283, EnemyEtis);
 				break;
 			}
 			case 1995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000224);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000284, EnemyEtis, "EnemyEtis-10000284");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000284, EnemyEtis);
 				break;
 			}
 			case 2000: {
 				EnemyOebiusController002* p2 = (EnemyOebiusController002*)receiveActor(10000012);
-				bringSceneMediator()->appendGroupChild(p2);
+				getSceneChief()->appendGroupChild(p2);
 				p2->setPosition(RND_ABOUT(PX_C(800), PX_C(2000)), RND_ABOUT(0, PX_C(2000)), RND(0, PX_C(5000)) );
 				break;
 			}
 			case 2005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000225);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000285, EnemyEtis, "EnemyEtis-10000285");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000285, EnemyEtis);
 				break;
 			}
 			case 2015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000226);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000286, EnemyEtis, "EnemyEtis-10000286");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000286, EnemyEtis);
 				break;
 			}
 			case 2025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000227);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000287, EnemyEtis, "EnemyEtis-10000287");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000287, EnemyEtis);
 				break;
 			}
 			case 2035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000228);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000288, EnemyEtis, "EnemyEtis-10000288");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000288, EnemyEtis);
 				break;
 			}
 			case 2045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000229);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000289, EnemyEtis, "EnemyEtis-10000289");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000289, EnemyEtis);
 				break;
 			}
 			case 2055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000230);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000290, EnemyEtis, "EnemyEtis-10000290");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000290, EnemyEtis);
 				break;
 			}
 			case 2065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000231);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000291, EnemyEtis, "EnemyEtis-10000291");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000291, EnemyEtis);
 				break;
 			}
 			case 2075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000232);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000292, EnemyEtis, "EnemyEtis-10000292");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000292, EnemyEtis);
 				break;
 			}
 			case 2085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000233);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000293, EnemyEtis, "EnemyEtis-10000293");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000293, EnemyEtis);
 				break;
 			}
 			case 2095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000234);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000294, EnemyEtis, "EnemyEtis-10000294");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000294, EnemyEtis);
 				break;
 			}
 			case 2105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000235);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000295, EnemyEtis, "EnemyEtis-10000295");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000295, EnemyEtis);
 				break;
 			}
 			case 2115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000236);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000296, EnemyEtis, "EnemyEtis-10000296");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000296, EnemyEtis);
 				break;
 			}
 			case 2125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000237);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000297, EnemyEtis, "EnemyEtis-10000297");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000297, EnemyEtis);
 				break;
 			}
 			case 2135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000238);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000298, EnemyEtis, "EnemyEtis-10000298");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000298, EnemyEtis);
 				break;
 			}
 			case 2145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000239);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000299, EnemyEtis, "EnemyEtis-10000299");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000299, EnemyEtis);
 				break;
 			}
 			case 2155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000240);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000300, EnemyEtis, "EnemyEtis-10000300");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000300, EnemyEtis);
 				break;
 			}
 			case 2165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000241);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000301, EnemyEtis, "EnemyEtis-10000301");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000301, EnemyEtis);
 				break;
 			}
 			case 2175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000242);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000302, EnemyEtis, "EnemyEtis-10000302");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000302, EnemyEtis);
 				break;
 			}
 			case 2185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000243);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000303, EnemyEtis, "EnemyEtis-10000303");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000303, EnemyEtis);
 				break;
 			}
 			case 2195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000244);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000304, EnemyEtis, "EnemyEtis-10000304");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000304, EnemyEtis);
 				break;
 			}
 			case 2205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000245);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000305, EnemyEtis, "EnemyEtis-10000305");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000305, EnemyEtis);
 				break;
 			}
 			case 2215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000246);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000306, EnemyEtis, "EnemyEtis-10000306");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000306, EnemyEtis);
 				break;
 			}
 			case 2225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000247);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000307, EnemyEtis, "EnemyEtis-10000307");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000307, EnemyEtis);
 				break;
 			}
 			case 2235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000248);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000308, EnemyEtis, "EnemyEtis-10000308");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000308, EnemyEtis);
 				break;
 			}
 			case 2245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000249);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000309, EnemyEtis, "EnemyEtis-10000309");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000309, EnemyEtis);
 				break;
 			}
 			case 2255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000250);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000310, EnemyEtis, "EnemyEtis-10000310");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000310, EnemyEtis);
 				break;
 			}
 			case 2265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000251);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000311, EnemyEtis, "EnemyEtis-10000311");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000311, EnemyEtis);
 				break;
 			}
 			case 2275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000252);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000312, EnemyEtis, "EnemyEtis-10000312");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000312, EnemyEtis);
 				break;
 			}
 			case 2285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000253);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000313, EnemyEtis, "EnemyEtis-10000313");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000313, EnemyEtis);
 				break;
 			}
 			case 2295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000254);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000314, EnemyEtis, "EnemyEtis-10000314");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000314, EnemyEtis);
 				break;
 			}
 			case 2305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000255);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000315, EnemyEtis, "EnemyEtis-10000315");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000315, EnemyEtis);
 				break;
 			}
 			case 2315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000256);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000316, EnemyEtis, "EnemyEtis-10000316");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000316, EnemyEtis);
 				break;
 			}
 			case 2325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000257);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000317, EnemyEtis, "EnemyEtis-10000317");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000317, EnemyEtis);
 				break;
 			}
 			case 2335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000258);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000318, EnemyEtis, "EnemyEtis-10000318");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000318, EnemyEtis);
 				break;
 			}
 			case 2345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000259);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000319, EnemyEtis, "EnemyEtis-10000319");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000319, EnemyEtis);
 				break;
 			}
 			case 2355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000260);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000320, EnemyEtis, "EnemyEtis-10000320");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000320, EnemyEtis);
 				break;
 			}
 			case 2365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000261);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000321, EnemyEtis, "EnemyEtis-10000321");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000321, EnemyEtis);
 				break;
 			}
 			case 2375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000262);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000322, EnemyEtis, "EnemyEtis-10000322");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000322, EnemyEtis);
 				break;
 			}
 			case 2385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000263);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000323, EnemyEtis, "EnemyEtis-10000323");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000323, EnemyEtis);
 				break;
 			}
 			case 2395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000264);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000324, EnemyEtis, "EnemyEtis-10000324");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000324, EnemyEtis);
 				break;
 			}
 			case 2405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000265);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000325, EnemyEtis, "EnemyEtis-10000325");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000325, EnemyEtis);
 				break;
 			}
 			case 2415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000266);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000326, EnemyEtis, "EnemyEtis-10000326");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000326, EnemyEtis);
 				break;
 			}
 			case 2425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000267);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000327, EnemyEtis, "EnemyEtis-10000327");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000327, EnemyEtis);
 				break;
 			}
 			case 2435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000268);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000328, EnemyEtis, "EnemyEtis-10000328");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000328, EnemyEtis);
 				break;
 			}
 			case 2445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000269);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000329, EnemyEtis, "EnemyEtis-10000329");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000329, EnemyEtis);
 				break;
 			}
 			case 2455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000270);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000330, EnemyEtis, "EnemyEtis-10000330");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000330, EnemyEtis);
 				break;
 			}
 			case 2465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000271);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000331, EnemyEtis, "EnemyEtis-10000331");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000331, EnemyEtis);
 				break;
 			}
 			case 2475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000272);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000332, EnemyEtis, "EnemyEtis-10000332");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000332, EnemyEtis);
 				break;
 			}
 			case 2485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000273);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000333, EnemyEtis, "EnemyEtis-10000333");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000333, EnemyEtis);
 				break;
 			}
 			case 2495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000274);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000334, EnemyEtis, "EnemyEtis-10000334");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000334, EnemyEtis);
 				break;
 			}
 			case 2500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003226);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 2505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000275);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000335, EnemyEtis, "EnemyEtis-10000335");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000335, EnemyEtis);
 				break;
 			}
 			case 2515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000276);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000336, EnemyEtis, "EnemyEtis-10000336");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000336, EnemyEtis);
 				break;
 			}
 			case 2525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000277);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000337, EnemyEtis, "EnemyEtis-10000337");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000337, EnemyEtis);
 				break;
 			}
 			case 2535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000278);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000338, EnemyEtis, "EnemyEtis-10000338");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000338, EnemyEtis);
 				break;
 			}
 			case 2545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000279);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000339, EnemyEtis, "EnemyEtis-10000339");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000339, EnemyEtis);
 				break;
 			}
 			case 2555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000280);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000340, EnemyEtis, "EnemyEtis-10000340");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000340, EnemyEtis);
 				break;
 			}
 			case 2565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000281);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000341, EnemyEtis, "EnemyEtis-10000341");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000341, EnemyEtis);
 				break;
 			}
 			case 2575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000282);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000342, EnemyEtis, "EnemyEtis-10000342");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000342, EnemyEtis);
 				break;
 			}
 			case 2585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000283);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000343, EnemyEtis, "EnemyEtis-10000343");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000343, EnemyEtis);
 				break;
 			}
 			case 2595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000284);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000344, EnemyEtis, "EnemyEtis-10000344");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000344, EnemyEtis);
 				break;
 			}
 			case 2605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000285);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000345, EnemyEtis, "EnemyEtis-10000345");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000345, EnemyEtis);
 				break;
 			}
 			case 2615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000286);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000346, EnemyEtis, "EnemyEtis-10000346");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000346, EnemyEtis);
 				break;
 			}
 			case 2625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000287);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000347, EnemyEtis, "EnemyEtis-10000347");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000347, EnemyEtis);
 				break;
 			}
 			case 2635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000288);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000348, EnemyEtis, "EnemyEtis-10000348");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000348, EnemyEtis);
 				break;
 			}
 			case 2645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000289);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000349, EnemyEtis, "EnemyEtis-10000349");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000349, EnemyEtis);
 				break;
 			}
 			case 2655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000290);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000350, EnemyEtis, "EnemyEtis-10000350");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000350, EnemyEtis);
 				break;
 			}
 			case 2665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000291);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000351, EnemyEtis, "EnemyEtis-10000351");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000351, EnemyEtis);
 				break;
 			}
 			case 2675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000292);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000352, EnemyEtis, "EnemyEtis-10000352");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000352, EnemyEtis);
 				break;
 			}
 			case 2685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000293);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000353, EnemyEtis, "EnemyEtis-10000353");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000353, EnemyEtis);
 				break;
 			}
 			case 2695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000294);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000354, EnemyEtis, "EnemyEtis-10000354");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000354, EnemyEtis);
 				break;
 			}
 			case 2705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000295);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000355, EnemyEtis, "EnemyEtis-10000355");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000355, EnemyEtis);
 				break;
 			}
 			case 2715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000296);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000356, EnemyEtis, "EnemyEtis-10000356");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000356, EnemyEtis);
 				break;
 			}
 			case 2725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000297);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000357, EnemyEtis, "EnemyEtis-10000357");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000357, EnemyEtis);
 				break;
 			}
 			case 2735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000298);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000358, EnemyEtis, "EnemyEtis-10000358");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000358, EnemyEtis);
 				break;
 			}
 			case 2745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000299);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000359, EnemyEtis, "EnemyEtis-10000359");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000359, EnemyEtis);
 				break;
 			}
 			case 2755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000300);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000360, EnemyEtis, "EnemyEtis-10000360");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000360, EnemyEtis);
 				break;
 			}
 			case 2765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000301);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000361, EnemyEtis, "EnemyEtis-10000361");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000361, EnemyEtis);
 				break;
 			}
 			case 2775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000302);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000362, EnemyEtis, "EnemyEtis-10000362");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000362, EnemyEtis);
 				break;
 			}
 			case 2785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000303);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000363, EnemyEtis, "EnemyEtis-10000363");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000363, EnemyEtis);
 				break;
 			}
 			case 2795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000304);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000364, EnemyEtis, "EnemyEtis-10000364");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000364, EnemyEtis);
 				break;
 			}
 			case 2805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000305);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000365, EnemyEtis, "EnemyEtis-10000365");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000365, EnemyEtis);
 				break;
 			}
 			case 2815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000306);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000366, EnemyEtis, "EnemyEtis-10000366");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000366, EnemyEtis);
 				break;
 			}
 			case 2825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000307);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000367, EnemyEtis, "EnemyEtis-10000367");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000367, EnemyEtis);
 				break;
 			}
 			case 2835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000308);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000368, EnemyEtis, "EnemyEtis-10000368");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000368, EnemyEtis);
 				break;
 			}
 			case 2845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000309);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000369, EnemyEtis, "EnemyEtis-10000369");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000369, EnemyEtis);
 				break;
 			}
 			case 2855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000310);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000370, EnemyEtis, "EnemyEtis-10000370");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000370, EnemyEtis);
 				break;
 			}
 			case 2865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000311);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000371, EnemyEtis, "EnemyEtis-10000371");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000371, EnemyEtis);
 				break;
 			}
 			case 2875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000312);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000372, EnemyEtis, "EnemyEtis-10000372");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000372, EnemyEtis);
 				break;
 			}
 			case 2885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000313);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000373, EnemyEtis, "EnemyEtis-10000373");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000373, EnemyEtis);
 				break;
 			}
 			case 2895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000314);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000374, EnemyEtis, "EnemyEtis-10000374");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000374, EnemyEtis);
 				break;
 			}
 			case 2905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000315);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000375, EnemyEtis, "EnemyEtis-10000375");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000375, EnemyEtis);
 				break;
 			}
 			case 2915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000316);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000376, EnemyEtis, "EnemyEtis-10000376");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000376, EnemyEtis);
 				break;
 			}
 			case 2925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000317);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000377, EnemyEtis, "EnemyEtis-10000377");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000377, EnemyEtis);
 				break;
 			}
 			case 2935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000318);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000378, EnemyEtis, "EnemyEtis-10000378");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000378, EnemyEtis);
 				break;
 			}
 			case 2945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000319);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000379, EnemyEtis, "EnemyEtis-10000379");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000379, EnemyEtis);
 				break;
 			}
 			case 2955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000320);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000380, EnemyEtis, "EnemyEtis-10000380");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000380, EnemyEtis);
 				break;
 			}
 			case 2965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000321);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000381, EnemyEtis, "EnemyEtis-10000381");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000381, EnemyEtis);
 				break;
 			}
 			case 2975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000322);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000382, EnemyEtis, "EnemyEtis-10000382");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000382, EnemyEtis);
 				break;
 			}
 			case 2985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000323);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000383, EnemyEtis, "EnemyEtis-10000383");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000383, EnemyEtis);
 				break;
 			}
 			case 2995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000324);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000384, EnemyEtis, "EnemyEtis-10000384");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000384, EnemyEtis);
 				break;
 			}
 			case 3005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000325);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000385, EnemyEtis, "EnemyEtis-10000385");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000385, EnemyEtis);
 				break;
 			}
 			case 3015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000326);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000386, EnemyEtis, "EnemyEtis-10000386");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000386, EnemyEtis);
 				break;
 			}
 			case 3025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000327);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000387, EnemyEtis, "EnemyEtis-10000387");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000387, EnemyEtis);
 				break;
 			}
 			case 3035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000328);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000388, EnemyEtis, "EnemyEtis-10000388");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000388, EnemyEtis);
 				break;
 			}
 			case 3045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000329);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000389, EnemyEtis, "EnemyEtis-10000389");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000389, EnemyEtis);
 				break;
 			}
 			case 3055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000330);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000390, EnemyEtis, "EnemyEtis-10000390");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000390, EnemyEtis);
 				break;
 			}
 			case 3065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000331);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000391, EnemyEtis, "EnemyEtis-10000391");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000391, EnemyEtis);
 				break;
 			}
 			case 3075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000332);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000392, EnemyEtis, "EnemyEtis-10000392");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000392, EnemyEtis);
 				break;
 			}
 			case 3085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000333);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000393, EnemyEtis, "EnemyEtis-10000393");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000393, EnemyEtis);
 				break;
 			}
 			case 3095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000334);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000394, EnemyEtis, "EnemyEtis-10000394");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000394, EnemyEtis);
 				break;
 			}
 			case 3105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000335);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000395, EnemyEtis, "EnemyEtis-10000395");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000395, EnemyEtis);
 				break;
 			}
 			case 3115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000336);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000396, EnemyEtis, "EnemyEtis-10000396");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000396, EnemyEtis);
 				break;
 			}
 			case 3125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000337);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000397, EnemyEtis, "EnemyEtis-10000397");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000397, EnemyEtis);
 				break;
 			}
 			case 3135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000338);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000398, EnemyEtis, "EnemyEtis-10000398");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000398, EnemyEtis);
 				break;
 			}
 			case 3145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000339);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000399, EnemyEtis, "EnemyEtis-10000399");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000399, EnemyEtis);
 				break;
 			}
 			case 3155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000340);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000400, EnemyEtis, "EnemyEtis-10000400");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000400, EnemyEtis);
 				break;
 			}
 			case 3165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000341);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000401, EnemyEtis, "EnemyEtis-10000401");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000401, EnemyEtis);
 				break;
 			}
 			case 3175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000342);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000402, EnemyEtis, "EnemyEtis-10000402");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000402, EnemyEtis);
 				break;
 			}
 			case 3185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000343);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000403, EnemyEtis, "EnemyEtis-10000403");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000403, EnemyEtis);
 				break;
 			}
 			case 3195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000344);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000404, EnemyEtis, "EnemyEtis-10000404");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000404, EnemyEtis);
 				break;
 			}
 			case 3205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000345);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000405, EnemyEtis, "EnemyEtis-10000405");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000405, EnemyEtis);
 				break;
 			}
 			case 3215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000346);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000406, EnemyEtis, "EnemyEtis-10000406");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000406, EnemyEtis);
 				break;
 			}
 			case 3225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000347);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000407, EnemyEtis, "EnemyEtis-10000407");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000407, EnemyEtis);
 				break;
 			}
 			case 3235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000348);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000408, EnemyEtis, "EnemyEtis-10000408");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000408, EnemyEtis);
 				break;
 			}
 			case 3245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000349);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000409, EnemyEtis, "EnemyEtis-10000409");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000409, EnemyEtis);
 				break;
 			}
 			case 3255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000350);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000410, EnemyEtis, "EnemyEtis-10000410");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000410, EnemyEtis);
 				break;
 			}
 			case 3265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000351);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000411, EnemyEtis, "EnemyEtis-10000411");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000411, EnemyEtis);
 				break;
 			}
 			case 3275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000352);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000412, EnemyEtis, "EnemyEtis-10000412");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000412, EnemyEtis);
 				break;
 			}
 			case 3285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000353);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000413, EnemyEtis, "EnemyEtis-10000413");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000413, EnemyEtis);
 				break;
 			}
 			case 3295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000354);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000414, EnemyEtis, "EnemyEtis-10000414");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000414, EnemyEtis);
 				break;
 			}
 			case 3305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000355);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000415, EnemyEtis, "EnemyEtis-10000415");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000415, EnemyEtis);
 				break;
 			}
 			case 3315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000356);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000416, EnemyEtis, "EnemyEtis-10000416");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000416, EnemyEtis);
 				break;
 			}
 			case 3325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000357);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000417, EnemyEtis, "EnemyEtis-10000417");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000417, EnemyEtis);
 				break;
 			}
 			case 3335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000358);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000418, EnemyEtis, "EnemyEtis-10000418");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000418, EnemyEtis);
 				break;
 			}
 			case 3345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000359);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000419, EnemyEtis, "EnemyEtis-10000419");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000419, EnemyEtis);
 				break;
 			}
 			case 3355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000360);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000420, EnemyEtis, "EnemyEtis-10000420");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000420, EnemyEtis);
 				break;
 			}
 			case 3365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000361);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000421, EnemyEtis, "EnemyEtis-10000421");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000421, EnemyEtis);
 				break;
 			}
 			case 3375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000362);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000422, EnemyEtis, "EnemyEtis-10000422");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000422, EnemyEtis);
 				break;
 			}
 			case 3385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000363);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000423, EnemyEtis, "EnemyEtis-10000423");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000423, EnemyEtis);
 				break;
 			}
 			case 3395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000364);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000424, EnemyEtis, "EnemyEtis-10000424");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000424, EnemyEtis);
 				break;
 			}
 			case 3405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000365);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000425, EnemyEtis, "EnemyEtis-10000425");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000425, EnemyEtis);
 				break;
 			}
 			case 3415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000366);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000426, EnemyEtis, "EnemyEtis-10000426");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000426, EnemyEtis);
 				break;
 			}
 			case 3425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000367);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000427, EnemyEtis, "EnemyEtis-10000427");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000427, EnemyEtis);
 				break;
 			}
 			case 3435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000368);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000428, EnemyEtis, "EnemyEtis-10000428");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000428, EnemyEtis);
 				break;
 			}
 			case 3445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000369);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000429, EnemyEtis, "EnemyEtis-10000429");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000429, EnemyEtis);
 				break;
 			}
 			case 3455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000370);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000430, EnemyEtis, "EnemyEtis-10000430");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000430, EnemyEtis);
 				break;
 			}
 			case 3465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000371);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000431, EnemyEtis, "EnemyEtis-10000431");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000431, EnemyEtis);
 				break;
 			}
 			case 3475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000372);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000432, EnemyEtis, "EnemyEtis-10000432");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000432, EnemyEtis);
 				break;
 			}
 			case 3485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000373);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000433, EnemyEtis, "EnemyEtis-10000433");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000433, EnemyEtis);
 				break;
 			}
 			case 3495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000374);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000434, EnemyEtis, "EnemyEtis-10000434");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000434, EnemyEtis);
 				break;
 			}
 			case 3505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000375);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000435, EnemyEtis, "EnemyEtis-10000435");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000435, EnemyEtis);
 				break;
 			}
 			case 3515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000376);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000436, EnemyEtis, "EnemyEtis-10000436");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000436, EnemyEtis);
 				break;
 			}
 			case 3525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000377);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000437, EnemyEtis, "EnemyEtis-10000437");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000437, EnemyEtis);
 				break;
 			}
 			case 3535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000378);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000438, EnemyEtis, "EnemyEtis-10000438");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000438, EnemyEtis);
 				break;
 			}
 			case 3545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000379);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000439, EnemyEtis, "EnemyEtis-10000439");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000439, EnemyEtis);
 				break;
 			}
 			case 3555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000380);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000440, EnemyEtis, "EnemyEtis-10000440");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000440, EnemyEtis);
 				break;
 			}
 			case 3565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000381);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000441, EnemyEtis, "EnemyEtis-10000441");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000441, EnemyEtis);
 				break;
 			}
 			case 3575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000382);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000442, EnemyEtis, "EnemyEtis-10000442");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000442, EnemyEtis);
 				break;
 			}
 			case 3585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000383);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000443, EnemyEtis, "EnemyEtis-10000443");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000443, EnemyEtis);
 				break;
 			}
 			case 3595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000384);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000444, EnemyEtis, "EnemyEtis-10000444");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000444, EnemyEtis);
 				break;
 			}
 			case 3605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000385);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000445, EnemyEtis, "EnemyEtis-10000445");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000445, EnemyEtis);
 				break;
 			}
 			case 3615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000386);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000446, EnemyEtis, "EnemyEtis-10000446");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000446, EnemyEtis);
 				break;
 			}
 			case 3625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000387);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000447, EnemyEtis, "EnemyEtis-10000447");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000447, EnemyEtis);
 				break;
 			}
 			case 3635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000388);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000448, EnemyEtis, "EnemyEtis-10000448");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000448, EnemyEtis);
 				break;
 			}
 			case 3645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000389);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000449, EnemyEtis, "EnemyEtis-10000449");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000449, EnemyEtis);
 				break;
 			}
 			case 3655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000390);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000450, EnemyEtis, "EnemyEtis-10000450");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000450, EnemyEtis);
 				break;
 			}
 			case 3665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000391);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000451, EnemyEtis, "EnemyEtis-10000451");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000451, EnemyEtis);
 				break;
 			}
 			case 3675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000392);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000452, EnemyEtis, "EnemyEtis-10000452");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000452, EnemyEtis);
 				break;
 			}
 			case 3685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000393);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000453, EnemyEtis, "EnemyEtis-10000453");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000453, EnemyEtis);
 				break;
 			}
 			case 3695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000394);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000454, EnemyEtis, "EnemyEtis-10000454");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000454, EnemyEtis);
 				break;
 			}
 			case 3705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000395);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000455, EnemyEtis, "EnemyEtis-10000455");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000455, EnemyEtis);
 				break;
 			}
 			case 3715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000396);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000456, EnemyEtis, "EnemyEtis-10000456");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000456, EnemyEtis);
 				break;
 			}
 			case 3725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000397);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000457, EnemyEtis, "EnemyEtis-10000457");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000457, EnemyEtis);
 				break;
 			}
 			case 3735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000398);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000458, EnemyEtis, "EnemyEtis-10000458");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000458, EnemyEtis);
 				break;
 			}
 			case 3745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000399);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000459, EnemyEtis, "EnemyEtis-10000459");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000459, EnemyEtis);
 				break;
 			}
 			case 3755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000400);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000460, EnemyEtis, "EnemyEtis-10000460");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000460, EnemyEtis);
 				break;
 			}
 			case 3765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000401);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000461, EnemyEtis, "EnemyEtis-10000461");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000461, EnemyEtis);
 				break;
 			}
 			case 3775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000402);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000462, EnemyEtis, "EnemyEtis-10000462");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000462, EnemyEtis);
 				break;
 			}
 			case 3785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000403);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000463, EnemyEtis, "EnemyEtis-10000463");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000463, EnemyEtis);
 				break;
 			}
 			case 3795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000404);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000464, EnemyEtis, "EnemyEtis-10000464");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000464, EnemyEtis);
 				break;
 			}
 			case 3805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000405);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000465, EnemyEtis, "EnemyEtis-10000465");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000465, EnemyEtis);
 				break;
 			}
 			case 3815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000406);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000466, EnemyEtis, "EnemyEtis-10000466");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000466, EnemyEtis);
 				break;
 			}
 			case 3825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000407);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000467, EnemyEtis, "EnemyEtis-10000467");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000467, EnemyEtis);
 				break;
 			}
 			case 3835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000408);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000468, EnemyEtis, "EnemyEtis-10000468");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000468, EnemyEtis);
 				break;
 			}
 			case 3845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000409);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000469, EnemyEtis, "EnemyEtis-10000469");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000469, EnemyEtis);
 				break;
 			}
 			case 3855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000410);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000470, EnemyEtis, "EnemyEtis-10000470");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000470, EnemyEtis);
 				break;
 			}
 			case 3865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000411);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000471, EnemyEtis, "EnemyEtis-10000471");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000471, EnemyEtis);
 				break;
 			}
 			case 3875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000412);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000472, EnemyEtis, "EnemyEtis-10000472");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000472, EnemyEtis);
 				break;
 			}
 			case 3885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000413);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000473, EnemyEtis, "EnemyEtis-10000473");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000473, EnemyEtis);
 				break;
 			}
 			case 3895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000414);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000474, EnemyEtis, "EnemyEtis-10000474");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000474, EnemyEtis);
 				break;
 			}
 			case 3900: {
-				requestActor(10003227, EnemyDrastea, "EnemyDrastea-10003227");
+				requestActor(10003227, EnemyDrastea);
 				break;
 			}
 			case 3905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000415);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000475, EnemyEtis, "EnemyEtis-10000475");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000475, EnemyEtis);
 				break;
 			}
 			case 3915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000416);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000476, EnemyEtis, "EnemyEtis-10000476");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000476, EnemyEtis);
 				break;
 			}
 			case 3925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000417);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000477, EnemyEtis, "EnemyEtis-10000477");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000477, EnemyEtis);
 				break;
 			}
 			case 3935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000418);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000478, EnemyEtis, "EnemyEtis-10000478");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000478, EnemyEtis);
 				break;
 			}
 			case 3945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000419);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000479, EnemyEtis, "EnemyEtis-10000479");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000479, EnemyEtis);
 				break;
 			}
 			case 3955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000420);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000480, EnemyEtis, "EnemyEtis-10000480");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000480, EnemyEtis);
 				break;
 			}
 			case 3965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000421);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000481, EnemyEtis, "EnemyEtis-10000481");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000481, EnemyEtis);
 				break;
 			}
 			case 3975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000422);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000482, EnemyEtis, "EnemyEtis-10000482");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000482, EnemyEtis);
 				break;
 			}
 			case 3985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000423);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000483, EnemyEtis, "EnemyEtis-10000483");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000483, EnemyEtis);
 				break;
 			}
 			case 3995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000424);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000484, EnemyEtis, "EnemyEtis-10000484");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000484, EnemyEtis);
 				break;
 			}
 			case 4005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000425);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000485, EnemyEtis, "EnemyEtis-10000485");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000485, EnemyEtis);
 				break;
 			}
 			case 4015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000426);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000486, EnemyEtis, "EnemyEtis-10000486");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000486, EnemyEtis);
 				break;
 			}
 			case 4025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000427);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000487, EnemyEtis, "EnemyEtis-10000487");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000487, EnemyEtis);
 				break;
 			}
 			case 4035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000428);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000488, EnemyEtis, "EnemyEtis-10000488");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000488, EnemyEtis);
 				break;
 			}
 			case 4045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000429);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000489, EnemyEtis, "EnemyEtis-10000489");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000489, EnemyEtis);
 				break;
 			}
 			case 4055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000430);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000490, EnemyEtis, "EnemyEtis-10000490");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000490, EnemyEtis);
 				break;
 			}
 			case 4065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000431);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000491, EnemyEtis, "EnemyEtis-10000491");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000491, EnemyEtis);
 				break;
 			}
 			case 4075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000432);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000492, EnemyEtis, "EnemyEtis-10000492");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000492, EnemyEtis);
 				break;
 			}
 			case 4085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000433);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000493, EnemyEtis, "EnemyEtis-10000493");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000493, EnemyEtis);
 				break;
 			}
 			case 4095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000434);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000494, EnemyEtis, "EnemyEtis-10000494");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000494, EnemyEtis);
 				break;
 			}
 			case 4105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000435);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000495, EnemyEtis, "EnemyEtis-10000495");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000495, EnemyEtis);
 				break;
 			}
 			case 4115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000436);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000496, EnemyEtis, "EnemyEtis-10000496");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000496, EnemyEtis);
 				break;
 			}
 			case 4125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000437);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000497, EnemyEtis, "EnemyEtis-10000497");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000497, EnemyEtis);
 				break;
 			}
 			case 4135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000438);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000498, EnemyEtis, "EnemyEtis-10000498");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000498, EnemyEtis);
 				break;
 			}
 			case 4145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000439);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000499, EnemyEtis, "EnemyEtis-10000499");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000499, EnemyEtis);
 				break;
 			}
 			case 4155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000440);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000500, EnemyEtis, "EnemyEtis-10000500");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000500, EnemyEtis);
 				break;
 			}
 			case 4165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000441);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000501, EnemyEtis, "EnemyEtis-10000501");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000501, EnemyEtis);
 				break;
 			}
 			case 4175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000442);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000502, EnemyEtis, "EnemyEtis-10000502");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000502, EnemyEtis);
 				break;
 			}
 			case 4185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000443);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000503, EnemyEtis, "EnemyEtis-10000503");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000503, EnemyEtis);
 				break;
 			}
 			case 4195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000444);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000504, EnemyEtis, "EnemyEtis-10000504");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000504, EnemyEtis);
 				break;
 			}
 			case 4205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000445);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000505, EnemyEtis, "EnemyEtis-10000505");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000505, EnemyEtis);
 				break;
 			}
 			case 4215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000446);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000506, EnemyEtis, "EnemyEtis-10000506");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000506, EnemyEtis);
 				break;
 			}
 			case 4225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000447);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000507, EnemyEtis, "EnemyEtis-10000507");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000507, EnemyEtis);
 				break;
 			}
 			case 4235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000448);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000508, EnemyEtis, "EnemyEtis-10000508");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000508, EnemyEtis);
 				break;
 			}
 			case 4245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000449);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000509, EnemyEtis, "EnemyEtis-10000509");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000509, EnemyEtis);
 				break;
 			}
 			case 4255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000450);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000510, EnemyEtis, "EnemyEtis-10000510");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000510, EnemyEtis);
 				break;
 			}
 			case 4265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000451);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000511, EnemyEtis, "EnemyEtis-10000511");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000511, EnemyEtis);
 				break;
 			}
 			case 4275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000452);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000512, EnemyEtis, "EnemyEtis-10000512");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000512, EnemyEtis);
 				break;
 			}
 			case 4285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000453);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000513, EnemyEtis, "EnemyEtis-10000513");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000513, EnemyEtis);
 				break;
 			}
 			case 4295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000454);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000514, EnemyEtis, "EnemyEtis-10000514");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000514, EnemyEtis);
 				break;
 			}
 			case 4305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000455);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000515, EnemyEtis, "EnemyEtis-10000515");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000515, EnemyEtis);
 				break;
 			}
 			case 4315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000456);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000516, EnemyEtis, "EnemyEtis-10000516");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000516, EnemyEtis);
 				break;
 			}
 			case 4325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000457);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000517, EnemyEtis, "EnemyEtis-10000517");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000517, EnemyEtis);
 				break;
 			}
 			case 4335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000458);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000518, EnemyEtis, "EnemyEtis-10000518");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000518, EnemyEtis);
 				break;
 			}
 			case 4345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000459);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000519, EnemyEtis, "EnemyEtis-10000519");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000519, EnemyEtis);
 				break;
 			}
 			case 4355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000460);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000520, EnemyEtis, "EnemyEtis-10000520");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000520, EnemyEtis);
 				break;
 			}
 			case 4365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000461);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000521, EnemyEtis, "EnemyEtis-10000521");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000521, EnemyEtis);
 				break;
 			}
 			case 4375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000462);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000522, EnemyEtis, "EnemyEtis-10000522");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000522, EnemyEtis);
 				break;
 			}
 			case 4385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000463);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000523, EnemyEtis, "EnemyEtis-10000523");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000523, EnemyEtis);
 				break;
 			}
 			case 4395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000464);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000524, EnemyEtis, "EnemyEtis-10000524");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000524, EnemyEtis);
 				break;
 			}
 			case 4405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000465);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000525, EnemyEtis, "EnemyEtis-10000525");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000525, EnemyEtis);
 				break;
 			}
 			case 4415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000466);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000526, EnemyEtis, "EnemyEtis-10000526");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000526, EnemyEtis);
 				break;
 			}
 			case 4425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000467);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000527, EnemyEtis, "EnemyEtis-10000527");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000527, EnemyEtis);
 				break;
 			}
 			case 4435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000468);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000528, EnemyEtis, "EnemyEtis-10000528");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000528, EnemyEtis);
 				break;
 			}
 			case 4445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000469);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000529, EnemyEtis, "EnemyEtis-10000529");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000529, EnemyEtis);
 				break;
 			}
 			case 4455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000470);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000530, EnemyEtis, "EnemyEtis-10000530");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000530, EnemyEtis);
 				break;
 			}
 			case 4465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000471);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000531, EnemyEtis, "EnemyEtis-10000531");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000531, EnemyEtis);
 				break;
 			}
 			case 4475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000472);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000532, EnemyEtis, "EnemyEtis-10000532");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000532, EnemyEtis);
 				break;
 			}
 			case 4485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000473);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000533, EnemyEtis, "EnemyEtis-10000533");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000533, EnemyEtis);
 				break;
 			}
 			case 4495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000474);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000534, EnemyEtis, "EnemyEtis-10000534");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000534, EnemyEtis);
 				break;
 			}
 			case 4500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003227);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 4505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000475);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000535, EnemyEtis, "EnemyEtis-10000535");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000535, EnemyEtis);
 				break;
 			}
 			case 4515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000476);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000536, EnemyEtis, "EnemyEtis-10000536");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000536, EnemyEtis);
 				break;
 			}
 			case 4525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000477);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000537, EnemyEtis, "EnemyEtis-10000537");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000537, EnemyEtis);
 				break;
 			}
 			case 4535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000478);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000538, EnemyEtis, "EnemyEtis-10000538");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000538, EnemyEtis);
 				break;
 			}
 			case 4545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000479);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000539, EnemyEtis, "EnemyEtis-10000539");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000539, EnemyEtis);
 				break;
 			}
 			case 4555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000480);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000540, EnemyEtis, "EnemyEtis-10000540");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000540, EnemyEtis);
 				break;
 			}
 			case 4565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000481);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000541, EnemyEtis, "EnemyEtis-10000541");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000541, EnemyEtis);
 				break;
 			}
 			case 4575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000482);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000542, EnemyEtis, "EnemyEtis-10000542");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000542, EnemyEtis);
 				break;
 			}
 			case 4585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000483);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000543, EnemyEtis, "EnemyEtis-10000543");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000543, EnemyEtis);
 				break;
 			}
 			case 4595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000484);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000544, EnemyEtis, "EnemyEtis-10000544");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000544, EnemyEtis);
 				break;
 			}
 			case 4605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000485);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000545, EnemyEtis, "EnemyEtis-10000545");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000545, EnemyEtis);
 				break;
 			}
 			case 4615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000486);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000546, EnemyEtis, "EnemyEtis-10000546");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000546, EnemyEtis);
 				break;
 			}
 			case 4625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000487);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000547, EnemyEtis, "EnemyEtis-10000547");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000547, EnemyEtis);
 				break;
 			}
 			case 4635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000488);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000548, EnemyEtis, "EnemyEtis-10000548");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000548, EnemyEtis);
 				break;
 			}
 			case 4645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000489);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000549, EnemyEtis, "EnemyEtis-10000549");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000549, EnemyEtis);
 				break;
 			}
 			case 4655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000490);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000550, EnemyEtis, "EnemyEtis-10000550");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000550, EnemyEtis);
 				break;
 			}
 			case 4665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000491);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000551, EnemyEtis, "EnemyEtis-10000551");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000551, EnemyEtis);
 				break;
 			}
 			case 4675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000492);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000552, EnemyEtis, "EnemyEtis-10000552");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000552, EnemyEtis);
 				break;
 			}
 			case 4685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000493);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000553, EnemyEtis, "EnemyEtis-10000553");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000553, EnemyEtis);
 				break;
 			}
 			case 4695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000494);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000554, EnemyEtis, "EnemyEtis-10000554");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000554, EnemyEtis);
 				break;
 			}
 			case 4705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000495);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000555, EnemyEtis, "EnemyEtis-10000555");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000555, EnemyEtis);
 				break;
 			}
 			case 4715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000496);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000556, EnemyEtis, "EnemyEtis-10000556");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000556, EnemyEtis);
 				break;
 			}
 			case 4725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000497);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000557, EnemyEtis, "EnemyEtis-10000557");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000557, EnemyEtis);
 				break;
 			}
 			case 4735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000498);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000558, EnemyEtis, "EnemyEtis-10000558");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000558, EnemyEtis);
 				break;
 			}
 			case 4745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000499);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000559, EnemyEtis, "EnemyEtis-10000559");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000559, EnemyEtis);
 				break;
 			}
 			case 4755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000500);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000560, EnemyEtis, "EnemyEtis-10000560");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000560, EnemyEtis);
 				break;
 			}
 			case 4765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000501);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000561, EnemyEtis, "EnemyEtis-10000561");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000561, EnemyEtis);
 				break;
 			}
 			case 4775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000502);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000562, EnemyEtis, "EnemyEtis-10000562");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000562, EnemyEtis);
 				break;
 			}
 			case 4785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000503);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000563, EnemyEtis, "EnemyEtis-10000563");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000563, EnemyEtis);
 				break;
 			}
 			case 4795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000504);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000564, EnemyEtis, "EnemyEtis-10000564");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000564, EnemyEtis);
 				break;
 			}
 			case 4805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000505);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000565, EnemyEtis, "EnemyEtis-10000565");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000565, EnemyEtis);
 				break;
 			}
 			case 4815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000506);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000566, EnemyEtis, "EnemyEtis-10000566");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000566, EnemyEtis);
 				break;
 			}
 			case 4825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000507);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000567, EnemyEtis, "EnemyEtis-10000567");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000567, EnemyEtis);
 				break;
 			}
 			case 4835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000508);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000568, EnemyEtis, "EnemyEtis-10000568");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000568, EnemyEtis);
 				break;
 			}
 			case 4845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000509);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000569, EnemyEtis, "EnemyEtis-10000569");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000569, EnemyEtis);
 				break;
 			}
 			case 4855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000510);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000570, EnemyEtis, "EnemyEtis-10000570");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000570, EnemyEtis);
 				break;
 			}
 			case 4865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000511);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000571, EnemyEtis, "EnemyEtis-10000571");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000571, EnemyEtis);
 				break;
 			}
 			case 4875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000512);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000572, EnemyEtis, "EnemyEtis-10000572");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000572, EnemyEtis);
 				break;
 			}
 			case 4885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000513);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000573, EnemyEtis, "EnemyEtis-10000573");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000573, EnemyEtis);
 				break;
 			}
 			case 4895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000514);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000574, EnemyEtis, "EnemyEtis-10000574");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000574, EnemyEtis);
 				break;
 			}
 			case 4905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000515);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000575, EnemyEtis, "EnemyEtis-10000575");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000575, EnemyEtis);
 				break;
 			}
 			case 4915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000516);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000576, EnemyEtis, "EnemyEtis-10000576");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000576, EnemyEtis);
 				break;
 			}
 			case 4925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000517);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000577, EnemyEtis, "EnemyEtis-10000577");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000577, EnemyEtis);
 				break;
 			}
 			case 4935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000518);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000578, EnemyEtis, "EnemyEtis-10000578");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000578, EnemyEtis);
 				break;
 			}
 			case 4945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000519);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000579, EnemyEtis, "EnemyEtis-10000579");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000579, EnemyEtis);
 				break;
 			}
 			case 4955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000520);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000580, EnemyEtis, "EnemyEtis-10000580");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000580, EnemyEtis);
 				break;
 			}
 			case 4965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000521);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000581, EnemyEtis, "EnemyEtis-10000581");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000581, EnemyEtis);
 				break;
 			}
 			case 4975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000522);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000582, EnemyEtis, "EnemyEtis-10000582");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000582, EnemyEtis);
 				break;
 			}
 			case 4985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000523);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000583, EnemyEtis, "EnemyEtis-10000583");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000583, EnemyEtis);
 				break;
 			}
 			case 4995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000524);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000584, EnemyEtis, "EnemyEtis-10000584");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000584, EnemyEtis);
 				break;
 			}
 			case 5005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000525);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000585, EnemyEtis, "EnemyEtis-10000585");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000585, EnemyEtis);
 				break;
 			}
 			case 5015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000526);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000586, EnemyEtis, "EnemyEtis-10000586");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000586, EnemyEtis);
 				break;
 			}
 			case 5025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000527);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000587, EnemyEtis, "EnemyEtis-10000587");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000587, EnemyEtis);
 				break;
 			}
 			case 5035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000528);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000588, EnemyEtis, "EnemyEtis-10000588");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000588, EnemyEtis);
 				break;
 			}
 			case 5045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000529);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000589, EnemyEtis, "EnemyEtis-10000589");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000589, EnemyEtis);
 				break;
 			}
 			case 5055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000530);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000590, EnemyEtis, "EnemyEtis-10000590");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000590, EnemyEtis);
 				break;
 			}
 			case 5065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000531);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000591, EnemyEtis, "EnemyEtis-10000591");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000591, EnemyEtis);
 				break;
 			}
 			case 5075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000532);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000592, EnemyEtis, "EnemyEtis-10000592");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000592, EnemyEtis);
 				break;
 			}
 			case 5085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000533);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000593, EnemyEtis, "EnemyEtis-10000593");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000593, EnemyEtis);
 				break;
 			}
 			case 5095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000534);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000594, EnemyEtis, "EnemyEtis-10000594");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000594, EnemyEtis);
 				break;
 			}
 			case 5100: {
-				requestScene(10000001, StageDebugPart02, "StageDebugPart02-10000001");
+				requestScene(10000001, StageDebugPart02);
 				break;
 			}
 			case 5105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000535);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000595, EnemyEtis, "EnemyEtis-10000595");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000595, EnemyEtis);
 				break;
 			}
 			case 5115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000536);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000596, EnemyEtis, "EnemyEtis-10000596");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000596, EnemyEtis);
 				break;
 			}
 			case 5125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000537);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000597, EnemyEtis, "EnemyEtis-10000597");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000597, EnemyEtis);
 				break;
 			}
 			case 5135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000538);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000598, EnemyEtis, "EnemyEtis-10000598");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000598, EnemyEtis);
 				break;
 			}
 			case 5145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000539);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000599, EnemyEtis, "EnemyEtis-10000599");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000599, EnemyEtis);
 				break;
 			}
 			case 5155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000540);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000600, EnemyEtis, "EnemyEtis-10000600");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000600, EnemyEtis);
 				break;
 			}
 			case 5165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000541);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000601, EnemyEtis, "EnemyEtis-10000601");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000601, EnemyEtis);
 				break;
 			}
 			case 5175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000542);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000602, EnemyEtis, "EnemyEtis-10000602");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000602, EnemyEtis);
 				break;
 			}
 			case 5185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000543);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000603, EnemyEtis, "EnemyEtis-10000603");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000603, EnemyEtis);
 				break;
 			}
 			case 5195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000544);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000604, EnemyEtis, "EnemyEtis-10000604");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000604, EnemyEtis);
 				break;
 			}
 			case 5205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000545);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000605, EnemyEtis, "EnemyEtis-10000605");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000605, EnemyEtis);
 				break;
 			}
 			case 5215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000546);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000606, EnemyEtis, "EnemyEtis-10000606");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000606, EnemyEtis);
 				break;
 			}
 			case 5225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000547);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000607, EnemyEtis, "EnemyEtis-10000607");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000607, EnemyEtis);
 				break;
 			}
 			case 5235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000548);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000608, EnemyEtis, "EnemyEtis-10000608");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000608, EnemyEtis);
 				break;
 			}
 			case 5245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000549);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000609, EnemyEtis, "EnemyEtis-10000609");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000609, EnemyEtis);
 				break;
 			}
 			case 5255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000550);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000610, EnemyEtis, "EnemyEtis-10000610");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000610, EnemyEtis);
 				break;
 			}
 			case 5265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000551);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000611, EnemyEtis, "EnemyEtis-10000611");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000611, EnemyEtis);
 				break;
 			}
 			case 5275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000552);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000612, EnemyEtis, "EnemyEtis-10000612");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000612, EnemyEtis);
 				break;
 			}
 			case 5285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000553);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000613, EnemyEtis, "EnemyEtis-10000613");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000613, EnemyEtis);
 				break;
 			}
 			case 5295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000554);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000614, EnemyEtis, "EnemyEtis-10000614");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000614, EnemyEtis);
 				break;
 			}
 			case 5305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000555);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000615, EnemyEtis, "EnemyEtis-10000615");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000615, EnemyEtis);
 				break;
 			}
 			case 5315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000556);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000616, EnemyEtis, "EnemyEtis-10000616");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000616, EnemyEtis);
 				break;
 			}
 			case 5325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000557);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000617, EnemyEtis, "EnemyEtis-10000617");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000617, EnemyEtis);
 				break;
 			}
 			case 5335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000558);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000618, EnemyEtis, "EnemyEtis-10000618");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000618, EnemyEtis);
 				break;
 			}
 			case 5345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000559);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000619, EnemyEtis, "EnemyEtis-10000619");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000619, EnemyEtis);
 				break;
 			}
 			case 5355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000560);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000620, EnemyEtis, "EnemyEtis-10000620");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000620, EnemyEtis);
 				break;
 			}
 			case 5365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000561);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000621, EnemyEtis, "EnemyEtis-10000621");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000621, EnemyEtis);
 				break;
 			}
 			case 5375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000562);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000622, EnemyEtis, "EnemyEtis-10000622");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000622, EnemyEtis);
 				break;
 			}
 			case 5385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000563);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000623, EnemyEtis, "EnemyEtis-10000623");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000623, EnemyEtis);
 				break;
 			}
 			case 5395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000564);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000624, EnemyEtis, "EnemyEtis-10000624");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000624, EnemyEtis);
 				break;
 			}
 			case 5405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000565);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000625, EnemyEtis, "EnemyEtis-10000625");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000625, EnemyEtis);
 				break;
 			}
 			case 5415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000566);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000626, EnemyEtis, "EnemyEtis-10000626");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000626, EnemyEtis);
 				break;
 			}
 			case 5425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000567);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000627, EnemyEtis, "EnemyEtis-10000627");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000627, EnemyEtis);
 				break;
 			}
 			case 5435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000568);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000628, EnemyEtis, "EnemyEtis-10000628");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000628, EnemyEtis);
 				break;
 			}
 			case 5445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000569);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000629, EnemyEtis, "EnemyEtis-10000629");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000629, EnemyEtis);
 				break;
 			}
 			case 5455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000570);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000630, EnemyEtis, "EnemyEtis-10000630");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000630, EnemyEtis);
 				break;
 			}
 			case 5465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000571);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000631, EnemyEtis, "EnemyEtis-10000631");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000631, EnemyEtis);
 				break;
 			}
 			case 5475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000572);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000632, EnemyEtis, "EnemyEtis-10000632");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000632, EnemyEtis);
 				break;
 			}
 			case 5485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000573);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000633, EnemyEtis, "EnemyEtis-10000633");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000633, EnemyEtis);
 				break;
 			}
 			case 5495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000574);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000634, EnemyEtis, "EnemyEtis-10000634");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000634, EnemyEtis);
 				break;
 			}
 			case 5505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000575);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000635, EnemyEtis, "EnemyEtis-10000635");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000635, EnemyEtis);
 				break;
 			}
 			case 5515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000576);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000636, EnemyEtis, "EnemyEtis-10000636");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000636, EnemyEtis);
 				break;
 			}
 			case 5525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000577);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000637, EnemyEtis, "EnemyEtis-10000637");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000637, EnemyEtis);
 				break;
 			}
 			case 5535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000578);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000638, EnemyEtis, "EnemyEtis-10000638");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000638, EnemyEtis);
 				break;
 			}
 			case 5545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000579);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000639, EnemyEtis, "EnemyEtis-10000639");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000639, EnemyEtis);
 				break;
 			}
 			case 5555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000580);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000640, EnemyEtis, "EnemyEtis-10000640");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000640, EnemyEtis);
 				break;
 			}
 			case 5565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000581);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000641, EnemyEtis, "EnemyEtis-10000641");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000641, EnemyEtis);
 				break;
 			}
 			case 5575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000582);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000642, EnemyEtis, "EnemyEtis-10000642");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000642, EnemyEtis);
 				break;
 			}
 			case 5585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000583);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000643, EnemyEtis, "EnemyEtis-10000643");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000643, EnemyEtis);
 				break;
 			}
 			case 5595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000584);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000644, EnemyEtis, "EnemyEtis-10000644");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000644, EnemyEtis);
 				break;
 			}
 			case 5605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000585);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000645, EnemyEtis, "EnemyEtis-10000645");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000645, EnemyEtis);
 				break;
 			}
 			case 5615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000586);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000646, EnemyEtis, "EnemyEtis-10000646");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000646, EnemyEtis);
 				break;
 			}
 			case 5625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000587);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000647, EnemyEtis, "EnemyEtis-10000647");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000647, EnemyEtis);
 				break;
 			}
 			case 5635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000588);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000648, EnemyEtis, "EnemyEtis-10000648");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000648, EnemyEtis);
 				break;
 			}
 			case 5645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000589);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000649, EnemyEtis, "EnemyEtis-10000649");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000649, EnemyEtis);
 				break;
 			}
 			case 5655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000590);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000650, EnemyEtis, "EnemyEtis-10000650");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000650, EnemyEtis);
 				break;
 			}
 			case 5665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000591);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000651, EnemyEtis, "EnemyEtis-10000651");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000651, EnemyEtis);
 				break;
 			}
 			case 5675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000592);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000652, EnemyEtis, "EnemyEtis-10000652");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000652, EnemyEtis);
 				break;
 			}
 			case 5685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000593);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000653, EnemyEtis, "EnemyEtis-10000653");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000653, EnemyEtis);
 				break;
 			}
 			case 5695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000594);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000654, EnemyEtis, "EnemyEtis-10000654");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000654, EnemyEtis);
 				break;
 			}
 			case 5705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000595);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000655, EnemyEtis, "EnemyEtis-10000655");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000655, EnemyEtis);
 				break;
 			}
 			case 5715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000596);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000656, EnemyEtis, "EnemyEtis-10000656");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000656, EnemyEtis);
 				break;
 			}
 			case 5725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000597);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000657, EnemyEtis, "EnemyEtis-10000657");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000657, EnemyEtis);
 				break;
 			}
 			case 5735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000598);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000658, EnemyEtis, "EnemyEtis-10000658");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000658, EnemyEtis);
 				break;
 			}
 			case 5745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000599);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000659, EnemyEtis, "EnemyEtis-10000659");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000659, EnemyEtis);
 				break;
 			}
 			case 5755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000600);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000660, EnemyEtis, "EnemyEtis-10000660");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000660, EnemyEtis);
 				break;
 			}
 			case 5765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000601);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000661, EnemyEtis, "EnemyEtis-10000661");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000661, EnemyEtis);
 				break;
 			}
 			case 5775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000602);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000662, EnemyEtis, "EnemyEtis-10000662");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000662, EnemyEtis);
 				break;
 			}
 			case 5785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000603);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000663, EnemyEtis, "EnemyEtis-10000663");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000663, EnemyEtis);
 				break;
 			}
 			case 5795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000604);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000664, EnemyEtis, "EnemyEtis-10000664");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000664, EnemyEtis);
 				break;
 			}
 			case 5805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000605);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000665, EnemyEtis, "EnemyEtis-10000665");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000665, EnemyEtis);
 				break;
 			}
 			case 5815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000606);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000666, EnemyEtis, "EnemyEtis-10000666");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000666, EnemyEtis);
 				break;
 			}
 			case 5825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000607);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000667, EnemyEtis, "EnemyEtis-10000667");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000667, EnemyEtis);
 				break;
 			}
 			case 5835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000608);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000668, EnemyEtis, "EnemyEtis-10000668");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000668, EnemyEtis);
 				break;
 			}
 			case 5845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000609);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000669, EnemyEtis, "EnemyEtis-10000669");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000669, EnemyEtis);
 				break;
 			}
 			case 5855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000610);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000670, EnemyEtis, "EnemyEtis-10000670");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000670, EnemyEtis);
 				break;
 			}
 			case 5865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000611);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000671, EnemyEtis, "EnemyEtis-10000671");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000671, EnemyEtis);
 				break;
 			}
 			case 5875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000612);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000672, EnemyEtis, "EnemyEtis-10000672");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000672, EnemyEtis);
 				break;
 			}
 			case 5885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000613);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000673, EnemyEtis, "EnemyEtis-10000673");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000673, EnemyEtis);
 				break;
 			}
 			case 5895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000614);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000674, EnemyEtis, "EnemyEtis-10000674");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000674, EnemyEtis);
 				break;
 			}
 			case 5900: {
-				requestActor(10003228, EnemyDrastea, "EnemyDrastea-10003228");
+				requestActor(10003228, EnemyDrastea);
 				break;
 			}
 			case 5905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000615);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000675, EnemyEtis, "EnemyEtis-10000675");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000675, EnemyEtis);
 				break;
 			}
 			case 5915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000616);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000676, EnemyEtis, "EnemyEtis-10000676");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000676, EnemyEtis);
 				break;
 			}
 			case 5925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000617);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000677, EnemyEtis, "EnemyEtis-10000677");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000677, EnemyEtis);
 				break;
 			}
 			case 5935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000618);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000678, EnemyEtis, "EnemyEtis-10000678");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000678, EnemyEtis);
 				break;
 			}
 			case 5945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000619);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000679, EnemyEtis, "EnemyEtis-10000679");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000679, EnemyEtis);
 				break;
 			}
 			case 5955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000620);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000680, EnemyEtis, "EnemyEtis-10000680");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000680, EnemyEtis);
 				break;
 			}
 			case 5965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000621);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000681, EnemyEtis, "EnemyEtis-10000681");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000681, EnemyEtis);
 				break;
 			}
 			case 5975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000622);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000682, EnemyEtis, "EnemyEtis-10000682");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000682, EnemyEtis);
 				break;
 			}
 			case 5985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000623);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000683, EnemyEtis, "EnemyEtis-10000683");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000683, EnemyEtis);
 				break;
 			}
 			case 5995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000624);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000684, EnemyEtis, "EnemyEtis-10000684");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000684, EnemyEtis);
 				break;
 			}
 			case 6000: {
@@ -3884,1275 +3884,1275 @@ void StageDebugPartController::processBehavior() {
 			}
 			case 6005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000625);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000685, EnemyEtis, "EnemyEtis-10000685");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000685, EnemyEtis);
 				break;
 			}
 			case 6015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000626);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000686, EnemyEtis, "EnemyEtis-10000686");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000686, EnemyEtis);
 				break;
 			}
 			case 6025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000627);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000687, EnemyEtis, "EnemyEtis-10000687");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000687, EnemyEtis);
 				break;
 			}
 			case 6035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000628);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000688, EnemyEtis, "EnemyEtis-10000688");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000688, EnemyEtis);
 				break;
 			}
 			case 6045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000629);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000689, EnemyEtis, "EnemyEtis-10000689");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000689, EnemyEtis);
 				break;
 			}
 			case 6055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000630);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000690, EnemyEtis, "EnemyEtis-10000690");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000690, EnemyEtis);
 				break;
 			}
 			case 6065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000631);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000691, EnemyEtis, "EnemyEtis-10000691");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000691, EnemyEtis);
 				break;
 			}
 			case 6075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000632);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000692, EnemyEtis, "EnemyEtis-10000692");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000692, EnemyEtis);
 				break;
 			}
 			case 6085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000633);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000693, EnemyEtis, "EnemyEtis-10000693");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000693, EnemyEtis);
 				break;
 			}
 			case 6095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000634);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000694, EnemyEtis, "EnemyEtis-10000694");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000694, EnemyEtis);
 				break;
 			}
 			case 6105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000635);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000695, EnemyEtis, "EnemyEtis-10000695");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000695, EnemyEtis);
 				break;
 			}
 			case 6115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000636);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000696, EnemyEtis, "EnemyEtis-10000696");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000696, EnemyEtis);
 				break;
 			}
 			case 6125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000637);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000697, EnemyEtis, "EnemyEtis-10000697");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000697, EnemyEtis);
 				break;
 			}
 			case 6135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000638);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000698, EnemyEtis, "EnemyEtis-10000698");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000698, EnemyEtis);
 				break;
 			}
 			case 6145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000639);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000699, EnemyEtis, "EnemyEtis-10000699");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000699, EnemyEtis);
 				break;
 			}
 			case 6155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000640);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000700, EnemyEtis, "EnemyEtis-10000700");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000700, EnemyEtis);
 				break;
 			}
 			case 6165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000641);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000701, EnemyEtis, "EnemyEtis-10000701");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000701, EnemyEtis);
 				break;
 			}
 			case 6175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000642);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000702, EnemyEtis, "EnemyEtis-10000702");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000702, EnemyEtis);
 				break;
 			}
 			case 6185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000643);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000703, EnemyEtis, "EnemyEtis-10000703");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000703, EnemyEtis);
 				break;
 			}
 			case 6195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000644);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000704, EnemyEtis, "EnemyEtis-10000704");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000704, EnemyEtis);
 				break;
 			}
 			case 6205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000645);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000705, EnemyEtis, "EnemyEtis-10000705");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000705, EnemyEtis);
 				break;
 			}
 			case 6215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000646);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000706, EnemyEtis, "EnemyEtis-10000706");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000706, EnemyEtis);
 				break;
 			}
 			case 6225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000647);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000707, EnemyEtis, "EnemyEtis-10000707");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000707, EnemyEtis);
 				break;
 			}
 			case 6235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000648);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000708, EnemyEtis, "EnemyEtis-10000708");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000708, EnemyEtis);
 				break;
 			}
 			case 6245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000649);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000709, EnemyEtis, "EnemyEtis-10000709");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000709, EnemyEtis);
 				break;
 			}
 			case 6255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000650);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000710, EnemyEtis, "EnemyEtis-10000710");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000710, EnemyEtis);
 				break;
 			}
 			case 6265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000651);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000711, EnemyEtis, "EnemyEtis-10000711");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000711, EnemyEtis);
 				break;
 			}
 			case 6275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000652);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000712, EnemyEtis, "EnemyEtis-10000712");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000712, EnemyEtis);
 				break;
 			}
 			case 6285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000653);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000713, EnemyEtis, "EnemyEtis-10000713");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000713, EnemyEtis);
 				break;
 			}
 			case 6295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000654);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000714, EnemyEtis, "EnemyEtis-10000714");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000714, EnemyEtis);
 				break;
 			}
 			case 6305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000655);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000715, EnemyEtis, "EnemyEtis-10000715");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000715, EnemyEtis);
 				break;
 			}
 			case 6315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000656);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000716, EnemyEtis, "EnemyEtis-10000716");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000716, EnemyEtis);
 				break;
 			}
 			case 6325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000657);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000717, EnemyEtis, "EnemyEtis-10000717");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000717, EnemyEtis);
 				break;
 			}
 			case 6335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000658);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000718, EnemyEtis, "EnemyEtis-10000718");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000718, EnemyEtis);
 				break;
 			}
 			case 6345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000659);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000719, EnemyEtis, "EnemyEtis-10000719");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000719, EnemyEtis);
 				break;
 			}
 			case 6355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000660);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000720, EnemyEtis, "EnemyEtis-10000720");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000720, EnemyEtis);
 				break;
 			}
 			case 6365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000661);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000721, EnemyEtis, "EnemyEtis-10000721");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000721, EnemyEtis);
 				break;
 			}
 			case 6375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000662);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000722, EnemyEtis, "EnemyEtis-10000722");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000722, EnemyEtis);
 				break;
 			}
 			case 6385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000663);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000723, EnemyEtis, "EnemyEtis-10000723");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000723, EnemyEtis);
 				break;
 			}
 			case 6395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000664);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000724, EnemyEtis, "EnemyEtis-10000724");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000724, EnemyEtis);
 				break;
 			}
 			case 6405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000665);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000725, EnemyEtis, "EnemyEtis-10000725");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000725, EnemyEtis);
 				break;
 			}
 			case 6415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000666);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000726, EnemyEtis, "EnemyEtis-10000726");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000726, EnemyEtis);
 				break;
 			}
 			case 6425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000667);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000727, EnemyEtis, "EnemyEtis-10000727");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000727, EnemyEtis);
 				break;
 			}
 			case 6435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000668);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000728, EnemyEtis, "EnemyEtis-10000728");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000728, EnemyEtis);
 				break;
 			}
 			case 6445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000669);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000729, EnemyEtis, "EnemyEtis-10000729");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000729, EnemyEtis);
 				break;
 			}
 			case 6455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000670);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000730, EnemyEtis, "EnemyEtis-10000730");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000730, EnemyEtis);
 				break;
 			}
 			case 6465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000671);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000731, EnemyEtis, "EnemyEtis-10000731");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000731, EnemyEtis);
 				break;
 			}
 			case 6475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000672);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000732, EnemyEtis, "EnemyEtis-10000732");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000732, EnemyEtis);
 				break;
 			}
 			case 6485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000673);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000733, EnemyEtis, "EnemyEtis-10000733");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000733, EnemyEtis);
 				break;
 			}
 			case 6495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000674);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000734, EnemyEtis, "EnemyEtis-10000734");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000734, EnemyEtis);
 				break;
 			}
 			case 6500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003228);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 6505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000675);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000735, EnemyEtis, "EnemyEtis-10000735");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000735, EnemyEtis);
 				break;
 			}
 			case 6515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000676);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000736, EnemyEtis, "EnemyEtis-10000736");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000736, EnemyEtis);
 				break;
 			}
 			case 6525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000677);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000737, EnemyEtis, "EnemyEtis-10000737");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000737, EnemyEtis);
 				break;
 			}
 			case 6535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000678);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000738, EnemyEtis, "EnemyEtis-10000738");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000738, EnemyEtis);
 				break;
 			}
 			case 6545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000679);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000739, EnemyEtis, "EnemyEtis-10000739");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000739, EnemyEtis);
 				break;
 			}
 			case 6555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000680);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000740, EnemyEtis, "EnemyEtis-10000740");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000740, EnemyEtis);
 				break;
 			}
 			case 6565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000681);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000741, EnemyEtis, "EnemyEtis-10000741");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000741, EnemyEtis);
 				break;
 			}
 			case 6575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000682);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000742, EnemyEtis, "EnemyEtis-10000742");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000742, EnemyEtis);
 				break;
 			}
 			case 6585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000683);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000743, EnemyEtis, "EnemyEtis-10000743");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000743, EnemyEtis);
 				break;
 			}
 			case 6595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000684);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000744, EnemyEtis, "EnemyEtis-10000744");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000744, EnemyEtis);
 				break;
 			}
 			case 6605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000685);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000745, EnemyEtis, "EnemyEtis-10000745");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000745, EnemyEtis);
 				break;
 			}
 			case 6615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000686);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000746, EnemyEtis, "EnemyEtis-10000746");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000746, EnemyEtis);
 				break;
 			}
 			case 6625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000687);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000747, EnemyEtis, "EnemyEtis-10000747");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000747, EnemyEtis);
 				break;
 			}
 			case 6635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000688);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000748, EnemyEtis, "EnemyEtis-10000748");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000748, EnemyEtis);
 				break;
 			}
 			case 6645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000689);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000749, EnemyEtis, "EnemyEtis-10000749");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000749, EnemyEtis);
 				break;
 			}
 			case 6655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000690);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000750, EnemyEtis, "EnemyEtis-10000750");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000750, EnemyEtis);
 				break;
 			}
 			case 6665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000691);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000751, EnemyEtis, "EnemyEtis-10000751");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000751, EnemyEtis);
 				break;
 			}
 			case 6675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000692);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000752, EnemyEtis, "EnemyEtis-10000752");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000752, EnemyEtis);
 				break;
 			}
 			case 6685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000693);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000753, EnemyEtis, "EnemyEtis-10000753");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000753, EnemyEtis);
 				break;
 			}
 			case 6695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000694);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000754, EnemyEtis, "EnemyEtis-10000754");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000754, EnemyEtis);
 				break;
 			}
 			case 6705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000695);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000755, EnemyEtis, "EnemyEtis-10000755");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000755, EnemyEtis);
 				break;
 			}
 			case 6715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000696);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000756, EnemyEtis, "EnemyEtis-10000756");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000756, EnemyEtis);
 				break;
 			}
 			case 6725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000697);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000757, EnemyEtis, "EnemyEtis-10000757");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000757, EnemyEtis);
 				break;
 			}
 			case 6735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000698);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000758, EnemyEtis, "EnemyEtis-10000758");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000758, EnemyEtis);
 				break;
 			}
 			case 6745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000699);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000759, EnemyEtis, "EnemyEtis-10000759");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000759, EnemyEtis);
 				break;
 			}
 			case 6755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000700);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000760, EnemyEtis, "EnemyEtis-10000760");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000760, EnemyEtis);
 				break;
 			}
 			case 6765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000701);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000761, EnemyEtis, "EnemyEtis-10000761");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000761, EnemyEtis);
 				break;
 			}
 			case 6775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000702);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000762, EnemyEtis, "EnemyEtis-10000762");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000762, EnemyEtis);
 				break;
 			}
 			case 6785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000703);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000763, EnemyEtis, "EnemyEtis-10000763");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000763, EnemyEtis);
 				break;
 			}
 			case 6795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000704);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000764, EnemyEtis, "EnemyEtis-10000764");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000764, EnemyEtis);
 				break;
 			}
 			case 6805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000705);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000765, EnemyEtis, "EnemyEtis-10000765");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000765, EnemyEtis);
 				break;
 			}
 			case 6815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000706);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000766, EnemyEtis, "EnemyEtis-10000766");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000766, EnemyEtis);
 				break;
 			}
 			case 6825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000707);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000767, EnemyEtis, "EnemyEtis-10000767");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000767, EnemyEtis);
 				break;
 			}
 			case 6835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000708);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000768, EnemyEtis, "EnemyEtis-10000768");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000768, EnemyEtis);
 				break;
 			}
 			case 6845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000709);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000769, EnemyEtis, "EnemyEtis-10000769");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000769, EnemyEtis);
 				break;
 			}
 			case 6855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000710);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000770, EnemyEtis, "EnemyEtis-10000770");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000770, EnemyEtis);
 				break;
 			}
 			case 6865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000711);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000771, EnemyEtis, "EnemyEtis-10000771");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000771, EnemyEtis);
 				break;
 			}
 			case 6875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000712);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000772, EnemyEtis, "EnemyEtis-10000772");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000772, EnemyEtis);
 				break;
 			}
 			case 6885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000713);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000773, EnemyEtis, "EnemyEtis-10000773");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000773, EnemyEtis);
 				break;
 			}
 			case 6895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000714);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000774, EnemyEtis, "EnemyEtis-10000774");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000774, EnemyEtis);
 				break;
 			}
 			case 6905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000715);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000775, EnemyEtis, "EnemyEtis-10000775");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000775, EnemyEtis);
 				break;
 			}
 			case 6915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000716);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000776, EnemyEtis, "EnemyEtis-10000776");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000776, EnemyEtis);
 				break;
 			}
 			case 6925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000717);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000777, EnemyEtis, "EnemyEtis-10000777");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000777, EnemyEtis);
 				break;
 			}
 			case 6935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000718);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000778, EnemyEtis, "EnemyEtis-10000778");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000778, EnemyEtis);
 				break;
 			}
 			case 6945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000719);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000779, EnemyEtis, "EnemyEtis-10000779");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000779, EnemyEtis);
 				break;
 			}
 			case 6955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000720);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000780, EnemyEtis, "EnemyEtis-10000780");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000780, EnemyEtis);
 				break;
 			}
 			case 6965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000721);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000781, EnemyEtis, "EnemyEtis-10000781");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000781, EnemyEtis);
 				break;
 			}
 			case 6975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000722);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000782, EnemyEtis, "EnemyEtis-10000782");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000782, EnemyEtis);
 				break;
 			}
 			case 6985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000723);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000783, EnemyEtis, "EnemyEtis-10000783");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000783, EnemyEtis);
 				break;
 			}
 			case 6995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000724);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000784, EnemyEtis, "EnemyEtis-10000784");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000784, EnemyEtis);
 				break;
 			}
 			case 7005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000725);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000785, EnemyEtis, "EnemyEtis-10000785");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000785, EnemyEtis);
 				break;
 			}
 			case 7015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000726);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000786, EnemyEtis, "EnemyEtis-10000786");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000786, EnemyEtis);
 				break;
 			}
 			case 7025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000727);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000787, EnemyEtis, "EnemyEtis-10000787");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000787, EnemyEtis);
 				break;
 			}
 			case 7035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000728);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000788, EnemyEtis, "EnemyEtis-10000788");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000788, EnemyEtis);
 				break;
 			}
 			case 7045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000729);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000789, EnemyEtis, "EnemyEtis-10000789");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000789, EnemyEtis);
 				break;
 			}
 			case 7055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000730);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000790, EnemyEtis, "EnemyEtis-10000790");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000790, EnemyEtis);
 				break;
 			}
 			case 7065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000731);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000791, EnemyEtis, "EnemyEtis-10000791");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000791, EnemyEtis);
 				break;
 			}
 			case 7075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000732);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000792, EnemyEtis, "EnemyEtis-10000792");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000792, EnemyEtis);
 				break;
 			}
 			case 7085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000733);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000793, EnemyEtis, "EnemyEtis-10000793");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000793, EnemyEtis);
 				break;
 			}
 			case 7095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000734);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000794, EnemyEtis, "EnemyEtis-10000794");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000794, EnemyEtis);
 				break;
 			}
 			case 7105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000735);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000795, EnemyEtis, "EnemyEtis-10000795");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000795, EnemyEtis);
 				break;
 			}
 			case 7115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000736);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000796, EnemyEtis, "EnemyEtis-10000796");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000796, EnemyEtis);
 				break;
 			}
 			case 7125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000737);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000797, EnemyEtis, "EnemyEtis-10000797");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000797, EnemyEtis);
 				break;
 			}
 			case 7135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000738);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000798, EnemyEtis, "EnemyEtis-10000798");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000798, EnemyEtis);
 				break;
 			}
 			case 7145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000739);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000799, EnemyEtis, "EnemyEtis-10000799");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000799, EnemyEtis);
 				break;
 			}
 			case 7155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000740);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000800, EnemyEtis, "EnemyEtis-10000800");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000800, EnemyEtis);
 				break;
 			}
 			case 7165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000741);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000801, EnemyEtis, "EnemyEtis-10000801");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000801, EnemyEtis);
 				break;
 			}
 			case 7175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000742);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000802, EnemyEtis, "EnemyEtis-10000802");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000802, EnemyEtis);
 				break;
 			}
 			case 7185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000743);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000803, EnemyEtis, "EnemyEtis-10000803");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000803, EnemyEtis);
 				break;
 			}
 			case 7195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000744);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000804, EnemyEtis, "EnemyEtis-10000804");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000804, EnemyEtis);
 				break;
 			}
 			case 7200: {
-				requestScene(10000002, StageDebugPart03, "StageDebugPart03-10000002");
+				requestScene(10000002, StageDebugPart03);
 				break;
 			}
 			case 7205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000745);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000805, EnemyEtis, "EnemyEtis-10000805");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000805, EnemyEtis);
 				break;
 			}
 			case 7215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000746);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000806, EnemyEtis, "EnemyEtis-10000806");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000806, EnemyEtis);
 				break;
 			}
 			case 7225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000747);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000807, EnemyEtis, "EnemyEtis-10000807");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000807, EnemyEtis);
 				break;
 			}
 			case 7235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000748);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000808, EnemyEtis, "EnemyEtis-10000808");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000808, EnemyEtis);
 				break;
 			}
 			case 7245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000749);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000809, EnemyEtis, "EnemyEtis-10000809");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000809, EnemyEtis);
 				break;
 			}
 			case 7255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000750);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000810, EnemyEtis, "EnemyEtis-10000810");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000810, EnemyEtis);
 				break;
 			}
 			case 7265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000751);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000811, EnemyEtis, "EnemyEtis-10000811");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000811, EnemyEtis);
 				break;
 			}
 			case 7275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000752);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000812, EnemyEtis, "EnemyEtis-10000812");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000812, EnemyEtis);
 				break;
 			}
 			case 7285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000753);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000813, EnemyEtis, "EnemyEtis-10000813");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000813, EnemyEtis);
 				break;
 			}
 			case 7295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000754);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000814, EnemyEtis, "EnemyEtis-10000814");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000814, EnemyEtis);
 				break;
 			}
 			case 7305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000755);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000815, EnemyEtis, "EnemyEtis-10000815");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000815, EnemyEtis);
 				break;
 			}
 			case 7315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000756);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000816, EnemyEtis, "EnemyEtis-10000816");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000816, EnemyEtis);
 				break;
 			}
 			case 7325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000757);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000817, EnemyEtis, "EnemyEtis-10000817");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000817, EnemyEtis);
 				break;
 			}
 			case 7335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000758);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000818, EnemyEtis, "EnemyEtis-10000818");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000818, EnemyEtis);
 				break;
 			}
 			case 7345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000759);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000819, EnemyEtis, "EnemyEtis-10000819");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000819, EnemyEtis);
 				break;
 			}
 			case 7355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000760);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000820, EnemyEtis, "EnemyEtis-10000820");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000820, EnemyEtis);
 				break;
 			}
 			case 7365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000761);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000821, EnemyEtis, "EnemyEtis-10000821");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000821, EnemyEtis);
 				break;
 			}
 			case 7375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000762);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000822, EnemyEtis, "EnemyEtis-10000822");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000822, EnemyEtis);
 				break;
 			}
 			case 7385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000763);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000823, EnemyEtis, "EnemyEtis-10000823");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000823, EnemyEtis);
 				break;
 			}
 			case 7395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000764);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000824, EnemyEtis, "EnemyEtis-10000824");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000824, EnemyEtis);
 				break;
 			}
 			case 7405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000765);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000825, EnemyEtis, "EnemyEtis-10000825");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000825, EnemyEtis);
 				break;
 			}
 			case 7415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000766);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000826, EnemyEtis, "EnemyEtis-10000826");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000826, EnemyEtis);
 				break;
 			}
 			case 7425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000767);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000827, EnemyEtis, "EnemyEtis-10000827");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000827, EnemyEtis);
 				break;
 			}
 			case 7435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000768);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000828, EnemyEtis, "EnemyEtis-10000828");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000828, EnemyEtis);
 				break;
 			}
 			case 7445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000769);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000829, EnemyEtis, "EnemyEtis-10000829");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000829, EnemyEtis);
 				break;
 			}
 			case 7455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000770);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000830, EnemyEtis, "EnemyEtis-10000830");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000830, EnemyEtis);
 				break;
 			}
 			case 7465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000771);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000831, EnemyEtis, "EnemyEtis-10000831");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000831, EnemyEtis);
 				break;
 			}
 			case 7475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000772);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000832, EnemyEtis, "EnemyEtis-10000832");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000832, EnemyEtis);
 				break;
 			}
 			case 7485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000773);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000833, EnemyEtis, "EnemyEtis-10000833");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000833, EnemyEtis);
 				break;
 			}
 			case 7495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000774);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000834, EnemyEtis, "EnemyEtis-10000834");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000834, EnemyEtis);
 				break;
 			}
 			case 7505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000775);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000835, EnemyEtis, "EnemyEtis-10000835");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000835, EnemyEtis);
 				break;
 			}
 			case 7515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000776);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000836, EnemyEtis, "EnemyEtis-10000836");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000836, EnemyEtis);
 				break;
 			}
 			case 7525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000777);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000837, EnemyEtis, "EnemyEtis-10000837");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000837, EnemyEtis);
 				break;
 			}
 			case 7535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000778);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000838, EnemyEtis, "EnemyEtis-10000838");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000838, EnemyEtis);
 				break;
 			}
 			case 7545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000779);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000839, EnemyEtis, "EnemyEtis-10000839");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000839, EnemyEtis);
 				break;
 			}
 			case 7555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000780);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000840, EnemyEtis, "EnemyEtis-10000840");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000840, EnemyEtis);
 				break;
 			}
 			case 7565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000781);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000841, EnemyEtis, "EnemyEtis-10000841");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000841, EnemyEtis);
 				break;
 			}
 			case 7575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000782);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000842, EnemyEtis, "EnemyEtis-10000842");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000842, EnemyEtis);
 				break;
 			}
 			case 7585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000783);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000843, EnemyEtis, "EnemyEtis-10000843");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000843, EnemyEtis);
 				break;
 			}
 			case 7595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000784);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000844, EnemyEtis, "EnemyEtis-10000844");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000844, EnemyEtis);
 				break;
 			}
 			case 7605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000785);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000845, EnemyEtis, "EnemyEtis-10000845");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000845, EnemyEtis);
 				break;
 			}
 			case 7615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000786);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000846, EnemyEtis, "EnemyEtis-10000846");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000846, EnemyEtis);
 				break;
 			}
 			case 7625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000787);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000847, EnemyEtis, "EnemyEtis-10000847");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000847, EnemyEtis);
 				break;
 			}
 			case 7635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000788);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000848, EnemyEtis, "EnemyEtis-10000848");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000848, EnemyEtis);
 				break;
 			}
 			case 7645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000789);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000849, EnemyEtis, "EnemyEtis-10000849");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000849, EnemyEtis);
 				break;
 			}
 			case 7655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000790);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000850, EnemyEtis, "EnemyEtis-10000850");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000850, EnemyEtis);
 				break;
 			}
 			case 7665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000791);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000851, EnemyEtis, "EnemyEtis-10000851");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000851, EnemyEtis);
 				break;
 			}
 			case 7675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000792);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000852, EnemyEtis, "EnemyEtis-10000852");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000852, EnemyEtis);
 				break;
 			}
 			case 7685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000793);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000853, EnemyEtis, "EnemyEtis-10000853");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000853, EnemyEtis);
 				break;
 			}
 			case 7695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000794);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000854, EnemyEtis, "EnemyEtis-10000854");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000854, EnemyEtis);
 				break;
 			}
 			case 7705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000795);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000855, EnemyEtis, "EnemyEtis-10000855");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000855, EnemyEtis);
 				break;
 			}
 			case 7715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000796);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000856, EnemyEtis, "EnemyEtis-10000856");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000856, EnemyEtis);
 				break;
 			}
 			case 7725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000797);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000857, EnemyEtis, "EnemyEtis-10000857");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000857, EnemyEtis);
 				break;
 			}
 			case 7735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000798);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000858, EnemyEtis, "EnemyEtis-10000858");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000858, EnemyEtis);
 				break;
 			}
 			case 7745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000799);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000859, EnemyEtis, "EnemyEtis-10000859");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000859, EnemyEtis);
 				break;
 			}
 			case 7755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000800);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000860, EnemyEtis, "EnemyEtis-10000860");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000860, EnemyEtis);
 				break;
 			}
 			case 7765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000801);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000861, EnemyEtis, "EnemyEtis-10000861");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000861, EnemyEtis);
 				break;
 			}
 			case 7775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000802);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000862, EnemyEtis, "EnemyEtis-10000862");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000862, EnemyEtis);
 				break;
 			}
 			case 7785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000803);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000863, EnemyEtis, "EnemyEtis-10000863");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000863, EnemyEtis);
 				break;
 			}
 			case 7795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000804);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000864, EnemyEtis, "EnemyEtis-10000864");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000864, EnemyEtis);
 				break;
 			}
 			case 7805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000805);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000865, EnemyEtis, "EnemyEtis-10000865");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000865, EnemyEtis);
 				break;
 			}
 			case 7815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000806);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000866, EnemyEtis, "EnemyEtis-10000866");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000866, EnemyEtis);
 				break;
 			}
 			case 7825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000807);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000867, EnemyEtis, "EnemyEtis-10000867");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000867, EnemyEtis);
 				break;
 			}
 			case 7835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000808);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000868, EnemyEtis, "EnemyEtis-10000868");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000868, EnemyEtis);
 				break;
 			}
 			case 7845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000809);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000869, EnemyEtis, "EnemyEtis-10000869");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000869, EnemyEtis);
 				break;
 			}
 			case 7855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000810);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000870, EnemyEtis, "EnemyEtis-10000870");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000870, EnemyEtis);
 				break;
 			}
 			case 7865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000811);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000871, EnemyEtis, "EnemyEtis-10000871");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000871, EnemyEtis);
 				break;
 			}
 			case 7875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000812);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000872, EnemyEtis, "EnemyEtis-10000872");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000872, EnemyEtis);
 				break;
 			}
 			case 7885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000813);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000873, EnemyEtis, "EnemyEtis-10000873");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000873, EnemyEtis);
 				break;
 			}
 			case 7895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000814);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000874, EnemyEtis, "EnemyEtis-10000874");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000874, EnemyEtis);
 				break;
 			}
 			case 7900: {
-				requestActor(10003229, EnemyDrastea, "EnemyDrastea-10003229");
+				requestActor(10003229, EnemyDrastea);
 				break;
 			}
 			case 7905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000815);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000875, EnemyEtis, "EnemyEtis-10000875");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000875, EnemyEtis);
 				break;
 			}
 			case 7915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000816);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000876, EnemyEtis, "EnemyEtis-10000876");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000876, EnemyEtis);
 				break;
 			}
 			case 7925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000817);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000877, EnemyEtis, "EnemyEtis-10000877");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000877, EnemyEtis);
 				break;
 			}
 			case 7935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000818);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000878, EnemyEtis, "EnemyEtis-10000878");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000878, EnemyEtis);
 				break;
 			}
 			case 7945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000819);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000879, EnemyEtis, "EnemyEtis-10000879");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000879, EnemyEtis);
 				break;
 			}
 			case 7955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000820);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000880, EnemyEtis, "EnemyEtis-10000880");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000880, EnemyEtis);
 				break;
 			}
 			case 7965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000821);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000881, EnemyEtis, "EnemyEtis-10000881");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000881, EnemyEtis);
 				break;
 			}
 			case 7975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000822);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000882, EnemyEtis, "EnemyEtis-10000882");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000882, EnemyEtis);
 				break;
 			}
 			case 7985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000823);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000883, EnemyEtis, "EnemyEtis-10000883");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000883, EnemyEtis);
 				break;
 			}
 			case 7995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000824);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000884, EnemyEtis, "EnemyEtis-10000884");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000884, EnemyEtis);
 				break;
 			}
 			case 8005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000825);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000885, EnemyEtis, "EnemyEtis-10000885");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000885, EnemyEtis);
 				break;
 			}
 			case 8015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000826);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000886, EnemyEtis, "EnemyEtis-10000886");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000886, EnemyEtis);
 				break;
 			}
 			case 8025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000827);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000887, EnemyEtis, "EnemyEtis-10000887");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000887, EnemyEtis);
 				break;
 			}
 			case 8035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000828);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000888, EnemyEtis, "EnemyEtis-10000888");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000888, EnemyEtis);
 				break;
 			}
 			case 8045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000829);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000889, EnemyEtis, "EnemyEtis-10000889");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000889, EnemyEtis);
 				break;
 			}
 			case 8055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000830);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000890, EnemyEtis, "EnemyEtis-10000890");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000890, EnemyEtis);
 				break;
 			}
 			case 8065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000831);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000891, EnemyEtis, "EnemyEtis-10000891");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000891, EnemyEtis);
 				break;
 			}
 			case 8075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000832);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000892, EnemyEtis, "EnemyEtis-10000892");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000892, EnemyEtis);
 				break;
 			}
 			case 8085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000833);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000893, EnemyEtis, "EnemyEtis-10000893");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000893, EnemyEtis);
 				break;
 			}
 			case 8095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000834);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000894, EnemyEtis, "EnemyEtis-10000894");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000894, EnemyEtis);
 				break;
 			}
 			case 8100: {
@@ -5161,7394 +5161,7394 @@ void StageDebugPartController::processBehavior() {
 			}
 			case 8105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000835);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000895, EnemyEtis, "EnemyEtis-10000895");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000895, EnemyEtis);
 				break;
 			}
 			case 8115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000836);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000896, EnemyEtis, "EnemyEtis-10000896");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000896, EnemyEtis);
 				break;
 			}
 			case 8125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000837);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000897, EnemyEtis, "EnemyEtis-10000897");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000897, EnemyEtis);
 				break;
 			}
 			case 8135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000838);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000898, EnemyEtis, "EnemyEtis-10000898");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000898, EnemyEtis);
 				break;
 			}
 			case 8145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000839);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000899, EnemyEtis, "EnemyEtis-10000899");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000899, EnemyEtis);
 				break;
 			}
 			case 8155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000840);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000900, EnemyEtis, "EnemyEtis-10000900");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000900, EnemyEtis);
 				break;
 			}
 			case 8165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000841);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000901, EnemyEtis, "EnemyEtis-10000901");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000901, EnemyEtis);
 				break;
 			}
 			case 8175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000842);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000902, EnemyEtis, "EnemyEtis-10000902");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000902, EnemyEtis);
 				break;
 			}
 			case 8185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000843);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000903, EnemyEtis, "EnemyEtis-10000903");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000903, EnemyEtis);
 				break;
 			}
 			case 8195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000844);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000904, EnemyEtis, "EnemyEtis-10000904");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000904, EnemyEtis);
 				break;
 			}
 			case 8205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000845);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000905, EnemyEtis, "EnemyEtis-10000905");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000905, EnemyEtis);
 				break;
 			}
 			case 8215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000846);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000906, EnemyEtis, "EnemyEtis-10000906");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000906, EnemyEtis);
 				break;
 			}
 			case 8225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000847);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000907, EnemyEtis, "EnemyEtis-10000907");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000907, EnemyEtis);
 				break;
 			}
 			case 8235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000848);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000908, EnemyEtis, "EnemyEtis-10000908");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000908, EnemyEtis);
 				break;
 			}
 			case 8245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000849);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000909, EnemyEtis, "EnemyEtis-10000909");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000909, EnemyEtis);
 				break;
 			}
 			case 8255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000850);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000910, EnemyEtis, "EnemyEtis-10000910");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000910, EnemyEtis);
 				break;
 			}
 			case 8265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000851);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000911, EnemyEtis, "EnemyEtis-10000911");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000911, EnemyEtis);
 				break;
 			}
 			case 8275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000852);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000912, EnemyEtis, "EnemyEtis-10000912");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000912, EnemyEtis);
 				break;
 			}
 			case 8285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000853);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000913, EnemyEtis, "EnemyEtis-10000913");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000913, EnemyEtis);
 				break;
 			}
 			case 8295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000854);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000914, EnemyEtis, "EnemyEtis-10000914");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000914, EnemyEtis);
 				break;
 			}
 			case 8305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000855);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000915, EnemyEtis, "EnemyEtis-10000915");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000915, EnemyEtis);
 				break;
 			}
 			case 8315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000856);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000916, EnemyEtis, "EnemyEtis-10000916");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000916, EnemyEtis);
 				break;
 			}
 			case 8325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000857);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000917, EnemyEtis, "EnemyEtis-10000917");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000917, EnemyEtis);
 				break;
 			}
 			case 8335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000858);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000918, EnemyEtis, "EnemyEtis-10000918");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000918, EnemyEtis);
 				break;
 			}
 			case 8345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000859);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000919, EnemyEtis, "EnemyEtis-10000919");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000919, EnemyEtis);
 				break;
 			}
 			case 8355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000860);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000920, EnemyEtis, "EnemyEtis-10000920");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000920, EnemyEtis);
 				break;
 			}
 			case 8365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000861);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000921, EnemyEtis, "EnemyEtis-10000921");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000921, EnemyEtis);
 				break;
 			}
 			case 8375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000862);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000922, EnemyEtis, "EnemyEtis-10000922");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000922, EnemyEtis);
 				break;
 			}
 			case 8385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000863);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000923, EnemyEtis, "EnemyEtis-10000923");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000923, EnemyEtis);
 				break;
 			}
 			case 8395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000864);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000924, EnemyEtis, "EnemyEtis-10000924");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000924, EnemyEtis);
 				break;
 			}
 			case 8405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000865);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000925, EnemyEtis, "EnemyEtis-10000925");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000925, EnemyEtis);
 				break;
 			}
 			case 8415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000866);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000926, EnemyEtis, "EnemyEtis-10000926");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000926, EnemyEtis);
 				break;
 			}
 			case 8425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000867);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000927, EnemyEtis, "EnemyEtis-10000927");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000927, EnemyEtis);
 				break;
 			}
 			case 8435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000868);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000928, EnemyEtis, "EnemyEtis-10000928");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000928, EnemyEtis);
 				break;
 			}
 			case 8445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000869);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000929, EnemyEtis, "EnemyEtis-10000929");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000929, EnemyEtis);
 				break;
 			}
 			case 8455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000870);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000930, EnemyEtis, "EnemyEtis-10000930");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000930, EnemyEtis);
 				break;
 			}
 			case 8465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000871);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000931, EnemyEtis, "EnemyEtis-10000931");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000931, EnemyEtis);
 				break;
 			}
 			case 8475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000872);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000932, EnemyEtis, "EnemyEtis-10000932");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000932, EnemyEtis);
 				break;
 			}
 			case 8485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000873);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000933, EnemyEtis, "EnemyEtis-10000933");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000933, EnemyEtis);
 				break;
 			}
 			case 8495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000874);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000934, EnemyEtis, "EnemyEtis-10000934");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000934, EnemyEtis);
 				break;
 			}
 			case 8500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003229);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 8505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000875);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000935, EnemyEtis, "EnemyEtis-10000935");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000935, EnemyEtis);
 				break;
 			}
 			case 8515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000876);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000936, EnemyEtis, "EnemyEtis-10000936");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000936, EnemyEtis);
 				break;
 			}
 			case 8525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000877);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000937, EnemyEtis, "EnemyEtis-10000937");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000937, EnemyEtis);
 				break;
 			}
 			case 8535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000878);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000938, EnemyEtis, "EnemyEtis-10000938");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000938, EnemyEtis);
 				break;
 			}
 			case 8545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000879);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000939, EnemyEtis, "EnemyEtis-10000939");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000939, EnemyEtis);
 				break;
 			}
 			case 8555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000880);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000940, EnemyEtis, "EnemyEtis-10000940");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000940, EnemyEtis);
 				break;
 			}
 			case 8565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000881);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000941, EnemyEtis, "EnemyEtis-10000941");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000941, EnemyEtis);
 				break;
 			}
 			case 8575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000882);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000942, EnemyEtis, "EnemyEtis-10000942");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000942, EnemyEtis);
 				break;
 			}
 			case 8585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000883);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000943, EnemyEtis, "EnemyEtis-10000943");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000943, EnemyEtis);
 				break;
 			}
 			case 8595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000884);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000944, EnemyEtis, "EnemyEtis-10000944");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000944, EnemyEtis);
 				break;
 			}
 			case 8605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000885);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000945, EnemyEtis, "EnemyEtis-10000945");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000945, EnemyEtis);
 				break;
 			}
 			case 8615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000886);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000946, EnemyEtis, "EnemyEtis-10000946");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000946, EnemyEtis);
 				break;
 			}
 			case 8625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000887);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000947, EnemyEtis, "EnemyEtis-10000947");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000947, EnemyEtis);
 				break;
 			}
 			case 8635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000888);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000948, EnemyEtis, "EnemyEtis-10000948");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000948, EnemyEtis);
 				break;
 			}
 			case 8645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000889);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000949, EnemyEtis, "EnemyEtis-10000949");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000949, EnemyEtis);
 				break;
 			}
 			case 8655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000890);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000950, EnemyEtis, "EnemyEtis-10000950");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000950, EnemyEtis);
 				break;
 			}
 			case 8665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000891);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000951, EnemyEtis, "EnemyEtis-10000951");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000951, EnemyEtis);
 				break;
 			}
 			case 8675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000892);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000952, EnemyEtis, "EnemyEtis-10000952");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000952, EnemyEtis);
 				break;
 			}
 			case 8685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000893);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000953, EnemyEtis, "EnemyEtis-10000953");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000953, EnemyEtis);
 				break;
 			}
 			case 8695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000894);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000954, EnemyEtis, "EnemyEtis-10000954");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000954, EnemyEtis);
 				break;
 			}
 			case 8705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000895);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000955, EnemyEtis, "EnemyEtis-10000955");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000955, EnemyEtis);
 				break;
 			}
 			case 8715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000896);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000956, EnemyEtis, "EnemyEtis-10000956");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000956, EnemyEtis);
 				break;
 			}
 			case 8725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000897);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000957, EnemyEtis, "EnemyEtis-10000957");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000957, EnemyEtis);
 				break;
 			}
 			case 8735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000898);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000958, EnemyEtis, "EnemyEtis-10000958");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000958, EnemyEtis);
 				break;
 			}
 			case 8745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000899);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000959, EnemyEtis, "EnemyEtis-10000959");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000959, EnemyEtis);
 				break;
 			}
 			case 8755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000900);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000960, EnemyEtis, "EnemyEtis-10000960");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000960, EnemyEtis);
 				break;
 			}
 			case 8765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000901);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000961, EnemyEtis, "EnemyEtis-10000961");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000961, EnemyEtis);
 				break;
 			}
 			case 8775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000902);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000962, EnemyEtis, "EnemyEtis-10000962");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000962, EnemyEtis);
 				break;
 			}
 			case 8785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000903);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000963, EnemyEtis, "EnemyEtis-10000963");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000963, EnemyEtis);
 				break;
 			}
 			case 8795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000904);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000964, EnemyEtis, "EnemyEtis-10000964");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000964, EnemyEtis);
 				break;
 			}
 			case 8805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000905);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000965, EnemyEtis, "EnemyEtis-10000965");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000965, EnemyEtis);
 				break;
 			}
 			case 8815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000906);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000966, EnemyEtis, "EnemyEtis-10000966");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000966, EnemyEtis);
 				break;
 			}
 			case 8825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000907);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000967, EnemyEtis, "EnemyEtis-10000967");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000967, EnemyEtis);
 				break;
 			}
 			case 8835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000908);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000968, EnemyEtis, "EnemyEtis-10000968");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000968, EnemyEtis);
 				break;
 			}
 			case 8845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000909);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000969, EnemyEtis, "EnemyEtis-10000969");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000969, EnemyEtis);
 				break;
 			}
 			case 8855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000910);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000970, EnemyEtis, "EnemyEtis-10000970");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000970, EnemyEtis);
 				break;
 			}
 			case 8865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000911);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000971, EnemyEtis, "EnemyEtis-10000971");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000971, EnemyEtis);
 				break;
 			}
 			case 8875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000912);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000972, EnemyEtis, "EnemyEtis-10000972");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000972, EnemyEtis);
 				break;
 			}
 			case 8885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000913);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000973, EnemyEtis, "EnemyEtis-10000973");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000973, EnemyEtis);
 				break;
 			}
 			case 8895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000914);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000974, EnemyEtis, "EnemyEtis-10000974");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000974, EnemyEtis);
 				break;
 			}
 			case 8905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000915);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000975, EnemyEtis, "EnemyEtis-10000975");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000975, EnemyEtis);
 				break;
 			}
 			case 8915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000916);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000976, EnemyEtis, "EnemyEtis-10000976");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000976, EnemyEtis);
 				break;
 			}
 			case 8925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000917);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000977, EnemyEtis, "EnemyEtis-10000977");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000977, EnemyEtis);
 				break;
 			}
 			case 8935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000918);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000978, EnemyEtis, "EnemyEtis-10000978");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000978, EnemyEtis);
 				break;
 			}
 			case 8945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000919);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000979, EnemyEtis, "EnemyEtis-10000979");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000979, EnemyEtis);
 				break;
 			}
 			case 8955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000920);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000980, EnemyEtis, "EnemyEtis-10000980");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000980, EnemyEtis);
 				break;
 			}
 			case 8965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000921);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000981, EnemyEtis, "EnemyEtis-10000981");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000981, EnemyEtis);
 				break;
 			}
 			case 8975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000922);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000982, EnemyEtis, "EnemyEtis-10000982");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000982, EnemyEtis);
 				break;
 			}
 			case 8985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000923);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000983, EnemyEtis, "EnemyEtis-10000983");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000983, EnemyEtis);
 				break;
 			}
 			case 8995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000924);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000984, EnemyEtis, "EnemyEtis-10000984");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000984, EnemyEtis);
 				break;
 			}
 			case 9005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000925);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000985, EnemyEtis, "EnemyEtis-10000985");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000985, EnemyEtis);
 				break;
 			}
 			case 9015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000926);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000986, EnemyEtis, "EnemyEtis-10000986");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000986, EnemyEtis);
 				break;
 			}
 			case 9025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000927);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000987, EnemyEtis, "EnemyEtis-10000987");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000987, EnemyEtis);
 				break;
 			}
 			case 9035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000928);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000988, EnemyEtis, "EnemyEtis-10000988");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000988, EnemyEtis);
 				break;
 			}
 			case 9045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000929);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000989, EnemyEtis, "EnemyEtis-10000989");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000989, EnemyEtis);
 				break;
 			}
 			case 9055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000930);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000990, EnemyEtis, "EnemyEtis-10000990");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000990, EnemyEtis);
 				break;
 			}
 			case 9065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000931);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000991, EnemyEtis, "EnemyEtis-10000991");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000991, EnemyEtis);
 				break;
 			}
 			case 9075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000932);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000992, EnemyEtis, "EnemyEtis-10000992");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000992, EnemyEtis);
 				break;
 			}
 			case 9085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000933);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000993, EnemyEtis, "EnemyEtis-10000993");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000993, EnemyEtis);
 				break;
 			}
 			case 9095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000934);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000994, EnemyEtis, "EnemyEtis-10000994");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000994, EnemyEtis);
 				break;
 			}
 			case 9105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000935);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000995, EnemyEtis, "EnemyEtis-10000995");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000995, EnemyEtis);
 				break;
 			}
 			case 9115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000936);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000996, EnemyEtis, "EnemyEtis-10000996");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000996, EnemyEtis);
 				break;
 			}
 			case 9125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000937);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000997, EnemyEtis, "EnemyEtis-10000997");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000997, EnemyEtis);
 				break;
 			}
 			case 9135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000938);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000998, EnemyEtis, "EnemyEtis-10000998");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000998, EnemyEtis);
 				break;
 			}
 			case 9145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000939);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000999, EnemyEtis, "EnemyEtis-10000999");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10000999, EnemyEtis);
 				break;
 			}
 			case 9155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000940);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001000, EnemyEtis, "EnemyEtis-10001000");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001000, EnemyEtis);
 				break;
 			}
 			case 9165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000941);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001001, EnemyEtis, "EnemyEtis-10001001");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001001, EnemyEtis);
 				break;
 			}
 			case 9175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000942);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001002, EnemyEtis, "EnemyEtis-10001002");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001002, EnemyEtis);
 				break;
 			}
 			case 9185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000943);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001003, EnemyEtis, "EnemyEtis-10001003");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001003, EnemyEtis);
 				break;
 			}
 			case 9195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000944);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001004, EnemyEtis, "EnemyEtis-10001004");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001004, EnemyEtis);
 				break;
 			}
 			case 9205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000945);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001005, EnemyEtis, "EnemyEtis-10001005");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001005, EnemyEtis);
 				break;
 			}
 			case 9215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000946);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001006, EnemyEtis, "EnemyEtis-10001006");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001006, EnemyEtis);
 				break;
 			}
 			case 9225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000947);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001007, EnemyEtis, "EnemyEtis-10001007");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001007, EnemyEtis);
 				break;
 			}
 			case 9235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000948);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001008, EnemyEtis, "EnemyEtis-10001008");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001008, EnemyEtis);
 				break;
 			}
 			case 9245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000949);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001009, EnemyEtis, "EnemyEtis-10001009");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001009, EnemyEtis);
 				break;
 			}
 			case 9255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000950);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001010, EnemyEtis, "EnemyEtis-10001010");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001010, EnemyEtis);
 				break;
 			}
 			case 9265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000951);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001011, EnemyEtis, "EnemyEtis-10001011");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001011, EnemyEtis);
 				break;
 			}
 			case 9275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000952);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001012, EnemyEtis, "EnemyEtis-10001012");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001012, EnemyEtis);
 				break;
 			}
 			case 9285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000953);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001013, EnemyEtis, "EnemyEtis-10001013");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001013, EnemyEtis);
 				break;
 			}
 			case 9295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000954);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001014, EnemyEtis, "EnemyEtis-10001014");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001014, EnemyEtis);
 				break;
 			}
 			case 9305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000955);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001015, EnemyEtis, "EnemyEtis-10001015");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001015, EnemyEtis);
 				break;
 			}
 			case 9315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000956);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001016, EnemyEtis, "EnemyEtis-10001016");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001016, EnemyEtis);
 				break;
 			}
 			case 9325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000957);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001017, EnemyEtis, "EnemyEtis-10001017");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001017, EnemyEtis);
 				break;
 			}
 			case 9335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000958);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001018, EnemyEtis, "EnemyEtis-10001018");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001018, EnemyEtis);
 				break;
 			}
 			case 9345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000959);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001019, EnemyEtis, "EnemyEtis-10001019");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001019, EnemyEtis);
 				break;
 			}
 			case 9355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000960);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001020, EnemyEtis, "EnemyEtis-10001020");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001020, EnemyEtis);
 				break;
 			}
 			case 9365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000961);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001021, EnemyEtis, "EnemyEtis-10001021");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001021, EnemyEtis);
 				break;
 			}
 			case 9375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000962);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001022, EnemyEtis, "EnemyEtis-10001022");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001022, EnemyEtis);
 				break;
 			}
 			case 9385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000963);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001023, EnemyEtis, "EnemyEtis-10001023");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001023, EnemyEtis);
 				break;
 			}
 			case 9395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000964);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001024, EnemyEtis, "EnemyEtis-10001024");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001024, EnemyEtis);
 				break;
 			}
 			case 9405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000965);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001025, EnemyEtis, "EnemyEtis-10001025");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001025, EnemyEtis);
 				break;
 			}
 			case 9415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000966);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001026, EnemyEtis, "EnemyEtis-10001026");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001026, EnemyEtis);
 				break;
 			}
 			case 9425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000967);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001027, EnemyEtis, "EnemyEtis-10001027");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001027, EnemyEtis);
 				break;
 			}
 			case 9435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000968);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001028, EnemyEtis, "EnemyEtis-10001028");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001028, EnemyEtis);
 				break;
 			}
 			case 9445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000969);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001029, EnemyEtis, "EnemyEtis-10001029");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001029, EnemyEtis);
 				break;
 			}
 			case 9455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000970);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001030, EnemyEtis, "EnemyEtis-10001030");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001030, EnemyEtis);
 				break;
 			}
 			case 9465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000971);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001031, EnemyEtis, "EnemyEtis-10001031");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001031, EnemyEtis);
 				break;
 			}
 			case 9475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000972);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001032, EnemyEtis, "EnemyEtis-10001032");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001032, EnemyEtis);
 				break;
 			}
 			case 9485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000973);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001033, EnemyEtis, "EnemyEtis-10001033");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001033, EnemyEtis);
 				break;
 			}
 			case 9495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000974);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001034, EnemyEtis, "EnemyEtis-10001034");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001034, EnemyEtis);
 				break;
 			}
 			case 9505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000975);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001035, EnemyEtis, "EnemyEtis-10001035");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001035, EnemyEtis);
 				break;
 			}
 			case 9515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000976);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001036, EnemyEtis, "EnemyEtis-10001036");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001036, EnemyEtis);
 				break;
 			}
 			case 9525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000977);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001037, EnemyEtis, "EnemyEtis-10001037");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001037, EnemyEtis);
 				break;
 			}
 			case 9535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000978);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001038, EnemyEtis, "EnemyEtis-10001038");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001038, EnemyEtis);
 				break;
 			}
 			case 9545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000979);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001039, EnemyEtis, "EnemyEtis-10001039");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001039, EnemyEtis);
 				break;
 			}
 			case 9555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000980);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001040, EnemyEtis, "EnemyEtis-10001040");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001040, EnemyEtis);
 				break;
 			}
 			case 9565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000981);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001041, EnemyEtis, "EnemyEtis-10001041");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001041, EnemyEtis);
 				break;
 			}
 			case 9575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000982);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001042, EnemyEtis, "EnemyEtis-10001042");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001042, EnemyEtis);
 				break;
 			}
 			case 9585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000983);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001043, EnemyEtis, "EnemyEtis-10001043");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001043, EnemyEtis);
 				break;
 			}
 			case 9595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000984);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001044, EnemyEtis, "EnemyEtis-10001044");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001044, EnemyEtis);
 				break;
 			}
 			case 9605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000985);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001045, EnemyEtis, "EnemyEtis-10001045");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001045, EnemyEtis);
 				break;
 			}
 			case 9615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000986);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001046, EnemyEtis, "EnemyEtis-10001046");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001046, EnemyEtis);
 				break;
 			}
 			case 9625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000987);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001047, EnemyEtis, "EnemyEtis-10001047");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001047, EnemyEtis);
 				break;
 			}
 			case 9635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000988);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001048, EnemyEtis, "EnemyEtis-10001048");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001048, EnemyEtis);
 				break;
 			}
 			case 9645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000989);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001049, EnemyEtis, "EnemyEtis-10001049");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001049, EnemyEtis);
 				break;
 			}
 			case 9655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000990);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001050, EnemyEtis, "EnemyEtis-10001050");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001050, EnemyEtis);
 				break;
 			}
 			case 9665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000991);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001051, EnemyEtis, "EnemyEtis-10001051");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001051, EnemyEtis);
 				break;
 			}
 			case 9675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000992);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001052, EnemyEtis, "EnemyEtis-10001052");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001052, EnemyEtis);
 				break;
 			}
 			case 9685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000993);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001053, EnemyEtis, "EnemyEtis-10001053");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001053, EnemyEtis);
 				break;
 			}
 			case 9695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000994);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001054, EnemyEtis, "EnemyEtis-10001054");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001054, EnemyEtis);
 				break;
 			}
 			case 9705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000995);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001055, EnemyEtis, "EnemyEtis-10001055");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001055, EnemyEtis);
 				break;
 			}
 			case 9715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000996);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001056, EnemyEtis, "EnemyEtis-10001056");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001056, EnemyEtis);
 				break;
 			}
 			case 9725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000997);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001057, EnemyEtis, "EnemyEtis-10001057");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001057, EnemyEtis);
 				break;
 			}
 			case 9735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000998);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001058, EnemyEtis, "EnemyEtis-10001058");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001058, EnemyEtis);
 				break;
 			}
 			case 9745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000999);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001059, EnemyEtis, "EnemyEtis-10001059");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001059, EnemyEtis);
 				break;
 			}
 			case 9755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001000);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001060, EnemyEtis, "EnemyEtis-10001060");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001060, EnemyEtis);
 				break;
 			}
 			case 9765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001001);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001061, EnemyEtis, "EnemyEtis-10001061");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001061, EnemyEtis);
 				break;
 			}
 			case 9775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001002);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001062, EnemyEtis, "EnemyEtis-10001062");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001062, EnemyEtis);
 				break;
 			}
 			case 9785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001003);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001063, EnemyEtis, "EnemyEtis-10001063");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001063, EnemyEtis);
 				break;
 			}
 			case 9795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001004);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001064, EnemyEtis, "EnemyEtis-10001064");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001064, EnemyEtis);
 				break;
 			}
 			case 9805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001005);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001065, EnemyEtis, "EnemyEtis-10001065");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001065, EnemyEtis);
 				break;
 			}
 			case 9815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001006);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001066, EnemyEtis, "EnemyEtis-10001066");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001066, EnemyEtis);
 				break;
 			}
 			case 9825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001007);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001067, EnemyEtis, "EnemyEtis-10001067");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001067, EnemyEtis);
 				break;
 			}
 			case 9835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001008);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001068, EnemyEtis, "EnemyEtis-10001068");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001068, EnemyEtis);
 				break;
 			}
 			case 9845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001009);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001069, EnemyEtis, "EnemyEtis-10001069");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001069, EnemyEtis);
 				break;
 			}
 			case 9855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001010);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001070, EnemyEtis, "EnemyEtis-10001070");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001070, EnemyEtis);
 				break;
 			}
 			case 9865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001011);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001071, EnemyEtis, "EnemyEtis-10001071");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001071, EnemyEtis);
 				break;
 			}
 			case 9875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001012);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001072, EnemyEtis, "EnemyEtis-10001072");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001072, EnemyEtis);
 				break;
 			}
 			case 9885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001013);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001073, EnemyEtis, "EnemyEtis-10001073");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001073, EnemyEtis);
 				break;
 			}
 			case 9895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001014);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001074, EnemyEtis, "EnemyEtis-10001074");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001074, EnemyEtis);
 				break;
 			}
 			case 9900: {
-				requestActor(10003230, EnemyDrastea, "EnemyDrastea-10003230");
+				requestActor(10003230, EnemyDrastea);
 				break;
 			}
 			case 9905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001015);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001075, EnemyEtis, "EnemyEtis-10001075");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001075, EnemyEtis);
 				break;
 			}
 			case 9915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001016);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001076, EnemyEtis, "EnemyEtis-10001076");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001076, EnemyEtis);
 				break;
 			}
 			case 9925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001017);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001077, EnemyEtis, "EnemyEtis-10001077");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001077, EnemyEtis);
 				break;
 			}
 			case 9935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001018);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001078, EnemyEtis, "EnemyEtis-10001078");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001078, EnemyEtis);
 				break;
 			}
 			case 9945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001019);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001079, EnemyEtis, "EnemyEtis-10001079");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001079, EnemyEtis);
 				break;
 			}
 			case 9955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001020);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001080, EnemyEtis, "EnemyEtis-10001080");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001080, EnemyEtis);
 				break;
 			}
 			case 9965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001021);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001081, EnemyEtis, "EnemyEtis-10001081");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001081, EnemyEtis);
 				break;
 			}
 			case 9975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001022);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001082, EnemyEtis, "EnemyEtis-10001082");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001082, EnemyEtis);
 				break;
 			}
 			case 9985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001023);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001083, EnemyEtis, "EnemyEtis-10001083");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001083, EnemyEtis);
 				break;
 			}
 			case 9995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001024);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001084, EnemyEtis, "EnemyEtis-10001084");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001084, EnemyEtis);
 				break;
 			}
 			case 10005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001025);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001085, EnemyEtis, "EnemyEtis-10001085");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001085, EnemyEtis);
 				break;
 			}
 			case 10015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001026);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001086, EnemyEtis, "EnemyEtis-10001086");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001086, EnemyEtis);
 				break;
 			}
 			case 10025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001027);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001087, EnemyEtis, "EnemyEtis-10001087");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001087, EnemyEtis);
 				break;
 			}
 			case 10035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001028);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001088, EnemyEtis, "EnemyEtis-10001088");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001088, EnemyEtis);
 				break;
 			}
 			case 10045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001029);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001089, EnemyEtis, "EnemyEtis-10001089");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001089, EnemyEtis);
 				break;
 			}
 			case 10055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001030);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001090, EnemyEtis, "EnemyEtis-10001090");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001090, EnemyEtis);
 				break;
 			}
 			case 10065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001031);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001091, EnemyEtis, "EnemyEtis-10001091");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001091, EnemyEtis);
 				break;
 			}
 			case 10075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001032);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001092, EnemyEtis, "EnemyEtis-10001092");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001092, EnemyEtis);
 				break;
 			}
 			case 10085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001033);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001093, EnemyEtis, "EnemyEtis-10001093");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001093, EnemyEtis);
 				break;
 			}
 			case 10095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001034);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001094, EnemyEtis, "EnemyEtis-10001094");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001094, EnemyEtis);
 				break;
 			}
 			case 10105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001035);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001095, EnemyEtis, "EnemyEtis-10001095");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001095, EnemyEtis);
 				break;
 			}
 			case 10115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001036);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001096, EnemyEtis, "EnemyEtis-10001096");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001096, EnemyEtis);
 				break;
 			}
 			case 10125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001037);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001097, EnemyEtis, "EnemyEtis-10001097");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001097, EnemyEtis);
 				break;
 			}
 			case 10135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001038);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001098, EnemyEtis, "EnemyEtis-10001098");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001098, EnemyEtis);
 				break;
 			}
 			case 10145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001039);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001099, EnemyEtis, "EnemyEtis-10001099");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001099, EnemyEtis);
 				break;
 			}
 			case 10155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001040);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001100, EnemyEtis, "EnemyEtis-10001100");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001100, EnemyEtis);
 				break;
 			}
 			case 10165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001041);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001101, EnemyEtis, "EnemyEtis-10001101");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001101, EnemyEtis);
 				break;
 			}
 			case 10175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001042);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001102, EnemyEtis, "EnemyEtis-10001102");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001102, EnemyEtis);
 				break;
 			}
 			case 10185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001043);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001103, EnemyEtis, "EnemyEtis-10001103");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001103, EnemyEtis);
 				break;
 			}
 			case 10195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001044);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001104, EnemyEtis, "EnemyEtis-10001104");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001104, EnemyEtis);
 				break;
 			}
 			case 10205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001045);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001105, EnemyEtis, "EnemyEtis-10001105");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001105, EnemyEtis);
 				break;
 			}
 			case 10215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001046);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001106, EnemyEtis, "EnemyEtis-10001106");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001106, EnemyEtis);
 				break;
 			}
 			case 10225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001047);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001107, EnemyEtis, "EnemyEtis-10001107");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001107, EnemyEtis);
 				break;
 			}
 			case 10235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001048);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001108, EnemyEtis, "EnemyEtis-10001108");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001108, EnemyEtis);
 				break;
 			}
 			case 10245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001049);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001109, EnemyEtis, "EnemyEtis-10001109");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001109, EnemyEtis);
 				break;
 			}
 			case 10255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001050);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001110, EnemyEtis, "EnemyEtis-10001110");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001110, EnemyEtis);
 				break;
 			}
 			case 10265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001051);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001111, EnemyEtis, "EnemyEtis-10001111");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001111, EnemyEtis);
 				break;
 			}
 			case 10275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001052);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001112, EnemyEtis, "EnemyEtis-10001112");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001112, EnemyEtis);
 				break;
 			}
 			case 10285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001053);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001113, EnemyEtis, "EnemyEtis-10001113");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001113, EnemyEtis);
 				break;
 			}
 			case 10295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001054);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001114, EnemyEtis, "EnemyEtis-10001114");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001114, EnemyEtis);
 				break;
 			}
 			case 10305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001055);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001115, EnemyEtis, "EnemyEtis-10001115");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001115, EnemyEtis);
 				break;
 			}
 			case 10315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001056);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001116, EnemyEtis, "EnemyEtis-10001116");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001116, EnemyEtis);
 				break;
 			}
 			case 10325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001057);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001117, EnemyEtis, "EnemyEtis-10001117");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001117, EnemyEtis);
 				break;
 			}
 			case 10335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001058);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001118, EnemyEtis, "EnemyEtis-10001118");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001118, EnemyEtis);
 				break;
 			}
 			case 10345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001059);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001119, EnemyEtis, "EnemyEtis-10001119");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001119, EnemyEtis);
 				break;
 			}
 			case 10355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001060);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001120, EnemyEtis, "EnemyEtis-10001120");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001120, EnemyEtis);
 				break;
 			}
 			case 10365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001061);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001121, EnemyEtis, "EnemyEtis-10001121");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001121, EnemyEtis);
 				break;
 			}
 			case 10375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001062);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001122, EnemyEtis, "EnemyEtis-10001122");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001122, EnemyEtis);
 				break;
 			}
 			case 10385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001063);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001123, EnemyEtis, "EnemyEtis-10001123");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001123, EnemyEtis);
 				break;
 			}
 			case 10395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001064);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001124, EnemyEtis, "EnemyEtis-10001124");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001124, EnemyEtis);
 				break;
 			}
 			case 10405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001065);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001125, EnemyEtis, "EnemyEtis-10001125");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001125, EnemyEtis);
 				break;
 			}
 			case 10415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001066);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001126, EnemyEtis, "EnemyEtis-10001126");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001126, EnemyEtis);
 				break;
 			}
 			case 10425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001067);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001127, EnemyEtis, "EnemyEtis-10001127");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001127, EnemyEtis);
 				break;
 			}
 			case 10435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001068);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001128, EnemyEtis, "EnemyEtis-10001128");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001128, EnemyEtis);
 				break;
 			}
 			case 10445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001069);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001129, EnemyEtis, "EnemyEtis-10001129");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001129, EnemyEtis);
 				break;
 			}
 			case 10455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001070);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001130, EnemyEtis, "EnemyEtis-10001130");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001130, EnemyEtis);
 				break;
 			}
 			case 10465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001071);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001131, EnemyEtis, "EnemyEtis-10001131");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001131, EnemyEtis);
 				break;
 			}
 			case 10475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001072);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001132, EnemyEtis, "EnemyEtis-10001132");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001132, EnemyEtis);
 				break;
 			}
 			case 10485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001073);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001133, EnemyEtis, "EnemyEtis-10001133");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001133, EnemyEtis);
 				break;
 			}
 			case 10495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001074);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001134, EnemyEtis, "EnemyEtis-10001134");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001134, EnemyEtis);
 				break;
 			}
 			case 10500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003230);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 10505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001075);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001135, EnemyEtis, "EnemyEtis-10001135");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001135, EnemyEtis);
 				break;
 			}
 			case 10515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001076);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001136, EnemyEtis, "EnemyEtis-10001136");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001136, EnemyEtis);
 				break;
 			}
 			case 10525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001077);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001137, EnemyEtis, "EnemyEtis-10001137");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001137, EnemyEtis);
 				break;
 			}
 			case 10535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001078);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001138, EnemyEtis, "EnemyEtis-10001138");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001138, EnemyEtis);
 				break;
 			}
 			case 10545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001079);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001139, EnemyEtis, "EnemyEtis-10001139");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001139, EnemyEtis);
 				break;
 			}
 			case 10555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001080);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001140, EnemyEtis, "EnemyEtis-10001140");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001140, EnemyEtis);
 				break;
 			}
 			case 10565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001081);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001141, EnemyEtis, "EnemyEtis-10001141");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001141, EnemyEtis);
 				break;
 			}
 			case 10575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001082);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001142, EnemyEtis, "EnemyEtis-10001142");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001142, EnemyEtis);
 				break;
 			}
 			case 10585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001083);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001143, EnemyEtis, "EnemyEtis-10001143");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001143, EnemyEtis);
 				break;
 			}
 			case 10595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001084);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001144, EnemyEtis, "EnemyEtis-10001144");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001144, EnemyEtis);
 				break;
 			}
 			case 10605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001085);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001145, EnemyEtis, "EnemyEtis-10001145");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001145, EnemyEtis);
 				break;
 			}
 			case 10615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001086);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001146, EnemyEtis, "EnemyEtis-10001146");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001146, EnemyEtis);
 				break;
 			}
 			case 10625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001087);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001147, EnemyEtis, "EnemyEtis-10001147");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001147, EnemyEtis);
 				break;
 			}
 			case 10635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001088);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001148, EnemyEtis, "EnemyEtis-10001148");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001148, EnemyEtis);
 				break;
 			}
 			case 10645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001089);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001149, EnemyEtis, "EnemyEtis-10001149");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001149, EnemyEtis);
 				break;
 			}
 			case 10655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001090);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001150, EnemyEtis, "EnemyEtis-10001150");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001150, EnemyEtis);
 				break;
 			}
 			case 10665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001091);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001151, EnemyEtis, "EnemyEtis-10001151");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001151, EnemyEtis);
 				break;
 			}
 			case 10675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001092);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001152, EnemyEtis, "EnemyEtis-10001152");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001152, EnemyEtis);
 				break;
 			}
 			case 10685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001093);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001153, EnemyEtis, "EnemyEtis-10001153");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001153, EnemyEtis);
 				break;
 			}
 			case 10695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001094);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001154, EnemyEtis, "EnemyEtis-10001154");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001154, EnemyEtis);
 				break;
 			}
 			case 10705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001095);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001155, EnemyEtis, "EnemyEtis-10001155");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001155, EnemyEtis);
 				break;
 			}
 			case 10715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001096);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001156, EnemyEtis, "EnemyEtis-10001156");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001156, EnemyEtis);
 				break;
 			}
 			case 10725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001097);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001157, EnemyEtis, "EnemyEtis-10001157");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001157, EnemyEtis);
 				break;
 			}
 			case 10735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001098);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001158, EnemyEtis, "EnemyEtis-10001158");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001158, EnemyEtis);
 				break;
 			}
 			case 10745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001099);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001159, EnemyEtis, "EnemyEtis-10001159");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001159, EnemyEtis);
 				break;
 			}
 			case 10755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001100);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001160, EnemyEtis, "EnemyEtis-10001160");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001160, EnemyEtis);
 				break;
 			}
 			case 10765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001101);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001161, EnemyEtis, "EnemyEtis-10001161");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001161, EnemyEtis);
 				break;
 			}
 			case 10775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001102);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001162, EnemyEtis, "EnemyEtis-10001162");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001162, EnemyEtis);
 				break;
 			}
 			case 10785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001103);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001163, EnemyEtis, "EnemyEtis-10001163");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001163, EnemyEtis);
 				break;
 			}
 			case 10795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001104);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001164, EnemyEtis, "EnemyEtis-10001164");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001164, EnemyEtis);
 				break;
 			}
 			case 10805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001105);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001165, EnemyEtis, "EnemyEtis-10001165");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001165, EnemyEtis);
 				break;
 			}
 			case 10815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001106);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001166, EnemyEtis, "EnemyEtis-10001166");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001166, EnemyEtis);
 				break;
 			}
 			case 10825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001107);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001167, EnemyEtis, "EnemyEtis-10001167");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001167, EnemyEtis);
 				break;
 			}
 			case 10835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001108);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001168, EnemyEtis, "EnemyEtis-10001168");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001168, EnemyEtis);
 				break;
 			}
 			case 10845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001109);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001169, EnemyEtis, "EnemyEtis-10001169");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001169, EnemyEtis);
 				break;
 			}
 			case 10855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001110);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001170, EnemyEtis, "EnemyEtis-10001170");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001170, EnemyEtis);
 				break;
 			}
 			case 10865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001111);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001171, EnemyEtis, "EnemyEtis-10001171");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001171, EnemyEtis);
 				break;
 			}
 			case 10875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001112);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001172, EnemyEtis, "EnemyEtis-10001172");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001172, EnemyEtis);
 				break;
 			}
 			case 10885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001113);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001173, EnemyEtis, "EnemyEtis-10001173");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001173, EnemyEtis);
 				break;
 			}
 			case 10895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001114);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001174, EnemyEtis, "EnemyEtis-10001174");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001174, EnemyEtis);
 				break;
 			}
 			case 10905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001115);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001175, EnemyEtis, "EnemyEtis-10001175");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001175, EnemyEtis);
 				break;
 			}
 			case 10915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001116);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001176, EnemyEtis, "EnemyEtis-10001176");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001176, EnemyEtis);
 				break;
 			}
 			case 10925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001117);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001177, EnemyEtis, "EnemyEtis-10001177");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001177, EnemyEtis);
 				break;
 			}
 			case 10935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001118);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001178, EnemyEtis, "EnemyEtis-10001178");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001178, EnemyEtis);
 				break;
 			}
 			case 10945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001119);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001179, EnemyEtis, "EnemyEtis-10001179");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001179, EnemyEtis);
 				break;
 			}
 			case 10955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001120);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001180, EnemyEtis, "EnemyEtis-10001180");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001180, EnemyEtis);
 				break;
 			}
 			case 10965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001121);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001181, EnemyEtis, "EnemyEtis-10001181");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001181, EnemyEtis);
 				break;
 			}
 			case 10975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001122);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001182, EnemyEtis, "EnemyEtis-10001182");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001182, EnemyEtis);
 				break;
 			}
 			case 10985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001123);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001183, EnemyEtis, "EnemyEtis-10001183");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001183, EnemyEtis);
 				break;
 			}
 			case 10995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001124);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001184, EnemyEtis, "EnemyEtis-10001184");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001184, EnemyEtis);
 				break;
 			}
 			case 11005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001125);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001185, EnemyEtis, "EnemyEtis-10001185");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001185, EnemyEtis);
 				break;
 			}
 			case 11015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001126);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001186, EnemyEtis, "EnemyEtis-10001186");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001186, EnemyEtis);
 				break;
 			}
 			case 11025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001127);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001187, EnemyEtis, "EnemyEtis-10001187");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001187, EnemyEtis);
 				break;
 			}
 			case 11035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001128);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001188, EnemyEtis, "EnemyEtis-10001188");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001188, EnemyEtis);
 				break;
 			}
 			case 11045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001129);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001189, EnemyEtis, "EnemyEtis-10001189");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001189, EnemyEtis);
 				break;
 			}
 			case 11055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001130);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001190, EnemyEtis, "EnemyEtis-10001190");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001190, EnemyEtis);
 				break;
 			}
 			case 11065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001131);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001191, EnemyEtis, "EnemyEtis-10001191");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001191, EnemyEtis);
 				break;
 			}
 			case 11075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001132);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001192, EnemyEtis, "EnemyEtis-10001192");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001192, EnemyEtis);
 				break;
 			}
 			case 11085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001133);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001193, EnemyEtis, "EnemyEtis-10001193");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001193, EnemyEtis);
 				break;
 			}
 			case 11095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001134);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001194, EnemyEtis, "EnemyEtis-10001194");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001194, EnemyEtis);
 				break;
 			}
 			case 11105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001135);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001195, EnemyEtis, "EnemyEtis-10001195");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001195, EnemyEtis);
 				break;
 			}
 			case 11115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001136);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001196, EnemyEtis, "EnemyEtis-10001196");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001196, EnemyEtis);
 				break;
 			}
 			case 11125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001137);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001197, EnemyEtis, "EnemyEtis-10001197");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001197, EnemyEtis);
 				break;
 			}
 			case 11135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001138);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001198, EnemyEtis, "EnemyEtis-10001198");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001198, EnemyEtis);
 				break;
 			}
 			case 11145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001139);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001199, EnemyEtis, "EnemyEtis-10001199");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001199, EnemyEtis);
 				break;
 			}
 			case 11155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001140);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001200, EnemyEtis, "EnemyEtis-10001200");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001200, EnemyEtis);
 				break;
 			}
 			case 11165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001141);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001201, EnemyEtis, "EnemyEtis-10001201");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001201, EnemyEtis);
 				break;
 			}
 			case 11175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001142);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001202, EnemyEtis, "EnemyEtis-10001202");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001202, EnemyEtis);
 				break;
 			}
 			case 11185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001143);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001203, EnemyEtis, "EnemyEtis-10001203");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001203, EnemyEtis);
 				break;
 			}
 			case 11195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001144);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001204, EnemyEtis, "EnemyEtis-10001204");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001204, EnemyEtis);
 				break;
 			}
 			case 11205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001145);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001205, EnemyEtis, "EnemyEtis-10001205");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001205, EnemyEtis);
 				break;
 			}
 			case 11215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001146);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001206, EnemyEtis, "EnemyEtis-10001206");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001206, EnemyEtis);
 				break;
 			}
 			case 11225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001147);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001207, EnemyEtis, "EnemyEtis-10001207");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001207, EnemyEtis);
 				break;
 			}
 			case 11235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001148);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001208, EnemyEtis, "EnemyEtis-10001208");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001208, EnemyEtis);
 				break;
 			}
 			case 11245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001149);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001209, EnemyEtis, "EnemyEtis-10001209");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001209, EnemyEtis);
 				break;
 			}
 			case 11255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001150);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001210, EnemyEtis, "EnemyEtis-10001210");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001210, EnemyEtis);
 				break;
 			}
 			case 11265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001151);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001211, EnemyEtis, "EnemyEtis-10001211");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001211, EnemyEtis);
 				break;
 			}
 			case 11275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001152);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001212, EnemyEtis, "EnemyEtis-10001212");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001212, EnemyEtis);
 				break;
 			}
 			case 11285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001153);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001213, EnemyEtis, "EnemyEtis-10001213");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001213, EnemyEtis);
 				break;
 			}
 			case 11295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001154);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001214, EnemyEtis, "EnemyEtis-10001214");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001214, EnemyEtis);
 				break;
 			}
 			case 11305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001155);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001215, EnemyEtis, "EnemyEtis-10001215");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001215, EnemyEtis);
 				break;
 			}
 			case 11315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001156);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001216, EnemyEtis, "EnemyEtis-10001216");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001216, EnemyEtis);
 				break;
 			}
 			case 11325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001157);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001217, EnemyEtis, "EnemyEtis-10001217");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001217, EnemyEtis);
 				break;
 			}
 			case 11335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001158);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001218, EnemyEtis, "EnemyEtis-10001218");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001218, EnemyEtis);
 				break;
 			}
 			case 11345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001159);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001219, EnemyEtis, "EnemyEtis-10001219");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001219, EnemyEtis);
 				break;
 			}
 			case 11355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001160);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001220, EnemyEtis, "EnemyEtis-10001220");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001220, EnemyEtis);
 				break;
 			}
 			case 11365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001161);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001221, EnemyEtis, "EnemyEtis-10001221");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001221, EnemyEtis);
 				break;
 			}
 			case 11375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001162);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001222, EnemyEtis, "EnemyEtis-10001222");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001222, EnemyEtis);
 				break;
 			}
 			case 11385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001163);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001223, EnemyEtis, "EnemyEtis-10001223");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001223, EnemyEtis);
 				break;
 			}
 			case 11395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001164);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001224, EnemyEtis, "EnemyEtis-10001224");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001224, EnemyEtis);
 				break;
 			}
 			case 11405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001165);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001225, EnemyEtis, "EnemyEtis-10001225");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001225, EnemyEtis);
 				break;
 			}
 			case 11415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001166);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001226, EnemyEtis, "EnemyEtis-10001226");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001226, EnemyEtis);
 				break;
 			}
 			case 11425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001167);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001227, EnemyEtis, "EnemyEtis-10001227");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001227, EnemyEtis);
 				break;
 			}
 			case 11435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001168);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001228, EnemyEtis, "EnemyEtis-10001228");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001228, EnemyEtis);
 				break;
 			}
 			case 11445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001169);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001229, EnemyEtis, "EnemyEtis-10001229");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001229, EnemyEtis);
 				break;
 			}
 			case 11455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001170);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001230, EnemyEtis, "EnemyEtis-10001230");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001230, EnemyEtis);
 				break;
 			}
 			case 11465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001171);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001231, EnemyEtis, "EnemyEtis-10001231");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001231, EnemyEtis);
 				break;
 			}
 			case 11475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001172);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001232, EnemyEtis, "EnemyEtis-10001232");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001232, EnemyEtis);
 				break;
 			}
 			case 11485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001173);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001233, EnemyEtis, "EnemyEtis-10001233");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001233, EnemyEtis);
 				break;
 			}
 			case 11495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001174);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001234, EnemyEtis, "EnemyEtis-10001234");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001234, EnemyEtis);
 				break;
 			}
 			case 11505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001175);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001235, EnemyEtis, "EnemyEtis-10001235");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001235, EnemyEtis);
 				break;
 			}
 			case 11515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001176);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001236, EnemyEtis, "EnemyEtis-10001236");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001236, EnemyEtis);
 				break;
 			}
 			case 11525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001177);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001237, EnemyEtis, "EnemyEtis-10001237");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001237, EnemyEtis);
 				break;
 			}
 			case 11535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001178);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001238, EnemyEtis, "EnemyEtis-10001238");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001238, EnemyEtis);
 				break;
 			}
 			case 11545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001179);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001239, EnemyEtis, "EnemyEtis-10001239");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001239, EnemyEtis);
 				break;
 			}
 			case 11555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001180);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001240, EnemyEtis, "EnemyEtis-10001240");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001240, EnemyEtis);
 				break;
 			}
 			case 11565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001181);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001241, EnemyEtis, "EnemyEtis-10001241");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001241, EnemyEtis);
 				break;
 			}
 			case 11575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001182);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001242, EnemyEtis, "EnemyEtis-10001242");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001242, EnemyEtis);
 				break;
 			}
 			case 11585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001183);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001243, EnemyEtis, "EnemyEtis-10001243");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001243, EnemyEtis);
 				break;
 			}
 			case 11595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001184);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001244, EnemyEtis, "EnemyEtis-10001244");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001244, EnemyEtis);
 				break;
 			}
 			case 11605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001185);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001245, EnemyEtis, "EnemyEtis-10001245");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001245, EnemyEtis);
 				break;
 			}
 			case 11615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001186);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001246, EnemyEtis, "EnemyEtis-10001246");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001246, EnemyEtis);
 				break;
 			}
 			case 11625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001187);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001247, EnemyEtis, "EnemyEtis-10001247");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001247, EnemyEtis);
 				break;
 			}
 			case 11635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001188);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001248, EnemyEtis, "EnemyEtis-10001248");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001248, EnemyEtis);
 				break;
 			}
 			case 11645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001189);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001249, EnemyEtis, "EnemyEtis-10001249");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001249, EnemyEtis);
 				break;
 			}
 			case 11655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001190);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001250, EnemyEtis, "EnemyEtis-10001250");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001250, EnemyEtis);
 				break;
 			}
 			case 11665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001191);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001251, EnemyEtis, "EnemyEtis-10001251");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001251, EnemyEtis);
 				break;
 			}
 			case 11675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001192);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001252, EnemyEtis, "EnemyEtis-10001252");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001252, EnemyEtis);
 				break;
 			}
 			case 11685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001193);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001253, EnemyEtis, "EnemyEtis-10001253");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001253, EnemyEtis);
 				break;
 			}
 			case 11695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001194);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001254, EnemyEtis, "EnemyEtis-10001254");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001254, EnemyEtis);
 				break;
 			}
 			case 11705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001195);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001255, EnemyEtis, "EnemyEtis-10001255");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001255, EnemyEtis);
 				break;
 			}
 			case 11715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001196);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001256, EnemyEtis, "EnemyEtis-10001256");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001256, EnemyEtis);
 				break;
 			}
 			case 11725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001197);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001257, EnemyEtis, "EnemyEtis-10001257");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001257, EnemyEtis);
 				break;
 			}
 			case 11735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001198);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001258, EnemyEtis, "EnemyEtis-10001258");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001258, EnemyEtis);
 				break;
 			}
 			case 11745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001199);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001259, EnemyEtis, "EnemyEtis-10001259");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001259, EnemyEtis);
 				break;
 			}
 			case 11755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001200);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001260, EnemyEtis, "EnemyEtis-10001260");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001260, EnemyEtis);
 				break;
 			}
 			case 11765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001201);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001261, EnemyEtis, "EnemyEtis-10001261");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001261, EnemyEtis);
 				break;
 			}
 			case 11775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001202);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001262, EnemyEtis, "EnemyEtis-10001262");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001262, EnemyEtis);
 				break;
 			}
 			case 11785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001203);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001263, EnemyEtis, "EnemyEtis-10001263");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001263, EnemyEtis);
 				break;
 			}
 			case 11795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001204);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001264, EnemyEtis, "EnemyEtis-10001264");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001264, EnemyEtis);
 				break;
 			}
 			case 11805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001205);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001265, EnemyEtis, "EnemyEtis-10001265");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001265, EnemyEtis);
 				break;
 			}
 			case 11815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001206);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001266, EnemyEtis, "EnemyEtis-10001266");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001266, EnemyEtis);
 				break;
 			}
 			case 11825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001207);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001267, EnemyEtis, "EnemyEtis-10001267");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001267, EnemyEtis);
 				break;
 			}
 			case 11835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001208);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001268, EnemyEtis, "EnemyEtis-10001268");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001268, EnemyEtis);
 				break;
 			}
 			case 11845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001209);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001269, EnemyEtis, "EnemyEtis-10001269");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001269, EnemyEtis);
 				break;
 			}
 			case 11855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001210);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001270, EnemyEtis, "EnemyEtis-10001270");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001270, EnemyEtis);
 				break;
 			}
 			case 11865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001211);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001271, EnemyEtis, "EnemyEtis-10001271");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001271, EnemyEtis);
 				break;
 			}
 			case 11875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001212);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001272, EnemyEtis, "EnemyEtis-10001272");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001272, EnemyEtis);
 				break;
 			}
 			case 11885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001213);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001273, EnemyEtis, "EnemyEtis-10001273");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001273, EnemyEtis);
 				break;
 			}
 			case 11895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001214);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001274, EnemyEtis, "EnemyEtis-10001274");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001274, EnemyEtis);
 				break;
 			}
 			case 11900: {
-				requestActor(10003231, EnemyDrastea, "EnemyDrastea-10003231");
+				requestActor(10003231, EnemyDrastea);
 				break;
 			}
 			case 11905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001215);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001275, EnemyEtis, "EnemyEtis-10001275");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001275, EnemyEtis);
 				break;
 			}
 			case 11915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001216);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001276, EnemyEtis, "EnemyEtis-10001276");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001276, EnemyEtis);
 				break;
 			}
 			case 11925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001217);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001277, EnemyEtis, "EnemyEtis-10001277");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001277, EnemyEtis);
 				break;
 			}
 			case 11935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001218);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001278, EnemyEtis, "EnemyEtis-10001278");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001278, EnemyEtis);
 				break;
 			}
 			case 11945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001219);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001279, EnemyEtis, "EnemyEtis-10001279");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001279, EnemyEtis);
 				break;
 			}
 			case 11955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001220);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001280, EnemyEtis, "EnemyEtis-10001280");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001280, EnemyEtis);
 				break;
 			}
 			case 11965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001221);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001281, EnemyEtis, "EnemyEtis-10001281");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001281, EnemyEtis);
 				break;
 			}
 			case 11975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001222);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001282, EnemyEtis, "EnemyEtis-10001282");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001282, EnemyEtis);
 				break;
 			}
 			case 11985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001223);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001283, EnemyEtis, "EnemyEtis-10001283");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001283, EnemyEtis);
 				break;
 			}
 			case 11995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001224);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001284, EnemyEtis, "EnemyEtis-10001284");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001284, EnemyEtis);
 				break;
 			}
 			case 12005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001225);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001285, EnemyEtis, "EnemyEtis-10001285");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001285, EnemyEtis);
 				break;
 			}
 			case 12015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001226);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001286, EnemyEtis, "EnemyEtis-10001286");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001286, EnemyEtis);
 				break;
 			}
 			case 12025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001227);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001287, EnemyEtis, "EnemyEtis-10001287");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001287, EnemyEtis);
 				break;
 			}
 			case 12035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001228);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001288, EnemyEtis, "EnemyEtis-10001288");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001288, EnemyEtis);
 				break;
 			}
 			case 12045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001229);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001289, EnemyEtis, "EnemyEtis-10001289");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001289, EnemyEtis);
 				break;
 			}
 			case 12055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001230);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001290, EnemyEtis, "EnemyEtis-10001290");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001290, EnemyEtis);
 				break;
 			}
 			case 12065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001231);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001291, EnemyEtis, "EnemyEtis-10001291");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001291, EnemyEtis);
 				break;
 			}
 			case 12075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001232);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001292, EnemyEtis, "EnemyEtis-10001292");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001292, EnemyEtis);
 				break;
 			}
 			case 12085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001233);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001293, EnemyEtis, "EnemyEtis-10001293");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001293, EnemyEtis);
 				break;
 			}
 			case 12095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001234);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001294, EnemyEtis, "EnemyEtis-10001294");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001294, EnemyEtis);
 				break;
 			}
 			case 12105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001235);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001295, EnemyEtis, "EnemyEtis-10001295");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001295, EnemyEtis);
 				break;
 			}
 			case 12115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001236);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001296, EnemyEtis, "EnemyEtis-10001296");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001296, EnemyEtis);
 				break;
 			}
 			case 12125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001237);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001297, EnemyEtis, "EnemyEtis-10001297");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001297, EnemyEtis);
 				break;
 			}
 			case 12135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001238);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001298, EnemyEtis, "EnemyEtis-10001298");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001298, EnemyEtis);
 				break;
 			}
 			case 12145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001239);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001299, EnemyEtis, "EnemyEtis-10001299");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001299, EnemyEtis);
 				break;
 			}
 			case 12155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001240);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001300, EnemyEtis, "EnemyEtis-10001300");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001300, EnemyEtis);
 				break;
 			}
 			case 12165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001241);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001301, EnemyEtis, "EnemyEtis-10001301");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001301, EnemyEtis);
 				break;
 			}
 			case 12175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001242);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001302, EnemyEtis, "EnemyEtis-10001302");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001302, EnemyEtis);
 				break;
 			}
 			case 12185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001243);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001303, EnemyEtis, "EnemyEtis-10001303");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001303, EnemyEtis);
 				break;
 			}
 			case 12195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001244);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001304, EnemyEtis, "EnemyEtis-10001304");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001304, EnemyEtis);
 				break;
 			}
 			case 12205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001245);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001305, EnemyEtis, "EnemyEtis-10001305");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001305, EnemyEtis);
 				break;
 			}
 			case 12215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001246);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001306, EnemyEtis, "EnemyEtis-10001306");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001306, EnemyEtis);
 				break;
 			}
 			case 12225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001247);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001307, EnemyEtis, "EnemyEtis-10001307");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001307, EnemyEtis);
 				break;
 			}
 			case 12235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001248);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001308, EnemyEtis, "EnemyEtis-10001308");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001308, EnemyEtis);
 				break;
 			}
 			case 12245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001249);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001309, EnemyEtis, "EnemyEtis-10001309");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001309, EnemyEtis);
 				break;
 			}
 			case 12255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001250);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001310, EnemyEtis, "EnemyEtis-10001310");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001310, EnemyEtis);
 				break;
 			}
 			case 12265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001251);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001311, EnemyEtis, "EnemyEtis-10001311");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001311, EnemyEtis);
 				break;
 			}
 			case 12275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001252);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001312, EnemyEtis, "EnemyEtis-10001312");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001312, EnemyEtis);
 				break;
 			}
 			case 12285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001253);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001313, EnemyEtis, "EnemyEtis-10001313");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001313, EnemyEtis);
 				break;
 			}
 			case 12295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001254);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001314, EnemyEtis, "EnemyEtis-10001314");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001314, EnemyEtis);
 				break;
 			}
 			case 12305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001255);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001315, EnemyEtis, "EnemyEtis-10001315");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001315, EnemyEtis);
 				break;
 			}
 			case 12315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001256);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001316, EnemyEtis, "EnemyEtis-10001316");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001316, EnemyEtis);
 				break;
 			}
 			case 12325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001257);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001317, EnemyEtis, "EnemyEtis-10001317");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001317, EnemyEtis);
 				break;
 			}
 			case 12335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001258);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001318, EnemyEtis, "EnemyEtis-10001318");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001318, EnemyEtis);
 				break;
 			}
 			case 12345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001259);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001319, EnemyEtis, "EnemyEtis-10001319");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001319, EnemyEtis);
 				break;
 			}
 			case 12355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001260);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001320, EnemyEtis, "EnemyEtis-10001320");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001320, EnemyEtis);
 				break;
 			}
 			case 12365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001261);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001321, EnemyEtis, "EnemyEtis-10001321");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001321, EnemyEtis);
 				break;
 			}
 			case 12375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001262);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001322, EnemyEtis, "EnemyEtis-10001322");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001322, EnemyEtis);
 				break;
 			}
 			case 12385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001263);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001323, EnemyEtis, "EnemyEtis-10001323");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001323, EnemyEtis);
 				break;
 			}
 			case 12395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001264);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001324, EnemyEtis, "EnemyEtis-10001324");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001324, EnemyEtis);
 				break;
 			}
 			case 12405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001265);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001325, EnemyEtis, "EnemyEtis-10001325");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001325, EnemyEtis);
 				break;
 			}
 			case 12415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001266);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001326, EnemyEtis, "EnemyEtis-10001326");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001326, EnemyEtis);
 				break;
 			}
 			case 12425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001267);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001327, EnemyEtis, "EnemyEtis-10001327");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001327, EnemyEtis);
 				break;
 			}
 			case 12435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001268);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001328, EnemyEtis, "EnemyEtis-10001328");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001328, EnemyEtis);
 				break;
 			}
 			case 12445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001269);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001329, EnemyEtis, "EnemyEtis-10001329");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001329, EnemyEtis);
 				break;
 			}
 			case 12455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001270);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001330, EnemyEtis, "EnemyEtis-10001330");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001330, EnemyEtis);
 				break;
 			}
 			case 12465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001271);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001331, EnemyEtis, "EnemyEtis-10001331");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001331, EnemyEtis);
 				break;
 			}
 			case 12475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001272);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001332, EnemyEtis, "EnemyEtis-10001332");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001332, EnemyEtis);
 				break;
 			}
 			case 12485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001273);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001333, EnemyEtis, "EnemyEtis-10001333");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001333, EnemyEtis);
 				break;
 			}
 			case 12495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001274);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001334, EnemyEtis, "EnemyEtis-10001334");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001334, EnemyEtis);
 				break;
 			}
 			case 12500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003231);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 12505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001275);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001335, EnemyEtis, "EnemyEtis-10001335");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001335, EnemyEtis);
 				break;
 			}
 			case 12515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001276);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001336, EnemyEtis, "EnemyEtis-10001336");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001336, EnemyEtis);
 				break;
 			}
 			case 12525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001277);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001337, EnemyEtis, "EnemyEtis-10001337");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001337, EnemyEtis);
 				break;
 			}
 			case 12535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001278);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001338, EnemyEtis, "EnemyEtis-10001338");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001338, EnemyEtis);
 				break;
 			}
 			case 12545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001279);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001339, EnemyEtis, "EnemyEtis-10001339");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001339, EnemyEtis);
 				break;
 			}
 			case 12555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001280);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001340, EnemyEtis, "EnemyEtis-10001340");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001340, EnemyEtis);
 				break;
 			}
 			case 12565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001281);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001341, EnemyEtis, "EnemyEtis-10001341");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001341, EnemyEtis);
 				break;
 			}
 			case 12575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001282);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001342, EnemyEtis, "EnemyEtis-10001342");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001342, EnemyEtis);
 				break;
 			}
 			case 12585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001283);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001343, EnemyEtis, "EnemyEtis-10001343");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001343, EnemyEtis);
 				break;
 			}
 			case 12595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001284);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001344, EnemyEtis, "EnemyEtis-10001344");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001344, EnemyEtis);
 				break;
 			}
 			case 12605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001285);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001345, EnemyEtis, "EnemyEtis-10001345");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001345, EnemyEtis);
 				break;
 			}
 			case 12615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001286);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001346, EnemyEtis, "EnemyEtis-10001346");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001346, EnemyEtis);
 				break;
 			}
 			case 12625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001287);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001347, EnemyEtis, "EnemyEtis-10001347");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001347, EnemyEtis);
 				break;
 			}
 			case 12635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001288);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001348, EnemyEtis, "EnemyEtis-10001348");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001348, EnemyEtis);
 				break;
 			}
 			case 12645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001289);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001349, EnemyEtis, "EnemyEtis-10001349");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001349, EnemyEtis);
 				break;
 			}
 			case 12655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001290);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001350, EnemyEtis, "EnemyEtis-10001350");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001350, EnemyEtis);
 				break;
 			}
 			case 12665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001291);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001351, EnemyEtis, "EnemyEtis-10001351");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001351, EnemyEtis);
 				break;
 			}
 			case 12675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001292);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001352, EnemyEtis, "EnemyEtis-10001352");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001352, EnemyEtis);
 				break;
 			}
 			case 12685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001293);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001353, EnemyEtis, "EnemyEtis-10001353");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001353, EnemyEtis);
 				break;
 			}
 			case 12695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001294);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001354, EnemyEtis, "EnemyEtis-10001354");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001354, EnemyEtis);
 				break;
 			}
 			case 12705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001295);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001355, EnemyEtis, "EnemyEtis-10001355");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001355, EnemyEtis);
 				break;
 			}
 			case 12715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001296);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001356, EnemyEtis, "EnemyEtis-10001356");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001356, EnemyEtis);
 				break;
 			}
 			case 12725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001297);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001357, EnemyEtis, "EnemyEtis-10001357");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001357, EnemyEtis);
 				break;
 			}
 			case 12735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001298);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001358, EnemyEtis, "EnemyEtis-10001358");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001358, EnemyEtis);
 				break;
 			}
 			case 12745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001299);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001359, EnemyEtis, "EnemyEtis-10001359");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001359, EnemyEtis);
 				break;
 			}
 			case 12755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001300);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001360, EnemyEtis, "EnemyEtis-10001360");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001360, EnemyEtis);
 				break;
 			}
 			case 12765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001301);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001361, EnemyEtis, "EnemyEtis-10001361");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001361, EnemyEtis);
 				break;
 			}
 			case 12775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001302);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001362, EnemyEtis, "EnemyEtis-10001362");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001362, EnemyEtis);
 				break;
 			}
 			case 12785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001303);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001363, EnemyEtis, "EnemyEtis-10001363");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001363, EnemyEtis);
 				break;
 			}
 			case 12795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001304);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001364, EnemyEtis, "EnemyEtis-10001364");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001364, EnemyEtis);
 				break;
 			}
 			case 12805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001305);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001365, EnemyEtis, "EnemyEtis-10001365");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001365, EnemyEtis);
 				break;
 			}
 			case 12815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001306);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001366, EnemyEtis, "EnemyEtis-10001366");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001366, EnemyEtis);
 				break;
 			}
 			case 12825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001307);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001367, EnemyEtis, "EnemyEtis-10001367");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001367, EnemyEtis);
 				break;
 			}
 			case 12835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001308);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001368, EnemyEtis, "EnemyEtis-10001368");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001368, EnemyEtis);
 				break;
 			}
 			case 12845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001309);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001369, EnemyEtis, "EnemyEtis-10001369");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001369, EnemyEtis);
 				break;
 			}
 			case 12855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001310);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001370, EnemyEtis, "EnemyEtis-10001370");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001370, EnemyEtis);
 				break;
 			}
 			case 12865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001311);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001371, EnemyEtis, "EnemyEtis-10001371");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001371, EnemyEtis);
 				break;
 			}
 			case 12875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001312);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001372, EnemyEtis, "EnemyEtis-10001372");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001372, EnemyEtis);
 				break;
 			}
 			case 12885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001313);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001373, EnemyEtis, "EnemyEtis-10001373");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001373, EnemyEtis);
 				break;
 			}
 			case 12895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001314);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001374, EnemyEtis, "EnemyEtis-10001374");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001374, EnemyEtis);
 				break;
 			}
 			case 12905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001315);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001375, EnemyEtis, "EnemyEtis-10001375");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001375, EnemyEtis);
 				break;
 			}
 			case 12915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001316);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001376, EnemyEtis, "EnemyEtis-10001376");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001376, EnemyEtis);
 				break;
 			}
 			case 12925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001317);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001377, EnemyEtis, "EnemyEtis-10001377");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001377, EnemyEtis);
 				break;
 			}
 			case 12935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001318);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001378, EnemyEtis, "EnemyEtis-10001378");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001378, EnemyEtis);
 				break;
 			}
 			case 12945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001319);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001379, EnemyEtis, "EnemyEtis-10001379");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001379, EnemyEtis);
 				break;
 			}
 			case 12955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001320);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001380, EnemyEtis, "EnemyEtis-10001380");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001380, EnemyEtis);
 				break;
 			}
 			case 12965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001321);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001381, EnemyEtis, "EnemyEtis-10001381");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001381, EnemyEtis);
 				break;
 			}
 			case 12975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001322);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001382, EnemyEtis, "EnemyEtis-10001382");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001382, EnemyEtis);
 				break;
 			}
 			case 12985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001323);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001383, EnemyEtis, "EnemyEtis-10001383");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001383, EnemyEtis);
 				break;
 			}
 			case 12995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001324);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001384, EnemyEtis, "EnemyEtis-10001384");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001384, EnemyEtis);
 				break;
 			}
 			case 13005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001325);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001385, EnemyEtis, "EnemyEtis-10001385");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001385, EnemyEtis);
 				break;
 			}
 			case 13015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001326);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001386, EnemyEtis, "EnemyEtis-10001386");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001386, EnemyEtis);
 				break;
 			}
 			case 13025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001327);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001387, EnemyEtis, "EnemyEtis-10001387");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001387, EnemyEtis);
 				break;
 			}
 			case 13035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001328);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001388, EnemyEtis, "EnemyEtis-10001388");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001388, EnemyEtis);
 				break;
 			}
 			case 13045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001329);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001389, EnemyEtis, "EnemyEtis-10001389");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001389, EnemyEtis);
 				break;
 			}
 			case 13055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001330);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001390, EnemyEtis, "EnemyEtis-10001390");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001390, EnemyEtis);
 				break;
 			}
 			case 13065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001331);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001391, EnemyEtis, "EnemyEtis-10001391");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001391, EnemyEtis);
 				break;
 			}
 			case 13075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001332);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001392, EnemyEtis, "EnemyEtis-10001392");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001392, EnemyEtis);
 				break;
 			}
 			case 13085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001333);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001393, EnemyEtis, "EnemyEtis-10001393");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001393, EnemyEtis);
 				break;
 			}
 			case 13095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001334);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001394, EnemyEtis, "EnemyEtis-10001394");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001394, EnemyEtis);
 				break;
 			}
 			case 13105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001335);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001395, EnemyEtis, "EnemyEtis-10001395");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001395, EnemyEtis);
 				break;
 			}
 			case 13115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001336);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001396, EnemyEtis, "EnemyEtis-10001396");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001396, EnemyEtis);
 				break;
 			}
 			case 13125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001337);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001397, EnemyEtis, "EnemyEtis-10001397");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001397, EnemyEtis);
 				break;
 			}
 			case 13135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001338);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001398, EnemyEtis, "EnemyEtis-10001398");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001398, EnemyEtis);
 				break;
 			}
 			case 13145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001339);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001399, EnemyEtis, "EnemyEtis-10001399");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001399, EnemyEtis);
 				break;
 			}
 			case 13155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001340);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001400, EnemyEtis, "EnemyEtis-10001400");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001400, EnemyEtis);
 				break;
 			}
 			case 13165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001341);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001401, EnemyEtis, "EnemyEtis-10001401");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001401, EnemyEtis);
 				break;
 			}
 			case 13175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001342);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001402, EnemyEtis, "EnemyEtis-10001402");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001402, EnemyEtis);
 				break;
 			}
 			case 13185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001343);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001403, EnemyEtis, "EnemyEtis-10001403");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001403, EnemyEtis);
 				break;
 			}
 			case 13195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001344);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001404, EnemyEtis, "EnemyEtis-10001404");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001404, EnemyEtis);
 				break;
 			}
 			case 13205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001345);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001405, EnemyEtis, "EnemyEtis-10001405");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001405, EnemyEtis);
 				break;
 			}
 			case 13215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001346);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001406, EnemyEtis, "EnemyEtis-10001406");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001406, EnemyEtis);
 				break;
 			}
 			case 13225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001347);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001407, EnemyEtis, "EnemyEtis-10001407");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001407, EnemyEtis);
 				break;
 			}
 			case 13235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001348);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001408, EnemyEtis, "EnemyEtis-10001408");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001408, EnemyEtis);
 				break;
 			}
 			case 13245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001349);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001409, EnemyEtis, "EnemyEtis-10001409");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001409, EnemyEtis);
 				break;
 			}
 			case 13255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001350);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001410, EnemyEtis, "EnemyEtis-10001410");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001410, EnemyEtis);
 				break;
 			}
 			case 13265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001351);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001411, EnemyEtis, "EnemyEtis-10001411");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001411, EnemyEtis);
 				break;
 			}
 			case 13275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001352);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001412, EnemyEtis, "EnemyEtis-10001412");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001412, EnemyEtis);
 				break;
 			}
 			case 13285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001353);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001413, EnemyEtis, "EnemyEtis-10001413");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001413, EnemyEtis);
 				break;
 			}
 			case 13295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001354);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001414, EnemyEtis, "EnemyEtis-10001414");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001414, EnemyEtis);
 				break;
 			}
 			case 13305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001355);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001415, EnemyEtis, "EnemyEtis-10001415");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001415, EnemyEtis);
 				break;
 			}
 			case 13315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001356);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001416, EnemyEtis, "EnemyEtis-10001416");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001416, EnemyEtis);
 				break;
 			}
 			case 13325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001357);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001417, EnemyEtis, "EnemyEtis-10001417");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001417, EnemyEtis);
 				break;
 			}
 			case 13335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001358);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001418, EnemyEtis, "EnemyEtis-10001418");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001418, EnemyEtis);
 				break;
 			}
 			case 13345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001359);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001419, EnemyEtis, "EnemyEtis-10001419");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001419, EnemyEtis);
 				break;
 			}
 			case 13355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001360);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001420, EnemyEtis, "EnemyEtis-10001420");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001420, EnemyEtis);
 				break;
 			}
 			case 13365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001361);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001421, EnemyEtis, "EnemyEtis-10001421");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001421, EnemyEtis);
 				break;
 			}
 			case 13375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001362);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001422, EnemyEtis, "EnemyEtis-10001422");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001422, EnemyEtis);
 				break;
 			}
 			case 13385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001363);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001423, EnemyEtis, "EnemyEtis-10001423");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001423, EnemyEtis);
 				break;
 			}
 			case 13395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001364);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001424, EnemyEtis, "EnemyEtis-10001424");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001424, EnemyEtis);
 				break;
 			}
 			case 13405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001365);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001425, EnemyEtis, "EnemyEtis-10001425");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001425, EnemyEtis);
 				break;
 			}
 			case 13415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001366);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001426, EnemyEtis, "EnemyEtis-10001426");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001426, EnemyEtis);
 				break;
 			}
 			case 13425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001367);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001427, EnemyEtis, "EnemyEtis-10001427");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001427, EnemyEtis);
 				break;
 			}
 			case 13435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001368);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001428, EnemyEtis, "EnemyEtis-10001428");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001428, EnemyEtis);
 				break;
 			}
 			case 13445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001369);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001429, EnemyEtis, "EnemyEtis-10001429");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001429, EnemyEtis);
 				break;
 			}
 			case 13455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001370);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001430, EnemyEtis, "EnemyEtis-10001430");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001430, EnemyEtis);
 				break;
 			}
 			case 13465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001371);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001431, EnemyEtis, "EnemyEtis-10001431");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001431, EnemyEtis);
 				break;
 			}
 			case 13475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001372);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001432, EnemyEtis, "EnemyEtis-10001432");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001432, EnemyEtis);
 				break;
 			}
 			case 13485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001373);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001433, EnemyEtis, "EnemyEtis-10001433");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001433, EnemyEtis);
 				break;
 			}
 			case 13495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001374);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001434, EnemyEtis, "EnemyEtis-10001434");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001434, EnemyEtis);
 				break;
 			}
 			case 13505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001375);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001435, EnemyEtis, "EnemyEtis-10001435");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001435, EnemyEtis);
 				break;
 			}
 			case 13515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001376);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001436, EnemyEtis, "EnemyEtis-10001436");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001436, EnemyEtis);
 				break;
 			}
 			case 13525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001377);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001437, EnemyEtis, "EnemyEtis-10001437");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001437, EnemyEtis);
 				break;
 			}
 			case 13535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001378);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001438, EnemyEtis, "EnemyEtis-10001438");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001438, EnemyEtis);
 				break;
 			}
 			case 13545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001379);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001439, EnemyEtis, "EnemyEtis-10001439");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001439, EnemyEtis);
 				break;
 			}
 			case 13555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001380);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001440, EnemyEtis, "EnemyEtis-10001440");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001440, EnemyEtis);
 				break;
 			}
 			case 13565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001381);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001441, EnemyEtis, "EnemyEtis-10001441");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001441, EnemyEtis);
 				break;
 			}
 			case 13575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001382);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001442, EnemyEtis, "EnemyEtis-10001442");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001442, EnemyEtis);
 				break;
 			}
 			case 13585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001383);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001443, EnemyEtis, "EnemyEtis-10001443");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001443, EnemyEtis);
 				break;
 			}
 			case 13595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001384);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001444, EnemyEtis, "EnemyEtis-10001444");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001444, EnemyEtis);
 				break;
 			}
 			case 13605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001385);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001445, EnemyEtis, "EnemyEtis-10001445");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001445, EnemyEtis);
 				break;
 			}
 			case 13615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001386);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001446, EnemyEtis, "EnemyEtis-10001446");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001446, EnemyEtis);
 				break;
 			}
 			case 13625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001387);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001447, EnemyEtis, "EnemyEtis-10001447");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001447, EnemyEtis);
 				break;
 			}
 			case 13635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001388);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001448, EnemyEtis, "EnemyEtis-10001448");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001448, EnemyEtis);
 				break;
 			}
 			case 13645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001389);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001449, EnemyEtis, "EnemyEtis-10001449");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001449, EnemyEtis);
 				break;
 			}
 			case 13655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001390);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001450, EnemyEtis, "EnemyEtis-10001450");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001450, EnemyEtis);
 				break;
 			}
 			case 13665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001391);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001451, EnemyEtis, "EnemyEtis-10001451");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001451, EnemyEtis);
 				break;
 			}
 			case 13675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001392);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001452, EnemyEtis, "EnemyEtis-10001452");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001452, EnemyEtis);
 				break;
 			}
 			case 13685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001393);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001453, EnemyEtis, "EnemyEtis-10001453");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001453, EnemyEtis);
 				break;
 			}
 			case 13695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001394);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001454, EnemyEtis, "EnemyEtis-10001454");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001454, EnemyEtis);
 				break;
 			}
 			case 13705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001395);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001455, EnemyEtis, "EnemyEtis-10001455");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001455, EnemyEtis);
 				break;
 			}
 			case 13715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001396);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001456, EnemyEtis, "EnemyEtis-10001456");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001456, EnemyEtis);
 				break;
 			}
 			case 13725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001397);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001457, EnemyEtis, "EnemyEtis-10001457");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001457, EnemyEtis);
 				break;
 			}
 			case 13735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001398);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001458, EnemyEtis, "EnemyEtis-10001458");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001458, EnemyEtis);
 				break;
 			}
 			case 13745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001399);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001459, EnemyEtis, "EnemyEtis-10001459");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001459, EnemyEtis);
 				break;
 			}
 			case 13755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001400);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001460, EnemyEtis, "EnemyEtis-10001460");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001460, EnemyEtis);
 				break;
 			}
 			case 13765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001401);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001461, EnemyEtis, "EnemyEtis-10001461");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001461, EnemyEtis);
 				break;
 			}
 			case 13775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001402);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001462, EnemyEtis, "EnemyEtis-10001462");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001462, EnemyEtis);
 				break;
 			}
 			case 13785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001403);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001463, EnemyEtis, "EnemyEtis-10001463");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001463, EnemyEtis);
 				break;
 			}
 			case 13795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001404);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001464, EnemyEtis, "EnemyEtis-10001464");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001464, EnemyEtis);
 				break;
 			}
 			case 13805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001405);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001465, EnemyEtis, "EnemyEtis-10001465");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001465, EnemyEtis);
 				break;
 			}
 			case 13815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001406);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001466, EnemyEtis, "EnemyEtis-10001466");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001466, EnemyEtis);
 				break;
 			}
 			case 13825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001407);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001467, EnemyEtis, "EnemyEtis-10001467");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001467, EnemyEtis);
 				break;
 			}
 			case 13835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001408);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001468, EnemyEtis, "EnemyEtis-10001468");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001468, EnemyEtis);
 				break;
 			}
 			case 13845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001409);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001469, EnemyEtis, "EnemyEtis-10001469");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001469, EnemyEtis);
 				break;
 			}
 			case 13855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001410);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001470, EnemyEtis, "EnemyEtis-10001470");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001470, EnemyEtis);
 				break;
 			}
 			case 13865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001411);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001471, EnemyEtis, "EnemyEtis-10001471");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001471, EnemyEtis);
 				break;
 			}
 			case 13875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001412);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001472, EnemyEtis, "EnemyEtis-10001472");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001472, EnemyEtis);
 				break;
 			}
 			case 13885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001413);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001473, EnemyEtis, "EnemyEtis-10001473");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001473, EnemyEtis);
 				break;
 			}
 			case 13895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001414);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001474, EnemyEtis, "EnemyEtis-10001474");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001474, EnemyEtis);
 				break;
 			}
 			case 13900: {
-				requestActor(10003232, EnemyDrastea, "EnemyDrastea-10003232");
+				requestActor(10003232, EnemyDrastea);
 				break;
 			}
 			case 13905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001415);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001475, EnemyEtis, "EnemyEtis-10001475");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001475, EnemyEtis);
 				break;
 			}
 			case 13915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001416);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001476, EnemyEtis, "EnemyEtis-10001476");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001476, EnemyEtis);
 				break;
 			}
 			case 13925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001417);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001477, EnemyEtis, "EnemyEtis-10001477");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001477, EnemyEtis);
 				break;
 			}
 			case 13935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001418);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001478, EnemyEtis, "EnemyEtis-10001478");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001478, EnemyEtis);
 				break;
 			}
 			case 13945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001419);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001479, EnemyEtis, "EnemyEtis-10001479");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001479, EnemyEtis);
 				break;
 			}
 			case 13955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001420);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001480, EnemyEtis, "EnemyEtis-10001480");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001480, EnemyEtis);
 				break;
 			}
 			case 13965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001421);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001481, EnemyEtis, "EnemyEtis-10001481");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001481, EnemyEtis);
 				break;
 			}
 			case 13975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001422);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001482, EnemyEtis, "EnemyEtis-10001482");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001482, EnemyEtis);
 				break;
 			}
 			case 13985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001423);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001483, EnemyEtis, "EnemyEtis-10001483");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001483, EnemyEtis);
 				break;
 			}
 			case 13995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001424);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001484, EnemyEtis, "EnemyEtis-10001484");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001484, EnemyEtis);
 				break;
 			}
 			case 14005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001425);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001485, EnemyEtis, "EnemyEtis-10001485");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001485, EnemyEtis);
 				break;
 			}
 			case 14015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001426);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001486, EnemyEtis, "EnemyEtis-10001486");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001486, EnemyEtis);
 				break;
 			}
 			case 14025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001427);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001487, EnemyEtis, "EnemyEtis-10001487");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001487, EnemyEtis);
 				break;
 			}
 			case 14035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001428);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001488, EnemyEtis, "EnemyEtis-10001488");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001488, EnemyEtis);
 				break;
 			}
 			case 14045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001429);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001489, EnemyEtis, "EnemyEtis-10001489");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001489, EnemyEtis);
 				break;
 			}
 			case 14055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001430);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001490, EnemyEtis, "EnemyEtis-10001490");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001490, EnemyEtis);
 				break;
 			}
 			case 14065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001431);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001491, EnemyEtis, "EnemyEtis-10001491");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001491, EnemyEtis);
 				break;
 			}
 			case 14075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001432);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001492, EnemyEtis, "EnemyEtis-10001492");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001492, EnemyEtis);
 				break;
 			}
 			case 14085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001433);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001493, EnemyEtis, "EnemyEtis-10001493");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001493, EnemyEtis);
 				break;
 			}
 			case 14095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001434);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001494, EnemyEtis, "EnemyEtis-10001494");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001494, EnemyEtis);
 				break;
 			}
 			case 14105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001435);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001495, EnemyEtis, "EnemyEtis-10001495");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001495, EnemyEtis);
 				break;
 			}
 			case 14115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001436);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001496, EnemyEtis, "EnemyEtis-10001496");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001496, EnemyEtis);
 				break;
 			}
 			case 14125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001437);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001497, EnemyEtis, "EnemyEtis-10001497");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001497, EnemyEtis);
 				break;
 			}
 			case 14135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001438);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001498, EnemyEtis, "EnemyEtis-10001498");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001498, EnemyEtis);
 				break;
 			}
 			case 14145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001439);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001499, EnemyEtis, "EnemyEtis-10001499");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001499, EnemyEtis);
 				break;
 			}
 			case 14155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001440);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001500, EnemyEtis, "EnemyEtis-10001500");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001500, EnemyEtis);
 				break;
 			}
 			case 14165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001441);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001501, EnemyEtis, "EnemyEtis-10001501");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001501, EnemyEtis);
 				break;
 			}
 			case 14175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001442);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001502, EnemyEtis, "EnemyEtis-10001502");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001502, EnemyEtis);
 				break;
 			}
 			case 14185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001443);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001503, EnemyEtis, "EnemyEtis-10001503");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001503, EnemyEtis);
 				break;
 			}
 			case 14195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001444);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001504, EnemyEtis, "EnemyEtis-10001504");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001504, EnemyEtis);
 				break;
 			}
 			case 14205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001445);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001505, EnemyEtis, "EnemyEtis-10001505");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001505, EnemyEtis);
 				break;
 			}
 			case 14215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001446);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001506, EnemyEtis, "EnemyEtis-10001506");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001506, EnemyEtis);
 				break;
 			}
 			case 14225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001447);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001507, EnemyEtis, "EnemyEtis-10001507");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001507, EnemyEtis);
 				break;
 			}
 			case 14235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001448);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001508, EnemyEtis, "EnemyEtis-10001508");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001508, EnemyEtis);
 				break;
 			}
 			case 14245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001449);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001509, EnemyEtis, "EnemyEtis-10001509");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001509, EnemyEtis);
 				break;
 			}
 			case 14255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001450);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001510, EnemyEtis, "EnemyEtis-10001510");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001510, EnemyEtis);
 				break;
 			}
 			case 14265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001451);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001511, EnemyEtis, "EnemyEtis-10001511");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001511, EnemyEtis);
 				break;
 			}
 			case 14275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001452);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001512, EnemyEtis, "EnemyEtis-10001512");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001512, EnemyEtis);
 				break;
 			}
 			case 14285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001453);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001513, EnemyEtis, "EnemyEtis-10001513");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001513, EnemyEtis);
 				break;
 			}
 			case 14295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001454);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001514, EnemyEtis, "EnemyEtis-10001514");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001514, EnemyEtis);
 				break;
 			}
 			case 14305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001455);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001515, EnemyEtis, "EnemyEtis-10001515");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001515, EnemyEtis);
 				break;
 			}
 			case 14315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001456);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001516, EnemyEtis, "EnemyEtis-10001516");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001516, EnemyEtis);
 				break;
 			}
 			case 14325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001457);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001517, EnemyEtis, "EnemyEtis-10001517");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001517, EnemyEtis);
 				break;
 			}
 			case 14335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001458);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001518, EnemyEtis, "EnemyEtis-10001518");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001518, EnemyEtis);
 				break;
 			}
 			case 14345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001459);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001519, EnemyEtis, "EnemyEtis-10001519");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001519, EnemyEtis);
 				break;
 			}
 			case 14355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001460);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001520, EnemyEtis, "EnemyEtis-10001520");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001520, EnemyEtis);
 				break;
 			}
 			case 14365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001461);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001521, EnemyEtis, "EnemyEtis-10001521");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001521, EnemyEtis);
 				break;
 			}
 			case 14375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001462);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001522, EnemyEtis, "EnemyEtis-10001522");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001522, EnemyEtis);
 				break;
 			}
 			case 14385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001463);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001523, EnemyEtis, "EnemyEtis-10001523");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001523, EnemyEtis);
 				break;
 			}
 			case 14395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001464);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001524, EnemyEtis, "EnemyEtis-10001524");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001524, EnemyEtis);
 				break;
 			}
 			case 14405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001465);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001525, EnemyEtis, "EnemyEtis-10001525");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001525, EnemyEtis);
 				break;
 			}
 			case 14415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001466);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001526, EnemyEtis, "EnemyEtis-10001526");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001526, EnemyEtis);
 				break;
 			}
 			case 14425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001467);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001527, EnemyEtis, "EnemyEtis-10001527");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001527, EnemyEtis);
 				break;
 			}
 			case 14435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001468);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001528, EnemyEtis, "EnemyEtis-10001528");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001528, EnemyEtis);
 				break;
 			}
 			case 14445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001469);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001529, EnemyEtis, "EnemyEtis-10001529");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001529, EnemyEtis);
 				break;
 			}
 			case 14455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001470);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001530, EnemyEtis, "EnemyEtis-10001530");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001530, EnemyEtis);
 				break;
 			}
 			case 14465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001471);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001531, EnemyEtis, "EnemyEtis-10001531");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001531, EnemyEtis);
 				break;
 			}
 			case 14475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001472);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001532, EnemyEtis, "EnemyEtis-10001532");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001532, EnemyEtis);
 				break;
 			}
 			case 14485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001473);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001533, EnemyEtis, "EnemyEtis-10001533");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001533, EnemyEtis);
 				break;
 			}
 			case 14495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001474);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001534, EnemyEtis, "EnemyEtis-10001534");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001534, EnemyEtis);
 				break;
 			}
 			case 14500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003232);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 14505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001475);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001535, EnemyEtis, "EnemyEtis-10001535");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001535, EnemyEtis);
 				break;
 			}
 			case 14515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001476);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001536, EnemyEtis, "EnemyEtis-10001536");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001536, EnemyEtis);
 				break;
 			}
 			case 14525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001477);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001537, EnemyEtis, "EnemyEtis-10001537");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001537, EnemyEtis);
 				break;
 			}
 			case 14535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001478);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001538, EnemyEtis, "EnemyEtis-10001538");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001538, EnemyEtis);
 				break;
 			}
 			case 14545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001479);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001539, EnemyEtis, "EnemyEtis-10001539");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001539, EnemyEtis);
 				break;
 			}
 			case 14555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001480);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001540, EnemyEtis, "EnemyEtis-10001540");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001540, EnemyEtis);
 				break;
 			}
 			case 14565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001481);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001541, EnemyEtis, "EnemyEtis-10001541");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001541, EnemyEtis);
 				break;
 			}
 			case 14575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001482);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001542, EnemyEtis, "EnemyEtis-10001542");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001542, EnemyEtis);
 				break;
 			}
 			case 14585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001483);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001543, EnemyEtis, "EnemyEtis-10001543");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001543, EnemyEtis);
 				break;
 			}
 			case 14595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001484);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001544, EnemyEtis, "EnemyEtis-10001544");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001544, EnemyEtis);
 				break;
 			}
 			case 14605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001485);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001545, EnemyEtis, "EnemyEtis-10001545");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001545, EnemyEtis);
 				break;
 			}
 			case 14615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001486);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001546, EnemyEtis, "EnemyEtis-10001546");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001546, EnemyEtis);
 				break;
 			}
 			case 14625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001487);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001547, EnemyEtis, "EnemyEtis-10001547");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001547, EnemyEtis);
 				break;
 			}
 			case 14635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001488);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001548, EnemyEtis, "EnemyEtis-10001548");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001548, EnemyEtis);
 				break;
 			}
 			case 14645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001489);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001549, EnemyEtis, "EnemyEtis-10001549");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001549, EnemyEtis);
 				break;
 			}
 			case 14655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001490);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001550, EnemyEtis, "EnemyEtis-10001550");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001550, EnemyEtis);
 				break;
 			}
 			case 14665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001491);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001551, EnemyEtis, "EnemyEtis-10001551");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001551, EnemyEtis);
 				break;
 			}
 			case 14675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001492);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001552, EnemyEtis, "EnemyEtis-10001552");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001552, EnemyEtis);
 				break;
 			}
 			case 14685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001493);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001553, EnemyEtis, "EnemyEtis-10001553");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001553, EnemyEtis);
 				break;
 			}
 			case 14695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001494);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001554, EnemyEtis, "EnemyEtis-10001554");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001554, EnemyEtis);
 				break;
 			}
 			case 14705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001495);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001555, EnemyEtis, "EnemyEtis-10001555");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001555, EnemyEtis);
 				break;
 			}
 			case 14715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001496);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001556, EnemyEtis, "EnemyEtis-10001556");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001556, EnemyEtis);
 				break;
 			}
 			case 14725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001497);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001557, EnemyEtis, "EnemyEtis-10001557");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001557, EnemyEtis);
 				break;
 			}
 			case 14735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001498);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001558, EnemyEtis, "EnemyEtis-10001558");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001558, EnemyEtis);
 				break;
 			}
 			case 14745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001499);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001559, EnemyEtis, "EnemyEtis-10001559");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001559, EnemyEtis);
 				break;
 			}
 			case 14755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001500);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001560, EnemyEtis, "EnemyEtis-10001560");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001560, EnemyEtis);
 				break;
 			}
 			case 14765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001501);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001561, EnemyEtis, "EnemyEtis-10001561");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001561, EnemyEtis);
 				break;
 			}
 			case 14775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001502);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001562, EnemyEtis, "EnemyEtis-10001562");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001562, EnemyEtis);
 				break;
 			}
 			case 14785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001503);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001563, EnemyEtis, "EnemyEtis-10001563");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001563, EnemyEtis);
 				break;
 			}
 			case 14795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001504);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001564, EnemyEtis, "EnemyEtis-10001564");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001564, EnemyEtis);
 				break;
 			}
 			case 14805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001505);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001565, EnemyEtis, "EnemyEtis-10001565");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001565, EnemyEtis);
 				break;
 			}
 			case 14815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001506);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001566, EnemyEtis, "EnemyEtis-10001566");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001566, EnemyEtis);
 				break;
 			}
 			case 14825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001507);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001567, EnemyEtis, "EnemyEtis-10001567");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001567, EnemyEtis);
 				break;
 			}
 			case 14835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001508);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001568, EnemyEtis, "EnemyEtis-10001568");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001568, EnemyEtis);
 				break;
 			}
 			case 14845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001509);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001569, EnemyEtis, "EnemyEtis-10001569");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001569, EnemyEtis);
 				break;
 			}
 			case 14855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001510);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001570, EnemyEtis, "EnemyEtis-10001570");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001570, EnemyEtis);
 				break;
 			}
 			case 14865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001511);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001571, EnemyEtis, "EnemyEtis-10001571");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001571, EnemyEtis);
 				break;
 			}
 			case 14875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001512);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001572, EnemyEtis, "EnemyEtis-10001572");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001572, EnemyEtis);
 				break;
 			}
 			case 14885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001513);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001573, EnemyEtis, "EnemyEtis-10001573");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001573, EnemyEtis);
 				break;
 			}
 			case 14895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001514);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001574, EnemyEtis, "EnemyEtis-10001574");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001574, EnemyEtis);
 				break;
 			}
 			case 14905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001515);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001575, EnemyEtis, "EnemyEtis-10001575");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001575, EnemyEtis);
 				break;
 			}
 			case 14915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001516);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001576, EnemyEtis, "EnemyEtis-10001576");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001576, EnemyEtis);
 				break;
 			}
 			case 14925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001517);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001577, EnemyEtis, "EnemyEtis-10001577");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001577, EnemyEtis);
 				break;
 			}
 			case 14935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001518);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001578, EnemyEtis, "EnemyEtis-10001578");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001578, EnemyEtis);
 				break;
 			}
 			case 14945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001519);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001579, EnemyEtis, "EnemyEtis-10001579");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001579, EnemyEtis);
 				break;
 			}
 			case 14955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001520);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001580, EnemyEtis, "EnemyEtis-10001580");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001580, EnemyEtis);
 				break;
 			}
 			case 14965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001521);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001581, EnemyEtis, "EnemyEtis-10001581");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001581, EnemyEtis);
 				break;
 			}
 			case 14975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001522);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001582, EnemyEtis, "EnemyEtis-10001582");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001582, EnemyEtis);
 				break;
 			}
 			case 14985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001523);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001583, EnemyEtis, "EnemyEtis-10001583");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001583, EnemyEtis);
 				break;
 			}
 			case 14995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001524);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001584, EnemyEtis, "EnemyEtis-10001584");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001584, EnemyEtis);
 				break;
 			}
 			case 15005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001525);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001585, EnemyEtis, "EnemyEtis-10001585");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001585, EnemyEtis);
 				break;
 			}
 			case 15015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001526);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001586, EnemyEtis, "EnemyEtis-10001586");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001586, EnemyEtis);
 				break;
 			}
 			case 15025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001527);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001587, EnemyEtis, "EnemyEtis-10001587");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001587, EnemyEtis);
 				break;
 			}
 			case 15035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001528);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001588, EnemyEtis, "EnemyEtis-10001588");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001588, EnemyEtis);
 				break;
 			}
 			case 15045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001529);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001589, EnemyEtis, "EnemyEtis-10001589");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001589, EnemyEtis);
 				break;
 			}
 			case 15055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001530);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001590, EnemyEtis, "EnemyEtis-10001590");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001590, EnemyEtis);
 				break;
 			}
 			case 15065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001531);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001591, EnemyEtis, "EnemyEtis-10001591");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001591, EnemyEtis);
 				break;
 			}
 			case 15075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001532);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001592, EnemyEtis, "EnemyEtis-10001592");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001592, EnemyEtis);
 				break;
 			}
 			case 15085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001533);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001593, EnemyEtis, "EnemyEtis-10001593");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001593, EnemyEtis);
 				break;
 			}
 			case 15095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001534);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001594, EnemyEtis, "EnemyEtis-10001594");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001594, EnemyEtis);
 				break;
 			}
 			case 15105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001535);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001595, EnemyEtis, "EnemyEtis-10001595");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001595, EnemyEtis);
 				break;
 			}
 			case 15115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001536);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001596, EnemyEtis, "EnemyEtis-10001596");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001596, EnemyEtis);
 				break;
 			}
 			case 15125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001537);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001597, EnemyEtis, "EnemyEtis-10001597");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001597, EnemyEtis);
 				break;
 			}
 			case 15135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001538);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001598, EnemyEtis, "EnemyEtis-10001598");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001598, EnemyEtis);
 				break;
 			}
 			case 15145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001539);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001599, EnemyEtis, "EnemyEtis-10001599");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001599, EnemyEtis);
 				break;
 			}
 			case 15155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001540);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001600, EnemyEtis, "EnemyEtis-10001600");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001600, EnemyEtis);
 				break;
 			}
 			case 15165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001541);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001601, EnemyEtis, "EnemyEtis-10001601");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001601, EnemyEtis);
 				break;
 			}
 			case 15175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001542);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001602, EnemyEtis, "EnemyEtis-10001602");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001602, EnemyEtis);
 				break;
 			}
 			case 15185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001543);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001603, EnemyEtis, "EnemyEtis-10001603");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001603, EnemyEtis);
 				break;
 			}
 			case 15195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001544);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001604, EnemyEtis, "EnemyEtis-10001604");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001604, EnemyEtis);
 				break;
 			}
 			case 15205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001545);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001605, EnemyEtis, "EnemyEtis-10001605");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001605, EnemyEtis);
 				break;
 			}
 			case 15215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001546);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001606, EnemyEtis, "EnemyEtis-10001606");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001606, EnemyEtis);
 				break;
 			}
 			case 15225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001547);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001607, EnemyEtis, "EnemyEtis-10001607");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001607, EnemyEtis);
 				break;
 			}
 			case 15235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001548);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001608, EnemyEtis, "EnemyEtis-10001608");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001608, EnemyEtis);
 				break;
 			}
 			case 15245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001549);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001609, EnemyEtis, "EnemyEtis-10001609");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001609, EnemyEtis);
 				break;
 			}
 			case 15255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001550);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001610, EnemyEtis, "EnemyEtis-10001610");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001610, EnemyEtis);
 				break;
 			}
 			case 15265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001551);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001611, EnemyEtis, "EnemyEtis-10001611");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001611, EnemyEtis);
 				break;
 			}
 			case 15275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001552);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001612, EnemyEtis, "EnemyEtis-10001612");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001612, EnemyEtis);
 				break;
 			}
 			case 15285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001553);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001613, EnemyEtis, "EnemyEtis-10001613");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001613, EnemyEtis);
 				break;
 			}
 			case 15295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001554);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001614, EnemyEtis, "EnemyEtis-10001614");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001614, EnemyEtis);
 				break;
 			}
 			case 15305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001555);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001615, EnemyEtis, "EnemyEtis-10001615");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001615, EnemyEtis);
 				break;
 			}
 			case 15315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001556);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001616, EnemyEtis, "EnemyEtis-10001616");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001616, EnemyEtis);
 				break;
 			}
 			case 15325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001557);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001617, EnemyEtis, "EnemyEtis-10001617");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001617, EnemyEtis);
 				break;
 			}
 			case 15335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001558);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001618, EnemyEtis, "EnemyEtis-10001618");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001618, EnemyEtis);
 				break;
 			}
 			case 15345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001559);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001619, EnemyEtis, "EnemyEtis-10001619");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001619, EnemyEtis);
 				break;
 			}
 			case 15355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001560);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001620, EnemyEtis, "EnemyEtis-10001620");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001620, EnemyEtis);
 				break;
 			}
 			case 15365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001561);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001621, EnemyEtis, "EnemyEtis-10001621");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001621, EnemyEtis);
 				break;
 			}
 			case 15375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001562);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001622, EnemyEtis, "EnemyEtis-10001622");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001622, EnemyEtis);
 				break;
 			}
 			case 15385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001563);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001623, EnemyEtis, "EnemyEtis-10001623");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001623, EnemyEtis);
 				break;
 			}
 			case 15395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001564);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001624, EnemyEtis, "EnemyEtis-10001624");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001624, EnemyEtis);
 				break;
 			}
 			case 15405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001565);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001625, EnemyEtis, "EnemyEtis-10001625");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001625, EnemyEtis);
 				break;
 			}
 			case 15415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001566);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001626, EnemyEtis, "EnemyEtis-10001626");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001626, EnemyEtis);
 				break;
 			}
 			case 15425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001567);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001627, EnemyEtis, "EnemyEtis-10001627");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001627, EnemyEtis);
 				break;
 			}
 			case 15435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001568);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001628, EnemyEtis, "EnemyEtis-10001628");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001628, EnemyEtis);
 				break;
 			}
 			case 15445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001569);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001629, EnemyEtis, "EnemyEtis-10001629");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001629, EnemyEtis);
 				break;
 			}
 			case 15455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001570);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001630, EnemyEtis, "EnemyEtis-10001630");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001630, EnemyEtis);
 				break;
 			}
 			case 15465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001571);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001631, EnemyEtis, "EnemyEtis-10001631");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001631, EnemyEtis);
 				break;
 			}
 			case 15475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001572);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001632, EnemyEtis, "EnemyEtis-10001632");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001632, EnemyEtis);
 				break;
 			}
 			case 15485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001573);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001633, EnemyEtis, "EnemyEtis-10001633");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001633, EnemyEtis);
 				break;
 			}
 			case 15495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001574);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001634, EnemyEtis, "EnemyEtis-10001634");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001634, EnemyEtis);
 				break;
 			}
 			case 15505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001575);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001635, EnemyEtis, "EnemyEtis-10001635");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001635, EnemyEtis);
 				break;
 			}
 			case 15515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001576);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001636, EnemyEtis, "EnemyEtis-10001636");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001636, EnemyEtis);
 				break;
 			}
 			case 15525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001577);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001637, EnemyEtis, "EnemyEtis-10001637");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001637, EnemyEtis);
 				break;
 			}
 			case 15535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001578);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001638, EnemyEtis, "EnemyEtis-10001638");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001638, EnemyEtis);
 				break;
 			}
 			case 15545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001579);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001639, EnemyEtis, "EnemyEtis-10001639");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001639, EnemyEtis);
 				break;
 			}
 			case 15555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001580);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001640, EnemyEtis, "EnemyEtis-10001640");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001640, EnemyEtis);
 				break;
 			}
 			case 15565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001581);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001641, EnemyEtis, "EnemyEtis-10001641");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001641, EnemyEtis);
 				break;
 			}
 			case 15575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001582);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001642, EnemyEtis, "EnemyEtis-10001642");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001642, EnemyEtis);
 				break;
 			}
 			case 15585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001583);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001643, EnemyEtis, "EnemyEtis-10001643");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001643, EnemyEtis);
 				break;
 			}
 			case 15595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001584);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001644, EnemyEtis, "EnemyEtis-10001644");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001644, EnemyEtis);
 				break;
 			}
 			case 15605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001585);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001645, EnemyEtis, "EnemyEtis-10001645");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001645, EnemyEtis);
 				break;
 			}
 			case 15615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001586);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001646, EnemyEtis, "EnemyEtis-10001646");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001646, EnemyEtis);
 				break;
 			}
 			case 15625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001587);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001647, EnemyEtis, "EnemyEtis-10001647");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001647, EnemyEtis);
 				break;
 			}
 			case 15635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001588);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001648, EnemyEtis, "EnemyEtis-10001648");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001648, EnemyEtis);
 				break;
 			}
 			case 15645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001589);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001649, EnemyEtis, "EnemyEtis-10001649");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001649, EnemyEtis);
 				break;
 			}
 			case 15655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001590);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001650, EnemyEtis, "EnemyEtis-10001650");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001650, EnemyEtis);
 				break;
 			}
 			case 15665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001591);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001651, EnemyEtis, "EnemyEtis-10001651");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001651, EnemyEtis);
 				break;
 			}
 			case 15675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001592);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001652, EnemyEtis, "EnemyEtis-10001652");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001652, EnemyEtis);
 				break;
 			}
 			case 15685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001593);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001653, EnemyEtis, "EnemyEtis-10001653");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001653, EnemyEtis);
 				break;
 			}
 			case 15695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001594);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001654, EnemyEtis, "EnemyEtis-10001654");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001654, EnemyEtis);
 				break;
 			}
 			case 15705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001595);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001655, EnemyEtis, "EnemyEtis-10001655");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001655, EnemyEtis);
 				break;
 			}
 			case 15715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001596);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001656, EnemyEtis, "EnemyEtis-10001656");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001656, EnemyEtis);
 				break;
 			}
 			case 15725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001597);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001657, EnemyEtis, "EnemyEtis-10001657");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001657, EnemyEtis);
 				break;
 			}
 			case 15735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001598);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001658, EnemyEtis, "EnemyEtis-10001658");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001658, EnemyEtis);
 				break;
 			}
 			case 15745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001599);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001659, EnemyEtis, "EnemyEtis-10001659");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001659, EnemyEtis);
 				break;
 			}
 			case 15755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001600);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001660, EnemyEtis, "EnemyEtis-10001660");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001660, EnemyEtis);
 				break;
 			}
 			case 15765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001601);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001661, EnemyEtis, "EnemyEtis-10001661");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001661, EnemyEtis);
 				break;
 			}
 			case 15775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001602);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001662, EnemyEtis, "EnemyEtis-10001662");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001662, EnemyEtis);
 				break;
 			}
 			case 15785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001603);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001663, EnemyEtis, "EnemyEtis-10001663");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001663, EnemyEtis);
 				break;
 			}
 			case 15795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001604);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001664, EnemyEtis, "EnemyEtis-10001664");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001664, EnemyEtis);
 				break;
 			}
 			case 15805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001605);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001665, EnemyEtis, "EnemyEtis-10001665");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001665, EnemyEtis);
 				break;
 			}
 			case 15815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001606);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001666, EnemyEtis, "EnemyEtis-10001666");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001666, EnemyEtis);
 				break;
 			}
 			case 15825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001607);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001667, EnemyEtis, "EnemyEtis-10001667");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001667, EnemyEtis);
 				break;
 			}
 			case 15835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001608);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001668, EnemyEtis, "EnemyEtis-10001668");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001668, EnemyEtis);
 				break;
 			}
 			case 15845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001609);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001669, EnemyEtis, "EnemyEtis-10001669");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001669, EnemyEtis);
 				break;
 			}
 			case 15855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001610);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001670, EnemyEtis, "EnemyEtis-10001670");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001670, EnemyEtis);
 				break;
 			}
 			case 15865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001611);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001671, EnemyEtis, "EnemyEtis-10001671");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001671, EnemyEtis);
 				break;
 			}
 			case 15875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001612);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001672, EnemyEtis, "EnemyEtis-10001672");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001672, EnemyEtis);
 				break;
 			}
 			case 15885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001613);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001673, EnemyEtis, "EnemyEtis-10001673");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001673, EnemyEtis);
 				break;
 			}
 			case 15895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001614);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001674, EnemyEtis, "EnemyEtis-10001674");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001674, EnemyEtis);
 				break;
 			}
 			case 15900: {
-				requestActor(10003233, EnemyDrastea, "EnemyDrastea-10003233");
+				requestActor(10003233, EnemyDrastea);
 				break;
 			}
 			case 15905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001615);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001675, EnemyEtis, "EnemyEtis-10001675");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001675, EnemyEtis);
 				break;
 			}
 			case 15915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001616);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001676, EnemyEtis, "EnemyEtis-10001676");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001676, EnemyEtis);
 				break;
 			}
 			case 15925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001617);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001677, EnemyEtis, "EnemyEtis-10001677");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001677, EnemyEtis);
 				break;
 			}
 			case 15935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001618);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001678, EnemyEtis, "EnemyEtis-10001678");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001678, EnemyEtis);
 				break;
 			}
 			case 15945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001619);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001679, EnemyEtis, "EnemyEtis-10001679");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001679, EnemyEtis);
 				break;
 			}
 			case 15955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001620);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001680, EnemyEtis, "EnemyEtis-10001680");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001680, EnemyEtis);
 				break;
 			}
 			case 15965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001621);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001681, EnemyEtis, "EnemyEtis-10001681");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001681, EnemyEtis);
 				break;
 			}
 			case 15975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001622);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001682, EnemyEtis, "EnemyEtis-10001682");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001682, EnemyEtis);
 				break;
 			}
 			case 15985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001623);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001683, EnemyEtis, "EnemyEtis-10001683");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001683, EnemyEtis);
 				break;
 			}
 			case 15995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001624);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001684, EnemyEtis, "EnemyEtis-10001684");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001684, EnemyEtis);
 				break;
 			}
 			case 16005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001625);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001685, EnemyEtis, "EnemyEtis-10001685");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001685, EnemyEtis);
 				break;
 			}
 			case 16015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001626);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001686, EnemyEtis, "EnemyEtis-10001686");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001686, EnemyEtis);
 				break;
 			}
 			case 16025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001627);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001687, EnemyEtis, "EnemyEtis-10001687");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001687, EnemyEtis);
 				break;
 			}
 			case 16035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001628);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001688, EnemyEtis, "EnemyEtis-10001688");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001688, EnemyEtis);
 				break;
 			}
 			case 16045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001629);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001689, EnemyEtis, "EnemyEtis-10001689");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001689, EnemyEtis);
 				break;
 			}
 			case 16055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001630);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001690, EnemyEtis, "EnemyEtis-10001690");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001690, EnemyEtis);
 				break;
 			}
 			case 16065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001631);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001691, EnemyEtis, "EnemyEtis-10001691");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001691, EnemyEtis);
 				break;
 			}
 			case 16075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001632);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001692, EnemyEtis, "EnemyEtis-10001692");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001692, EnemyEtis);
 				break;
 			}
 			case 16085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001633);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001693, EnemyEtis, "EnemyEtis-10001693");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001693, EnemyEtis);
 				break;
 			}
 			case 16095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001634);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001694, EnemyEtis, "EnemyEtis-10001694");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001694, EnemyEtis);
 				break;
 			}
 			case 16105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001635);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001695, EnemyEtis, "EnemyEtis-10001695");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001695, EnemyEtis);
 				break;
 			}
 			case 16115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001636);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001696, EnemyEtis, "EnemyEtis-10001696");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001696, EnemyEtis);
 				break;
 			}
 			case 16125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001637);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001697, EnemyEtis, "EnemyEtis-10001697");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001697, EnemyEtis);
 				break;
 			}
 			case 16135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001638);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001698, EnemyEtis, "EnemyEtis-10001698");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001698, EnemyEtis);
 				break;
 			}
 			case 16145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001639);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001699, EnemyEtis, "EnemyEtis-10001699");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001699, EnemyEtis);
 				break;
 			}
 			case 16155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001640);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001700, EnemyEtis, "EnemyEtis-10001700");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001700, EnemyEtis);
 				break;
 			}
 			case 16165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001641);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001701, EnemyEtis, "EnemyEtis-10001701");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001701, EnemyEtis);
 				break;
 			}
 			case 16175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001642);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001702, EnemyEtis, "EnemyEtis-10001702");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001702, EnemyEtis);
 				break;
 			}
 			case 16185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001643);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001703, EnemyEtis, "EnemyEtis-10001703");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001703, EnemyEtis);
 				break;
 			}
 			case 16195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001644);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001704, EnemyEtis, "EnemyEtis-10001704");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001704, EnemyEtis);
 				break;
 			}
 			case 16205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001645);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001705, EnemyEtis, "EnemyEtis-10001705");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001705, EnemyEtis);
 				break;
 			}
 			case 16215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001646);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001706, EnemyEtis, "EnemyEtis-10001706");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001706, EnemyEtis);
 				break;
 			}
 			case 16225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001647);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001707, EnemyEtis, "EnemyEtis-10001707");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001707, EnemyEtis);
 				break;
 			}
 			case 16235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001648);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001708, EnemyEtis, "EnemyEtis-10001708");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001708, EnemyEtis);
 				break;
 			}
 			case 16245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001649);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001709, EnemyEtis, "EnemyEtis-10001709");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001709, EnemyEtis);
 				break;
 			}
 			case 16255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001650);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001710, EnemyEtis, "EnemyEtis-10001710");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001710, EnemyEtis);
 				break;
 			}
 			case 16265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001651);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001711, EnemyEtis, "EnemyEtis-10001711");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001711, EnemyEtis);
 				break;
 			}
 			case 16275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001652);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001712, EnemyEtis, "EnemyEtis-10001712");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001712, EnemyEtis);
 				break;
 			}
 			case 16285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001653);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001713, EnemyEtis, "EnemyEtis-10001713");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001713, EnemyEtis);
 				break;
 			}
 			case 16295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001654);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001714, EnemyEtis, "EnemyEtis-10001714");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001714, EnemyEtis);
 				break;
 			}
 			case 16305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001655);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001715, EnemyEtis, "EnemyEtis-10001715");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001715, EnemyEtis);
 				break;
 			}
 			case 16315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001656);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001716, EnemyEtis, "EnemyEtis-10001716");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001716, EnemyEtis);
 				break;
 			}
 			case 16325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001657);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001717, EnemyEtis, "EnemyEtis-10001717");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001717, EnemyEtis);
 				break;
 			}
 			case 16335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001658);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001718, EnemyEtis, "EnemyEtis-10001718");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001718, EnemyEtis);
 				break;
 			}
 			case 16345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001659);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001719, EnemyEtis, "EnemyEtis-10001719");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001719, EnemyEtis);
 				break;
 			}
 			case 16355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001660);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001720, EnemyEtis, "EnemyEtis-10001720");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001720, EnemyEtis);
 				break;
 			}
 			case 16365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001661);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001721, EnemyEtis, "EnemyEtis-10001721");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001721, EnemyEtis);
 				break;
 			}
 			case 16375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001662);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001722, EnemyEtis, "EnemyEtis-10001722");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001722, EnemyEtis);
 				break;
 			}
 			case 16385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001663);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001723, EnemyEtis, "EnemyEtis-10001723");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001723, EnemyEtis);
 				break;
 			}
 			case 16395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001664);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001724, EnemyEtis, "EnemyEtis-10001724");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001724, EnemyEtis);
 				break;
 			}
 			case 16405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001665);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001725, EnemyEtis, "EnemyEtis-10001725");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001725, EnemyEtis);
 				break;
 			}
 			case 16415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001666);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001726, EnemyEtis, "EnemyEtis-10001726");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001726, EnemyEtis);
 				break;
 			}
 			case 16425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001667);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001727, EnemyEtis, "EnemyEtis-10001727");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001727, EnemyEtis);
 				break;
 			}
 			case 16435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001668);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001728, EnemyEtis, "EnemyEtis-10001728");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001728, EnemyEtis);
 				break;
 			}
 			case 16445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001669);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001729, EnemyEtis, "EnemyEtis-10001729");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001729, EnemyEtis);
 				break;
 			}
 			case 16455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001670);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001730, EnemyEtis, "EnemyEtis-10001730");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001730, EnemyEtis);
 				break;
 			}
 			case 16465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001671);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001731, EnemyEtis, "EnemyEtis-10001731");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001731, EnemyEtis);
 				break;
 			}
 			case 16475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001672);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001732, EnemyEtis, "EnemyEtis-10001732");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001732, EnemyEtis);
 				break;
 			}
 			case 16485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001673);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001733, EnemyEtis, "EnemyEtis-10001733");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001733, EnemyEtis);
 				break;
 			}
 			case 16495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001674);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001734, EnemyEtis, "EnemyEtis-10001734");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001734, EnemyEtis);
 				break;
 			}
 			case 16500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003233);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 16505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001675);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001735, EnemyEtis, "EnemyEtis-10001735");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001735, EnemyEtis);
 				break;
 			}
 			case 16515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001676);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001736, EnemyEtis, "EnemyEtis-10001736");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001736, EnemyEtis);
 				break;
 			}
 			case 16525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001677);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001737, EnemyEtis, "EnemyEtis-10001737");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001737, EnemyEtis);
 				break;
 			}
 			case 16535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001678);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001738, EnemyEtis, "EnemyEtis-10001738");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001738, EnemyEtis);
 				break;
 			}
 			case 16545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001679);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001739, EnemyEtis, "EnemyEtis-10001739");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001739, EnemyEtis);
 				break;
 			}
 			case 16555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001680);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001740, EnemyEtis, "EnemyEtis-10001740");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001740, EnemyEtis);
 				break;
 			}
 			case 16565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001681);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001741, EnemyEtis, "EnemyEtis-10001741");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001741, EnemyEtis);
 				break;
 			}
 			case 16575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001682);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001742, EnemyEtis, "EnemyEtis-10001742");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001742, EnemyEtis);
 				break;
 			}
 			case 16585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001683);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001743, EnemyEtis, "EnemyEtis-10001743");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001743, EnemyEtis);
 				break;
 			}
 			case 16595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001684);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001744, EnemyEtis, "EnemyEtis-10001744");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001744, EnemyEtis);
 				break;
 			}
 			case 16605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001685);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001745, EnemyEtis, "EnemyEtis-10001745");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001745, EnemyEtis);
 				break;
 			}
 			case 16615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001686);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001746, EnemyEtis, "EnemyEtis-10001746");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001746, EnemyEtis);
 				break;
 			}
 			case 16625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001687);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001747, EnemyEtis, "EnemyEtis-10001747");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001747, EnemyEtis);
 				break;
 			}
 			case 16635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001688);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001748, EnemyEtis, "EnemyEtis-10001748");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001748, EnemyEtis);
 				break;
 			}
 			case 16645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001689);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001749, EnemyEtis, "EnemyEtis-10001749");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001749, EnemyEtis);
 				break;
 			}
 			case 16655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001690);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001750, EnemyEtis, "EnemyEtis-10001750");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001750, EnemyEtis);
 				break;
 			}
 			case 16665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001691);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001751, EnemyEtis, "EnemyEtis-10001751");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001751, EnemyEtis);
 				break;
 			}
 			case 16675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001692);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001752, EnemyEtis, "EnemyEtis-10001752");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001752, EnemyEtis);
 				break;
 			}
 			case 16685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001693);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001753, EnemyEtis, "EnemyEtis-10001753");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001753, EnemyEtis);
 				break;
 			}
 			case 16695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001694);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001754, EnemyEtis, "EnemyEtis-10001754");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001754, EnemyEtis);
 				break;
 			}
 			case 16705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001695);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001755, EnemyEtis, "EnemyEtis-10001755");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001755, EnemyEtis);
 				break;
 			}
 			case 16715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001696);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001756, EnemyEtis, "EnemyEtis-10001756");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001756, EnemyEtis);
 				break;
 			}
 			case 16725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001697);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001757, EnemyEtis, "EnemyEtis-10001757");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001757, EnemyEtis);
 				break;
 			}
 			case 16735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001698);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001758, EnemyEtis, "EnemyEtis-10001758");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001758, EnemyEtis);
 				break;
 			}
 			case 16745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001699);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001759, EnemyEtis, "EnemyEtis-10001759");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001759, EnemyEtis);
 				break;
 			}
 			case 16755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001700);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001760, EnemyEtis, "EnemyEtis-10001760");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001760, EnemyEtis);
 				break;
 			}
 			case 16765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001701);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001761, EnemyEtis, "EnemyEtis-10001761");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001761, EnemyEtis);
 				break;
 			}
 			case 16775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001702);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001762, EnemyEtis, "EnemyEtis-10001762");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001762, EnemyEtis);
 				break;
 			}
 			case 16785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001703);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001763, EnemyEtis, "EnemyEtis-10001763");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001763, EnemyEtis);
 				break;
 			}
 			case 16795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001704);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001764, EnemyEtis, "EnemyEtis-10001764");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001764, EnemyEtis);
 				break;
 			}
 			case 16805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001705);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001765, EnemyEtis, "EnemyEtis-10001765");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001765, EnemyEtis);
 				break;
 			}
 			case 16815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001706);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001766, EnemyEtis, "EnemyEtis-10001766");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001766, EnemyEtis);
 				break;
 			}
 			case 16825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001707);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001767, EnemyEtis, "EnemyEtis-10001767");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001767, EnemyEtis);
 				break;
 			}
 			case 16835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001708);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001768, EnemyEtis, "EnemyEtis-10001768");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001768, EnemyEtis);
 				break;
 			}
 			case 16845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001709);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001769, EnemyEtis, "EnemyEtis-10001769");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001769, EnemyEtis);
 				break;
 			}
 			case 16855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001710);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001770, EnemyEtis, "EnemyEtis-10001770");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001770, EnemyEtis);
 				break;
 			}
 			case 16865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001711);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001771, EnemyEtis, "EnemyEtis-10001771");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001771, EnemyEtis);
 				break;
 			}
 			case 16875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001712);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001772, EnemyEtis, "EnemyEtis-10001772");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001772, EnemyEtis);
 				break;
 			}
 			case 16885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001713);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001773, EnemyEtis, "EnemyEtis-10001773");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001773, EnemyEtis);
 				break;
 			}
 			case 16895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001714);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001774, EnemyEtis, "EnemyEtis-10001774");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001774, EnemyEtis);
 				break;
 			}
 			case 16905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001715);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001775, EnemyEtis, "EnemyEtis-10001775");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001775, EnemyEtis);
 				break;
 			}
 			case 16915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001716);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001776, EnemyEtis, "EnemyEtis-10001776");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001776, EnemyEtis);
 				break;
 			}
 			case 16925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001717);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001777, EnemyEtis, "EnemyEtis-10001777");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001777, EnemyEtis);
 				break;
 			}
 			case 16935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001718);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001778, EnemyEtis, "EnemyEtis-10001778");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001778, EnemyEtis);
 				break;
 			}
 			case 16945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001719);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001779, EnemyEtis, "EnemyEtis-10001779");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001779, EnemyEtis);
 				break;
 			}
 			case 16955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001720);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001780, EnemyEtis, "EnemyEtis-10001780");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001780, EnemyEtis);
 				break;
 			}
 			case 16965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001721);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001781, EnemyEtis, "EnemyEtis-10001781");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001781, EnemyEtis);
 				break;
 			}
 			case 16975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001722);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001782, EnemyEtis, "EnemyEtis-10001782");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001782, EnemyEtis);
 				break;
 			}
 			case 16985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001723);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001783, EnemyEtis, "EnemyEtis-10001783");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001783, EnemyEtis);
 				break;
 			}
 			case 16995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001724);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001784, EnemyEtis, "EnemyEtis-10001784");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001784, EnemyEtis);
 				break;
 			}
 			case 17005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001725);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001785, EnemyEtis, "EnemyEtis-10001785");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001785, EnemyEtis);
 				break;
 			}
 			case 17015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001726);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001786, EnemyEtis, "EnemyEtis-10001786");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001786, EnemyEtis);
 				break;
 			}
 			case 17025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001727);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001787, EnemyEtis, "EnemyEtis-10001787");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001787, EnemyEtis);
 				break;
 			}
 			case 17035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001728);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001788, EnemyEtis, "EnemyEtis-10001788");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001788, EnemyEtis);
 				break;
 			}
 			case 17045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001729);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001789, EnemyEtis, "EnemyEtis-10001789");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001789, EnemyEtis);
 				break;
 			}
 			case 17055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001730);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001790, EnemyEtis, "EnemyEtis-10001790");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001790, EnemyEtis);
 				break;
 			}
 			case 17065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001731);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001791, EnemyEtis, "EnemyEtis-10001791");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001791, EnemyEtis);
 				break;
 			}
 			case 17075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001732);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001792, EnemyEtis, "EnemyEtis-10001792");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001792, EnemyEtis);
 				break;
 			}
 			case 17085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001733);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001793, EnemyEtis, "EnemyEtis-10001793");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001793, EnemyEtis);
 				break;
 			}
 			case 17095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001734);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001794, EnemyEtis, "EnemyEtis-10001794");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001794, EnemyEtis);
 				break;
 			}
 			case 17105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001735);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001795, EnemyEtis, "EnemyEtis-10001795");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001795, EnemyEtis);
 				break;
 			}
 			case 17115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001736);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001796, EnemyEtis, "EnemyEtis-10001796");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001796, EnemyEtis);
 				break;
 			}
 			case 17125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001737);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001797, EnemyEtis, "EnemyEtis-10001797");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001797, EnemyEtis);
 				break;
 			}
 			case 17135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001738);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001798, EnemyEtis, "EnemyEtis-10001798");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001798, EnemyEtis);
 				break;
 			}
 			case 17145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001739);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001799, EnemyEtis, "EnemyEtis-10001799");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001799, EnemyEtis);
 				break;
 			}
 			case 17155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001740);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001800, EnemyEtis, "EnemyEtis-10001800");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001800, EnemyEtis);
 				break;
 			}
 			case 17165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001741);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001801, EnemyEtis, "EnemyEtis-10001801");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001801, EnemyEtis);
 				break;
 			}
 			case 17175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001742);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001802, EnemyEtis, "EnemyEtis-10001802");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001802, EnemyEtis);
 				break;
 			}
 			case 17185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001743);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001803, EnemyEtis, "EnemyEtis-10001803");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001803, EnemyEtis);
 				break;
 			}
 			case 17195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001744);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001804, EnemyEtis, "EnemyEtis-10001804");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001804, EnemyEtis);
 				break;
 			}
 			case 17205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001745);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001805, EnemyEtis, "EnemyEtis-10001805");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001805, EnemyEtis);
 				break;
 			}
 			case 17215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001746);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001806, EnemyEtis, "EnemyEtis-10001806");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001806, EnemyEtis);
 				break;
 			}
 			case 17225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001747);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001807, EnemyEtis, "EnemyEtis-10001807");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001807, EnemyEtis);
 				break;
 			}
 			case 17235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001748);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001808, EnemyEtis, "EnemyEtis-10001808");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001808, EnemyEtis);
 				break;
 			}
 			case 17245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001749);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001809, EnemyEtis, "EnemyEtis-10001809");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001809, EnemyEtis);
 				break;
 			}
 			case 17255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001750);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001810, EnemyEtis, "EnemyEtis-10001810");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001810, EnemyEtis);
 				break;
 			}
 			case 17265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001751);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001811, EnemyEtis, "EnemyEtis-10001811");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001811, EnemyEtis);
 				break;
 			}
 			case 17275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001752);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001812, EnemyEtis, "EnemyEtis-10001812");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001812, EnemyEtis);
 				break;
 			}
 			case 17285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001753);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001813, EnemyEtis, "EnemyEtis-10001813");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001813, EnemyEtis);
 				break;
 			}
 			case 17295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001754);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001814, EnemyEtis, "EnemyEtis-10001814");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001814, EnemyEtis);
 				break;
 			}
 			case 17305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001755);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001815, EnemyEtis, "EnemyEtis-10001815");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001815, EnemyEtis);
 				break;
 			}
 			case 17315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001756);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001816, EnemyEtis, "EnemyEtis-10001816");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001816, EnemyEtis);
 				break;
 			}
 			case 17325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001757);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001817, EnemyEtis, "EnemyEtis-10001817");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001817, EnemyEtis);
 				break;
 			}
 			case 17335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001758);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001818, EnemyEtis, "EnemyEtis-10001818");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001818, EnemyEtis);
 				break;
 			}
 			case 17345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001759);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001819, EnemyEtis, "EnemyEtis-10001819");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001819, EnemyEtis);
 				break;
 			}
 			case 17355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001760);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001820, EnemyEtis, "EnemyEtis-10001820");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001820, EnemyEtis);
 				break;
 			}
 			case 17365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001761);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001821, EnemyEtis, "EnemyEtis-10001821");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001821, EnemyEtis);
 				break;
 			}
 			case 17375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001762);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001822, EnemyEtis, "EnemyEtis-10001822");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001822, EnemyEtis);
 				break;
 			}
 			case 17385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001763);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001823, EnemyEtis, "EnemyEtis-10001823");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001823, EnemyEtis);
 				break;
 			}
 			case 17395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001764);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001824, EnemyEtis, "EnemyEtis-10001824");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001824, EnemyEtis);
 				break;
 			}
 			case 17405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001765);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001825, EnemyEtis, "EnemyEtis-10001825");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001825, EnemyEtis);
 				break;
 			}
 			case 17415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001766);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001826, EnemyEtis, "EnemyEtis-10001826");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001826, EnemyEtis);
 				break;
 			}
 			case 17425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001767);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001827, EnemyEtis, "EnemyEtis-10001827");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001827, EnemyEtis);
 				break;
 			}
 			case 17435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001768);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001828, EnemyEtis, "EnemyEtis-10001828");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001828, EnemyEtis);
 				break;
 			}
 			case 17445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001769);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001829, EnemyEtis, "EnemyEtis-10001829");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001829, EnemyEtis);
 				break;
 			}
 			case 17455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001770);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001830, EnemyEtis, "EnemyEtis-10001830");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001830, EnemyEtis);
 				break;
 			}
 			case 17465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001771);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001831, EnemyEtis, "EnemyEtis-10001831");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001831, EnemyEtis);
 				break;
 			}
 			case 17475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001772);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001832, EnemyEtis, "EnemyEtis-10001832");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001832, EnemyEtis);
 				break;
 			}
 			case 17485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001773);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001833, EnemyEtis, "EnemyEtis-10001833");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001833, EnemyEtis);
 				break;
 			}
 			case 17495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001774);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001834, EnemyEtis, "EnemyEtis-10001834");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001834, EnemyEtis);
 				break;
 			}
 			case 17505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001775);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001835, EnemyEtis, "EnemyEtis-10001835");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001835, EnemyEtis);
 				break;
 			}
 			case 17515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001776);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001836, EnemyEtis, "EnemyEtis-10001836");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001836, EnemyEtis);
 				break;
 			}
 			case 17525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001777);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001837, EnemyEtis, "EnemyEtis-10001837");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001837, EnemyEtis);
 				break;
 			}
 			case 17535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001778);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001838, EnemyEtis, "EnemyEtis-10001838");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001838, EnemyEtis);
 				break;
 			}
 			case 17545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001779);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001839, EnemyEtis, "EnemyEtis-10001839");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001839, EnemyEtis);
 				break;
 			}
 			case 17555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001780);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001840, EnemyEtis, "EnemyEtis-10001840");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001840, EnemyEtis);
 				break;
 			}
 			case 17565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001781);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001841, EnemyEtis, "EnemyEtis-10001841");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001841, EnemyEtis);
 				break;
 			}
 			case 17575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001782);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001842, EnemyEtis, "EnemyEtis-10001842");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001842, EnemyEtis);
 				break;
 			}
 			case 17585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001783);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001843, EnemyEtis, "EnemyEtis-10001843");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001843, EnemyEtis);
 				break;
 			}
 			case 17595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001784);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001844, EnemyEtis, "EnemyEtis-10001844");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001844, EnemyEtis);
 				break;
 			}
 			case 17605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001785);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001845, EnemyEtis, "EnemyEtis-10001845");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001845, EnemyEtis);
 				break;
 			}
 			case 17615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001786);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001846, EnemyEtis, "EnemyEtis-10001846");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001846, EnemyEtis);
 				break;
 			}
 			case 17625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001787);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001847, EnemyEtis, "EnemyEtis-10001847");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001847, EnemyEtis);
 				break;
 			}
 			case 17635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001788);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001848, EnemyEtis, "EnemyEtis-10001848");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001848, EnemyEtis);
 				break;
 			}
 			case 17645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001789);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001849, EnemyEtis, "EnemyEtis-10001849");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001849, EnemyEtis);
 				break;
 			}
 			case 17655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001790);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001850, EnemyEtis, "EnemyEtis-10001850");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001850, EnemyEtis);
 				break;
 			}
 			case 17665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001791);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001851, EnemyEtis, "EnemyEtis-10001851");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001851, EnemyEtis);
 				break;
 			}
 			case 17675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001792);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001852, EnemyEtis, "EnemyEtis-10001852");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001852, EnemyEtis);
 				break;
 			}
 			case 17685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001793);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001853, EnemyEtis, "EnemyEtis-10001853");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001853, EnemyEtis);
 				break;
 			}
 			case 17695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001794);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001854, EnemyEtis, "EnemyEtis-10001854");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001854, EnemyEtis);
 				break;
 			}
 			case 17705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001795);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001855, EnemyEtis, "EnemyEtis-10001855");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001855, EnemyEtis);
 				break;
 			}
 			case 17715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001796);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001856, EnemyEtis, "EnemyEtis-10001856");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001856, EnemyEtis);
 				break;
 			}
 			case 17725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001797);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001857, EnemyEtis, "EnemyEtis-10001857");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001857, EnemyEtis);
 				break;
 			}
 			case 17735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001798);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001858, EnemyEtis, "EnemyEtis-10001858");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001858, EnemyEtis);
 				break;
 			}
 			case 17745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001799);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001859, EnemyEtis, "EnemyEtis-10001859");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001859, EnemyEtis);
 				break;
 			}
 			case 17755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001800);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001860, EnemyEtis, "EnemyEtis-10001860");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001860, EnemyEtis);
 				break;
 			}
 			case 17765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001801);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001861, EnemyEtis, "EnemyEtis-10001861");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001861, EnemyEtis);
 				break;
 			}
 			case 17775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001802);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001862, EnemyEtis, "EnemyEtis-10001862");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001862, EnemyEtis);
 				break;
 			}
 			case 17785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001803);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001863, EnemyEtis, "EnemyEtis-10001863");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001863, EnemyEtis);
 				break;
 			}
 			case 17795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001804);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001864, EnemyEtis, "EnemyEtis-10001864");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001864, EnemyEtis);
 				break;
 			}
 			case 17805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001805);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001865, EnemyEtis, "EnemyEtis-10001865");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001865, EnemyEtis);
 				break;
 			}
 			case 17815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001806);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001866, EnemyEtis, "EnemyEtis-10001866");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001866, EnemyEtis);
 				break;
 			}
 			case 17825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001807);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001867, EnemyEtis, "EnemyEtis-10001867");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001867, EnemyEtis);
 				break;
 			}
 			case 17835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001808);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001868, EnemyEtis, "EnemyEtis-10001868");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001868, EnemyEtis);
 				break;
 			}
 			case 17845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001809);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001869, EnemyEtis, "EnemyEtis-10001869");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001869, EnemyEtis);
 				break;
 			}
 			case 17855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001810);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001870, EnemyEtis, "EnemyEtis-10001870");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001870, EnemyEtis);
 				break;
 			}
 			case 17865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001811);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001871, EnemyEtis, "EnemyEtis-10001871");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001871, EnemyEtis);
 				break;
 			}
 			case 17875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001812);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001872, EnemyEtis, "EnemyEtis-10001872");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001872, EnemyEtis);
 				break;
 			}
 			case 17885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001813);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001873, EnemyEtis, "EnemyEtis-10001873");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001873, EnemyEtis);
 				break;
 			}
 			case 17895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001814);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001874, EnemyEtis, "EnemyEtis-10001874");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001874, EnemyEtis);
 				break;
 			}
 			case 17900: {
-				requestActor(10003234, EnemyDrastea, "EnemyDrastea-10003234");
+				requestActor(10003234, EnemyDrastea);
 				break;
 			}
 			case 17905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001815);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001875, EnemyEtis, "EnemyEtis-10001875");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001875, EnemyEtis);
 				break;
 			}
 			case 17915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001816);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001876, EnemyEtis, "EnemyEtis-10001876");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001876, EnemyEtis);
 				break;
 			}
 			case 17925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001817);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001877, EnemyEtis, "EnemyEtis-10001877");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001877, EnemyEtis);
 				break;
 			}
 			case 17935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001818);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001878, EnemyEtis, "EnemyEtis-10001878");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001878, EnemyEtis);
 				break;
 			}
 			case 17945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001819);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001879, EnemyEtis, "EnemyEtis-10001879");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001879, EnemyEtis);
 				break;
 			}
 			case 17955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001820);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001880, EnemyEtis, "EnemyEtis-10001880");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001880, EnemyEtis);
 				break;
 			}
 			case 17965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001821);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001881, EnemyEtis, "EnemyEtis-10001881");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001881, EnemyEtis);
 				break;
 			}
 			case 17975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001822);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001882, EnemyEtis, "EnemyEtis-10001882");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001882, EnemyEtis);
 				break;
 			}
 			case 17985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001823);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001883, EnemyEtis, "EnemyEtis-10001883");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001883, EnemyEtis);
 				break;
 			}
 			case 17995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001824);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001884, EnemyEtis, "EnemyEtis-10001884");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001884, EnemyEtis);
 				break;
 			}
 			case 18005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001825);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001885, EnemyEtis, "EnemyEtis-10001885");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001885, EnemyEtis);
 				break;
 			}
 			case 18015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001826);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001886, EnemyEtis, "EnemyEtis-10001886");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001886, EnemyEtis);
 				break;
 			}
 			case 18025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001827);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001887, EnemyEtis, "EnemyEtis-10001887");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001887, EnemyEtis);
 				break;
 			}
 			case 18035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001828);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001888, EnemyEtis, "EnemyEtis-10001888");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001888, EnemyEtis);
 				break;
 			}
 			case 18045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001829);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001889, EnemyEtis, "EnemyEtis-10001889");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001889, EnemyEtis);
 				break;
 			}
 			case 18055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001830);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001890, EnemyEtis, "EnemyEtis-10001890");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001890, EnemyEtis);
 				break;
 			}
 			case 18065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001831);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001891, EnemyEtis, "EnemyEtis-10001891");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001891, EnemyEtis);
 				break;
 			}
 			case 18075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001832);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001892, EnemyEtis, "EnemyEtis-10001892");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001892, EnemyEtis);
 				break;
 			}
 			case 18085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001833);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001893, EnemyEtis, "EnemyEtis-10001893");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001893, EnemyEtis);
 				break;
 			}
 			case 18095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001834);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001894, EnemyEtis, "EnemyEtis-10001894");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001894, EnemyEtis);
 				break;
 			}
 			case 18105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001835);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001895, EnemyEtis, "EnemyEtis-10001895");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001895, EnemyEtis);
 				break;
 			}
 			case 18115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001836);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001896, EnemyEtis, "EnemyEtis-10001896");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001896, EnemyEtis);
 				break;
 			}
 			case 18125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001837);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001897, EnemyEtis, "EnemyEtis-10001897");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001897, EnemyEtis);
 				break;
 			}
 			case 18135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001838);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001898, EnemyEtis, "EnemyEtis-10001898");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001898, EnemyEtis);
 				break;
 			}
 			case 18145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001839);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001899, EnemyEtis, "EnemyEtis-10001899");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001899, EnemyEtis);
 				break;
 			}
 			case 18155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001840);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001900, EnemyEtis, "EnemyEtis-10001900");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001900, EnemyEtis);
 				break;
 			}
 			case 18165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001841);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001901, EnemyEtis, "EnemyEtis-10001901");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001901, EnemyEtis);
 				break;
 			}
 			case 18175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001842);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001902, EnemyEtis, "EnemyEtis-10001902");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001902, EnemyEtis);
 				break;
 			}
 			case 18185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001843);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001903, EnemyEtis, "EnemyEtis-10001903");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001903, EnemyEtis);
 				break;
 			}
 			case 18195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001844);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001904, EnemyEtis, "EnemyEtis-10001904");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001904, EnemyEtis);
 				break;
 			}
 			case 18205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001845);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001905, EnemyEtis, "EnemyEtis-10001905");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001905, EnemyEtis);
 				break;
 			}
 			case 18215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001846);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001906, EnemyEtis, "EnemyEtis-10001906");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001906, EnemyEtis);
 				break;
 			}
 			case 18225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001847);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001907, EnemyEtis, "EnemyEtis-10001907");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001907, EnemyEtis);
 				break;
 			}
 			case 18235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001848);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001908, EnemyEtis, "EnemyEtis-10001908");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001908, EnemyEtis);
 				break;
 			}
 			case 18245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001849);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001909, EnemyEtis, "EnemyEtis-10001909");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001909, EnemyEtis);
 				break;
 			}
 			case 18255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001850);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001910, EnemyEtis, "EnemyEtis-10001910");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001910, EnemyEtis);
 				break;
 			}
 			case 18265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001851);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001911, EnemyEtis, "EnemyEtis-10001911");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001911, EnemyEtis);
 				break;
 			}
 			case 18275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001852);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001912, EnemyEtis, "EnemyEtis-10001912");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001912, EnemyEtis);
 				break;
 			}
 			case 18285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001853);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001913, EnemyEtis, "EnemyEtis-10001913");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001913, EnemyEtis);
 				break;
 			}
 			case 18295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001854);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001914, EnemyEtis, "EnemyEtis-10001914");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001914, EnemyEtis);
 				break;
 			}
 			case 18305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001855);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001915, EnemyEtis, "EnemyEtis-10001915");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001915, EnemyEtis);
 				break;
 			}
 			case 18315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001856);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001916, EnemyEtis, "EnemyEtis-10001916");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001916, EnemyEtis);
 				break;
 			}
 			case 18325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001857);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001917, EnemyEtis, "EnemyEtis-10001917");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001917, EnemyEtis);
 				break;
 			}
 			case 18335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001858);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001918, EnemyEtis, "EnemyEtis-10001918");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001918, EnemyEtis);
 				break;
 			}
 			case 18345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001859);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001919, EnemyEtis, "EnemyEtis-10001919");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001919, EnemyEtis);
 				break;
 			}
 			case 18355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001860);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001920, EnemyEtis, "EnemyEtis-10001920");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001920, EnemyEtis);
 				break;
 			}
 			case 18365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001861);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001921, EnemyEtis, "EnemyEtis-10001921");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001921, EnemyEtis);
 				break;
 			}
 			case 18375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001862);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001922, EnemyEtis, "EnemyEtis-10001922");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001922, EnemyEtis);
 				break;
 			}
 			case 18385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001863);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001923, EnemyEtis, "EnemyEtis-10001923");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001923, EnemyEtis);
 				break;
 			}
 			case 18395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001864);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001924, EnemyEtis, "EnemyEtis-10001924");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001924, EnemyEtis);
 				break;
 			}
 			case 18405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001865);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001925, EnemyEtis, "EnemyEtis-10001925");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001925, EnemyEtis);
 				break;
 			}
 			case 18415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001866);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001926, EnemyEtis, "EnemyEtis-10001926");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001926, EnemyEtis);
 				break;
 			}
 			case 18425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001867);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001927, EnemyEtis, "EnemyEtis-10001927");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001927, EnemyEtis);
 				break;
 			}
 			case 18435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001868);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001928, EnemyEtis, "EnemyEtis-10001928");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001928, EnemyEtis);
 				break;
 			}
 			case 18445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001869);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001929, EnemyEtis, "EnemyEtis-10001929");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001929, EnemyEtis);
 				break;
 			}
 			case 18455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001870);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001930, EnemyEtis, "EnemyEtis-10001930");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001930, EnemyEtis);
 				break;
 			}
 			case 18465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001871);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001931, EnemyEtis, "EnemyEtis-10001931");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001931, EnemyEtis);
 				break;
 			}
 			case 18475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001872);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001932, EnemyEtis, "EnemyEtis-10001932");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001932, EnemyEtis);
 				break;
 			}
 			case 18485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001873);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001933, EnemyEtis, "EnemyEtis-10001933");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001933, EnemyEtis);
 				break;
 			}
 			case 18495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001874);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001934, EnemyEtis, "EnemyEtis-10001934");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001934, EnemyEtis);
 				break;
 			}
 			case 18500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003234);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 18505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001875);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001935, EnemyEtis, "EnemyEtis-10001935");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001935, EnemyEtis);
 				break;
 			}
 			case 18515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001876);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001936, EnemyEtis, "EnemyEtis-10001936");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001936, EnemyEtis);
 				break;
 			}
 			case 18525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001877);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001937, EnemyEtis, "EnemyEtis-10001937");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001937, EnemyEtis);
 				break;
 			}
 			case 18535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001878);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001938, EnemyEtis, "EnemyEtis-10001938");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001938, EnemyEtis);
 				break;
 			}
 			case 18545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001879);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001939, EnemyEtis, "EnemyEtis-10001939");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001939, EnemyEtis);
 				break;
 			}
 			case 18555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001880);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001940, EnemyEtis, "EnemyEtis-10001940");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001940, EnemyEtis);
 				break;
 			}
 			case 18565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001881);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001941, EnemyEtis, "EnemyEtis-10001941");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001941, EnemyEtis);
 				break;
 			}
 			case 18575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001882);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001942, EnemyEtis, "EnemyEtis-10001942");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001942, EnemyEtis);
 				break;
 			}
 			case 18585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001883);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001943, EnemyEtis, "EnemyEtis-10001943");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001943, EnemyEtis);
 				break;
 			}
 			case 18595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001884);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001944, EnemyEtis, "EnemyEtis-10001944");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001944, EnemyEtis);
 				break;
 			}
 			case 18605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001885);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001945, EnemyEtis, "EnemyEtis-10001945");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001945, EnemyEtis);
 				break;
 			}
 			case 18615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001886);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001946, EnemyEtis, "EnemyEtis-10001946");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001946, EnemyEtis);
 				break;
 			}
 			case 18625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001887);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001947, EnemyEtis, "EnemyEtis-10001947");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001947, EnemyEtis);
 				break;
 			}
 			case 18635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001888);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001948, EnemyEtis, "EnemyEtis-10001948");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001948, EnemyEtis);
 				break;
 			}
 			case 18645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001889);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001949, EnemyEtis, "EnemyEtis-10001949");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001949, EnemyEtis);
 				break;
 			}
 			case 18655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001890);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001950, EnemyEtis, "EnemyEtis-10001950");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001950, EnemyEtis);
 				break;
 			}
 			case 18665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001891);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001951, EnemyEtis, "EnemyEtis-10001951");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001951, EnemyEtis);
 				break;
 			}
 			case 18675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001892);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001952, EnemyEtis, "EnemyEtis-10001952");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001952, EnemyEtis);
 				break;
 			}
 			case 18685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001893);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001953, EnemyEtis, "EnemyEtis-10001953");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001953, EnemyEtis);
 				break;
 			}
 			case 18695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001894);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001954, EnemyEtis, "EnemyEtis-10001954");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001954, EnemyEtis);
 				break;
 			}
 			case 18705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001895);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001955, EnemyEtis, "EnemyEtis-10001955");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001955, EnemyEtis);
 				break;
 			}
 			case 18715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001896);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001956, EnemyEtis, "EnemyEtis-10001956");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001956, EnemyEtis);
 				break;
 			}
 			case 18725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001897);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001957, EnemyEtis, "EnemyEtis-10001957");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001957, EnemyEtis);
 				break;
 			}
 			case 18735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001898);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001958, EnemyEtis, "EnemyEtis-10001958");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001958, EnemyEtis);
 				break;
 			}
 			case 18745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001899);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001959, EnemyEtis, "EnemyEtis-10001959");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001959, EnemyEtis);
 				break;
 			}
 			case 18755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001900);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001960, EnemyEtis, "EnemyEtis-10001960");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001960, EnemyEtis);
 				break;
 			}
 			case 18765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001901);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001961, EnemyEtis, "EnemyEtis-10001961");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001961, EnemyEtis);
 				break;
 			}
 			case 18775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001902);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001962, EnemyEtis, "EnemyEtis-10001962");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001962, EnemyEtis);
 				break;
 			}
 			case 18785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001903);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001963, EnemyEtis, "EnemyEtis-10001963");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001963, EnemyEtis);
 				break;
 			}
 			case 18795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001904);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001964, EnemyEtis, "EnemyEtis-10001964");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001964, EnemyEtis);
 				break;
 			}
 			case 18805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001905);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001965, EnemyEtis, "EnemyEtis-10001965");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001965, EnemyEtis);
 				break;
 			}
 			case 18815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001906);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001966, EnemyEtis, "EnemyEtis-10001966");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001966, EnemyEtis);
 				break;
 			}
 			case 18825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001907);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001967, EnemyEtis, "EnemyEtis-10001967");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001967, EnemyEtis);
 				break;
 			}
 			case 18835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001908);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001968, EnemyEtis, "EnemyEtis-10001968");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001968, EnemyEtis);
 				break;
 			}
 			case 18845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001909);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001969, EnemyEtis, "EnemyEtis-10001969");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001969, EnemyEtis);
 				break;
 			}
 			case 18855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001910);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001970, EnemyEtis, "EnemyEtis-10001970");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001970, EnemyEtis);
 				break;
 			}
 			case 18865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001911);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001971, EnemyEtis, "EnemyEtis-10001971");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001971, EnemyEtis);
 				break;
 			}
 			case 18875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001912);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001972, EnemyEtis, "EnemyEtis-10001972");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001972, EnemyEtis);
 				break;
 			}
 			case 18885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001913);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001973, EnemyEtis, "EnemyEtis-10001973");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001973, EnemyEtis);
 				break;
 			}
 			case 18895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001914);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001974, EnemyEtis, "EnemyEtis-10001974");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001974, EnemyEtis);
 				break;
 			}
 			case 18905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001915);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001975, EnemyEtis, "EnemyEtis-10001975");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001975, EnemyEtis);
 				break;
 			}
 			case 18915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001916);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001976, EnemyEtis, "EnemyEtis-10001976");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001976, EnemyEtis);
 				break;
 			}
 			case 18925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001917);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001977, EnemyEtis, "EnemyEtis-10001977");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001977, EnemyEtis);
 				break;
 			}
 			case 18935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001918);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001978, EnemyEtis, "EnemyEtis-10001978");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001978, EnemyEtis);
 				break;
 			}
 			case 18945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001919);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001979, EnemyEtis, "EnemyEtis-10001979");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001979, EnemyEtis);
 				break;
 			}
 			case 18955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001920);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001980, EnemyEtis, "EnemyEtis-10001980");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001980, EnemyEtis);
 				break;
 			}
 			case 18965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001921);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001981, EnemyEtis, "EnemyEtis-10001981");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001981, EnemyEtis);
 				break;
 			}
 			case 18975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001922);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001982, EnemyEtis, "EnemyEtis-10001982");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001982, EnemyEtis);
 				break;
 			}
 			case 18985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001923);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001983, EnemyEtis, "EnemyEtis-10001983");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001983, EnemyEtis);
 				break;
 			}
 			case 18995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001924);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001984, EnemyEtis, "EnemyEtis-10001984");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001984, EnemyEtis);
 				break;
 			}
 			case 19005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001925);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001985, EnemyEtis, "EnemyEtis-10001985");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001985, EnemyEtis);
 				break;
 			}
 			case 19015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001926);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001986, EnemyEtis, "EnemyEtis-10001986");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001986, EnemyEtis);
 				break;
 			}
 			case 19025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001927);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001987, EnemyEtis, "EnemyEtis-10001987");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001987, EnemyEtis);
 				break;
 			}
 			case 19035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001928);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001988, EnemyEtis, "EnemyEtis-10001988");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001988, EnemyEtis);
 				break;
 			}
 			case 19045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001929);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001989, EnemyEtis, "EnemyEtis-10001989");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001989, EnemyEtis);
 				break;
 			}
 			case 19055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001930);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001990, EnemyEtis, "EnemyEtis-10001990");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001990, EnemyEtis);
 				break;
 			}
 			case 19065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001931);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001991, EnemyEtis, "EnemyEtis-10001991");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001991, EnemyEtis);
 				break;
 			}
 			case 19075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001932);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001992, EnemyEtis, "EnemyEtis-10001992");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001992, EnemyEtis);
 				break;
 			}
 			case 19085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001933);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001993, EnemyEtis, "EnemyEtis-10001993");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001993, EnemyEtis);
 				break;
 			}
 			case 19095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001934);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001994, EnemyEtis, "EnemyEtis-10001994");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001994, EnemyEtis);
 				break;
 			}
 			case 19105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001935);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001995, EnemyEtis, "EnemyEtis-10001995");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001995, EnemyEtis);
 				break;
 			}
 			case 19115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001936);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001996, EnemyEtis, "EnemyEtis-10001996");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001996, EnemyEtis);
 				break;
 			}
 			case 19125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001937);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001997, EnemyEtis, "EnemyEtis-10001997");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001997, EnemyEtis);
 				break;
 			}
 			case 19135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001938);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001998, EnemyEtis, "EnemyEtis-10001998");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001998, EnemyEtis);
 				break;
 			}
 			case 19145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001939);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10001999, EnemyEtis, "EnemyEtis-10001999");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10001999, EnemyEtis);
 				break;
 			}
 			case 19155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001940);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002000, EnemyEtis, "EnemyEtis-10002000");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002000, EnemyEtis);
 				break;
 			}
 			case 19165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001941);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002001, EnemyEtis, "EnemyEtis-10002001");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002001, EnemyEtis);
 				break;
 			}
 			case 19175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001942);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002002, EnemyEtis, "EnemyEtis-10002002");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002002, EnemyEtis);
 				break;
 			}
 			case 19185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001943);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002003, EnemyEtis, "EnemyEtis-10002003");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002003, EnemyEtis);
 				break;
 			}
 			case 19195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001944);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002004, EnemyEtis, "EnemyEtis-10002004");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002004, EnemyEtis);
 				break;
 			}
 			case 19205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001945);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002005, EnemyEtis, "EnemyEtis-10002005");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002005, EnemyEtis);
 				break;
 			}
 			case 19215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001946);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002006, EnemyEtis, "EnemyEtis-10002006");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002006, EnemyEtis);
 				break;
 			}
 			case 19225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001947);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002007, EnemyEtis, "EnemyEtis-10002007");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002007, EnemyEtis);
 				break;
 			}
 			case 19235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001948);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002008, EnemyEtis, "EnemyEtis-10002008");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002008, EnemyEtis);
 				break;
 			}
 			case 19245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001949);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002009, EnemyEtis, "EnemyEtis-10002009");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002009, EnemyEtis);
 				break;
 			}
 			case 19255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001950);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002010, EnemyEtis, "EnemyEtis-10002010");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002010, EnemyEtis);
 				break;
 			}
 			case 19265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001951);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002011, EnemyEtis, "EnemyEtis-10002011");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002011, EnemyEtis);
 				break;
 			}
 			case 19275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001952);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002012, EnemyEtis, "EnemyEtis-10002012");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002012, EnemyEtis);
 				break;
 			}
 			case 19285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001953);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002013, EnemyEtis, "EnemyEtis-10002013");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002013, EnemyEtis);
 				break;
 			}
 			case 19295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001954);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002014, EnemyEtis, "EnemyEtis-10002014");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002014, EnemyEtis);
 				break;
 			}
 			case 19305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001955);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002015, EnemyEtis, "EnemyEtis-10002015");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002015, EnemyEtis);
 				break;
 			}
 			case 19315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001956);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002016, EnemyEtis, "EnemyEtis-10002016");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002016, EnemyEtis);
 				break;
 			}
 			case 19325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001957);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002017, EnemyEtis, "EnemyEtis-10002017");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002017, EnemyEtis);
 				break;
 			}
 			case 19335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001958);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002018, EnemyEtis, "EnemyEtis-10002018");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002018, EnemyEtis);
 				break;
 			}
 			case 19345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001959);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002019, EnemyEtis, "EnemyEtis-10002019");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002019, EnemyEtis);
 				break;
 			}
 			case 19355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001960);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002020, EnemyEtis, "EnemyEtis-10002020");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002020, EnemyEtis);
 				break;
 			}
 			case 19365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001961);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002021, EnemyEtis, "EnemyEtis-10002021");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002021, EnemyEtis);
 				break;
 			}
 			case 19375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001962);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002022, EnemyEtis, "EnemyEtis-10002022");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002022, EnemyEtis);
 				break;
 			}
 			case 19385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001963);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002023, EnemyEtis, "EnemyEtis-10002023");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002023, EnemyEtis);
 				break;
 			}
 			case 19395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001964);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002024, EnemyEtis, "EnemyEtis-10002024");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002024, EnemyEtis);
 				break;
 			}
 			case 19400: {
-				requestActor(10003256, VarietyRatislavia001, "VarietyRatislavia001-10003256");
+				requestActor(10003256, VarietyRatislavia001);
 				break;
 			}
 			case 19405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001965);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002025, EnemyEtis, "EnemyEtis-10002025");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002025, EnemyEtis);
 				break;
 			}
 			case 19415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001966);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002026, EnemyEtis, "EnemyEtis-10002026");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002026, EnemyEtis);
 				break;
 			}
 			case 19425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001967);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002027, EnemyEtis, "EnemyEtis-10002027");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002027, EnemyEtis);
 				break;
 			}
 			case 19435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001968);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002028, EnemyEtis, "EnemyEtis-10002028");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002028, EnemyEtis);
 				break;
 			}
 			case 19445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001969);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002029, EnemyEtis, "EnemyEtis-10002029");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002029, EnemyEtis);
 				break;
 			}
 			case 19455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001970);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002030, EnemyEtis, "EnemyEtis-10002030");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002030, EnemyEtis);
 				break;
 			}
 			case 19465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001971);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002031, EnemyEtis, "EnemyEtis-10002031");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002031, EnemyEtis);
 				break;
 			}
 			case 19475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001972);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002032, EnemyEtis, "EnemyEtis-10002032");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002032, EnemyEtis);
 				break;
 			}
 			case 19485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001973);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002033, EnemyEtis, "EnemyEtis-10002033");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002033, EnemyEtis);
 				break;
 			}
 			case 19495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001974);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002034, EnemyEtis, "EnemyEtis-10002034");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002034, EnemyEtis);
 				break;
 			}
 			case 19505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001975);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002035, EnemyEtis, "EnemyEtis-10002035");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002035, EnemyEtis);
 				break;
 			}
 			case 19515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001976);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002036, EnemyEtis, "EnemyEtis-10002036");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002036, EnemyEtis);
 				break;
 			}
 			case 19525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001977);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002037, EnemyEtis, "EnemyEtis-10002037");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002037, EnemyEtis);
 				break;
 			}
 			case 19535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001978);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002038, EnemyEtis, "EnemyEtis-10002038");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002038, EnemyEtis);
 				break;
 			}
 			case 19545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001979);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002039, EnemyEtis, "EnemyEtis-10002039");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002039, EnemyEtis);
 				break;
 			}
 			case 19555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001980);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002040, EnemyEtis, "EnemyEtis-10002040");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002040, EnemyEtis);
 				break;
 			}
 			case 19565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001981);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002041, EnemyEtis, "EnemyEtis-10002041");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002041, EnemyEtis);
 				break;
 			}
 			case 19575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001982);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002042, EnemyEtis, "EnemyEtis-10002042");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002042, EnemyEtis);
 				break;
 			}
 			case 19585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001983);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002043, EnemyEtis, "EnemyEtis-10002043");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002043, EnemyEtis);
 				break;
 			}
 			case 19595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001984);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002044, EnemyEtis, "EnemyEtis-10002044");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002044, EnemyEtis);
 				break;
 			}
 			case 19605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001985);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002045, EnemyEtis, "EnemyEtis-10002045");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002045, EnemyEtis);
 				break;
 			}
 			case 19615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001986);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002046, EnemyEtis, "EnemyEtis-10002046");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002046, EnemyEtis);
 				break;
 			}
 			case 19625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001987);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002047, EnemyEtis, "EnemyEtis-10002047");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002047, EnemyEtis);
 				break;
 			}
 			case 19635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001988);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002048, EnemyEtis, "EnemyEtis-10002048");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002048, EnemyEtis);
 				break;
 			}
 			case 19645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001989);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002049, EnemyEtis, "EnemyEtis-10002049");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002049, EnemyEtis);
 				break;
 			}
 			case 19655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001990);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002050, EnemyEtis, "EnemyEtis-10002050");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002050, EnemyEtis);
 				break;
 			}
 			case 19665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001991);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002051, EnemyEtis, "EnemyEtis-10002051");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002051, EnemyEtis);
 				break;
 			}
 			case 19675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001992);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002052, EnemyEtis, "EnemyEtis-10002052");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002052, EnemyEtis);
 				break;
 			}
 			case 19685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001993);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002053, EnemyEtis, "EnemyEtis-10002053");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002053, EnemyEtis);
 				break;
 			}
 			case 19695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001994);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002054, EnemyEtis, "EnemyEtis-10002054");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002054, EnemyEtis);
 				break;
 			}
 			case 19700: {
-				requestActor(10000023, EnemyErmione, "EnemyErmione-10000023");
+				requestActor(10000023, EnemyErmione);
 				break;
 			}
 			case 19705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001995);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002055, EnemyEtis, "EnemyEtis-10002055");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002055, EnemyEtis);
 				break;
 			}
 			case 19715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001996);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002056, EnemyEtis, "EnemyEtis-10002056");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002056, EnemyEtis);
 				break;
 			}
 			case 19725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001997);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002057, EnemyEtis, "EnemyEtis-10002057");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002057, EnemyEtis);
 				break;
 			}
 			case 19735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001998);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002058, EnemyEtis, "EnemyEtis-10002058");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002058, EnemyEtis);
 				break;
 			}
 			case 19745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10001999);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002059, EnemyEtis, "EnemyEtis-10002059");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002059, EnemyEtis);
 				break;
 			}
 			case 19755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002000);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002060, EnemyEtis, "EnemyEtis-10002060");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002060, EnemyEtis);
 				break;
 			}
 			case 19765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002001);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002061, EnemyEtis, "EnemyEtis-10002061");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002061, EnemyEtis);
 				break;
 			}
 			case 19775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002002);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002062, EnemyEtis, "EnemyEtis-10002062");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002062, EnemyEtis);
 				break;
 			}
 			case 19785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002003);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002063, EnemyEtis, "EnemyEtis-10002063");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002063, EnemyEtis);
 				break;
 			}
 			case 19795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002004);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002064, EnemyEtis, "EnemyEtis-10002064");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002064, EnemyEtis);
 				break;
 			}
 			case 19805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002005);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002065, EnemyEtis, "EnemyEtis-10002065");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002065, EnemyEtis);
 				break;
 			}
 			case 19815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002006);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002066, EnemyEtis, "EnemyEtis-10002066");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002066, EnemyEtis);
 				break;
 			}
 			case 19825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002007);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002067, EnemyEtis, "EnemyEtis-10002067");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002067, EnemyEtis);
 				break;
 			}
 			case 19835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002008);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002068, EnemyEtis, "EnemyEtis-10002068");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002068, EnemyEtis);
 				break;
 			}
 			case 19845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002009);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002069, EnemyEtis, "EnemyEtis-10002069");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002069, EnemyEtis);
 				break;
 			}
 			case 19855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002010);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002070, EnemyEtis, "EnemyEtis-10002070");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002070, EnemyEtis);
 				break;
 			}
 			case 19865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002011);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002071, EnemyEtis, "EnemyEtis-10002071");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002071, EnemyEtis);
 				break;
 			}
 			case 19875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002012);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002072, EnemyEtis, "EnemyEtis-10002072");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002072, EnemyEtis);
 				break;
 			}
 			case 19885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002013);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002073, EnemyEtis, "EnemyEtis-10002073");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002073, EnemyEtis);
 				break;
 			}
 			case 19895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002014);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002074, EnemyEtis, "EnemyEtis-10002074");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002074, EnemyEtis);
 				break;
 			}
 			case 19900: {
-				requestActor(10003235, EnemyDrastea, "EnemyDrastea-10003235");
+				requestActor(10003235, EnemyDrastea);
 				break;
 			}
 			case 19905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002015);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002075, EnemyEtis, "EnemyEtis-10002075");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002075, EnemyEtis);
 				break;
 			}
 			case 19915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002016);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002076, EnemyEtis, "EnemyEtis-10002076");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002076, EnemyEtis);
 				break;
 			}
 			case 19925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002017);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002077, EnemyEtis, "EnemyEtis-10002077");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002077, EnemyEtis);
 				break;
 			}
 			case 19935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002018);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002078, EnemyEtis, "EnemyEtis-10002078");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002078, EnemyEtis);
 				break;
 			}
 			case 19945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002019);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002079, EnemyEtis, "EnemyEtis-10002079");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002079, EnemyEtis);
 				break;
 			}
 			case 19955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002020);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002080, EnemyEtis, "EnemyEtis-10002080");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002080, EnemyEtis);
 				break;
 			}
 			case 19965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002021);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002081, EnemyEtis, "EnemyEtis-10002081");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002081, EnemyEtis);
 				break;
 			}
 			case 19975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002022);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002082, EnemyEtis, "EnemyEtis-10002082");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002082, EnemyEtis);
 				break;
 			}
 			case 19985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002023);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002083, EnemyEtis, "EnemyEtis-10002083");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002083, EnemyEtis);
 				break;
 			}
 			case 19995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002024);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002084, EnemyEtis, "EnemyEtis-10002084");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002084, EnemyEtis);
 				break;
 			}
 			case 20000: {
 				VarietyRatislavia001* pRatislavia = (VarietyRatislavia001*)receiveActor(10003256);
-				bringSceneMediator()->appendGroupChild(pRatislavia);
+				getSceneChief()->appendGroupChild(pRatislavia);
 				break;
 			}
 			case 20005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002025);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002085, EnemyEtis, "EnemyEtis-10002085");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002085, EnemyEtis);
 				break;
 			}
 			case 20015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002026);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002086, EnemyEtis, "EnemyEtis-10002086");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002086, EnemyEtis);
 				break;
 			}
 			case 20025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002027);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002087, EnemyEtis, "EnemyEtis-10002087");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002087, EnemyEtis);
 				break;
 			}
 			case 20035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002028);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002088, EnemyEtis, "EnemyEtis-10002088");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002088, EnemyEtis);
 				break;
 			}
 			case 20045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002029);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002089, EnemyEtis, "EnemyEtis-10002089");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002089, EnemyEtis);
 				break;
 			}
 			case 20055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002030);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002090, EnemyEtis, "EnemyEtis-10002090");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002090, EnemyEtis);
 				break;
 			}
 			case 20065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002031);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002091, EnemyEtis, "EnemyEtis-10002091");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002091, EnemyEtis);
 				break;
 			}
 			case 20075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002032);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002092, EnemyEtis, "EnemyEtis-10002092");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002092, EnemyEtis);
 				break;
 			}
 			case 20085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002033);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002093, EnemyEtis, "EnemyEtis-10002093");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002093, EnemyEtis);
 				break;
 			}
 			case 20095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002034);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002094, EnemyEtis, "EnemyEtis-10002094");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002094, EnemyEtis);
 				break;
 			}
 			case 20105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002035);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002095, EnemyEtis, "EnemyEtis-10002095");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002095, EnemyEtis);
 				break;
 			}
 			case 20115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002036);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002096, EnemyEtis, "EnemyEtis-10002096");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002096, EnemyEtis);
 				break;
 			}
 			case 20125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002037);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002097, EnemyEtis, "EnemyEtis-10002097");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002097, EnemyEtis);
 				break;
 			}
 			case 20135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002038);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002098, EnemyEtis, "EnemyEtis-10002098");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002098, EnemyEtis);
 				break;
 			}
 			case 20145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002039);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002099, EnemyEtis, "EnemyEtis-10002099");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002099, EnemyEtis);
 				break;
 			}
 			case 20155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002040);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002100, EnemyEtis, "EnemyEtis-10002100");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002100, EnemyEtis);
 				break;
 			}
 			case 20165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002041);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002101, EnemyEtis, "EnemyEtis-10002101");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002101, EnemyEtis);
 				break;
 			}
 			case 20175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002042);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002102, EnemyEtis, "EnemyEtis-10002102");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002102, EnemyEtis);
 				break;
 			}
 			case 20185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002043);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002103, EnemyEtis, "EnemyEtis-10002103");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002103, EnemyEtis);
 				break;
 			}
 			case 20195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002044);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002104, EnemyEtis, "EnemyEtis-10002104");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002104, EnemyEtis);
 				break;
 			}
 			case 20205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002045);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002105, EnemyEtis, "EnemyEtis-10002105");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002105, EnemyEtis);
 				break;
 			}
 			case 20215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002046);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002106, EnemyEtis, "EnemyEtis-10002106");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002106, EnemyEtis);
 				break;
 			}
 			case 20225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002047);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002107, EnemyEtis, "EnemyEtis-10002107");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002107, EnemyEtis);
 				break;
 			}
 			case 20235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002048);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002108, EnemyEtis, "EnemyEtis-10002108");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002108, EnemyEtis);
 				break;
 			}
 			case 20245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002049);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002109, EnemyEtis, "EnemyEtis-10002109");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002109, EnemyEtis);
 				break;
 			}
 			case 20255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002050);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002110, EnemyEtis, "EnemyEtis-10002110");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002110, EnemyEtis);
 				break;
 			}
 			case 20265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002051);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002111, EnemyEtis, "EnemyEtis-10002111");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002111, EnemyEtis);
 				break;
 			}
 			case 20275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002052);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002112, EnemyEtis, "EnemyEtis-10002112");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002112, EnemyEtis);
 				break;
 			}
 			case 20285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002053);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002113, EnemyEtis, "EnemyEtis-10002113");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002113, EnemyEtis);
 				break;
 			}
 			case 20295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002054);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002114, EnemyEtis, "EnemyEtis-10002114");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002114, EnemyEtis);
 				break;
 			}
 			case 20300: {
 				EnemyErmione* pE = (EnemyErmione*)receiveActor(10000023);
-				bringSceneMediator()->appendGroupChild(pE);
+				getSceneChief()->appendGroupChild(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);
 				pE->_z = RND(-6000000,6000000);
@@ -12556,7020 +12556,7020 @@ void StageDebugPartController::processBehavior() {
 			}
 			case 20305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002055);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002115, EnemyEtis, "EnemyEtis-10002115");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002115, EnemyEtis);
 				break;
 			}
 			case 20315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002056);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002116, EnemyEtis, "EnemyEtis-10002116");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002116, EnemyEtis);
 				break;
 			}
 			case 20325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002057);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002117, EnemyEtis, "EnemyEtis-10002117");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002117, EnemyEtis);
 				break;
 			}
 			case 20335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002058);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002118, EnemyEtis, "EnemyEtis-10002118");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002118, EnemyEtis);
 				break;
 			}
 			case 20345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002059);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002119, EnemyEtis, "EnemyEtis-10002119");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002119, EnemyEtis);
 				break;
 			}
 			case 20355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002060);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002120, EnemyEtis, "EnemyEtis-10002120");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002120, EnemyEtis);
 				break;
 			}
 			case 20365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002061);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002121, EnemyEtis, "EnemyEtis-10002121");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002121, EnemyEtis);
 				break;
 			}
 			case 20375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002062);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002122, EnemyEtis, "EnemyEtis-10002122");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002122, EnemyEtis);
 				break;
 			}
 			case 20385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002063);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002123, EnemyEtis, "EnemyEtis-10002123");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002123, EnemyEtis);
 				break;
 			}
 			case 20395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002064);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002124, EnemyEtis, "EnemyEtis-10002124");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002124, EnemyEtis);
 				break;
 			}
 			case 20405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002065);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002125, EnemyEtis, "EnemyEtis-10002125");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002125, EnemyEtis);
 				break;
 			}
 			case 20415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002066);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002126, EnemyEtis, "EnemyEtis-10002126");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002126, EnemyEtis);
 				break;
 			}
 			case 20425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002067);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002127, EnemyEtis, "EnemyEtis-10002127");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002127, EnemyEtis);
 				break;
 			}
 			case 20435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002068);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002128, EnemyEtis, "EnemyEtis-10002128");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002128, EnemyEtis);
 				break;
 			}
 			case 20445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002069);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002129, EnemyEtis, "EnemyEtis-10002129");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002129, EnemyEtis);
 				break;
 			}
 			case 20455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002070);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002130, EnemyEtis, "EnemyEtis-10002130");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002130, EnemyEtis);
 				break;
 			}
 			case 20465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002071);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002131, EnemyEtis, "EnemyEtis-10002131");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002131, EnemyEtis);
 				break;
 			}
 			case 20475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002072);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002132, EnemyEtis, "EnemyEtis-10002132");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002132, EnemyEtis);
 				break;
 			}
 			case 20485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002073);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002133, EnemyEtis, "EnemyEtis-10002133");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002133, EnemyEtis);
 				break;
 			}
 			case 20495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002074);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002134, EnemyEtis, "EnemyEtis-10002134");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002134, EnemyEtis);
 				break;
 			}
 			case 20500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003235);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 20505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002075);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002135, EnemyEtis, "EnemyEtis-10002135");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002135, EnemyEtis);
 				break;
 			}
 			case 20515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002076);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002136, EnemyEtis, "EnemyEtis-10002136");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002136, EnemyEtis);
 				break;
 			}
 			case 20525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002077);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002137, EnemyEtis, "EnemyEtis-10002137");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002137, EnemyEtis);
 				break;
 			}
 			case 20535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002078);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002138, EnemyEtis, "EnemyEtis-10002138");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002138, EnemyEtis);
 				break;
 			}
 			case 20545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002079);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002139, EnemyEtis, "EnemyEtis-10002139");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002139, EnemyEtis);
 				break;
 			}
 			case 20555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002080);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002140, EnemyEtis, "EnemyEtis-10002140");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002140, EnemyEtis);
 				break;
 			}
 			case 20565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002081);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002141, EnemyEtis, "EnemyEtis-10002141");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002141, EnemyEtis);
 				break;
 			}
 			case 20575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002082);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002142, EnemyEtis, "EnemyEtis-10002142");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002142, EnemyEtis);
 				break;
 			}
 			case 20585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002083);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002143, EnemyEtis, "EnemyEtis-10002143");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002143, EnemyEtis);
 				break;
 			}
 			case 20595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002084);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002144, EnemyEtis, "EnemyEtis-10002144");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002144, EnemyEtis);
 				break;
 			}
 			case 20605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002085);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002145, EnemyEtis, "EnemyEtis-10002145");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002145, EnemyEtis);
 				break;
 			}
 			case 20615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002086);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002146, EnemyEtis, "EnemyEtis-10002146");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002146, EnemyEtis);
 				break;
 			}
 			case 20625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002087);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002147, EnemyEtis, "EnemyEtis-10002147");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002147, EnemyEtis);
 				break;
 			}
 			case 20635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002088);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002148, EnemyEtis, "EnemyEtis-10002148");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002148, EnemyEtis);
 				break;
 			}
 			case 20645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002089);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002149, EnemyEtis, "EnemyEtis-10002149");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002149, EnemyEtis);
 				break;
 			}
 			case 20655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002090);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002150, EnemyEtis, "EnemyEtis-10002150");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002150, EnemyEtis);
 				break;
 			}
 			case 20665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002091);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002151, EnemyEtis, "EnemyEtis-10002151");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002151, EnemyEtis);
 				break;
 			}
 			case 20675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002092);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002152, EnemyEtis, "EnemyEtis-10002152");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002152, EnemyEtis);
 				break;
 			}
 			case 20685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002093);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002153, EnemyEtis, "EnemyEtis-10002153");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002153, EnemyEtis);
 				break;
 			}
 			case 20695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002094);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002154, EnemyEtis, "EnemyEtis-10002154");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002154, EnemyEtis);
 				break;
 			}
 			case 20705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002095);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002155, EnemyEtis, "EnemyEtis-10002155");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002155, EnemyEtis);
 				break;
 			}
 			case 20715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002096);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002156, EnemyEtis, "EnemyEtis-10002156");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002156, EnemyEtis);
 				break;
 			}
 			case 20725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002097);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002157, EnemyEtis, "EnemyEtis-10002157");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002157, EnemyEtis);
 				break;
 			}
 			case 20735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002098);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002158, EnemyEtis, "EnemyEtis-10002158");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002158, EnemyEtis);
 				break;
 			}
 			case 20745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002099);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002159, EnemyEtis, "EnemyEtis-10002159");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002159, EnemyEtis);
 				break;
 			}
 			case 20755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002100);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002160, EnemyEtis, "EnemyEtis-10002160");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002160, EnemyEtis);
 				break;
 			}
 			case 20765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002101);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002161, EnemyEtis, "EnemyEtis-10002161");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002161, EnemyEtis);
 				break;
 			}
 			case 20775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002102);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002162, EnemyEtis, "EnemyEtis-10002162");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002162, EnemyEtis);
 				break;
 			}
 			case 20785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002103);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002163, EnemyEtis, "EnemyEtis-10002163");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002163, EnemyEtis);
 				break;
 			}
 			case 20795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002104);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002164, EnemyEtis, "EnemyEtis-10002164");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002164, EnemyEtis);
 				break;
 			}
 			case 20805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002105);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002165, EnemyEtis, "EnemyEtis-10002165");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002165, EnemyEtis);
 				break;
 			}
 			case 20815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002106);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002166, EnemyEtis, "EnemyEtis-10002166");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002166, EnemyEtis);
 				break;
 			}
 			case 20825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002107);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002167, EnemyEtis, "EnemyEtis-10002167");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002167, EnemyEtis);
 				break;
 			}
 			case 20835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002108);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002168, EnemyEtis, "EnemyEtis-10002168");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002168, EnemyEtis);
 				break;
 			}
 			case 20845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002109);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002169, EnemyEtis, "EnemyEtis-10002169");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002169, EnemyEtis);
 				break;
 			}
 			case 20855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002110);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002170, EnemyEtis, "EnemyEtis-10002170");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002170, EnemyEtis);
 				break;
 			}
 			case 20865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002111);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002171, EnemyEtis, "EnemyEtis-10002171");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002171, EnemyEtis);
 				break;
 			}
 			case 20875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002112);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002172, EnemyEtis, "EnemyEtis-10002172");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002172, EnemyEtis);
 				break;
 			}
 			case 20885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002113);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002173, EnemyEtis, "EnemyEtis-10002173");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002173, EnemyEtis);
 				break;
 			}
 			case 20895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002114);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002174, EnemyEtis, "EnemyEtis-10002174");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002174, EnemyEtis);
 				break;
 			}
 			case 20905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002115);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002175, EnemyEtis, "EnemyEtis-10002175");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002175, EnemyEtis);
 				break;
 			}
 			case 20915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002116);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002176, EnemyEtis, "EnemyEtis-10002176");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002176, EnemyEtis);
 				break;
 			}
 			case 20925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002117);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002177, EnemyEtis, "EnemyEtis-10002177");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002177, EnemyEtis);
 				break;
 			}
 			case 20935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002118);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002178, EnemyEtis, "EnemyEtis-10002178");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002178, EnemyEtis);
 				break;
 			}
 			case 20945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002119);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002179, EnemyEtis, "EnemyEtis-10002179");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002179, EnemyEtis);
 				break;
 			}
 			case 20955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002120);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002180, EnemyEtis, "EnemyEtis-10002180");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002180, EnemyEtis);
 				break;
 			}
 			case 20965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002121);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002181, EnemyEtis, "EnemyEtis-10002181");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002181, EnemyEtis);
 				break;
 			}
 			case 20975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002122);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002182, EnemyEtis, "EnemyEtis-10002182");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002182, EnemyEtis);
 				break;
 			}
 			case 20985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002123);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002183, EnemyEtis, "EnemyEtis-10002183");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002183, EnemyEtis);
 				break;
 			}
 			case 20995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002124);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002184, EnemyEtis, "EnemyEtis-10002184");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002184, EnemyEtis);
 				break;
 			}
 			case 21005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002125);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002185, EnemyEtis, "EnemyEtis-10002185");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002185, EnemyEtis);
 				break;
 			}
 			case 21015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002126);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002186, EnemyEtis, "EnemyEtis-10002186");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002186, EnemyEtis);
 				break;
 			}
 			case 21025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002127);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002187, EnemyEtis, "EnemyEtis-10002187");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002187, EnemyEtis);
 				break;
 			}
 			case 21035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002128);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002188, EnemyEtis, "EnemyEtis-10002188");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002188, EnemyEtis);
 				break;
 			}
 			case 21045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002129);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002189, EnemyEtis, "EnemyEtis-10002189");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002189, EnemyEtis);
 				break;
 			}
 			case 21055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002130);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002190, EnemyEtis, "EnemyEtis-10002190");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002190, EnemyEtis);
 				break;
 			}
 			case 21065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002131);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002191, EnemyEtis, "EnemyEtis-10002191");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002191, EnemyEtis);
 				break;
 			}
 			case 21075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002132);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002192, EnemyEtis, "EnemyEtis-10002192");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002192, EnemyEtis);
 				break;
 			}
 			case 21085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002133);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002193, EnemyEtis, "EnemyEtis-10002193");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002193, EnemyEtis);
 				break;
 			}
 			case 21095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002134);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002194, EnemyEtis, "EnemyEtis-10002194");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002194, EnemyEtis);
 				break;
 			}
 			case 21105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002135);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002195, EnemyEtis, "EnemyEtis-10002195");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002195, EnemyEtis);
 				break;
 			}
 			case 21115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002136);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002196, EnemyEtis, "EnemyEtis-10002196");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002196, EnemyEtis);
 				break;
 			}
 			case 21125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002137);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002197, EnemyEtis, "EnemyEtis-10002197");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002197, EnemyEtis);
 				break;
 			}
 			case 21135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002138);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002198, EnemyEtis, "EnemyEtis-10002198");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002198, EnemyEtis);
 				break;
 			}
 			case 21145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002139);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002199, EnemyEtis, "EnemyEtis-10002199");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002199, EnemyEtis);
 				break;
 			}
 			case 21155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002140);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002200, EnemyEtis, "EnemyEtis-10002200");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002200, EnemyEtis);
 				break;
 			}
 			case 21165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002141);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002201, EnemyEtis, "EnemyEtis-10002201");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002201, EnemyEtis);
 				break;
 			}
 			case 21175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002142);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002202, EnemyEtis, "EnemyEtis-10002202");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002202, EnemyEtis);
 				break;
 			}
 			case 21185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002143);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002203, EnemyEtis, "EnemyEtis-10002203");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002203, EnemyEtis);
 				break;
 			}
 			case 21195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002144);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002204, EnemyEtis, "EnemyEtis-10002204");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002204, EnemyEtis);
 				break;
 			}
 			case 21205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002145);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002205, EnemyEtis, "EnemyEtis-10002205");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002205, EnemyEtis);
 				break;
 			}
 			case 21215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002146);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002206, EnemyEtis, "EnemyEtis-10002206");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002206, EnemyEtis);
 				break;
 			}
 			case 21225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002147);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002207, EnemyEtis, "EnemyEtis-10002207");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002207, EnemyEtis);
 				break;
 			}
 			case 21235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002148);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002208, EnemyEtis, "EnemyEtis-10002208");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002208, EnemyEtis);
 				break;
 			}
 			case 21245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002149);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002209, EnemyEtis, "EnemyEtis-10002209");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002209, EnemyEtis);
 				break;
 			}
 			case 21255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002150);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002210, EnemyEtis, "EnemyEtis-10002210");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002210, EnemyEtis);
 				break;
 			}
 			case 21265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002151);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002211, EnemyEtis, "EnemyEtis-10002211");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002211, EnemyEtis);
 				break;
 			}
 			case 21275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002152);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002212, EnemyEtis, "EnemyEtis-10002212");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002212, EnemyEtis);
 				break;
 			}
 			case 21285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002153);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002213, EnemyEtis, "EnemyEtis-10002213");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002213, EnemyEtis);
 				break;
 			}
 			case 21295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002154);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002214, EnemyEtis, "EnemyEtis-10002214");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002214, EnemyEtis);
 				break;
 			}
 			case 21305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002155);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002215, EnemyEtis, "EnemyEtis-10002215");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002215, EnemyEtis);
 				break;
 			}
 			case 21315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002156);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002216, EnemyEtis, "EnemyEtis-10002216");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002216, EnemyEtis);
 				break;
 			}
 			case 21325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002157);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002217, EnemyEtis, "EnemyEtis-10002217");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002217, EnemyEtis);
 				break;
 			}
 			case 21335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002158);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002218, EnemyEtis, "EnemyEtis-10002218");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002218, EnemyEtis);
 				break;
 			}
 			case 21345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002159);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002219, EnemyEtis, "EnemyEtis-10002219");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002219, EnemyEtis);
 				break;
 			}
 			case 21355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002160);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002220, EnemyEtis, "EnemyEtis-10002220");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002220, EnemyEtis);
 				break;
 			}
 			case 21365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002161);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002221, EnemyEtis, "EnemyEtis-10002221");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002221, EnemyEtis);
 				break;
 			}
 			case 21375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002162);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002222, EnemyEtis, "EnemyEtis-10002222");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002222, EnemyEtis);
 				break;
 			}
 			case 21385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002163);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002223, EnemyEtis, "EnemyEtis-10002223");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002223, EnemyEtis);
 				break;
 			}
 			case 21395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002164);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002224, EnemyEtis, "EnemyEtis-10002224");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002224, EnemyEtis);
 				break;
 			}
 			case 21405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002165);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002225, EnemyEtis, "EnemyEtis-10002225");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002225, EnemyEtis);
 				break;
 			}
 			case 21415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002166);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002226, EnemyEtis, "EnemyEtis-10002226");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002226, EnemyEtis);
 				break;
 			}
 			case 21425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002167);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002227, EnemyEtis, "EnemyEtis-10002227");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002227, EnemyEtis);
 				break;
 			}
 			case 21435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002168);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002228, EnemyEtis, "EnemyEtis-10002228");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002228, EnemyEtis);
 				break;
 			}
 			case 21445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002169);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002229, EnemyEtis, "EnemyEtis-10002229");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002229, EnemyEtis);
 				break;
 			}
 			case 21455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002170);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002230, EnemyEtis, "EnemyEtis-10002230");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002230, EnemyEtis);
 				break;
 			}
 			case 21465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002171);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002231, EnemyEtis, "EnemyEtis-10002231");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002231, EnemyEtis);
 				break;
 			}
 			case 21475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002172);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002232, EnemyEtis, "EnemyEtis-10002232");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002232, EnemyEtis);
 				break;
 			}
 			case 21485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002173);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002233, EnemyEtis, "EnemyEtis-10002233");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002233, EnemyEtis);
 				break;
 			}
 			case 21495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002174);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002234, EnemyEtis, "EnemyEtis-10002234");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002234, EnemyEtis);
 				break;
 			}
 			case 21505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002175);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002235, EnemyEtis, "EnemyEtis-10002235");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002235, EnemyEtis);
 				break;
 			}
 			case 21515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002176);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002236, EnemyEtis, "EnemyEtis-10002236");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002236, EnemyEtis);
 				break;
 			}
 			case 21525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002177);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002237, EnemyEtis, "EnemyEtis-10002237");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002237, EnemyEtis);
 				break;
 			}
 			case 21535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002178);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002238, EnemyEtis, "EnemyEtis-10002238");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002238, EnemyEtis);
 				break;
 			}
 			case 21545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002179);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002239, EnemyEtis, "EnemyEtis-10002239");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002239, EnemyEtis);
 				break;
 			}
 			case 21555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002180);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002240, EnemyEtis, "EnemyEtis-10002240");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002240, EnemyEtis);
 				break;
 			}
 			case 21565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002181);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002241, EnemyEtis, "EnemyEtis-10002241");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002241, EnemyEtis);
 				break;
 			}
 			case 21575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002182);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002242, EnemyEtis, "EnemyEtis-10002242");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002242, EnemyEtis);
 				break;
 			}
 			case 21585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002183);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002243, EnemyEtis, "EnemyEtis-10002243");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002243, EnemyEtis);
 				break;
 			}
 			case 21595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002184);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002244, EnemyEtis, "EnemyEtis-10002244");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002244, EnemyEtis);
 				break;
 			}
 			case 21605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002185);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002245, EnemyEtis, "EnemyEtis-10002245");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002245, EnemyEtis);
 				break;
 			}
 			case 21615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002186);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002246, EnemyEtis, "EnemyEtis-10002246");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002246, EnemyEtis);
 				break;
 			}
 			case 21625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002187);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002247, EnemyEtis, "EnemyEtis-10002247");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002247, EnemyEtis);
 				break;
 			}
 			case 21635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002188);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002248, EnemyEtis, "EnemyEtis-10002248");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002248, EnemyEtis);
 				break;
 			}
 			case 21645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002189);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002249, EnemyEtis, "EnemyEtis-10002249");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002249, EnemyEtis);
 				break;
 			}
 			case 21655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002190);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002250, EnemyEtis, "EnemyEtis-10002250");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002250, EnemyEtis);
 				break;
 			}
 			case 21665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002191);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002251, EnemyEtis, "EnemyEtis-10002251");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002251, EnemyEtis);
 				break;
 			}
 			case 21675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002192);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002252, EnemyEtis, "EnemyEtis-10002252");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002252, EnemyEtis);
 				break;
 			}
 			case 21685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002193);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002253, EnemyEtis, "EnemyEtis-10002253");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002253, EnemyEtis);
 				break;
 			}
 			case 21695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002194);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002254, EnemyEtis, "EnemyEtis-10002254");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002254, EnemyEtis);
 				break;
 			}
 			case 21705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002195);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002255, EnemyEtis, "EnemyEtis-10002255");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002255, EnemyEtis);
 				break;
 			}
 			case 21715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002196);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002256, EnemyEtis, "EnemyEtis-10002256");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002256, EnemyEtis);
 				break;
 			}
 			case 21725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002197);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002257, EnemyEtis, "EnemyEtis-10002257");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002257, EnemyEtis);
 				break;
 			}
 			case 21735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002198);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002258, EnemyEtis, "EnemyEtis-10002258");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002258, EnemyEtis);
 				break;
 			}
 			case 21745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002199);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002259, EnemyEtis, "EnemyEtis-10002259");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002259, EnemyEtis);
 				break;
 			}
 			case 21755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002200);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002260, EnemyEtis, "EnemyEtis-10002260");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002260, EnemyEtis);
 				break;
 			}
 			case 21765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002201);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002261, EnemyEtis, "EnemyEtis-10002261");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002261, EnemyEtis);
 				break;
 			}
 			case 21775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002202);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002262, EnemyEtis, "EnemyEtis-10002262");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002262, EnemyEtis);
 				break;
 			}
 			case 21785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002203);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002263, EnemyEtis, "EnemyEtis-10002263");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002263, EnemyEtis);
 				break;
 			}
 			case 21795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002204);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002264, EnemyEtis, "EnemyEtis-10002264");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002264, EnemyEtis);
 				break;
 			}
 			case 21805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002205);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002265, EnemyEtis, "EnemyEtis-10002265");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002265, EnemyEtis);
 				break;
 			}
 			case 21815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002206);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002266, EnemyEtis, "EnemyEtis-10002266");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002266, EnemyEtis);
 				break;
 			}
 			case 21825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002207);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002267, EnemyEtis, "EnemyEtis-10002267");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002267, EnemyEtis);
 				break;
 			}
 			case 21835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002208);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002268, EnemyEtis, "EnemyEtis-10002268");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002268, EnemyEtis);
 				break;
 			}
 			case 21845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002209);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002269, EnemyEtis, "EnemyEtis-10002269");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002269, EnemyEtis);
 				break;
 			}
 			case 21855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002210);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002270, EnemyEtis, "EnemyEtis-10002270");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002270, EnemyEtis);
 				break;
 			}
 			case 21865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002211);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002271, EnemyEtis, "EnemyEtis-10002271");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002271, EnemyEtis);
 				break;
 			}
 			case 21875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002212);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002272, EnemyEtis, "EnemyEtis-10002272");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002272, EnemyEtis);
 				break;
 			}
 			case 21885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002213);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002273, EnemyEtis, "EnemyEtis-10002273");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002273, EnemyEtis);
 				break;
 			}
 			case 21895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002214);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002274, EnemyEtis, "EnemyEtis-10002274");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002274, EnemyEtis);
 				break;
 			}
 			case 21900: {
-				requestActor(10003236, EnemyDrastea, "EnemyDrastea-10003236");
+				requestActor(10003236, EnemyDrastea);
 				break;
 			}
 			case 21905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002215);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002275, EnemyEtis, "EnemyEtis-10002275");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002275, EnemyEtis);
 				break;
 			}
 			case 21915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002216);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002276, EnemyEtis, "EnemyEtis-10002276");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002276, EnemyEtis);
 				break;
 			}
 			case 21925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002217);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002277, EnemyEtis, "EnemyEtis-10002277");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002277, EnemyEtis);
 				break;
 			}
 			case 21935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002218);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002278, EnemyEtis, "EnemyEtis-10002278");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002278, EnemyEtis);
 				break;
 			}
 			case 21945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002219);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002279, EnemyEtis, "EnemyEtis-10002279");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002279, EnemyEtis);
 				break;
 			}
 			case 21955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002220);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002280, EnemyEtis, "EnemyEtis-10002280");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002280, EnemyEtis);
 				break;
 			}
 			case 21965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002221);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002281, EnemyEtis, "EnemyEtis-10002281");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002281, EnemyEtis);
 				break;
 			}
 			case 21975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002222);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002282, EnemyEtis, "EnemyEtis-10002282");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002282, EnemyEtis);
 				break;
 			}
 			case 21985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002223);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002283, EnemyEtis, "EnemyEtis-10002283");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002283, EnemyEtis);
 				break;
 			}
 			case 21995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002224);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002284, EnemyEtis, "EnemyEtis-10002284");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002284, EnemyEtis);
 				break;
 			}
 			case 22005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002225);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002285, EnemyEtis, "EnemyEtis-10002285");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002285, EnemyEtis);
 				break;
 			}
 			case 22015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002226);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002286, EnemyEtis, "EnemyEtis-10002286");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002286, EnemyEtis);
 				break;
 			}
 			case 22025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002227);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002287, EnemyEtis, "EnemyEtis-10002287");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002287, EnemyEtis);
 				break;
 			}
 			case 22035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002228);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002288, EnemyEtis, "EnemyEtis-10002288");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002288, EnemyEtis);
 				break;
 			}
 			case 22045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002229);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002289, EnemyEtis, "EnemyEtis-10002289");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002289, EnemyEtis);
 				break;
 			}
 			case 22055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002230);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002290, EnemyEtis, "EnemyEtis-10002290");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002290, EnemyEtis);
 				break;
 			}
 			case 22065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002231);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002291, EnemyEtis, "EnemyEtis-10002291");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002291, EnemyEtis);
 				break;
 			}
 			case 22075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002232);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002292, EnemyEtis, "EnemyEtis-10002292");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002292, EnemyEtis);
 				break;
 			}
 			case 22085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002233);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002293, EnemyEtis, "EnemyEtis-10002293");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002293, EnemyEtis);
 				break;
 			}
 			case 22095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002234);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002294, EnemyEtis, "EnemyEtis-10002294");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002294, EnemyEtis);
 				break;
 			}
 			case 22105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002235);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002295, EnemyEtis, "EnemyEtis-10002295");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002295, EnemyEtis);
 				break;
 			}
 			case 22115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002236);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002296, EnemyEtis, "EnemyEtis-10002296");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002296, EnemyEtis);
 				break;
 			}
 			case 22125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002237);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002297, EnemyEtis, "EnemyEtis-10002297");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002297, EnemyEtis);
 				break;
 			}
 			case 22135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002238);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002298, EnemyEtis, "EnemyEtis-10002298");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002298, EnemyEtis);
 				break;
 			}
 			case 22145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002239);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002299, EnemyEtis, "EnemyEtis-10002299");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002299, EnemyEtis);
 				break;
 			}
 			case 22155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002240);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002300, EnemyEtis, "EnemyEtis-10002300");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002300, EnemyEtis);
 				break;
 			}
 			case 22165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002241);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002301, EnemyEtis, "EnemyEtis-10002301");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002301, EnemyEtis);
 				break;
 			}
 			case 22175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002242);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002302, EnemyEtis, "EnemyEtis-10002302");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002302, EnemyEtis);
 				break;
 			}
 			case 22185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002243);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002303, EnemyEtis, "EnemyEtis-10002303");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002303, EnemyEtis);
 				break;
 			}
 			case 22195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002244);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002304, EnemyEtis, "EnemyEtis-10002304");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002304, EnemyEtis);
 				break;
 			}
 			case 22205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002245);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002305, EnemyEtis, "EnemyEtis-10002305");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002305, EnemyEtis);
 				break;
 			}
 			case 22215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002246);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002306, EnemyEtis, "EnemyEtis-10002306");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002306, EnemyEtis);
 				break;
 			}
 			case 22225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002247);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002307, EnemyEtis, "EnemyEtis-10002307");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002307, EnemyEtis);
 				break;
 			}
 			case 22235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002248);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002308, EnemyEtis, "EnemyEtis-10002308");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002308, EnemyEtis);
 				break;
 			}
 			case 22245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002249);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002309, EnemyEtis, "EnemyEtis-10002309");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002309, EnemyEtis);
 				break;
 			}
 			case 22255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002250);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002310, EnemyEtis, "EnemyEtis-10002310");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002310, EnemyEtis);
 				break;
 			}
 			case 22265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002251);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002311, EnemyEtis, "EnemyEtis-10002311");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002311, EnemyEtis);
 				break;
 			}
 			case 22275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002252);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002312, EnemyEtis, "EnemyEtis-10002312");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002312, EnemyEtis);
 				break;
 			}
 			case 22285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002253);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002313, EnemyEtis, "EnemyEtis-10002313");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002313, EnemyEtis);
 				break;
 			}
 			case 22295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002254);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002314, EnemyEtis, "EnemyEtis-10002314");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002314, EnemyEtis);
 				break;
 			}
 			case 22305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002255);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002315, EnemyEtis, "EnemyEtis-10002315");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002315, EnemyEtis);
 				break;
 			}
 			case 22315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002256);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002316, EnemyEtis, "EnemyEtis-10002316");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002316, EnemyEtis);
 				break;
 			}
 			case 22325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002257);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002317, EnemyEtis, "EnemyEtis-10002317");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002317, EnemyEtis);
 				break;
 			}
 			case 22335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002258);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002318, EnemyEtis, "EnemyEtis-10002318");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002318, EnemyEtis);
 				break;
 			}
 			case 22345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002259);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002319, EnemyEtis, "EnemyEtis-10002319");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002319, EnemyEtis);
 				break;
 			}
 			case 22355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002260);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002320, EnemyEtis, "EnemyEtis-10002320");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002320, EnemyEtis);
 				break;
 			}
 			case 22365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002261);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002321, EnemyEtis, "EnemyEtis-10002321");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002321, EnemyEtis);
 				break;
 			}
 			case 22375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002262);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002322, EnemyEtis, "EnemyEtis-10002322");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002322, EnemyEtis);
 				break;
 			}
 			case 22385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002263);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002323, EnemyEtis, "EnemyEtis-10002323");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002323, EnemyEtis);
 				break;
 			}
 			case 22395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002264);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002324, EnemyEtis, "EnemyEtis-10002324");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002324, EnemyEtis);
 				break;
 			}
 			case 22405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002265);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002325, EnemyEtis, "EnemyEtis-10002325");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002325, EnemyEtis);
 				break;
 			}
 			case 22415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002266);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002326, EnemyEtis, "EnemyEtis-10002326");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002326, EnemyEtis);
 				break;
 			}
 			case 22425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002267);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002327, EnemyEtis, "EnemyEtis-10002327");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002327, EnemyEtis);
 				break;
 			}
 			case 22435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002268);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002328, EnemyEtis, "EnemyEtis-10002328");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002328, EnemyEtis);
 				break;
 			}
 			case 22445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002269);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002329, EnemyEtis, "EnemyEtis-10002329");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002329, EnemyEtis);
 				break;
 			}
 			case 22455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002270);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002330, EnemyEtis, "EnemyEtis-10002330");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002330, EnemyEtis);
 				break;
 			}
 			case 22465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002271);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002331, EnemyEtis, "EnemyEtis-10002331");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002331, EnemyEtis);
 				break;
 			}
 			case 22475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002272);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002332, EnemyEtis, "EnemyEtis-10002332");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002332, EnemyEtis);
 				break;
 			}
 			case 22485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002273);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002333, EnemyEtis, "EnemyEtis-10002333");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002333, EnemyEtis);
 				break;
 			}
 			case 22495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002274);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002334, EnemyEtis, "EnemyEtis-10002334");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002334, EnemyEtis);
 				break;
 			}
 			case 22500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003236);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 22505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002275);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002335, EnemyEtis, "EnemyEtis-10002335");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002335, EnemyEtis);
 				break;
 			}
 			case 22515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002276);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002336, EnemyEtis, "EnemyEtis-10002336");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002336, EnemyEtis);
 				break;
 			}
 			case 22525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002277);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002337, EnemyEtis, "EnemyEtis-10002337");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002337, EnemyEtis);
 				break;
 			}
 			case 22535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002278);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002338, EnemyEtis, "EnemyEtis-10002338");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002338, EnemyEtis);
 				break;
 			}
 			case 22545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002279);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002339, EnemyEtis, "EnemyEtis-10002339");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002339, EnemyEtis);
 				break;
 			}
 			case 22555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002280);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002340, EnemyEtis, "EnemyEtis-10002340");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002340, EnemyEtis);
 				break;
 			}
 			case 22565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002281);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002341, EnemyEtis, "EnemyEtis-10002341");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002341, EnemyEtis);
 				break;
 			}
 			case 22575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002282);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002342, EnemyEtis, "EnemyEtis-10002342");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002342, EnemyEtis);
 				break;
 			}
 			case 22585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002283);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002343, EnemyEtis, "EnemyEtis-10002343");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002343, EnemyEtis);
 				break;
 			}
 			case 22595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002284);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002344, EnemyEtis, "EnemyEtis-10002344");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002344, EnemyEtis);
 				break;
 			}
 			case 22605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002285);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002345, EnemyEtis, "EnemyEtis-10002345");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002345, EnemyEtis);
 				break;
 			}
 			case 22615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002286);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002346, EnemyEtis, "EnemyEtis-10002346");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002346, EnemyEtis);
 				break;
 			}
 			case 22625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002287);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002347, EnemyEtis, "EnemyEtis-10002347");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002347, EnemyEtis);
 				break;
 			}
 			case 22635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002288);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002348, EnemyEtis, "EnemyEtis-10002348");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002348, EnemyEtis);
 				break;
 			}
 			case 22645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002289);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002349, EnemyEtis, "EnemyEtis-10002349");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002349, EnemyEtis);
 				break;
 			}
 			case 22655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002290);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002350, EnemyEtis, "EnemyEtis-10002350");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002350, EnemyEtis);
 				break;
 			}
 			case 22665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002291);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002351, EnemyEtis, "EnemyEtis-10002351");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002351, EnemyEtis);
 				break;
 			}
 			case 22675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002292);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002352, EnemyEtis, "EnemyEtis-10002352");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002352, EnemyEtis);
 				break;
 			}
 			case 22685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002293);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002353, EnemyEtis, "EnemyEtis-10002353");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002353, EnemyEtis);
 				break;
 			}
 			case 22695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002294);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002354, EnemyEtis, "EnemyEtis-10002354");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002354, EnemyEtis);
 				break;
 			}
 			case 22705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002295);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002355, EnemyEtis, "EnemyEtis-10002355");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002355, EnemyEtis);
 				break;
 			}
 			case 22715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002296);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002356, EnemyEtis, "EnemyEtis-10002356");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002356, EnemyEtis);
 				break;
 			}
 			case 22725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002297);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002357, EnemyEtis, "EnemyEtis-10002357");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002357, EnemyEtis);
 				break;
 			}
 			case 22735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002298);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002358, EnemyEtis, "EnemyEtis-10002358");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002358, EnemyEtis);
 				break;
 			}
 			case 22745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002299);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002359, EnemyEtis, "EnemyEtis-10002359");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002359, EnemyEtis);
 				break;
 			}
 			case 22755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002300);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002360, EnemyEtis, "EnemyEtis-10002360");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002360, EnemyEtis);
 				break;
 			}
 			case 22765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002301);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002361, EnemyEtis, "EnemyEtis-10002361");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002361, EnemyEtis);
 				break;
 			}
 			case 22775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002302);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002362, EnemyEtis, "EnemyEtis-10002362");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002362, EnemyEtis);
 				break;
 			}
 			case 22785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002303);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002363, EnemyEtis, "EnemyEtis-10002363");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002363, EnemyEtis);
 				break;
 			}
 			case 22795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002304);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002364, EnemyEtis, "EnemyEtis-10002364");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002364, EnemyEtis);
 				break;
 			}
 			case 22805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002305);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002365, EnemyEtis, "EnemyEtis-10002365");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002365, EnemyEtis);
 				break;
 			}
 			case 22815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002306);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002366, EnemyEtis, "EnemyEtis-10002366");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002366, EnemyEtis);
 				break;
 			}
 			case 22825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002307);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002367, EnemyEtis, "EnemyEtis-10002367");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002367, EnemyEtis);
 				break;
 			}
 			case 22835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002308);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002368, EnemyEtis, "EnemyEtis-10002368");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002368, EnemyEtis);
 				break;
 			}
 			case 22845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002309);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002369, EnemyEtis, "EnemyEtis-10002369");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002369, EnemyEtis);
 				break;
 			}
 			case 22855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002310);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002370, EnemyEtis, "EnemyEtis-10002370");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002370, EnemyEtis);
 				break;
 			}
 			case 22865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002311);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002371, EnemyEtis, "EnemyEtis-10002371");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002371, EnemyEtis);
 				break;
 			}
 			case 22875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002312);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002372, EnemyEtis, "EnemyEtis-10002372");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002372, EnemyEtis);
 				break;
 			}
 			case 22885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002313);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002373, EnemyEtis, "EnemyEtis-10002373");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002373, EnemyEtis);
 				break;
 			}
 			case 22895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002314);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002374, EnemyEtis, "EnemyEtis-10002374");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002374, EnemyEtis);
 				break;
 			}
 			case 22905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002315);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002375, EnemyEtis, "EnemyEtis-10002375");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002375, EnemyEtis);
 				break;
 			}
 			case 22915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002316);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002376, EnemyEtis, "EnemyEtis-10002376");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002376, EnemyEtis);
 				break;
 			}
 			case 22925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002317);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002377, EnemyEtis, "EnemyEtis-10002377");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002377, EnemyEtis);
 				break;
 			}
 			case 22935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002318);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002378, EnemyEtis, "EnemyEtis-10002378");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002378, EnemyEtis);
 				break;
 			}
 			case 22945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002319);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002379, EnemyEtis, "EnemyEtis-10002379");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002379, EnemyEtis);
 				break;
 			}
 			case 22955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002320);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002380, EnemyEtis, "EnemyEtis-10002380");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002380, EnemyEtis);
 				break;
 			}
 			case 22965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002321);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002381, EnemyEtis, "EnemyEtis-10002381");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002381, EnemyEtis);
 				break;
 			}
 			case 22975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002322);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002382, EnemyEtis, "EnemyEtis-10002382");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002382, EnemyEtis);
 				break;
 			}
 			case 22985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002323);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002383, EnemyEtis, "EnemyEtis-10002383");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002383, EnemyEtis);
 				break;
 			}
 			case 22995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002324);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002384, EnemyEtis, "EnemyEtis-10002384");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002384, EnemyEtis);
 				break;
 			}
 			case 23005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002325);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002385, EnemyEtis, "EnemyEtis-10002385");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002385, EnemyEtis);
 				break;
 			}
 			case 23015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002326);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002386, EnemyEtis, "EnemyEtis-10002386");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002386, EnemyEtis);
 				break;
 			}
 			case 23025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002327);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002387, EnemyEtis, "EnemyEtis-10002387");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002387, EnemyEtis);
 				break;
 			}
 			case 23035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002328);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002388, EnemyEtis, "EnemyEtis-10002388");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002388, EnemyEtis);
 				break;
 			}
 			case 23045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002329);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002389, EnemyEtis, "EnemyEtis-10002389");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002389, EnemyEtis);
 				break;
 			}
 			case 23055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002330);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002390, EnemyEtis, "EnemyEtis-10002390");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002390, EnemyEtis);
 				break;
 			}
 			case 23065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002331);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002391, EnemyEtis, "EnemyEtis-10002391");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002391, EnemyEtis);
 				break;
 			}
 			case 23075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002332);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002392, EnemyEtis, "EnemyEtis-10002392");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002392, EnemyEtis);
 				break;
 			}
 			case 23085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002333);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002393, EnemyEtis, "EnemyEtis-10002393");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002393, EnemyEtis);
 				break;
 			}
 			case 23095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002334);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002394, EnemyEtis, "EnemyEtis-10002394");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002394, EnemyEtis);
 				break;
 			}
 			case 23105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002335);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002395, EnemyEtis, "EnemyEtis-10002395");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002395, EnemyEtis);
 				break;
 			}
 			case 23115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002336);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002396, EnemyEtis, "EnemyEtis-10002396");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002396, EnemyEtis);
 				break;
 			}
 			case 23125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002337);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002397, EnemyEtis, "EnemyEtis-10002397");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002397, EnemyEtis);
 				break;
 			}
 			case 23135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002338);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002398, EnemyEtis, "EnemyEtis-10002398");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002398, EnemyEtis);
 				break;
 			}
 			case 23145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002339);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002399, EnemyEtis, "EnemyEtis-10002399");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002399, EnemyEtis);
 				break;
 			}
 			case 23155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002340);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002400, EnemyEtis, "EnemyEtis-10002400");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002400, EnemyEtis);
 				break;
 			}
 			case 23165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002341);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002401, EnemyEtis, "EnemyEtis-10002401");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002401, EnemyEtis);
 				break;
 			}
 			case 23175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002342);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002402, EnemyEtis, "EnemyEtis-10002402");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002402, EnemyEtis);
 				break;
 			}
 			case 23185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002343);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002403, EnemyEtis, "EnemyEtis-10002403");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002403, EnemyEtis);
 				break;
 			}
 			case 23195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002344);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002404, EnemyEtis, "EnemyEtis-10002404");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002404, EnemyEtis);
 				break;
 			}
 			case 23205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002345);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002405, EnemyEtis, "EnemyEtis-10002405");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002405, EnemyEtis);
 				break;
 			}
 			case 23215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002346);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002406, EnemyEtis, "EnemyEtis-10002406");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002406, EnemyEtis);
 				break;
 			}
 			case 23225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002347);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002407, EnemyEtis, "EnemyEtis-10002407");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002407, EnemyEtis);
 				break;
 			}
 			case 23235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002348);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002408, EnemyEtis, "EnemyEtis-10002408");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002408, EnemyEtis);
 				break;
 			}
 			case 23245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002349);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002409, EnemyEtis, "EnemyEtis-10002409");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002409, EnemyEtis);
 				break;
 			}
 			case 23255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002350);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002410, EnemyEtis, "EnemyEtis-10002410");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002410, EnemyEtis);
 				break;
 			}
 			case 23265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002351);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002411, EnemyEtis, "EnemyEtis-10002411");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002411, EnemyEtis);
 				break;
 			}
 			case 23275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002352);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002412, EnemyEtis, "EnemyEtis-10002412");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002412, EnemyEtis);
 				break;
 			}
 			case 23285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002353);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002413, EnemyEtis, "EnemyEtis-10002413");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002413, EnemyEtis);
 				break;
 			}
 			case 23295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002354);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002414, EnemyEtis, "EnemyEtis-10002414");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002414, EnemyEtis);
 				break;
 			}
 			case 23305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002355);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002415, EnemyEtis, "EnemyEtis-10002415");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002415, EnemyEtis);
 				break;
 			}
 			case 23315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002356);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002416, EnemyEtis, "EnemyEtis-10002416");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002416, EnemyEtis);
 				break;
 			}
 			case 23325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002357);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002417, EnemyEtis, "EnemyEtis-10002417");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002417, EnemyEtis);
 				break;
 			}
 			case 23335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002358);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002418, EnemyEtis, "EnemyEtis-10002418");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002418, EnemyEtis);
 				break;
 			}
 			case 23345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002359);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002419, EnemyEtis, "EnemyEtis-10002419");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002419, EnemyEtis);
 				break;
 			}
 			case 23355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002360);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002420, EnemyEtis, "EnemyEtis-10002420");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002420, EnemyEtis);
 				break;
 			}
 			case 23365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002361);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002421, EnemyEtis, "EnemyEtis-10002421");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002421, EnemyEtis);
 				break;
 			}
 			case 23375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002362);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002422, EnemyEtis, "EnemyEtis-10002422");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002422, EnemyEtis);
 				break;
 			}
 			case 23385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002363);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002423, EnemyEtis, "EnemyEtis-10002423");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002423, EnemyEtis);
 				break;
 			}
 			case 23395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002364);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002424, EnemyEtis, "EnemyEtis-10002424");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002424, EnemyEtis);
 				break;
 			}
 			case 23405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002365);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002425, EnemyEtis, "EnemyEtis-10002425");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002425, EnemyEtis);
 				break;
 			}
 			case 23415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002366);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002426, EnemyEtis, "EnemyEtis-10002426");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002426, EnemyEtis);
 				break;
 			}
 			case 23425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002367);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002427, EnemyEtis, "EnemyEtis-10002427");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002427, EnemyEtis);
 				break;
 			}
 			case 23435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002368);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002428, EnemyEtis, "EnemyEtis-10002428");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002428, EnemyEtis);
 				break;
 			}
 			case 23445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002369);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002429, EnemyEtis, "EnemyEtis-10002429");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002429, EnemyEtis);
 				break;
 			}
 			case 23455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002370);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002430, EnemyEtis, "EnemyEtis-10002430");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002430, EnemyEtis);
 				break;
 			}
 			case 23465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002371);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002431, EnemyEtis, "EnemyEtis-10002431");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002431, EnemyEtis);
 				break;
 			}
 			case 23475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002372);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002432, EnemyEtis, "EnemyEtis-10002432");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002432, EnemyEtis);
 				break;
 			}
 			case 23485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002373);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002433, EnemyEtis, "EnemyEtis-10002433");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002433, EnemyEtis);
 				break;
 			}
 			case 23495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002374);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002434, EnemyEtis, "EnemyEtis-10002434");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002434, EnemyEtis);
 				break;
 			}
 			case 23505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002375);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002435, EnemyEtis, "EnemyEtis-10002435");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002435, EnemyEtis);
 				break;
 			}
 			case 23515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002376);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002436, EnemyEtis, "EnemyEtis-10002436");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002436, EnemyEtis);
 				break;
 			}
 			case 23525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002377);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002437, EnemyEtis, "EnemyEtis-10002437");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002437, EnemyEtis);
 				break;
 			}
 			case 23535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002378);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002438, EnemyEtis, "EnemyEtis-10002438");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002438, EnemyEtis);
 				break;
 			}
 			case 23545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002379);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002439, EnemyEtis, "EnemyEtis-10002439");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002439, EnemyEtis);
 				break;
 			}
 			case 23555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002380);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002440, EnemyEtis, "EnemyEtis-10002440");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002440, EnemyEtis);
 				break;
 			}
 			case 23565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002381);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002441, EnemyEtis, "EnemyEtis-10002441");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002441, EnemyEtis);
 				break;
 			}
 			case 23575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002382);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002442, EnemyEtis, "EnemyEtis-10002442");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002442, EnemyEtis);
 				break;
 			}
 			case 23585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002383);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002443, EnemyEtis, "EnemyEtis-10002443");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002443, EnemyEtis);
 				break;
 			}
 			case 23595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002384);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002444, EnemyEtis, "EnemyEtis-10002444");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002444, EnemyEtis);
 				break;
 			}
 			case 23605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002385);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002445, EnemyEtis, "EnemyEtis-10002445");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002445, EnemyEtis);
 				break;
 			}
 			case 23615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002386);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002446, EnemyEtis, "EnemyEtis-10002446");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002446, EnemyEtis);
 				break;
 			}
 			case 23625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002387);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002447, EnemyEtis, "EnemyEtis-10002447");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002447, EnemyEtis);
 				break;
 			}
 			case 23635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002388);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002448, EnemyEtis, "EnemyEtis-10002448");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002448, EnemyEtis);
 				break;
 			}
 			case 23645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002389);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002449, EnemyEtis, "EnemyEtis-10002449");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002449, EnemyEtis);
 				break;
 			}
 			case 23655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002390);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002450, EnemyEtis, "EnemyEtis-10002450");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002450, EnemyEtis);
 				break;
 			}
 			case 23665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002391);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002451, EnemyEtis, "EnemyEtis-10002451");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002451, EnemyEtis);
 				break;
 			}
 			case 23675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002392);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002452, EnemyEtis, "EnemyEtis-10002452");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002452, EnemyEtis);
 				break;
 			}
 			case 23685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002393);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002453, EnemyEtis, "EnemyEtis-10002453");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002453, EnemyEtis);
 				break;
 			}
 			case 23695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002394);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002454, EnemyEtis, "EnemyEtis-10002454");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002454, EnemyEtis);
 				break;
 			}
 			case 23705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002395);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002455, EnemyEtis, "EnemyEtis-10002455");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002455, EnemyEtis);
 				break;
 			}
 			case 23715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002396);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002456, EnemyEtis, "EnemyEtis-10002456");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002456, EnemyEtis);
 				break;
 			}
 			case 23725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002397);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002457, EnemyEtis, "EnemyEtis-10002457");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002457, EnemyEtis);
 				break;
 			}
 			case 23735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002398);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002458, EnemyEtis, "EnemyEtis-10002458");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002458, EnemyEtis);
 				break;
 			}
 			case 23745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002399);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002459, EnemyEtis, "EnemyEtis-10002459");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002459, EnemyEtis);
 				break;
 			}
 			case 23755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002400);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002460, EnemyEtis, "EnemyEtis-10002460");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002460, EnemyEtis);
 				break;
 			}
 			case 23765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002401);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002461, EnemyEtis, "EnemyEtis-10002461");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002461, EnemyEtis);
 				break;
 			}
 			case 23775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002402);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002462, EnemyEtis, "EnemyEtis-10002462");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002462, EnemyEtis);
 				break;
 			}
 			case 23785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002403);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002463, EnemyEtis, "EnemyEtis-10002463");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002463, EnemyEtis);
 				break;
 			}
 			case 23795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002404);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002464, EnemyEtis, "EnemyEtis-10002464");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002464, EnemyEtis);
 				break;
 			}
 			case 23805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002405);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002465, EnemyEtis, "EnemyEtis-10002465");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002465, EnemyEtis);
 				break;
 			}
 			case 23815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002406);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002466, EnemyEtis, "EnemyEtis-10002466");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002466, EnemyEtis);
 				break;
 			}
 			case 23825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002407);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002467, EnemyEtis, "EnemyEtis-10002467");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002467, EnemyEtis);
 				break;
 			}
 			case 23835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002408);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002468, EnemyEtis, "EnemyEtis-10002468");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002468, EnemyEtis);
 				break;
 			}
 			case 23845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002409);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002469, EnemyEtis, "EnemyEtis-10002469");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002469, EnemyEtis);
 				break;
 			}
 			case 23855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002410);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002470, EnemyEtis, "EnemyEtis-10002470");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002470, EnemyEtis);
 				break;
 			}
 			case 23865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002411);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002471, EnemyEtis, "EnemyEtis-10002471");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002471, EnemyEtis);
 				break;
 			}
 			case 23875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002412);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002472, EnemyEtis, "EnemyEtis-10002472");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002472, EnemyEtis);
 				break;
 			}
 			case 23885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002413);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002473, EnemyEtis, "EnemyEtis-10002473");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002473, EnemyEtis);
 				break;
 			}
 			case 23895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002414);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002474, EnemyEtis, "EnemyEtis-10002474");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002474, EnemyEtis);
 				break;
 			}
 			case 23900: {
-				requestActor(10003237, EnemyDrastea, "EnemyDrastea-10003237");
+				requestActor(10003237, EnemyDrastea);
 				break;
 			}
 			case 23905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002415);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002475, EnemyEtis, "EnemyEtis-10002475");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002475, EnemyEtis);
 				break;
 			}
 			case 23915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002416);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002476, EnemyEtis, "EnemyEtis-10002476");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002476, EnemyEtis);
 				break;
 			}
 			case 23925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002417);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002477, EnemyEtis, "EnemyEtis-10002477");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002477, EnemyEtis);
 				break;
 			}
 			case 23935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002418);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002478, EnemyEtis, "EnemyEtis-10002478");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002478, EnemyEtis);
 				break;
 			}
 			case 23945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002419);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002479, EnemyEtis, "EnemyEtis-10002479");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002479, EnemyEtis);
 				break;
 			}
 			case 23955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002420);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002480, EnemyEtis, "EnemyEtis-10002480");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002480, EnemyEtis);
 				break;
 			}
 			case 23965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002421);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002481, EnemyEtis, "EnemyEtis-10002481");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002481, EnemyEtis);
 				break;
 			}
 			case 23975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002422);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002482, EnemyEtis, "EnemyEtis-10002482");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002482, EnemyEtis);
 				break;
 			}
 			case 23985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002423);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002483, EnemyEtis, "EnemyEtis-10002483");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002483, EnemyEtis);
 				break;
 			}
 			case 23995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002424);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002484, EnemyEtis, "EnemyEtis-10002484");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002484, EnemyEtis);
 				break;
 			}
 			case 24005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002425);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002485, EnemyEtis, "EnemyEtis-10002485");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002485, EnemyEtis);
 				break;
 			}
 			case 24015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002426);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002486, EnemyEtis, "EnemyEtis-10002486");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002486, EnemyEtis);
 				break;
 			}
 			case 24025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002427);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002487, EnemyEtis, "EnemyEtis-10002487");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002487, EnemyEtis);
 				break;
 			}
 			case 24035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002428);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002488, EnemyEtis, "EnemyEtis-10002488");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002488, EnemyEtis);
 				break;
 			}
 			case 24045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002429);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002489, EnemyEtis, "EnemyEtis-10002489");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002489, EnemyEtis);
 				break;
 			}
 			case 24055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002430);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002490, EnemyEtis, "EnemyEtis-10002490");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002490, EnemyEtis);
 				break;
 			}
 			case 24065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002431);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002491, EnemyEtis, "EnemyEtis-10002491");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002491, EnemyEtis);
 				break;
 			}
 			case 24075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002432);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002492, EnemyEtis, "EnemyEtis-10002492");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002492, EnemyEtis);
 				break;
 			}
 			case 24085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002433);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002493, EnemyEtis, "EnemyEtis-10002493");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002493, EnemyEtis);
 				break;
 			}
 			case 24095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002434);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002494, EnemyEtis, "EnemyEtis-10002494");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002494, EnemyEtis);
 				break;
 			}
 			case 24105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002435);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002495, EnemyEtis, "EnemyEtis-10002495");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002495, EnemyEtis);
 				break;
 			}
 			case 24115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002436);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002496, EnemyEtis, "EnemyEtis-10002496");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002496, EnemyEtis);
 				break;
 			}
 			case 24125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002437);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002497, EnemyEtis, "EnemyEtis-10002497");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002497, EnemyEtis);
 				break;
 			}
 			case 24135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002438);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002498, EnemyEtis, "EnemyEtis-10002498");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002498, EnemyEtis);
 				break;
 			}
 			case 24145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002439);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002499, EnemyEtis, "EnemyEtis-10002499");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002499, EnemyEtis);
 				break;
 			}
 			case 24155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002440);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002500, EnemyEtis, "EnemyEtis-10002500");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002500, EnemyEtis);
 				break;
 			}
 			case 24165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002441);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002501, EnemyEtis, "EnemyEtis-10002501");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002501, EnemyEtis);
 				break;
 			}
 			case 24175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002442);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002502, EnemyEtis, "EnemyEtis-10002502");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002502, EnemyEtis);
 				break;
 			}
 			case 24185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002443);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002503, EnemyEtis, "EnemyEtis-10002503");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002503, EnemyEtis);
 				break;
 			}
 			case 24195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002444);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002504, EnemyEtis, "EnemyEtis-10002504");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002504, EnemyEtis);
 				break;
 			}
 			case 24205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002445);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002505, EnemyEtis, "EnemyEtis-10002505");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002505, EnemyEtis);
 				break;
 			}
 			case 24215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002446);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002506, EnemyEtis, "EnemyEtis-10002506");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002506, EnemyEtis);
 				break;
 			}
 			case 24225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002447);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002507, EnemyEtis, "EnemyEtis-10002507");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002507, EnemyEtis);
 				break;
 			}
 			case 24235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002448);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002508, EnemyEtis, "EnemyEtis-10002508");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002508, EnemyEtis);
 				break;
 			}
 			case 24245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002449);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002509, EnemyEtis, "EnemyEtis-10002509");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002509, EnemyEtis);
 				break;
 			}
 			case 24255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002450);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002510, EnemyEtis, "EnemyEtis-10002510");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002510, EnemyEtis);
 				break;
 			}
 			case 24265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002451);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002511, EnemyEtis, "EnemyEtis-10002511");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002511, EnemyEtis);
 				break;
 			}
 			case 24275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002452);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002512, EnemyEtis, "EnemyEtis-10002512");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002512, EnemyEtis);
 				break;
 			}
 			case 24285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002453);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002513, EnemyEtis, "EnemyEtis-10002513");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002513, EnemyEtis);
 				break;
 			}
 			case 24295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002454);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002514, EnemyEtis, "EnemyEtis-10002514");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002514, EnemyEtis);
 				break;
 			}
 			case 24305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002455);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002515, EnemyEtis, "EnemyEtis-10002515");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002515, EnemyEtis);
 				break;
 			}
 			case 24315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002456);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002516, EnemyEtis, "EnemyEtis-10002516");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002516, EnemyEtis);
 				break;
 			}
 			case 24325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002457);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002517, EnemyEtis, "EnemyEtis-10002517");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002517, EnemyEtis);
 				break;
 			}
 			case 24335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002458);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002518, EnemyEtis, "EnemyEtis-10002518");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002518, EnemyEtis);
 				break;
 			}
 			case 24345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002459);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002519, EnemyEtis, "EnemyEtis-10002519");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002519, EnemyEtis);
 				break;
 			}
 			case 24355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002460);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002520, EnemyEtis, "EnemyEtis-10002520");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002520, EnemyEtis);
 				break;
 			}
 			case 24365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002461);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002521, EnemyEtis, "EnemyEtis-10002521");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002521, EnemyEtis);
 				break;
 			}
 			case 24375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002462);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002522, EnemyEtis, "EnemyEtis-10002522");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002522, EnemyEtis);
 				break;
 			}
 			case 24385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002463);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002523, EnemyEtis, "EnemyEtis-10002523");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002523, EnemyEtis);
 				break;
 			}
 			case 24395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002464);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002524, EnemyEtis, "EnemyEtis-10002524");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002524, EnemyEtis);
 				break;
 			}
 			case 24405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002465);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002525, EnemyEtis, "EnemyEtis-10002525");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002525, EnemyEtis);
 				break;
 			}
 			case 24415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002466);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002526, EnemyEtis, "EnemyEtis-10002526");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002526, EnemyEtis);
 				break;
 			}
 			case 24425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002467);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002527, EnemyEtis, "EnemyEtis-10002527");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002527, EnemyEtis);
 				break;
 			}
 			case 24435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002468);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002528, EnemyEtis, "EnemyEtis-10002528");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002528, EnemyEtis);
 				break;
 			}
 			case 24445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002469);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002529, EnemyEtis, "EnemyEtis-10002529");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002529, EnemyEtis);
 				break;
 			}
 			case 24455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002470);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002530, EnemyEtis, "EnemyEtis-10002530");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002530, EnemyEtis);
 				break;
 			}
 			case 24465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002471);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002531, EnemyEtis, "EnemyEtis-10002531");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002531, EnemyEtis);
 				break;
 			}
 			case 24475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002472);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002532, EnemyEtis, "EnemyEtis-10002532");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002532, EnemyEtis);
 				break;
 			}
 			case 24485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002473);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002533, EnemyEtis, "EnemyEtis-10002533");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002533, EnemyEtis);
 				break;
 			}
 			case 24495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002474);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002534, EnemyEtis, "EnemyEtis-10002534");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002534, EnemyEtis);
 				break;
 			}
 			case 24500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003237);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 24505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002475);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002535, EnemyEtis, "EnemyEtis-10002535");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002535, EnemyEtis);
 				break;
 			}
 			case 24515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002476);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002536, EnemyEtis, "EnemyEtis-10002536");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002536, EnemyEtis);
 				break;
 			}
 			case 24525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002477);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002537, EnemyEtis, "EnemyEtis-10002537");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002537, EnemyEtis);
 				break;
 			}
 			case 24535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002478);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002538, EnemyEtis, "EnemyEtis-10002538");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002538, EnemyEtis);
 				break;
 			}
 			case 24545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002479);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002539, EnemyEtis, "EnemyEtis-10002539");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002539, EnemyEtis);
 				break;
 			}
 			case 24555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002480);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002540, EnemyEtis, "EnemyEtis-10002540");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002540, EnemyEtis);
 				break;
 			}
 			case 24565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002481);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002541, EnemyEtis, "EnemyEtis-10002541");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002541, EnemyEtis);
 				break;
 			}
 			case 24575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002482);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002542, EnemyEtis, "EnemyEtis-10002542");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002542, EnemyEtis);
 				break;
 			}
 			case 24585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002483);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002543, EnemyEtis, "EnemyEtis-10002543");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002543, EnemyEtis);
 				break;
 			}
 			case 24595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002484);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002544, EnemyEtis, "EnemyEtis-10002544");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002544, EnemyEtis);
 				break;
 			}
 			case 24605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002485);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002545, EnemyEtis, "EnemyEtis-10002545");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002545, EnemyEtis);
 				break;
 			}
 			case 24615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002486);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002546, EnemyEtis, "EnemyEtis-10002546");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002546, EnemyEtis);
 				break;
 			}
 			case 24625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002487);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002547, EnemyEtis, "EnemyEtis-10002547");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002547, EnemyEtis);
 				break;
 			}
 			case 24635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002488);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002548, EnemyEtis, "EnemyEtis-10002548");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002548, EnemyEtis);
 				break;
 			}
 			case 24645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002489);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002549, EnemyEtis, "EnemyEtis-10002549");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002549, EnemyEtis);
 				break;
 			}
 			case 24655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002490);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002550, EnemyEtis, "EnemyEtis-10002550");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002550, EnemyEtis);
 				break;
 			}
 			case 24665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002491);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002551, EnemyEtis, "EnemyEtis-10002551");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002551, EnemyEtis);
 				break;
 			}
 			case 24675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002492);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002552, EnemyEtis, "EnemyEtis-10002552");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002552, EnemyEtis);
 				break;
 			}
 			case 24685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002493);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002553, EnemyEtis, "EnemyEtis-10002553");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002553, EnemyEtis);
 				break;
 			}
 			case 24695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002494);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002554, EnemyEtis, "EnemyEtis-10002554");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002554, EnemyEtis);
 				break;
 			}
 			case 24705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002495);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002555, EnemyEtis, "EnemyEtis-10002555");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002555, EnemyEtis);
 				break;
 			}
 			case 24715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002496);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002556, EnemyEtis, "EnemyEtis-10002556");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002556, EnemyEtis);
 				break;
 			}
 			case 24725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002497);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002557, EnemyEtis, "EnemyEtis-10002557");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002557, EnemyEtis);
 				break;
 			}
 			case 24735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002498);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002558, EnemyEtis, "EnemyEtis-10002558");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002558, EnemyEtis);
 				break;
 			}
 			case 24745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002499);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002559, EnemyEtis, "EnemyEtis-10002559");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002559, EnemyEtis);
 				break;
 			}
 			case 24755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002500);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002560, EnemyEtis, "EnemyEtis-10002560");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002560, EnemyEtis);
 				break;
 			}
 			case 24765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002501);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002561, EnemyEtis, "EnemyEtis-10002561");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002561, EnemyEtis);
 				break;
 			}
 			case 24775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002502);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002562, EnemyEtis, "EnemyEtis-10002562");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002562, EnemyEtis);
 				break;
 			}
 			case 24785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002503);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002563, EnemyEtis, "EnemyEtis-10002563");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002563, EnemyEtis);
 				break;
 			}
 			case 24795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002504);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002564, EnemyEtis, "EnemyEtis-10002564");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002564, EnemyEtis);
 				break;
 			}
 			case 24805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002505);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002565, EnemyEtis, "EnemyEtis-10002565");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002565, EnemyEtis);
 				break;
 			}
 			case 24815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002506);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002566, EnemyEtis, "EnemyEtis-10002566");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002566, EnemyEtis);
 				break;
 			}
 			case 24825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002507);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002567, EnemyEtis, "EnemyEtis-10002567");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002567, EnemyEtis);
 				break;
 			}
 			case 24835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002508);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002568, EnemyEtis, "EnemyEtis-10002568");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002568, EnemyEtis);
 				break;
 			}
 			case 24845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002509);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002569, EnemyEtis, "EnemyEtis-10002569");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002569, EnemyEtis);
 				break;
 			}
 			case 24855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002510);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002570, EnemyEtis, "EnemyEtis-10002570");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002570, EnemyEtis);
 				break;
 			}
 			case 24865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002511);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002571, EnemyEtis, "EnemyEtis-10002571");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002571, EnemyEtis);
 				break;
 			}
 			case 24875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002512);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002572, EnemyEtis, "EnemyEtis-10002572");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002572, EnemyEtis);
 				break;
 			}
 			case 24885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002513);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002573, EnemyEtis, "EnemyEtis-10002573");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002573, EnemyEtis);
 				break;
 			}
 			case 24895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002514);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002574, EnemyEtis, "EnemyEtis-10002574");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002574, EnemyEtis);
 				break;
 			}
 			case 24905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002515);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002575, EnemyEtis, "EnemyEtis-10002575");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002575, EnemyEtis);
 				break;
 			}
 			case 24915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002516);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002576, EnemyEtis, "EnemyEtis-10002576");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002576, EnemyEtis);
 				break;
 			}
 			case 24925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002517);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002577, EnemyEtis, "EnemyEtis-10002577");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002577, EnemyEtis);
 				break;
 			}
 			case 24935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002518);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002578, EnemyEtis, "EnemyEtis-10002578");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002578, EnemyEtis);
 				break;
 			}
 			case 24945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002519);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002579, EnemyEtis, "EnemyEtis-10002579");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002579, EnemyEtis);
 				break;
 			}
 			case 24955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002520);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002580, EnemyEtis, "EnemyEtis-10002580");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002580, EnemyEtis);
 				break;
 			}
 			case 24965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002521);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002581, EnemyEtis, "EnemyEtis-10002581");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002581, EnemyEtis);
 				break;
 			}
 			case 24975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002522);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002582, EnemyEtis, "EnemyEtis-10002582");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002582, EnemyEtis);
 				break;
 			}
 			case 24985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002523);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002583, EnemyEtis, "EnemyEtis-10002583");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002583, EnemyEtis);
 				break;
 			}
 			case 24995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002524);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002584, EnemyEtis, "EnemyEtis-10002584");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002584, EnemyEtis);
 				break;
 			}
 			case 25005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002525);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002585, EnemyEtis, "EnemyEtis-10002585");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002585, EnemyEtis);
 				break;
 			}
 			case 25015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002526);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002586, EnemyEtis, "EnemyEtis-10002586");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002586, EnemyEtis);
 				break;
 			}
 			case 25025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002527);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002587, EnemyEtis, "EnemyEtis-10002587");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002587, EnemyEtis);
 				break;
 			}
 			case 25035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002528);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002588, EnemyEtis, "EnemyEtis-10002588");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002588, EnemyEtis);
 				break;
 			}
 			case 25045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002529);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002589, EnemyEtis, "EnemyEtis-10002589");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002589, EnemyEtis);
 				break;
 			}
 			case 25055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002530);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002590, EnemyEtis, "EnemyEtis-10002590");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002590, EnemyEtis);
 				break;
 			}
 			case 25065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002531);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002591, EnemyEtis, "EnemyEtis-10002591");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002591, EnemyEtis);
 				break;
 			}
 			case 25075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002532);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002592, EnemyEtis, "EnemyEtis-10002592");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002592, EnemyEtis);
 				break;
 			}
 			case 25085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002533);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002593, EnemyEtis, "EnemyEtis-10002593");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002593, EnemyEtis);
 				break;
 			}
 			case 25095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002534);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002594, EnemyEtis, "EnemyEtis-10002594");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002594, EnemyEtis);
 				break;
 			}
 			case 25105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002535);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002595, EnemyEtis, "EnemyEtis-10002595");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002595, EnemyEtis);
 				break;
 			}
 			case 25115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002536);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002596, EnemyEtis, "EnemyEtis-10002596");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002596, EnemyEtis);
 				break;
 			}
 			case 25125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002537);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002597, EnemyEtis, "EnemyEtis-10002597");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002597, EnemyEtis);
 				break;
 			}
 			case 25135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002538);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002598, EnemyEtis, "EnemyEtis-10002598");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002598, EnemyEtis);
 				break;
 			}
 			case 25145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002539);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002599, EnemyEtis, "EnemyEtis-10002599");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002599, EnemyEtis);
 				break;
 			}
 			case 25155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002540);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002600, EnemyEtis, "EnemyEtis-10002600");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002600, EnemyEtis);
 				break;
 			}
 			case 25165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002541);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002601, EnemyEtis, "EnemyEtis-10002601");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002601, EnemyEtis);
 				break;
 			}
 			case 25175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002542);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002602, EnemyEtis, "EnemyEtis-10002602");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002602, EnemyEtis);
 				break;
 			}
 			case 25185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002543);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002603, EnemyEtis, "EnemyEtis-10002603");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002603, EnemyEtis);
 				break;
 			}
 			case 25195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002544);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002604, EnemyEtis, "EnemyEtis-10002604");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002604, EnemyEtis);
 				break;
 			}
 			case 25205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002545);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002605, EnemyEtis, "EnemyEtis-10002605");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002605, EnemyEtis);
 				break;
 			}
 			case 25215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002546);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002606, EnemyEtis, "EnemyEtis-10002606");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002606, EnemyEtis);
 				break;
 			}
 			case 25225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002547);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002607, EnemyEtis, "EnemyEtis-10002607");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002607, EnemyEtis);
 				break;
 			}
 			case 25235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002548);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002608, EnemyEtis, "EnemyEtis-10002608");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002608, EnemyEtis);
 				break;
 			}
 			case 25245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002549);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002609, EnemyEtis, "EnemyEtis-10002609");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002609, EnemyEtis);
 				break;
 			}
 			case 25255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002550);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002610, EnemyEtis, "EnemyEtis-10002610");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002610, EnemyEtis);
 				break;
 			}
 			case 25265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002551);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002611, EnemyEtis, "EnemyEtis-10002611");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002611, EnemyEtis);
 				break;
 			}
 			case 25275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002552);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002612, EnemyEtis, "EnemyEtis-10002612");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002612, EnemyEtis);
 				break;
 			}
 			case 25285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002553);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002613, EnemyEtis, "EnemyEtis-10002613");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002613, EnemyEtis);
 				break;
 			}
 			case 25295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002554);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002614, EnemyEtis, "EnemyEtis-10002614");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002614, EnemyEtis);
 				break;
 			}
 			case 25305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002555);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002615, EnemyEtis, "EnemyEtis-10002615");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002615, EnemyEtis);
 				break;
 			}
 			case 25315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002556);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002616, EnemyEtis, "EnemyEtis-10002616");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002616, EnemyEtis);
 				break;
 			}
 			case 25325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002557);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002617, EnemyEtis, "EnemyEtis-10002617");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002617, EnemyEtis);
 				break;
 			}
 			case 25335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002558);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002618, EnemyEtis, "EnemyEtis-10002618");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002618, EnemyEtis);
 				break;
 			}
 			case 25345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002559);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002619, EnemyEtis, "EnemyEtis-10002619");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002619, EnemyEtis);
 				break;
 			}
 			case 25355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002560);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002620, EnemyEtis, "EnemyEtis-10002620");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002620, EnemyEtis);
 				break;
 			}
 			case 25365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002561);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002621, EnemyEtis, "EnemyEtis-10002621");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002621, EnemyEtis);
 				break;
 			}
 			case 25375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002562);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002622, EnemyEtis, "EnemyEtis-10002622");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002622, EnemyEtis);
 				break;
 			}
 			case 25385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002563);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002623, EnemyEtis, "EnemyEtis-10002623");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002623, EnemyEtis);
 				break;
 			}
 			case 25395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002564);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002624, EnemyEtis, "EnemyEtis-10002624");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002624, EnemyEtis);
 				break;
 			}
 			case 25405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002565);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002625, EnemyEtis, "EnemyEtis-10002625");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002625, EnemyEtis);
 				break;
 			}
 			case 25415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002566);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002626, EnemyEtis, "EnemyEtis-10002626");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002626, EnemyEtis);
 				break;
 			}
 			case 25425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002567);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002627, EnemyEtis, "EnemyEtis-10002627");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002627, EnemyEtis);
 				break;
 			}
 			case 25435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002568);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002628, EnemyEtis, "EnemyEtis-10002628");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002628, EnemyEtis);
 				break;
 			}
 			case 25445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002569);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002629, EnemyEtis, "EnemyEtis-10002629");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002629, EnemyEtis);
 				break;
 			}
 			case 25455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002570);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002630, EnemyEtis, "EnemyEtis-10002630");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002630, EnemyEtis);
 				break;
 			}
 			case 25465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002571);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002631, EnemyEtis, "EnemyEtis-10002631");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002631, EnemyEtis);
 				break;
 			}
 			case 25475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002572);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002632, EnemyEtis, "EnemyEtis-10002632");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002632, EnemyEtis);
 				break;
 			}
 			case 25485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002573);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002633, EnemyEtis, "EnemyEtis-10002633");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002633, EnemyEtis);
 				break;
 			}
 			case 25495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002574);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002634, EnemyEtis, "EnemyEtis-10002634");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002634, EnemyEtis);
 				break;
 			}
 			case 25505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002575);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002635, EnemyEtis, "EnemyEtis-10002635");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002635, EnemyEtis);
 				break;
 			}
 			case 25515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002576);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002636, EnemyEtis, "EnemyEtis-10002636");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002636, EnemyEtis);
 				break;
 			}
 			case 25525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002577);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002637, EnemyEtis, "EnemyEtis-10002637");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002637, EnemyEtis);
 				break;
 			}
 			case 25535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002578);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002638, EnemyEtis, "EnemyEtis-10002638");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002638, EnemyEtis);
 				break;
 			}
 			case 25545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002579);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002639, EnemyEtis, "EnemyEtis-10002639");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002639, EnemyEtis);
 				break;
 			}
 			case 25555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002580);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002640, EnemyEtis, "EnemyEtis-10002640");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002640, EnemyEtis);
 				break;
 			}
 			case 25565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002581);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002641, EnemyEtis, "EnemyEtis-10002641");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002641, EnemyEtis);
 				break;
 			}
 			case 25575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002582);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002642, EnemyEtis, "EnemyEtis-10002642");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002642, EnemyEtis);
 				break;
 			}
 			case 25585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002583);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002643, EnemyEtis, "EnemyEtis-10002643");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002643, EnemyEtis);
 				break;
 			}
 			case 25595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002584);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002644, EnemyEtis, "EnemyEtis-10002644");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002644, EnemyEtis);
 				break;
 			}
 			case 25605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002585);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002645, EnemyEtis, "EnemyEtis-10002645");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002645, EnemyEtis);
 				break;
 			}
 			case 25615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002586);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002646, EnemyEtis, "EnemyEtis-10002646");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002646, EnemyEtis);
 				break;
 			}
 			case 25625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002587);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002647, EnemyEtis, "EnemyEtis-10002647");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002647, EnemyEtis);
 				break;
 			}
 			case 25635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002588);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002648, EnemyEtis, "EnemyEtis-10002648");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002648, EnemyEtis);
 				break;
 			}
 			case 25645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002589);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002649, EnemyEtis, "EnemyEtis-10002649");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002649, EnemyEtis);
 				break;
 			}
 			case 25655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002590);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002650, EnemyEtis, "EnemyEtis-10002650");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002650, EnemyEtis);
 				break;
 			}
 			case 25665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002591);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002651, EnemyEtis, "EnemyEtis-10002651");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002651, EnemyEtis);
 				break;
 			}
 			case 25675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002592);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002652, EnemyEtis, "EnemyEtis-10002652");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002652, EnemyEtis);
 				break;
 			}
 			case 25685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002593);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002653, EnemyEtis, "EnemyEtis-10002653");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002653, EnemyEtis);
 				break;
 			}
 			case 25695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002594);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002654, EnemyEtis, "EnemyEtis-10002654");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002654, EnemyEtis);
 				break;
 			}
 			case 25705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002595);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002655, EnemyEtis, "EnemyEtis-10002655");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002655, EnemyEtis);
 				break;
 			}
 			case 25715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002596);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002656, EnemyEtis, "EnemyEtis-10002656");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002656, EnemyEtis);
 				break;
 			}
 			case 25725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002597);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002657, EnemyEtis, "EnemyEtis-10002657");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002657, EnemyEtis);
 				break;
 			}
 			case 25735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002598);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002658, EnemyEtis, "EnemyEtis-10002658");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002658, EnemyEtis);
 				break;
 			}
 			case 25745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002599);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002659, EnemyEtis, "EnemyEtis-10002659");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002659, EnemyEtis);
 				break;
 			}
 			case 25755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002600);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002660, EnemyEtis, "EnemyEtis-10002660");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002660, EnemyEtis);
 				break;
 			}
 			case 25765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002601);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002661, EnemyEtis, "EnemyEtis-10002661");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002661, EnemyEtis);
 				break;
 			}
 			case 25775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002602);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002662, EnemyEtis, "EnemyEtis-10002662");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002662, EnemyEtis);
 				break;
 			}
 			case 25785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002603);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002663, EnemyEtis, "EnemyEtis-10002663");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002663, EnemyEtis);
 				break;
 			}
 			case 25795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002604);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002664, EnemyEtis, "EnemyEtis-10002664");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002664, EnemyEtis);
 				break;
 			}
 			case 25805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002605);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002665, EnemyEtis, "EnemyEtis-10002665");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002665, EnemyEtis);
 				break;
 			}
 			case 25815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002606);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002666, EnemyEtis, "EnemyEtis-10002666");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002666, EnemyEtis);
 				break;
 			}
 			case 25825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002607);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002667, EnemyEtis, "EnemyEtis-10002667");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002667, EnemyEtis);
 				break;
 			}
 			case 25835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002608);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002668, EnemyEtis, "EnemyEtis-10002668");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002668, EnemyEtis);
 				break;
 			}
 			case 25845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002609);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002669, EnemyEtis, "EnemyEtis-10002669");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002669, EnemyEtis);
 				break;
 			}
 			case 25855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002610);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002670, EnemyEtis, "EnemyEtis-10002670");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002670, EnemyEtis);
 				break;
 			}
 			case 25865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002611);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002671, EnemyEtis, "EnemyEtis-10002671");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002671, EnemyEtis);
 				break;
 			}
 			case 25875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002612);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002672, EnemyEtis, "EnemyEtis-10002672");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002672, EnemyEtis);
 				break;
 			}
 			case 25885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002613);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002673, EnemyEtis, "EnemyEtis-10002673");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002673, EnemyEtis);
 				break;
 			}
 			case 25895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002614);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002674, EnemyEtis, "EnemyEtis-10002674");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002674, EnemyEtis);
 				break;
 			}
 			case 25900: {
-				requestActor(10003238, EnemyDrastea, "EnemyDrastea-10003238");
+				requestActor(10003238, EnemyDrastea);
 				break;
 			}
 			case 25905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002615);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002675, EnemyEtis, "EnemyEtis-10002675");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002675, EnemyEtis);
 				break;
 			}
 			case 25915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002616);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002676, EnemyEtis, "EnemyEtis-10002676");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002676, EnemyEtis);
 				break;
 			}
 			case 25925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002617);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002677, EnemyEtis, "EnemyEtis-10002677");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002677, EnemyEtis);
 				break;
 			}
 			case 25935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002618);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002678, EnemyEtis, "EnemyEtis-10002678");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002678, EnemyEtis);
 				break;
 			}
 			case 25945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002619);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002679, EnemyEtis, "EnemyEtis-10002679");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002679, EnemyEtis);
 				break;
 			}
 			case 25955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002620);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002680, EnemyEtis, "EnemyEtis-10002680");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002680, EnemyEtis);
 				break;
 			}
 			case 25965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002621);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002681, EnemyEtis, "EnemyEtis-10002681");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002681, EnemyEtis);
 				break;
 			}
 			case 25975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002622);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002682, EnemyEtis, "EnemyEtis-10002682");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002682, EnemyEtis);
 				break;
 			}
 			case 25985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002623);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002683, EnemyEtis, "EnemyEtis-10002683");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002683, EnemyEtis);
 				break;
 			}
 			case 25995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002624);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002684, EnemyEtis, "EnemyEtis-10002684");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002684, EnemyEtis);
 				break;
 			}
 			case 26005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002625);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002685, EnemyEtis, "EnemyEtis-10002685");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002685, EnemyEtis);
 				break;
 			}
 			case 26015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002626);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002686, EnemyEtis, "EnemyEtis-10002686");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002686, EnemyEtis);
 				break;
 			}
 			case 26025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002627);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002687, EnemyEtis, "EnemyEtis-10002687");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002687, EnemyEtis);
 				break;
 			}
 			case 26035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002628);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002688, EnemyEtis, "EnemyEtis-10002688");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002688, EnemyEtis);
 				break;
 			}
 			case 26045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002629);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002689, EnemyEtis, "EnemyEtis-10002689");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002689, EnemyEtis);
 				break;
 			}
 			case 26055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002630);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002690, EnemyEtis, "EnemyEtis-10002690");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002690, EnemyEtis);
 				break;
 			}
 			case 26065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002631);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002691, EnemyEtis, "EnemyEtis-10002691");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002691, EnemyEtis);
 				break;
 			}
 			case 26075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002632);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002692, EnemyEtis, "EnemyEtis-10002692");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002692, EnemyEtis);
 				break;
 			}
 			case 26085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002633);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002693, EnemyEtis, "EnemyEtis-10002693");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002693, EnemyEtis);
 				break;
 			}
 			case 26095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002634);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002694, EnemyEtis, "EnemyEtis-10002694");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002694, EnemyEtis);
 				break;
 			}
 			case 26105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002635);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002695, EnemyEtis, "EnemyEtis-10002695");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002695, EnemyEtis);
 				break;
 			}
 			case 26115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002636);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002696, EnemyEtis, "EnemyEtis-10002696");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002696, EnemyEtis);
 				break;
 			}
 			case 26125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002637);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002697, EnemyEtis, "EnemyEtis-10002697");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002697, EnemyEtis);
 				break;
 			}
 			case 26135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002638);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002698, EnemyEtis, "EnemyEtis-10002698");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002698, EnemyEtis);
 				break;
 			}
 			case 26145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002639);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002699, EnemyEtis, "EnemyEtis-10002699");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002699, EnemyEtis);
 				break;
 			}
 			case 26155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002640);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002700, EnemyEtis, "EnemyEtis-10002700");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002700, EnemyEtis);
 				break;
 			}
 			case 26165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002641);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002701, EnemyEtis, "EnemyEtis-10002701");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002701, EnemyEtis);
 				break;
 			}
 			case 26175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002642);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002702, EnemyEtis, "EnemyEtis-10002702");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002702, EnemyEtis);
 				break;
 			}
 			case 26185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002643);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002703, EnemyEtis, "EnemyEtis-10002703");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002703, EnemyEtis);
 				break;
 			}
 			case 26195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002644);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002704, EnemyEtis, "EnemyEtis-10002704");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002704, EnemyEtis);
 				break;
 			}
 			case 26205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002645);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002705, EnemyEtis, "EnemyEtis-10002705");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002705, EnemyEtis);
 				break;
 			}
 			case 26215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002646);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002706, EnemyEtis, "EnemyEtis-10002706");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002706, EnemyEtis);
 				break;
 			}
 			case 26225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002647);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002707, EnemyEtis, "EnemyEtis-10002707");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002707, EnemyEtis);
 				break;
 			}
 			case 26235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002648);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002708, EnemyEtis, "EnemyEtis-10002708");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002708, EnemyEtis);
 				break;
 			}
 			case 26245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002649);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002709, EnemyEtis, "EnemyEtis-10002709");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002709, EnemyEtis);
 				break;
 			}
 			case 26255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002650);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002710, EnemyEtis, "EnemyEtis-10002710");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002710, EnemyEtis);
 				break;
 			}
 			case 26265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002651);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002711, EnemyEtis, "EnemyEtis-10002711");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002711, EnemyEtis);
 				break;
 			}
 			case 26275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002652);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002712, EnemyEtis, "EnemyEtis-10002712");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002712, EnemyEtis);
 				break;
 			}
 			case 26285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002653);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002713, EnemyEtis, "EnemyEtis-10002713");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002713, EnemyEtis);
 				break;
 			}
 			case 26295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002654);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002714, EnemyEtis, "EnemyEtis-10002714");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002714, EnemyEtis);
 				break;
 			}
 			case 26305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002655);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002715, EnemyEtis, "EnemyEtis-10002715");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002715, EnemyEtis);
 				break;
 			}
 			case 26315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002656);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002716, EnemyEtis, "EnemyEtis-10002716");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002716, EnemyEtis);
 				break;
 			}
 			case 26325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002657);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002717, EnemyEtis, "EnemyEtis-10002717");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002717, EnemyEtis);
 				break;
 			}
 			case 26335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002658);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002718, EnemyEtis, "EnemyEtis-10002718");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002718, EnemyEtis);
 				break;
 			}
 			case 26345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002659);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002719, EnemyEtis, "EnemyEtis-10002719");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002719, EnemyEtis);
 				break;
 			}
 			case 26355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002660);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002720, EnemyEtis, "EnemyEtis-10002720");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002720, EnemyEtis);
 				break;
 			}
 			case 26365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002661);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002721, EnemyEtis, "EnemyEtis-10002721");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002721, EnemyEtis);
 				break;
 			}
 			case 26375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002662);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002722, EnemyEtis, "EnemyEtis-10002722");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002722, EnemyEtis);
 				break;
 			}
 			case 26385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002663);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002723, EnemyEtis, "EnemyEtis-10002723");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002723, EnemyEtis);
 				break;
 			}
 			case 26395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002664);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002724, EnemyEtis, "EnemyEtis-10002724");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002724, EnemyEtis);
 				break;
 			}
 			case 26405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002665);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002725, EnemyEtis, "EnemyEtis-10002725");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002725, EnemyEtis);
 				break;
 			}
 			case 26415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002666);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002726, EnemyEtis, "EnemyEtis-10002726");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002726, EnemyEtis);
 				break;
 			}
 			case 26425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002667);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002727, EnemyEtis, "EnemyEtis-10002727");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002727, EnemyEtis);
 				break;
 			}
 			case 26435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002668);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002728, EnemyEtis, "EnemyEtis-10002728");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002728, EnemyEtis);
 				break;
 			}
 			case 26445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002669);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002729, EnemyEtis, "EnemyEtis-10002729");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002729, EnemyEtis);
 				break;
 			}
 			case 26455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002670);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002730, EnemyEtis, "EnemyEtis-10002730");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002730, EnemyEtis);
 				break;
 			}
 			case 26465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002671);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002731, EnemyEtis, "EnemyEtis-10002731");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002731, EnemyEtis);
 				break;
 			}
 			case 26475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002672);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002732, EnemyEtis, "EnemyEtis-10002732");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002732, EnemyEtis);
 				break;
 			}
 			case 26485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002673);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002733, EnemyEtis, "EnemyEtis-10002733");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002733, EnemyEtis);
 				break;
 			}
 			case 26495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002674);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002734, EnemyEtis, "EnemyEtis-10002734");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002734, EnemyEtis);
 				break;
 			}
 			case 26500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003238);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 26505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002675);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002735, EnemyEtis, "EnemyEtis-10002735");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002735, EnemyEtis);
 				break;
 			}
 			case 26515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002676);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002736, EnemyEtis, "EnemyEtis-10002736");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002736, EnemyEtis);
 				break;
 			}
 			case 26525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002677);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002737, EnemyEtis, "EnemyEtis-10002737");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002737, EnemyEtis);
 				break;
 			}
 			case 26535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002678);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002738, EnemyEtis, "EnemyEtis-10002738");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002738, EnemyEtis);
 				break;
 			}
 			case 26545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002679);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002739, EnemyEtis, "EnemyEtis-10002739");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002739, EnemyEtis);
 				break;
 			}
 			case 26555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002680);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002740, EnemyEtis, "EnemyEtis-10002740");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002740, EnemyEtis);
 				break;
 			}
 			case 26565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002681);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002741, EnemyEtis, "EnemyEtis-10002741");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002741, EnemyEtis);
 				break;
 			}
 			case 26575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002682);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002742, EnemyEtis, "EnemyEtis-10002742");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002742, EnemyEtis);
 				break;
 			}
 			case 26585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002683);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002743, EnemyEtis, "EnemyEtis-10002743");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002743, EnemyEtis);
 				break;
 			}
 			case 26595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002684);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002744, EnemyEtis, "EnemyEtis-10002744");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002744, EnemyEtis);
 				break;
 			}
 			case 26605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002685);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002745, EnemyEtis, "EnemyEtis-10002745");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002745, EnemyEtis);
 				break;
 			}
 			case 26615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002686);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002746, EnemyEtis, "EnemyEtis-10002746");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002746, EnemyEtis);
 				break;
 			}
 			case 26625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002687);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002747, EnemyEtis, "EnemyEtis-10002747");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002747, EnemyEtis);
 				break;
 			}
 			case 26635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002688);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002748, EnemyEtis, "EnemyEtis-10002748");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002748, EnemyEtis);
 				break;
 			}
 			case 26645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002689);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002749, EnemyEtis, "EnemyEtis-10002749");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002749, EnemyEtis);
 				break;
 			}
 			case 26655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002690);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002750, EnemyEtis, "EnemyEtis-10002750");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002750, EnemyEtis);
 				break;
 			}
 			case 26665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002691);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002751, EnemyEtis, "EnemyEtis-10002751");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002751, EnemyEtis);
 				break;
 			}
 			case 26675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002692);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002752, EnemyEtis, "EnemyEtis-10002752");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002752, EnemyEtis);
 				break;
 			}
 			case 26685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002693);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002753, EnemyEtis, "EnemyEtis-10002753");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002753, EnemyEtis);
 				break;
 			}
 			case 26695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002694);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002754, EnemyEtis, "EnemyEtis-10002754");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002754, EnemyEtis);
 				break;
 			}
 			case 26705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002695);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002755, EnemyEtis, "EnemyEtis-10002755");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002755, EnemyEtis);
 				break;
 			}
 			case 26715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002696);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002756, EnemyEtis, "EnemyEtis-10002756");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002756, EnemyEtis);
 				break;
 			}
 			case 26725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002697);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002757, EnemyEtis, "EnemyEtis-10002757");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002757, EnemyEtis);
 				break;
 			}
 			case 26735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002698);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002758, EnemyEtis, "EnemyEtis-10002758");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002758, EnemyEtis);
 				break;
 			}
 			case 26745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002699);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002759, EnemyEtis, "EnemyEtis-10002759");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002759, EnemyEtis);
 				break;
 			}
 			case 26755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002700);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002760, EnemyEtis, "EnemyEtis-10002760");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002760, EnemyEtis);
 				break;
 			}
 			case 26765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002701);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002761, EnemyEtis, "EnemyEtis-10002761");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002761, EnemyEtis);
 				break;
 			}
 			case 26775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002702);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002762, EnemyEtis, "EnemyEtis-10002762");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002762, EnemyEtis);
 				break;
 			}
 			case 26785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002703);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002763, EnemyEtis, "EnemyEtis-10002763");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002763, EnemyEtis);
 				break;
 			}
 			case 26795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002704);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002764, EnemyEtis, "EnemyEtis-10002764");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002764, EnemyEtis);
 				break;
 			}
 			case 26805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002705);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002765, EnemyEtis, "EnemyEtis-10002765");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002765, EnemyEtis);
 				break;
 			}
 			case 26815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002706);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002766, EnemyEtis, "EnemyEtis-10002766");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002766, EnemyEtis);
 				break;
 			}
 			case 26825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002707);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002767, EnemyEtis, "EnemyEtis-10002767");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002767, EnemyEtis);
 				break;
 			}
 			case 26835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002708);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002768, EnemyEtis, "EnemyEtis-10002768");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002768, EnemyEtis);
 				break;
 			}
 			case 26845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002709);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002769, EnemyEtis, "EnemyEtis-10002769");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002769, EnemyEtis);
 				break;
 			}
 			case 26855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002710);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002770, EnemyEtis, "EnemyEtis-10002770");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002770, EnemyEtis);
 				break;
 			}
 			case 26865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002711);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002771, EnemyEtis, "EnemyEtis-10002771");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002771, EnemyEtis);
 				break;
 			}
 			case 26875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002712);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002772, EnemyEtis, "EnemyEtis-10002772");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002772, EnemyEtis);
 				break;
 			}
 			case 26885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002713);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002773, EnemyEtis, "EnemyEtis-10002773");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002773, EnemyEtis);
 				break;
 			}
 			case 26895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002714);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002774, EnemyEtis, "EnemyEtis-10002774");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002774, EnemyEtis);
 				break;
 			}
 			case 26905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002715);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002775, EnemyEtis, "EnemyEtis-10002775");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002775, EnemyEtis);
 				break;
 			}
 			case 26915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002716);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002776, EnemyEtis, "EnemyEtis-10002776");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002776, EnemyEtis);
 				break;
 			}
 			case 26925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002717);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002777, EnemyEtis, "EnemyEtis-10002777");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002777, EnemyEtis);
 				break;
 			}
 			case 26935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002718);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002778, EnemyEtis, "EnemyEtis-10002778");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002778, EnemyEtis);
 				break;
 			}
 			case 26945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002719);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002779, EnemyEtis, "EnemyEtis-10002779");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002779, EnemyEtis);
 				break;
 			}
 			case 26955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002720);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002780, EnemyEtis, "EnemyEtis-10002780");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002780, EnemyEtis);
 				break;
 			}
 			case 26965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002721);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002781, EnemyEtis, "EnemyEtis-10002781");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002781, EnemyEtis);
 				break;
 			}
 			case 26975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002722);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002782, EnemyEtis, "EnemyEtis-10002782");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002782, EnemyEtis);
 				break;
 			}
 			case 26985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002723);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002783, EnemyEtis, "EnemyEtis-10002783");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002783, EnemyEtis);
 				break;
 			}
 			case 26995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002724);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002784, EnemyEtis, "EnemyEtis-10002784");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002784, EnemyEtis);
 				break;
 			}
 			case 27005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002725);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002785, EnemyEtis, "EnemyEtis-10002785");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002785, EnemyEtis);
 				break;
 			}
 			case 27015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002726);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002786, EnemyEtis, "EnemyEtis-10002786");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002786, EnemyEtis);
 				break;
 			}
 			case 27025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002727);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002787, EnemyEtis, "EnemyEtis-10002787");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002787, EnemyEtis);
 				break;
 			}
 			case 27035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002728);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002788, EnemyEtis, "EnemyEtis-10002788");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002788, EnemyEtis);
 				break;
 			}
 			case 27045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002729);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002789, EnemyEtis, "EnemyEtis-10002789");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002789, EnemyEtis);
 				break;
 			}
 			case 27055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002730);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002790, EnemyEtis, "EnemyEtis-10002790");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002790, EnemyEtis);
 				break;
 			}
 			case 27065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002731);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002791, EnemyEtis, "EnemyEtis-10002791");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002791, EnemyEtis);
 				break;
 			}
 			case 27075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002732);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002792, EnemyEtis, "EnemyEtis-10002792");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002792, EnemyEtis);
 				break;
 			}
 			case 27085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002733);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002793, EnemyEtis, "EnemyEtis-10002793");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002793, EnemyEtis);
 				break;
 			}
 			case 27095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002734);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002794, EnemyEtis, "EnemyEtis-10002794");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002794, EnemyEtis);
 				break;
 			}
 			case 27105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002735);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002795, EnemyEtis, "EnemyEtis-10002795");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002795, EnemyEtis);
 				break;
 			}
 			case 27115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002736);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002796, EnemyEtis, "EnemyEtis-10002796");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002796, EnemyEtis);
 				break;
 			}
 			case 27125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002737);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002797, EnemyEtis, "EnemyEtis-10002797");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002797, EnemyEtis);
 				break;
 			}
 			case 27135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002738);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002798, EnemyEtis, "EnemyEtis-10002798");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002798, EnemyEtis);
 				break;
 			}
 			case 27145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002739);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002799, EnemyEtis, "EnemyEtis-10002799");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002799, EnemyEtis);
 				break;
 			}
 			case 27155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002740);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002800, EnemyEtis, "EnemyEtis-10002800");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002800, EnemyEtis);
 				break;
 			}
 			case 27165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002741);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002801, EnemyEtis, "EnemyEtis-10002801");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002801, EnemyEtis);
 				break;
 			}
 			case 27175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002742);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002802, EnemyEtis, "EnemyEtis-10002802");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002802, EnemyEtis);
 				break;
 			}
 			case 27185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002743);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002803, EnemyEtis, "EnemyEtis-10002803");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002803, EnemyEtis);
 				break;
 			}
 			case 27195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002744);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002804, EnemyEtis, "EnemyEtis-10002804");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002804, EnemyEtis);
 				break;
 			}
 			case 27205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002745);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002805, EnemyEtis, "EnemyEtis-10002805");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002805, EnemyEtis);
 				break;
 			}
 			case 27215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002746);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002806, EnemyEtis, "EnemyEtis-10002806");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002806, EnemyEtis);
 				break;
 			}
 			case 27225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002747);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002807, EnemyEtis, "EnemyEtis-10002807");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002807, EnemyEtis);
 				break;
 			}
 			case 27235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002748);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002808, EnemyEtis, "EnemyEtis-10002808");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002808, EnemyEtis);
 				break;
 			}
 			case 27245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002749);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002809, EnemyEtis, "EnemyEtis-10002809");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002809, EnemyEtis);
 				break;
 			}
 			case 27255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002750);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002810, EnemyEtis, "EnemyEtis-10002810");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002810, EnemyEtis);
 				break;
 			}
 			case 27265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002751);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002811, EnemyEtis, "EnemyEtis-10002811");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002811, EnemyEtis);
 				break;
 			}
 			case 27275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002752);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002812, EnemyEtis, "EnemyEtis-10002812");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002812, EnemyEtis);
 				break;
 			}
 			case 27285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002753);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002813, EnemyEtis, "EnemyEtis-10002813");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002813, EnemyEtis);
 				break;
 			}
 			case 27295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002754);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002814, EnemyEtis, "EnemyEtis-10002814");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002814, EnemyEtis);
 				break;
 			}
 			case 27305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002755);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002815, EnemyEtis, "EnemyEtis-10002815");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002815, EnemyEtis);
 				break;
 			}
 			case 27315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002756);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002816, EnemyEtis, "EnemyEtis-10002816");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002816, EnemyEtis);
 				break;
 			}
 			case 27325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002757);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002817, EnemyEtis, "EnemyEtis-10002817");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002817, EnemyEtis);
 				break;
 			}
 			case 27335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002758);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002818, EnemyEtis, "EnemyEtis-10002818");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002818, EnemyEtis);
 				break;
 			}
 			case 27345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002759);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002819, EnemyEtis, "EnemyEtis-10002819");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002819, EnemyEtis);
 				break;
 			}
 			case 27355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002760);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002820, EnemyEtis, "EnemyEtis-10002820");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002820, EnemyEtis);
 				break;
 			}
 			case 27365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002761);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002821, EnemyEtis, "EnemyEtis-10002821");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002821, EnemyEtis);
 				break;
 			}
 			case 27375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002762);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002822, EnemyEtis, "EnemyEtis-10002822");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002822, EnemyEtis);
 				break;
 			}
 			case 27385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002763);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002823, EnemyEtis, "EnemyEtis-10002823");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002823, EnemyEtis);
 				break;
 			}
 			case 27395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002764);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002824, EnemyEtis, "EnemyEtis-10002824");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002824, EnemyEtis);
 				break;
 			}
 			case 27405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002765);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002825, EnemyEtis, "EnemyEtis-10002825");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002825, EnemyEtis);
 				break;
 			}
 			case 27415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002766);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002826, EnemyEtis, "EnemyEtis-10002826");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002826, EnemyEtis);
 				break;
 			}
 			case 27425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002767);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002827, EnemyEtis, "EnemyEtis-10002827");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002827, EnemyEtis);
 				break;
 			}
 			case 27435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002768);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002828, EnemyEtis, "EnemyEtis-10002828");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002828, EnemyEtis);
 				break;
 			}
 			case 27445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002769);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002829, EnemyEtis, "EnemyEtis-10002829");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002829, EnemyEtis);
 				break;
 			}
 			case 27455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002770);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002830, EnemyEtis, "EnemyEtis-10002830");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002830, EnemyEtis);
 				break;
 			}
 			case 27465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002771);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002831, EnemyEtis, "EnemyEtis-10002831");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002831, EnemyEtis);
 				break;
 			}
 			case 27475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002772);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002832, EnemyEtis, "EnemyEtis-10002832");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002832, EnemyEtis);
 				break;
 			}
 			case 27485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002773);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002833, EnemyEtis, "EnemyEtis-10002833");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002833, EnemyEtis);
 				break;
 			}
 			case 27495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002774);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002834, EnemyEtis, "EnemyEtis-10002834");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002834, EnemyEtis);
 				break;
 			}
 			case 27505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002775);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002835, EnemyEtis, "EnemyEtis-10002835");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002835, EnemyEtis);
 				break;
 			}
 			case 27515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002776);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002836, EnemyEtis, "EnemyEtis-10002836");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002836, EnemyEtis);
 				break;
 			}
 			case 27525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002777);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002837, EnemyEtis, "EnemyEtis-10002837");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002837, EnemyEtis);
 				break;
 			}
 			case 27535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002778);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002838, EnemyEtis, "EnemyEtis-10002838");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002838, EnemyEtis);
 				break;
 			}
 			case 27545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002779);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002839, EnemyEtis, "EnemyEtis-10002839");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002839, EnemyEtis);
 				break;
 			}
 			case 27555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002780);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002840, EnemyEtis, "EnemyEtis-10002840");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002840, EnemyEtis);
 				break;
 			}
 			case 27565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002781);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002841, EnemyEtis, "EnemyEtis-10002841");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002841, EnemyEtis);
 				break;
 			}
 			case 27575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002782);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002842, EnemyEtis, "EnemyEtis-10002842");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002842, EnemyEtis);
 				break;
 			}
 			case 27585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002783);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002843, EnemyEtis, "EnemyEtis-10002843");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002843, EnemyEtis);
 				break;
 			}
 			case 27595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002784);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002844, EnemyEtis, "EnemyEtis-10002844");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002844, EnemyEtis);
 				break;
 			}
 			case 27605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002785);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002845, EnemyEtis, "EnemyEtis-10002845");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002845, EnemyEtis);
 				break;
 			}
 			case 27615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002786);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002846, EnemyEtis, "EnemyEtis-10002846");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002846, EnemyEtis);
 				break;
 			}
 			case 27625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002787);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002847, EnemyEtis, "EnemyEtis-10002847");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002847, EnemyEtis);
 				break;
 			}
 			case 27635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002788);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002848, EnemyEtis, "EnemyEtis-10002848");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002848, EnemyEtis);
 				break;
 			}
 			case 27645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002789);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002849, EnemyEtis, "EnemyEtis-10002849");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002849, EnemyEtis);
 				break;
 			}
 			case 27655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002790);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002850, EnemyEtis, "EnemyEtis-10002850");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002850, EnemyEtis);
 				break;
 			}
 			case 27665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002791);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002851, EnemyEtis, "EnemyEtis-10002851");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002851, EnemyEtis);
 				break;
 			}
 			case 27675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002792);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002852, EnemyEtis, "EnemyEtis-10002852");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002852, EnemyEtis);
 				break;
 			}
 			case 27685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002793);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002853, EnemyEtis, "EnemyEtis-10002853");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002853, EnemyEtis);
 				break;
 			}
 			case 27695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002794);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002854, EnemyEtis, "EnemyEtis-10002854");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002854, EnemyEtis);
 				break;
 			}
 			case 27705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002795);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002855, EnemyEtis, "EnemyEtis-10002855");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002855, EnemyEtis);
 				break;
 			}
 			case 27715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002796);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002856, EnemyEtis, "EnemyEtis-10002856");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002856, EnemyEtis);
 				break;
 			}
 			case 27725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002797);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002857, EnemyEtis, "EnemyEtis-10002857");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002857, EnemyEtis);
 				break;
 			}
 			case 27735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002798);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002858, EnemyEtis, "EnemyEtis-10002858");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002858, EnemyEtis);
 				break;
 			}
 			case 27745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002799);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002859, EnemyEtis, "EnemyEtis-10002859");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002859, EnemyEtis);
 				break;
 			}
 			case 27755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002800);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002860, EnemyEtis, "EnemyEtis-10002860");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002860, EnemyEtis);
 				break;
 			}
 			case 27765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002801);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002861, EnemyEtis, "EnemyEtis-10002861");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002861, EnemyEtis);
 				break;
 			}
 			case 27775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002802);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002862, EnemyEtis, "EnemyEtis-10002862");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002862, EnemyEtis);
 				break;
 			}
 			case 27785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002803);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002863, EnemyEtis, "EnemyEtis-10002863");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002863, EnemyEtis);
 				break;
 			}
 			case 27795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002804);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002864, EnemyEtis, "EnemyEtis-10002864");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002864, EnemyEtis);
 				break;
 			}
 			case 27805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002805);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002865, EnemyEtis, "EnemyEtis-10002865");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002865, EnemyEtis);
 				break;
 			}
 			case 27815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002806);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002866, EnemyEtis, "EnemyEtis-10002866");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002866, EnemyEtis);
 				break;
 			}
 			case 27825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002807);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002867, EnemyEtis, "EnemyEtis-10002867");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002867, EnemyEtis);
 				break;
 			}
 			case 27835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002808);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002868, EnemyEtis, "EnemyEtis-10002868");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002868, EnemyEtis);
 				break;
 			}
 			case 27845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002809);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002869, EnemyEtis, "EnemyEtis-10002869");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002869, EnemyEtis);
 				break;
 			}
 			case 27855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002810);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002870, EnemyEtis, "EnemyEtis-10002870");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002870, EnemyEtis);
 				break;
 			}
 			case 27865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002811);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002871, EnemyEtis, "EnemyEtis-10002871");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002871, EnemyEtis);
 				break;
 			}
 			case 27875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002812);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002872, EnemyEtis, "EnemyEtis-10002872");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002872, EnemyEtis);
 				break;
 			}
 			case 27885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002813);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002873, EnemyEtis, "EnemyEtis-10002873");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002873, EnemyEtis);
 				break;
 			}
 			case 27895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002814);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002874, EnemyEtis, "EnemyEtis-10002874");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002874, EnemyEtis);
 				break;
 			}
 			case 27900: {
-				requestActor(10003239, EnemyDrastea, "EnemyDrastea-10003239");
+				requestActor(10003239, EnemyDrastea);
 				break;
 			}
 			case 27905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002815);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002875, EnemyEtis, "EnemyEtis-10002875");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002875, EnemyEtis);
 				break;
 			}
 			case 27915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002816);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002876, EnemyEtis, "EnemyEtis-10002876");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002876, EnemyEtis);
 				break;
 			}
 			case 27925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002817);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002877, EnemyEtis, "EnemyEtis-10002877");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002877, EnemyEtis);
 				break;
 			}
 			case 27935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002818);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002878, EnemyEtis, "EnemyEtis-10002878");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002878, EnemyEtis);
 				break;
 			}
 			case 27945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002819);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002879, EnemyEtis, "EnemyEtis-10002879");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002879, EnemyEtis);
 				break;
 			}
 			case 27955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002820);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002880, EnemyEtis, "EnemyEtis-10002880");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002880, EnemyEtis);
 				break;
 			}
 			case 27965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002821);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002881, EnemyEtis, "EnemyEtis-10002881");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002881, EnemyEtis);
 				break;
 			}
 			case 27975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002822);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002882, EnemyEtis, "EnemyEtis-10002882");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002882, EnemyEtis);
 				break;
 			}
 			case 27985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002823);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002883, EnemyEtis, "EnemyEtis-10002883");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002883, EnemyEtis);
 				break;
 			}
 			case 27995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002824);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002884, EnemyEtis, "EnemyEtis-10002884");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002884, EnemyEtis);
 				break;
 			}
 			case 28005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002825);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002885, EnemyEtis, "EnemyEtis-10002885");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002885, EnemyEtis);
 				break;
 			}
 			case 28015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002826);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002886, EnemyEtis, "EnemyEtis-10002886");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002886, EnemyEtis);
 				break;
 			}
 			case 28025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002827);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002887, EnemyEtis, "EnemyEtis-10002887");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002887, EnemyEtis);
 				break;
 			}
 			case 28035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002828);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002888, EnemyEtis, "EnemyEtis-10002888");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002888, EnemyEtis);
 				break;
 			}
 			case 28045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002829);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002889, EnemyEtis, "EnemyEtis-10002889");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002889, EnemyEtis);
 				break;
 			}
 			case 28055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002830);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002890, EnemyEtis, "EnemyEtis-10002890");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002890, EnemyEtis);
 				break;
 			}
 			case 28065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002831);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002891, EnemyEtis, "EnemyEtis-10002891");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002891, EnemyEtis);
 				break;
 			}
 			case 28075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002832);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002892, EnemyEtis, "EnemyEtis-10002892");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002892, EnemyEtis);
 				break;
 			}
 			case 28085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002833);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002893, EnemyEtis, "EnemyEtis-10002893");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002893, EnemyEtis);
 				break;
 			}
 			case 28095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002834);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002894, EnemyEtis, "EnemyEtis-10002894");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002894, EnemyEtis);
 				break;
 			}
 			case 28105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002835);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002895, EnemyEtis, "EnemyEtis-10002895");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002895, EnemyEtis);
 				break;
 			}
 			case 28115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002836);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002896, EnemyEtis, "EnemyEtis-10002896");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002896, EnemyEtis);
 				break;
 			}
 			case 28125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002837);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002897, EnemyEtis, "EnemyEtis-10002897");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002897, EnemyEtis);
 				break;
 			}
 			case 28135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002838);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002898, EnemyEtis, "EnemyEtis-10002898");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002898, EnemyEtis);
 				break;
 			}
 			case 28145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002839);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002899, EnemyEtis, "EnemyEtis-10002899");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002899, EnemyEtis);
 				break;
 			}
 			case 28155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002840);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002900, EnemyEtis, "EnemyEtis-10002900");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002900, EnemyEtis);
 				break;
 			}
 			case 28165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002841);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002901, EnemyEtis, "EnemyEtis-10002901");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002901, EnemyEtis);
 				break;
 			}
 			case 28175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002842);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002902, EnemyEtis, "EnemyEtis-10002902");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002902, EnemyEtis);
 				break;
 			}
 			case 28185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002843);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002903, EnemyEtis, "EnemyEtis-10002903");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002903, EnemyEtis);
 				break;
 			}
 			case 28195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002844);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002904, EnemyEtis, "EnemyEtis-10002904");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002904, EnemyEtis);
 				break;
 			}
 			case 28205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002845);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002905, EnemyEtis, "EnemyEtis-10002905");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002905, EnemyEtis);
 				break;
 			}
 			case 28215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002846);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002906, EnemyEtis, "EnemyEtis-10002906");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002906, EnemyEtis);
 				break;
 			}
 			case 28225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002847);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002907, EnemyEtis, "EnemyEtis-10002907");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002907, EnemyEtis);
 				break;
 			}
 			case 28235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002848);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002908, EnemyEtis, "EnemyEtis-10002908");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002908, EnemyEtis);
 				break;
 			}
 			case 28245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002849);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002909, EnemyEtis, "EnemyEtis-10002909");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002909, EnemyEtis);
 				break;
 			}
 			case 28255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002850);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002910, EnemyEtis, "EnemyEtis-10002910");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002910, EnemyEtis);
 				break;
 			}
 			case 28265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002851);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002911, EnemyEtis, "EnemyEtis-10002911");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002911, EnemyEtis);
 				break;
 			}
 			case 28275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002852);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002912, EnemyEtis, "EnemyEtis-10002912");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002912, EnemyEtis);
 				break;
 			}
 			case 28285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002853);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002913, EnemyEtis, "EnemyEtis-10002913");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002913, EnemyEtis);
 				break;
 			}
 			case 28295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002854);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002914, EnemyEtis, "EnemyEtis-10002914");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002914, EnemyEtis);
 				break;
 			}
 			case 28305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002855);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002915, EnemyEtis, "EnemyEtis-10002915");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002915, EnemyEtis);
 				break;
 			}
 			case 28315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002856);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002916, EnemyEtis, "EnemyEtis-10002916");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002916, EnemyEtis);
 				break;
 			}
 			case 28325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002857);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002917, EnemyEtis, "EnemyEtis-10002917");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002917, EnemyEtis);
 				break;
 			}
 			case 28335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002858);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002918, EnemyEtis, "EnemyEtis-10002918");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002918, EnemyEtis);
 				break;
 			}
 			case 28345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002859);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002919, EnemyEtis, "EnemyEtis-10002919");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002919, EnemyEtis);
 				break;
 			}
 			case 28355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002860);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002920, EnemyEtis, "EnemyEtis-10002920");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002920, EnemyEtis);
 				break;
 			}
 			case 28365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002861);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002921, EnemyEtis, "EnemyEtis-10002921");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002921, EnemyEtis);
 				break;
 			}
 			case 28375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002862);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002922, EnemyEtis, "EnemyEtis-10002922");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002922, EnemyEtis);
 				break;
 			}
 			case 28385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002863);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002923, EnemyEtis, "EnemyEtis-10002923");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002923, EnemyEtis);
 				break;
 			}
 			case 28395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002864);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002924, EnemyEtis, "EnemyEtis-10002924");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002924, EnemyEtis);
 				break;
 			}
 			case 28405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002865);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002925, EnemyEtis, "EnemyEtis-10002925");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002925, EnemyEtis);
 				break;
 			}
 			case 28415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002866);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002926, EnemyEtis, "EnemyEtis-10002926");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002926, EnemyEtis);
 				break;
 			}
 			case 28425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002867);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002927, EnemyEtis, "EnemyEtis-10002927");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002927, EnemyEtis);
 				break;
 			}
 			case 28435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002868);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002928, EnemyEtis, "EnemyEtis-10002928");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002928, EnemyEtis);
 				break;
 			}
 			case 28445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002869);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002929, EnemyEtis, "EnemyEtis-10002929");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002929, EnemyEtis);
 				break;
 			}
 			case 28455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002870);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002930, EnemyEtis, "EnemyEtis-10002930");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002930, EnemyEtis);
 				break;
 			}
 			case 28465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002871);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002931, EnemyEtis, "EnemyEtis-10002931");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002931, EnemyEtis);
 				break;
 			}
 			case 28475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002872);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002932, EnemyEtis, "EnemyEtis-10002932");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002932, EnemyEtis);
 				break;
 			}
 			case 28485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002873);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002933, EnemyEtis, "EnemyEtis-10002933");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002933, EnemyEtis);
 				break;
 			}
 			case 28495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002874);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002934, EnemyEtis, "EnemyEtis-10002934");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002934, EnemyEtis);
 				break;
 			}
 			case 28500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003239);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 28505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002875);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002935, EnemyEtis, "EnemyEtis-10002935");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002935, EnemyEtis);
 				break;
 			}
 			case 28515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002876);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002936, EnemyEtis, "EnemyEtis-10002936");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002936, EnemyEtis);
 				break;
 			}
 			case 28525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002877);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002937, EnemyEtis, "EnemyEtis-10002937");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002937, EnemyEtis);
 				break;
 			}
 			case 28535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002878);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002938, EnemyEtis, "EnemyEtis-10002938");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002938, EnemyEtis);
 				break;
 			}
 			case 28545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002879);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002939, EnemyEtis, "EnemyEtis-10002939");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002939, EnemyEtis);
 				break;
 			}
 			case 28555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002880);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002940, EnemyEtis, "EnemyEtis-10002940");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002940, EnemyEtis);
 				break;
 			}
 			case 28565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002881);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002941, EnemyEtis, "EnemyEtis-10002941");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002941, EnemyEtis);
 				break;
 			}
 			case 28575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002882);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002942, EnemyEtis, "EnemyEtis-10002942");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002942, EnemyEtis);
 				break;
 			}
 			case 28585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002883);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002943, EnemyEtis, "EnemyEtis-10002943");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002943, EnemyEtis);
 				break;
 			}
 			case 28595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002884);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002944, EnemyEtis, "EnemyEtis-10002944");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002944, EnemyEtis);
 				break;
 			}
 			case 28605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002885);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002945, EnemyEtis, "EnemyEtis-10002945");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002945, EnemyEtis);
 				break;
 			}
 			case 28615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002886);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002946, EnemyEtis, "EnemyEtis-10002946");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002946, EnemyEtis);
 				break;
 			}
 			case 28625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002887);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002947, EnemyEtis, "EnemyEtis-10002947");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002947, EnemyEtis);
 				break;
 			}
 			case 28635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002888);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002948, EnemyEtis, "EnemyEtis-10002948");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002948, EnemyEtis);
 				break;
 			}
 			case 28645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002889);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002949, EnemyEtis, "EnemyEtis-10002949");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002949, EnemyEtis);
 				break;
 			}
 			case 28655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002890);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002950, EnemyEtis, "EnemyEtis-10002950");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002950, EnemyEtis);
 				break;
 			}
 			case 28665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002891);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002951, EnemyEtis, "EnemyEtis-10002951");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002951, EnemyEtis);
 				break;
 			}
 			case 28675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002892);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002952, EnemyEtis, "EnemyEtis-10002952");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002952, EnemyEtis);
 				break;
 			}
 			case 28685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002893);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002953, EnemyEtis, "EnemyEtis-10002953");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002953, EnemyEtis);
 				break;
 			}
 			case 28695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002894);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002954, EnemyEtis, "EnemyEtis-10002954");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002954, EnemyEtis);
 				break;
 			}
 			case 28705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002895);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002955, EnemyEtis, "EnemyEtis-10002955");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002955, EnemyEtis);
 				break;
 			}
 			case 28715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002896);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002956, EnemyEtis, "EnemyEtis-10002956");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002956, EnemyEtis);
 				break;
 			}
 			case 28725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002897);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002957, EnemyEtis, "EnemyEtis-10002957");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002957, EnemyEtis);
 				break;
 			}
 			case 28735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002898);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002958, EnemyEtis, "EnemyEtis-10002958");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002958, EnemyEtis);
 				break;
 			}
 			case 28745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002899);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002959, EnemyEtis, "EnemyEtis-10002959");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002959, EnemyEtis);
 				break;
 			}
 			case 28755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002900);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002960, EnemyEtis, "EnemyEtis-10002960");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002960, EnemyEtis);
 				break;
 			}
 			case 28765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002901);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002961, EnemyEtis, "EnemyEtis-10002961");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002961, EnemyEtis);
 				break;
 			}
 			case 28775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002902);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002962, EnemyEtis, "EnemyEtis-10002962");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002962, EnemyEtis);
 				break;
 			}
 			case 28785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002903);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002963, EnemyEtis, "EnemyEtis-10002963");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002963, EnemyEtis);
 				break;
 			}
 			case 28795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002904);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002964, EnemyEtis, "EnemyEtis-10002964");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002964, EnemyEtis);
 				break;
 			}
 			case 28805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002905);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002965, EnemyEtis, "EnemyEtis-10002965");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002965, EnemyEtis);
 				break;
 			}
 			case 28815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002906);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002966, EnemyEtis, "EnemyEtis-10002966");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002966, EnemyEtis);
 				break;
 			}
 			case 28825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002907);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002967, EnemyEtis, "EnemyEtis-10002967");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002967, EnemyEtis);
 				break;
 			}
 			case 28835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002908);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002968, EnemyEtis, "EnemyEtis-10002968");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002968, EnemyEtis);
 				break;
 			}
 			case 28845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002909);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002969, EnemyEtis, "EnemyEtis-10002969");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002969, EnemyEtis);
 				break;
 			}
 			case 28855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002910);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002970, EnemyEtis, "EnemyEtis-10002970");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002970, EnemyEtis);
 				break;
 			}
 			case 28865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002911);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002971, EnemyEtis, "EnemyEtis-10002971");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002971, EnemyEtis);
 				break;
 			}
 			case 28875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002912);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002972, EnemyEtis, "EnemyEtis-10002972");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002972, EnemyEtis);
 				break;
 			}
 			case 28885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002913);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002973, EnemyEtis, "EnemyEtis-10002973");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002973, EnemyEtis);
 				break;
 			}
 			case 28895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002914);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002974, EnemyEtis, "EnemyEtis-10002974");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002974, EnemyEtis);
 				break;
 			}
 			case 28905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002915);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002975, EnemyEtis, "EnemyEtis-10002975");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002975, EnemyEtis);
 				break;
 			}
 			case 28915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002916);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002976, EnemyEtis, "EnemyEtis-10002976");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002976, EnemyEtis);
 				break;
 			}
 			case 28925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002917);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002977, EnemyEtis, "EnemyEtis-10002977");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002977, EnemyEtis);
 				break;
 			}
 			case 28935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002918);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002978, EnemyEtis, "EnemyEtis-10002978");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002978, EnemyEtis);
 				break;
 			}
 			case 28945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002919);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002979, EnemyEtis, "EnemyEtis-10002979");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002979, EnemyEtis);
 				break;
 			}
 			case 28955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002920);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002980, EnemyEtis, "EnemyEtis-10002980");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002980, EnemyEtis);
 				break;
 			}
 			case 28965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002921);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002981, EnemyEtis, "EnemyEtis-10002981");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002981, EnemyEtis);
 				break;
 			}
 			case 28975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002922);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002982, EnemyEtis, "EnemyEtis-10002982");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002982, EnemyEtis);
 				break;
 			}
 			case 28985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002923);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002983, EnemyEtis, "EnemyEtis-10002983");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002983, EnemyEtis);
 				break;
 			}
 			case 28995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002924);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002984, EnemyEtis, "EnemyEtis-10002984");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002984, EnemyEtis);
 				break;
 			}
 			case 29005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002925);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002985, EnemyEtis, "EnemyEtis-10002985");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002985, EnemyEtis);
 				break;
 			}
 			case 29015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002926);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002986, EnemyEtis, "EnemyEtis-10002986");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002986, EnemyEtis);
 				break;
 			}
 			case 29025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002927);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002987, EnemyEtis, "EnemyEtis-10002987");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002987, EnemyEtis);
 				break;
 			}
 			case 29035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002928);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002988, EnemyEtis, "EnemyEtis-10002988");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002988, EnemyEtis);
 				break;
 			}
 			case 29045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002929);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002989, EnemyEtis, "EnemyEtis-10002989");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002989, EnemyEtis);
 				break;
 			}
 			case 29055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002930);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002990, EnemyEtis, "EnemyEtis-10002990");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002990, EnemyEtis);
 				break;
 			}
 			case 29065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002931);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002991, EnemyEtis, "EnemyEtis-10002991");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002991, EnemyEtis);
 				break;
 			}
 			case 29075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002932);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002992, EnemyEtis, "EnemyEtis-10002992");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002992, EnemyEtis);
 				break;
 			}
 			case 29085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002933);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002993, EnemyEtis, "EnemyEtis-10002993");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002993, EnemyEtis);
 				break;
 			}
 			case 29095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002934);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002994, EnemyEtis, "EnemyEtis-10002994");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002994, EnemyEtis);
 				break;
 			}
 			case 29105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002935);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002995, EnemyEtis, "EnemyEtis-10002995");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002995, EnemyEtis);
 				break;
 			}
 			case 29115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002936);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002996, EnemyEtis, "EnemyEtis-10002996");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002996, EnemyEtis);
 				break;
 			}
 			case 29125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002937);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002997, EnemyEtis, "EnemyEtis-10002997");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002997, EnemyEtis);
 				break;
 			}
 			case 29135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002938);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002998, EnemyEtis, "EnemyEtis-10002998");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002998, EnemyEtis);
 				break;
 			}
 			case 29145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002939);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10002999, EnemyEtis, "EnemyEtis-10002999");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10002999, EnemyEtis);
 				break;
 			}
 			case 29155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002940);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003000, EnemyEtis, "EnemyEtis-10003000");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003000, EnemyEtis);
 				break;
 			}
 			case 29165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002941);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003001, EnemyEtis, "EnemyEtis-10003001");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003001, EnemyEtis);
 				break;
 			}
 			case 29175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002942);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003002, EnemyEtis, "EnemyEtis-10003002");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003002, EnemyEtis);
 				break;
 			}
 			case 29185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002943);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003003, EnemyEtis, "EnemyEtis-10003003");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003003, EnemyEtis);
 				break;
 			}
 			case 29195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002944);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003004, EnemyEtis, "EnemyEtis-10003004");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003004, EnemyEtis);
 				break;
 			}
 			case 29205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002945);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003005, EnemyEtis, "EnemyEtis-10003005");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003005, EnemyEtis);
 				break;
 			}
 			case 29215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002946);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003006, EnemyEtis, "EnemyEtis-10003006");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003006, EnemyEtis);
 				break;
 			}
 			case 29225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002947);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003007, EnemyEtis, "EnemyEtis-10003007");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003007, EnemyEtis);
 				break;
 			}
 			case 29235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002948);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003008, EnemyEtis, "EnemyEtis-10003008");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003008, EnemyEtis);
 				break;
 			}
 			case 29245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002949);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003009, EnemyEtis, "EnemyEtis-10003009");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003009, EnemyEtis);
 				break;
 			}
 			case 29255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002950);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003010, EnemyEtis, "EnemyEtis-10003010");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003010, EnemyEtis);
 				break;
 			}
 			case 29265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002951);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003011, EnemyEtis, "EnemyEtis-10003011");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003011, EnemyEtis);
 				break;
 			}
 			case 29275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002952);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003012, EnemyEtis, "EnemyEtis-10003012");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003012, EnemyEtis);
 				break;
 			}
 			case 29285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002953);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003013, EnemyEtis, "EnemyEtis-10003013");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003013, EnemyEtis);
 				break;
 			}
 			case 29295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002954);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003014, EnemyEtis, "EnemyEtis-10003014");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003014, EnemyEtis);
 				break;
 			}
 			case 29305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002955);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003015, EnemyEtis, "EnemyEtis-10003015");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003015, EnemyEtis);
 				break;
 			}
 			case 29315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002956);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003016, EnemyEtis, "EnemyEtis-10003016");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003016, EnemyEtis);
 				break;
 			}
 			case 29325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002957);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003017, EnemyEtis, "EnemyEtis-10003017");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003017, EnemyEtis);
 				break;
 			}
 			case 29335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002958);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003018, EnemyEtis, "EnemyEtis-10003018");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003018, EnemyEtis);
 				break;
 			}
 			case 29345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002959);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003019, EnemyEtis, "EnemyEtis-10003019");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003019, EnemyEtis);
 				break;
 			}
 			case 29355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002960);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003020, EnemyEtis, "EnemyEtis-10003020");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003020, EnemyEtis);
 				break;
 			}
 			case 29365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002961);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003021, EnemyEtis, "EnemyEtis-10003021");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003021, EnemyEtis);
 				break;
 			}
 			case 29375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002962);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003022, EnemyEtis, "EnemyEtis-10003022");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003022, EnemyEtis);
 				break;
 			}
 			case 29385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002963);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003023, EnemyEtis, "EnemyEtis-10003023");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003023, EnemyEtis);
 				break;
 			}
 			case 29395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002964);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003024, EnemyEtis, "EnemyEtis-10003024");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003024, EnemyEtis);
 				break;
 			}
 			case 29405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002965);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003025, EnemyEtis, "EnemyEtis-10003025");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003025, EnemyEtis);
 				break;
 			}
 			case 29415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002966);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003026, EnemyEtis, "EnemyEtis-10003026");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003026, EnemyEtis);
 				break;
 			}
 			case 29425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002967);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003027, EnemyEtis, "EnemyEtis-10003027");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003027, EnemyEtis);
 				break;
 			}
 			case 29435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002968);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003028, EnemyEtis, "EnemyEtis-10003028");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003028, EnemyEtis);
 				break;
 			}
 			case 29445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002969);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003029, EnemyEtis, "EnemyEtis-10003029");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003029, EnemyEtis);
 				break;
 			}
 			case 29455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002970);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003030, EnemyEtis, "EnemyEtis-10003030");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003030, EnemyEtis);
 				break;
 			}
 			case 29465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002971);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003031, EnemyEtis, "EnemyEtis-10003031");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003031, EnemyEtis);
 				break;
 			}
 			case 29475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002972);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003032, EnemyEtis, "EnemyEtis-10003032");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003032, EnemyEtis);
 				break;
 			}
 			case 29485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002973);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003033, EnemyEtis, "EnemyEtis-10003033");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003033, EnemyEtis);
 				break;
 			}
 			case 29495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002974);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003034, EnemyEtis, "EnemyEtis-10003034");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003034, EnemyEtis);
 				break;
 			}
 			case 29505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002975);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003035, EnemyEtis, "EnemyEtis-10003035");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003035, EnemyEtis);
 				break;
 			}
 			case 29515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002976);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003036, EnemyEtis, "EnemyEtis-10003036");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003036, EnemyEtis);
 				break;
 			}
 			case 29525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002977);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003037, EnemyEtis, "EnemyEtis-10003037");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003037, EnemyEtis);
 				break;
 			}
 			case 29535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002978);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003038, EnemyEtis, "EnemyEtis-10003038");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003038, EnemyEtis);
 				break;
 			}
 			case 29545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002979);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003039, EnemyEtis, "EnemyEtis-10003039");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003039, EnemyEtis);
 				break;
 			}
 			case 29555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002980);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003040, EnemyEtis, "EnemyEtis-10003040");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003040, EnemyEtis);
 				break;
 			}
 			case 29565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002981);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003041, EnemyEtis, "EnemyEtis-10003041");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003041, EnemyEtis);
 				break;
 			}
 			case 29575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002982);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003042, EnemyEtis, "EnemyEtis-10003042");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003042, EnemyEtis);
 				break;
 			}
 			case 29585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002983);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003043, EnemyEtis, "EnemyEtis-10003043");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003043, EnemyEtis);
 				break;
 			}
 			case 29595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002984);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003044, EnemyEtis, "EnemyEtis-10003044");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003044, EnemyEtis);
 				break;
 			}
 			case 29605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002985);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003045, EnemyEtis, "EnemyEtis-10003045");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003045, EnemyEtis);
 				break;
 			}
 			case 29615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002986);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003046, EnemyEtis, "EnemyEtis-10003046");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003046, EnemyEtis);
 				break;
 			}
 			case 29625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002987);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003047, EnemyEtis, "EnemyEtis-10003047");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003047, EnemyEtis);
 				break;
 			}
 			case 29635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002988);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003048, EnemyEtis, "EnemyEtis-10003048");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003048, EnemyEtis);
 				break;
 			}
 			case 29645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002989);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003049, EnemyEtis, "EnemyEtis-10003049");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003049, EnemyEtis);
 				break;
 			}
 			case 29655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002990);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003050, EnemyEtis, "EnemyEtis-10003050");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003050, EnemyEtis);
 				break;
 			}
 			case 29665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002991);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003051, EnemyEtis, "EnemyEtis-10003051");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003051, EnemyEtis);
 				break;
 			}
 			case 29675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002992);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003052, EnemyEtis, "EnemyEtis-10003052");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003052, EnemyEtis);
 				break;
 			}
 			case 29685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002993);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003053, EnemyEtis, "EnemyEtis-10003053");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003053, EnemyEtis);
 				break;
 			}
 			case 29695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002994);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003054, EnemyEtis, "EnemyEtis-10003054");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003054, EnemyEtis);
 				break;
 			}
 			case 29705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002995);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003055, EnemyEtis, "EnemyEtis-10003055");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003055, EnemyEtis);
 				break;
 			}
 			case 29715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002996);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003056, EnemyEtis, "EnemyEtis-10003056");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003056, EnemyEtis);
 				break;
 			}
 			case 29725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002997);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003057, EnemyEtis, "EnemyEtis-10003057");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003057, EnemyEtis);
 				break;
 			}
 			case 29735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002998);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003058, EnemyEtis, "EnemyEtis-10003058");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003058, EnemyEtis);
 				break;
 			}
 			case 29745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10002999);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003059, EnemyEtis, "EnemyEtis-10003059");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003059, EnemyEtis);
 				break;
 			}
 			case 29755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003000);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003060, EnemyEtis, "EnemyEtis-10003060");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003060, EnemyEtis);
 				break;
 			}
 			case 29765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003001);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003061, EnemyEtis, "EnemyEtis-10003061");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003061, EnemyEtis);
 				break;
 			}
 			case 29775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003002);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003062, EnemyEtis, "EnemyEtis-10003062");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003062, EnemyEtis);
 				break;
 			}
 			case 29785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003003);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003063, EnemyEtis, "EnemyEtis-10003063");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003063, EnemyEtis);
 				break;
 			}
 			case 29795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003004);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003064, EnemyEtis, "EnemyEtis-10003064");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003064, EnemyEtis);
 				break;
 			}
 			case 29805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003005);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003065, EnemyEtis, "EnemyEtis-10003065");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003065, EnemyEtis);
 				break;
 			}
 			case 29815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003006);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003066, EnemyEtis, "EnemyEtis-10003066");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003066, EnemyEtis);
 				break;
 			}
 			case 29825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003007);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003067, EnemyEtis, "EnemyEtis-10003067");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003067, EnemyEtis);
 				break;
 			}
 			case 29835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003008);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003068, EnemyEtis, "EnemyEtis-10003068");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003068, EnemyEtis);
 				break;
 			}
 			case 29845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003009);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003069, EnemyEtis, "EnemyEtis-10003069");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003069, EnemyEtis);
 				break;
 			}
 			case 29855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003010);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003070, EnemyEtis, "EnemyEtis-10003070");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003070, EnemyEtis);
 				break;
 			}
 			case 29865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003011);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003071, EnemyEtis, "EnemyEtis-10003071");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003071, EnemyEtis);
 				break;
 			}
 			case 29875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003012);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003072, EnemyEtis, "EnemyEtis-10003072");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003072, EnemyEtis);
 				break;
 			}
 			case 29885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003013);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003073, EnemyEtis, "EnemyEtis-10003073");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003073, EnemyEtis);
 				break;
 			}
 			case 29895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003014);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003074, EnemyEtis, "EnemyEtis-10003074");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003074, EnemyEtis);
 				break;
 			}
 			case 29900: {
-				requestActor(10003240, EnemyDrastea, "EnemyDrastea-10003240");
+				requestActor(10003240, EnemyDrastea);
 				break;
 			}
 			case 29905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003015);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003075, EnemyEtis, "EnemyEtis-10003075");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003075, EnemyEtis);
 				break;
 			}
 			case 29915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003016);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003076, EnemyEtis, "EnemyEtis-10003076");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003076, EnemyEtis);
 				break;
 			}
 			case 29925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003017);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003077, EnemyEtis, "EnemyEtis-10003077");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003077, EnemyEtis);
 				break;
 			}
 			case 29935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003018);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003078, EnemyEtis, "EnemyEtis-10003078");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003078, EnemyEtis);
 				break;
 			}
 			case 29945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003019);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003079, EnemyEtis, "EnemyEtis-10003079");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003079, EnemyEtis);
 				break;
 			}
 			case 29955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003020);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003080, EnemyEtis, "EnemyEtis-10003080");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003080, EnemyEtis);
 				break;
 			}
 			case 29965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003021);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003081, EnemyEtis, "EnemyEtis-10003081");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003081, EnemyEtis);
 				break;
 			}
 			case 29975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003022);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003082, EnemyEtis, "EnemyEtis-10003082");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003082, EnemyEtis);
 				break;
 			}
 			case 29985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003023);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003083, EnemyEtis, "EnemyEtis-10003083");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003083, EnemyEtis);
 				break;
 			}
 			case 29995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003024);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003084, EnemyEtis, "EnemyEtis-10003084");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003084, EnemyEtis);
 				break;
 			}
 			case 30005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003025);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003085, EnemyEtis, "EnemyEtis-10003085");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003085, EnemyEtis);
 				break;
 			}
 			case 30015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003026);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003086, EnemyEtis, "EnemyEtis-10003086");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003086, EnemyEtis);
 				break;
 			}
 			case 30025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003027);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003087, EnemyEtis, "EnemyEtis-10003087");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003087, EnemyEtis);
 				break;
 			}
 			case 30035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003028);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003088, EnemyEtis, "EnemyEtis-10003088");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003088, EnemyEtis);
 				break;
 			}
 			case 30045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003029);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003089, EnemyEtis, "EnemyEtis-10003089");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003089, EnemyEtis);
 				break;
 			}
 			case 30055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003030);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003090, EnemyEtis, "EnemyEtis-10003090");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003090, EnemyEtis);
 				break;
 			}
 			case 30065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003031);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003091, EnemyEtis, "EnemyEtis-10003091");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003091, EnemyEtis);
 				break;
 			}
 			case 30075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003032);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003092, EnemyEtis, "EnemyEtis-10003092");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003092, EnemyEtis);
 				break;
 			}
 			case 30085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003033);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003093, EnemyEtis, "EnemyEtis-10003093");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003093, EnemyEtis);
 				break;
 			}
 			case 30095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003034);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003094, EnemyEtis, "EnemyEtis-10003094");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003094, EnemyEtis);
 				break;
 			}
 			case 30105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003035);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003095, EnemyEtis, "EnemyEtis-10003095");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003095, EnemyEtis);
 				break;
 			}
 			case 30115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003036);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003096, EnemyEtis, "EnemyEtis-10003096");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003096, EnemyEtis);
 				break;
 			}
 			case 30125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003037);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003097, EnemyEtis, "EnemyEtis-10003097");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003097, EnemyEtis);
 				break;
 			}
 			case 30135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003038);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003098, EnemyEtis, "EnemyEtis-10003098");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003098, EnemyEtis);
 				break;
 			}
 			case 30145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003039);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003099, EnemyEtis, "EnemyEtis-10003099");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003099, EnemyEtis);
 				break;
 			}
 			case 30155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003040);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003100, EnemyEtis, "EnemyEtis-10003100");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003100, EnemyEtis);
 				break;
 			}
 			case 30165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003041);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003101, EnemyEtis, "EnemyEtis-10003101");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003101, EnemyEtis);
 				break;
 			}
 			case 30175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003042);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003102, EnemyEtis, "EnemyEtis-10003102");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003102, EnemyEtis);
 				break;
 			}
 			case 30185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003043);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003103, EnemyEtis, "EnemyEtis-10003103");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003103, EnemyEtis);
 				break;
 			}
 			case 30195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003044);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003104, EnemyEtis, "EnemyEtis-10003104");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003104, EnemyEtis);
 				break;
 			}
 			case 30205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003045);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003105, EnemyEtis, "EnemyEtis-10003105");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003105, EnemyEtis);
 				break;
 			}
 			case 30215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003046);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003106, EnemyEtis, "EnemyEtis-10003106");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003106, EnemyEtis);
 				break;
 			}
 			case 30225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003047);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003107, EnemyEtis, "EnemyEtis-10003107");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003107, EnemyEtis);
 				break;
 			}
 			case 30235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003048);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003108, EnemyEtis, "EnemyEtis-10003108");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003108, EnemyEtis);
 				break;
 			}
 			case 30245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003049);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003109, EnemyEtis, "EnemyEtis-10003109");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003109, EnemyEtis);
 				break;
 			}
 			case 30255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003050);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003110, EnemyEtis, "EnemyEtis-10003110");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003110, EnemyEtis);
 				break;
 			}
 			case 30265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003051);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003111, EnemyEtis, "EnemyEtis-10003111");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003111, EnemyEtis);
 				break;
 			}
 			case 30275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003052);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003112, EnemyEtis, "EnemyEtis-10003112");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003112, EnemyEtis);
 				break;
 			}
 			case 30285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003053);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003113, EnemyEtis, "EnemyEtis-10003113");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003113, EnemyEtis);
 				break;
 			}
 			case 30295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003054);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003114, EnemyEtis, "EnemyEtis-10003114");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003114, EnemyEtis);
 				break;
 			}
 			case 30305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003055);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003115, EnemyEtis, "EnemyEtis-10003115");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003115, EnemyEtis);
 				break;
 			}
 			case 30315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003056);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003116, EnemyEtis, "EnemyEtis-10003116");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003116, EnemyEtis);
 				break;
 			}
 			case 30325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003057);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003117, EnemyEtis, "EnemyEtis-10003117");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003117, EnemyEtis);
 				break;
 			}
 			case 30335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003058);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003118, EnemyEtis, "EnemyEtis-10003118");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003118, EnemyEtis);
 				break;
 			}
 			case 30345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003059);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003119, EnemyEtis, "EnemyEtis-10003119");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003119, EnemyEtis);
 				break;
 			}
 			case 30355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003060);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003120, EnemyEtis, "EnemyEtis-10003120");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003120, EnemyEtis);
 				break;
 			}
 			case 30365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003061);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003121, EnemyEtis, "EnemyEtis-10003121");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003121, EnemyEtis);
 				break;
 			}
 			case 30375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003062);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003122, EnemyEtis, "EnemyEtis-10003122");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003122, EnemyEtis);
 				break;
 			}
 			case 30385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003063);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003123, EnemyEtis, "EnemyEtis-10003123");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003123, EnemyEtis);
 				break;
 			}
 			case 30395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003064);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003124, EnemyEtis, "EnemyEtis-10003124");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003124, EnemyEtis);
 				break;
 			}
 			case 30405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003065);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003125, EnemyEtis, "EnemyEtis-10003125");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003125, EnemyEtis);
 				break;
 			}
 			case 30415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003066);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003126, EnemyEtis, "EnemyEtis-10003126");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003126, EnemyEtis);
 				break;
 			}
 			case 30425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003067);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003127, EnemyEtis, "EnemyEtis-10003127");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003127, EnemyEtis);
 				break;
 			}
 			case 30435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003068);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003128, EnemyEtis, "EnemyEtis-10003128");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003128, EnemyEtis);
 				break;
 			}
 			case 30445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003069);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003129, EnemyEtis, "EnemyEtis-10003129");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003129, EnemyEtis);
 				break;
 			}
 			case 30455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003070);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003130, EnemyEtis, "EnemyEtis-10003130");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003130, EnemyEtis);
 				break;
 			}
 			case 30465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003071);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003131, EnemyEtis, "EnemyEtis-10003131");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003131, EnemyEtis);
 				break;
 			}
 			case 30475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003072);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003132, EnemyEtis, "EnemyEtis-10003132");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003132, EnemyEtis);
 				break;
 			}
 			case 30485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003073);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003133, EnemyEtis, "EnemyEtis-10003133");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003133, EnemyEtis);
 				break;
 			}
 			case 30495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003074);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003134, EnemyEtis, "EnemyEtis-10003134");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003134, EnemyEtis);
 				break;
 			}
 			case 30500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003240);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 30505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003075);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003135, EnemyEtis, "EnemyEtis-10003135");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003135, EnemyEtis);
 				break;
 			}
 			case 30515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003076);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003136, EnemyEtis, "EnemyEtis-10003136");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003136, EnemyEtis);
 				break;
 			}
 			case 30525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003077);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003137, EnemyEtis, "EnemyEtis-10003137");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003137, EnemyEtis);
 				break;
 			}
 			case 30535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003078);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003138, EnemyEtis, "EnemyEtis-10003138");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003138, EnemyEtis);
 				break;
 			}
 			case 30545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003079);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003139, EnemyEtis, "EnemyEtis-10003139");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003139, EnemyEtis);
 				break;
 			}
 			case 30555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003080);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003140, EnemyEtis, "EnemyEtis-10003140");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003140, EnemyEtis);
 				break;
 			}
 			case 30565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003081);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003141, EnemyEtis, "EnemyEtis-10003141");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003141, EnemyEtis);
 				break;
 			}
 			case 30575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003082);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003142, EnemyEtis, "EnemyEtis-10003142");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003142, EnemyEtis);
 				break;
 			}
 			case 30585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003083);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003143, EnemyEtis, "EnemyEtis-10003143");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003143, EnemyEtis);
 				break;
 			}
 			case 30595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003084);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003144, EnemyEtis, "EnemyEtis-10003144");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003144, EnemyEtis);
 				break;
 			}
 			case 30605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003085);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003145, EnemyEtis, "EnemyEtis-10003145");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003145, EnemyEtis);
 				break;
 			}
 			case 30615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003086);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003146, EnemyEtis, "EnemyEtis-10003146");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003146, EnemyEtis);
 				break;
 			}
 			case 30625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003087);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003147, EnemyEtis, "EnemyEtis-10003147");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003147, EnemyEtis);
 				break;
 			}
 			case 30635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003088);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003148, EnemyEtis, "EnemyEtis-10003148");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003148, EnemyEtis);
 				break;
 			}
 			case 30645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003089);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003149, EnemyEtis, "EnemyEtis-10003149");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003149, EnemyEtis);
 				break;
 			}
 			case 30655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003090);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003150, EnemyEtis, "EnemyEtis-10003150");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003150, EnemyEtis);
 				break;
 			}
 			case 30665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003091);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003151, EnemyEtis, "EnemyEtis-10003151");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003151, EnemyEtis);
 				break;
 			}
 			case 30675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003092);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003152, EnemyEtis, "EnemyEtis-10003152");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003152, EnemyEtis);
 				break;
 			}
 			case 30685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003093);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003153, EnemyEtis, "EnemyEtis-10003153");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003153, EnemyEtis);
 				break;
 			}
 			case 30695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003094);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003154, EnemyEtis, "EnemyEtis-10003154");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003154, EnemyEtis);
 				break;
 			}
 			case 30705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003095);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003155, EnemyEtis, "EnemyEtis-10003155");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003155, EnemyEtis);
 				break;
 			}
 			case 30715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003096);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003156, EnemyEtis, "EnemyEtis-10003156");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003156, EnemyEtis);
 				break;
 			}
 			case 30725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003097);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003157, EnemyEtis, "EnemyEtis-10003157");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003157, EnemyEtis);
 				break;
 			}
 			case 30735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003098);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003158, EnemyEtis, "EnemyEtis-10003158");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003158, EnemyEtis);
 				break;
 			}
 			case 30745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003099);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003159, EnemyEtis, "EnemyEtis-10003159");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003159, EnemyEtis);
 				break;
 			}
 			case 30755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003100);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003160, EnemyEtis, "EnemyEtis-10003160");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003160, EnemyEtis);
 				break;
 			}
 			case 30765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003101);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003161, EnemyEtis, "EnemyEtis-10003161");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003161, EnemyEtis);
 				break;
 			}
 			case 30775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003102);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003162, EnemyEtis, "EnemyEtis-10003162");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003162, EnemyEtis);
 				break;
 			}
 			case 30785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003103);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003163, EnemyEtis, "EnemyEtis-10003163");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003163, EnemyEtis);
 				break;
 			}
 			case 30795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003104);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003164, EnemyEtis, "EnemyEtis-10003164");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003164, EnemyEtis);
 				break;
 			}
 			case 30805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003105);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003165, EnemyEtis, "EnemyEtis-10003165");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003165, EnemyEtis);
 				break;
 			}
 			case 30815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003106);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003166, EnemyEtis, "EnemyEtis-10003166");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003166, EnemyEtis);
 				break;
 			}
 			case 30825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003107);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003167, EnemyEtis, "EnemyEtis-10003167");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003167, EnemyEtis);
 				break;
 			}
 			case 30835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003108);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003168, EnemyEtis, "EnemyEtis-10003168");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003168, EnemyEtis);
 				break;
 			}
 			case 30845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003109);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003169, EnemyEtis, "EnemyEtis-10003169");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003169, EnemyEtis);
 				break;
 			}
 			case 30855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003110);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003170, EnemyEtis, "EnemyEtis-10003170");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003170, EnemyEtis);
 				break;
 			}
 			case 30865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003111);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003171, EnemyEtis, "EnemyEtis-10003171");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003171, EnemyEtis);
 				break;
 			}
 			case 30875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003112);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003172, EnemyEtis, "EnemyEtis-10003172");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003172, EnemyEtis);
 				break;
 			}
 			case 30885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003113);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003173, EnemyEtis, "EnemyEtis-10003173");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003173, EnemyEtis);
 				break;
 			}
 			case 30895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003114);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003174, EnemyEtis, "EnemyEtis-10003174");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003174, EnemyEtis);
 				break;
 			}
 			case 30905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003115);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003175, EnemyEtis, "EnemyEtis-10003175");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003175, EnemyEtis);
 				break;
 			}
 			case 30915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003116);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003176, EnemyEtis, "EnemyEtis-10003176");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003176, EnemyEtis);
 				break;
 			}
 			case 30925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003117);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003177, EnemyEtis, "EnemyEtis-10003177");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003177, EnemyEtis);
 				break;
 			}
 			case 30935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003118);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003178, EnemyEtis, "EnemyEtis-10003178");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003178, EnemyEtis);
 				break;
 			}
 			case 30945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003119);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003179, EnemyEtis, "EnemyEtis-10003179");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003179, EnemyEtis);
 				break;
 			}
 			case 30955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003120);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003180, EnemyEtis, "EnemyEtis-10003180");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003180, EnemyEtis);
 				break;
 			}
 			case 30965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003121);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003181, EnemyEtis, "EnemyEtis-10003181");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003181, EnemyEtis);
 				break;
 			}
 			case 30975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003122);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003182, EnemyEtis, "EnemyEtis-10003182");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003182, EnemyEtis);
 				break;
 			}
 			case 30985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003123);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003183, EnemyEtis, "EnemyEtis-10003183");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003183, EnemyEtis);
 				break;
 			}
 			case 30995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003124);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003184, EnemyEtis, "EnemyEtis-10003184");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003184, EnemyEtis);
 				break;
 			}
 			case 31005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003125);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003185, EnemyEtis, "EnemyEtis-10003185");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003185, EnemyEtis);
 				break;
 			}
 			case 31015: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003126);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003186, EnemyEtis, "EnemyEtis-10003186");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003186, EnemyEtis);
 				break;
 			}
 			case 31025: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003127);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003187, EnemyEtis, "EnemyEtis-10003187");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003187, EnemyEtis);
 				break;
 			}
 			case 31035: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003128);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003188, EnemyEtis, "EnemyEtis-10003188");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003188, EnemyEtis);
 				break;
 			}
 			case 31045: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003129);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003189, EnemyEtis, "EnemyEtis-10003189");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003189, EnemyEtis);
 				break;
 			}
 			case 31055: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003130);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003190, EnemyEtis, "EnemyEtis-10003190");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003190, EnemyEtis);
 				break;
 			}
 			case 31065: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003131);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003191, EnemyEtis, "EnemyEtis-10003191");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003191, EnemyEtis);
 				break;
 			}
 			case 31075: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003132);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003192, EnemyEtis, "EnemyEtis-10003192");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003192, EnemyEtis);
 				break;
 			}
 			case 31085: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003133);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003193, EnemyEtis, "EnemyEtis-10003193");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003193, EnemyEtis);
 				break;
 			}
 			case 31095: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003134);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003194, EnemyEtis, "EnemyEtis-10003194");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003194, EnemyEtis);
 				break;
 			}
 			case 31100: {
-				requestScene(10000003, StageDebugPartClimax, "StageDebugPartClimax-10000003");
+				requestScene(10000003, StageDebugPartClimax);
 				break;
 			}
 			case 31105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003135);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003195, EnemyEtis, "EnemyEtis-10003195");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003195, EnemyEtis);
 				break;
 			}
 			case 31115: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003136);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003196, EnemyEtis, "EnemyEtis-10003196");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003196, EnemyEtis);
 				break;
 			}
 			case 31125: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003137);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003197, EnemyEtis, "EnemyEtis-10003197");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003197, EnemyEtis);
 				break;
 			}
 			case 31135: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003138);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003198, EnemyEtis, "EnemyEtis-10003198");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003198, EnemyEtis);
 				break;
 			}
 			case 31145: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003139);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003199, EnemyEtis, "EnemyEtis-10003199");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003199, EnemyEtis);
 				break;
 			}
 			case 31155: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003140);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003200, EnemyEtis, "EnemyEtis-10003200");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003200, EnemyEtis);
 				break;
 			}
 			case 31165: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003141);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003201, EnemyEtis, "EnemyEtis-10003201");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003201, EnemyEtis);
 				break;
 			}
 			case 31175: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003142);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003202, EnemyEtis, "EnemyEtis-10003202");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003202, EnemyEtis);
 				break;
 			}
 			case 31185: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003143);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003203, EnemyEtis, "EnemyEtis-10003203");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003203, EnemyEtis);
 				break;
 			}
 			case 31195: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003144);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003204, EnemyEtis, "EnemyEtis-10003204");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003204, EnemyEtis);
 				break;
 			}
 			case 31205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003145);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003205, EnemyEtis, "EnemyEtis-10003205");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003205, EnemyEtis);
 				break;
 			}
 			case 31215: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003146);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003206, EnemyEtis, "EnemyEtis-10003206");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003206, EnemyEtis);
 				break;
 			}
 			case 31225: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003147);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003207, EnemyEtis, "EnemyEtis-10003207");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003207, EnemyEtis);
 				break;
 			}
 			case 31235: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003148);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003208, EnemyEtis, "EnemyEtis-10003208");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003208, EnemyEtis);
 				break;
 			}
 			case 31245: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003149);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003209, EnemyEtis, "EnemyEtis-10003209");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003209, EnemyEtis);
 				break;
 			}
 			case 31255: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003150);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003210, EnemyEtis, "EnemyEtis-10003210");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003210, EnemyEtis);
 				break;
 			}
 			case 31265: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003151);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003211, EnemyEtis, "EnemyEtis-10003211");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003211, EnemyEtis);
 				break;
 			}
 			case 31275: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003152);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003212, EnemyEtis, "EnemyEtis-10003212");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003212, EnemyEtis);
 				break;
 			}
 			case 31285: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003153);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003213, EnemyEtis, "EnemyEtis-10003213");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003213, EnemyEtis);
 				break;
 			}
 			case 31295: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003154);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003214, EnemyEtis, "EnemyEtis-10003214");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003214, EnemyEtis);
 				break;
 			}
 			case 31305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003155);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003215, EnemyEtis, "EnemyEtis-10003215");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003215, EnemyEtis);
 				break;
 			}
 			case 31315: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003156);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003216, EnemyEtis, "EnemyEtis-10003216");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003216, EnemyEtis);
 				break;
 			}
 			case 31325: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003157);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003217, EnemyEtis, "EnemyEtis-10003217");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003217, EnemyEtis);
 				break;
 			}
 			case 31335: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003158);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003218, EnemyEtis, "EnemyEtis-10003218");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003218, EnemyEtis);
 				break;
 			}
 			case 31345: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003159);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003219, EnemyEtis, "EnemyEtis-10003219");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003219, EnemyEtis);
 				break;
 			}
 			case 31355: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003160);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003220, EnemyEtis, "EnemyEtis-10003220");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003220, EnemyEtis);
 				break;
 			}
 			case 31365: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003161);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003221, EnemyEtis, "EnemyEtis-10003221");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003221, EnemyEtis);
 				break;
 			}
 			case 31375: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003162);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003222, EnemyEtis, "EnemyEtis-10003222");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003222, EnemyEtis);
 				break;
 			}
 			case 31385: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003163);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003223, EnemyEtis, "EnemyEtis-10003223");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003223, EnemyEtis);
 				break;
 			}
 			case 31395: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003164);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10003224, EnemyEtis, "EnemyEtis-10003224");
+				getSceneChief()->appendGroupChild(pEtis);
+				requestActor(10003224, EnemyEtis);
 				break;
 			}
 			case 31405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003165);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31415: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003166);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31425: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003167);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31435: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003168);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31445: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003169);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31455: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003170);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31465: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003171);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31475: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003172);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31485: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003173);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31495: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003174);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003175);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31515: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003176);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31525: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003177);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31535: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003178);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31545: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003179);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31555: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003180);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31565: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003181);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31575: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003182);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31585: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003183);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31595: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003184);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003185);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31615: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003186);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31625: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003187);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31635: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003188);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31645: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003189);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31655: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003190);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31665: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003191);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31675: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003192);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31685: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003193);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31695: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003194);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003195);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31715: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003196);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31725: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003197);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31735: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003198);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31745: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003199);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31755: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003200);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31765: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003201);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31775: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003202);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31785: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003203);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31795: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003204);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003205);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31815: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003206);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31825: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003207);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31835: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003208);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31845: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003209);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31855: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003210);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31865: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003211);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31875: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003212);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31885: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003213);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31895: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003214);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31900: {
-				requestActor(10003241, EnemyDrastea, "EnemyDrastea-10003241");
+				requestActor(10003241, EnemyDrastea);
 				break;
 			}
 			case 31905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003215);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31915: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003216);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31925: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003217);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31935: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003218);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31945: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003219);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31955: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003220);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31965: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003221);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31975: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003222);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31985: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003223);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 31995: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10003224);
-				bringSceneMediator()->appendGroupChild(pEtis);
+				getSceneChief()->appendGroupChild(pEtis);
 				break;
 			}
 			case 32000: {
@@ -19578,47 +19578,47 @@ void StageDebugPartController::processBehavior() {
 			}
 			case 32500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003241);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 33900: {
-				requestActor(10003242, EnemyDrastea, "EnemyDrastea-10003242");
+				requestActor(10003242, EnemyDrastea);
 				break;
 			}
 			case 34500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003242);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 35900: {
-				requestActor(10003243, EnemyDrastea, "EnemyDrastea-10003243");
+				requestActor(10003243, EnemyDrastea);
 				break;
 			}
 			case 36500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003243);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 37900: {
-				requestActor(10003244, EnemyDrastea, "EnemyDrastea-10003244");
+				requestActor(10003244, EnemyDrastea);
 				break;
 			}
 			case 38500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003244);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 39700: {
-				requestActor(10000024, EnemyErmione, "EnemyErmione-10000024");
+				requestActor(10000024, EnemyErmione);
 				break;
 			}
 			case 39900: {
-				requestActor(10003245, EnemyDrastea, "EnemyDrastea-10003245");
+				requestActor(10003245, EnemyDrastea);
 				break;
 			}
 			case 40300: {
 				EnemyErmione* pE = (EnemyErmione*)receiveActor(10000024);
-				bringSceneMediator()->appendGroupChild(pE);
+				getSceneChief()->appendGroupChild(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);
 				pE->_z = RND(-6000000,6000000);
@@ -19626,88 +19626,88 @@ void StageDebugPartController::processBehavior() {
 			}
 			case 40500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003245);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 41900: {
-				requestActor(10003246, EnemyDrastea, "EnemyDrastea-10003246");
+				requestActor(10003246, EnemyDrastea);
 				break;
 			}
 			case 42500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003246);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 43900: {
-				requestActor(10003247, EnemyDrastea, "EnemyDrastea-10003247");
+				requestActor(10003247, EnemyDrastea);
 				break;
 			}
 			case 44500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003247);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 45900: {
-				requestActor(10003248, EnemyDrastea, "EnemyDrastea-10003248");
+				requestActor(10003248, EnemyDrastea);
 				break;
 			}
 			case 46500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003248);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 47900: {
-				requestActor(10003249, EnemyDrastea, "EnemyDrastea-10003249");
+				requestActor(10003249, EnemyDrastea);
 				break;
 			}
 			case 48500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003249);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 49900: {
-				requestActor(10003250, EnemyDrastea, "EnemyDrastea-10003250");
+				requestActor(10003250, EnemyDrastea);
 				break;
 			}
 			case 50500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003250);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 51900: {
-				requestActor(10003251, EnemyDrastea, "EnemyDrastea-10003251");
+				requestActor(10003251, EnemyDrastea);
 				break;
 			}
 			case 52500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003251);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 53900: {
-				requestActor(10003252, EnemyDrastea, "EnemyDrastea-10003252");
+				requestActor(10003252, EnemyDrastea);
 				break;
 			}
 			case 54500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003252);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 55900: {
-				requestActor(10003253, EnemyDrastea, "EnemyDrastea-10003253");
+				requestActor(10003253, EnemyDrastea);
 				break;
 			}
 			case 56500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003253);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			case 57900: {
-				requestActor(10003254, EnemyDrastea, "EnemyDrastea-10003254");
+				requestActor(10003254, EnemyDrastea);
 				break;
 			}
 			case 58500: {
 				EnemyDrastea* p = (EnemyDrastea*)receiveActor(10003254);
-				bringSceneMediator()->appendGroupChild(p);
+				getSceneChief()->appendGroupChild(p);
 				break;
 			}
 			default :

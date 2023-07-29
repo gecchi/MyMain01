@@ -23,7 +23,7 @@ public:
     void (*_pFuncFeature)(GgafCore::Object*, void*, void*, void*);
 
 public:
-    DefaultScene(const char* prm_name, GgafCore::SceneMediator* prm_pSceneMediator = nullptr);
+    DefaultScene(const char* prm_name, GgafCore::SceneChief* prm_pSceneChief = nullptr);
 
     virtual ScenePhase* createAnotherPhase() override; //‹¤•Ï–ß‚è’l
 

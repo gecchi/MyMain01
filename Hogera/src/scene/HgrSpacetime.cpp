@@ -5,7 +5,7 @@
 #include "util/HgrUtil.h"
 #include "HgrCaretaker.h"
 #include "jp/ggaf/core/scene/Scene.h"
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 using namespace Hogera;
 
 

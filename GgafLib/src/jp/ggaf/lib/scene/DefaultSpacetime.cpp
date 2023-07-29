@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 
-#include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
+#include "jp/ggaf/lib/actor/DefaultSceneChief.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 

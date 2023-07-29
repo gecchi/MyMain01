@@ -5,7 +5,7 @@
 #include "jp/ggaf/core/actor/MainActor.h"
 #include "jp/ggaf/core/actor/ex/Formation.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
-#include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
+#include "jp/ggaf/lib/actor/DefaultSceneChief.h"
 #include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 
 namespace VioletVreath {
@@ -33,20 +33,20 @@ public:
     LabelGecchi16Font* pMessage3_;
 
 public:
-    class Medietor : public GgafLib::DefaultSceneMediator {
+    class Medietor : public GgafLib::DefaultSceneChief {
     public:
         int hit_enemy_num_;
         int all_hit_num_;
 
     public:
         Medietor(GgafLib::DefaultScene* prm_pRankUpStage) :
-            GgafLib::DefaultSceneMediator(prm_pRankUpStage) {
+            GgafLib::DefaultSceneChief(prm_pRankUpStage) {
             all_hit_num_ = 0;
             hit_enemy_num_ = 0;
         }
 
         GgafCore::GroupHead* appendGroupChild(kind_t prm_kind, GgafCore::MainActor* prm_pMainActor) {
-            GgafCore::GroupHead* pGroupHead = GgafLib::DefaultSceneMediator::appendGroupChild(prm_kind, prm_pMainActor);
+            GgafCore::GroupHead* pGroupHead = GgafLib::DefaultSceneChief::appendGroupChild(prm_kind, prm_pMainActor);
             //全編隊数が欲しいので、追加後にメンバー数を合算して保持しておく
             if (prm_pMainActor->instanceOf(Obj_ggaf_Formation)) {
                 GgafCore::Formation* pF = (GgafCore::Formation*)prm_pMainActor;
@@ -79,11 +79,11 @@ public:
 
 
 
-    virtual RankUpStage::Medietor* bringSceneMediator() const override {
-        return (RankUpStage::Medietor*)_pSceneMediator;
+    virtual RankUpStage::Medietor* getSceneChief() const override {
+        return (RankUpStage::Medietor*)_pSceneChief;
     }
     void onDestroyedEnemy(GgafDx::FigureActor* prm_this, const GgafDx::GeometricActor* const prm_pOther) {
-        bringSceneMediator()->hit_enemy_num_ ++; //ランクアップステージの敵倒したよ！カウントアップ
+        getSceneChief()->hit_enemy_num_ ++; //ランクアップステージの敵倒したよ！カウントアップ
     }
 
 };

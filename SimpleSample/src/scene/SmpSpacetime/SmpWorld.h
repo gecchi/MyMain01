@@ -2,7 +2,7 @@
 #define SMPWORLD_H_
 #include "SimpleSample.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
-#include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
+#include "jp/ggaf/lib/actor/DefaultSceneChief.h"
 
 namespace SimpleSample {
 

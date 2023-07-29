@@ -10,7 +10,7 @@ GroupHead::GroupHead(kind_t prm_kind) : Actor("GroupHead") {
     _class_name = "GroupHead";
     _kind = prm_kind;
     setHitAble(false);
-    _pSceneMediator = nullptr;
+    _pSceneChief = nullptr;
 
 #ifdef MY_DEBUG
     //デバッグ用。名前に種別ビットを表示
@@ -45,34 +45,34 @@ void GroupHead::setKind(kind_t prm_kind) {
 #endif
 }
 
-SceneMediator* GroupHead::getSceneMediator() {
-    if (_pSceneMediator == nullptr) {
+SceneChief* GroupHead::getSceneChief() {
+    if (_pSceneChief == nullptr) {
         if (_pParent == nullptr) {
-            _TRACE_("【警告】GroupHead::getSceneMediator 所属していないため、Mediatorがとれません！("<<getName()<<")。そこで勝手にこの世(Spacetime)所属のMediatorを返しました");
-            _pSceneMediator = Caretaker::_pCaretaker->_pSpacetime->bringSceneMediator();
+            _TRACE_("【警告】GroupHead::getSceneChief 所属していないため、Chiefがとれません！("<<getName()<<")。そこで勝手にこの世(Spacetime)所属のChiefを返しました");
+            _pSceneChief = Caretaker::_pCaretaker->_pSpacetime->getSceneChief();
         } else {
             if (_pParent->instanceOf(Obj_ggaf_MainActor)) {
-                _pSceneMediator = ((MainActor*)(_pParent))->getSceneMediator();
+                _pSceneChief = ((MainActor*)(_pParent))->getSceneChief();
             } else if (_pParent->instanceOf(Obj_ggaf_GroupHead)) {
-                _pSceneMediator = ((GroupHead*)(_pParent))->getSceneMediator();
-            } else if (_pParent->instanceOf(Obj_ggaf_SceneMediator)) {
-                return (SceneMediator*)_pParent; //Actorツリー頂点
+                _pSceneChief = ((GroupHead*)(_pParent))->getSceneChief();
+            } else if (_pParent->instanceOf(Obj_ggaf_SceneChief)) {
+                return (SceneChief*)_pParent; //Actorツリー頂点
             }
-            _TRACE_("【警告】GroupHead::getSceneMediator このツリーにはMediatorがいません！("<<getName()<<")。そこで勝手にこの世(Spacetime)所属のMediatorを返しました");
-            _pSceneMediator = Caretaker::_pCaretaker->_pSpacetime->bringSceneMediator();
+            _TRACE_("【警告】GroupHead::getSceneChief このツリーにはChiefがいません！("<<getName()<<")。そこで勝手にこの世(Spacetime)所属のChiefを返しました");
+            _pSceneChief = Caretaker::_pCaretaker->_pSpacetime->getSceneChief();
         }
     }
-    return _pSceneMediator;
+    return _pSceneChief;
 }
 
-void GroupHead::setSceneMediator(SceneMediator* prm_pSceneMediator) {
-    _pSceneMediator = prm_pSceneMediator;
+void GroupHead::setSceneChief(SceneChief* prm_pSceneChief) {
+    _pSceneChief = prm_pSceneChief;
     Actor* pActor = getChildFirst();
     while (pActor) {
         if (pActor->instanceOf(Obj_ggaf_MainActor)) {
-            ((MainActor*)(pActor))->setSceneMediator(prm_pSceneMediator);
+            ((MainActor*)(pActor))->setSceneChief(prm_pSceneChief);
         } else if (pActor->instanceOf(Obj_ggaf_GroupHead)) {
-            ((GroupHead*)(pActor))->setSceneMediator(prm_pSceneMediator);
+            ((GroupHead*)(pActor))->setSceneChief(prm_pSceneChief);
         }
         if (pActor->_is_last_flg) {
             break;

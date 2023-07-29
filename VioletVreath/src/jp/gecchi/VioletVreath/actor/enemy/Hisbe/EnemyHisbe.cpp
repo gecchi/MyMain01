@@ -1,6 +1,6 @@
 #include "EnemyHisbe.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
@@ -113,7 +113,7 @@ void EnemyHisbe::initialize() {
 
 //    if (pConn_pDepoStore_laser_set->chkFirstConnectionIs(this)) {
 //        _TRACE_("pConn_pDepoStore_laser_setは、ワシ"<<NODE_INFO<<"が育てたエヘン！")
-//        getPlatformScene()->bringSceneMediator()->appendGroupChild(
+//        getPlatformScene()->getSceneChief()->appendGroupChild(
 //                pConn_pDepoStore_laser_set->peek()->extract()
 //                );
 //    }
@@ -199,7 +199,7 @@ void EnemyHisbe::processJudgement() {
 }
 
 void EnemyHisbe::onHit(const GgafCore::Actor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
+    bool was_destroyed = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeXmtr()->play3D(SE_EXPLOSION);

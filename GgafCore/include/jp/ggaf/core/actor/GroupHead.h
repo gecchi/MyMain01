@@ -9,10 +9,11 @@ namespace GgafCore {
  * 団長(GroupHead)クラス .
  * とある意味合いで纏ったアクター達のツリー頂点に位置するアクターです。<BR>
  * いわゆる『種別』を意味付ける役割を持ったアクターで、具象なアクターではありません。<BR>
+ * このアクターの存在意義は、種別を纏めて切り替えることができる事です。<BR>
  * 団長配下の全てのアクターの『種別』は、団長の『種別』と一致する。という仕組みになっています。<BR>
  * 『種別』とは、当たり判定時の [自機の弾]対[敵本体] の [] の中身の事を指します。（分類と表現すべきなのかもしれません）<BR>
  * 団長は配下のアクターが消滅すると、次フレームに自身も寂しくなって自殺します。部下を持たない上役は無意味です！<BR>
- * 仲介者(SceneMediator)の直下の子アクターは、全て必ずこの団長になっています。<BR>
+ * チーフ(SceneChief)の直下の子アクターは、全て必ずこの団長になっています。<BR>
  * また、団長配下のアクターに、さらに団長が存在することも可能です。<BR>
  * 但し団長の直接配下に団長は置けません。これは、団長の配下には少なくとも一人は普通のアクターが存在しなければいけないという仕組み上の問題です。<BR>
  * 複数の団長を経た末端のアクターの種別は、直近の団長の種別が優先されます。<BR>
@@ -21,7 +22,7 @@ namespace GgafCore {
  *         ・・・⇔ Scene ⇔ Scene ⇔・・・
  *                   ｜
  *                   ↓メンバー
- *           SceneMediator  （←1つのSceneに必ず１つのMediator）
+ *           SceneChief  （←1つのSceneに必ず１つのChief）
  *               ｜
  *               ｜getChildFirst()
  *               ↓
@@ -38,8 +39,8 @@ namespace GgafCore {
 class GroupHead : public Actor {
 
 public:
-    /** [r]シーン仲介者 */
-    SceneMediator* _pSceneMediator;
+    /** [r]シーンチーフ */
+    SceneChief* _pSceneChief;
     /** [r/w]配下アクターグループの種別 */
     kind_t _kind;
 
@@ -66,7 +67,7 @@ public:
      */
     void processJudgement() override {
         if (getChildFirst() == nullptr) {
-            //団長が居なければシーン仲介者も不要、さようなら。
+            //団長が居なければシーンチーフも不要、さようなら。
             sayonara();
         }
     }
@@ -91,16 +92,16 @@ public:
     }
 
     /**
-     * 自身が管理されているシーンの仲介者を取得 .
-     * @return シーン仲介者
+     * 自身が管理されているシーンのチーフを取得 .
+     * @return シーンチーフ
      */
-    SceneMediator* getSceneMediator();
+    SceneChief* getSceneChief();
 
     /**
-     * シーン仲介者(SceneMediator)を設定 .
-     * @param prm_pSceneMediator 仲介者
+     * シーンチーフ(SceneChief)を設定 .
+     * @param prm_pSceneChief チーフ
      */
-    void setSceneMediator(SceneMediator* prm_pSceneMediator);
+    void setSceneChief(SceneChief* prm_pSceneChief);
 
     /**
      * 管理者に謁見 .

@@ -176,7 +176,7 @@ void EnemyTalante::onHit(const GgafCore::Actor* prm_pOtherActor) {
          return;
     }
 
-    bool was_destroyed = UTIL::performEnemyHit(this, pOther);
+    bool was_destroyed = performEnemyHit(pOther);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeXmtr()->play3D(SE_EXPLOSION);

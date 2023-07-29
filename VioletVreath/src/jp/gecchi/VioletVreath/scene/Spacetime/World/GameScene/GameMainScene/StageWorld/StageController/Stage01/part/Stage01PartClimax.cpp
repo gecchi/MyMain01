@@ -1,7 +1,7 @@
 #include "Stage01PartClimax.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/lib/scene/FormationTableScene.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
+#include "jp/ggaf/lib/scene/RotateFormationScene.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 
@@ -43,7 +43,7 @@ void Stage01PartClimax::processBehavior() {
                 PX_C(-100),PX_C(-100),PX_C(-100), 0,0,0);
         pBoss_->_z = -1800000;
         pBoss_->_y = -100000;
-        bringSceneMediator()->appendGroupChild(pBoss_);
+        getSceneChief()->appendGroupChild(pBoss_);
     }
 
     if (getBehaveingFrame() > 60) {

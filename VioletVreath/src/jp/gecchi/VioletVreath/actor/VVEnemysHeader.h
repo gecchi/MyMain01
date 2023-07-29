@@ -3,7 +3,7 @@
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
 
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
-#include "jp/ggaf/lib/scene/FormationTableScene.h"
+#include "jp/ggaf/lib/scene/RotateFormationScene.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Alisana/EnemyAlisana.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Allas/EnemyAllas.h"

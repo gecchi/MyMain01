@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/util/lineartree/LinearQuadtree.hpp"
 #include "jp/ggaf/core/exception/CriticalException.h"
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker3D.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker2D.h"
@@ -19,7 +19,7 @@ Spacetime::Spacetime(const char* prm_name, Camera* prm_pCamera) : DefaultSpaceti
     pWorld_ = nullptr;
     _TRACE_(FUNC_NAME<<"");
     pCameraWorkerChanger_ = NEW VVCameraWorkerChanger("CameraWorkerChanger", prm_pCamera);
-    bringSceneMediator()->appendGroupChild(pCameraWorkerChanger_);
+    getSceneChief()->appendGroupChild(pCameraWorkerChanger_);
     //y‚ß‚àz
     //‚±‚±‚ÅActor‚âScene‚ÌNEW‚ğ‚µ‚Ä‚Í‚È‚ç‚È‚¢B
     //‚Ü‚¸‚Í‚±‚Ì¢‚ğì‚é‚±‚Æ‚ğ—Dæ‚µ‚È‚¢‚ÆA‚¢‚ë‚¢‚ë‚Æ•s“s‡‚ª‚ ‚éB

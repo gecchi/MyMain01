@@ -1,7 +1,7 @@
 #include "TrialAndErrScene.h"
 
 #include "jp/ggaf/dx/util/Input.h"
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime/World.h"
 #include "jp/gecchi/VioletVrain/actor/enemy/Zako/Zako.h"
 #include "jp/gecchi/VioletVrain/actor/Test01.h"
@@ -35,21 +35,21 @@ void TrialAndErrScene::processBehavior() {
 
 //        ColliAABoxActor* XXX = NEW ColliAABoxActor("HOGEHOGE");
 //        XXX->setScaleR(100);
-//        bringSceneMediator()->appendGroupChild(XXX);
+//        getSceneChief()->appendGroupChild(XXX);
 //        XXX->sayonara(2);
 
 
         Test01* pTest = (Test01*)receiveActor(10000);
         pTest->setPosition(0,0,0);
-        bringSceneMediator()->appendGroupChild(VV_MIKATA, pTest);
+        getSceneChief()->appendGroupChild(VV_MIKATA, pTest);
 
         Zako* pZako = (Zako*)receiveActor(10002);
         pZako->setPosition(PX_C(200), PX_C(200),0);
-        bringSceneMediator()->appendGroupChild(VV_TEKI, pZako);
+        getSceneChief()->appendGroupChild(VV_TEKI, pZako);
 
         Jiki* pJiki = (Jiki*)receiveActor(10001);
         pJiki->setPosition(PX_C(200), PX_C(400),0);
-        bringSceneMediator()->appendGroupChild(VV_TEKI, pJiki);
+        getSceneChief()->appendGroupChild(VV_TEKI, pJiki);
     }
 
 

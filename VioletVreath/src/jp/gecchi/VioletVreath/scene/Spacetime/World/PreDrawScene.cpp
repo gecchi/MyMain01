@@ -1,6 +1,6 @@
 #include "PreDrawScene.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/Config.h"
@@ -32,7 +32,7 @@
 #include "jp/ggaf/lib/actor/DefaultPointSpriteSetActor.h"
 #include "jp/ggaf/lib/actor/DefaultRegularPolygonBoardActor.h"
 #include "jp/ggaf/lib/actor/DefaultRegularPolygonSpriteActor.h"
-#include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
+#include "jp/ggaf/lib/actor/DefaultSceneChief.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteSetActor.h"
 #include "jp/ggaf/lib/actor/FontBoardActor.h"
@@ -151,7 +151,7 @@ void PreDrawScene::processBehavior() {
                     } else {
                         pActor->setPosition(PX_C(_id_*60), PX_C(100), 0);
                     }
-                    bringSceneMediator()->appendGroupChild(pActor);
+                    getSceneChief()->appendGroupChild(pActor);
                     _id_++;
                 }
             }

@@ -1,7 +1,7 @@
 #include "Stage01PartWallSection001.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/lib/scene/FormationTableScene.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
+#include "jp/ggaf/lib/scene/RotateFormationScene.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -49,7 +49,7 @@ void Stage01PartWallSection001::onBlockLaunch(int prm_loop_count, int prm_wall_c
 //        EnemyHisbe* p = desireActor(EnemyHisbe);
 //        p->setPosition(pCARETAKER->getSpacetime()->_x_bound_right, -PX_C(900), -PX_C(900));
 //        p->setRyFaceAng(-D90ANG);
-//        bringSceneMediator()->appendGroupChild(p);
+//        getSceneChief()->appendGroupChild(p);
 //    }
 }
 

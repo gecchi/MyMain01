@@ -1,6 +1,6 @@
 #include "Stage01PartController.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/sound/BgmConductor.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
@@ -33,7 +33,7 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
 	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 2;
-	requestScene(10000000, Stage01PartWall, "Stage01PartWall-10000000");
+	requestScene(10000000, Stage01PartWall);
     // gen01 end
 }
 

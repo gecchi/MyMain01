@@ -1,6 +1,6 @@
 #include "StageController.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
@@ -46,7 +46,7 @@ StageController::StageController(const char* prm_name) : VvScene<DefaultScene>(p
     appendChild(pTransitStage_);
 
     _pSceneSymbol = NEW LabelSceneSymbol("LabelSceneSymbol");
-    bringSceneMediator()->appendGroupChild(_pSceneSymbol);
+    getSceneChief()->appendGroupChild(_pSceneSymbol);
 }
 
 void StageController::onReset() {

@@ -124,7 +124,7 @@ void MyBunshinStraightLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
             pOrg_->pLockonCtrler_->lockon(pOther);
         }
 
-        int stamina = UTIL::calcMyStamina(this, pOther);
+        int stamina = calcStamina(pOther);
         if (stamina <= 0) {
             //ˆêŒ‚‚Åƒ`ƒbƒvÁ–Å‚ÌUŒ‚—Í
             getStatus()->set(STAT_Stamina, default_stamina_);

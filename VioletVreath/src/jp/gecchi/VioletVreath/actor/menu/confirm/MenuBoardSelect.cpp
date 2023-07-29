@@ -2,7 +2,7 @@
 #include "CursorSelectMenu.h"
 
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"

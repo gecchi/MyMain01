@@ -1,6 +1,6 @@
 #include "MgrWorld.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "scene/MgrSpacetime/MgrWorld/TrialAndErrScene.h"
 #include "scene/MgrSpacetime/MgrWorld/ParallelCurveTestScene.h"
@@ -25,7 +25,7 @@ void MgrWorld::initialize() {
 //    appendChild(pTestScene_);
     pPointerTest_ = desireActor(PointerTest);
     pPointerTest_->setPosition(PX_C(300), PX_C(100));
-    bringSceneMediator()->appendGroupChild(MGR_TEKI, pPointerTest_);
+    getSceneChief()->appendGroupChild(MGR_TEKI, pPointerTest_);
     pTrialAndErrScene_ = desireScene(TrialAndErrScene);
     appendChild(pTrialAndErrScene_);
 }

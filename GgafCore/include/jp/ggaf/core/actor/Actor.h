@@ -40,7 +40,7 @@ class Actor : public Element<Actor>, public ITreeNodeElem {
 
     friend class Caretaker;
     friend class MainActor;
-    friend class SceneMediator;
+    friend class SceneChief;
     friend class GroupHead;
     friend class DestructActor;
     friend class Scene;

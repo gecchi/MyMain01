@@ -1,7 +1,7 @@
 #include "GameOverScene.h"
 
 #include "jp/gecchi/VioletVreath/actor/camera/VVCameraWorkerChanger.h"
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -24,7 +24,7 @@ GameOverScene::GameOverScene(const char* prm_name) : VvScene<DefaultScene>(prm_n
     _class_name = "GameOverScene";
     pNameEntryScene_ = nullptr;
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    bringSceneMediator()->appendGroupChild(pLabel01_);
+    getSceneChief()->appendGroupChild(pLabel01_);
     need_name_entry_ = false;
 }
 

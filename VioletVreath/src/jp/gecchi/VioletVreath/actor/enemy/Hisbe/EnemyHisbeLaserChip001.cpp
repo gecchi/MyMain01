@@ -1,6 +1,6 @@
 #include "EnemyHisbeLaserChip001.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
@@ -64,7 +64,7 @@ void EnemyHisbeLaserChip001::processJudgement() {
 }
 
 void EnemyHisbeLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
+    bool was_destroyed = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

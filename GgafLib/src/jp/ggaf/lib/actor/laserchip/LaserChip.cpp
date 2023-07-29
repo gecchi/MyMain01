@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/model/MeshSetModel.h"
 #include "jp/ggaf/dx/effect/MeshSetEffect.h"

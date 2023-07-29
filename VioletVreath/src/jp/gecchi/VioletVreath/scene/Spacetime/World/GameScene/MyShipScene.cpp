@@ -1,6 +1,6 @@
 #include "MyShipScene.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/camera/VVCameraWorkerChanger.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/MyShipDivingCamWorker.h"
@@ -38,14 +38,14 @@ papBunshinBase_(nullptr) {
     _class_name = "MyShipScene";
     pMyShip_ = NEW MyShip("MYSHIP");
     pMyShip_->inactivate(); //îzâ∫Ç…âºìoò^ÇÃÉAÉNÉ^Å[î≠ëóé“Ç∆Ç©Ç†ÇÈÇµ
-    bringSceneMediator()->appendGroupChild(pMyShip_);
+    getSceneChief()->appendGroupChild(pMyShip_);
 
     papBunshinBase_ = NEW MyBunshinBase*[MAX_BUNSHIN_NUM];
     for (int i = 0; i < MAX_BUNSHIN_NUM; i ++) {
         std::string name = "BunshinBase("+XTOS(i)+")";
         papBunshinBase_[i] = NEW MyBunshinBase(name.c_str(), i+1);
         papBunshinBase_[i]->inactivate();
-        bringSceneMediator()->appendGroupChild(papBunshinBase_[i]);
+        getSceneChief()->appendGroupChild(papBunshinBase_[i]);
     }
     /*
     papBunshinBase_[0]->pBunshin_->setMaterialColor(1.0, 1.0, 1.0);
@@ -62,13 +62,13 @@ papBunshinBase_(nullptr) {
 
     pEffectMyShipExplosion_ = NEW EffectMyShipExplosion("EffectMyShipExplosion");
     pEffectMyShipExplosion_->inactivate();
-    bringSceneMediator()->appendGroupChild(pEffectMyShipExplosion_);
+    getSceneChief()->appendGroupChild(pEffectMyShipExplosion_);
     pVamSysCamWorker_ = nullptr;
     //z_ = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= z_ < 1.0ÅjZ=(0Å`+1)
     //z_ = 0.9999999f;
 
     pLabelZanki_ = NEW LabelGecchi16Font("zankdisp");
-    bringSceneMediator()->appendGroupChild(pLabelZanki_);
+    getSceneChief()->appendGroupChild(pLabelZanki_);
 }
 
 void MyShipScene::initialize() {

@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/actor/camera/worker/AroundViewCamWorker.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/util/Quaternion.hpp"

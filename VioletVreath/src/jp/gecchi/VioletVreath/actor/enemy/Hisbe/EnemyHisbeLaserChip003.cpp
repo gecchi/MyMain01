@@ -1,6 +1,6 @@
 #include "EnemyHisbeLaserChip003.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -62,7 +62,7 @@ void EnemyHisbeLaserChip003::processBehavior() {
 }
 void EnemyHisbeLaserChip003::processSettlementBehavior() {
     //ここだめ_was_paused_flg
-//    if (getSceneMediator()->getPlatformScene()->_was_paused_flg) {
+//    if (getSceneChief()->getPlatformScene()->_was_paused_flg) {
 //        GgafDx::GeometricActor::processSettlementBehavior();
 //    } else {
 //        LaserChip::processSettlementBehavior();
@@ -82,7 +82,7 @@ void EnemyHisbeLaserChip003::processJudgement() {
 }
 
 void EnemyHisbeLaserChip003::onHit(const GgafCore::Actor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
+    bool was_destroyed = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

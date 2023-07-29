@@ -15,8 +15,8 @@ namespace GgafCore {
  * レイヤー（セル）のような物にあたります。<BR>
  * 機能として、シーンオブジェクト同士をポインタ接合し、ツリー階層構造を採る事ができます。（このツリー構造はクラスの継承と関係ありません。）<BR>
  * シーンに実装されているメソッド郡のほとんどは、自分自身と自分配下のシーン（自ツリーシーン）全てに影響する仕様になっています。<BR>
- * 各シーンは、必ず１つのシーン仲介者アクター(SceneMediator)をメンバとして保持しています。<BR>
- * シーン仲介者アクターとは各シーンのアクターの大親分のようなもので、SceneMediator のコメントも参照して下さい。<BR>
+ * 各シーンは、必ず１つのシーンチーフアクター(SceneChief)をメンバとして保持しています。<BR>
+ * シーンチーフアクターとは各シーンのアクターの大親分のようなもので、SceneChief のコメントも参照して下さい。<BR>
  *
  * <B>【用語補足】</B>
  * <TABLE border='1'>
@@ -86,12 +86,12 @@ class Scene : public Element<Scene> {
     friend class Spacetime;
     friend class Actor;
     friend class GroupHead;
-    friend class SceneMediator;
+    friend class SceneChief;
     friend class GarbageBox;
 
 public:
-    /** このシーンの仲介者 */
-    SceneMediator* _pSceneMediator;
+    /** このシーンのチーフ */
+    SceneChief* _pSceneChief;
     /** [r]一時停止フラグ */
     bool _was_paused_flg;
     /** [r]次フレームの一時停止フラグ、次フレームのフレーム加算時 _was_paused_flg に反映される */
@@ -102,11 +102,11 @@ public:
      * コンストラクタ .
      * 引数： prm_name シーン名<BR>
      */
-    Scene(const char* prm_name, SceneMediator* prm_pSceneMediator = nullptr);
+    Scene(const char* prm_name, SceneChief* prm_pSceneChief = nullptr);
 
     /**
      * デストラクタ .
-     * 自シーンの仲介者のツリーアクターの解放を行ってから。<BR>
+     * 自シーンのチーフのツリーアクターの解放を行ってから。<BR>
      * 自ツリーシーンの解放を行います<BR>
      */
     virtual ~Scene();
@@ -215,7 +215,7 @@ public:
     virtual void resetTree() override;
 
     /**
-     * 配下全てのシーンと、その各シーンの仲介者(SceneMediator)、その配下全アクターに対して指定の関数を実行させる .
+     * 配下全てのシーンと、その各シーンのチーフ(SceneChief)、その配下全アクターに対して指定の関数を実行させる .
      * @param pFunc オブジェクトに実行させたい関数
      * @param prm1 渡したい引数その１
      * @param prm2 渡したい引数その２
@@ -259,11 +259,11 @@ public:
     virtual Caretaker* askCaretaker() override;
 
     /**
-     * 自シーンの仲介者を取得 .
-     * @return シーン仲介者
+     * 自シーンのチーフを取得 .
+     * @return シーンチーフ
      */
-    virtual SceneMediator* bringSceneMediator() const {
-        return _pSceneMediator;
+    virtual SceneChief* getSceneChief() const {
+        return _pSceneChief;
     }
 
     /**

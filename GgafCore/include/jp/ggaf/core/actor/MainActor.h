@@ -18,8 +18,8 @@ class MainActor : public Actor {
 public:
     /** [r]自身が所属するグループの団長 */
     GroupHead* _pGroupHead;
-    /** [r]自身が所属するグループの団長のシーン仲介者 */
-    SceneMediator* _pSceneMediator;
+    /** [r]自身が所属するグループの団長のシーンチーフ */
+    SceneChief* _pSceneChief;
 
 public:
     MainActor(const char* prm_name);
@@ -38,15 +38,15 @@ public:
      * 自ツリーノードを連結リストから切り離し、独立する。 .
      * 切り離され穴が開いた部分は、周りのノードが穴を埋めます（再連結します）<BR>
      * 自ノードに子がぶら下がっていた場合、それらも切り離されたことになります。<BR>
-     * MainActorの場合、配下の _pSceneMediator 及び _pGroupHead に nullptr がセットされる。<BR>
+     * MainActorの場合、配下の _pSceneChief 及び _pGroupHead に nullptr がセットされる。<BR>
      * @return  自ノードのポインタ
      */
     virtual MainActor* extract() override;
 
     /**
-     * シーン仲介者を設定する。 .
+     * シーンチーフを設定する。 .
      */
-    virtual void setSceneMediator(SceneMediator* prm_pSceneMediator);
+    virtual void setSceneChief(SceneChief* prm_pSceneChief);
 
     /**
      * 団長を設定する。<BR>
@@ -54,10 +54,10 @@ public:
     virtual void setGroupHead(GroupHead* prm_pGroupHead);
 
     /**
-     * 所属シーンのシーン仲介者取得。但しシーンに所属していない場合は、この世(Spacetime)のシーン仲介者を返す .
-     * @return 所属シーン仲介者の仲介者。(いない場合 この世(Spacetime)の仲介者)
+     * 所属シーンのシーンチーフ取得。但しシーンに所属していない場合は、この世(Spacetime)のシーンチーフを返す .
+     * @return 所属シーンチーフのチーフ。(いない場合 この世(Spacetime)のチーフ)
      */
-    SceneMediator* getSceneMediator();
+    SceneChief* getSceneChief();
 
     /**
      * シーン団長を取得する。 .

@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/FigureActor.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/core/util/Rgb.h"
 #include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/util/Util.h"
@@ -119,7 +119,7 @@ Colorist* FigureActor::getColorist() {
 
 void FigureActor::processPreDraw() {
     Spacetime* pSpacetime = pCARETAKER->getSpacetime();
-    GgafCore::Scene* pPlatformScene = getSceneMediator()->getPlatformScene();
+    GgafCore::Scene* pPlatformScene = getSceneChief()->getPlatformScene();
 #ifdef MY_DEBUG
     if (pPlatformScene->instanceOf(Obj_GgafDx_Scene)) {
         //OK

@@ -31,10 +31,10 @@ void DepositoryFormation::setFormationMember(ActorDepository* prm_pDepo) {
         throwCriticalException("引数デポジトリの子が存在しません。\n"
                                    "this="<<NODE_INFO<<" prm_pDepo="<<NODE_INFO_P(prm_pDepo)<<"");
     }
-    if (prm_pDepo->getSceneMediator()) {
+    if (prm_pDepo->getSceneChief()) {
         //OK
     } else {
-        throwCriticalException("引数デポジトリがシーンに未所属(SceneMediatorが見えない)です。\n"
+        throwCriticalException("引数デポジトリがシーンに未所属(SceneChiefが見えない)です。\n"
                                    "this="<<NODE_INFO<<" prm_pDepo="<<NODE_INFO_P(prm_pDepo)<<"");
     }
 #endif

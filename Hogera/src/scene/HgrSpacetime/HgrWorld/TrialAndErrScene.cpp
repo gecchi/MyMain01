@@ -1,7 +1,7 @@
 #include "TrialAndErrScene.h"
 
 #include "jp/ggaf/dx/util/Input.h"
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "scene/HgrSpacetime/HgrWorld.h"
 #include "actor/Test01.h"
 #include "actor/Jiki.h"
@@ -35,17 +35,17 @@ void TrialAndErrScene::processBehavior() {
 
 //        ColliAABoxActor* XXX = NEW ColliAABoxActor("HOGEHOGE");
 //        XXX->setScaleR(100);
-//        bringSceneMediator()->appendGroupChild(XXX);
+//        getSceneChief()->appendGroupChild(XXX);
 //        XXX->sayonara(2);
 
 
         Test01* pTest = (Test01*)receiveActor(10000);
         pTest->setPosition(0,0,0);
-        bringSceneMediator()->appendGroupChild(HGR_MIKATA, pTest);
+        getSceneChief()->appendGroupChild(HGR_MIKATA, pTest);
 
         Jiki* pJiki = (Jiki*)receiveActor(10001);
         pJiki->setPosition(PX_C(200), PX_C(200),0);
-        bringSceneMediator()->appendGroupChild(HGR_TEKI, pJiki);
+        getSceneChief()->appendGroupChild(HGR_TEKI, pJiki);
 
 
     }

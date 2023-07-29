@@ -176,7 +176,7 @@ void EnemyEmus::processJudgement() {
 }
 
 void EnemyEmus::onHit(const GgafCore::Actor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
+    bool was_destroyed = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //”j‰óŽž
         getSeXmtr()->play3D(SE_EXPLOSION);

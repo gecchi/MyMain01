@@ -1,6 +1,6 @@
 #include "Stage03.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 
 

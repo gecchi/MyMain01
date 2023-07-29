@@ -1,6 +1,6 @@
 #include "GameTitleScene.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/manager/SeConnection.h"
 #include "jp/ggaf/dx/sound/Sound.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiTitle.h"
@@ -33,22 +33,22 @@ GameTitleScene::GameTitleScene(const char* prm_name) : VvScene<DefaultScene>(prm
     getPhase()->reset(PHASE_INIT);
 
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    bringSceneMediator()->appendGroupChild(pLabel01_);
+    getSceneChief()->appendGroupChild(pLabel01_);
 
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    bringSceneMediator()->appendGroupChild(pLabel02_);
+    getSceneChief()->appendGroupChild(pLabel02_);
 
     pTitleBoard_ = NEW TitleBoard("TitleBoard");
-    bringSceneMediator()->appendGroupChild(pTitleBoard_);
+    getSceneChief()->appendGroupChild(pTitleBoard_);
 
     pMenu_ = NEW MenuBoardTitle("MenuBoardTitle");
-    bringSceneMediator()->appendGroupChild(pMenu_);
+    getSceneChief()->appendGroupChild(pMenu_);
 
     pWorldBound_ = NEW WorldBoundTitle("TITLE_BG_WB");
-    bringSceneMediator()->appendGroupChild(pWorldBound_);
+    getSceneChief()->appendGroupChild(pWorldBound_);
 
     pHoshiBoshi_ = NEW HoshiBoshiTitle("TITLE_BG_HOSHI");
-    bringSceneMediator()->appendGroupChild(pHoshiBoshi_);
+    getSceneChief()->appendGroupChild(pHoshiBoshi_);
 
     pSeConnection_exec_ = connectToSeManager("SE_EXECUTE");
 
@@ -87,7 +87,7 @@ void GameTitleScene::processBehavior() {
         }
     }
 //    DECLARE_EVENT_VAL(STR02);
-//    LabelGecchi16Font* pLabel02 = (LabelGecchi16Font*) bringSceneMediator()->bring(STR02);
+//    LabelGecchi16Font* pLabel02 = (LabelGecchi16Font*) getSceneChief()->bring(STR02);
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->change(PHASE_TITLE);

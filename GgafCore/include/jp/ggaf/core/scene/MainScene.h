@@ -18,7 +18,7 @@ class MainScene : public Scene {
     friend class Scene;
 
 public:
-    MainScene(const char* prm_name, SceneMediator* prm_pSceneMediator = nullptr);
+    MainScene(const char* prm_name, SceneChief* prm_pSceneChief = nullptr);
 
     void updateActiveInTheTree() override;
 

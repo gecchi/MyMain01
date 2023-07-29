@@ -2,7 +2,7 @@
 #include "SkinMeshAnimeTestScene.h"
 
 #include "jp/ggaf/dx/util/Input.h"
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "actor/PointSpriteTest.h"
 #include "actor/BoardTest.h"
 #include "actor/BoardTest2.h"
@@ -57,35 +57,35 @@ void SkinMeshAnimeTestScene::processBehavior() {
     static AniTest2* p6 = nullptr;
     if (getActiveFrame() == 200) {
         p1 = (AniTest*)receiveActor(1234);
-        bringSceneMediator()->appendGroupChild(p1);
+        getSceneChief()->appendGroupChild(p1);
         p1->setPosition(PX_C(-200), PX_C(-250), 0);
         p1->_pPuppeteer->stop();
         p1->getLocoVehicle()->setRyFaceAngVelo(D_ANG(1));
 
         p2 = (AniTest*)receiveActor(1235);
-        bringSceneMediator()->appendGroupChild(p2);
+        getSceneChief()->appendGroupChild(p2);
         p2->setPosition(0, PX_C(-250), 0);
         p2->_pPuppeteer->stop();
         p2->getLocoVehicle()->setRyFaceAngVelo(D_ANG(-1));
 
         p3 = (AniTest*)receiveActor(1236);
-        bringSceneMediator()->appendGroupChild(p3);
+        getSceneChief()->appendGroupChild(p3);
         p3->setPosition(PX_C(200), PX_C(-250), 0);
         p3->_pPuppeteer->stop();
         p3->getLocoVehicle()->setRyFaceAngVelo(D_ANG(0.5));
 
         p4 = (AniTest2*)receiveActor(1237);
-        bringSceneMediator()->appendGroupChild(p4);
+        getSceneChief()->appendGroupChild(p4);
         p4->setPosition(PX_C(-200), PX_C(-50), 0);
         p4->_pPuppeteer->stop();
 
         p5 = (AniTest2*)receiveActor(1238);
-        bringSceneMediator()->appendGroupChild(p5);
+        getSceneChief()->appendGroupChild(p5);
         p5->setPosition(0, PX_C(-50), 0);
         p5->_pPuppeteer->stop();
 
         p6 = (AniTest2*)receiveActor(1239);
-        bringSceneMediator()->appendGroupChild(p6);
+        getSceneChief()->appendGroupChild(p6);
         p6->setPosition(PX_C(200), PX_C(-50), 0);
         p6->_pPuppeteer->stop();
     }

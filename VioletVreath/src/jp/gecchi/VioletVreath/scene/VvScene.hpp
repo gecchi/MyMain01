@@ -2,7 +2,7 @@
 #define VVSCENE_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
 
-#include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
+#include "jp/ggaf/lib/actor/DefaultSceneChief.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 
 namespace VioletVreath {
@@ -22,7 +22,7 @@ public:
     bool _is_next_frame;
 
 public:
-    VvScene(const char* prm_name, GgafCore::SceneMediator* prm_pSceneMediator = nullptr) : T(prm_name, prm_pSceneMediator) {
+    VvScene(const char* prm_name, GgafCore::SceneChief* prm_pSceneChief = nullptr) : T(prm_name, prm_pSceneChief) {
 
         _paFrame_NextEvent = nullptr;
         _cnt_event = 0;

@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/actor/DisusedActor.h"
 #include "jp/ggaf/core/scene/DisusedScene.h"
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include <windows.h>
 #ifdef __GNUG__
     #undef __in
@@ -60,14 +60,14 @@ void GarbageBox::add(Scene* prm_pScene) {
     GarbageBox::_wait = true;
     prm_pScene->inactivateTreeImmed();
     prm_pScene->_can_live_flg = false;
-    if (prm_pScene->_pSceneMediator) { //仲介者がいる場合は、仲介者はGarbageBox::add(Actor* prm_pActor)へ
-        SceneMediator* pSceneMediator = prm_pScene->_pSceneMediator;
-        prm_pScene->_pSceneMediator = nullptr;
+    if (prm_pScene->_pSceneChief) { //チーフがいる場合は、チーフはGarbageBox::add(Actor* prm_pActor)へ
+        SceneChief* pSceneChief = prm_pScene->_pSceneChief;
+        prm_pScene->_pSceneChief = nullptr;
         //GarbageBox::add(Actor* prm_pActor) と同じ処理を記述すること
-        pSceneMediator->inactivateTreeImmed();
-        pSceneMediator->_can_live_flg = false;
-        _pDisusedActor->prependChild(pSceneMediator); //prependChildです！appendChildに非ず
-        _TRACE_("ゴミ箱(Actor) GarbageBox::add( "<<NODE_INFO_P(prm_pScene)<<"の仲介者の"<<NODE_INFO_P(pSceneMediator)<<")");
+        pSceneChief->inactivateTreeImmed();
+        pSceneChief->_can_live_flg = false;
+        _pDisusedActor->prependChild(pSceneChief); //prependChildです！appendChildに非ず
+        _TRACE_("ゴミ箱(Actor) GarbageBox::add( "<<NODE_INFO_P(prm_pScene)<<"のチーフの"<<NODE_INFO_P(pSceneChief)<<")");
     }
     _pDisusedScene->prependChild(prm_pScene->extract()); //prependChildです！appendChildに非ず
     _TRACE_("ゴミ箱(Scene) GarbageBox::add("<<NODE_INFO_P(prm_pScene)<<")");

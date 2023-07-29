@@ -1,13 +1,13 @@
 #include "jp/ggaf/lib/scene/WallScene.h"
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 #include "jp/ggaf/lib/actor/wall/MassWallActor.h"
 
 using namespace GgafLib;
 
-WallScene::WallScene(const char* prm_name, GgafCore::SceneMediator* prm_pSceneMediator) : DefaultScene(prm_name, prm_pSceneMediator) {
+WallScene::WallScene(const char* prm_name, GgafCore::SceneChief* prm_pSceneChief) : DefaultScene(prm_name, prm_pSceneChief) {
     _obj_class |= Obj_WallScene;
     _class_name = "WallScene";
     _pDepo_wall = nullptr;
@@ -25,10 +25,10 @@ void WallScene::buildWallScene(
     setFeatureFunction(WallScene::scrollX); //X軸方向スクロール関数
 
     _pDepo_wall = prm_pDepo_wall;
-    if (_pDepo_wall->getSceneMediator()) {
+    if (_pDepo_wall->getSceneChief()) {
         //既に所属しているならばOK
     } else {
-        bringSceneMediator()->appendGroupChild(_pDepo_wall); //仮所属 initialize() で本所属
+        getSceneChief()->appendGroupChild(_pDepo_wall); //仮所属 initialize() で本所属
     }
     for (int i = 0; i < prm_section_num; i++) {
         appendChild(prm_papSection[i]); //配下シーンに所属
@@ -83,11 +83,11 @@ void WallScene::initialize() {
     if (_pDepo_wall == nullptr) {
         throwCriticalException("WallScene["<<getName()<<"] オブジェクトが未完成です。buildWallScene()を実行し構築してください。");
     }
-    //buildWallScene が継承クラスのコンストラクタで実行された場合、bringSceneMediator() は世界シーンを返すため
+    //buildWallScene が継承クラスのコンストラクタで実行された場合、getSceneChief() は世界シーンを返すため
     //壁デポジトリの所属シーンは世界シーン所属になっている可能性がある。、
     //スクロール制御を行うためにも、壁デポジトリ は this の配下に置く必要があるため、以下の様に
     //配下シーンに再設定する。
-    bringSceneMediator()->appendGroupChild(_pDepo_wall->extract());
+    getSceneChief()->appendGroupChild(_pDepo_wall->extract());
 }
 
 void WallScene::onActive() {
@@ -151,7 +151,7 @@ void WallScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3) {
     if (pThat->instanceOf(Obj_GgafDx_GeometricActor)) {
         GgafDx::GeometricActor* pActor = (GgafDx::GeometricActor*)pThat;
 //        //ここだめ_was_paused_flg
-//        if (pActor->getSceneMediator()->getPlatformScene()->_was_paused_flg == false) {
+//        if (pActor->getSceneChief()->getPlatformScene()->_was_paused_flg == false) {
 //            pActor->_x -= (*((coord*)p1));
 //        }
         pActor->_x -= (*((coord*)p1));

@@ -233,7 +233,7 @@ void MyTorpedo::onInactive() {
 void MyTorpedo::onHit(const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     //ƒqƒbƒgŽž’ÊŠÑ‚Í‚µ‚Ü‚¹‚ñ
-    int sta = UTIL::calcMyStamina(this, pOther);
+    int sta = calcStamina(pOther);
     setHitAble(false);
 
     GgafCore::Phase* pPhase = getPhase();

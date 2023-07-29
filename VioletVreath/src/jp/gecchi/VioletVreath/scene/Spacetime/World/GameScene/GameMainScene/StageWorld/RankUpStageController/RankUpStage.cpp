@@ -1,7 +1,7 @@
 #include "RankUpStage.h"
 
 #include <stdio.h>
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/manager/SeConnection.h"
 #include "jp/ggaf/dx/sound/BgmConductor.h"
@@ -27,18 +27,18 @@ RankUpStage::RankUpStage(const char* prm_name) : VvScene<DefaultScene>(prm_name,
 
     pWorldBound_  = NEW WorldBoundRankUp("BG_RankUp");
     pWorldBound_->inactivate();
-    bringSceneMediator()->appendGroupChild(pWorldBound_);
+    getSceneChief()->appendGroupChild(pWorldBound_);
     pHoshiBoshi_ = NEW HoshiBoshiRankUp("HoshiBoshiRankUp");
-    bringSceneMediator()->appendGroupChild( pHoshiBoshi_);
+    getSceneChief()->appendGroupChild( pHoshiBoshi_);
     pMessage1_ = NEW LabelGecchi16Font("RankUpMsg1");
     pMessage1_->setPosition(PX_C(400), PX_C(200));
-    bringSceneMediator()->appendGroupChild(pMessage1_);
+    getSceneChief()->appendGroupChild(pMessage1_);
     pMessage2_ = NEW LabelGecchi16Font("RankUpMsg2");
     pMessage2_->setPosition(PX_C(400), PX_C(230));
-    bringSceneMediator()->appendGroupChild(pMessage2_);
+    getSceneChief()->appendGroupChild(pMessage2_);
     pMessage3_ = NEW LabelGecchi16Font("RankUpMsg2");
     pMessage3_->setPosition(PX_C(400), PX_C(260));
-    bringSceneMediator()->appendGroupChild(pMessage3_);
+    getSceneChief()->appendGroupChild(pMessage3_);
 
     pSeConnection_all_hit_ = connectToSeManager("SE_EXPLOSION_002"); //‘S–Å‚ÌÅŒã‚Ìˆê‹@”j‰óŽžSE
 }
@@ -47,7 +47,7 @@ void RankUpStage::initialize() {
     getPhase()->reset(PHASE_INIT);
 }
 void RankUpStage::processBehavior() {
-    RankUpStage::Medietor* pMedietor = bringSceneMediator();
+    RankUpStage::Medietor* pMedietor = getSceneChief();
 
     sprintf(buff,"HIT/ALL %d/%d", pMedietor->hit_enemy_num_, pMedietor->all_hit_num_);
     ScenePhase* pPhase = getPhase();

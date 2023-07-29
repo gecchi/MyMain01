@@ -1,20 +1,20 @@
-#ifndef GGAF_LIB_DEFAULTSCENEMEDIATOR_H_
-#define GGAF_LIB_DEFAULTSCENEMEDIATOR_H_
+#ifndef GGAF_LIB_DEFAULTSCENECHIEF_H_
+#define GGAF_LIB_DEFAULTSCENECHIEF_H_
 #include "jp/ggaf/GgafLibCommonHeader.h"
-#include "jp/ggaf/dx/actor/SceneMediator.h"
+#include "jp/ggaf/dx/actor/SceneChief.h"
 
 namespace GgafLib {
 
 /**
- * シーンの仲介者クラス .
+ * シーンのチーフクラス .
  * @version 1.00
  * @since 2017/12/07
  * @author Masatoshi Tsuge
  */
-class DefaultSceneMediator : public GgafDx::SceneMediator {
+class DefaultSceneChief : public GgafDx::SceneChief {
 
 public:
-    DefaultSceneMediator(DefaultScene* prm_pScene_platform);
+    DefaultSceneChief(DefaultScene* prm_pScene_platform);
 
     /**
      * 初期処理<BR>
@@ -48,8 +48,8 @@ public:
     void onCatchEvent(eventval prm_event_val, void* prm_pSource) override {
     }
 
-    virtual ~DefaultSceneMediator();
+    virtual ~DefaultSceneChief();
 };
 
 }
-#endif /**GGAF_LIB_DEFAULTSCENEMEDIATOR_H_*/
+#endif /**GGAF_LIB_DEFAULTSCENECHIEF_H_*/

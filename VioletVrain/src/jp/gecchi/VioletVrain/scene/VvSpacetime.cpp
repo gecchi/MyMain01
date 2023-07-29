@@ -4,7 +4,7 @@
 #include "jp/gecchi/VioletVrain/util/VvUtil.h"
 #include "jp/gecchi/VioletVrain/VvCaretaker.h"
 #include "jp/ggaf/core/scene/Scene.h"
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/core/util/lineartree/LinearQuadtree.hpp"
 
 using namespace VioletVrain;

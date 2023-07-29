@@ -189,7 +189,7 @@ void EnemyGeria::onInactive() {
 }
 
 void EnemyGeria::onHit(const GgafCore::Actor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
+    bool was_destroyed = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeXmtr()->play3D(SE_EXPLOSION);

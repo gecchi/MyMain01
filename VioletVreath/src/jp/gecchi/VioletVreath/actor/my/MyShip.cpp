@@ -322,9 +322,9 @@ void MyShip::initialize() {
     _TRACE_(FUNC_NAME<<"");
 
     //種別に振り分け
-//    bringSceneMediator()->appendGroupChild(KIND_MY_SHOT_NOMAL, pDepo_MyShots001_->extract());
-//    bringSceneMediator()->appendGroupChild(KIND_MY_SHOT_NOMAL, pDepo_MyWaves001_->extract());
-    //bringSceneMediator()->appendGroupChild(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
+//    getSceneChief()->appendGroupChild(KIND_MY_SHOT_NOMAL, pDepo_MyShots001_->extract());
+//    getSceneChief()->appendGroupChild(KIND_MY_SHOT_NOMAL, pDepo_MyWaves001_->extract());
+    //getSceneChief()->appendGroupChild(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
 
     setHitAble(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
@@ -748,7 +748,7 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
     int vreath = getStatus()->get(STAT_Stamina);
-    if (UTIL::calcMyStamina(this, pOther) <= 0) {
+    if (calcStamina(pOther) <= 0) {
         //自機爆発開催
         setHitAble(false);
         getSeXmtr()->play3D(SE_EXPLOSION);

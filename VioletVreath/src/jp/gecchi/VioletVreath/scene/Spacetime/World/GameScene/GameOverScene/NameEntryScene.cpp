@@ -1,6 +1,6 @@
 #include "NameEntryScene.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundNameEntry.h"
 #include "jp/gecchi/VioletVreath/actor/menu/name_entry/MenuBoardNameEntry.h"
@@ -26,23 +26,23 @@ enum {
 NameEntryScene::NameEntryScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "NameEntryScene";
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    bringSceneMediator()->appendGroupChild(pLabel01_);
+    getSceneChief()->appendGroupChild(pLabel01_);
 
     pWorldBound_ = NEW WorldBoundNameEntry("NAMEENTRY_WB");
-    bringSceneMediator()->appendGroupChild(pWorldBound_);
+    getSceneChief()->appendGroupChild(pWorldBound_);
 
     pLabelInputedName_ = NEW SpriteLabelGecchi32Font("InputedName");
     pLabelInputedName_->setPosition(PX_C(100), PX_C(0), -2);
-    bringSceneMediator()->appendGroupChild(pLabelInputedName_);
+    getSceneChief()->appendGroupChild(pLabelInputedName_);
 
     pLabelSelectedChar_ = NEW SpriteLabelGecchi32Font("SelectedChar");
     pLabelSelectedChar_->getAlphaFader()->beat(60, 10, 0, 50, -1); //チカチカ点滅
     pLabelSelectedChar_->setPositionAt(pLabelInputedName_);
-    bringSceneMediator()->appendGroupChild(pLabelSelectedChar_);
+    getSceneChief()->appendGroupChild(pLabelSelectedChar_);
 
     pNameEntryBoard_ = NEW MenuBoardNameEntry("pNameEntryBoard_");
     pNameEntryBoard_->setNameFontBoard(pLabelInputedName_, pLabelSelectedChar_);
-    bringSceneMediator()->appendGroupChild(pNameEntryBoard_);
+    getSceneChief()->appendGroupChild(pNameEntryBoard_);
 
     inputed_name_ = "";
 }

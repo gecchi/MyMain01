@@ -1,13 +1,13 @@
 #include "jp/ggaf/dx/scene/Scene.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/scene/supporter/AlphaCurtain.h"
 #include "jp/ggaf/dx/sound/BgmConductor.h"
 
 
 using namespace GgafDx;
 
-Scene::Scene(const char* prm_name, GgafCore::SceneMediator* prm_pSceneMediator) : GgafCore::MainScene(prm_name, prm_pSceneMediator),
+Scene::Scene(const char* prm_name, GgafCore::SceneChief* prm_pSceneChief) : GgafCore::MainScene(prm_name, prm_pSceneChief),
 _pCurtain(new AlphaCurtain(this)),
 _pConductor(new BgmConductor()) {
     _obj_class |= Obj_GgafDx_Scene;

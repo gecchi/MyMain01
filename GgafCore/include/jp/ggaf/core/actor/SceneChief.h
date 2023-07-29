@@ -1,26 +1,25 @@
-#ifndef GGAF_CORE_SCENEMEDIATOR_H_
-#define GGAF_CORE_SCENEMEDIATOR_H_
+#ifndef GGAF_CORE_SCENECHIEF_H_
+#define GGAF_CORE_SCENECHIEF_H_
 #include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/Actor.h"
 
 namespace GgafCore {
 
 /**
- * シーンの仲介者クラス .
- * 団長(GroupHead)の親階層のアクターで、団長達を管理します。<BR>
- * また、シーンクラスとの橋渡しを行う特別なアクターでもあります。<BR>
- * シーンクラスとシーン仲介者は普通のhasAの関係です。（仲介者と団長は階層関係になっています）<BR>
- * 全てのシーン(Sceaneオブジェクト)に必ず１人シーン仲介者が居ます。<BR>
- * 仲介者は、アクター達ツリーの最も頂点に位置します。<BR>
- * 仲介者(SceneMediator)の子アクターは必ず団長(GroupHead)になっています。<BR>
+ * シーンのチーフクラス .
+ * シーンクラスとアクターの橋渡しを行う特別なアクター。<BR>
+ * シーンクラスとシーンチーフは普通のhasAの関係です。（チーフと団長は階層関係になっています）<BR>
+ * 全てのシーン(Sceaneオブジェクト)に必ず１人シーンチーフが居ます。<BR>
+ * チーフは、アクター達ツリーの最も頂点に位置します。<BR>
+ * チーフ(SceneChief)の子アクターは必ず団長(GroupHead)になっています。<BR>
  * さらに団長の下に普通のアクターが居ます。<BR>
- * 仲介者へのメソッド実行は、その配下全ての団長＋アクターへの指示となります。<BR>
+ * チーフへのメソッド実行は、その配下全ての団長＋アクターへの指示となります。<BR>
  * 団長(GroupHead)の解説もあわせて参照して下さい。
  * @version 1.00
  * @since 2007/11/29
  * @author Masatoshi Tsuge
  */
-class SceneMediator : public Actor {
+class SceneChief : public Actor {
 
 private:
     /** 現在の所属シーン */
@@ -30,9 +29,9 @@ private:
     /**
      * 使用不可 .
      */
-    SceneMediator* extract() override {
-        throwCriticalException("SceneMediator に extract() は実行できません。name="<<getName());
-        return (SceneMediator*)nullptr;
+    SceneChief* extract() override {
+        throwCriticalException("SceneChief に extract() は実行できません。name="<<getName());
+        return (SceneChief*)nullptr;
     }
 
     /**
@@ -43,7 +42,7 @@ private:
     }
 
 public:
-    SceneMediator(Scene* prm_pScene_platform);
+    SceneChief(Scene* prm_pScene_platform);
 
     /**
      * 初期処理<BR>
@@ -133,7 +132,7 @@ public:
      * </pre>
      * 補足：引数の prm_pMainActor 以下全てのアクターに関して、
      *       ・所属シーンメンバ (_pScene_platform)
-     *       ・仲介者アクターメンバ(_pSceneMediator)
+     *       ・チーフアクターメンバ(_pSceneChief)
      *       ・団長アクターメンバ(_pGroupHead) ※但し下位に他の団長がいた場合はそこまで
      *       の更新を行います。
      * @param   prm_kind    種別名（＝GroupHead名）
@@ -173,8 +172,8 @@ public:
      */
     Actor* search(hashval prm_name_hash);
 
-    virtual ~SceneMediator();
+    virtual ~SceneChief();
 };
 
 }
-#endif /**GGAFSCENEMEDIATOR_H_*/
+#endif /**GGAF_CORE_SCENECHIEF_H_*/

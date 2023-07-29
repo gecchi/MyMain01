@@ -1,8 +1,8 @@
 #include "Stage02_Climax.h"
 
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/dx/sound/BgmConductor.h"
-#include "jp/ggaf/lib/scene/FormationTableScene.h"
+#include "jp/ggaf/lib/scene/RotateFormationScene.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "../Stage02PartController.h"
@@ -38,7 +38,7 @@ void Stage02_Climax::processBehavior() {
         pBoss_ = (EnemyStraea*)receiveActor(11111111);
         pBoss_->_z = -1800000;
         pBoss_->_y = -100000;
-        bringSceneMediator()->appendGroupChild(pBoss_);
+        getSceneChief()->appendGroupChild(pBoss_);
     }
 
     if (getActiveFrame() > 60) {

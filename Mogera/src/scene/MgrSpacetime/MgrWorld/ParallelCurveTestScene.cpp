@@ -1,7 +1,7 @@
 #include "ParallelCurveTestScene.h"
 
 #include "jp/ggaf/dx/util/Input.h"
-#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "actor/EnemyIda.h"
 #include "actor/EnemyIdaBase.h"
@@ -28,7 +28,7 @@ ParallelCurveTestScene::ParallelCurveTestScene(const char* prm_name) : DefaultSc
     pActor_ = nullptr;
     pDepoBox_ = NEW GgafCore::ActorDepository("depo_box");
     pDepoBox_->putn<Box>(5000);
-    bringSceneMediator()->appendGroupChild(pDepoBox_);
+    getSceneChief()->appendGroupChild(pDepoBox_);
     requestActor(1234, EnemyIdaBase, "ParallelCurve_0");
 }
 
@@ -37,7 +37,7 @@ void ParallelCurveTestScene::initialize() {
     GgafDx::Input::updateMouseState();
     GgafDx::Input::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
     pActor_ = (EnemyIdaBase*)receiveActor(1234);
-    bringSceneMediator()->appendGroupChild(pActor_);
+    getSceneChief()->appendGroupChild(pActor_);
     pActor_->setPosition(PX_C(-300), PX_C(-200), 0);
     getPhase()->reset(PHASE_INIT);
 }
