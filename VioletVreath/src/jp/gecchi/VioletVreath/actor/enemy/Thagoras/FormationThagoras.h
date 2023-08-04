@@ -1,6 +1,7 @@
 #ifndef FORMATIONTHAGORAS_H_
 #define FORMATIONTHAGORAS_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/VvFormationActor.hpp"
 #include "jp/ggaf/lib/actor/TreeFormation.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
@@ -13,7 +14,7 @@ namespace VioletVreath {
  * @since 2013/07/10
  * @author Masatoshi Tsuge
  */
-class FormationThagoras : public GgafLib::TreeFormation {
+class FormationThagoras : public VvFormationActor<GgafLib::TreeFormation> {
 
 public:
     int cnt_called_up_row_;
@@ -38,8 +39,6 @@ public:
     virtual void onActive() override;
 
     virtual void processBehavior() override;
-
-    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual void onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) = 0;
 

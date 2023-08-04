@@ -32,7 +32,7 @@ echo '#define VVENEMYSHEADER_H_' >> ${EnemysHeader}
 echo '#include "jp/gecchi/VioletVreath/VioletVreath.h"' >> ${EnemysHeader} 
 echo '' >> ${EnemysHeader}
 echo '#include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"' >> ${EnemysHeader}
-echo '#include "jp/ggaf/lib/scene/FormationTableScene.h"' >> ${EnemysHeader}
+echo '#include "jp/ggaf/lib/scene/RotateFormationScene.h"' >> ${EnemysHeader}
 echo '' >> ${EnemysHeader}
 /bin/find . -name '*.h' | grep '.*\/actor\/enemy\/.*' | sed 's/^\.\/src\//#include "/g' | sed 's/$/"/g' >> ${EnemysHeader}
 echo '' >> ${EnemysHeader}

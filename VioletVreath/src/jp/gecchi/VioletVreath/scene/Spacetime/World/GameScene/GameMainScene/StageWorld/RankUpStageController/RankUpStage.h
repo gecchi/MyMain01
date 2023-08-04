@@ -33,18 +33,17 @@ public:
     LabelGecchi16Font* pMessage3_;
 
 public:
-    class Medietor : public GgafLib::DefaultSceneChief {
+
+    /** RankUpStage 専用の SceneChief */
+    class SceneChief : public GgafLib::DefaultSceneChief {
     public:
         int hit_enemy_num_;
         int all_hit_num_;
-
-    public:
-        Medietor(GgafLib::DefaultScene* prm_pRankUpStage) :
+        SceneChief(GgafLib::DefaultScene* prm_pRankUpStage) :
             GgafLib::DefaultSceneChief(prm_pRankUpStage) {
             all_hit_num_ = 0;
             hit_enemy_num_ = 0;
         }
-
         GgafCore::GroupHead* appendGroupChild(kind_t prm_kind, GgafCore::MainActor* prm_pMainActor) {
             GgafCore::GroupHead* pGroupHead = GgafLib::DefaultSceneChief::appendGroupChild(prm_kind, prm_pMainActor);
             //全編隊数が欲しいので、追加後にメンバー数を合算して保持しておく
@@ -57,7 +56,7 @@ public:
             return pGroupHead;
         }
         GgafCore::GroupHead* appendGroupChild(GgafCore::MainActor* prm_pMainActor) {
-            return Medietor::appendGroupChild(prm_pMainActor->getDefaultKind(), prm_pMainActor);
+            return SceneChief::appendGroupChild(prm_pMainActor->getDefaultKind(), prm_pMainActor);
         }
     };
 
@@ -79,10 +78,15 @@ public:
 
 
 
-    virtual RankUpStage::Medietor* getSceneChief() const override {
-        return (RankUpStage::Medietor*)_pSceneChief;
+    virtual RankUpStage::SceneChief* getSceneChief() const override {
+        return (RankUpStage::SceneChief*)_pSceneChief;
     }
-    void onDestroyedEnemy(GgafDx::FigureActor* prm_this, const GgafDx::GeometricActor* const prm_pOther) {
+
+    /**
+     * シーン配下アクターが破壊された場合にコールバック .
+     * @param prm_pDestroyedActor 破壊されたシーン配下アクター
+     */
+    virtual void onDestroyedActor(GgafCore::Actor* prm_pDestroyedActor) override {
         getSceneChief()->hit_enemy_num_ ++; //ランクアップステージの敵倒したよ！カウントアップ
     }
 

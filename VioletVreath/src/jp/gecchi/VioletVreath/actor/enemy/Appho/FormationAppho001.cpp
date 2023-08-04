@@ -4,13 +4,11 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Appho/EnemyAppho.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationAppho001::FormationAppho001(const char* prm_name) :
-        TreeFormation(prm_name) {
+        VvFormationActor<TreeFormation>(prm_name, StatusReset(FormationAppho001)) {
     _class_name = "FormationAppho001";
     num_Appho_       = 0;
     interval_frames_ = 0;
@@ -38,10 +36,6 @@ void FormationAppho001::processBehavior() {
             cnt_called_up_++;
         }
     }
-}
-
-void FormationAppho001::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationAppho001::~FormationAppho001() {

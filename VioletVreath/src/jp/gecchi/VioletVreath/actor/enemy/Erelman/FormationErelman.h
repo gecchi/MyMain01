@@ -1,6 +1,7 @@
 #ifndef FORMATIONERELMAN_H_
 #define FORMATIONERELMAN_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/VvFormationActor.hpp"
 #include "jp/ggaf/lib/actor/TreeFormation.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
@@ -13,7 +14,7 @@ namespace VioletVreath {
  * @since 2018/06/11
  * @author Masatoshi Tsuge
  */
-class FormationErelman : public GgafLib::TreeFormation {
+class FormationErelman : public VvFormationActor<GgafLib::TreeFormation> {
 
 public:
     EnemyErelmanController* pController_;
@@ -30,8 +31,6 @@ public:
     virtual void initialize() override;
 
     virtual void processBehavior() override;
-
-    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual void onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) = 0;
 

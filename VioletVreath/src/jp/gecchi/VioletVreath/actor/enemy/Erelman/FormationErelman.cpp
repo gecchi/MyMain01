@@ -19,7 +19,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationErelman::FormationErelman(const char* prm_name, EnemyErelmanController* prm_pController) :
-        TreeFormation(prm_name) {
+        VvFormationActor<TreeFormation>(prm_name) {
     _class_name = "FormationErelman";
     pController_ = prm_pController;
 }
@@ -43,9 +43,6 @@ void FormationErelman::scatterMember() {
     }
 }
 
-void FormationErelman::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
-}
 void FormationErelman::onSayonaraAll() {
     pController_->pFormationErelman_ = nullptr;
 }

@@ -1,6 +1,7 @@
 #ifndef FORMATIONUNOMIA_H_
 #define FORMATIONUNOMIA_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/VvFormationActor.hpp"
 #include "jp/ggaf/lib/actor/TreeFormation.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2011/02/14
  * @author Masatoshi Tsuge
  */
-class FormationUnomia : public GgafLib::TreeFormation {
+class FormationUnomia : public VvFormationActor<GgafLib::TreeFormation> {
 
 public:
     /** ウーノミアの玉、借り入れ元Depository資源への接続 */
@@ -35,8 +36,9 @@ public:
      * コンストラクタ .
      * @param prm_name
      * @param prm_ldr_id 曲線移動の情報ID(XXX.ldr の XXX)
+     * @param prm_pFunc_StatusReset ステータスリセット関数
      */
-    FormationUnomia(const char* prm_name, const char* prm_ldr_id) ;
+    FormationUnomia(const char* prm_name, const char* prm_ldr_id, void* prm_pFunc_StatusReset = nullptr);
 
     void updateRankParameter();
 
@@ -45,12 +47,6 @@ public:
     virtual void onActive() override;
 
     virtual void onCalledUpUnomia(EnemyUnomia* pEnemyUnomia, int col) = 0;
-
-    /**
-     * 編隊が全て自機側の攻撃で殲滅させられた場合の処理実装 .
-     * @param prm_pActor_last_destroyed  最後に破壊されたアクター
-     */
-    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual void processBehavior() override;
 

@@ -1,6 +1,7 @@
 #ifndef FORMATIONIDA_H_
 #define FORMATIONIDA_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/VvFormationActor.hpp"
 #include "jp/ggaf/lib/actor/FkFormation.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2013/06/18
  * @author Masatoshi Tsuge
  */
-class FormationIda : public GgafLib::FkFormation {
+class FormationIda : public VvFormationActor<GgafLib::FkFormation> {
 
 public:
     /**
@@ -24,12 +25,6 @@ public:
     virtual void onActive() override;
 
     virtual void onCalledUpIda(EnemyIda* pEnemyIda) = 0;
-
-    /**
-     * 編隊が全て自機側の攻撃で殲滅させられた場合の処理実装 .
-     * @param prm_pActor_last_destroyed  最後に破壊されたアクター
-     */
-    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual ~FormationIda();
 };

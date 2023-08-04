@@ -1,6 +1,7 @@
 #ifndef FORMATIONHALIA_H_
 #define FORMATIONHALIA_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/VvFormationActor.hpp"
 #include "jp/ggaf/lib/actor/TreeFormation.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2009/12/25
  * @author Masatoshi Tsuge
  */
-class FormationHalia : public GgafLib::TreeFormation {
+class FormationHalia : public VvFormationActor<GgafLib::TreeFormation> {
 public:
     /** ï“ë‡êî(RANKïœìÆ) */
     int num_Halia_;
@@ -32,8 +33,6 @@ public:
     virtual void initialize() override;
 
     virtual void onActive() override;
-
-    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual ~FormationHalia();
 };

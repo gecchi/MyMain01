@@ -110,6 +110,12 @@ public:
         return false;
     }
 
+    /**
+     * 破壊されたことを通知 .
+     * 所属シーンにも通知して Scene::onDestroyedActor(Actor*) をコールバックします
+     */
+    virtual void notifyDestroyed() override;
+
     virtual ~MainActor();
 };
 

@@ -12,13 +12,11 @@
 #include "EnemyOebiusCore.h"
 #include "EnemyOebiusController.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationOebius::FormationOebius(const char* prm_name, EnemyOebiusController* prm_pController) :
-        TreeFormation(prm_name) {
+        VvFormationActor<TreeFormation>(prm_name) {
     _class_name = "FormationOebius";
     pController_ = prm_pController;
 }
@@ -35,9 +33,6 @@ void FormationOebius::scatterMember() {
     }
 }
 
-void FormationOebius::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
-}
 void FormationOebius::onSayonaraAll() {
     pController_->pFormationOebius_ = nullptr;
 }

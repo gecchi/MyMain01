@@ -128,6 +128,7 @@ public:
                 }
             }
         }
+        //TODO:ここでonDispatch() コールバック？
         return pActor;
     }
 
@@ -154,6 +155,7 @@ public:
             pActor->onInactive();      //nextFrame() で呼び出されるべき onInactive() が呼び出されないので、ここで呼ぶ
             pActor->activateDelay(offset_frames); //activate自動実行。
         }
+        //TODO:ここでonDispatch() コールバック？
         return pActor;
     }
 

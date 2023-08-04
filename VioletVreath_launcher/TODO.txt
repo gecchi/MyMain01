@@ -13,35 +13,5 @@ LASER_THUNDER はそのままでつよいので、KOANYAをもっとなにか無
 
 ＋    ＋V
 
-リポジトリー ssh://gecchi@bochibochi.ddo.jp/home/gecchi/git_repos/repos.git
-
-Cloning into 'repos'...
-[master 35a5c44] TEST
- 4 files changed, 17 insertions(+), 6 deletions(-)
-Agent pid 9231
-spawn ssh-add /home/gecchi/sourceforge_id_ras_openssh.ppk
-Enter passphrase for /home/gecchi/sourceforge_id_ras_openssh.ppk:
-Identity added: /home/gecchi/sourceforge_id_ras_openssh.ppk (/home/gecchi/sourceforge_id_ras_openssh.ppk)
-
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
-Someone could be eavesdropping on you right now (man-in-the-middle attack)!
-It is also possible that a host key has just been changed.
-The fingerprint for the RSA key sent by the remote host is
-d5:2c:63:d9:bc:75:9d:de:b1:4e:36:28:9f:7a:9c:39.
-Please contact your system administrator.
-Add correct host key in /home/gecchi/.ssh/known_hosts to get rid of this message.
-Offending RSA key in /home/gecchi/.ssh/known_hosts:2
-  remove with: ssh-keygen -f "/home/gecchi/.ssh/known_hosts" -R github.com
-RSA host key for github.com has changed and you have requested strict checking.
-Host key verification failed.
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-To gecchi@git.pf.sourceforge.jp:/gitroot/g/ge/gecchi/MyMain01.git
-   b8eafe8..35a5c44  master -> master
-warning: commands will be executed using /bin/sh
-job 128596 at Fri Jun 30 21:56:00 2023
+編隊加算ポイントが、敵単位なのはおかしい。編隊もステータスをもたせる。
+onDispatch() コールバック共通化

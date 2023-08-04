@@ -3,6 +3,7 @@
 #include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/scene/Spacetime.h"
 #include "jp/ggaf/core/util/Status.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
 
 using namespace GgafCore;
 
@@ -196,6 +197,12 @@ kind_t MainActor::lookUpKind() {
     }
 #endif
     return pMyGroupHead->_kind;
+}
+
+void MainActor::notifyDestroyed() {
+    Actor::notifyDestroyed();
+    GgafCore::Scene* pPlatformScene = getSceneChief()->getPlatformScene();
+    pPlatformScene->onDestroyedActor(this);
 }
 
 MainActor::~MainActor() {

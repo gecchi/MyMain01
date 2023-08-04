@@ -82,7 +82,7 @@ void Actor::sayonara(frame prm_offset_frames) {
     }
 }
 
-void Actor::notifyDestroyedToFormation() {
+void Actor::notifyDestroyed() {
     if (_pFormation) {
         _pFormation->destroyedFollower(this);
     }

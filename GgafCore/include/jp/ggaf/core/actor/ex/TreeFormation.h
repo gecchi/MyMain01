@@ -11,7 +11,7 @@ namespace GgafCore {
  * 使用する場合は、本クラスを継承し、appendFormationMember(Actor*) により
  * 編隊メンバーを追加していってください。
  * また、登録のアクターが破壊された場合は、編隊全滅判定のために
- * Actor::notifyDestroyedToFormation(); をコールしてください。
+ * Actor::notifyDestroyed(); をコールしてください。
  * processFinal()を実装済みですので、オーバーライドする場合は注意して下さい。
  * @version 1.00
  * @since 2008/08/08

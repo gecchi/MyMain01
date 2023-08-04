@@ -20,7 +20,7 @@ enum {
 };
 
 FormationAllas001::FormationAllas001(const char* prm_name) :
-        TreeFormation(prm_name) {
+        VvFormationActor<TreeFormation>(prm_name, StatusReset(FormationAllas001)) {
     _class_name = "FormationAllas001";
     num_Allas_       = 0;
     interval_frames_ = 0;
@@ -80,10 +80,6 @@ void FormationAllas001::processBehavior() {
             break;
     }
 
-}
-
-void FormationAllas001::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationAllas001::~FormationAllas001() {

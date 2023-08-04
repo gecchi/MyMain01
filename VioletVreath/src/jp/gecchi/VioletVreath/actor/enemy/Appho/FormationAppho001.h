@@ -1,6 +1,7 @@
 #ifndef FORMATIONAPPHO001_H_
 #define FORMATIONAPPHO001_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/VvFormationActor.hpp"
 #include "jp/ggaf/lib/actor/TreeFormation.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2013/03/18
  * @author Masatoshi Tsuge
  */
-class FormationAppho001 : public GgafLib::TreeFormation {
+class FormationAppho001 : public VvFormationActor<GgafLib::TreeFormation> {
 
 public:
     /** ï“ë‡êî(RANKïœìÆ) */
@@ -34,8 +35,6 @@ public:
     virtual void onCalledUpAppho(EnemyAppho* prm_pAppho, int prm_index) = 0;
 
     virtual void processBehavior() override;
-
-    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual ~FormationAppho001();
 };

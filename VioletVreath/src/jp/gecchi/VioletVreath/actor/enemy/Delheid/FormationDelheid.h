@@ -1,6 +1,7 @@
 #ifndef FORMATIONDELHEID_H_
 #define FORMATIONDELHEID_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/VvFormationActor.hpp"
 #include "jp/ggaf/lib/actor/DepositoryFormation.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
@@ -13,7 +14,7 @@ namespace VioletVreath {
  * @since 2013/04/15
  * @author Masatoshi Tsuge
  */
-class FormationDelheid : public GgafLib::DepositoryFormation {
+class FormationDelheid : public VvFormationActor<GgafLib::DepositoryFormation> {
 
 public:
     /** デルヘイド借り入れ元Depository資源への接続 */
@@ -42,19 +43,13 @@ public:
      * コンストラクタ .
      * @param prm_name
      */
-    FormationDelheid(const char* prm_name) ;
+    FormationDelheid(const char* prm_name, void* prm_pFunc_StatusReset = nullptr);
 
     virtual void initialize() override;
 
     virtual void onActive() override;
 
     virtual void onCalledUpDelheid(EnemyDelheid* pEnemyDelheid) = 0;
-
-    /**
-     * 編隊が全て自機側の攻撃で殲滅させられた場合の処理実装 .
-     * @param prm_pActor_last_destroyed  最後に破壊されたアクター
-     */
-    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual void processBehavior() override;
     /**
@@ -77,7 +72,7 @@ public:
      * 設置座標と向きをセット .
      */
     void setPosition(coord x, coord y, coord z,
-                  angle rx, angle rz, angle ry) {
+                     angle rx, angle rz, angle ry) {
         geoLocate_.x = x;
         geoLocate_.y = y;
         geoLocate_.z = z;

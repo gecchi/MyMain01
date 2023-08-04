@@ -7,7 +7,7 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationDrastea001::FormationDrastea001(const char* prm_name) : TreeFormation(prm_name) {
+FormationDrastea001::FormationDrastea001(const char* prm_name) : VvFormationActor<TreeFormation>(prm_name) {
     _class_name = "FormationDrastea001";
     for (int i = 0; i < 10; i++) {
         appendFormationMember(NEW EnemyDrastea("Drastea01"));

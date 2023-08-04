@@ -3,8 +3,6 @@
 #include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/core/actor/ex/Formation.h"
 
-
-
 using namespace GgafLib;
 
 RotateFormationScene::RotateFormationScene(const char* prm_name) :

@@ -21,9 +21,12 @@ enum {
     PHASE_BANPEI,
 };
 
-FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_ldr_id)
-   : TreeFormation(prm_name, 20*60) {
+FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_ldr_id, void* prm_pFunc_StatusReset )
+   : VvFormationActor<TreeFormation>(prm_name, prm_pFunc_StatusReset) {
     _class_name = "FormationUnomia";
+
+    _offset_frames_end = 20*60; //特別指定？
+
     num_formation_col_ = 0;
     num_formation_row_ = 0;
     num_formation_member_ = 0;
@@ -66,10 +69,6 @@ void FormationUnomia::onActive() {
     num_formation_member_ = num_formation_col_ * num_formation_row_;
     launch_interval_   = RF_FormationUnomia001_LaunchInterval(G_RANK); //ウーノミアの間隔(frame)
     mv_velo_           = RF_FormationUnomia001_MvVelo(G_RANK);         //速度
-}
-
-void FormationUnomia::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 void FormationUnomia::processBehavior() {

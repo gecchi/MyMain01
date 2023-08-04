@@ -1,6 +1,7 @@
 #ifndef FORMATIONALLAS001_H_
 #define FORMATIONALLAS001_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/VvFormationActor.hpp"
 #include "jp/ggaf/lib/actor/TreeFormation.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2010/06/13
  * @author Masatoshi Tsuge
  */
-class FormationAllas001 : public GgafLib::TreeFormation {
+class FormationAllas001 : public VvFormationActor<GgafLib::TreeFormation> {
 
 public:
     /** ƒAƒ‰ƒX‚Ì”­Ë’e‚ÌØ‚è“ü‚êŒ³Depository‘Œ¹‚Ö‚ÌÚ‘± */
@@ -36,8 +37,6 @@ public:
     virtual void onActive() override;
 
     virtual void processBehavior() override;
-
-    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual void onCalledUpAllas(EnemyAllas* prm_pAllas) = 0;
 

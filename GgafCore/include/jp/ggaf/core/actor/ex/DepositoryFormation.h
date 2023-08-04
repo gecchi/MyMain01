@@ -14,7 +14,7 @@ namespace GgafCore {
  * setFormationMember(ActorDepository*) により
  * 編隊メンバー所属のデポジトリオブジェクトを登録してください。
  * また、登録のアクターが破壊された場合は、編隊全滅判定のために
- * Actor::notifyDestroyedToFormation(); をコールしてください。
+ * Actor::notifyDestroyed(); をコールしてください。
  * processFinal() を実装済みですので、オーバーライドする場合は注意して下さい。
  * @version 1.00
  * @since 2008/08/08

@@ -13,7 +13,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationAllas002::FormationAllas002(const char* prm_name) :
-        TreeFormation(prm_name) {
+        VvFormationActor<TreeFormation>(prm_name, StatusReset(FormationAllas002)) {
     _class_name = "FormationAllas002";
     num_Allas_       = 0;
     interval_frames_ = 0;
@@ -46,10 +46,6 @@ void FormationAllas002::onActive() {
             pAllas->activateDelay(i*interval_frames_ + 1);//interval_frames_ä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
         }
     }
-}
-
-void FormationAllas002::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationAllas002::~FormationAllas002() {

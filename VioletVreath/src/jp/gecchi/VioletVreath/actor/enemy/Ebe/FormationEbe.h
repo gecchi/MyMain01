@@ -1,6 +1,7 @@
 #ifndef FORMATIONEBE_H_
 #define FORMATIONEBE_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/VvFormationActor.hpp"
 #include "jp/ggaf/lib/actor/DepositoryFormation.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2011/06/28
  * @author Masatoshi Tsuge
  */
-class FormationEbe : public GgafLib::DepositoryFormation {
+class FormationEbe : public VvFormationActor<GgafLib::DepositoryFormation> {
 
 public:
     /** エーベ借り入れ元Depository資源への接続 */
@@ -31,8 +32,9 @@ public:
      * コンストラクタ .
      * @param prm_name
      * @param prm_ldr_id 曲線移動の情報ID(XXX.ldr の XXX)
+     * @param prm_pFunc_StatusReset ステータスリセット関数
      */
-    FormationEbe(const char* prm_name, const char* prm_ldr_id) ;
+    FormationEbe(const char* prm_name, const char* prm_ldr_id, void* prm_pFunc_StatusReset = nullptr);
 
     void updateRankParameter();
 
@@ -41,12 +43,6 @@ public:
     virtual void onActive() override;
 
     virtual void onCalledUpEbe(EnemyEbe* pEnemyEbe) = 0;
-
-    /**
-     * 編隊が全て自機側の攻撃で殲滅させられた場合の処理実装 .
-     * @param prm_pActor_last_destroyed  最後に破壊されたアクター
-     */
-    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual void processBehavior() override;
 

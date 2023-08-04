@@ -7,6 +7,7 @@
 //種別定数
 //意味は資料「種別相関定義コピペツール.xls」を参照
 #define KIND_EFFECT                    (0x0U)  // 00000000 00000000 00000000 00000000
+
 #define KIND_MY_SHOT_CHIKEI_HIT        (0x8U)  // 00000000 00000000 00000000 00001000
 #define KIND_MY_SHOT_CHIKEI_THRU      (0x10U)  // 00000000 00000000 00000000 00010000
 #define KIND_MY_BODY_CHIKEI_HIT       (0x20U)  // 00000000 00000000 00000000 00100000
@@ -23,6 +24,7 @@
 #define KIND_MENU_ITEM             (0x10000U)  // 00000000 00000001 00000000 00000000
 #define KIND_CURSOR                (0x20000U)  // 00000000 00000010 00000000 00000000
 
+#define KIND_FORMATION           (0x1000000U)  // 00000001 00000000 00000000 00000000
 //種別定数（自機・敵、小分類別）
 #define KIND_MY_SHOT    (KIND_MY_SHOT_CHIKEI_HIT|KIND_MY_SHOT_CHIKEI_THRU)
 #define KIND_MY_BODY    (KIND_MY_BODY_CHIKEI_HIT|KIND_MY_BODY_CHIKEI_THRU)
@@ -100,10 +102,7 @@ enum {
     STAT_DamagedEffectKind,               //ダメージ時エフェクト種別
     STAT_DestroyedEffectKind,             //やられエフェクト種別
     STAT_ItemKind,                        //やられアイテム種別
-    STAT_FormationDestroyedAddScorePoint, //編隊全滅時加算得点
-    STAT_FormationDestroyedEffectKind,    //編隊全滅時エフェクト
     STAT_ProperEffect01Kind,              //その他固有エフェクト０１
-    STAT_FormationDestroyedItemKind,      //編隊全滅時アイテム種別
     STAT_AttackShotKind,                  //ショット種別
     STAT_DepositoryKind,                  //ショット種別
     STAT_RevengeShotKind,                 //打ち返し種別
@@ -429,6 +428,7 @@ class HoshiBoshiRankUp;
 class HoshiBoshiTitle;
 class HoshiBoshiTransit;
 class Item;
+class LabelBonus001;
 class LabelFix16Font01;
 class LabelFont16x32;
 class LabelFont32x64;

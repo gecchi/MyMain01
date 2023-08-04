@@ -1,6 +1,7 @@
 #ifndef FORMATIONORTUNA001_H_
 #define FORMATIONORTUNA001_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/VvFormationActor.hpp"
 #include "jp/ggaf/lib/actor/TreeFormation.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2013/03/18
  * @author Masatoshi Tsuge
  */
-class FormationOrtuna001 : public GgafLib::TreeFormation {
+class FormationOrtuna001 : public VvFormationActor<GgafLib::TreeFormation> {
 
 public:
     /** ï“ë‡êî(RANKïœìÆ) */
@@ -39,8 +40,6 @@ public:
     virtual void onCalledUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) = 0;
 
     virtual void processBehavior() override;
-
-    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual ~FormationOrtuna001();
 };

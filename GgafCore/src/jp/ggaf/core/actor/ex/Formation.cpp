@@ -14,10 +14,12 @@ Formation::Formation(const char* prm_name, frame prm_offset_frames_end) :
     _num_called_up = 0;
     _was_all_destroyed = false;
     _was_all_sayonara = false;
+    _pLastDestroyedActor = nullptr;
 }
 
 void Formation::destroyedFollower(Actor* prm_pActor_destroyed) {
     _num_destory++;
+    _pLastDestroyedActor = prm_pActor_destroyed;
     if (_num_formation_member == _num_destory) {
         _was_all_destroyed = true;
         onDestroyAll(prm_pActor_destroyed);

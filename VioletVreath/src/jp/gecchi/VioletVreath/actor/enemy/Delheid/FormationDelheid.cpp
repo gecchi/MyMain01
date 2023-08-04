@@ -24,8 +24,8 @@ enum {
     PHASE_BANPEI,
 };
 
-FormationDelheid::FormationDelheid(const char* prm_name)
-   : DepositoryFormation(prm_name) {
+FormationDelheid::FormationDelheid(const char* prm_name, void* prm_pFunc_StatusReset )
+   : VvFormationActor<DepositoryFormation>(prm_name, prm_pFunc_StatusReset) {
     _class_name = "FormationDelheid";
 
     RV_Num_           = 0;
@@ -249,10 +249,6 @@ void FormationDelheid::onSayonaraAll() {
     _TRACE_(FUNC_NAME<<" ‚Å‚·");
     getPhase()->change(PHASE_LEAVE);
     //‰ð•ú‚ð‘Ò‚Â
-}
-
-void FormationDelheid::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationDelheid::~FormationDelheid() {

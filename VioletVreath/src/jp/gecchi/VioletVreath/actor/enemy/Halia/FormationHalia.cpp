@@ -8,13 +8,11 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationHalia::FormationHalia(const char* prm_name) :
-        TreeFormation(prm_name) {
+        VvFormationActor<TreeFormation>(prm_name, StatusReset(FormationHalia)) {
     _class_name = "FormationHalia";
     num_Halia_  = RF_FormationHalia_Num(G_RANK);         //編隊のハリアの数
     interval_frames_ = RF_FormationHalia_LaunchInterval(G_RANK);    //各ハリアの出現間隔(frame)
@@ -38,10 +36,6 @@ void FormationHalia::onActive() {
         papHalia_[i]->setPosition(1000000, -1000000 + (i * 200000), 0);
         papHalia_[i]->activateDelay(i*interval_frames_ + 1);//interval_frames_間隔でActiveにする。
     }
-}
-
-void FormationHalia::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationHalia::~FormationHalia() {

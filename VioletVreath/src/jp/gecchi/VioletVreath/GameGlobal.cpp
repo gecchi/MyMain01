@@ -1,6 +1,6 @@
 #include "GameGlobal.h"
 
-
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -90,4 +90,42 @@ bool GameGlobal::updateRankUpLebel() {
             return false;
         }
     }
+}
+
+void GameGlobal::addDestroyedScoreBy(const GgafCore::Actor* prm_pEnemy) {
+    GgafCore::Status* pEnemyStatus  = prm_pEnemy->getStatus();
+    G_SCORE += pEnemyStatus->get(STAT_AddDestroyScorePoint);   //破壊時得点
+    double rp = pEnemyStatus->getDouble(STAT_AddRankPoint);    //加算初期ランク値
+    if (!ZEROd_EQ(rp)) {
+        double rp_r = pEnemyStatus->getDouble(STAT_AddRankPoint_Reduction); //毎フレームのランク倍率
+        if (ZEROd_EQ(rp_r)) { //倍率が0.0ならば
+            //なにもしない
+        } else if (ONEd_EQ(rp_r)) {
+            G_RANK += rp; //倍率が1.0ならば、そのまま加算初期ランク値をプラス
+            if (G_RANK > G_MAX_RANK) {
+                G_RANK = G_MAX_RANK;
+            }
+            if (G_RANK < G_MIN_RANK) {
+                G_RANK = G_MIN_RANK;
+            }
+        } else if (rp_r > 0) {
+            frame n = prm_pEnemy->getActiveFrame();   //稼働フレーム
+            G_RANK += (rp * pow(rp_r, (double)n)); //rp * (rp_r ^ n)  ランク加算
+            if (G_RANK > G_MAX_RANK) {
+                G_RANK = G_MAX_RANK;
+            }
+            if (G_RANK < G_MIN_RANK) {
+                G_RANK = G_MIN_RANK;
+            }
+        } else {
+            //なにもしない
+        }
+
+    }
+}
+
+void GameGlobal::addDamagedScoreBy(const GgafCore::Actor* prm_pEnemy) {
+    GgafCore::Status* pEnemyStatus  = prm_pEnemy->getStatus();
+    G_SCORE += pEnemyStatus->get(STAT_AddDamagedScorePoint);   //ダメージ時得点
+    //ランク加算は無し
 }

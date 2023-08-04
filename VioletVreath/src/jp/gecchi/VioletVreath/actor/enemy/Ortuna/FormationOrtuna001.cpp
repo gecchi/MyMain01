@@ -4,13 +4,11 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Ortuna/EnemyOrtuna.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationOrtuna001::FormationOrtuna001(const char* prm_name) :
-        TreeFormation(prm_name) {
+        VvFormationActor<TreeFormation>(prm_name, StatusReset(FormationOrtuna001)) {
     _class_name = "FormationOrtuna001";
     num_Ortuna_ = 0;
     interval_frames_ = 0;
@@ -37,10 +35,6 @@ void FormationOrtuna001::processBehavior() {
             index_called_up_++;
         }
     }
-}
-
-void FormationOrtuna001::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationOrtuna001::~FormationOrtuna001() {

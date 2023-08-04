@@ -84,8 +84,8 @@ void EnemyWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
         return;
     }
 
-    bool was_destroyed = performEnemyHit(pOther);
-    if (was_destroyed) {
+    bool is_stamina_zero = performEnemyHit(pOther);
+    if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
         sayonara();
     } else {

@@ -4,12 +4,10 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Eres/EnemyEres.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationEres002::FormationEres002(const char* prm_name) : TreeFormation(prm_name) {
+FormationEres002::FormationEres002(const char* prm_name) : VvFormationActor<TreeFormation>(prm_name) {
     _class_name = "FormationEres002";
 
     for (int i = 0; i < 10; i++) {
@@ -30,10 +28,6 @@ void FormationEres002::processBehavior() {
             pEres->activate();
         }
     }
-}
-
-void FormationEres002::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationEres002::~FormationEres002() {

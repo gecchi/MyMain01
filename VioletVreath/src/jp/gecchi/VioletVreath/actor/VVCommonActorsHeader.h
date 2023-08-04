@@ -38,6 +38,7 @@
 #include "jp/gecchi/VioletVreath/actor/item/VreathItem.h"
 #include "jp/gecchi/VioletVreath/actor/item/VreathItem001.h"
 
+#include "jp/gecchi/VioletVreath/actor/label/LabelBonus001.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelFix16Font01.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelFont16x32.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelFont32x64.h"

@@ -129,9 +129,9 @@ void EnemyErelmanCore::processJudgement() {
 }
 
 void EnemyErelmanCore::onHit(const GgafCore::Actor* prm_pOtherActor) {
-    bool was_destroyed = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
+    bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     pController_->onCoreHit();
-    if (was_destroyed) {
+    if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
         getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();

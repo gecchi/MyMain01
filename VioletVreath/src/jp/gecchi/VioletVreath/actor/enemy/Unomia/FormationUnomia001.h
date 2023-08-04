@@ -14,7 +14,6 @@ namespace VioletVreath {
 class FormationUnomia001 : public FormationUnomia {
 
 public:
-
     FormationUnomia001(const char* prm_name);
 
     virtual void processBehavior() override;

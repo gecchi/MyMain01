@@ -7,12 +7,10 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dx/util/GeoElem.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationIda::FormationIda(const char* prm_name) : FkFormation(prm_name) {
+FormationIda::FormationIda(const char* prm_name) : VvFormationActor<FkFormation>(prm_name) {
     _class_name = "FormationIda";
 
 }
@@ -23,10 +21,6 @@ void FormationIda::onActive() {
             onCalledUpIda(pIda); //コールバック
         }
     }
-}
-
-void FormationIda::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationIda::~FormationIda() {

@@ -36,52 +36,19 @@ public:
      * ・ダメージフラッシュ表示       STAT_FlushAble<br>
      * ・ダメージ時特殊エフェクト出現 activateDamagedEffectOf()<br>
      * @param prm_pOther ヒットした相手のアクターを渡す
-     * @return true:破壊された/false:破壊されてない
+     * @return true:スタミナ0(破壊された)/false:スタミナ残あり(破壊されてない)
      */
-    bool performEnemyHit(const GgafDx::GeometricActor* const prm_pOther) {
+    bool performEnemyHit(const GgafDx::GeometricActor* prm_pOther) {
         GgafCore::Status* pThisStatus  = VvActor<T>::getStatus();
         if (VvActor<T>::calcStamina(prm_pOther) <= 0) { //体力が無くなったら
             //＜破壊された場合＞
             VvActor<T>::setHitAble(false); //当たり判定消失
             if (prm_pOther->_pGroupHead->_kind & KIND_MY) {
                 //相手(自機)の種別が MY*** （自機関連） ならば
-                G_SCORE += pThisStatus->get(STAT_AddDestroyScorePoint);   //破壊時得点
-                double rp = pThisStatus->getDouble(STAT_AddRankPoint);    //加算初期ランク値
-                if (!ZEROd_EQ(rp)) {
-                    double rp_r = pThisStatus->getDouble(STAT_AddRankPoint_Reduction); //毎フレームのランク倍率
-                    if (ZEROd_EQ(rp_r)) { //倍率が0.0ならば
-                        //なにもしない
-                    } else if (ONEd_EQ(rp_r)) {
-                        G_RANK += rp; //倍率が1.0ならば、そのまま加算初期ランク値をプラス
-                        if (G_RANK > G_MAX_RANK) {
-                            G_RANK = G_MAX_RANK;
-                        }
-                        if (G_RANK < G_MIN_RANK) {
-                            G_RANK = G_MIN_RANK;
-                        }
-                    } else if (rp_r > 0) {
-                        frame n = VvActor<T>::getActiveFrame();   //稼働フレーム
-                        G_RANK += (rp * pow(rp_r, (double)n)); //rp * (rp_r ^ n)  ランク加算
-                        if (G_RANK > G_MAX_RANK) {
-                            G_RANK = G_MAX_RANK;
-                        }
-                        if (G_RANK < G_MIN_RANK) {
-                            G_RANK = G_MIN_RANK;
-                        }
-                    } else {
-                        //なにもしない
-                    }
-
-                }
-                VvActor<T>::notifyDestroyedToFormation();     //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
-                UTIL::activateItemOf(this);             //アイテム出現
-                UTIL::activateDestroyedEffectOf(this);  //やられたエフェクト
-                GgafCore::Scene* pThisPlatformScene = VvActor<T>::getSceneChief()->getPlatformScene();
-                if (pThisPlatformScene->instanceOf(Obj_RankUpStage)) {
-                    //ランクアップステージの敵ならば、
-                    RankUpStage* pRankUpStage = (RankUpStage*)(pThisPlatformScene);
-                    pRankUpStage->onDestroyedEnemy(this, prm_pOther);
-                }
+                GameGlobal::addDestroyedScoreBy(prm_pOther);
+                VvActor<T>::notifyDestroyed(); //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
+                UTIL::activateItemOf(this);    //アイテム出現
+                UTIL::activateDestroyedEffectOf(this);  //やられ特殊エフェクト（ボーナス表示等）
             }
             UTIL::activateRevengeShotOf(this);     //打ち返し弾
             UTIL::activateExplosionEffectOf(this); //爆発エフェクト
@@ -89,7 +56,7 @@ public:
         } else {
             //＜非破壊時、ダメージを受けた場合＞
             if (prm_pOther->_pGroupHead->_kind & KIND_MY) { //相手(自機)の種別が MY*** （自機関連） ならば
-                G_SCORE += pThisStatus->get(STAT_AddDamagedScorePoint);   //ダメージ時得点
+                GameGlobal::addDamagedScoreBy(prm_pOther); //ダメージ時得点
             }
             if (pThisStatus->get(STAT_FlushAble)) { //ダメージフラッシュするかどうか
                 VvActor<T>::effectFlush(2); //フラッシュ！

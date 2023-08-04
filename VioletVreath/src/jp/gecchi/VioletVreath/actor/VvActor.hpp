@@ -22,15 +22,13 @@ public:
     }
     /**
      * 相手から攻撃を受けた場合の、自分の体力計算結果取得 .
-     * @param prm_pOpp 相手
-     * @return 自分の体力
+     * @param prm_pOpp 相手アクター
+     * @return 自分の残り体力
      */
     int calcStamina(const GgafCore::MainActor* prm_pOpp) {
-//    int MyStgUtil::calcEnemyStamina(GgafCore::MainActor* prm_pEnemy, const GgafCore::MainActor* const prm_pOpp) {
         GgafCore::Status* pStatThis = this->getStatus();
         const GgafCore::Status* pStatOpp = prm_pOpp->getStatus();
         //自身の属性（優性劣性判定）
-        //int advantage = MyStgUtil::judgeEnemyAdvantage(pStatThis->getUint(STAT_Attribute),pStatOpp->getUint(STAT_Attribute));
         int advantage = MyStgUtil::judgeAdvantage(pStatThis->getUint(STAT_Attribute),pStatOpp->getUint(STAT_Attribute));
         //相手攻撃力
         int opp_attack = pStatOpp->get(STAT_Attack) * pStatOpp->getDouble(STAT_AttackPowerRate);
@@ -65,50 +63,6 @@ public:
 //                pFunc((GgafCore::Object*)pFeatureVehicleLeader_, &(pFeatureScene_->_feature_p1), prm2, prm3);
 //            }
 //        }
-//    }
-//    GgafDx::FigureActor* activateExplosionEffect() {
-//        GgafDx::FigureActor* pE = nullptr;
-//        switch (T::getStatus()->get(STAT_ExplosionEffectKind)) {
-//            case 0: {
-//                pE = nullptr; //爆発エフェクト無し
-//                break;
-//            }
-//            case MyStgUtil::EF_EXPLOSION001: {
-//                pE = CommonScene_dispatchForce(EffectExplosion001);
-//                pE->setPositionAt(this);
-//                pE->getLocoVehicle()->takeoverFrom(this->getLocoVehicle());
-//                break;
-//            }
-//            case MyStgUtil::EF_EXPLOSION002: {
-//                pE = CommonScene_dispatchForce(EffectExplosion002);
-//                pE->setPositionAt(this);
-//                pE->getLocoVehicle()->takeoverFrom(this->getLocoVehicle());
-//                break;
-//            }
-//            case MyStgUtil::EF_EXPLOSION003: {
-//                pE = CommonScene_dispatchForce(EffectExplosion003);
-//                pE->setPositionAt(this);
-//                pE->getLocoVehicle()->takeoverFrom(this->getLocoVehicle());
-//                break;
-//            }
-//            case MyStgUtil::EF_EXPLOSION001_STAY: {
-//                pE = CommonScene_dispatchForce(EffectExplosion001);
-//                pE->setPositionAt(this);
-//                pE->getLocoVehicle()->setMvVelo(0);
-//                pE->getLocoVehicle()->setMvAcce(0);
-//                break;
-//            }
-//            default: {
-//                throwCriticalException("対応 ExplosionEffect が定義されてない。this="<<this->getName()<<"("<<this<<")");
-//                pE = nullptr;
-//                break;
-//            }
-//        }
-//        if (pE) {
-//            //出現座標を設定
-//
-//        }
-//        return pE;
 //    }
 
     virtual ~VvActor() {

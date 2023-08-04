@@ -13,10 +13,6 @@ using namespace GgafLib;
 MousePointerActor::MousePointerActor(const char* prm_name, const char* prm_model)
       : DefaultBoardActor(prm_name, prm_model) {
     DefaultSpacetime* pSpacetime = pCARETAKER->getSpacetime();
-//    _coord_primary_buffer_source_left = PX_C(pSpacetime->_primary_buffer_source_left);
-//    _coord_primary_buffer_source_top = PX_C(pSpacetime->_primary_buffer_source_top);
-//    _coord_secondary_buffer_source_left = PX_C(pSpacetime->_secondary_buffer_source_left);
-//    _coord_secondary_buffer_source_top = PX_C(pSpacetime->_secondary_buffer_source_top);
     _last_hWnd = pCARETAKER->_pHWndPrimary;
     _pHitActor = nullptr;
     _is_select_able = false;

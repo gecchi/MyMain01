@@ -11,8 +11,6 @@
 #include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
 #include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -25,7 +23,7 @@ enum {
 };
 
 FormationUrydike::FormationUrydike(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_called_up_interval) :
-        TreeFormation(prm_name) {
+        VvFormationActor<TreeFormation>(prm_name) {
     _class_name = "FormationUrydike";
     pXpmCon_ = nullptr;
     formation_col_num_ = prm_formation_col_num;
@@ -36,7 +34,7 @@ FormationUrydike::FormationUrydike(const char* prm_name, int prm_formation_col_n
 }
 
 FormationUrydike::FormationUrydike(const char* prm_name, const char* prm_xpm_id, frame prm_called_up_interval)  :
-            TreeFormation(prm_name) {
+        VvFormationActor<TreeFormation>(prm_name) {
     _class_name = "FormationUrydike";
     pXpmCon_ = connectToXpmManager(prm_xpm_id);
     GgafCore::Xpm* pXpM = pXpmCon_->peek();
@@ -125,10 +123,6 @@ void FormationUrydike::scatterMember() {
             pUrydike = (EnemyUrydike*)(pUrydike->getNext());
         }
     }
-}
-
-void FormationUrydike::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 void FormationUrydike::onSayonaraAll() {

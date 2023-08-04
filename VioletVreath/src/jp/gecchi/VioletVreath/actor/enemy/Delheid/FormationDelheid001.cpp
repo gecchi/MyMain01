@@ -5,13 +5,11 @@
 #include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Delheid/EnemyDelheid.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationDelheid001::FormationDelheid001(const char* prm_name) :
-        FormationDelheid(prm_name) {
+        FormationDelheid(prm_name, StatusReset(FormationDelheid001)) {
     _class_name = "FormationDelheid001";
     pConn_pCurveManuf_ = connectToCurveManufactureManager("FormationDelheid001");
 }

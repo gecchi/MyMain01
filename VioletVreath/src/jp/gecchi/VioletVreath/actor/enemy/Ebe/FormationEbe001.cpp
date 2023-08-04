@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationEbe001::FormationEbe001(const char* prm_name) :
-        FormationEbe(prm_name, "FormationEbe001") {
+        FormationEbe(prm_name, "FormationEbe001", StatusReset(FormationEbe001)) {
     _class_name = "FormationEbe001";
     //‹ÈüˆÚ“®‚Ìî•ñƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
     pConn_pCurveManuf_ = connectToCurveManufactureManager("FormationEbe001");

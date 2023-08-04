@@ -1,6 +1,7 @@
 #ifndef FORMATIONRIS001_H_
 #define FORMATIONRIS001_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/VvFormationActor.hpp"
 #include "jp/ggaf/lib/actor/TreeFormation.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2009/12/25
  * @author Masatoshi Tsuge
  */
-class FormationRis001 : public GgafLib::TreeFormation {
+class FormationRis001 : public VvFormationActor<GgafLib::TreeFormation> {
     /** ƒŠƒX‚Ì”­Ë’e‚ÌØ‚è“ü‚êŒ³Depository‘Œ¹‚Ö‚ÌÚ‘± */
     DepositoryConnection* pConn_depo_;
     /** ‹ÈüˆÚ“®‚Ìî•ñ‘Œ¹‚Ö‚ÌÚ‘± */
@@ -34,8 +35,6 @@ public:
     void onActive() override;
 
     void processBehavior() override;
-
-    void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual ~FormationRis001();
 };

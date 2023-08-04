@@ -37,7 +37,7 @@
     <ClInclude Include="include\jp\ggaf\core\actor\ex\TreeFormation.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\GroupHead.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\MainActor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\SceneMediator.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\SceneChief.h" />
     <ClInclude Include="include\jp\ggaf\core\Caretaker.h" />
     <ClInclude Include="include\jp\ggaf\core\Config.h" />
     <ClInclude Include="include\jp\ggaf\core\Cradle.h" />
@@ -89,7 +89,7 @@
     <ClCompile Include="src\jp\ggaf\core\actor\ex\TreeFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\GroupHead.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\MainActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\SceneMediator.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\actor\SceneChief.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Caretaker.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Config.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Cradle.cpp" />

@@ -86,6 +86,18 @@ public:
      * @return true:G_RANKUP_LEVELを加算した /false:G_RANKUP_LEVELは変化なし
      */
     static bool updateRankUpLebel();
+
+    /**
+     * 敵破壊時のスコア加算処理 .
+     * @param prm_pEnemy 破壊された敵アクター（またはフォーメーション）
+     */
+    static void addDestroyedScoreBy(const GgafCore::Actor* prm_pEnemy);
+
+    /**
+     * 敵にダメージを与えた際のスコア加算処理 .
+     * @param prm_pEnemy ダメージを受けた敵アクター
+     */
+    static void addDamagedScoreBy(const GgafCore::Actor* prm_pEnemy);
 };
 
 }

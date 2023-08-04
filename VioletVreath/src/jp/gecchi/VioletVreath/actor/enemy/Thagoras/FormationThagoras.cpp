@@ -12,13 +12,12 @@
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationThagoras::FormationThagoras(const char* prm_name,
                                      const char* prm_xpm_id) :
-        TreeFormation(prm_name) {
+        VvFormationActor<TreeFormation>(prm_name) {
     _class_name = "FormationThagoras";
 
     pXpmCon_ = connectToXpmManager(prm_xpm_id);
@@ -57,10 +56,6 @@ void FormationThagoras::processBehavior() {
         cnt_called_up_row_++;
     }
     pScaler4Sc_->behave();
-}
-
-void FormationThagoras::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 GgafCore::Xpm* FormationThagoras::getXpm() {

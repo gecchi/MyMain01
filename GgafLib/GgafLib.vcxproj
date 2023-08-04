@@ -58,7 +58,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\defaultpointspritesetactor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\defaultregularpolygonboardactor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\defaultregularpolygonspriteactor.h" />
-    <ClInclude Include="include\jp\ggaf\lib\actor\defaultscenemediator.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\defaultscenechief.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\defaultskinanimeshactor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\defaultspriteactor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\defaultspritesetactor.h" />
@@ -98,7 +98,7 @@
     <ClInclude Include="include\jp\ggaf\lib\model\SingleLaserModel.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\defaultscene.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\defaultspacetime.h" />
-    <ClInclude Include="include\jp\ggaf\lib\scene\formationtablescene.h" />
+    <ClInclude Include="include\jp\ggaf\lib\scene\rotateformationscene.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\wallscene.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\wallsectionscene.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\colliaabox.h" />
@@ -158,7 +158,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultPointSpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultRegularPolygonBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultRegularPolygonSpriteActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSceneMediator.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSceneChief.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSkinAniMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteSetActor.cpp" />
@@ -196,7 +196,7 @@
     <ClCompile Include="src\jp\ggaf\lib\model\SingleLaserModel.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\DefaultScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\DefaultSpacetime.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\scene\FormationTableScene.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\scene\RotateFormationScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\WallScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\WallSectionScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAABox.cpp" />

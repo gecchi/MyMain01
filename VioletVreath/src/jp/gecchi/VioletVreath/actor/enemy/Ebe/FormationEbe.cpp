@@ -10,10 +10,10 @@ using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationEbe::FormationEbe(const char* prm_name, const char* prm_ldr_id)
-   : DepositoryFormation(prm_name, SEC_F(20)) {
+FormationEbe::FormationEbe(const char* prm_name, const char* prm_ldr_id, void* prm_pFunc_StatusReset)
+   : VvFormationActor<DepositoryFormation>(prm_name, prm_pFunc_StatusReset) {
     _class_name = "FormationEbe";
-
+    _offset_frames_end = SEC_F(20);
     pConn_pEbeDepo_ = connectToDepositoryManager("EnemyEbe4Formation");
     setFormationMember(pConn_pEbeDepo_->peek());
 
@@ -44,10 +44,6 @@ void FormationEbe::processBehavior() {
             onCalledUpEbe(pEbe); //下位フォーメーションクラス個別実装の処理
         }
     }
-}
-
-void FormationEbe::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationEbe::~FormationEbe() {

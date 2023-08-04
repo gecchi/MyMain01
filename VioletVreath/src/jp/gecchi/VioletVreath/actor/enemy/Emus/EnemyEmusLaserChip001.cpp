@@ -45,8 +45,8 @@ void EnemyEmusLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
         //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
         return;
     } else {
-        bool was_destroyed = performEnemyHit(pOther);
-        if (was_destroyed) {
+        bool is_stamina_zero = performEnemyHit(pOther);
+        if (is_stamina_zero) {
             //破壊された時(スタミナ <= 0)
             sayonara();
         } else {

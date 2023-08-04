@@ -21,7 +21,7 @@ using namespace VioletVreath;
 
 bool RankUpStage::pause_ = false;
 
-RankUpStage::RankUpStage(const char* prm_name) : VvScene<DefaultScene>(prm_name, NEW RankUpStage::Medietor(this)) {
+RankUpStage::RankUpStage(const char* prm_name) : VvScene<DefaultScene>(prm_name, NEW RankUpStage::SceneChief(this)) {
     _class_name = "RankUpStage";
     _obj_class |= Obj_RankUpStage;
 
@@ -47,9 +47,9 @@ void RankUpStage::initialize() {
     getPhase()->reset(PHASE_INIT);
 }
 void RankUpStage::processBehavior() {
-    RankUpStage::Medietor* pMedietor = getSceneChief();
+    RankUpStage::SceneChief* pSceneChief = getSceneChief();
 
-    sprintf(buff,"HIT/ALL %d/%d", pMedietor->hit_enemy_num_, pMedietor->all_hit_num_);
+    sprintf(buff,"HIT/ALL %d/%d", pSceneChief->hit_enemy_num_, pSceneChief->all_hit_num_);
     ScenePhase* pPhase = getPhase();
     pMessage3_->update(buff);
     switch (pPhase->getCurrent()) {
@@ -77,7 +77,7 @@ void RankUpStage::processBehavior() {
             }
 
             if (pPhase->getFrame() > _paFrame_NextEvent[_event_num-1]) { //最後の敵機が出現以降
-                if (pMedietor->all_hit_num_ == pMedietor->hit_enemy_num_) {
+                if (pSceneChief->all_hit_num_ == pSceneChief->hit_enemy_num_) {
                     //全滅させた！即効結果画面へ
                     _TRACE_(FUNC_NAME<<" ["<<getName()<<"] 全滅させた！");
                     pSeConnection_all_hit_->peek()->play(); //全滅時SE!
@@ -101,17 +101,17 @@ void RankUpStage::processBehavior() {
                 pMessage1_->update("RANKUPSTAGE::PHASE_RESULT");
                 pMessage2_->update("KEKKA HAPYOU!!!");
                 _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PHASE_RESULT !");
-                _TRACE_(FUNC_NAME<<" ["<<getName()<<"] 結果 hit_enemy_num_="<<pMedietor->hit_enemy_num_<<" all_hit_num_="<<pMedietor->all_hit_num_);
+                _TRACE_(FUNC_NAME<<" ["<<getName()<<"] 結果 hit_enemy_num_="<<pSceneChief->hit_enemy_num_<<" all_hit_num_="<<pSceneChief->all_hit_num_);
             }
 
             //結果表示？
             if (pPhase->hasArrivedFrameAt(320)) {
                 getBgmConductor()->fadeoutStop(0, 120);
-                if (pMedietor->all_hit_num_ <= pMedietor->hit_enemy_num_) { //全滅させた！
+                if (pSceneChief->all_hit_num_ <= pSceneChief->hit_enemy_num_) { //全滅させた！
                     pMessage2_->update("PERFECT!!!!");
-                } else if (pMedietor->all_hit_num_/2 <= pMedietor->hit_enemy_num_) {
+                } else if (pSceneChief->all_hit_num_/2 <= pSceneChief->hit_enemy_num_) {
                     pMessage2_->update("VERY GOOD!!!!");
-                } else if (pMedietor->all_hit_num_/3 <= pMedietor->hit_enemy_num_) {
+                } else if (pSceneChief->all_hit_num_/3 <= pSceneChief->hit_enemy_num_) {
                     pMessage2_->update("GOOD!!!!");
                 } else {
                     pMessage2_->update("HETAKUSO!!!!");

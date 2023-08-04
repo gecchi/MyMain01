@@ -1,6 +1,7 @@
 #ifndef FORMATIONDRASTEA001_H_
 #define FORMATIONDRASTEA001_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/VvFormationActor.hpp"
 #include "jp/ggaf/lib/actor/TreeFormation.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2012/08/06
  * @author Masatoshi Tsuge
  */
-class FormationDrastea001 : public GgafLib::TreeFormation {
+class FormationDrastea001 : public VvFormationActor<GgafLib::TreeFormation> {
 
 public:
     FormationDrastea001(const char* prm_name);

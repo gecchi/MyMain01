@@ -13,7 +13,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationRis002::FormationRis002(const char* prm_name) :
-        TreeFormation(prm_name) {
+        VvFormationActor<TreeFormation>(prm_name, StatusReset(FormationRis002) ) {
     _class_name = "FormationRis002";
     num_Ris_         = 0;
     interval_frames_ = 0;
@@ -49,10 +49,6 @@ void FormationRis002::processBehavior() {
             pRis->getLocoVehicle()->setMvVelo(velo_mv_);
         }
     }
-}
-
-void FormationRis002::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationRis002::~FormationRis002() {
