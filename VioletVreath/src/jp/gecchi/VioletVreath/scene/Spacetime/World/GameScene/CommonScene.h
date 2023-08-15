@@ -64,6 +64,7 @@ public:
     GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(EffectBlink003);
 
     GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(SpriteLabelBonus001);
+    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(SpriteLabelBonus002);
     GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(LabelBonus001);
 
     /** 汎用出現エフェクトその３用、常備デポジトリ */

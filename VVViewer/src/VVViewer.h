@@ -10,8 +10,8 @@
 
 #include "jp/ggaf/GgafLibCommonHeader.h"
 
-#define KIND_POINTER           (0x4U)   // 00000000 00000000 00000000 00000100
-#define KIND_ACTOR                 (0x8U)   // 00000000 00000000 00000000 00001000
+#define KIND_POINTER  (0x4U)   // 00000000 00000000 00000000 00000100
+#define KIND_ACTOR    (0x8U)   // 00000000 00000000 00000000 00001000
 
 namespace VVViewer {
 class VvvCaretaker;
@@ -22,6 +22,7 @@ class VvvCameraViewPoint;
 class VvvCameraUpVector;
 class VvvCursor;
 class VvvGrid;
+class VvvGrid2;
 class VvvCamWorker;
 class Font01;
 class VvvMousePointer;

@@ -30,6 +30,7 @@
 #include "actor/CamWorker/VvvCamWorker.h"
 #include "actor/VvvCursor.h"
 #include "actor/VvvGrid.h"
+#include "actor/VvvGrid2.h"
 #include "actor/VvvCamera.h"
 #include "actor/Font01.h"
 #include "actor/VvvMousePointer.h"
@@ -77,6 +78,8 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     getSceneChief()->appendGroupChild(pCursor_);
     pGrid_ = NEW VvvGrid("GRID");
     getSceneChief()->appendGroupChild(pGrid_);
+//    pGrid_ = NEW VvvGrid2("GRID2");
+//    getSceneChief()->appendGroupChild(pGrid_);
     vb_ = NEW VirtualButton();
     pFont01_info_ =  NEW Font01("Font01");
     getSceneChief()->appendGroupChild(pFont01_info_);

@@ -914,7 +914,6 @@ void Util::setWorldMatrix_RzRy(const GeometricActor* prm_pActor, D3DXMATRIX& out
     out_matWorld._44 = 1.0f;
 }
 
-
 void Util::setWorldMatrix_RzRy(angle prm_rz, angle prm_ry, D3DXMATRIX& out_matWorld) {
     //World変換
     //単位行列 × Z軸回転 × Y軸回転 の変換行列を作成
@@ -1021,7 +1020,6 @@ void Util::setWorldMatrix_RxRzRy(angle prm_rx, angle prm_rz, angle prm_ry, D3DXM
     out_matWorld._44 = 1.0f;
 }
 
-
 void Util::setWorldMatrix_ScRzRyMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
     const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
     const float cosRz = (float)ANG_COS(prm_pActor->_rz);
@@ -1051,7 +1049,6 @@ void Util::setWorldMatrix_ScRzRyMv(const GeometricActor* const prm_pActor, D3DXM
     out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
-
 
 void Util::mulWorldMatrix_RzRyScMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
     //    |  cosRz*cosRy*sx  sinRz*sy   cosRz*-sinRy*sz   0 |
@@ -1125,7 +1122,6 @@ void Util::setWorldMatrix_RxRzRyScMv(const GeometricActor* const prm_pActor, D3D
     out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
-
 
 void Util::setWorldMatrix_RxRyRzScMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
     //World変換
@@ -1368,38 +1364,7 @@ void Util::setWorldMatrix_BxyzMv(const GeometricActor* const prm_pActor, D3DXMAT
 
 void Util::setWorldMatrix_AlignAppScBxyzMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
     //見かけ上の大きさを揃えるビルボード
-    //得点表示用
-//    DefaultCamera* pCam = pCARETAKER->getSpacetime()->getCamera();
-//    double Zorg = -pCam->getZOrigin();
-//    _TRACE_("Zorg="<<Zorg);
-//    double H = CONFIG::GAME_BUFFER_HEIGHT;
-//    _TRACE_("H="<<H);
-//    double Zf = pCam->getZFar();
-//    _TRACE_("Zf="<<Zf);
-//    double Hf = (H*Zf)/Zorg;
-//    _TRACE_("Hf="<<Hf);
-//    double dz = C_DX(UTIL::getDistance(pCam, this));
-//    _TRACE_("dz="<<dz);
-//    double Hdz = (H*dz)/Zorg;
-//    _TRACE_("Hdz="<<Hdz);
-//    double rate = (H/Hdz);
-//    _TRACE_("rate="<<rate);
-//    double sr0 = 1.0/rate;
-//    _TRACE_("sr0="<<sr0);
-//    double sr1 = 1.0/(H/((H*(Zf - (-_dest_from_vppln_back)))/Zorg));
-//    _TRACE_("sr1="<<sr1);
-//    double sr2 = (_dest_from_vppln_back+Zf)/Zorg;
-//    _TRACE_("sr2="<<sr1);
-//   setScaleR(sr2);
-
-   /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-   //dxcoord _dest_from_vppln_back;
-//   double d2 = Zf - (-_dest_from_vppln_back);
-//   _TRACE_("d2="<<d2);
-
-
     double sr = (prm_pActor->_dest_from_vppln_back+_pCam->getZFar())/(-_pCam->getZOrigin());
-
     const D3DXMATRIX& matView = _pCam->_matView;
     out_matWorld._11 = sr*matView._11;
     out_matWorld._12 = sr*matView._21;
@@ -1421,7 +1386,6 @@ void Util::setWorldMatrix_AlignAppScBxyzMv(const GeometricActor* const prm_pActo
     out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
-
 
 
 void Util::setWorldMatrix_ScRzBxyzMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
@@ -1496,7 +1460,6 @@ void Util::mulWorldMatrix_ScRxRzRyMv(const GeometricActor* const prm_pActor, D3D
 }
 
 
-
 void Util::setWorldMatrix_RzBxyzMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
     const D3DXMATRIX& matView = _pCam->_matView;
     const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
@@ -1522,6 +1485,7 @@ void Util::setWorldMatrix_RzBxyzMv(const GeometricActor* const prm_pActor, D3DXM
     out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
+
 void Util::setWorldMatrix_ScMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
     out_matWorld._11 = SC_R(prm_pActor->_sx);
     out_matWorld._12 = 0.0f;

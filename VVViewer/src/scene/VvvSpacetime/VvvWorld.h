@@ -43,6 +43,7 @@ public:
     VvvCursor* pCursor_;
     /** グリッド */
     VvvGrid* pGrid_;
+    //VvvGrid2* pGrid_;
     /** カメラマン */
     VvvCamWorker* pCamWorker_;
     /****/

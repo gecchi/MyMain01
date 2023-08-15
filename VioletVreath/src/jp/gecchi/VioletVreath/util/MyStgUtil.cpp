@@ -541,8 +541,7 @@ GgafDx::FigureActor* MyStgUtil::activateDestroyedEffectOf(GgafCore::Actor* prm_p
             }
             case EF_BONUS_FORMATION: {
                 //スコアが表示される消滅エフェクト
-//                LabelBonus001* pLabel = CommonScene_dispatchForce(LabelBonus001);
-                SpriteLabelBonus001* pLabel = CommonScene_dispatchForce(SpriteLabelBonus001);
+                SpriteLabelBonus002* pLabel = CommonScene_dispatchForce(SpriteLabelBonus002);
                 pLabel->onDispatched(pTargetActor); //初期設定が行われる
                 std::string s = XTOS(pPrmActorStatus->get(STAT_AddDestroyScorePoint));
                 pLabel->update(s.c_str()); //破壊時得点が表示される

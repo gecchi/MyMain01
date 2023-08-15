@@ -1,4 +1,4 @@
-#include "SpriteLabelBonus001.h"
+#include "SpriteLabelBonus002.h"
 
 #include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -13,33 +13,32 @@ enum {
     PHASE_BANPEI,
 };
 
-SpriteLabelBonus001::SpriteLabelBonus001(const char* prm_name) :
-        FontSpriteActor(prm_name, "Ranking_16Font")
+SpriteLabelBonus002::SpriteLabelBonus002(const char* prm_name) :
+        FontSpriteActor(prm_name, "Font32x64")
 {
-    _class_name = "SpriteLabelBonus001";
+    _class_name = "SpriteLabelBonus002";
     setZEnableDraw(false);      //Zバッファは考慮無しに強制
     setZWriteEnable(false); //自身のZバッファを書き込みしないに強制
     setSpecialRenderDepthIndex(1); //描画順序を最前面描画に強制。
-    setHitAble(false);
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+    setHitAble(false);
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_AlignAppScBxyzMv); //見かけ上の大きさを揃えるビルボード
 }
 
-void SpriteLabelBonus001::onCreateModel() {
+void SpriteLabelBonus002::onCreateModel() {
 }
 
-void SpriteLabelBonus001::initialize() {
+void SpriteLabelBonus002::initialize() {
 }
 
-void SpriteLabelBonus001::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
+void SpriteLabelBonus002::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
     setPositionAt(prm_pOrgActor);
     GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     pLocoVehicle->takeoverFrom(prm_pOrgActor->getLocoVehicle());
     getPhase()->reset(PHASE_INIT);
 }
 
-void SpriteLabelBonus001::processBehavior() {
-    const Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
+void SpriteLabelBonus002::processBehavior() {
     GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
@@ -47,6 +46,7 @@ void SpriteLabelBonus001::processBehavior() {
             setAlpha(0.9);
             pLocoVehicle->setMvAcceByT(60, 100);
             if(pPhase->getFrame() >= 60) {
+                pLocoVehicle->stop();
                 pPhase->changeNext();
             }
             break;
@@ -65,6 +65,6 @@ void SpriteLabelBonus001::processBehavior() {
     pLocoVehicle->behave();
 }
 
-SpriteLabelBonus001::~SpriteLabelBonus001() {
+SpriteLabelBonus002::~SpriteLabelBonus002() {
 }
 

@@ -54,6 +54,7 @@
 #include "jp/gecchi/VioletVreath/actor/label/LabelScoreFont.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteFont32x64.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelBonus001.h"
+#include "jp/gecchi/VioletVreath/actor/label/SpriteLabelBonus002.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelGecchi32Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
 

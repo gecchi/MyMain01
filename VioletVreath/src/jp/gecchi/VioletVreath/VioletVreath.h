@@ -521,6 +521,7 @@ class Spacetime;
 class SpeedMagic;
 class SpriteFont32x64;
 class SpriteLabelBonus001;
+class SpriteLabelBonus002;
 class SpriteLabelGecchi32Font;
 class SpriteLabelTest;
 class Stage;
