@@ -4,16 +4,12 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PHASE_INIT   ,
-    PHASE_MOVE01 ,
-    PHASE_MOVE02 ,
-    PHASE_LEAVE ,
+    PHASE_INIT ,
+    PHASE_FADE ,
     PHASE_BANPEI,
 };
 
@@ -25,22 +21,22 @@ SpriteLabelBonus001::SpriteLabelBonus001(const char* prm_name) :
     setZWriteEnable(false); //自身のZバッファを書き込みしないに強制
     setSpecialRenderDepthIndex(1); //描画順序を最前面描画に強制。
     setHitAble(false);
-    defineRotMvWorldMatrix(UTIL::setWorldMatrix_BxyzMv); //XYZ軸ビルボード
+    defineRotMvWorldMatrix(UTIL::setWorldMatrix_AlignAppScBxyzMv); //見かけ上の大きさを揃えるビルボード
 }
 
 void SpriteLabelBonus001::onCreateModel() {
 }
 
 void SpriteLabelBonus001::initialize() {
-
 }
 
 void SpriteLabelBonus001::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
     setPositionAt(prm_pOrgActor);
     GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    pLocoVehicle->setMvVelo(0);
+    pLocoVehicle->setMvAcce(0);
     pLocoVehicle->takeoverFrom(prm_pOrgActor->getLocoVehicle());
-    pLocoVehicle->setMvAcce(300);
-    setAlpha(0.7);
+    setAlpha(0.9);
     getPhase()->reset(PHASE_INIT);
 }
 
@@ -50,47 +46,23 @@ void SpriteLabelBonus001::processBehavior() {
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
-            pPhase->changeNext();
-            break;
-        }
-        case PHASE_MOVE01: {
-            //しばらく直進
-            if (pPhase->hasArrivedFrameAt(60)) {
-                //カメラに向かって方向転換1
-                pLocoVehicle->turnMvAngTwd(pCam,
-                                      D_ANG(3), 0, TURN_CLOSE_TO, true);
-            }
-            if (pPhase->hasArrivedFrameAt(60+30)) {
-                //カメラに向かって方向転換2
-                pLocoVehicle->turnMvAngTwd(pCam,
-                                      D_ANG(1), 0, TURN_CLOSE_TO, true);
-            }
-
-            if (ABS(pCam->_x - _x) < PX_C(200) || pPhase->getFrame() >= 60+30+120) {
+            pLocoVehicle->setMvAcceByT(60,0);
+            if(pPhase->getFrame() >= 60) {
                 pPhase->changeNext();
             }
             break;
         }
-        case PHASE_MOVE02: {
-            if (pPhase->hasJustChanged()) {
-            }
+        case PHASE_FADE: {
             addAlpha(-0.01);
             if (getAlpha() <= 0.0) {
+                sayonara();
                 pPhase->changeNext();
             }
             break;
         }
-        case PHASE_LEAVE: {
-            if (pPhase->hasJustChanged()) {
-                sayonara();
-                pPhase->changeNothing();
-            }
-            break;
-        }
-        default :
+        default:
             break;
     }
-
     pLocoVehicle->behave();
 }
 

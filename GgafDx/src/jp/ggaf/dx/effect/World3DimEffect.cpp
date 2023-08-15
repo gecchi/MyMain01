@@ -14,6 +14,9 @@ World3DimEffect::World3DimEffect(const char* prm_effect_name) : Effect(prm_effec
     HRESULT hr;
     hr = _pID3DXEffect->SetFloat("g_zf", pCam->getZFar());
     checkDxException(hr, D3D_OK, "SetFloat(g_zf) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = _pID3DXEffect->SetFloat("g_cameraZ_org", pCam->getZOrigin());
+    checkDxException(hr, D3D_OK, "SetFloat(g_cameraZ_org) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
     //éÀâeïœä∑çsóÒ
     hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
     checkDxException(hr, D3D_OK, "SetMatrix(g_matProj) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

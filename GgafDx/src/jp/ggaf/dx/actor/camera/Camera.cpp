@@ -11,25 +11,24 @@ using namespace GgafDx;
 
 Camera::Camera(const char* prm_name, double prm_rad_fovX, double prm_dep) :
         GeometricActor(prm_name, nullptr),
-_rad_fovX(prm_rad_fovX),      //全ての基準はfovXから考える
-_dep(prm_dep),
-_rad_half_fovX(_rad_fovX / 2.0),
-_screen_aspect(1.0 * (CONFIG::GAME_BUFFER_WIDTH) / (CONFIG::GAME_BUFFER_HEIGHT)),
-_rad_fovY(atan( ( (tan(_rad_fovX/2.0)) / _screen_aspect) )*2.0),
-_rad_half_fovY(_rad_fovY / 2.0),
-_tan_half_fovX(tan(_rad_fovX/2.0)),
-_tan_half_fovY(tan(_rad_fovY/2.0)),
-_cameraZ_org(-1.0 * ((1.0 * (CONFIG::GAME_BUFFER_HEIGHT) / PX_UNIT) / 2.0) / _tan_half_fovY),
+_rad_fovX(prm_rad_fovX),      //全ての基準は視野角Xラジアン(fovX)から考える
+_dep(prm_dep),                //深さ（_cameraZ_orgの何倍か)
+_rad_half_fovX(_rad_fovX / 2.0),   //視野角Xラジアンの半分（計算用）
+_screen_aspect(1.0 * (CONFIG::GAME_BUFFER_WIDTH) / (CONFIG::GAME_BUFFER_HEIGHT)), //スクリーンアスペクト比
+_rad_fovY(atan( ( (tan(_rad_fovX/2.0)) / _screen_aspect) )*2.0),  //視野角Yラジアン
+_rad_half_fovY(_rad_fovY / 2.0),   //視野角Yラジアンの半分（計算用）
+_tan_half_fovX(tan(_rad_fovX/2.0)),  //tan(視野角Xラジアンの半分)（計算用）
+_tan_half_fovY(tan(_rad_fovY/2.0)),  //tan(視野角Yラジアンの半分)（計算用）
+_cameraZ_org(-1.0 * ((1.0 * (CONFIG::GAME_BUFFER_HEIGHT) / PX_UNIT) / 2.0) / _tan_half_fovY), //PX_UNIT が 1ピクセルに見えるカメラのZ座標初期位置
 _zn(0.1f),
 _zf(-_cameraZ_org*(_dep+1.0)-_zn)
 {
     _class_name = "Camera";
-    //fovXとアスペクト比からfovYを計算して求める
     _TRACE_(FUNC_NAME<<" 画面アスペクト："<<_screen_aspect);
     _TRACE_(FUNC_NAME<<" FovX="<<prm_rad_fovX<<" FovY="<<_rad_fovY);
-
-    //初期カメラ位置は視点(0,0,Z)、注視点(0,0,0)
-    //Zは、キャラがZ=0のXY平面で丁度キャラが値ピクセル幅と一致するような所にカメラを引く
+    //初期カメラ位置は視点(0,0,_cameraZ_org) ※_cameraZ_org<0、
+    //初期カメラ注視点(0,0,0)
+    //_cameraZ_orgは、キャラがZ=0のXY平面で丁度キャラが値ピクセル幅と一致するような所にカメラを引くように計算されている
     _TRACE_(FUNC_NAME<<" カメラの位置(0,0,"<<_cameraZ_org<<") dxcoord");
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ_org); //位置
     _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
@@ -71,6 +70,15 @@ _zf(-_cameraZ_org*(_dep+1.0)-_zn)
     }
     //射影変換逆行列
     D3DXMatrixInverse(&_matInvProj, nullptr, &_matProj);
+
+    //正射影変換
+    D3DXMatrixOrthoLH(
+        &_matProjOrtho,
+        PX_DX(CONFIG::GAME_BUFFER_WIDTH),
+        PX_DX(CONFIG::GAME_BUFFER_HEIGHT),
+        _zn,
+        _zf
+    );
 
     setPosition(0, 0, DX_C(_cameraZ_org));
     setFaceAngTwd(0,0,0);

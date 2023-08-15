@@ -432,7 +432,7 @@ int Spacetime::registerDrawActor(FigureActor* prm_pActor) {
         //＊＊＊３Dの場合
         if (specal_render_depth_index < 0) { //特別な描画深度指定無し
             //＊＊＊ 3Dで特別な描画深度指定無し ＊＊＊
-            dxcoord dep = -prm_pActor->_dest_from_vppln_infront; //オブジェクトの視点からの距離(DIRECTX距離)
+            dxcoord dep = -prm_pActor->_dest_from_vppln_infront; //オブジェクトの視錐台手前面からの距離(DIRECTX距離)
             if (dep < 0.0) {
                 render_depth_index = RENDER_DEPTH_NEAR_INDEX;
             } else if (0.0 <= dep && dep < _dep_resolution) {

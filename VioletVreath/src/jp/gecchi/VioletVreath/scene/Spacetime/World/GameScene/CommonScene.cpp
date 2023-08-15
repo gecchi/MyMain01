@@ -56,7 +56,7 @@ CommonScene::CommonScene(const char* prm_name) : VvScene<DefaultScene>(prm_name)
     //汎用出現エフェクト EffectBlink003
     REGISTER_DEPO(EffectBlink003, 30);
     //ボーナスポイント表示エフェクト
-    REGISTER_DEPO(SpriteLabelBonus001, 30);
+    REGISTER_DEPO(SpriteLabelBonus001, 50);
     REGISTER_DEPO(LabelBonus001, 30);
     //汎用ショット
     REGISTER_DEPO(Shot004, 30);

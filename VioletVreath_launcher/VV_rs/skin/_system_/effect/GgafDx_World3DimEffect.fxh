@@ -8,6 +8,8 @@ float4x4 g_matProj;
 
 /** 現在の射影変換行列要素のzf。カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
 float g_zf;
+/** カメラの初期位置のZ座標( < 0) */
+float g_cameraZ_org;
 /** フォグ開始のzf距離割合。-1.0 or 0.0～1.0。遠くでも表示を強制したい場合に 負の値 が代入される。*/
 float g_fog_starts_far_rate;
 

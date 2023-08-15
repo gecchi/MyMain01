@@ -52,6 +52,8 @@ public:
     D3DXMATRIX _matProj;
     /** [r]DirectX射影変換逆行列 */
     D3DXMATRIX _matInvProj;
+    /** [r]DirectX正射影変換行列 */
+    D3DXMATRIX _matProjOrtho;
 
     /** [r]DirectXカメラの位置(フレーム毎更新) */
     D3DXVECTOR3* _pVecCamFromPoint;

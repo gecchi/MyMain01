@@ -1366,6 +1366,63 @@ void Util::setWorldMatrix_BxyzMv(const GeometricActor* const prm_pActor, D3DXMAT
 }
 
 
+void Util::setWorldMatrix_AlignAppScBxyzMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
+    //見かけ上の大きさを揃えるビルボード
+    //得点表示用
+//    DefaultCamera* pCam = pCARETAKER->getSpacetime()->getCamera();
+//    double Zorg = -pCam->getZOrigin();
+//    _TRACE_("Zorg="<<Zorg);
+//    double H = CONFIG::GAME_BUFFER_HEIGHT;
+//    _TRACE_("H="<<H);
+//    double Zf = pCam->getZFar();
+//    _TRACE_("Zf="<<Zf);
+//    double Hf = (H*Zf)/Zorg;
+//    _TRACE_("Hf="<<Hf);
+//    double dz = C_DX(UTIL::getDistance(pCam, this));
+//    _TRACE_("dz="<<dz);
+//    double Hdz = (H*dz)/Zorg;
+//    _TRACE_("Hdz="<<Hdz);
+//    double rate = (H/Hdz);
+//    _TRACE_("rate="<<rate);
+//    double sr0 = 1.0/rate;
+//    _TRACE_("sr0="<<sr0);
+//    double sr1 = 1.0/(H/((H*(Zf - (-_dest_from_vppln_back)))/Zorg));
+//    _TRACE_("sr1="<<sr1);
+//    double sr2 = (_dest_from_vppln_back+Zf)/Zorg;
+//    _TRACE_("sr2="<<sr1);
+//   setScaleR(sr2);
+
+   /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
+   //dxcoord _dest_from_vppln_back;
+//   double d2 = Zf - (-_dest_from_vppln_back);
+//   _TRACE_("d2="<<d2);
+
+
+    double sr = (prm_pActor->_dest_from_vppln_back+_pCam->getZFar())/(-_pCam->getZOrigin());
+
+    const D3DXMATRIX& matView = _pCam->_matView;
+    out_matWorld._11 = sr*matView._11;
+    out_matWorld._12 = sr*matView._21;
+    out_matWorld._13 = sr*matView._31;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = sr*matView._12;
+    out_matWorld._22 = sr*matView._22;
+    out_matWorld._23 = sr*matView._32;
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = sr*matView._13;
+    out_matWorld._32 = sr*matView._23;
+    out_matWorld._33 = sr*matView._33;
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
+    out_matWorld._44 = 1.0f;
+}
+
+
 
 void Util::setWorldMatrix_ScRzBxyzMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
     const D3DXMATRIX& matView = _pCam->_matView;

@@ -1,6 +1,6 @@
-/** レンダリングターゲットの横幅(px) */
+/** -1.0 / CONFIG::RENDER_TARGET_BUFFER_WIDTH */
 float g_dbd_offset_x;
-/** レンダリングターゲットの縦幅(px) */
+/** +1.0 / CONFIG::RENDER_TARGET_BUFFER_HEIGHT */
 float g_dbd_offset_y;
 
 
