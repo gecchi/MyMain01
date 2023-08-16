@@ -13,6 +13,7 @@
     <ClCompile Include="src\scene\VvvSpacetime.cpp" />
     <ClCompile Include="src\VvvCaretaker.cpp" />
     <ClCompile Include="src\VVViewer.cpp" />
+    <ClCompile Include="src\actor\VvvGrid2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\CamWorker\VvvCamWorker.h" />
@@ -27,5 +28,6 @@
     <ClInclude Include="src\scene\VvvSpacetime.h" />
     <ClInclude Include="src\VvvCaretaker.h" />
     <ClInclude Include="src\VVViewer.h" />
+    <ClInclude Include="src\actor\vvvgrid2.h" />
   </ItemGroup>
 </Project>

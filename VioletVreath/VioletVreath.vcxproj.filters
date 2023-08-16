@@ -359,6 +359,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\Config.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelBonus001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus002.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.h" />
@@ -734,5 +735,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\VioletVreath.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvFormationActor.hpp" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelbonus001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\spritelabelbonus002.h" />
   </ItemGroup>
 </Project>

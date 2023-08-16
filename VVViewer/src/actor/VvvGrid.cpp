@@ -8,7 +8,7 @@ using namespace GgafLib;
 using namespace VVViewer;
 
 VvvGrid::VvvGrid(const char* prm_name) :
-        GgafLib::DefaultSpriteActor(prm_name, "Grid") {
+        GgafLib::DefaultSpriteActor(prm_name, "Grid2") {
 }
 
 void VvvGrid::initialize() {

@@ -182,9 +182,6 @@ OUT_VS VS_DefaultFramedSprite(
     }
 
 
-    //dot by dot考慮
-    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
-
     //UVのオフセット（パターン番号による増分）を加算
     out_vs.uv.x = prm_uv.x + offsetU;
     out_vs.uv.y = prm_uv.y + offsetV;
@@ -192,6 +189,10 @@ OUT_VS VS_DefaultFramedSprite(
     //マテリアル色として頂点カラーに設定
     out_vs.color.r = center_flg;  //中心パネルである事の情報を color.r （頂点カラーを潰して）埋め込む
     out_vs.color.a = g_alpha;
+    
+
+    //dot by dot考慮
+    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
     return out_vs;
 }
 

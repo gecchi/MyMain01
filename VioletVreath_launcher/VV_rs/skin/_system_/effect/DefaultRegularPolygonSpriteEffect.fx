@@ -56,8 +56,6 @@ OUT_VS VS_DefaultRegularPolygonSprite(
     //    out_vs.color.a *= getFogRate(out_vs.posModel_Proj.z);
     //}
 
-    //dot by dot考慮
-    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
     //UVのオフセット(パターン番号による増分)加算
     x = prm_uv.x - g_u_center;
     y = prm_uv.y - g_v_center;
@@ -65,6 +63,9 @@ OUT_VS VS_DefaultRegularPolygonSprite(
     out_vs.uv.y = (x*-g_sin_rz + y*g_cos_rz);
     out_vs.uv.x += (g_u_center + g_offset_u);
     out_vs.uv.y += (g_v_center + g_offset_v);
+    
+    //dot by dot考慮
+    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
     return out_vs;
 }
 

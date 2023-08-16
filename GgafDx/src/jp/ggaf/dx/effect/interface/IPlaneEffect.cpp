@@ -11,9 +11,11 @@ IPlaneEffect::IPlaneEffect(Effect* prm_pEffect) {
     ID3DXEffect* pID3DXEffect = prm_pEffect->_pID3DXEffect;
 
     _h_dbd_offset_x = pID3DXEffect->GetParameterByName( nullptr, "g_dbd_offset_x" );
-    pID3DXEffect->SetFloat(_h_dbd_offset_x, -1.0 / CONFIG::RENDER_TARGET_BUFFER_WIDTH); //-0.5ƒsƒNƒZƒ‹
+    //pID3DXEffect->SetFloat(_h_dbd_offset_x, (2.0 / CONFIG::RENDER_TARGET_BUFFER_WIDTH ) * 0.5); //ŽË‰e•ÏŠ·Œã‚Ì1px‚Ì•  * 0.5 (2.0 ‚Í -1 ` +1 ‚Ì‹——£)
+    pID3DXEffect->SetFloat(_h_dbd_offset_x, (1.0 / CONFIG::RENDER_TARGET_BUFFER_WIDTH ));
     _h_dbd_offset_y = pID3DXEffect->GetParameterByName( nullptr, "g_dbd_offset_y" );
-    pID3DXEffect->SetFloat(_h_dbd_offset_y, +1.0 / CONFIG::RENDER_TARGET_BUFFER_HEIGHT); //+0.5ƒsƒNƒZƒ‹
+    //pID3DXEffect->SetFloat(_h_dbd_offset_y, (2.0 / CONFIG::RENDER_TARGET_BUFFER_HEIGHT) * 0.5);  //ŽË‰e•ÏŠ·Œã‚Ì1px‚Ì‚‚³ * 0.5(2.0 ‚Í -1 ` +1 ‚Ì‹——£)
+    pID3DXEffect->SetFloat(_h_dbd_offset_y, (1.0 / CONFIG::RENDER_TARGET_BUFFER_HEIGHT));
 
 }
 

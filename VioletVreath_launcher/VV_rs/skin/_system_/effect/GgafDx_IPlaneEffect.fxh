@@ -1,6 +1,6 @@
-/** -1.0 / CONFIG::RENDER_TARGET_BUFFER_WIDTH */
+/** (1.0 / CONFIG::RENDER_TARGET_BUFFER_WIDTH) / 2.0 */
 float g_dbd_offset_x;
-/** +1.0 / CONFIG::RENDER_TARGET_BUFFER_HEIGHT */
+/** (1.0 / CONFIG::RENDER_TARGET_BUFFER_HEIGHT) / 2.0 */
 float g_dbd_offset_y;
 
 
@@ -8,7 +8,10 @@ float g_dbd_offset_y;
  * dot by dot çló∂
  */
 float4 adjustDotByDot(float4 pos) {
-    pos.x += g_dbd_offset_x*pos.w;
-    pos.y += g_dbd_offset_y*pos.w;
+    float w = pos.w;
+    pos /= w; //wÇ≈äÑÇ¡Çƒ -1 Å` 1 x -1 Å` 1 ÇÃç¿ïWånÇ…ñﬂÇ∑
+    pos.x -= g_dbd_offset_x; // -0.5px ï™Ç∏ÇÁÇ∑
+    pos.y += g_dbd_offset_x; // +0.5px ï™Ç∏ÇÁÇ∑
+    pos *= w; //wÇèÊÇ∂ Ç‡Ç∆ÇÃílÇ…ñﬂÇ∑
     return pos;
 }

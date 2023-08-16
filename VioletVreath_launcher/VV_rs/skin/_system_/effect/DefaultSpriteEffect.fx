@@ -67,10 +67,6 @@ OUT_VS VS_DefaultSprite(
         out_vs.color.a *= getFogRate(out_vs.posModel_Proj.z);
     }
 
-
-    //dot by dot考慮
-    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
-
     //UVのオフセット（パターン番号による増分）を加算
     out_vs.uv.x = prm_uv.x + g_offset_u;
     out_vs.uv.y = prm_uv.y + g_offset_v;
@@ -78,12 +74,12 @@ OUT_VS VS_DefaultSprite(
     //マテリアル色として頂点カラーに設定
     out_vs.color = g_colMaterialDiffuse;
 
-
 //TEST
 //out_vs.posModel_Proj.w = 51.2; //_cameraZ_org=-51.2 dxcoord?
 //out_vs.posModel_Proj.z = 1;
 
-
+    //dot by dot考慮
+    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
     return out_vs;
 }
 

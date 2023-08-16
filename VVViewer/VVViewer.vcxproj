@@ -26,6 +26,7 @@
     <ClCompile Include="src\actor\VvvCameraViewPoint.cpp" />
     <ClCompile Include="src\actor\VvvCursor.cpp" />
     <ClCompile Include="src\actor\VvvGrid.cpp" />
+    <ClCompile Include="src\actor\VvvGrid2.cpp" />
     <ClCompile Include="src\actor\VvvMousePointer.cpp" />
     <ClCompile Include="src\scene\VvvSpacetime.cpp" />
     <ClCompile Include="src\scene\VvvSpacetime\VvvWorld.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="src\actor\VvvCameraViewPoint.h" />
     <ClInclude Include="src\actor\VvvCursor.h" />
     <ClInclude Include="src\actor\VvvGrid.h" />
+    <ClInclude Include="src\actor\vvvgrid2.h" />
     <ClInclude Include="src\actor\VvvMousePointer.h" />
     <ClInclude Include="src\scene\VvvSpacetime.h" />
     <ClInclude Include="src\scene\VvvSpacetime\VvvWorld.h" />

@@ -137,14 +137,15 @@ OUT_VS VS_DefaultFramedBoard(
     out_vs.posModel_Proj.y =   1 - ((2*y + 2*g_local_offset_y + 2*g_y) * g_inv_game_buffer_height);
     out_vs.posModel_Proj.z = g_z;
     out_vs.posModel_Proj.w = 1.0;
-    //dot by dot考慮
-    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
 
     //UVのオフセットを加算
     out_vs.uv.x = prm_uv.x + offsetU;
     out_vs.uv.y = prm_uv.y + offsetV;
     out_vs.color.r = center_flg;  //中心パネルである事の情報を color.r として埋め込む
     out_vs.color.a = g_alpha;
+    
+    //dot by dot考慮
+    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
     return out_vs;
 }
 

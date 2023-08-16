@@ -229,6 +229,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelScoreFont.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteFont32x64.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelGecchi32Font.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig001.cpp" />
@@ -590,6 +591,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelScoreFont.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteFont32x64.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\spritelabelbonus002.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelGecchi32Font.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig001.h" />

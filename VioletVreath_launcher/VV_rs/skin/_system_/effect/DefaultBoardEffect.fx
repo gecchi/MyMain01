@@ -54,13 +54,13 @@ OUT_VS VS_DefaultBoard(
     }
     out_vs.posModel_Proj.z = g_depth_z;
     out_vs.posModel_Proj.w = 1.0;
-    //dot by dot考慮
-    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
 
     //UVのオフセットを加算
     out_vs.uv.x = prm_uv.x + g_offset_u;
     out_vs.uv.y = prm_uv.y + g_offset_v;
-
+    
+    //dot by dot考慮
+    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
     return out_vs;
 }
 

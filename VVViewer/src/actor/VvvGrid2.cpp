@@ -8,12 +8,12 @@ using namespace GgafLib;
 using namespace VVViewer;
 
 VvvGrid2::VvvGrid2(const char* prm_name) :
-        GgafLib::DefaultBoardActor(prm_name, "Grid") {
+        GgafLib::DefaultBoardActor(prm_name, "Grid2") {
 }
 
 void VvvGrid2::initialize() {
     //setAlpha(0.6);
-    setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+    //setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     setPosition(0,0);
 }
 

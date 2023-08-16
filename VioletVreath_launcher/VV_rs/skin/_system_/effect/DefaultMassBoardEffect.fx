@@ -57,13 +57,14 @@ OUT_VS VS_DefaultMassBoard(
     }
     out_vs.posModel_Proj.z = depthZ;
     out_vs.posModel_Proj.w = 1.0;
-    //dot by dot考慮
-    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
 
     //UVのオフセットを加算
     out_vs.uv.x = prm_uv.x + prm_offset_uv.x;
     out_vs.uv.y = prm_uv.y + prm_offset_uv.y;
     out_vs.color = prm_color;
+    
+    //dot by dot考慮
+    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
     return out_vs;
 }
 
