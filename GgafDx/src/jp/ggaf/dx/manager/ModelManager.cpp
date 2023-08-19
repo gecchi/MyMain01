@@ -350,7 +350,7 @@ void ModelManager::obtainMetaModelInfo(ModelXFileFmt* prm_pModelDefineXFileFmt_o
                                      (void*)prm_modelfile_filepath.c_str(),
                                      D3DXF_FILELOAD_FROMFILE,
                                      &pID3DXFileEnumObject);
-    checkDxException(hr, S_OK, "ModelManager::obtainMetaModelInfo() '"<<prm_modelfile_filepath<<"' のCreateEnumObjectに失敗しました。modelx ファイルのフォーマットを確認して下さい。");
+    checkDxException(hr, S_OK, "ModelManager::loadMetaModelInfo() '"<<prm_modelfile_filepath<<"' のCreateEnumObjectに失敗しました。modelx ファイルのフォーマットを確認して下さい。");
     ID3DXFileData* pID3DXFileData = nullptr;
     SIZE_T nChildren;
     pID3DXFileEnumObject->GetChildren(&nChildren);
@@ -358,14 +358,14 @@ void ModelManager::obtainMetaModelInfo(ModelXFileFmt* prm_pModelDefineXFileFmt_o
         pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     } //ループしているが、child は一つだけです。
     if (pID3DXFileData == nullptr) {
-        throwCriticalException("ModelManager::obtainMetaModelInfo() "<<prm_modelfile_filepath<<" のフォーマットエラー。 \n"<<
+        throwCriticalException("ModelManager::loadMetaModelInfo() "<<prm_modelfile_filepath<<" のフォーマットエラー。 \n"<<
                 " MetaModelInfo { ... }  の MetaModelInfo が見つからないです。たぶん");
     }
     SIZE_T xsize = 0;
     char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
     if (pXData == nullptr) {
-        throwCriticalException("ModelManager::obtainMetaModelInfo() "<<prm_modelfile_filepath<<" のフォーマットエラー。");
+        throwCriticalException("ModelManager::loadMetaModelInfo() "<<prm_modelfile_filepath<<" のフォーマットエラー。");
     }
     memcpy(&(prm_pModelDefineXFileFmt_out->XFileNum), pXData, sizeof(DWORD));
     pXData += sizeof(DWORD);

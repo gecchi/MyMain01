@@ -171,7 +171,7 @@ void BoneAniMeshModel::restore() {
         HRESULT hr;
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
         ModelManager::ModelXFileFmt xdata;
-        obtainMetaModelInfo(&xdata);
+        loadMetaModelInfo(&xdata);
         if (_draw_set_num != 1) {
             _TRACE_("BoneAniMeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は常に 1 です。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
             _draw_set_num = 1;

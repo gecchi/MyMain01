@@ -136,12 +136,12 @@ void SpriteModel::restore() {
         _papTextureConnection = nullptr;
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
         ModelManager::ModelXFileFmt xdata;
-        obtainMetaModelInfo(&xdata);
+        loadMetaModelInfo(&xdata);
         if (_draw_set_num != 1) {
              _TRACE_("SpriteModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
              _draw_set_num = 1;
         }
-        std::string sprx_filepath = Model::getSpriteXFilePath(xdata.XFileNames[0]);
+        std::string sprx_filepath = getSpriteXFilePath(xdata.XFileNames[0]);
         ModelManager::SpriteXFileFmt xdata_spr;
         pModelManager->obtainSpriteModelInfo(&xdata_spr, sprx_filepath);
 

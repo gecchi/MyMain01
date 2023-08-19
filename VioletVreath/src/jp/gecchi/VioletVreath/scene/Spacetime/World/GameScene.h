@@ -73,6 +73,7 @@ public:
     void onCatchEvent(eventval prm_event_val, void* prm_pSource) override;
 
     void pauseGame();
+    void unpauseGame();
 
     virtual ~GameScene();
 

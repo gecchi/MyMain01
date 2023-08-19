@@ -1,0 +1,9 @@
+xof 0303txt 0032
+
+SpriteModelDef Grid {
+ 4096.0;            # FLOAT  Width
+ 4096.0;            # FLOAT  Height
+ "ichimatsu.png";  # STRING TextureFile
+ 1;                # DWORD  TextureSplitRows
+ 1;                # DWORD  TextureSplitCols
+}

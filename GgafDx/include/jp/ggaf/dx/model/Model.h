@@ -68,6 +68,7 @@ public:
     /** [r]最大可能同時描画セット数（キャラクタ数）*/
     int _draw_set_num;
     int _max_draw_set_num;
+    std::string _model_def_dir;
     /** [r]モデル定義の識別名。(50文字まで) */
     char* _model_id;
     /** [r]モデルタイプ(TYPE_XXXX_MODEL) */
@@ -292,12 +293,12 @@ public:
     virtual void onDeviceLost() = 0;
 
 
-    static std::string getMeshXFilePath(std::string prm_xfile);
-    static std::string getPointSpriteXFilePath(std::string prm_xfile);
-    static std::string getSpriteXFilePath(std::string prm_sprxfile);
+    std::string getMeshXFilePath(std::string prm_xfile);
+    std::string getPointSpriteXFilePath(std::string prm_xfile);
+    std::string getSpriteXFilePath(std::string prm_sprxfile);
 
-    static std::string getMetaModelInfoPath(std::string prm_modelfile);
-    virtual bool obtainMetaModelInfo(ModelManager::ModelXFileFmt* prm_pModelDefineXFileFmt_out);
+    static std::string getMetaModelInfoDir(std::string prm_modelfile);
+    virtual bool loadMetaModelInfo(ModelManager::ModelXFileFmt* prm_pModelDefineXFileFmt_out);
 
 
     /**

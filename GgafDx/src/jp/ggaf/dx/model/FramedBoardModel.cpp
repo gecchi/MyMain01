@@ -133,12 +133,12 @@ void FramedBoardModel::restore() {
         _papTextureConnection = nullptr;
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
         ModelManager::ModelXFileFmt xdata;
-        obtainMetaModelInfo(&xdata);
+        loadMetaModelInfo(&xdata);
         if (_draw_set_num != 9) {
             _TRACE_("FramedBoardModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 9 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
             _draw_set_num = 9;
         }
-        std::string fsprx_filepath = Model::getSpriteXFilePath(xdata.XFileNames[0]);
+        std::string fsprx_filepath = getSpriteXFilePath(xdata.XFileNames[0]);
         ModelManager::FramedSpriteXFileFmt xdata_fspr;
         pModelManager->obtainFramedSpriteModelInfo(&xdata_fspr, fsprx_filepath);
 

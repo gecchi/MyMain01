@@ -197,7 +197,7 @@ void MeshModel::restore() {
         //      ・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
         ModelManager::ModelXFileFmt xdata;
-        obtainMetaModelInfo(&xdata);
+        loadMetaModelInfo(&xdata);
         if (_draw_set_num != 1) {
             _TRACE_("MeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
             _draw_set_num = 1;

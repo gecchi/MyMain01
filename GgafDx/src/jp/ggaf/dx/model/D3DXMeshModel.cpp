@@ -145,7 +145,7 @@ void D3DXMeshModel::restore() {
     //2)D3DXMeshModelのメンバにセット
 
     ModelManager::ModelXFileFmt xdata;
-    obtainMetaModelInfo(&xdata);
+    loadMetaModelInfo(&xdata);
     if (_draw_set_num != 1) {
         _TRACE_("D3DXMeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
         _draw_set_num = 1;

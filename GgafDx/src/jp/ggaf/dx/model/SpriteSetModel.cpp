@@ -152,8 +152,8 @@ void SpriteSetModel::restore() {
 
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
         ModelManager::ModelXFileFmt xdata;
-        obtainMetaModelInfo(&xdata);
-        std::string sprx_filepath = Model::getSpriteXFilePath(xdata.XFileNames[0]);
+        loadMetaModelInfo(&xdata);
+        std::string sprx_filepath = getSpriteXFilePath(xdata.XFileNames[0]);
         ModelManager::SpriteXFileFmt xdata_spr;
         pModelManager->obtainSpriteModelInfo(&xdata_spr, sprx_filepath);
         _model_width_px  = xdata_spr.Width;

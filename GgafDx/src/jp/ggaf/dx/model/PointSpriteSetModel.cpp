@@ -133,8 +133,8 @@ void PointSpriteSetModel::restore() {
     if (_paVtxBuffer_data == nullptr) {
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
         ModelManager::ModelXFileFmt xdata;
-        obtainMetaModelInfo(&xdata);
-        std::string psprx_filepath = Model::getPointSpriteXFilePath(xdata.XFileNames[0]);
+        loadMetaModelInfo(&xdata);
+        std::string psprx_filepath = getPointSpriteXFilePath(xdata.XFileNames[0]);
         ModelManager::PointSpriteXFileFmt xdata_pspr;
         pModelManager->obtainPointSpriteModelInfo(&xdata_pspr, psprx_filepath);
         //マテリアル定義が１つも無いので、描画のために無理やり１つマテリアルを作成。

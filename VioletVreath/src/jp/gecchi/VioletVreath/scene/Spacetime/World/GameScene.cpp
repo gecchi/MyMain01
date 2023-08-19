@@ -207,9 +207,10 @@ void GameScene::processBehavior() {
                     //ポーズではないときに、ポーズキーを押して離した場合の処理
                     //ポーズ発生時直後の初期処理はココへ
                     pauseGame();
+                    is_frame_advance_ = false;
                 }
 #else
-                if (VVB->isPushedDown(0, VV_VB_PAUSE) || is_frame_advance_) {
+                if (VVB->isPushedDown(0, VV_VB_PAUSE)) {
                     //ポーズではないときに、ポーズキーを押して離した場合の処理
                     //ポーズ発生時直後の初期処理はココへ
                     pauseGame();
@@ -228,14 +229,17 @@ void GameScene::processBehavior() {
                 }
 
                 //ポーズ進行時処理はココ
-                //
-
-                if (pMenuBoardPause_->hasJustSunk() || is_frame_advance_) {
-                    //ポーズ時に、ポーズキーを押して離した場合の処理
+#ifdef MY_DEBUG
+                if (is_frame_advance_ == false && GgafDx::Input::isPushedDownKey(DIK_F)) {
+                    pMenuBoardPause_->sinkMe();
+                    is_frame_advance_ = true;
+                }
+#endif
+                if (pMenuBoardPause_->hasJustSunk()) {
+                    //ポーズ時のメニューが閉じられたら、ポーズ解除
                     //ポーズ解除時直後の初期処理はココへ
-                    _TRACE_("UNPAUSE!");
-                    pCARETAKER->setVB(VV_VB_PLAY);
-                    pPhase->getGazedScene()->unpause();//ポーズ解除！！
+                    unpauseGame(); //ポーズ解除！！
+                    _TRACE_("getActiveFrame="<<pPhase->getGazedScene()->getActiveFrame());
                 }
             }
             //イベント待ち EVENT_ALL_MY_SHIP_WAS_DESTROYED
@@ -348,9 +352,7 @@ void GameScene::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
         pPhase->change(PHASE_FINISH);
     } else if (prm_event_val == EVENT_GO_TO_TITLE) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GO_TO_TITLE)");
-        _TRACE_("UNPAUSE!(because EVENT_GO_TO_TITLE)");
-        pCARETAKER->setVB(VV_VB_PLAY);
-        pPhase->getGazedScene()->unpause();//ポーズ解除！！
+        unpauseGame(); //ポーズ解除！！
         pPhase->change(PHASE_FINISH);
     }
 }
@@ -365,6 +367,11 @@ void GameScene::pauseGame() {
     pCARETAKER->setVB(VV_VB_UI);  //入力はＵＩに切り替え
     getPhase()->getGazedScene()->pause(); //ポーズ！！
     pMenuBoardPause_->rise(PX_C(100), PX_C(20));
+}
+void GameScene::unpauseGame() {
+    _TRACE_("UNPAUSE!");
+    pCARETAKER->setVB(VV_VB_PLAY);
+    getPhase()->getGazedScene()->unpause();//ポーズ解除！！
 }
 
 GameScene::~GameScene() {

@@ -77,8 +77,8 @@ void MassPointSpriteModel::restore() {
     if (!_paVtxBuffer_data_model) {
 
         ModelManager::ModelXFileFmt xdata;
-        obtainMetaModelInfo(&xdata);
-        std::string psprx_filepath = Model::getPointSpriteXFilePath(xdata.XFileNames[0]);
+        loadMetaModelInfo(&xdata);
+        std::string psprx_filepath = getPointSpriteXFilePath(xdata.XFileNames[0]);
 
         ModelManager::PointSpriteXFileFmt xdata_pspr;
         pModelManager->obtainPointSpriteModelInfo(&xdata_pspr, psprx_filepath);

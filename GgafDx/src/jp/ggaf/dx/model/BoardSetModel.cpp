@@ -123,8 +123,8 @@ void BoardSetModel::restore() {
     if (_paVertexBuffer_data == nullptr) {
         ModelManager* pModelManager = pCARETAKER->_pModelManager;
         ModelManager::ModelXFileFmt xdata;
-        obtainMetaModelInfo(&xdata);
-        std::string sprx_filepath = Model::getSpriteXFilePath(xdata.XFileNames[0]);
+        loadMetaModelInfo(&xdata);
+        std::string sprx_filepath = getSpriteXFilePath(xdata.XFileNames[0]);
         if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
             _TRACE_("BoardSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
             _draw_set_num = _max_draw_set_num;

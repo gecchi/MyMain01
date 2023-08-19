@@ -85,6 +85,8 @@ public:
 
     void processDragAndDrop();
 
+    static std::string getMeshXFilePath(std::string prm_xfile, std::string prm_model_def_dir);
+
     virtual ~VvvWorld();
 };
 

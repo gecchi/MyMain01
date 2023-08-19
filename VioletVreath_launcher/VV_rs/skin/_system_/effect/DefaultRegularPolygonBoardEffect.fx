@@ -68,22 +68,16 @@ OUT_VS VS_DefaultRegularPolygonBoard(
     }
     out_vs.posModel_Proj.z = g_depth_z;
     out_vs.posModel_Proj.w = 1.0;
-    //dot by dot考慮
-    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
 
     //UVのオフセットを加算
-
     x = prm_uv.x - g_u_center;
     y = prm_uv.y - g_v_center;
     out_vs.uv.x = (x*g_cos_rz + y*g_sin_rz);
     out_vs.uv.y = (x*-g_sin_rz + y*g_cos_rz);
     out_vs.uv.x += (g_u_center + g_offset_u);
     out_vs.uv.y += (g_v_center + g_offset_v);
-
-
-//    out_vs.uv.x = prm_uv.x + g_offset_u;
-//    out_vs.uv.y = prm_uv.y + g_offset_v;
-
+    //dot by dot考慮
+    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
     return out_vs;
 }
 
