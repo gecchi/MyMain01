@@ -89,21 +89,21 @@ public:
     static double SE_VOLUME_RATE_MAX_DEPTH;
 
     /** [r] 3Dモデルの定義ファイル(modelxファイル)の格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SKIN_XXX_MODEL;
+    static std::string DIRNAME_RESOURCE_SKINXXX_MODEL;
     /** [r] 3Dメッシュモ定義ファイル(Xファイル)の格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SKIN_XXX_MESH;
+    static std::string DIRNAME_RESOURCE_SKINXXX_MODELXXX_MESH;
     /** [r] 3Dポイントスプライト定義ファイル(Xファイル)の格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SKIN_XXX_POINT_SPRITE3D;
+    static std::string DIRNAME_RESOURCE_SKINXXX_MODELXXX_POINT_SPRITE3D;
     /** [r] 2Dスプライトモデルの定義ファイル(sprx)の格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SKIN_XXX_SPRITE;
+    static std::string DIRNAME_RESOURCE_SKINXXX_MODELXXX_SPRITE;
     /** [r] テクスチャファイルの格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SKIN_XXX_TEXTURE;
+    static std::string DIRNAME_RESOURCE_SKINXXX_TEXTURE;
     /** [r] エフェクトファイル(fxファイル)の格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SKIN_XXX_EFFECT;
+    static std::string DIRNAME_RESOURCE_SKINXXX_EFFECT;
     /** [r] BGMファイル(oggファイル)の格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SKIN_XXX_BGM;
+    static std::string DIRNAME_RESOURCE_SKINXXX_BGM;
     /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SKIN_XXX_SE;
+    static std::string DIRNAME_RESOURCE_SKINXXX_SE;
 
     /** [r] エフェクトファイル(fxファイル)を実行時にコンパイルするかどうか */
     static bool REALTIME_EFFECT_COMPILE;

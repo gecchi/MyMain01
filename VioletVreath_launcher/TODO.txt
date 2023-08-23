@@ -15,3 +15,14 @@ LASER_THUNDER はそのままでつよいので、KOANYAをもっとなにか無
 
 編隊加算ポイントが、敵単位なのはおかしい。編隊もステータスをもたせる。
 onDispatch() コールバック共通化
+
+自機が死んだ場合に、ロックオンターゲットpTargetのポインタが残り、不正ポインタになる場合がある。
+void MyLockonController::processBehavior() {
+    //ロックオンターゲット生存確認
+    GgafDx::GeometricActor* pMainLockonTarget = listTarget_.getCurrent(); //メインロックオンのターゲット
+    GgafDx::GeometricActor* pTarget = listTarget_.getCurrent();  //ターゲットカーソル
+    GgafCore::MainActor* pLockonCursor_Active = (GgafCore::MainActor*)getChildFirst();         //ロックオンエフェクトカーソル
+    int n = listTarget_.length();
+    for (int i = 0; i < n; i++) {
+        if (pTarget->isActiveInTheTree() && pTarget->getStatus()->get(STAT_Stamina) > 0) {
+

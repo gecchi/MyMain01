@@ -1364,7 +1364,9 @@ void Util::setWorldMatrix_BxyzMv(const GeometricActor* const prm_pActor, D3DXMAT
 
 void Util::setWorldMatrix_AlignAppScBxyzMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
     //見かけ上の大きさを揃えるビルボード
-    double sr = (prm_pActor->_dest_from_vppln_back+_pCam->getZFar())/(-_pCam->getZOrigin());
+    coord d = UTIL::getDistance((GeometricActor*)Util::_pCam, (GeometricActor*)prm_pActor);
+    double sr = C_DX(d)/(-Util::_pCam->getZOrigin());
+    //double sr = (prm_pActor->_dest_from_vppln_back+_pCam->getZFar())/(-_pCam->getZOrigin());
     const D3DXMATRIX& matView = _pCam->_matView;
     out_matWorld._11 = sr*matView._11;
     out_matWorld._12 = sr*matView._21;

@@ -766,38 +766,38 @@ void VvvWorld::processDragAndDrop() {
     if (ext == "MODELX" || ext == "X" || ext == "SPRX" || ext == "PSPRX" || ext == "FSPRX" || ext == "RSPRX") {
         //プロパティ書き換え
         CONFIG::DIR_MODEL[0]      = vvv_dir_model_system; //vvv_dir_model_system はシステムスキンディレクトリ
-        CONFIG::DIR_MODEL[1]      = dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_MODEL + "/";
+        CONFIG::DIR_MODEL[1]      = dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKINXXX_MODEL + "/";
         CONFIG::DIR_MODEL[2]      = dropfile_dir;
         CONFIG::DIR_MESH[0]      = vvv_dir_mesh_system; //vvv_dir_mesh_system はシステムスキンディレクトリ
-        CONFIG::DIR_MESH[1]      = dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/";
+        CONFIG::DIR_MESH[1]      = dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKINXXX_MODELXXX_MESH + "/";
         CONFIG::DIR_MESH[2]      = dropfile_dir;
         CONFIG::DIR_POINT_SPRITE3D[0]      = vvv_dir_pointsprite_system; //vvv_dir_pointsprite_system はシステムスキンディレクトリ
-        CONFIG::DIR_POINT_SPRITE3D[1]      = dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_POINT_SPRITE3D + "/";
+        CONFIG::DIR_POINT_SPRITE3D[1]      = dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKINXXX_MODELXXX_POINT_SPRITE3D + "/";
         CONFIG::DIR_POINT_SPRITE3D[2]      = dropfile_dir;
         CONFIG::DIR_SPRITE[0]      = vvv_dir_sprite_system; //vvv_dir_mesh_system はシステムスキンディレクトリ
-        CONFIG::DIR_SPRITE[1]      = dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_SPRITE + "/";
+        CONFIG::DIR_SPRITE[1]      = dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKINXXX_MODELXXX_SPRITE + "/";
         CONFIG::DIR_SPRITE[2]      = dropfile_dir;
         CONFIG::DIR_TEXTURE[0]      = vvv_dir_texture_system; //ここは dropfile_dir
-        CONFIG::DIR_TEXTURE[1]      = dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-        CONFIG::DIR_TEXTURE[2]      = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+        CONFIG::DIR_TEXTURE[1]      = dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
+        CONFIG::DIR_TEXTURE[2]      = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
     } else {
         string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->dropfile_.c_str()) + "/";
         CONFIG::DIR_MODEL[0]      = vvv_dir_model_system; //vvv_dir_model_system はシステムスキンディレクトリ
-        CONFIG::DIR_MODEL[1]      = was_dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_MODEL + "/";
+        CONFIG::DIR_MODEL[1]      = was_dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKINXXX_MODEL + "/";
         CONFIG::DIR_MODEL[2]      = was_dropfile_dir;
         CONFIG::DIR_MESH[0]      = vvv_dir_mesh_system; //vvv_dir_mesh_system はシステムスキンディレクトリ
-        CONFIG::DIR_MESH[1]      = was_dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/";
+        CONFIG::DIR_MESH[1]      = was_dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKINXXX_MODELXXX_MESH + "/";
         CONFIG::DIR_MESH[2]      = was_dropfile_dir;
         CONFIG::DIR_POINT_SPRITE3D[0]      = vvv_dir_pointsprite_system; //vvv_dir_pointsprite_system はシステムスキンディレクトリ
-        CONFIG::DIR_POINT_SPRITE3D[1]      = was_dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_POINT_SPRITE3D + "/";
+        CONFIG::DIR_POINT_SPRITE3D[1]      = was_dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKINXXX_MODELXXX_POINT_SPRITE3D + "/";
         CONFIG::DIR_POINT_SPRITE3D[2]      = was_dropfile_dir;
         CONFIG::DIR_SPRITE[0]      = vvv_dir_sprite_system; //vvv_dir_mesh_system はシステムスキンディレクトリ
-        CONFIG::DIR_SPRITE[1]      = was_dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_SPRITE + "/";
+        CONFIG::DIR_SPRITE[1]      = was_dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKINXXX_MODELXXX_SPRITE + "/";
         CONFIG::DIR_SPRITE[2]      = was_dropfile_dir;
 
         CONFIG::DIR_TEXTURE[0]      = vvv_dir_texture_system;
-        CONFIG::DIR_TEXTURE[1]      = was_dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-        CONFIG::DIR_TEXTURE[2]      = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+        CONFIG::DIR_TEXTURE[1]      = was_dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
+        CONFIG::DIR_TEXTURE[2]      = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
     }
 
     {
@@ -938,15 +938,15 @@ void VvvWorld::processDragAndDrop() {
             string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->dropfile_.c_str()) + "/";
             _TRACE_("was_dropfile_dir="<<was_dropfile_dir);
             CONFIG::DIR_TEXTURE[0]    = was_dropfile_dir;
-            CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-            CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+            CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
+            CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
             string was_model = UTIL::getFileBaseNameWithoutExt(listActorInfo_.getCurrent()->dropfile_.c_str());
             _TRACE_("was_model="<<was_model);
             GgafLib::CubeMapMeshActor* pCubeMapMeshActor =
                     desireActor(VvvActor<GgafLib::CubeMapMeshActor>, "actor", was_model.c_str());
             CONFIG::DIR_TEXTURE[0]    = dropfile_dir;
-            CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-            CONFIG::DIR_TEXTURE[2]    = dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+            CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
+            CONFIG::DIR_TEXTURE[2]    = dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
             pCubeMapMeshActor->setCubeMap(file_name_ext.c_str(), 0.5);
             pNewActor = pCubeMapMeshActor;
             pNewChecker = pCubeMapMeshActor->getWorldCollisionChecker();
@@ -956,15 +956,15 @@ void VvvWorld::processDragAndDrop() {
             string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->dropfile_.c_str()) + "/";
             _TRACE_("was_dropfile_dir="<<was_dropfile_dir);
             CONFIG::DIR_TEXTURE[0]    = was_dropfile_dir;
-            CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-            CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+            CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
+            CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
             string was_model = UTIL::getFileBaseNameWithoutExt(listActorInfo_.getCurrent()->dropfile_.c_str());
             _TRACE_("was_model="<<was_model);
             GgafLib::CubeMapMorphMeshActor*  pCubeMapMorphMeshActor =
                     desireActor(VvvActor<GgafLib::CubeMapMorphMeshActor>, "actor", was_model.c_str());
             CONFIG::DIR_TEXTURE[0]    = dropfile_dir;
-            CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-            CONFIG::DIR_TEXTURE[2]    = dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+            CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
+            CONFIG::DIR_TEXTURE[2]    = dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
             pCubeMapMorphMeshActor->setCubeMap(file_name_ext.c_str(), 0.5);
             pNewActor = pCubeMapMorphMeshActor;
             pNewChecker = pCubeMapMorphMeshActor->getWorldCollisionChecker();
@@ -992,8 +992,8 @@ void VvvWorld::processDragAndDrop() {
     ) {
         GgafDx::FigureActor* pCurrentActor = listActorInfo_.getCurrent()->pActor_;
         CONFIG::DIR_TEXTURE[0] = dropfile_dir;
-        CONFIG::DIR_TEXTURE[1] = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-        CONFIG::DIR_TEXTURE[2] = dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+        CONFIG::DIR_TEXTURE[1] = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
+        CONFIG::DIR_TEXTURE[2] = dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
         if (pCurrentActor->instanceOf(Obj_GgafDx_MeshActor)) {
             ((GgafDx::MeshActor*)pCurrentActor)->effectBumpMapping(file_name_ext.c_str());
         }

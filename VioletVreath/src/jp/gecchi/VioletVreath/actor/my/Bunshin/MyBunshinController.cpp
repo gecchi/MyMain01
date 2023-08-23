@@ -57,6 +57,7 @@ void MyBunshinController::onReset() {
 void MyBunshinController::onActive() {
     GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
     pLocoVehicle->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_); //分身のクルクル速度
+    pBunshin_->onActive();
 }
 
 void MyBunshinController::processBehavior() {
@@ -71,6 +72,7 @@ void MyBunshinController::processJudgement() {
 }
 
 void MyBunshinController::onInactive() {
+    pBunshin_->onInactive();
 }
 
 void MyBunshinController::effectFreeModeIgnited() {
