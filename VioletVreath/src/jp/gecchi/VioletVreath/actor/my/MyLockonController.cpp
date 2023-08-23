@@ -60,7 +60,7 @@ void MyLockonController::processBehavior() {
             pLockonCursor_Active = pLockonCursor_Active->getNext(); //次回処理ロックオンエフェクトアクター次へ
             pTarget = listTarget_.next();                         //次回処理ターゲットを次へ
         } else {
-            //ターゲットが死亡時
+            //ターゲットが死亡時（TODO:この死亡時確認は、doFinally() でするほうが安全）
             if (pTarget == pMainLockonTarget) {
                 //死亡ターゲットがメインロックオンのターゲットであった場合
                 if (listTarget_.length() == 1) {
