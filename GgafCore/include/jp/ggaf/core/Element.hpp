@@ -631,7 +631,7 @@ public:
      * end(frame) 実行後、ゴミ箱(GarbageBox) に取り込まれる直前に呼び出される。<BR>
      * つまり、_can_live_flg が false から true になった時に呼び出される。<BR>
      * ですが、まだツリーに所属していおり、自身のノードの鎖はまだ切れていない状態です。<BR>
-     * 最速で、end(frame) で指定したフレーム + GGAF_END_DELAY 後に発生する。<BR>
+     * 最速で、end(frame) で指定したフレーム +END_DELAY_FRAME 後に発生する。<BR>
      * 処理がもたつくと、それ以上の先のフレームで発生する。<BR>
      * 直前に処理が必要な場合は、オーバーライドして実装可能。<BR>
      */
@@ -1332,13 +1332,13 @@ void Element<T>::inactivateTreeImmed() {
 template<class T>
 void Element<T>::end(frame prm_offset_frames) {
     if (_frame_of_life < _frame_of_life_when_end &&
-                         _frame_of_life_when_end < _frame_of_life + prm_offset_frames + GGAF_END_DELAY) {
+                         _frame_of_life_when_end < _frame_of_life + prm_offset_frames + GgafCore::Config::END_DELAY_FRAME) {
         //既にend()実行済みであり、さらに今回指定のよりも早く _frame_of_life_when_end に到達するため無視する。
         return;
     }
-    _frame_of_life_when_end = _frame_of_life + prm_offset_frames + GGAF_END_DELAY;
+    _frame_of_life_when_end = _frame_of_life + prm_offset_frames + GgafCore::Config::END_DELAY_FRAME;
     inactivateDelay(prm_offset_frames);
-    //指定フレーム時には、まずinactivateが行われ、+GGAF_END_DELAY フレーム後 _can_live_flg = falseになる。
+    //指定フレーム時には、まずinactivateが行われ、+END_DELAY_FRAME フレーム後 _can_live_flg = falseになる。
     //onEnd()は _can_live_flg = false 時発生
     T* pElementTemp = Node<T>::_pChildFirst;
     while (pElementTemp) {

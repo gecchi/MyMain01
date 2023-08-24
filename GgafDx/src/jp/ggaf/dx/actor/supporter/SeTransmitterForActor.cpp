@@ -13,7 +13,7 @@
 
 using namespace GgafDx;
 
-frame SeTransmitterForActor::_se_delay_max_depth = MSEC_F(CONFIG::FRAME_OF_SE_DELAY_MAX_DEPTH);
+frame SeTransmitterForActor::_se_delay_max_depth = MSEC_F(CONFIG::MILLISEC_OF_SE_DELAY_MAX_DEPTH);
 
 SeTransmitterForActor::SeTransmitterForActor(GeometricActor* prm_pActor) : SeTransmitter() ,
         _pActor(prm_pActor),
@@ -160,7 +160,7 @@ void SeTransmitterForActor::updatePanVolume3D() {
 
                 //備忘録
                 //例えば消滅時の爆発だった場合、_pActor->_x みたいに、消滅後も値を参照したい。
-                //そこで GGAF_END_DELAY が重要になっている
+                //そこで CONFIG::END_DELAY_FRAME が重要になっている
 
                 //リアルタイムの音量を計算
                 const double px_d = sqrt(DX*DX + DY*DY + DZ*DZ); //dはピクセル

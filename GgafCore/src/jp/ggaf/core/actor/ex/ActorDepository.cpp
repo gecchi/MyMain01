@@ -61,11 +61,11 @@ void ActorDepository::end(frame prm_offset_frames) {
     frame end_frame_delay = prm_offset_frames + (_child_num*2) + 1; //メンバーを順に少し遅らせる。
     //既にend()実行済みの場合、より早くend()するならば有効とする
     if (_frame_of_life < _frame_of_life_when_end &&
-                         _frame_of_life_when_end < _frame_of_life + end_frame_delay + GGAF_END_DELAY) {
+                         _frame_of_life_when_end < _frame_of_life + end_frame_delay + GgafCore::Config::END_DELAY_FRAME) {
         //既にend()実行済みであり、さらに今回指定のよりも早く _frame_of_life_when_end に到達するため無視する。
         return;
     }
-    _frame_of_life_when_end = _frame_of_life + end_frame_delay + GGAF_END_DELAY;
+    _frame_of_life_when_end = _frame_of_life + end_frame_delay + GgafCore::Config::END_DELAY_FRAME;
     inactivateDelay(prm_offset_frames); //指定フレームにはinactivateが行われるのは同じ
 
     Actor* pElementTemp = _pChildFirst;

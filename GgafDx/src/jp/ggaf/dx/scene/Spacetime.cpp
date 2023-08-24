@@ -122,7 +122,7 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
     getSceneChief()->appendGroupChild(_pCamera);
 
     _pRing_pSeArray = NEW GgafCore::RingLinkedList<SeArray>();
-    for (int i = 0; i < SeTransmitterForActor::_se_delay_max_depth; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
+    for (int i = 0; i < SeTransmitterForActor::_se_delay_max_depth; i++) { //CONFIG::END_DELAY_FRAMEは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
     _pRing_pSeArray->createIndex();

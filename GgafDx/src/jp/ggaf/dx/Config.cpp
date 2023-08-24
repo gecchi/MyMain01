@@ -36,7 +36,7 @@ int Config::MASTER_VOLUME = 800;
 int Config::BGM_VOLUME = 800;
 int Config::SE_VOLUME = 800;
 int Config::MAX_SE_AT_ONCE = 16;
-int Config::FRAME_OF_SE_DELAY_MAX_DEPTH = 3000;
+uint32_t Config::MILLISEC_OF_SE_DELAY_MAX_DEPTH = 3000;
 double Config::SE_VOLUME_RATE_MAX_DEPTH=0.2;
 
 std::string Config::DIRNAME_RESOURCE_SKINXXX_MODEL = "model";
@@ -403,13 +403,13 @@ void Config::loadProperties(std::string prm_properties_filename) {
     if (GgafCore::Config::_properties.isExistKey("MAX_SE_AT_ONCE")) {
         Config::MAX_SE_AT_ONCE = GgafCore::Config::_properties.getInt("MAX_SE_AT_ONCE");
     }
-    if (GgafCore::Config::_properties.isExistKey("FRAME_OF_SE_DELAY_MAX_DEPTH")) {
-        Config::FRAME_OF_SE_DELAY_MAX_DEPTH = GgafCore::Config::_properties.getInt("FRAME_OF_SE_DELAY_MAX_DEPTH");
+    if (GgafCore::Config::_properties.isExistKey("MILLISEC_OF_SE_DELAY_MAX_DEPTH")) {
+        Config::MILLISEC_OF_SE_DELAY_MAX_DEPTH = GgafCore::Config::_properties.getUInt("MILLISEC_OF_SE_DELAY_MAX_DEPTH");
     }
 
-    if (Config::FRAME_OF_SE_DELAY_MAX_DEPTH*2 > GGAF_END_DELAY*1000) {
-        throwCriticalException("Config::FRAME_OF_SE_DELAY_MAX_DEPTH("<<Config::FRAME_OF_SE_DELAY_MAX_DEPTH<<")は、GGAF_END_DELAY*1000("<<(GGAF_END_DELAY*1000)<<")の半分以下である必要があります。\n"<<
-                "FRAME_OF_SE_DELAY_MAX_DEPTH の設定値をもっと下げてください。");
+    if (MSEC_F(Config::MILLISEC_OF_SE_DELAY_MAX_DEPTH)*2 > GgafCore::Config::END_DELAY_FRAME) {
+        throwCriticalException("Config::MILLISEC_OF_SE_DELAY_MAX_DEPTH("<<Config::MILLISEC_OF_SE_DELAY_MAX_DEPTH<<")＝"<<MSEC_F(Config::MILLISEC_OF_SE_DELAY_MAX_DEPTH)<<"frameは、END_DELAY_FRAME("<<(GgafCore::Config::END_DELAY_FRAME)<<")フレームの半分以下の時間である必要があります。\n"<<
+                "MILLISEC_OF_SE_DELAY_MAX_DEPTH の設定値をもっと下げてください。");
     }
 
     if (GgafCore::Config::_properties.isExistKey("SE_VOLUME_RATE_MAX_DEPTH")) {
@@ -625,7 +625,7 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::BGM_VOLUME=" << Config::BGM_VOLUME);
     _TRACE_("Config::SE_VOLUME=" << Config::SE_VOLUME);
     _TRACE_("Config::MAX_SE_AT_ONCE=" << Config::MAX_SE_AT_ONCE);
-    _TRACE_("Config::FRAME_OF_SE_DELAY_MAX_DEPTH=" << Config::FRAME_OF_SE_DELAY_MAX_DEPTH);
+    _TRACE_("Config::MILLISEC_OF_SE_DELAY_MAX_DEPTH=" << Config::MILLISEC_OF_SE_DELAY_MAX_DEPTH);
     _TRACE_("Config::SE_VOLUME_RATE_MAX_DEPTH=" << Config::SE_VOLUME_RATE_MAX_DEPTH);
 
     _TRACE_("Config::DIRNAME_RESOURCE_SKINXXX_MODEL=" << Config::DIRNAME_RESOURCE_SKINXXX_MODEL);

@@ -11,7 +11,8 @@ std::string Config::_load_properties_filename = "";
 Properties Config::_properties;
 frame Config::FPS = 60;
 double Config::FRAME_SEC = 1.0 / Config::FPS;
-uint32_t Config::MAX_SKIP_FRAME = 20;
+frame Config::END_DELAY_FRAME = 5400;
+frame Config::MAX_SKIP_FRAME = 20;
 uint32_t Config::OBJNUM_TO_SLOWDOWN1 = 99999;
 uint32_t Config::OBJNUM_TO_SLOWDOWN2 = 99999;
 double Config::RATE_OF_SLOWDOWN1 = 1.0;
@@ -49,7 +50,9 @@ void Config::loadProperties(std::string prm_properties_filename) {
         Config::FPS = _properties.getUInt("FPS");
     }
     Config::FRAME_SEC = 1.0 / CONFIG::FPS;
-
+    if (_properties.isExistKey("END_DELAY_FRAME")) {
+        Config::END_DELAY_FRAME = _properties.getUInt("END_DELAY_FRAME");
+    }
     if (_properties.isExistKey("MAX_SKIP_FRAME")) {
         Config::MAX_SKIP_FRAME = _properties.getUInt("MAX_SKIP_FRAME");
     }
@@ -116,6 +119,7 @@ void Config::loadProperties(std::string prm_properties_filename) {
     }
     Config::_is_lock = false;
     _TRACE_("Config::FPS="<<Config::FPS);
+    _TRACE_("Config::END_DELAY_FRAME="<<Config::END_DELAY_FRAME);
     _TRACE_("Config::MAX_SKIP_FRAME="<<Config::MAX_SKIP_FRAME);
     _TRACE_("Config::OBJNUM_TO_SLOWDOWN1="<<Config::OBJNUM_TO_SLOWDOWN1);
     _TRACE_("Config::OBJNUM_TO_SLOWDOWN2="<<Config::OBJNUM_TO_SLOWDOWN2);

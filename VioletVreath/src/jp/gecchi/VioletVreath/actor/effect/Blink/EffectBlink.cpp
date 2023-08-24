@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
-
+#include "jp/gecchi/VioletVreath/Config.h"
 
 
 using namespace GgafLib;
@@ -41,7 +41,7 @@ void EffectBlink::processBehavior() {
             setPositionAt(pTarget_);
         }
     }
-    if (getActiveFrame() >= GGAF_END_DELAY) {
+    if (getActiveFrame() >= CONFIG::END_DELAY_FRAME) {
         pTarget_ = nullptr;
         if (sayonara_end_) {
             sayonara();
