@@ -65,9 +65,8 @@ void MyStgUtil::init() {
         double x = (double)f;
         SHOT_POWER[f] = (3.0 / ( (x/5.0) + 1 ) ) + 0.5;
     }
-
-
     MyStgUtil::_was_MyStgUtil_inited_flg = true;
+
 }
 
 GgafDx::FigureActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord prm_z,

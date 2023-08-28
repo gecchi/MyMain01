@@ -64,7 +64,7 @@ void EnemyRatislavia::appendGroupChildAsFkOnSurface(GgafDx::GeometricActor* prm_
 
 void EnemyRatislavia::addCollisionAreaArea(int prm_nSphere) {
     angle* paAngRadial = NEW angle[prm_nSphere];
-    UTIL::getRadialAngle2D(0, prm_nSphere, paAngRadial);
+    UTIL::getRadialAngleArr(0, prm_nSphere, paAngRadial);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(prm_nSphere);
     for (int i = 0; i < prm_nSphere; i++) {

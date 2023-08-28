@@ -105,7 +105,7 @@ void EnemyUnomia::processBehavior() {
 //                //放射状ショット
 //                int way = RF_EnemyUnomia_ShotWay(G_RANK); //ショットWAY数
 //                angle* paAng_way = NEW angle[way];
-//                UTIL::getRadialAngle2D(0, way, paAng_way);
+//                UTIL::getRadialAngleArr(0, way, paAng_way);
 //                GgafDx::FigureActor* pActor_shot;
 //                for (int i = 0; i < way; i++) {
 //                    pActor_shot = (GgafDx::FigureActor*)pDepo_shot_->dispatch();

@@ -239,10 +239,10 @@ public:
      * TURN_ANTICLOSE_TO     ・・・ ターゲットの回転角と距離が遠回りの方の回転方向で取得、左回りで正、又は、右回りの負の値になる。<BR>
      * TURN_COUNTERCLOCKWISE ・・・ 回転方向が左回りで差異角取得、正の値で返る。<BR>
      * TURN_CLOCKWISE        ・・・ 回転方向が右回りで差異角取得、負の値で返る。<BR>
-     * @param prm_from
-     * @param prm_to
+     * @param prm_from 基準のアングル値
+     * @param prm_to 差を取る対象のアングル値
      * @param prm_way TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE
-     * @return アングル値の差（結果が 反時計周りは正、時計回りは負)
+     * @return prm_from ～ prm_to のアングル値の差（結果が 反時計周りは正、時計回りは負を意味する)
      */
     static angle getAngDiff(angle prm_from, angle prm_to, int prm_way=TURN_CLOSE_TO);
 
@@ -254,20 +254,26 @@ public:
      * @param prm_clearance  [in] 'N'way弾の弾と弾との成す角をアングル値で指定
      * @param out_paAngle       [out] 得られる'N'way弾 のアングル値配列のポインタ
      */
-    static void getWayAngle2D(int prm_vx_Center,
-                              int prm_vy_Center,
-                              int prm_ways,
-                              angle prm_clearance,
-                              angle* out_paAngle);
+    static void getWayAngleArr(int prm_vx_Center, int prm_vy_Center, int prm_ways,  angle prm_clearance,  angle* out_paAngle);
 
     /**
      * 平面上において、'N'way弾(N=整数)の射出アングル値をセット(配列)で取得 .
      * @param prm_center     [in] 'N'way弾の全体として向いている方向のアングル値
-     * @param prm_ways          [in] 'N'way弾の N
+     * @param prm_ways       [in] 'N'way弾の N
      * @param prm_clearance  [in] 'N'way弾の弾と弾との成す角をアングル値で指定
-     * @param out_paAngle       [out] 得られる'N'way弾 のアングル値配列のポインタ
+     * @param out_paAngle    [out] 得られる'N'way弾 のアングル値配列のポインタ
      */
-    static void getWayAngle2D(angle prm_center, int prm_ways, angle prm_clearance, angle* out_paAngle);
+    static void getWayAngleArr(angle prm_center, int prm_ways, angle prm_clearance, angle* out_paAngle);
+
+    /**
+     * 平面上において、'N'way弾(N=整数)の射出アングル値をセット(配列)で取得 .
+     * @param prm_start [in] 'N'way弾の一番端（開始）の方向のアングル値
+     * @param prm_end   [in] 'N'way弾のもう一方の一番端（終了）の方向のアングル値
+     * @param prm_ways [in] 'N'way弾の N
+     * @param prm_way TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE
+     * @param out_paAngle [out] 得られる'N'way弾 のアングル値配列のポインタ
+     */
+    static void getWayAngleArr(angle prm_start, angle prm_end, int prm_ways, angle* out_paAngle, int prm_way);
 
     /**
      * 平面上において、放射状全方向の'N'way弾(N=整数)のアングル値を配列で取得 .
@@ -277,7 +283,7 @@ public:
      * @param prm_ways  [in] 'N'way弾の N。
      * @param out_paAngle   [out] 得られる'N'way弾 のアングル値配列のポインタ
      */
-    static void getRadialAngle2D(angle prm_start, int prm_ways, angle* out_paAngle);
+    static void getRadialAngleArr(angle prm_start, int prm_ways, angle* out_paAngle);
 
     static void convRzRyToRyRz(angle prm_rz, angle prm_ry, angle& out_ry, angle& out_rz);
 
@@ -293,9 +299,9 @@ public:
      * アングル値の加算 .
      * D360ANG を超えた場合、或いは 0 を下回った場合でも、
      * 0～D360ANG に標準化される。
-     * @param prm_angNow アングル値１
-     * @param prm_ang_offset アングル値２
-     * @return 標準化された アングル値１ + アングル値２ のアングル値
+     * @param prm_angNow アングル値
+     * @param prm_ang_offset 加えるアングル値（左回りで正、右回りの負の値）
+     * @return 標準化された アングル値 + 加えるアングル値 のアングル値
      */
     static angle addAng(angle prm_ang, angle prm_offset);
 

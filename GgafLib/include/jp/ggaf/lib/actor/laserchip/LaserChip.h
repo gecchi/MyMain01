@@ -75,7 +75,7 @@ public:
     float _power;
 
     GgafDx::UvFlipper* _pUvFlipper;
-    /** [r]同時フレーム内で複数 dispatch された場合のdispatch数(1 ～) */
+    /** [r]同時フレーム内で複数 dispatch された場合のdispatch数(1 ～)、実際dispatchできたかどうかに関わらず、dispatchN(n) の n が設定される */
     int _n_dispatch_at_once;
     /** [r]同時フレーム内で複数 dispatch された場合の順番 (0 ～ ) */
     int _dispatch_index;

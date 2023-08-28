@@ -77,8 +77,8 @@ void EnemyEres::processBehavior() {
     if (iMovePatternNo_ == 0 && getActiveFrame() == 60*30) {
 
         angle way[32];
-        //UTIL::getWayAngle2D(180000, 8, 10000, way);
-        UTIL::getRadialAngle2D(0, 32, way); //TODO:ñàâÒãÅÇﬂÇÈÇÃÇÕñ≥ë 
+        //UTIL::getWayAngleArr(180000, 8, 10000, way);
+        UTIL::getRadialAngleArr(0, 32, way); //TODO:ñàâÒãÅÇﬂÇÈÇÃÇÕñ≥ë 
         GgafDx::FigureActor* pTama;
         for (int i = 0; i < 16; i++) {
             pTama = (GgafDx::FigureActor*)pDepo_shot001_->dispatch();

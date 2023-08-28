@@ -282,7 +282,6 @@ void Util::init() {
         Util::RND_CIRCLE_Y[i] = wk3 * sin_phi;
     }
     Util::_was_GgafDx_Util_inited_flg = true;
-
 }
 
 void Util::calcVecToAng(double prm_x,
@@ -296,15 +295,15 @@ void Util::calcVecToAng(double prm_x,
     //TODO:
 }
 
-void Util::getWayAngle2D(int prm_vx_Center,
-                               int prm_vy_Center,
-                               int prm_ways,
-                               angle prm_clearance,
-                               angle* out_paAngle) {
-    return Util::getWayAngle2D(Util::getAngle2D(prm_vx_Center, prm_vy_Center), prm_ways, prm_clearance, out_paAngle);
+void Util::getWayAngleArr(int prm_vx_Center,
+                         int prm_vy_Center,
+                         int prm_ways,
+                         angle prm_clearance,
+                         angle* out_paAngle) {
+    return Util::getWayAngleArr(Util::getAngle2D(prm_vx_Center, prm_vy_Center), prm_ways, prm_clearance, out_paAngle);
 }
 
-void Util::getWayAngle2D(angle prm_center, int prm_ways, angle prm_clearance, angle* out_paAngle) {
+void Util::getWayAngleArr(angle prm_center, int prm_ways, angle prm_clearance, angle* out_paAngle) {
     int angstart = Util::addAng(prm_center, ((prm_ways - 1) * prm_clearance) / -2);
 
     for (int i = 0; i < prm_ways; i++) {
@@ -312,7 +311,15 @@ void Util::getWayAngle2D(angle prm_center, int prm_ways, angle prm_clearance, an
     }
 }
 
-void Util::getRadialAngle2D(angle prm_start, int prm_ways, angle* out_paAngle) {
+void Util::getWayAngleArr(angle prm_start, angle prm_end, int prm_ways, angle* out_paAngle, int prm_way) {
+    angle ang_diff = Util::getAngDiff(prm_start, prm_end, prm_way);
+    for (int i = 0; i < prm_ways; i++) {
+        angle ang_add = (ang_diff*i) / (prm_ways-1);
+        out_paAngle[i] = Util::addAng(prm_start, ang_add);
+    }
+}
+
+void Util::getRadialAngleArr(angle prm_start, int prm_ways, angle* out_paAngle) {
     for (int i = 0; i < prm_ways; i++) {
         out_paAngle[i] = Util::addAng(prm_start, (angle)(1.0 * D360ANG / prm_ways * i));
     }
@@ -338,7 +345,7 @@ void Util::convRzRyToRyRz(angle prm_rz, angle prm_ry, angle& out_ry, angle& out_
 //    vy2 = -vz;
 //    vz2 = vy;
 //
-//    getWayAngle2D(prm_ang_center_rz, prm_ways, prm_clearance, out_paAngleRz);
+//    getWayAngleArr(prm_ang_center_rz, prm_ways, prm_clearance, out_paAngleRz);
 //
 //}
 

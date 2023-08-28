@@ -61,7 +61,7 @@ void BunshinMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         MyShip* pMyShip = pMYSHIP;
         MyMagicEnergyCore* pCore = pMyShip->pMyMagicEnergyCore_;
         angle* paAng_way = NEW angle[prm_new_level-prm_now_level];
-        UTIL::getRadialAngle2D(0, prm_new_level-prm_now_level, paAng_way);
+        UTIL::getRadialAngleArr(0, prm_new_level-prm_now_level, paAng_way);
         GgafDx::CoordVehicle* const pCoreCoordVehicle = pCore->getCoordVehicle();
         velo veloVxMv = pCoreCoordVehicle->_velo_x;
         velo veloVyMv = pCoreCoordVehicle->_velo_y;

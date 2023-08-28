@@ -155,7 +155,7 @@ void EnemyTamago01::processBehavior() {
                                    target_RzRy_Rz, target_RzRy_Ry);
             angle target_RyRz_Ry, target_RyRz_Rz;
             UTIL::convRzRyToRyRz(target_RzRy_Rz, target_RzRy_Ry, target_RyRz_Ry, target_RyRz_Rz);
-            UTIL::getWayAngle2D(target_RyRz_Ry, way, 10000, paAng_way);
+            UTIL::getWayAngleArr(target_RyRz_Ry, way, 10000, paAng_way);
             GgafDx::FigureActor* pActor;
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDx::FigureActor*)pDepo_shot_->dispatch();

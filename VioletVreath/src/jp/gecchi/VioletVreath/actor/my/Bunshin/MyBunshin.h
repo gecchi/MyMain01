@@ -46,6 +46,11 @@ public:
 //    angle rz_local_copy_;
 //    bool _is_thunder_lock;
     GgafLib::DefaultGeometricActor* pGeo2_;
+    //前フレームの _rz, _ry レーザー用
+    angle rz_prev_, ry_prev_;
+    angle out_way_rz_[N_DISPATCH_AT_ONCE+1];
+    angle out_way_ry_[N_DISPATCH_AT_ONCE+1];
+
 public:
     MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinController, MyBunshinBase* prm_pBase);
 

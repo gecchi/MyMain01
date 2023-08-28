@@ -1861,7 +1861,7 @@ GgafDx::FigureActor* StgUtil::shotWay002(coord prm_x, coord prm_y, coord prm_z,
                                        void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int)) {
     if (prm_way_N <= 0 || prm_set_num <= 0) {  return nullptr;  }
     angle* paAng_way_N = NEW angle[prm_way_N];
-    GgafDx::Util::getWayAngle2D(0, prm_way_N, prm_ang_clearance_N, paAng_way_N);
+    GgafDx::Util::getWayAngleArr(0, prm_way_N, prm_ang_clearance_N, paAng_way_N);
     GgafDx::GeoElem* paGeo = NEW GgafDx::GeoElem[prm_way_N];
     double vx, vy, vz;
     double tx, ty, tz; //最終方向の絶対座標の単位ベクトル
@@ -1942,8 +1942,8 @@ GgafDx::FigureActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
     angle* paAng_way_N = NEW angle[prm_way_N];
     angle* paAng_way_M = NEW angle[prm_way_M];
     uint32_t* paUint32_dotmat = NEW uint32_t[prm_way_N];
-    GgafDx::Util::getWayAngle2D(0, prm_way_N, prm_ang_clearance_N, paAng_way_N);
-    GgafDx::Util::getWayAngle2D(0, prm_way_M, prm_ang_clearance_M, paAng_way_M);
+    GgafDx::Util::getWayAngleArr(0, prm_way_N, prm_ang_clearance_N, paAng_way_N);
+    GgafDx::Util::getWayAngleArr(0, prm_way_M, prm_ang_clearance_M, paAng_way_M);
     GgafDx::GeoElem** papaGeo = NEW GgafDx::GeoElem*[prm_way_N];
     double vx, vy, vz;
     double tx, ty, tz; //最終方向の絶対座標の単位ベクトル
@@ -2071,7 +2071,7 @@ GgafDx::FigureActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
                                        void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int)) {
     if (prm_radial_way_num <= 0 || prm_set_num <= 0) {  return nullptr;  }
     angle* paAng_way = NEW angle[prm_radial_way_num];
-    GgafDx::Util::getRadialAngle2D(0, prm_radial_way_num, paAng_way);
+    GgafDx::Util::getRadialAngleArr(0, prm_radial_way_num, paAng_way);
     GgafDx::GeoElem* paGeo = NEW GgafDx::GeoElem[prm_radial_way_num];
     angle expanse_rz = (D180ANG - prm_expanse_angle)/2;
 

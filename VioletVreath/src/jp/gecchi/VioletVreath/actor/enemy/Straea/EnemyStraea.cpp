@@ -63,7 +63,7 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
 
     papaPosLaser_ = NEW PosLaser*[laser_way_];
     angle* paAng_way = NEW angle[laser_way_];
-    UTIL::getWayAngle2D(0, laser_way_, ang_clearance_, paAng_way);
+    UTIL::getWayAngleArr(0, laser_way_, ang_clearance_, paAng_way);
     angle Rz,Ry;
     double vx, vy, vz;
     for (int i = 0; i < laser_way_; i++) {
