@@ -99,6 +99,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinCont
     pGeo2_ = NEW GgafLib::DefaultGeometricActor(name2.c_str());
     rz_prev_ = _rz;
     ry_prev_ = _ry;
+    rx_prev_ = _rx;
 }
 
 void MyBunshin::onCreateModel() {
@@ -130,7 +131,7 @@ void MyBunshin::processBehavior() {
 void MyBunshin::processSettlementBehavior() {
     rz_prev_ = _rz;
     ry_prev_ = _ry;
-
+    rx_prev_ = _rx;
     changeGeoLocal(); //ローカル座標の操作とする。
     GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
 
@@ -178,7 +179,7 @@ void MyBunshin::processSettlementBehavior() {
 
     UTIL::getWayAngleArr(_rz, rz_prev_, N_DISPATCH_AT_ONCE+1, out_way_rz_, TURN_CLOSE_TO); //+1は前方チップの向きと同じであるため、捨てる
     UTIL::getWayAngleArr(_ry, ry_prev_, N_DISPATCH_AT_ONCE+1, out_way_ry_, TURN_CLOSE_TO);
-
+    UTIL::getWayAngleArr(_rx, rx_prev_, N_DISPATCH_AT_ONCE+1, out_way_rx_, TURN_CLOSE_TO);
 }
 void MyBunshin::processChangeGeoFinal() {
     if (pBase_->is_isolate_mode_) {

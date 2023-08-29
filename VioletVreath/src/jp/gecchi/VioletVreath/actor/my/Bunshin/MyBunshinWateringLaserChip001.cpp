@@ -27,7 +27,7 @@ const velo MyBunshinWateringLaserChip001::MAX_VELO = PX_C(512); //この値を大きく
 const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 18; //MAX_VELO に対する加速度、この値を大きくすると、カーブが緩くなる
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO*0.6; //レーザー発射時の初期速度
 const acce MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO/R_MAX_ACCE;
-const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/4; // ÷4 は、最低移動する各軸のINITIAL_VELOの割合
+const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/2; // ÷2 は、最低移動する各軸のINITIAL_VELOの割合
 GgafDx::Model* MyBunshinWateringLaserChip001::pModel_ = nullptr;
 int MyBunshinWateringLaserChip001::tex_no_ = 0;
 
@@ -259,63 +259,31 @@ L_PHASE_T2_AFTER:
 void MyBunshinWateringLaserChip001::processSettlementBehavior() {
     //分身はFKなので、絶対座標の確定が processSettlementBehavior() 以降となるため、ここで初期設定が必要
     GgafDx::NaviVehicle* const pNaviVehicle = getNaviVehicle();
-    //_dispatch_index= 2, 1, 0 なので、[0]根本の次の次、[1]根本の次、[2]根本 の順で処理されることになる。
-    //n=0, 1, 2  … レーザーチップの [0]根本, [1]根本の次、[2]根本の次の次
-    int n = _n_dispatch_at_once-1 - _dispatch_index;
-//_TRACE_("MyBunshinWateringLaserChip001 "<<getName()<<" n="<<n);
 
-//if (pOrg_->_rz != pOrg_->rz_prev_) {
-//    _TRACE_("pOrg_->_rz="<<pOrg_->_rz<<" pOrg_->rz_prev_"<<pOrg_->rz_prev_);
-//}
-//if (pOrg_->_ry != pOrg_->ry_prev_) {
-//    _TRACE_("pOrg_->_ry="<<pOrg_->_ry<<" pOrg_->ry_prev_"<<pOrg_->ry_prev_);
-//}
     if (hasJustChangedToActive()) {
         //ロックオン情報の引き継ぎ
         MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*) getInfrontChip();
         //チップの初期設定
         //活動開始初回フレーム、チップの速度と向きの初期設定
-        setFaceAngAs(pOrg_);
-        setPositionAt(pOrg_);
-
-
-        setFaceAngAs(pOrg_);
-        //setPositionAt(pOrg_);
-        //pNaviVehicle->setVeloTwd(_rz, _ry, INITIAL_VELO*_n_dispatch_at_once); //初速はここで
-
-        pNaviVehicle->setAcceZero();
+        //_dispatch_index= 2, 1, 0 なので、[0]根本の次の次、[1]根本の次、[2]根本 の順で処理されることになる。
+        //n=0, 1, 2  … レーザーチップの [0]根本, [1]根本の次、[2]根本の次の次
         int n = _n_dispatch_at_once-1 - _dispatch_index;
-        pNaviVehicle->setVeloTwd(pOrg_->out_way_rz_[n], pOrg_->out_way_ry_[n], INITIAL_VELO*_n_dispatch_at_once); //初速はここで
         if (n == 0) {
+            setFaceAngAs(pOrg_);
+            pNaviVehicle->setVeloTwd(pOrg_->_rz, pOrg_->_ry, INITIAL_VELO*_n_dispatch_at_once); //初速
+            pNaviVehicle->setAcceZero();
             setPositionAt(pOrg_);
         } else {
+            setRxFaceAng(pOrg_->out_way_rx_[n]);
+            setRyFaceAng(pOrg_->out_way_ry_[n]);
+            setRzFaceAng(pOrg_->out_way_rz_[n]);
+            pNaviVehicle->setVeloTwd(pOrg_->out_way_rz_[n], pOrg_->out_way_ry_[n], INITIAL_VELO*_n_dispatch_at_once); //初速
+            pNaviVehicle->setAcceZero();
             double v = 1.0*n / _n_dispatch_at_once;
             setPosition(pOrg_->_x + (pNaviVehicle->_velo_vc_x * v) ,
                         pOrg_->_y + (pNaviVehicle->_velo_vc_y * v) ,
                         pOrg_->_z + (pNaviVehicle->_velo_vc_z * v) );
         }
-
-//        if (n == 0) {
-//            _TRACE_("MyBunshinWateringLaserChip001 "<<getName()<<" n="<<n <<" きたーー");
-//             //n == 0 (_dispatch_index=最後) のときに各チップ（[n=0]根本, [n=1]根本の次、[n=2]根本の次の次・・・）の初期処理を一斉に行こなう
-//
-//            MyBunshinWateringLaserChip001* pChip = this;
-//
-//            for (int i = 0; i < _n_dispatch_at_once; i++) {
-//                if (pChip) {
-//                    _TRACE_("MyBunshinWateringLaserChip001 "<<getName()<<" out_way_rz["<<i<<"]="<<out_way_rz[i]<<", out_way_ry["<<i<<"]="<<out_way_ry[i]);
-//
-//                    GgafDx::NaviVehicle* pChipNaviVehicle = pChip->getNaviVehicle();
-//                    pChipNaviVehicle->setVeloTwd(out_way_rz[i], out_way_ry[i], INITIAL_VELO*_n_dispatch_at_once); //初速はここで
-//                    double v = 1.0*i / _n_dispatch_at_once;
-//                    pChip->setPosition(pOrg_->_x + (pChipNaviVehicle->_velo_vc_x * v) ,
-//                                       pOrg_->_y + (pChipNaviVehicle->_velo_vc_y * v) ,
-//                                       pOrg_->_z + (pChipNaviVehicle->_velo_vc_z * v) );
-//                    pChip = (MyBunshinWateringLaserChip001*) getInfrontChip();
-//                }
-//            }
-//        }
-
         if (pF == nullptr) {
             //先端チップ
             GgafDx::GeometricActor* pLockonTarget = pLockonCursor_->pTarget_;
@@ -359,7 +327,6 @@ throwCriticalException("pLeaderChip_AimInfo_ が引き継がれていません！"<<this<<
 }
 #endif
         }
-
     }
 
     //平均曲線座標設定。(レーザーを滑らかにするノーマライズ）
@@ -367,7 +334,6 @@ throwCriticalException("pLeaderChip_AimInfo_ が引き継がれていません！"<<this<<
     //本来は processBehaviorAfter() 的な意味の処理であるが、全レーザーチップが移動後でないと意味がないので
     //仕方ないのでprocessSettlementBehavior()に食い込んでいます。
     //したがって本クラスを継承した場合、継承クラスのprocessSettlementBehavior()では、先頭で呼び出した方が良い。
-
     MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
     if (getActiveFrame() > (_n_dispatch_at_once-1)) {
         if (pF && pF->isActive()) {
@@ -388,42 +354,25 @@ throwCriticalException("pLeaderChip_AimInfo_ が引き継がれていません！"<<this<<
                     _z = _z + (coord)((pB->_z-_z)*0.2 + (pF->_z-_z)*0.4);
                 }
             } else {
-//                _TRACE_("-------------------------------------");
-//                _TRACE_("pF _x,_y,_z="<<pF->_x<<","<<pF->_y<<","<<pF->_z<<"\t_rz,_ry="<<pF->_rz<<","<<pF->_ry);
-//                _TRACE_("_x,_y,_z="<<_x<<","<<_y<<","<<_z<<"\t_rz,_ry="<<_rz<<","<<_ry);
-                coord d_pF = UTIL::getDistance(this, pF);
-//                _TRACE_("d_pF="<<d_pF);
-                angle diff_rz = UTIL::getAngDiff(pF->_rz, _rz);
-                angle diff_ry = UTIL::getAngDiff(pF->_ry, _ry);
-//                _TRACE_("diff_rz_ry="<<diff_rz<<","<<diff_ry);
-                angle v_b_rz = UTIL::addAng(_rz, diff_rz/2); //半分は気持ち
-                angle v_b_ry = UTIL::addAng(_ry, diff_ry/2);
-//                _TRACE_("v_b_rz_ry="<<v_b_rz<<","<<v_b_ry);
+                //レーザー末尾処理
+                //レーザー末尾がはねる（髪の毛がはねるみたいになる）のを若干防ぐ
+                //一つ前と、自身のアングル値（＝向き）（_rz, _ry)の差と距離をとり、
+                //自身のアングル差を加えて、距離を離した仮想の点を、自身の一つ後ろの点として予測する。
+                coord d_pF = UTIL::getDistance(this, pF); //前のチップとの距離
+                angle diff_rz = UTIL::getAngDiff(pF->_rz, _rz); //前のチップとの _rz 方向値差
+                angle diff_ry = UTIL::getAngDiff(pF->_ry, _ry); //前のチップとの _ry 方向値差
+                angle v_b_rz = UTIL::addAng(_rz, diff_rz*0.625); //自身の方向値に、_rz 方向値差を加える（0.625 倍は、気持ち緩めようと思ったため）
+                angle v_b_ry = UTIL::addAng(_ry, diff_ry*0.625); //自身の方向値に、_ry 方向値差を加える（0.625 倍は、気持ち緩めようと思ったため）
                 double v_b_vx, v_b_vy, v_b_vz;
-                UTIL::convRzRyToVector(v_b_rz,v_b_ry,
+                UTIL::convRzRyToVector(v_b_rz,v_b_ry,             //加えた方向の方向ベクトルを求める、仮想の自身の一つ後ろの点の座標を得るため。
                                        v_b_vx, v_b_vy, v_b_vz);
-//                _TRACE_("v_b_v_xyz="<<v_b_vx<<","<<v_b_vy<<","<<v_b_vz);
-                coord v_b_x = _x - v_b_vx*d_pF;
+                coord v_b_x = _x - v_b_vx*d_pF;  //方向ベクトルに距離を乗じて座標を求める
                 coord v_b_y = _y - v_b_vy*d_pF;
                 coord v_b_z = _z - v_b_vz*d_pF;
-//                _TRACE_("v_b_xyz="<<v_b_x<<","<<v_b_y<<","<<v_b_z);
+
                 _x = _x + (coord)((v_b_x-_x)*0.2 + (pF->_x-_x)*0.4);
                 _y = _y + (coord)((v_b_y-_y)*0.2 + (pF->_y-_y)*0.4);
                 _z = _z + (coord)((v_b_z-_z)*0.2 + (pF->_z-_z)*0.4);
-//                coord v_b_x
-
-
-                //レーザー末尾がはねる（髪の毛がはねるみたいになる）のを若干防ぐ
-                //一つ前の座標と、自身の座標を直線で結んで、仮想の自分の後ろの点を作成。
-                //一つ前の座標、自身の座標、仮想の自分の後ろの点で平均を取る
-                //座標の重みは、（仮想のひとつ前, 自身(末尾), 一つ先）＝ (0.1, 0.7, 0.2)
-
-//                coord v_b_x = _x - (pF->_x - _x);
-//                coord v_b_y = _y - (pF->_y - _y);
-//                coord v_b_z = _z - (pF->_z - _z);
-//                _x = _x + (coord)((v_b_x-_x)*0.1 + (pF->_x-_x)*0.2);
-//                _y = _y + (coord)((v_b_y-_y)*0.1 + (pF->_y-_y)*0.2);
-//                _z = _z + (coord)((v_b_z-_z)*0.1 + (pF->_z-_z)*0.2);
             }
         }
 

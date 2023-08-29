@@ -305,17 +305,22 @@ void Util::getWayAngleArr(int prm_vx_Center,
 
 void Util::getWayAngleArr(angle prm_center, int prm_ways, angle prm_clearance, angle* out_paAngle) {
     int angstart = Util::addAng(prm_center, ((prm_ways - 1) * prm_clearance) / -2);
-
     for (int i = 0; i < prm_ways; i++) {
         out_paAngle[i] = Util::addAng(angstart, prm_clearance * i);
     }
 }
 
 void Util::getWayAngleArr(angle prm_start, angle prm_end, int prm_ways, angle* out_paAngle, int prm_way) {
-    angle ang_diff = Util::getAngDiff(prm_start, prm_end, prm_way);
-    for (int i = 0; i < prm_ways; i++) {
-        angle ang_add = (ang_diff*i) / (prm_ways-1);
-        out_paAngle[i] = Util::addAng(prm_start, ang_add);
+    if (prm_start == prm_end) {
+         for (int i = 0; i < prm_ways; i++) {
+             out_paAngle[i] = prm_start;
+         }
+    } else {
+        angle ang_diff = Util::getAngDiff(prm_start, prm_end, prm_way);
+        for (int i = 0; i < prm_ways; i++) {
+            angle ang_add = (ang_diff*i) / (prm_ways-1);
+            out_paAngle[i] = Util::addAng(prm_start, ang_add);
+        }
     }
 }
 
