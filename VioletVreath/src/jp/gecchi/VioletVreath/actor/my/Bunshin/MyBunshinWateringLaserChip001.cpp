@@ -335,7 +335,7 @@ throwCriticalException("pLeaderChip_AimInfo_ が引き継がれていません！"<<this<<
     //仕方ないのでprocessSettlementBehavior()に食い込んでいます。
     //したがって本クラスを継承した場合、継承クラスのprocessSettlementBehavior()では、先頭で呼び出した方が良い。
     MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
-    if (getActiveFrame() > (_n_dispatch_at_once-1)) {
+    if (getActiveFrame() > _n_dispatch_at_once) {
         if (pF && pF->isActive()) {
             MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
             //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
