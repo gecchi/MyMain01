@@ -76,7 +76,7 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\PointSpriteSetActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\RegularPolygonBoardActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\RegularPolygonSpriteActor.h" />
-    <ClInclude Include="include\jp\ggaf\dx\actor\SceneMediator.h" />
+    <ClInclude Include="include\jp\ggaf\dx\actor\SceneChief.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\SkinAniMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\SpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\SpriteSetActor.h" />
@@ -265,7 +265,7 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\PointSpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\RegularPolygonBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\RegularPolygonSpriteActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\dx\actor\SceneMediator.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\actor\SceneChief.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\SkinAniMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\SpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\SpriteSetActor.cpp" />

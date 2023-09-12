@@ -596,6 +596,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\VreathItem001.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelBonus001.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelFix16Font01.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -639,6 +642,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus001.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus002.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelGecchi32Font.cpp">
@@ -1087,1118 +1093,379 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\AliceShot.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\BunshinMagic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\Camera.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraUpVector.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraViewPoint.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\Caretaker.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\CommonScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\Config.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\CostDispBar.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig003.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig004.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig005.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\CursorResolutionSelect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorSelectMenu.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\title\CursorTitleMenu.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CurveManufactureManagerEx.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CurveSourceManagerEx.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\DamageDispBar.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\Blink\EffectBlink.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\Blink\EffectBlink001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\Blink\EffectBlink002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\Blink\EffectBlink003.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectBunshinMagic001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectCondensation001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion003.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion004.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLaserMagic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectLaserRefraction001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLockonMagic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectMagic001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\EffectManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EffectRatislaviaEye001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectShotMagic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSmileMagic001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSpeedMagic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectTurbo001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectTurbo002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectVreathMagic001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectWormhole.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectWormhole001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Alisana\EnemyAlisana.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Allas\EnemyAllas.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\EnemyAntiope.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\EnemyAntiopeN.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\EnemyAntiopeP.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Appho\EnemyAppho.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Delheid\EnemyDelheid.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Drastea\EnemyDrastea.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Duna\EnemyDuna.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\EnemyEbe.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmilia.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment2.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment3.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emus\EnemyEmus.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emus\EnemyEmusLaserChip001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelman.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController003.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore003.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Eres\EnemyEres.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Eres\EnemyEresShot001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmione.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArm.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArmBody.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArmHead.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArmWeak.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Esperia\EnemyEsperia.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Esperia\EnemyEsperiaLaserChip001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Etis\EnemyEtis.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\EnemyGeria.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Glaja\EnemyGlaja.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Glaja\EnemyGlajaLance001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Halia\EnemyHalia.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbe.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbe002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbeLaserChip001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbeLaserChip002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbeLaserChip003.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\EnemyIda.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\EnemyIdaBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\EnemyIdaBase001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Irce\EnemyIrce.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebius.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusCore.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Omulus\EnemyOmulus.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\EnemyOrtuna.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartia.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaLaserChip01.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaPillar01.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaShot01.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislavia.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislaviaEye.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislaviaEyeStraightLaserChip001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ris\EnemyRis.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraea.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip003.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip004.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyStraightLaserChip001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Talante\EnemyTalante.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Tamago\EnemyTamago01.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\EnemyThagoras.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\EnemyUnomia.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\EnemyUrydike.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyWateringLaserChip001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\template\Formation001.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001a.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001b.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001c.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001d.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\FormationAntiope001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Appho\FormationAppho001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Appho\FormationAppho001a.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Appho\FormationAppho001b.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Delheid\FormationDelheid.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Delheid\FormationDelheid001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Drastea\FormationDrastea001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\FormationEmilia.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman003.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Eres\FormationEres001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Eres\FormationEres002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Etis\FormationEtis001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Halia\FormationHalia.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\FormationOebius.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\FormationOebius001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\FormationOebius002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001a.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001b.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ris\FormationRis001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ris\FormationRis002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001a.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001b.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002a.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002b.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameBeginningScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameDemoScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameEndingScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameOverScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GamePreTitleScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameTitleScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\mesh\GroundMeshActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Horizon\Horizon001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiRankUp.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiTitle.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiTransit.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\Item.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFix16Font01.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont8x16.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont16x32.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont32x64.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi8Font.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi16Font.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi32Font.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelMenuItemFont01.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelMenuTitleFont01.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankFont.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankingFont.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelSceneSymbol.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelScoreFont.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LaserMagic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Main.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Sub.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LockonMagic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\Magic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor003.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterCursor001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterStatus.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem003.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardConfig.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardKeyConfig.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\pause\MenuBoardPause.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\MenuBoardResolutionSelect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardScreenConfig.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\title\MenuBoardTitle.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MousePointer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MpBar.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshin.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinShot001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinSnipeShot001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinStraightLaserChip001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinWateringLaserChip001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergy.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergyCore.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyShip.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\MyShipDivingCamWorker.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\MyShipScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyShot001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MySnipeShot001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyStraightLaserChip001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyTorpedo.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyTorpedoBlast.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyTorpedoController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyTorpedoTail.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyVreath.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyWave001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameOverScene\NameEntryScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\PauseCamWorker.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\PreDrawScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\util\RankingTable.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp003.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp100.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUpStage.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\ScoreItem.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\ScoreItem001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot003.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot004.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Blue.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Yellow.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\ShotMagic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SmileMagic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SpeedMagic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteFont32x64.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelGecchi32Font.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part01.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part02.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part03.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartClimax.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\Stage01PartController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartWall.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartWall\Stage01PartWallSection001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage02.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage02\part\Stage02_01.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage02\part\Stage02_Climax.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage02\Stage02PartController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage03.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage04.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage05.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart01.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart02.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart03.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartClimax.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\StageDebugPartController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartWall.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartWall\StageDebugPartWallSection001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage\StagePartController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Tamago\TamagoActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\TamagoScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\TestCamWorker.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestChoki.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestChokiShot.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\TestDepository.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestEnemy.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestGuShot.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestNomal.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestNomalShot.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestPa.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestPaShot.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\title\TitleBoard.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TorpedoMagic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TractorMagic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\TransitStage.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia003.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia004.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\Version.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\ViewPointGuide.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\VioletVreath.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\VreathItem.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\VreathItem001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\VreathMagic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvActor.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\VVCameraWorkerChanger.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvChikeiActor.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVCommonActorsHeader.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvEffectActor.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvEnemyActor.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVEnemysHeader.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvItemActor.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvMyActor.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\VvScene.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall01.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBound001.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBound002.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundNameEntry.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundRankUp.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTitle.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTransit.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\XpmConnection.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\XpmManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiRankUp.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiTitle.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiTransit.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBound001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBound002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundNameEntry.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundRankUp.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTitle.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTransit.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\MyShipDivingCamWorker.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\PauseCamWorker.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\TestCamWorker.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\Camera.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraUpVector.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraViewPoint.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\VVCameraWorkerChanger.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Horizon\Horizon001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyStraightLaserChip001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\laserchip\EnemyWateringLaserChip001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\mesh\GroundMeshActor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot004.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Blue.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\shot\Shot004Yellow.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\template\Formation001.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\common\TestDepository.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\AliceShot.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\Blink\EffectBlink.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\Blink\EffectBlink001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\Blink\EffectBlink002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\Blink\EffectBlink003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectCondensation001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectExplosion004.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectLaserRefraction001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectTurbo001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectTurbo002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectWormhole.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\effect\EffectWormhole001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestChoki.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestEnemy.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestGu.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestNomal.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\_Test\TestPa.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Alisana\EnemyAlisana.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Allas\EnemyAllas.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001a.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001b.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001c.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas001d.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Allas\FormationAllas002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\EnemyAntiope.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\EnemyAntiopeN.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\EnemyAntiopeP.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Antiope\FormationAntiope001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Appho\EnemyAppho.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Appho\FormationAppho001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Appho\FormationAppho001a.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Appho\FormationAppho001b.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Delheid\EnemyDelheid.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Delheid\FormationDelheid.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Delheid\FormationDelheid001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Drastea\EnemyDrastea.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Drastea\FormationDrastea001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Duna\EnemyDuna.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\EnemyEbe.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ebe\FormationEbe001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmilia.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaBase.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment2.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\EnemyEmiliaFragment3.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emilia\FormationEmilia.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emus\EnemyEmus.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Emus\EnemyEmusLaserChip001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelman.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Eres\EnemyEres.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Eres\EnemyEresShot001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Eres\FormationEres001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Eres\FormationEres002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmione.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArm.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArmBody.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArmHead.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ermione\EnemyErmioneArmWeak.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Esperia\EnemyEsperia.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Esperia\EnemyEsperiaLaserChip001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Etis\EnemyEtis.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Etis\FormationEtis001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\EnemyGeria.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Geria\FormationGeria002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Glaja\EnemyGlaja.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Glaja\EnemyGlajaLance001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Halia\EnemyHalia.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Halia\FormationHalia.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbe.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbe002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbeLaserChip001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbeLaserChip002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Hisbe\EnemyHisbeLaserChip003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\EnemyIda.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\EnemyIdaBase.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\EnemyIdaBase001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ida\FormationIda001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Irce\EnemyIrce.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebius.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusController002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\EnemyOebiusCore.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\FormationOebius.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\FormationOebius001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Oebius\FormationOebius002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Omulus\EnemyOmulus.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\EnemyOrtuna.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001a.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ortuna\FormationOrtuna001b.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartia.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaLaserChip01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaPillar01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ozartia\EnemyOzartiaShot01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EffectRatislaviaEye001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislavia.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislaviaEye.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\EnemyRatislaviaEyeStraightLaserChip001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia004.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ris\EnemyRis.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ris\FormationRis001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Ris\FormationRis002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraea.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Straea\EnemyStraeaLaserChip004.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Talante\EnemyTalante.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Tamago\EnemyTamago01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Tamago\TamagoActor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\EnemyThagoras.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Thagoras\FormationThagoras002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\EnemyUnomia.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001a.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia001b.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002a.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Unomia\FormationUnomia002b.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\EnemyUrydike.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Urydike\FormationUrydike002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\Item.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\MagicPointItem003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\ScoreItem.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\ScoreItem001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\VreathItem.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\VreathItem001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelBonus001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFix16Font01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont8x16.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont16x32.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont32x64.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi8Font.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi16Font.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi32Font.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelMenuItemFont01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelMenuTitleFont01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankFont.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankingFont.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelSceneSymbol.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelScoreFont.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteFont32x64.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelGecchi32Font.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\CursorResolutionSelect.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\MenuBoardResolutionSelect.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig004.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig005.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardConfig.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardKeyConfig.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardScreenConfig.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorSelectMenu.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardSelect.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\pause\MenuBoardPause.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\title\CursorTitleMenu.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\title\MenuBoardTitle.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MousePointer.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestChokiShot.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestGuShot.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestNomalShot.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestPaShot.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshin.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinBase.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinController.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinShot001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinSnipeShot001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinStraightLaserChip001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinWateringLaserChip001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectBunshinMagic001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLaserMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectLockonMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectMagic001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectShotMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSmileMagic001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectSpeedMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectTorpedoMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\effect\EffectVreathMagic001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\BunshinMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LaserMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LockonMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\Magic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\ShotMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SmileMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SpeedMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TorpedoMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\TractorMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\VreathMagic.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\CostDispBar.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\DamageDispBar.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterCursor001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterStatus.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MpBar.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Main.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Sub.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergy.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergyCore.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyShip.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyShot001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MySnipeShot001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyStraightLaserChip001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyTorpedo.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyTorpedoBlast.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyTorpedoController.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyTorpedoTail.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyVreath.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyWave001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\title\TitleBoard.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\ViewPointGuide.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvChikeiActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVCommonActorsHeader.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvEffectActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvEnemyActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVEnemysHeader.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvFormationActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvItemActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvMyActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CurveManufactureManagerEx.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CurveSourceManagerEx.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\EffectManager.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\XpmConnection.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\XpmManager.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp100.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUpStage.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage\StagePartController.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartWall\Stage01PartWallSection001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part02.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part03.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartClimax.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartWall.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\Stage01PartController.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage02\part\Stage02_01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage02\part\Stage02_Climax.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage02\Stage02PartController.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartWall\StageDebugPartWallSection001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart02.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart03.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartClimax.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartWall.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\StageDebugPartController.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage02.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage03.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage04.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage05.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\TransitStage.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameOverScene\NameEntryScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\CommonScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameBeginningScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameDemoScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameEndingScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameOverScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GamePreTitleScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameTitleScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\MyShipScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\TamagoScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\PreDrawScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\VvScene.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\util\RankingTable.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\Caretaker.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\Config.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\Version.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\VioletVreath.h" />
   </ItemGroup>
 </Project>

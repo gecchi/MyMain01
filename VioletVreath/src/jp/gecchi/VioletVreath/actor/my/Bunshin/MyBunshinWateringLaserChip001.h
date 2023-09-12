@@ -160,6 +160,10 @@ public:
 
     velo sgn_vx0_, sgn_vy0_, sgn_vz0_;
     int inv_cnt_;
+    velo prev_velo_;
+    velo prev_velo_vc_x_;
+    velo prev_velo_vc_y_;
+    velo prev_velo_vc_z_;
 public:
     MyBunshinWateringLaserChip001(const char* prm_name);
 

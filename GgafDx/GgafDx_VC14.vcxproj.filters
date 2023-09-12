@@ -186,7 +186,7 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\RegularPolygonSpriteActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\SceneMediator.h">
+    <ClInclude Include="include\jp\ggaf\dx\actor\SceneChief.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\actor\SkinAniMeshActor.h">
@@ -743,7 +743,7 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\RegularPolygonSpriteActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\actor\SceneMediator.cpp">
+    <ClCompile Include="src\jp\ggaf\dx\actor\SceneChief.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\actor\SkinAniMeshActor.cpp">

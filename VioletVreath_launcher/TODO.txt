@@ -16,13 +16,18 @@ LASER_THUNDER はそのままでつよいので、KOANYAをもっとなにか無
 編隊加算ポイントが、敵単位なのはおかしい。編隊もステータスをもたせる。
 onDispatch() コールバック共通化
 
-自機が死んだ場合に、ロックオンターゲットpTargetのポインタが残り、不正ポインタになる場合がある。
-void MyLockonController::processBehavior() {
-    //ロックオンターゲット生存確認
-    GgafDx::GeometricActor* pMainLockonTarget = listTarget_.getCurrent(); //メインロックオンのターゲット
-    GgafDx::GeometricActor* pTarget = listTarget_.getCurrent();  //ターゲットカーソル
-    GgafCore::MainActor* pLockonCursor_Active = (GgafCore::MainActor*)getChildFirst();         //ロックオンエフェクトカーソル
-    int n = listTarget_.length();
-    for (int i = 0; i < n; i++) {
-        if (pTarget->isActiveInTheTree() && pTarget->getStatus()->get(STAT_Stamina) > 0) {
+ギザギザ
+・もっと加速フォの上限を大幅に増やすとマシにならないか？
+・座標平均化を除外して観察してみる。
+・ギザギザの原因は aimChip の
+    //仮自→仮的*10、((→vT) - (→vVM))*8  仮自から的を距離1として、的から距離7場所
+    coord vVTx = (vTx - vVMx)*8;
+    coord vVTy = (vTy - vVMy)*8;
+    coord vVTz = (vTz - vVMz)*8;
+  ８～１０倍して仮的を設定しているので、
+  ちょっとでも現在の速度が異なると、(vVTx,vVTy,vVTz) の方向がブレることになるからと思われる。
+  現在の速度が多少ブレても、加速度ベクトルがブレないようにすればよいのでは？
+  *8 を *2にしてみてはどうか？
+  逆に *8 を *30 にしてみてはどうか？
 
+レーザーの先がふにゃる。

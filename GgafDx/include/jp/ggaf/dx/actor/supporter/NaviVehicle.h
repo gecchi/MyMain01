@@ -18,7 +18,7 @@ namespace GgafDx {
 class NaviVehicle : public ActorVehicle {
 
 public:
-    /** [r]移動速度 */
+    /** [r]移動速度(_velo_vc_x,_velo_vc_y,_velo_vc_z の大きさ > 0) */
     velo _velo;
     /** [r]移動速度上限 */
     velo _top_velo;
@@ -31,7 +31,7 @@ public:
     /** [r]移動速度Z軸成分(単位ベクトルではありません) */
     velo _velo_vc_z;
 
-    /** [r]移動加速度 */
+    /** [r]移動加速度(_acce_vc_x,_acce_vc_y,_acce_vc_z の大きさ > 0) */
     acce _acce;
     /** [r]移動加速度上限*/
     acce _top_acce;
