@@ -24,7 +24,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 const velo MyBunshinWateringLaserChip001::MAX_VELO = PX_C(512); //この値を大きくすると、最高速度が早くなる。
-const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 20; //MAX_VELO に対する加速度、この値を大きくすると、カーブが緩くなる。小さくすると、カーブがきつくなるがギザギザになりやすい
+const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 25; //MAX_VELO に対する加速度、この値を大きくすると、カーブが緩くなる。小さくすると、カーブがきつくなるがギザギザになりやすい
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO*0.6; //レーザー発射時の初期速度
 const acce MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO/R_MAX_ACCE;
 const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/2; // ÷2 は、最低移動する各軸のINITIAL_VELOの割合
@@ -363,17 +363,25 @@ throwCriticalException("pLeaderChip_AimInfo_ が引き継がれていません！"<<this<<
             //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
             //_x,_y,_z にはまだ変な値が入っている。
             if (pB && pB->isActive()) {
-                if (_dispatch_index == 0) { //N_DISPATCH_AT_ONCE の節目が角張るので平均化を強くした
-                    _x = _x + (coord)((pB->_x-_x)*0.4 + (pF->_x-_x)*0.5);
-                    _y = _y + (coord)((pB->_y-_y)*0.4 + (pF->_y-_y)*0.5);
-                    _z = _z + (coord)((pB->_z-_z)*0.4 + (pF->_z-_z)*0.5);
-                } else {
-                    //中間座標に再設定
-                    //座標の重みは、（ひとつ前, 自身, 一つ先）＝ (0.2, 0.3, 0.4)
-                    _x = _x + (coord)((pB->_x-_x)*0.2 + (pF->_x-_x)*0.4);
-                    _y = _y + (coord)((pB->_y-_y)*0.2 + (pF->_y-_y)*0.4);
-                    _z = _z + (coord)((pB->_z-_z)*0.2 + (pF->_z-_z)*0.4);
-                }
+//                if (_dispatch_index == 0) { //N_DISPATCH_AT_ONCE の節目が角張るので平均化を強くした
+//                    _x = _x + (coord)((pB->_x-_x)*0.4 + (pF->_x-_x)*0.5);
+//                    _y = _y + (coord)((pB->_y-_y)*0.4 + (pF->_y-_y)*0.5);
+//                    _z = _z + (coord)((pB->_z-_z)*0.4 + (pF->_z-_z)*0.5);
+//                } else {
+//                    //中間座標に再設定
+//                    //座標の重みは、（ひとつ前, 自身, 一つ先）＝ (0.2, 0.3, 0.4)
+//                    _x = _x + (coord)((pB->_x-_x)*0.2 + (pF->_x-_x)*0.4);
+//                    _y = _y + (coord)((pB->_y-_y)*0.2 + (pF->_y-_y)*0.4);
+//                    _z = _z + (coord)((pB->_z-_z)*0.2 + (pF->_z-_z)*0.4);
+//                }
+
+                _x = (pB->_x + _x + pF->_x) / 3;
+                _y = (pB->_y + _y + pF->_y) / 3;
+                _z = (pB->_z + _z + pF->_z) / 3;
+
+
+                //TODO:平均すると先がへにょる
+                //TODO:平均しないとぎざぎざになる
 
                 //速度ベクトルも平均化してギザギザ対策
 //                GgafDx::NaviVehicle* pF_pNaviVehicle = pF->getNaviVehicle();
@@ -384,7 +392,11 @@ throwCriticalException("pLeaderChip_AimInfo_ が引き継がれていません！"<<this<<
 //                    pNaviVehicle->_velo_vc_z = pNaviVehicle->_velo_vc_z + (velo)((pB_pNaviVehicle->_velo_vc_z - pNaviVehicle->_velo_vc_z)*0.2 + (pF_pNaviVehicle->_velo_vc_z - pNaviVehicle->_velo_vc_z)*0.4);
 //                    pNaviVehicle->_velo = pNaviVehicle->_velo + (velo)((pB_pNaviVehicle->_velo - pNaviVehicle->_velo)*0.2 + (pF_pNaviVehicle->_velo - pNaviVehicle->_velo)*0.4);
 //                }
+                GgafDx::NaviVehicle* pF_pNaviVehicle = pF->getNaviVehicle();
+                if (pNaviVehicle->_velo > 0 && pF_pNaviVehicle->_velo > 0 ) {
 
+
+                }
 
 
             } else {

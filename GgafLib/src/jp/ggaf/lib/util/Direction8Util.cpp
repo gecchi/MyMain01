@@ -94,7 +94,7 @@ void Direction8Util::cnvVec2Sgn(float prm_vx, float prm_vy,
     static const double v = 0.9238795325112;
 
     double nvx, nvy;
-    UTIL::getNormalizedVector(prm_vx, prm_vy,
+    UTIL::getNormalized2DVector(prm_vx, prm_vy,
                               nvx, nvy);
 
     //

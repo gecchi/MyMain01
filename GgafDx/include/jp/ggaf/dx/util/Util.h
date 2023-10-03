@@ -583,10 +583,10 @@ public:
      * @param out_nvx
      * @param out_nvy
      */
-    static void getNormalizedVector(double x,
-                                    double y,
-                                    double& out_nvx,
-                                    double& out_nvy) {
+    static void getNormalized2DVector(double x,
+                                      double y,
+                                      double& out_nvx,
+                                      double& out_nvy) {
         const double t = 1.0 / sqrt(x * x + y * y);
         out_nvx = t * x;
         out_nvy = t * y;
@@ -599,10 +599,10 @@ public:
      * @param out_nvx
      * @param out_nvy
      */
-    static void getNormalizedVector(coord x,
-                                    coord y,
-                                    double& out_nvx,
-                                    double& out_nvy ) {
+    static void getNormalized2DVector(coord x,
+                                      coord y,
+                                      double& out_nvx,
+                                      double& out_nvy ) {
         const double vx = (double)(x * (1.0 / (LEN_UNIT * PX_UNIT)));
         const double vy = (double)(y * (1.0 / (LEN_UNIT * PX_UNIT)));
         const double t = 1.0 / sqrt(vx * vx + vy * vy);
