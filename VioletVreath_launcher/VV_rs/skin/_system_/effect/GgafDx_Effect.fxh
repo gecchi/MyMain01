@@ -19,7 +19,7 @@ float g_tex_blink_threshold;
 float4 getBlinkColor(float4 prm_colOut  : COLOR, 
                      float4 prm_colTex  : COLOR
 ) : COLOR {
-	if (prm_colTex.r >= 0.4 || prm_colTex.g >= 0.4  || prm_colTex.b >= 0.4 ) {
+	if (prm_colTex.r >= g_tex_blink_threshold || prm_colTex.g >= g_tex_blink_threshold  || prm_colTex.b >= g_tex_blink_threshold ) {
 		return (prm_colOut *= g_tex_blink_power); //あえてαも倍率を掛ける。点滅を目立たせる。);
 	} else {
 		return prm_colOut; //点滅なし
@@ -27,7 +27,7 @@ float4 getBlinkColor(float4 prm_colOut  : COLOR,
 }
 
 float4 getBlinkColor(float4 prm_colTex  : COLOR) : COLOR {
-	if (prm_colTex.r >= 0.4 || prm_colTex.g >= 0.4  || prm_colTex.b >= 0.4 ) {
+	if (prm_colTex.r >= g_tex_blink_threshold || prm_colTex.g >= g_tex_blink_threshold || prm_colTex.b >= g_tex_blink_threshold ) {
 		return (prm_colTex *= g_tex_blink_power); //あえてαも倍率を掛ける。点滅を目立たせる。);
 	} else {
 		return prm_colTex; //点滅なし

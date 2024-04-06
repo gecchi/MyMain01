@@ -23,7 +23,7 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-const velo MyBunshinWateringLaserChip001::MAX_VELO = PX_C(512); //この値を大きくすると、最高速度が早くなる。
+const velo MyBunshinWateringLaserChip001::MAX_VELO = PX_C(1024); //この値を大きくすると、最高速度が早くなる。
 const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 25; //MAX_VELO に対する加速度、この値を大きくすると、カーブが緩くなる。小さくすると、カーブがきつくなるがギザギザになりやすい
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO*0.6; //レーザー発射時の初期速度
 const acce MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO/R_MAX_ACCE;
@@ -375,6 +375,31 @@ throwCriticalException("pLeaderChip_AimInfo_ が引き継がれていません！"<<this<<
 //                    _z = _z + (coord)((pB->_z-_z)*0.2 + (pF->_z-_z)*0.4);
 //                }
 
+
+//                if (pF->_dispatch_index + 1 == _dispatch_index) {
+//
+//                    if (_dispatch_index+1 == pB->_dispatch_index) {
+//                        _x = (pB->_x + _x + pF->_x) / 3;
+//                        _y = (pB->_y + _y + pF->_y) / 3;
+//                        _z = (pB->_z + _z + pF->_z) / 3;
+//
+//                    } else {
+//                        //pB は別のディスパッチグループ
+//                        //重みは、（pB, 自身, pF） ＝ (0.5, 0.3, 0.2)
+//                        _x = _x + (coord)((pB->_x-_x)*0.5 + (pF->_x-_x)*0.2);
+//                        _y = _y + (coord)((pB->_y-_y)*0.5 + (pF->_y-_y)*0.2);
+//                        _z = _z + (coord)((pB->_z-_z)*0.5 + (pF->_z-_z)*0.2);
+//                    }
+//
+//                } else {
+//                    //pF は別のディスパッチグループ
+//                    //重みは、（pB, 自身, pF） ＝ (0.5, 0.3, 0.6)
+//                    _x = _x + (coord)((pB->_x-_x)*0.2 + (pF->_x-_x)*0.5);
+//                    _y = _y + (coord)((pB->_y-_y)*0.2 + (pF->_y-_y)*0.5);
+//                    _z = _z + (coord)((pB->_z-_z)*0.2 + (pF->_z-_z)*0.5);
+//                }
+
+
                 _x = (pB->_x + _x + pF->_x) / 3;
                 _y = (pB->_y + _y + pF->_y) / 3;
                 _z = (pB->_z + _z + pF->_z) / 3;
@@ -382,6 +407,9 @@ throwCriticalException("pLeaderChip_AimInfo_ が引き継がれていません！"<<this<<
 
                 //TODO:平均すると先がへにょる
                 //TODO:平均しないとぎざぎざになる
+                //TODO:N_DISPATCH_AT_ONCE 単位で、まとまって動く、１フレームN_DISPATCH_AT_ONCE個のチップを NaviVehicle 処理するので、加速度に上限があるためグループでまとまってしまう？
+                //N_DISPATCH_AT_ONCE 3 以上じゃだめかも・・・
+
 
                 //速度ベクトルも平均化してギザギザ対策
 //                GgafDx::NaviVehicle* pF_pNaviVehicle = pF->getNaviVehicle();
@@ -542,7 +570,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
             getStatus()->set(STAT_Stamina, default_stamina_);
-//            sayonara();//痛感テスト
+            sayonara();//痛感テスト
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             getStatus()->set(STAT_Stamina, default_stamina_);

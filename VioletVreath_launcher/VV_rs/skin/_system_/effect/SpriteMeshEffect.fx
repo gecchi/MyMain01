@@ -126,9 +126,7 @@ float4 PS_NoLight(
 ) : COLOR  {
     float4 colOut = tex2D( MyTextureSampler, prm_uv) * prm_color;
     //Blinkerを考慮
-//	if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
-//		colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
-//	}
+    colOut = getBlinkColor(colOut);
     colOut.a *= g_alpha_master;
     return colOut;
 }

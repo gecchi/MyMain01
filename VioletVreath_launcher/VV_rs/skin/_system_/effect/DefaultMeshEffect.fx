@@ -318,9 +318,7 @@ float4 PS_BumpMapping(
     //tex・mate・(amb + (light・pow)) + spow
     float4 colOut = colTex * ((g_colLightAmbient + ( g_colLightDiffuse * refl_power)) * prm_color ) + s; //prm_color = g_colMaterialDiffuse
     //Blinkerを考慮
-    if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
-        colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
-    }
+    colOut = getBlinkColor(colOut, colTex);
     colOut.a = a * g_alpha_master;
     return colOut;
 }

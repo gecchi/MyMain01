@@ -75,9 +75,7 @@ float4 PS_DefaultMassBoard(
     float4 prm_color  : COLOR0
 ) : COLOR  {
     float4 colOut = tex2D( MyTextureSampler, prm_uv) * prm_color;
-//	if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
-//		colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);
-//	}
+    colOut = getBlinkColor(colOut);
     colOut.a = colOut.a * prm_color.a * g_alpha_master;
     return colOut;
 }
