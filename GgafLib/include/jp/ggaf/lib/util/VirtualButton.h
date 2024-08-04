@@ -604,6 +604,9 @@ public:
     inline vb_sta isPressed(int prm_player_no, vb_sta prm_VB) const {
         return (_pVBRecord_active->_vb_state[prm_player_no] & prm_VB);
     }
+//    inline vb_sta isPressed(vb_sta prm_VB) const {
+//        return isPressed(0, prm_VB);
+//    }
 
     /**
      * 過去フレームでボタンが押されていたかどうか判定 .
@@ -616,6 +619,11 @@ public:
      */
     vb_sta wasPressed(int prm_player_no, vb_sta prm_VB, frame prm_frame_ago) const;
 
+//    inline vb_sta wasPressed(vb_sta prm_VB, frame prm_frame_ago) const {
+//        return wasPressed(0, prm_VB, prm_frame_ago);
+//    }
+
+
     /**
      * 現在と過去フレームの機関で、ずっとボタンが押されていたかどうか判定 .
      * @param prm_VB  prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
@@ -624,6 +632,10 @@ public:
      * @return true：現在とprm_frame_agoの期間ずっと押しっぱなしだった／false：それ以外（少なくとも１フレーム押されていない瞬間あり）
      */
     vb_sta hasBeenPressed(int prm_player_no, vb_sta prm_VB, frame prm_frame_ago) const;
+
+//    inline vb_sta hasBeenPressed(vb_sta prm_VB, frame prm_frame_ago) const {
+//        return hasBeenPressed(0, prm_VB, prm_frame_ago);
+//    }
 
 
 //    /**
@@ -654,6 +666,9 @@ public:
     inline bool wasNotPressed(int prm_player_no, vb_sta prm_VB, frame prm_frame_ago) const {
         return wasPressed(prm_player_no, prm_VB, prm_frame_ago) ? false : true;
     }
+//    inline bool wasNotPressed(vb_sta prm_VB, frame prm_frame_ago) const {
+//        return wasNotPressed(0, prm_VB, prm_frame_ago);
+//    }
 
     /**
      * 現在ボタンが押された瞬間なのかどうか判定 .
@@ -664,6 +679,10 @@ public:
     inline bool isPushedDown(int prm_player_no, vb_sta prm_VB) const {
         return (!(_pVBRecord_active->_prev->_vb_state[prm_player_no] & prm_VB) && (_pVBRecord_active->_vb_state[prm_player_no] & prm_VB)) ? true : false;
     }
+//    inline bool isPushedDown(vb_sta prm_VB) const {
+//        return isPushedDown(0, prm_VB);
+//    }
+
 
     /**
      * 過去にボタンが押された瞬間があったのかどうか判定 .
@@ -675,6 +694,9 @@ public:
      * @return true / false
      */
     bool wasPushedDown(int prm_player_no, vb_sta prm_VB, frame prm_frame_ago) const;
+//    inline bool wasPushedDown(vb_sta prm_VB, frame prm_frame_ago) const {
+//        return wasPushedDown(0, prm_VB, prm_frame_ago);
+//    }
 
     /**
      * 現在ボタンを離した瞬間なのかどうか判定 .
@@ -683,6 +705,9 @@ public:
      * @return true / false
      */
     bool isReleasedUp(int prm_player_no, vb_sta prm_VB) const;
+//    inline bool isReleasedUp(vb_sta prm_VB) const {
+//        return isReleasedUp(0, prm_VB);
+//    }
 
     /**
      * 過去にボタンを離した瞬間があったのかどうか判定 .
@@ -693,7 +718,9 @@ public:
      * @return true / false
      */
     bool wasReleasedUp(int prm_player_no, vb_sta prm_VB, frame prm_frame_ago) const;
-
+//    inline bool wasReleasedUp(vb_sta prm_VB) const {
+//        return isReleasedUp(0, prm_VB);
+//    }
     /**
      * チョン押し判定 .
      * 「ボタンを押していなかった→ボタンを押した→ボタンを離した」というフェーズが、
@@ -705,6 +732,9 @@ public:
      * @return true / false
      */
     bool isPushedUp(int prm_player_no, vb_sta prm_VB, frame prm_frame_push = 5) const;
+//    inline bool isPushedUp(vb_sta prm_VB, frame prm_frame_push = 5) const {
+//        return isPushedUp(0, prm_VB, prm_frame_push);
+//    }
 
     /**
      * ダブルプッシュ判定 .
@@ -718,6 +748,9 @@ public:
      * @return true / false
      */
     bool isDoublePushedDown(int prm_player_no, vb_sta prm_VB, frame prm_frame_push = 5, frame prm_frame_delay = 5) const;
+//    inline bool isDoublePushedDown(vb_sta prm_VB, frame prm_frame_push = 5, frame prm_frame_delay = 5) const {
+//        return isDoublePushedDown(0, prm_VB, prm_frame_push, prm_frame_delay);
+//    }
 
     /**
      * 複数ボタン同時押し判定 .
@@ -742,6 +775,9 @@ public:
      * @return true / false
      */
     bool arePushedDownAtOnce(int prm_player_no, vb_sta prm_aVB[], int prm_num_button, int delay=2) const;
+//    inline bool arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button, int delay=2) const {
+//        return arePushedDownAtOnce(0, prm_aVB, prm_num_button, delay);
+//    }
 
     /**
      * 2フレ猶予の２つボタン同時押し判定 .
@@ -749,12 +785,15 @@ public:
      * @param prm_VB2 判定対象仮想ボタン２
      * @return true / false
      */
-    bool arePushedDownAtOnce(int prm_player_no, vb_sta prm_VB1, vb_sta prm_VB2, int delay=2) const {
+    bool arePushedDownAtOnce2(int prm_player_no, vb_sta prm_VB1, vb_sta prm_VB2, int delay=2) const {
         vb_sta vb[2];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
         return arePushedDownAtOnce(prm_player_no, vb, 2, delay);
     }
+//    inline bool arePushedDownAtOnce2(vb_sta prm_VB1, vb_sta prm_VB2, int delay=2) const {
+//        return arePushedDownAtOnce2(0, prm_VB1, prm_VB2, delay);
+//    }
 
     /**
      * 2フレ猶予の３つボタン同時押し判定 .
@@ -763,13 +802,16 @@ public:
      * @param prm_VB3 判定対象仮想ボタン３
      * @return true / false
      */
-    bool arePushedDownAtOnce(int prm_player_no, vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, int delay=2) const {
+    bool arePushedDownAtOnce3(int prm_player_no, vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, int delay=2) const {
         vb_sta vb[3];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
         vb[2] = prm_VB3;
         return arePushedDownAtOnce(prm_player_no, vb, 3, delay);
     }
+//    inline bool arePushedDownAtOnce3(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, int delay=2) const {
+//        return arePushedDownAtOnce3(0, prm_VB1, prm_VB2, prm_VB3, delay);
+//    }
 
     /**
      * 2フレ猶予の４つボタン同時押し判定 .
@@ -779,7 +821,7 @@ public:
      * @param prm_VB4 判定対象仮想ボタン４
      * @return true / false
      */
-    bool arePushedDownAtOnce(int prm_player_no, vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, vb_sta prm_VB4, int delay=2) const {
+    bool arePushedDownAtOnce4(int prm_player_no, vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, vb_sta prm_VB4, int delay=2) const {
         vb_sta vb[4];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
@@ -787,6 +829,9 @@ public:
         vb[3] = prm_VB4;
         return arePushedDownAtOnce(prm_player_no, vb, 4, delay);
     }
+//    inline bool arePushedDownAtOnce4(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, vb_sta prm_VB4, int delay=2) const {
+//        return arePushedDownAtOnce4(0, prm_VB1, prm_VB2, prm_VB3, prm_VB4, delay);
+//    }
 
     /**
      * オートリピート入力判定 .
@@ -796,6 +841,9 @@ public:
      * @return true / false
      */
     bool isAutoRepeat(int prm_player_no, vb_sta prm_VB, frame prm_begin_repeat = 20, frame prm_while_repeat = 5);
+//    inline bool isAutoRepeat(vb_sta prm_VB, frame prm_begin_repeat = 20, frame prm_while_repeat = 5) {
+//        return isAutoRepeat(0, prm_VB, prm_begin_repeat, prm_while_repeat);
+//    }
 
     /**
      * グルッとポンか否か判定 .
@@ -808,7 +856,9 @@ public:
      * @return true / false
      */
     bool isScrewPushDown(int prm_player_no, vb_sta prm_VB, frame prm_frame_delay=30) const;
-
+//    inline bool isScrewPushDown(vb_sta prm_VB, frame prm_frame_delay=30) const {
+//        return isScrewPushDown(0, prm_VB, prm_frame_delay);
+//    }
 
     //vb_sta getPushedDownStick() const;
 

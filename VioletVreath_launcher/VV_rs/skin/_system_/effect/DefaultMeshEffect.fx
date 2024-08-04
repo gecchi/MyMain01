@@ -2,8 +2,7 @@
 /**
  * GgafLib::DefaultMeshActor 用シェーダー .
  * 静的モデル１つを描画する標準的なシェーダー。
- * 頂点バッファフォーマットは、以下のような GgafLib::MeshModel に定義されているものを前提としています。
- *
+ * ＜頂点フォーマット＞
  * FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX3 |
  *                                                        D3DFVF_TEXCOORDSIZE2(0) |     // テクスチャ座標
  *                                                        D3DFVF_TEXCOORDSIZE3(1) |     // 接ベクトル
@@ -40,9 +39,7 @@ float g_specular;
 /** スペキュラーの強度 */
 float g_specular_power;
 
-
 float g_lambert_flg;
-
 
 /** テクスチャのサンプラー(s0 レジスタにセットされたテクスチャを使う) */
 sampler MyTextureSampler : register(s0);
@@ -255,7 +252,6 @@ OUT_VS_BM VS_BumpMapping(
         //αフォグ
         out_vs.color.a *= getFogRate(out_vs.posModel_Proj.z);
     }
-
     return out_vs;
 }
 

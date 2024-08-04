@@ -55,8 +55,8 @@ public:
     struct VERTEX : public Model::VERTEX_POS_NOMAL {
         DWORD color; // 頂点の色（現在未使用）
         float tu, tv; // テクスチャ座標
-        float tan_x, tan_y, tan_z; //
-        float bin_x, bin_y, bin_z;
+        float tan_x, tan_y, tan_z; // 接ベクトル(u方向単位ベクトル、バンプマッピング時に使用) (ローカル座標系)
+        float bin_x, bin_y, bin_z; // 従法線ベクトル(v方向単位ベクトル、バンプマッピング時に使用) (ローカル座標系)
     };
 
     /** 頂点のFVF */

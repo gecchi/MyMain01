@@ -13,9 +13,9 @@ VvSpacetime::VvSpacetime(const char* prm_name, VvCamera* prm_pCam) :
         GgafLib::DefaultSpacetime(prm_name, prm_pCam) {
     pWorld_ = nullptr;
     UTIL::left_top_x_ = CONFIG::NUMBER_OF_SCREENS_USED > 1 ? PX_C(pCARETAKER->_aRectRenderBufferSource[SCREEN01].left) :
-                                              PX_C(pCARETAKER->_aRectRenderBufferSource[SCREEN01].left);
+                                                             PX_C(pCARETAKER->_aRectRenderBufferSource[SCREEN01].left);
     UTIL::left_top_y_ = CONFIG::NUMBER_OF_SCREENS_USED > 1 ? PX_C(pCARETAKER->_aRectRenderBufferSource[SCREEN01].top) :
-                                                      PX_C(pCARETAKER->_aRectRenderBufferSource[SCREEN01].top);
+                                                             PX_C(pCARETAKER->_aRectRenderBufferSource[SCREEN01].top);
     UTIL::center_x_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_WIDTH / 2);
     UTIL::center_y_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_HEIGHT / 2);
 

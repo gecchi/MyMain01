@@ -52,7 +52,7 @@ void MgrSpacetime::processBehavior() {
 //    bool b2 = pVb_->wasPressedAtLeastOnce(0, VB_UP, 10);
 //    bool b3 = pVb_->wasPressedAtLeastOnce(0, VB_UP, 3);
 //    _TRACE_(getBehaveingFrame() <<":"<<b1<<":"<<b2<<":"<<b3);
-    bool b1 = pVb_->arePushedDownAtOnce(0, VB_LEFT, VB_UP, VB_RIGHT, 1);
+    bool b1 = pVb_->arePushedDownAtOnce3(0, VB_LEFT, VB_UP, VB_RIGHT, 1);
 //    bool b2 = pVb_->arePushedDownAtOnce(0, VB_LEFT, VB_UP, VB_RIGHT, 10);
 //    bool b3 = pVb_->arePushedDownAtOnce(0, VB_LEFT, VB_UP, VB_RIGHT, 60);
 //    _TRACE_(getBehaveingFrame() <<":"<<b1<<":"<<b2<<":"<<b3);

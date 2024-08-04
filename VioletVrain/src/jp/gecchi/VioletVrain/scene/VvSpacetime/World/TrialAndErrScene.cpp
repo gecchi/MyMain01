@@ -31,7 +31,7 @@ void TrialAndErrScene::initialize() {
 }
 
 void TrialAndErrScene::processBehavior() {
-    if (getActiveFrame() == 100) {
+    if (getActiveFrame() == 10) {
 
 //        ColliAABoxActor* XXX = NEW ColliAABoxActor("HOGEHOGE");
 //        XXX->setScaleR(100);
@@ -41,27 +41,30 @@ void TrialAndErrScene::processBehavior() {
 
         Test01* pTest = (Test01*)receiveActor(10000);
         pTest->setPosition(0,0,0);
-        getSceneChief()->appendGroupChild(VV_MIKATA, pTest);
+        getSceneChief()->appendGroupChild(VV_TEKI, pTest);
 
         Zako* pZako = (Zako*)receiveActor(10002);
         pZako->setPosition(PX_C(200), PX_C(200),0);
         getSceneChief()->appendGroupChild(VV_TEKI, pZako);
 
         Jiki* pJiki = (Jiki*)receiveActor(10001);
-        pJiki->setPosition(PX_C(200), PX_C(400),0);
-        getSceneChief()->appendGroupChild(VV_TEKI, pJiki);
+        pJiki->setPosition(PX_C(100), PX_C(100),0);
+//        pJiki->setPosition(PX_C(100), PX_C(100),0);
+        getSceneChief()->appendGroupChild(VV_MIKATA, pJiki);
     }
 
+    VirtualButton* pVb = &(pCARETAKER->getSpacetime()->getWorld()->vb_);
 
 #ifdef MY_DEBUG
-    //ワイヤフレーム表示切替
-    if (GgafDx::Input::isPushedDownKey(DIK_Q)) {
-        if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
-            pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
-        } else {
-            pCARETAKER->_d3dfillmode = D3DFILL_WIREFRAME;
-        }
-    }
+    if (pVb->isPushedDown(0, VB_UI_DEBUG)) {
+       if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
+           pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
+           pCARETAKER->_draw_hit_area_kind = 1;
+       } else {
+           pCARETAKER->_d3dfillmode = D3DFILL_WIREFRAME;
+           pCARETAKER->_draw_hit_area_kind = 0;
+       }
+   }
 #endif
 }
 
