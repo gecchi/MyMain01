@@ -57,11 +57,11 @@ void TrialAndErrScene::processBehavior() {
 
 #ifdef MY_DEBUG
     if (pVb->isPushedDown(0, VB_UI_DEBUG)) {
-       if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
-           pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
+       if (pCARETAKER->_draw_hit_area_kind == 0) {
+           pCARETAKER->_d3dfillmode = D3DFILL_WIREFRAME;
            pCARETAKER->_draw_hit_area_kind = 1;
        } else {
-           pCARETAKER->_d3dfillmode = D3DFILL_WIREFRAME;
+           pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
            pCARETAKER->_draw_hit_area_kind = 0;
        }
    }

@@ -590,14 +590,14 @@ public:
     #define desireScene(...) selectDesireSceneMacro(__VA_ARGS__,desireScene4,desireScene3,desireScene2,desireScene1)(__VA_ARGS__)
 #endif
 
-/** 望まれ祝福されたアクターを受け取る。presentMoment()、presentJudge() の間のみ使用可能 */
+/** 望まれ祝福されたアクターを受け取れる状態になるまで待って、受け取る（ゆりかごから削除する）。presentMoment()、presentJudge() の間のみ使用可能 */
 #define receiveActor(ID) (GgafCore::Caretaker::_pCaretaker->takeOutActor((ID),this,false))
-/** 望まれ祝福されたシーンを受け取る。 presentMoment()、presentJudge() の間のみ使用可能 */
+/** 望まれ祝福されたシーンを受け取れる状態になるまで待って、受け取る（ゆりかごから削除する）。 presentMoment()、presentJudge() の間のみ使用可能 */
 #define receiveScene(ID) (GgafCore::Caretaker::_pCaretaker->takeOutScene((ID),this,false))
 
-/** 望まれ祝福されたアクターを受け取れるまで待つ。presentMoment()、presentJudge() の間のみ使用可能 */
+/** 望まれ祝福されたアクターを受け取れる状態になるまで待つ（ゆりかごから削除しない）。presentMoment()、presentJudge() の間のみ使用可能 */
 #define waitForRequestActor(ID) (GgafCore::Caretaker::_pCaretaker->takeOutActor((ID),this,true))
-/** 望まれ祝福されたシーンを受け取れるまで待つ。 presentMoment()、presentJudge() の間のみ使用可能 */
+/** 望まれ祝福されたシーンを受け取れるま状態になるまで待つ（ゆりかごから削除しない） presentMoment()、presentJudge() の間のみ使用可能 */
 #define waitForRequestScene(ID) (GgafCore::Caretaker::_pCaretaker->takeOutScene((ID),this,true))
 
 }

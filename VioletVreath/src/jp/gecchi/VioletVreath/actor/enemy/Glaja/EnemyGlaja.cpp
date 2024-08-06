@@ -1,7 +1,7 @@
 #include "EnemyGlaja.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
@@ -10,7 +10,7 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Glaja/EnemyGlajaLance001.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAssistant.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafLib;
@@ -62,13 +62,13 @@ void EnemyGlaja::onActive() {
 
 void EnemyGlaja::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
          case PHASE_INIT: {
              setHitAble(false);
              setAlpha(0);
-             pLocoVehicle->keepOnTurningFaceAngTwd(pMyShip,
+             pLocusVehicle->keepOnTurningFaceAngTwd(pMyShip,
                                                D_ANG(2), 0, TURN_CLOSE_TO, false);
              setMorphWeight(0.0);
              pPhase->changeNext();
@@ -99,14 +99,14 @@ void EnemyGlaja::processBehavior() {
                              pMyShip->_z + RND(PX_C(-400), PX_C(400))
                            ); //次の移動目標座標
                  //スィーっとnext_pos_へ移動
-                 pLocoVehicle->setMvAngTwd(&next_pos_);
+                 pLocusVehicle->setMvAngTwd(&next_pos_);
                  velo Vt = RF_EnemyGlaja_MvVelo(G_RANK);
                  velo Ve = 100;
                  coord D = UTIL::getDistance(this, &next_pos_);
-                 pLocoVehicle->asstMv()->slideByVd(Vt, D, 0.1, 0.5, Ve, true);
+                 pLocusVehicle->asstMv()->slideByVd(Vt, D, 0.1, 0.5, Ve, true);
              }
 
-             if (pLocoVehicle->asstMv()->hasJustFinishedSliding()) {
+             if (pLocusVehicle->asstMv()->hasJustFinishedSliding()) {
                  pPhase->changeNext();
              }
              break;
@@ -165,7 +165,7 @@ void EnemyGlaja::processBehavior() {
              break;
          }
      }
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     getMorpher()->behave();
     getAlphaFader()->behave();
 //_TRACE_("EnemyGlaja f:"<<getBehaveingFrame()<<"  pPhase="<<pPhase->getCurrent()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");

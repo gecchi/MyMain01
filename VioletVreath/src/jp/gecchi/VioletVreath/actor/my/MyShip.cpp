@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/util/CollisionChecker.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
@@ -340,8 +340,8 @@ void MyShip::initialize() {
 /////////////TEST
       pChecker->setColliAACube(0, PX_C(40));
 
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setMvVelo(0);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setMvVelo(0);
 
     //setMaterialColor(1.0, 0.5, 0.5);
     setAlpha(1.0);
@@ -349,7 +349,7 @@ void MyShip::initialize() {
     pCoordVehicle->forceVeloXYZRange(-veloTurboTop_, veloTurboTop_);
     pCoordVehicle->setAcceXYZZero();
 
-    getLocoVehicle()->setRollFaceAngVelo(300);
+    getLocusVehicle()->setRollFaceAngVelo(300);
 }
 
 
@@ -396,7 +396,7 @@ void MyShip::onInactive() {
 }
 void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VV_VB_PLAY;
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafDx::CoordVehicle* const pCoordVehicle = getCoordVehicle();
     //操作拒否
     if (!can_control_) {
@@ -457,30 +457,30 @@ void MyShip::processBehavior() {
 
     //スピンが勢いよく回っているならば速度を弱める
     angvelo MZ = angRxTopVelo_MZ_-3000; //3000は通常旋回時に速度を弱めてangRxTopVelo_MZ_を超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
-    if (pLocoVehicle->_angvelo_face[AXIS_X] >= MZ) {
-        pLocoVehicle->_angvelo_face[AXIS_X] *= 0.93;
-        //_getLocoVehicle()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_*2);
-    } else if (pLocoVehicle->_angvelo_face[AXIS_X] <= -MZ) {
-        pLocoVehicle->_angvelo_face[AXIS_X] *= 0.93;
-        //_getLocoVehicle()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_*2);
+    if (pLocusVehicle->_angvelo_face[AXIS_X] >= MZ) {
+        pLocusVehicle->_angvelo_face[AXIS_X] *= 0.93;
+        //_getLocusVehicle()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_*2);
+    } else if (pLocusVehicle->_angvelo_face[AXIS_X] <= -MZ) {
+        pLocusVehicle->_angvelo_face[AXIS_X] *= 0.93;
+        //_getLocusVehicle()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_*2);
     }
 
     //旋回しない移動方向の場合、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTargetFaceAngの第4引数より角速度がゆるい場合受け入れ）
     if (pSenakai_[mv_way_] == 0) {
-        angle dist = pLocoVehicle->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
+        angle dist = pLocusVehicle->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
         if (0 <= dist && dist < D180ANG) {
-            getLocoVehicle()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_);
+            getLocusVehicle()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_);
         } else if (-1*D180ANG < dist && dist < 0) {
-            getLocoVehicle()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_);
+            getLocusVehicle()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_);
         }
-        pLocoVehicle->setMvAcce(0);
-        pLocoVehicle->setStopTargetFaceAng(AXIS_X, 0, TURN_BOTH, angRxTopVelo_MZ_);
+        pLocusVehicle->setMvAcce(0);
+        pLocusVehicle->setStopTargetFaceAng(AXIS_X, 0, TURN_BOTH, angRxTopVelo_MZ_);
     }
 
     ////////////////////////////////////////////////////
 
     //座標に反映
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     pCoordVehicle->behave();
     getSeXmtr()->behave();
 
@@ -660,9 +660,9 @@ void MyShip::processBehavior() {
             if (pSnipeShot) {
                 getSeXmtr()->play3D(SE_FIRE_SHOT);
                 pSnipeShot->setPositionAt(this);
-                pSnipeShot->getLocoVehicle()->setRzRyMvAng(_rz, _ry);
-                pSnipeShot->getLocoVehicle()->setMvVelo(PX_C(100));
-                pSnipeShot->getLocoVehicle()->setMvAcce(100);
+                pSnipeShot->getLocusVehicle()->setRzRyMvAng(_rz, _ry);
+                pSnipeShot->getLocusVehicle()->setMvVelo(PX_C(100));
+                pSnipeShot->getLocusVehicle()->setMvAcce(100);
             }
         } else {
             //スナイプショット以外時
@@ -671,9 +671,9 @@ void MyShip::processBehavior() {
                 if (pShot) {
                     getSeXmtr()->play3D(SE_FIRE_SHOT);
                     pShot->setPositionAt(this);
-                    pShot->getLocoVehicle()->setRzRyMvAng(_rz, _ry);
-                    pShot->getLocoVehicle()->setMvVelo(PX_C(70));
-                    pShot->getLocoVehicle()->setMvAcce(80);
+                    pShot->getLocusVehicle()->setRzRyMvAng(_rz, _ry);
+                    pShot->getLocusVehicle()->setMvVelo(PX_C(70));
+                    pShot->getLocusVehicle()->setMvAcce(80);
                 }
             }
 
@@ -1087,12 +1087,12 @@ void MyShip::moveNomal() {
     if (is_just_change_mv_way_) {
         angle rz, ry;
         Direction26Util::cnvDirNo2RzRy(mv_way, rz, ry);
-        getLocoVehicle()->setRzRyMvAng(rz, ry);
+        getLocusVehicle()->setRzRyMvAng(rz, ry);
         //旋廻
         int sgn_turn = pSenakai_[mv_way] > pSenakai_[prev_way_] ? 1 : -1;
         if (sgn_turn != 0) {
-            getLocoVehicle()->setFaceAngAcce(AXIS_X, sgn_turn*angRxAcce_MZ_);
-            getLocoVehicle()->setStopTargetFaceAng(AXIS_X, pSenakai_[mv_way],
+            getLocusVehicle()->setFaceAngAcce(AXIS_X, sgn_turn*angRxAcce_MZ_);
+            getLocusVehicle()->setStopTargetFaceAng(AXIS_X, pSenakai_[mv_way],
                                               TURN_CLOSE_TO,
                                               angRxTopVelo_MZ_);
         }
@@ -1108,13 +1108,13 @@ void MyShip::moveTurbo() {
     pCoordVehicle->addVeloZ(veloBeginMT_ * vz);
     angle rz, ry;
     Direction26Util::cnvDirNo2RzRy(mv_way_, rz, ry);
-    getLocoVehicle()->setRzRyMvAng(rz, ry);
+    getLocusVehicle()->setRzRyMvAng(rz, ry);
 
     //旋廻
     angle senkai = pSenakai_[mv_way_];
     if (senkai != 0) {
         double senkai_spin_speed_rate = (1.0 * D90ANG / senkai); //旋回時、90度-90度に傾く場合 1.0、1.0 となる。
-        getLocoVehicle()->setRollFaceAngVelo(angRxVelo_BeginMZT_ * senkai_spin_speed_rate);
+        getLocusVehicle()->setRollFaceAngVelo(angRxVelo_BeginMZT_ * senkai_spin_speed_rate);
     }
 }
 

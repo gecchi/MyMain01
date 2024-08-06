@@ -13,8 +13,8 @@ namespace GgafLib {
  * ・移動方向は直進、但し一定間隔で移動方向が変化 <BR>
  * と言うべきか、ダライアスのボスの多段レーザーと言うべきか、そんな感じ。<BR>
  * デポジトリ登録前にconfig()で設定してください。<BR>
- * 先頭チップは  GgafDx::LocoVehicle#behave() で移動します。<BR>
- * dispatch() したら、初期座標と LocoVehicle（速度・方向）を設定して下さい。<BR>
+ * 先頭チップは  GgafDx::LocusVehicle#behave() で移動します。<BR>
+ * dispatch() したら、初期座標と LocusVehicle（速度・方向）を設定して下さい。<BR>
  * @version 1.00
  * @since 2010/01/19
  * @author Masatoshi Tsuge
@@ -97,8 +97,8 @@ public:
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
      * その際、本クラスの processBehavior() メソッドも呼び出してください。
      * 内部処理は、
-     * 先頭チップは、GgafDx::LocoVehicle#behave() を実行により移動を行います。
-     * 屈折中は GgafDx::LocoVehicle#behave() による移動は行いません。
+     * 先頭チップは、GgafDx::LocusVehicle#behave() を実行により移動を行います。
+     * 屈折中は GgafDx::LocusVehicle#behave() による移動は行いません。
      * 先頭以外のチップ以外は、先頭チップに追従するという処理を行います。
      */
     virtual void processBehavior() override;

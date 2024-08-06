@@ -1,7 +1,7 @@
 #include "EnemyIda.h"
 
 #include "jp/ggaf/core/actor/SceneChief.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
@@ -25,7 +25,7 @@ void EnemyIda::onCreateModel() {
 }
 
 void EnemyIda::initialize() {
-    getLocoVehicle()->linkFaceAngByMvAng(true);
+    getLocusVehicle()->linkFaceAngByMvAng(true);
 }
 
 void EnemyIda::onActive() {
@@ -34,8 +34,8 @@ void EnemyIda::onActive() {
 void EnemyIda::processBehavior() {
     changeGeoLocal(); //ローカル座標系へ
 
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->behave();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->behave();
 
     changeGeoFinal(); //絶対座標系へ
 }

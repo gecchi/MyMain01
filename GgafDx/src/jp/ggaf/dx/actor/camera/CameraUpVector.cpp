@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/camera/CameraUpVector.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 
 
 using namespace GgafDx;

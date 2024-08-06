@@ -1,7 +1,7 @@
 #include "EnemyAlisana.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
@@ -132,7 +132,7 @@ void EnemyAlisana::processBehavior() {
     }
     pAlphaFader->behave();
     getMorpher()->behave();
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
 }
 
 void EnemyAlisana::processJudgement() {

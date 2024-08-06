@@ -27,7 +27,7 @@ private:
     }
 
     /** [r]移動車両(前進、後退、旋回による移動支援)  */
-    LocoVehicle* _pLocoVehicle;
+    LocusVehicle* _pLocusVehicle;
     /** [r]駕籠(平行移動支援) */
     CoordVehicle* _pCoordVehicle;
 
@@ -178,7 +178,7 @@ public:
      * 本アクターの移動車両を取得 .
      * @return 移動車両
      */
-    LocoVehicle* getLocoVehicle();
+    LocusVehicle* getLocusVehicle();
 
     /**
      * 本アクターの駕籠(平行移動支援)オブジェクトを取得 .
@@ -625,7 +625,7 @@ public:
      * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
-     * 移動車両(getLocoVehicle()) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 移動車両(getLocusVehicle()) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_kind     種別
      * @param prm_pGeoActor 従属させるアクター
@@ -652,7 +652,7 @@ public:
      * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
-     * 移動車両(getLocoVehicle()) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 移動車両(getLocusVehicle()) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_pGeoActor 従属させるアクター
      * @param prm_x_init_local  従属アクターのローカル(this)位置からのX座標位置

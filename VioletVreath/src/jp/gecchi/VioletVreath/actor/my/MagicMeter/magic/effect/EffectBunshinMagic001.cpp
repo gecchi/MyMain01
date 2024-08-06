@@ -1,5 +1,5 @@
 #include "EffectBunshinMagic001.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 
@@ -15,12 +15,12 @@ EffectBunshinMagic001::EffectBunshinMagic001(const char* prm_name)
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
-    getLocoVehicle()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
+    getLocusVehicle()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
 }
 
 void EffectBunshinMagic001::processBehavior() {
     EffectBlink::processBehavior();
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
     getCoordVehicle()->behave();
 }
 

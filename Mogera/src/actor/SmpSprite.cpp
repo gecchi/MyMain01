@@ -1,8 +1,8 @@
 #include "SmpSprite.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAngAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "MgrCaretaker.h"
@@ -144,7 +144,7 @@ void SmpSprite::processBehavior() {
     }
     getFrameUvFlipper()->behave();
     getUvFlipper()->behave();
-    getLocoVehicle()->behave(); //移動車両を活動させる（Z軸回転する）
+    getLocusVehicle()->behave(); //移動車両を活動させる（Z軸回転する）
 }
 
 void SmpSprite::onHit(const GgafCore::Actor* prm_pOtherActor) {

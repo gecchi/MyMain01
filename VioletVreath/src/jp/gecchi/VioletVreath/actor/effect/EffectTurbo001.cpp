@@ -1,7 +1,7 @@
 #include "EffectTurbo001.h"
 
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
@@ -28,12 +28,12 @@ void EffectTurbo001::initialize() {
 
 void EffectTurbo001::onActive() {
     getUvFlipper()->setActivePtnToTop();
-    getLocoVehicle()->setFaceAngVelo(AXIS_Z, 3000);        //âÒì]
+    getLocusVehicle()->setFaceAngVelo(AXIS_Z, 3000);        //âÒì]
 }
 
 void EffectTurbo001::processBehavior() {
     getUvFlipper()->behave();
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
     getScaler()->behave();
     if (VV_VB_PLAY->isPressed(0, VV_VB_TURBO)) { //É^Å[É{
 

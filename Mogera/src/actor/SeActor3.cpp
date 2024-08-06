@@ -1,7 +1,7 @@
 #include "actor/SeActor3.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAngAssistant.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "MgrCaretaker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
@@ -65,7 +65,7 @@ void SeActor3::processBehavior() {
             _y -= PX_C(D); //‰º
         }
     }
-    getLocoVehicle()->behave(); //ˆÚ“®ŽÔ—¼‚ðŠˆ“®‚³‚¹‚éiZŽ²‰ñ“]‚·‚éj
+    getLocusVehicle()->behave(); //ˆÚ“®ŽÔ—¼‚ðŠˆ“®‚³‚¹‚éiZŽ²‰ñ“]‚·‚éj
     getSeXmtr()->behave(); //‚RDŒø‰ÊŠˆ“®
 }
 

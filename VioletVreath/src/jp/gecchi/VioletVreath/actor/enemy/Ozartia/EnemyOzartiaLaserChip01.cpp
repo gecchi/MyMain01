@@ -1,7 +1,7 @@
 #include "EnemyOzartiaLaserChip01.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 
@@ -16,7 +16,7 @@ EnemyOzartiaLaserChip01::EnemyOzartiaLaserChip01(const char* prm_name) :
 }
 
 void EnemyOzartiaLaserChip01::initialize() {
-    getLocoVehicle()->setRzRyMvAng(0,0);
+    getLocusVehicle()->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(20000);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³‚µ
     setScaleR(5.0);
@@ -25,9 +25,9 @@ void EnemyOzartiaLaserChip01::initialize() {
 
 void EnemyOzartiaLaserChip01::onActive() {
     StraightLaserChip::onActive();
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setMvVelo(100000);
-    pLocoVehicle->setMvAcce(300);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setMvVelo(100000);
+    pLocusVehicle->setMvAcce(300);
     getStatus()->reset();
 }
 

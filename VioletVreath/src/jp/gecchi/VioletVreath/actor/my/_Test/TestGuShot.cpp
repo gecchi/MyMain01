@@ -1,6 +1,6 @@
 #include "TestGuShot.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -27,11 +27,11 @@ void TestGuShot::initialize() {
 void TestGuShot::onActive() {
     getStatus()->reset();
     setHitAble(true);
-    getLocoVehicle()->setMvVelo(PX_C(30));
+    getLocusVehicle()->setMvVelo(PX_C(30));
 }
 
 void TestGuShot::processBehavior() {
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
 }
 
 void TestGuShot::processJudgement() {

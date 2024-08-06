@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_LOCOMOTIONVEHICLE_H_
-#define GGAF_DX_LOCOMOTIONVEHICLE_H_
+#ifndef GGAF_DX_LOCUSVEHICLE_H_
+#define GGAF_DX_LOCUSVEHICLE_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "ActorVehicle.h"
 
@@ -21,15 +21,15 @@ namespace GgafDx {
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class LocoVehicle : public ActorVehicle {
+class LocusVehicle : public ActorVehicle {
 
 private:
     /** [r]移動車両の助手A(移動速度の補佐) */
-    LocoVehicleMvAssistant* _pAsstMv;
+    LocusVehicleMvAssistant* _pAsstMv;
     /** [r]移動車両の助手B(軸回転方角角速度の補佐) */
-    LocoVehicleFaceAngAssistant* _pAsstFaceAng;
+    LocusVehicleFaceAngAssistant* _pAsstFaceAng;
     /** [r]移動車両の助手C(移動方角角速度の補佐) */
-    LocoVehicleMvAngAssistant* _pAsstMvAng;
+    LocusVehicleMvAngAssistant* _pAsstMvAng;
 
 public:
     /** [r]対象アクター */
@@ -40,25 +40,25 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
-    explicit LocoVehicle(GeometricActor* prm_pActor);
+    explicit LocusVehicle(GeometricActor* prm_pActor);
 
     /**
      * 移動車両の助手A(移動速度の補佐)を取得 .
      * @return 移動車両の助手A
      */
-    LocoVehicleMvAssistant* asstMv();
+    LocusVehicleMvAssistant* asstMv();
 
     /**
      * 移動車両の助手B(軸回転方角角速度の補佐)を取得 .
      * @return 移動車両の助手B
      */
-    LocoVehicleFaceAngAssistant* asstFaceAng();
+    LocusVehicleFaceAngAssistant* asstFaceAng();
 
     /**
      * 移動車両の助手C(移動方角角速度の補佐)を取得 .
      * @return 移動車両の助手C
      */
-    LocoVehicleMvAngAssistant* asstMvAng();
+    LocusVehicleMvAngAssistant* asstMvAng();
 
     void reset();
 
@@ -1143,10 +1143,10 @@ public:
 
     /**
      * 移動車両の仕事を引継ぐ .
-     * 他の LocoVehicle オブジェクトを状態を自身に引継ぐ .
-     * @param prm_pLocoVehicle 引継元
+     * 他の LocusVehicle オブジェクトを状態を自身に引継ぐ .
+     * @param prm_pLocusVehicle 引継元
      */
-    void takeoverFrom(LocoVehicle* const prm_pLocoVehicle);
+    void takeoverFrom(LocusVehicle* const prm_pLocusVehicle);
 
     /**
      * 移動を停止します。
@@ -1160,9 +1160,9 @@ public:
      */
     virtual void behave();
 
-    virtual ~LocoVehicle();
+    virtual ~LocusVehicle();
 };
 
 }
-#endif /*GGAF_DX_LOCOMOTIONVEHICLE_H_*/
+#endif /*GGAF_DX_LOCUSVEHICLE_H_*/
 

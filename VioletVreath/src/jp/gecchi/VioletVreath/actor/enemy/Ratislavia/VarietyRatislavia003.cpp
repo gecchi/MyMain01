@@ -1,6 +1,6 @@
 #include "VarietyRatislavia003.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Omulus/EnemyOmulus.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ratislavia/EnemyRatislaviaEye.h"
@@ -29,11 +29,11 @@ void VarietyRatislavia003::initialize() {
     _x = pSpacetime->_x_bound_right + r1_*2 + r2_*2;
     _y = 0;
     _z = MyShip::lim_z_right_;
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setRzRyMvAng(D180ANG, 0);
-    pLocoVehicle->setMvVelo(3000);
-    pLocoVehicle->setFaceAngVelo(AXIS_Z, -20);
-    pLocoVehicle->setFaceAngVelo(AXIS_Y, 10);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setRzRyMvAng(D180ANG, 0);
+    pLocusVehicle->setMvVelo(3000);
+    pLocusVehicle->setFaceAngVelo(AXIS_Z, -20);
+    pLocusVehicle->setFaceAngVelo(AXIS_Y, 10);
 }
 
 void VarietyRatislavia003::processBehavior() {

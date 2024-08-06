@@ -1,6 +1,6 @@
 #include "SmpActor.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "SmpCaretaker.h"
 #include "scene/SmpSpacetime.h"

@@ -1,6 +1,6 @@
 #include "LockonCursor001_Main.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
@@ -34,7 +34,7 @@ void LockonCursor001_Main::onActive() {
     getScaler()->setRange(60000, 2000); //スケーリング・範囲
     setScale(60000); //(6000%)
     getScaler()->transitionLinearUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
-    getLocoVehicle()->setFaceAngVelo(AXIS_Z, 1000);        //回転
+    getLocusVehicle()->setFaceAngVelo(AXIS_Z, 1000);        //回転
     getSeXmtr()->play3D(0); //ロックオンSE
 
     if (pTarget_) {
@@ -51,7 +51,7 @@ void LockonCursor001_Main::onActive() {
 
 void LockonCursor001_Main::processBehavior() {
     //_TRACE_(FUNC_NAME<<" B "<<getActiveFrame()<<", Alpha="<<getAlpha()<<" _sx="<<_sx<<" this="<<NODE_INFO<<" pTarget_="<<pTarget_);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafDx::Scaler* const pScaler = getScaler();
     GgafCore::Phase* pPhase = getPhase();
     if (pPhase->getCurrent() == LOCKON001_PHASE_LOCK || pPhase->getCurrent() == LOCKON001_PHASE_FIRST_LOCK) {
@@ -70,12 +70,12 @@ void LockonCursor001_Main::processBehavior() {
                     ABS(pTarget_->_y-_y) <= PX_C(200) &&
                     ABS(pTarget_->_z-_z) <= PX_C(200)) {
                     setPositionAt(pTarget_);
-                    pLocoVehicle->setMvVelo(0);
-                    pLocoVehicle->_angvelo_face[AXIS_Z] = 1000;
+                    pLocusVehicle->setMvVelo(0);
+                    pLocusVehicle->_angvelo_face[AXIS_Z] = 1000;
                 } else {
-                    pLocoVehicle->_angvelo_face[AXIS_Z] = 3000; //速周り
-                    pLocoVehicle->setMvAngTwd(pTarget_);
-                    pLocoVehicle->setMvVelo(PX_C(200));
+                    pLocusVehicle->_angvelo_face[AXIS_Z] = 3000; //速周り
+                    pLocusVehicle->setMvAngTwd(pTarget_);
+                    pLocusVehicle->setMvVelo(PX_C(200));
                 }
             } else {
                 pPhase->change(LOCKON001_PHASE_RELEASE);
@@ -95,7 +95,7 @@ void LockonCursor001_Main::processBehavior() {
     }
 
     getUvFlipper()->behave();
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     pScaler->behave();
     LockonCursor001::processBehavior();
     //_TRACE_(FUNC_NAME<<" E "<<getActiveFrame()<<", Alpha="<<getAlpha()<<" _sx="<<_sx<<" this="<<NODE_INFO<<" pTarget_="<<pTarget_);
@@ -114,7 +114,7 @@ void LockonCursor001_Main::lockon(GgafDx::GeometricActor* prm_pTarget) {
         return;
     }
     pTarget_ = prm_pTarget;
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafDx::Scaler* const pScaler = getScaler();
     GgafCore::Phase* pPhase = getPhase();
     if (pPhase->getCurrent() == LOCKON001_PHASE_FIRST_LOCK) {
@@ -123,7 +123,7 @@ void LockonCursor001_Main::lockon(GgafDx::GeometricActor* prm_pTarget) {
     } else if (pPhase->getCurrent() == LOCKON001_PHASE_RELEASE) {
         pScaler->setRange(60000, 2000); //スケーリング・範囲
         pScaler->transitionLinearUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
-        pLocoVehicle->setFaceAngVelo(AXIS_Z, 1000);   //回転
+        pLocusVehicle->setFaceAngVelo(AXIS_Z, 1000);   //回転
         getSeXmtr()->play3D(0); //ロックオンSE
         pPhase->change(LOCKON001_PHASE_FIRST_LOCK);
     }
@@ -131,18 +131,18 @@ void LockonCursor001_Main::lockon(GgafDx::GeometricActor* prm_pTarget) {
 }
 void LockonCursor001_Main::releaseLockon() {
     if (isActiveInTheTree()) {
-        GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+        GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
         GgafDx::Scaler* const pScaler = getScaler();
         GgafCore::Phase* pPhase = getPhase();
         if (pPhase->getCurrent() == LOCKON001_PHASE_FIRST_LOCK) {
             pScaler->setRange(60000, 2000); //スケーリング・範囲
             pScaler->transitionLinearUntil(60000, 60);//スケーリング
-            pLocoVehicle->setFaceAngVelo(AXIS_Z, pLocoVehicle->_angvelo_face[AXIS_Z]*-3); //速く逆回転
+            pLocusVehicle->setFaceAngVelo(AXIS_Z, pLocusVehicle->_angvelo_face[AXIS_Z]*-3); //速く逆回転
             pPhase->change(LOCKON001_PHASE_RELEASE);
         } else if (pPhase->getCurrent() == LOCKON001_PHASE_LOCK) {
             pScaler->setRange(60000, 2000); //スケーリング・範囲
             pScaler->transitionLinearUntil(60000, 60);//スケーリング
-            pLocoVehicle->setFaceAngVelo(AXIS_Z, pLocoVehicle->_angvelo_face[AXIS_Z]*-3); //速く逆回転
+            pLocusVehicle->setFaceAngVelo(AXIS_Z, pLocusVehicle->_angvelo_face[AXIS_Z]*-3); //速く逆回転
             pPhase->change(LOCKON001_PHASE_RELEASE);
         } else if (pPhase->getCurrent() == LOCKON001_PHASE_RELEASE) {
             //何も無し

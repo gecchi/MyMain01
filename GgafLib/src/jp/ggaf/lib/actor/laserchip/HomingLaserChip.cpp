@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/actor/laserchip/HomingLaserChip.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 
 
 
@@ -17,18 +17,18 @@ HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model) :
     _begining_rx = _rx;
     _begining_ry = _ry;
     _begining_rz = _rz;
-    _begining_rz_mv = getLocoVehicle()->_rz_mv;
-    _begining_ry_mv = getLocoVehicle()->_ry_mv;
-    _begining_velo_mv   = getLocoVehicle()->_velo_mv;
+    _begining_rz_mv = getLocusVehicle()->_rz_mv;
+    _begining_ry_mv = getLocusVehicle()->_ry_mv;
+    _begining_velo_mv   = getLocusVehicle()->_velo_mv;
     _prev_x = _x;
     _prev_y = _y;
     _prev_z = _z;
     _prev_rx = _rx;
     _prev_ry = _ry;
     _prev_rz = _rz;
-    _prev_rz_mv = getLocoVehicle()->_rz_mv;
-    _prev_ry_mv = getLocoVehicle()->_ry_mv;
-    _prev_velo_mv   = getLocoVehicle()->_velo_mv;
+    _prev_rz_mv = getLocusVehicle()->_rz_mv;
+    _prev_ry_mv = getLocusVehicle()->_ry_mv;
+    _prev_velo_mv   = getLocusVehicle()->_velo_mv;
     _is_fix_begin_pos = true;
 }
 
@@ -36,7 +36,7 @@ void HomingLaserChip::onActive() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     HomingLaserChip* pChip_infront =  (HomingLaserChip*)_pChip_infront;
     //レーザーチップ出現時処理
     if (pChip_infront == nullptr) {
@@ -49,9 +49,9 @@ void HomingLaserChip::onActive() {
         _begining_rx = _rx;
         _begining_ry = _ry;
         _begining_rz = _rz;
-        _begining_rz_mv = pLocoVehicle->_rz_mv;
-        _begining_ry_mv = pLocoVehicle->_ry_mv;
-        _begining_velo_mv   = pLocoVehicle->_velo_mv;
+        _begining_rz_mv = pLocusVehicle->_rz_mv;
+        _begining_ry_mv = pLocusVehicle->_ry_mv;
+        _begining_velo_mv   = pLocusVehicle->_velo_mv;
     } else {
         _is_leader = false;
         //_TRACE_(FUNC_NAME<<" "<<getName()<<" pChip_infront =="<<(pChip_infront->getName()));
@@ -71,8 +71,8 @@ void HomingLaserChip::onActive() {
             _rx = _begining_rx;
             _ry = _begining_ry;
             _rz = _begining_rz;
-            pLocoVehicle->setRzRyMvAng(_begining_rz_mv, _begining_ry_mv);
-            pLocoVehicle->setMvVelo(_begining_velo_mv);
+            pLocusVehicle->setRzRyMvAng(_begining_rz_mv, _begining_ry_mv);
+            pLocusVehicle->setMvVelo(_begining_velo_mv);
         }
     }
 }
@@ -80,19 +80,19 @@ void HomingLaserChip::onActive() {
 void HomingLaserChip::onInactive() {
     //_TRACE_("A HomingLaserChip::onInactive() _chip_kind ="<<_chip_kind <<")");
     LaserChip* pChip_behind = _pChip_behind;
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
 
     if (pChip_behind) {
         //先頭しか動かしていないので、
         //何も考慮しないと、後方チップがその場で停止してしまう。
         //後方チップへ移動のための情報を無理やり設定して移動を継続させる。
         //先端チップ Mover 内部パラメータの移動方向と移動速度の情報をコピーすることでOK
-        GgafDx::LocoVehicle* pChip_behind_pLocoVehicle = pChip_behind->getLocoVehicle();
+        GgafDx::LocusVehicle* pChip_behind_pLocusVehicle = pChip_behind->getLocusVehicle();
         pChip_behind->_rx = _rx;
         pChip_behind->_ry = _ry;
         pChip_behind->_rz = _rz;
-        pChip_behind_pLocoVehicle->setRzRyMvAng(pLocoVehicle->_rz_mv, pLocoVehicle->_ry_mv);
-        pChip_behind_pLocoVehicle->setMvVelo(pLocoVehicle->_velo_mv);
+        pChip_behind_pLocusVehicle->setRzRyMvAng(pLocusVehicle->_rz_mv, pLocusVehicle->_ry_mv);
+        pChip_behind_pLocusVehicle->setMvVelo(pLocusVehicle->_velo_mv);
     }
 
     LaserChip::onInactive(); //つながりを切断処理
@@ -103,7 +103,7 @@ void HomingLaserChip::processBehavior() {
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
     const HomingLaserChip* const pChip_infront =  (HomingLaserChip*)_pChip_infront;
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     if (getActiveFrame() > 1) {
         //ActorDepository::dispatch() は
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者の子の一番後ろに移動される。
@@ -117,9 +117,9 @@ void HomingLaserChip::processBehavior() {
             _prev_rx = _rx;
             _prev_ry = _ry;
             _prev_rz = _rz;
-            _prev_rz_mv = pLocoVehicle->_rz_mv;
-            _prev_ry_mv = pLocoVehicle->_ry_mv;
-            _prev_velo_mv   = pLocoVehicle->_velo_mv;
+            _prev_rz_mv = pLocusVehicle->_rz_mv;
+            _prev_ry_mv = pLocusVehicle->_ry_mv;
+            _prev_velo_mv   = pLocusVehicle->_velo_mv;
             processBehaviorHeadChip(); //先頭チップのみ移動実装
         } else {
             //先頭以外のチップ数珠繋ぎ処理
@@ -129,17 +129,17 @@ void HomingLaserChip::processBehavior() {
             _prev_rx = _rx;
             _prev_ry = _ry;
             _prev_rz = _rz;
-            _prev_rz_mv = pLocoVehicle->_rz_mv;
-            _prev_ry_mv = pLocoVehicle->_ry_mv;
-            _prev_velo_mv   = pLocoVehicle->_velo_mv;
+            _prev_rz_mv = pLocusVehicle->_rz_mv;
+            _prev_ry_mv = pLocusVehicle->_ry_mv;
+            _prev_velo_mv   = pLocusVehicle->_velo_mv;
             _x  = pChip_infront->_prev_x;
             _y  = pChip_infront->_prev_y;
             _z  = pChip_infront->_prev_z;
             _rx = pChip_infront->_prev_rx;
             _ry = pChip_infront->_prev_ry;
             _rz = pChip_infront->_prev_rz;
-            pLocoVehicle->setRzRyMvAng(pChip_infront->_prev_rz_mv, pChip_infront->_prev_ry_mv);
-            pLocoVehicle->setMvVelo(pChip_infront->_prev_velo_mv);
+            pLocusVehicle->setRzRyMvAng(pChip_infront->_prev_rz_mv, pChip_infront->_prev_ry_mv);
+            pLocusVehicle->setMvVelo(pChip_infront->_prev_velo_mv);
         }
     }
 }

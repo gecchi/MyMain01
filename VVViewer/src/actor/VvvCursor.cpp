@@ -1,11 +1,11 @@
 #include "VvvCursor.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAssistant.h"
 
 using namespace GgafLib;
 using namespace VVViewer;
@@ -26,7 +26,7 @@ VvvCursor::VvvCursor(const char* prm_name) :
 void VvvCursor::initialize() {
     //座標設定
     _x = _y = _z = 0; //(0,0,0) は画面の中心
-    getLocoVehicle()->_angvelo_face[AXIS_Z] = 1000;
+    getLocusVehicle()->_angvelo_face[AXIS_Z] = 1000;
     GgafDx::Scaler* const pScaler = getScaler();
     pScaler->setRange(2000, 4000);
     pScaler->beat(30, 2, 0, 28, -1); //無限ループ
@@ -56,8 +56,8 @@ void VvvCursor::processBehavior() {
     }
 
     _pUvFlipper->behave();
-    getLocoVehicle()->behave();
-    if (getLocoVehicle()->asstMv()->hasJustFinishedSliding()) {
+    getLocusVehicle()->behave();
+    if (getLocusVehicle()->asstMv()->hasJustFinishedSliding()) {
         //理想位置に補正
         _x = tx_;
         _y = ty_;
@@ -72,14 +72,14 @@ void VvvCursor::sinkMe() {
 }
 
 void VvvCursor::moveTo(coord X, coord Y, coord Z) {
-    getLocoVehicle()->asstMv()->stopSliding();
-    getLocoVehicle()->setMvVelo(0);
-    getLocoVehicle()->setMvAcce(0);
+    getLocusVehicle()->asstMv()->stopSliding();
+    getLocusVehicle()->setMvVelo(0);
+    getLocusVehicle()->setMvAcce(0);
     tx_ = X;
     ty_ = Y;
     tz_ = Z;
-    getLocoVehicle()->setMvAngTwd(tx_, ty_, tz_);
-    getLocoVehicle()->asstMv()->slideByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0, true);
+    getLocusVehicle()->setMvAngTwd(tx_, ty_, tz_);
+    getLocusVehicle()->asstMv()->slideByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0, true);
     _pPhase->change(CUR_ON_MOVE);
 }
 

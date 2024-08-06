@@ -1,6 +1,6 @@
 #include "EnemyEmiliaFragment.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -18,11 +18,11 @@ EnemyEmiliaFragment::EnemyEmiliaFragment(const char* prm_name) :
 void EnemyEmiliaFragment::onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_pFormationEmilia) {
     EnemyEmiliaBase::onDispatched(prm_pOrg, prm_pFormationEmilia);
     setPositionAt(prm_pOrg);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->takeoverFrom(prm_pOrg->getLocoVehicle());
-    pLocoVehicle->setMvVelo(pLocoVehicle->_velo_mv/2); //半分のスピードへ
-    pLocoVehicle->addRyMvAng(RND(D_ANG(-90), D_ANG(+90)));
-    pLocoVehicle->addRzMvAng(RND(D_ANG(-90), D_ANG(+90)));
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->takeoverFrom(prm_pOrg->getLocusVehicle());
+    pLocusVehicle->setMvVelo(pLocusVehicle->_velo_mv/2); //半分のスピードへ
+    pLocusVehicle->addRyMvAng(RND(D_ANG(-90), D_ANG(+90)));
+    pLocusVehicle->addRzMvAng(RND(D_ANG(-90), D_ANG(+90)));
 }
 
 void EnemyEmiliaFragment::onCreateModel() {
@@ -34,7 +34,7 @@ void EnemyEmiliaFragment::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(80));
-    getLocoVehicle()->setRollPitchYawFaceAngVelo(D_ANG(2), D_ANG(4), D_ANG(8));
+    getLocusVehicle()->setRollPitchYawFaceAngVelo(D_ANG(2), D_ANG(4), D_ANG(8));
 }
 
 void EnemyEmiliaFragment::onActive() {

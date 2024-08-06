@@ -4,7 +4,7 @@
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 
@@ -61,7 +61,7 @@ void FormationAllas001::processBehavior() {
                 if (getActiveFrame() % interval_frames_ == 0) {
                     EnemyAllas* pAllas = (EnemyAllas*)calledUpMember(num_Allas_);
                     if (pAllas) {
-                        pAllas->getLocoVehicle()->setMvVelo(velo_mv_);
+                        pAllas->getLocusVehicle()->setMvVelo(velo_mv_);
                         pAllas->config(pConn_pCurveManuf_->peek(), nullptr, nullptr);
                         onCalledUpAllas(pAllas);
                     }

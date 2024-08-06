@@ -1,7 +1,7 @@
 #include "TestPa.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafLib;
@@ -26,7 +26,7 @@ void TestPa::onActive() {
 }
 
 void TestPa::processBehavior() {
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
     //getSeXmtr()->behave();
     dispStamina();
 }

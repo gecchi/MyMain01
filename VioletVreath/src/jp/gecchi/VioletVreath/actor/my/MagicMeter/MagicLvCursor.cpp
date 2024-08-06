@@ -2,12 +2,12 @@
 
 #include "jp/ggaf/core/util/RingLinkedList.hpp"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAssistant.h"
 
 
 
@@ -43,9 +43,9 @@ void MagicLvCursor::initialize() {
 }
 
 void MagicLvCursor::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->behave();
-    if (pLocoVehicle->asstMv()->hasJustFinishedSliding()) {
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->behave();
+    if (pLocusVehicle->asstMv()->hasJustFinishedSliding()) {
         //理想位置に補正
         _x = tx_;
         _y = ty_;
@@ -81,24 +81,24 @@ void MagicLvCursor::processAfterDraw() {
 }
 
 void MagicLvCursor::moveTo(int prm_lv) {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->asstMv()->stopSliding();
-    pLocoVehicle->stop();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->asstMv()->stopSliding();
+    pLocusVehicle->stop();
     point_lv_ = prm_lv;
     _x = tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     _y = ty_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
 }
 
 void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_p1, float prm_p2) {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->stop();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->stop();
     //Y座標のロール（スライド表示）の分考慮せずにY座標のLVカーソル移動計算を行っている。
     //processPreDraw()でロール分を補正する。
     point_lv_ = prm_lv;
     tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     ty_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
-    pLocoVehicle->setMvAngTwd(tx_, ty_);
-    pLocoVehicle->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx_, ty_), (int)prm_target_frames,
+    pLocusVehicle->setMvAngTwd(tx_, ty_);
+    pLocusVehicle->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx_, ty_), (int)prm_target_frames,
                                      prm_p1, prm_p2, 0, true); //ロールを考慮せずにとりあえず移動
 }
 

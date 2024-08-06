@@ -1,7 +1,7 @@
 #include "Horizon001.h"
 
 #include "jp/ggaf/dx/model/Model.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/dx/util/CollisionChecker.h"

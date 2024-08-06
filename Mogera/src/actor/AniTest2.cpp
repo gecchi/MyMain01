@@ -1,7 +1,7 @@
 #include "AniTest2.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
@@ -32,7 +32,7 @@ void AniTest2::onActive() {
 }
 
 void AniTest2::processBehavior() {
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
     _pPuppeteer->behave();
 }
 

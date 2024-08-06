@@ -2,7 +2,7 @@
 #include "EnemyErmione.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -50,7 +50,7 @@ void  EnemyErmioneArmHead::processChangeGeoFinal() {
         if (pChip) {
             //DEPO_LASER001‚Ìê‡
             pChip->setRollPitchYawFaceAng(_rx, _rz, _ry);
-            pChip->getLocoVehicle()->setRzRyMvAng(_rz, _ry); //â‘ÎÀ•WŒn
+            pChip->getLocusVehicle()->setRzRyMvAng(_rz, _ry); //â‘ÎÀ•WŒn
             pChip->setPositionAt(this);
 
             //DEPO_LASER002‚Ìê‡

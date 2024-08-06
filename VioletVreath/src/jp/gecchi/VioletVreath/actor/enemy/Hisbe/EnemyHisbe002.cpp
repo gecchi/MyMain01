@@ -1,6 +1,6 @@
 #include "EnemyHisbe002.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
@@ -54,9 +54,9 @@ void EnemyHisbe002::onCreateModel() {
 }
 
 void EnemyHisbe002::initialize() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setFaceAngVelo(AXIS_Y, 500);
-    pLocoVehicle->linkFaceAngByMvAng(true);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setFaceAngVelo(AXIS_Y, 500);
+    pLocusVehicle->linkFaceAngByMvAng(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliSphere(0, 40000);
@@ -69,7 +69,7 @@ void EnemyHisbe002::onActive() {
 }
 
 void EnemyHisbe002::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_WAIT: {
@@ -93,7 +93,7 @@ void EnemyHisbe002::processBehavior() {
             LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
                 pLaser->setPositionAt(this);
-                pLaser->getLocoVehicle()->setRzRyMvAng(_rz, _ry);
+                pLaser->getLocusVehicle()->setRzRyMvAng(_rz, _ry);
                                    //レーザーのスプラインがRELATIVE_COORD_DIRECTIONのためMvAngの設定が必要。
                 if (pLaser->getInfrontChip() == nullptr) {
                     getSeXmtr()->play3D(SE_FIRE);
@@ -119,7 +119,7 @@ void EnemyHisbe002::processBehavior() {
         }
     }
 
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     getMorpher()->behave();
     getSeXmtr()->behave();
 }

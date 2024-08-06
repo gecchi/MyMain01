@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_LOCOVEHICLEMVASSISTANT_H_
-#define GGAF_DX_LOCOVEHICLEMVASSISTANT_H_
+#ifndef GGAF_DX_LOCUSVEHICLEMVASSISTANT_H_
+#define GGAF_DX_LOCUSVEHICLEMVASSISTANT_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
@@ -13,12 +13,12 @@ namespace GgafDx {
  * @since 2013/12/05
  * @author Masatoshi Tsuge
  */
-class LocoVehicleMvAssistant : public GgafCore::Object {
-    friend class LocoVehicle;
+class LocusVehicleMvAssistant : public GgafCore::Object {
+    friend class LocusVehicle;
 
 private:
     /** [r]師匠 */
-    LocoVehicle* const _pMaster;
+    LocusVehicle* const _pMaster;
     GgafCore::TrapezoidalVeloValue<int> _smthMv;
 
     /**
@@ -32,7 +32,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit LocoVehicleMvAssistant(LocoVehicle* prm_pMaster);
+    explicit LocusVehicleMvAssistant(LocusVehicle* prm_pMaster);
 
 
     /**
@@ -125,9 +125,9 @@ public:
         return _smthMv.hasJustFinishedTransitioning();
     }
 
-    virtual ~LocoVehicleMvAssistant();
+    virtual ~LocusVehicleMvAssistant();
 };
 
 }
-#endif /*GGAF_DX_LOCOVEHICLEMVASSISTANT_H_*/
+#endif /*GGAF_DX_LOCUSVEHICLEMVASSISTANT_H_*/
 

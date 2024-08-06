@@ -3,7 +3,7 @@
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Geria/EnemyGeria.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 
@@ -26,8 +26,8 @@ void FormationGeria002::processBehavior() {
         EnemyGeria* pGeria = summonGeria();
         if (pGeria) {
             pGeria->setPositionAroundAt(this, PX_C(800));
-            pGeria->getLocoVehicle()->setRzRyMvAng(_rz, _ry); //Œü‚¢‚Ä‚é•ûŒü‚É”ò‚Î‚·
-            pGeria->getLocoVehicle()->setMvVelo(PX_C(20));
+            pGeria->getLocusVehicle()->setRzRyMvAng(_rz, _ry); //Œü‚¢‚Ä‚é•ûŒü‚É”ò‚Î‚·
+            pGeria->getLocusVehicle()->setMvVelo(PX_C(20));
             pGeria->setMigrationLength(PX_C(15000));
         }
     }

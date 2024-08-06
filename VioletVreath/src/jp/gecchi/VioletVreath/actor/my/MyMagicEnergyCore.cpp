@@ -1,7 +1,7 @@
 #include "MyMagicEnergyCore.h"
 
 #include "jp/ggaf/dx/actor/FigureActor.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/model/Model.h"

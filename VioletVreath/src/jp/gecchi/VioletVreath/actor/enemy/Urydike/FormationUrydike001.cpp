@@ -1,6 +1,6 @@
 #include "FormationUrydike001.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
@@ -64,9 +64,9 @@ void FormationUrydike001::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_ro
     pUrydike->setFaceAngTwd(entry_pos_.x + dx,
                             entry_pos_.y + dy,
                             entry_pos_.z + dz);
-    pUrydike->getLocoVehicle()->setMvAngByFaceAng();
-    pUrydike->getLocoVehicle()->setMvVelo(0);
-    pUrydike->getLocoVehicle()->setMvAcce(80);
+    pUrydike->getLocusVehicle()->setMvAngByFaceAng();
+    pUrydike->getLocusVehicle()->setMvVelo(0);
+    pUrydike->getLocusVehicle()->setMvAcce(80);
 
 //    double r = RCNV(0, getFormationColNum()                      , prm_col         , 0.3, 1.0);
 //    double g = RCNV(0, getFormationColNum()*getFormationRowNum() , prm_col*prm_row , 0.3, 1.0);

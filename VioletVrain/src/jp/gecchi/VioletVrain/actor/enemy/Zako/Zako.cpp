@@ -1,6 +1,6 @@
 #include "Zako.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/util/Input.h"
@@ -62,11 +62,11 @@ void Zako::onReset() {
 
 void Zako::onActive() {
     getUvFlipper()->setActivePtnToTop();
-    getLocoVehicle()->setFaceAngVelo(AXIS_Z, 1000);        //‰ñ“]
+    getLocusVehicle()->setFaceAngVelo(AXIS_Z, 1000);        //‰ñ“]
 }
 
 void Zako::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafCore::Phase* pPhase = getPhase();
 
     if (GgafDx::Input::isPressedKey(DIK_D)) {
@@ -82,7 +82,7 @@ void Zako::processBehavior() {
         _y -= PX_C(2); //‰º
     }
     getUvFlipper()->behave();
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
 }
 
 void Zako::processJudgement() {

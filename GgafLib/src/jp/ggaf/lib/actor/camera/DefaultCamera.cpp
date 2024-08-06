@@ -2,8 +2,8 @@
 
 #include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistantA.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 #include "jp/ggaf/dx/util/Util.h"
@@ -53,7 +53,7 @@ void DefaultCamera::initialize() {
 
 void DefaultCamera::processBehavior() {
     getCoordVehicle()->behave();
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
     GgafDx::Camera::processBehavior();
 }
 

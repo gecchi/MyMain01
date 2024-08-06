@@ -1,7 +1,7 @@
 #include "EnemyWateringLaserChip001.h"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -15,7 +15,7 @@ EnemyWateringLaserChip001::EnemyWateringLaserChip001(const char* prm_name) :
 }
 
 void EnemyWateringLaserChip001::initialize() {
-    getLocoVehicle()->linkFaceAngByMvAng(true);
+    getLocusVehicle()->linkFaceAngByMvAng(true);
     registerHitAreaCube_AutoGenMidColli(50000);
     setHitAble(true);
     setScaleR(6.0);
@@ -28,8 +28,8 @@ void EnemyWateringLaserChip001::onCreateModel() {
 
 void EnemyWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
-    getLocoVehicle()->setMvVelo(PX_C(100));
-    getLocoVehicle()->setMvAcce(PX_C(5));
+    getLocusVehicle()->setMvVelo(PX_C(100));
+    getLocusVehicle()->setMvAcce(PX_C(5));
     getStatus()->reset();
 }
 
@@ -40,8 +40,8 @@ void EnemyWateringLaserChip001::processBehavior() {
         //移動車両の活動を行うと、ずれるので、最初だけはそのままの座標で表示。
         //とはいうものの、発射元は１フレーム分移動してるので、ピッタリには見えないかもしれない。
     } else {
-        GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-        pLocoVehicle->behave();
+        GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+        pLocusVehicle->behave();
     }
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 

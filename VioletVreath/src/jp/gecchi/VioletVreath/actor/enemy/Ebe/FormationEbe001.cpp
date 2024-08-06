@@ -1,6 +1,6 @@
 #include "FormationEbe001.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ebe/EnemyEbe.h"
 
@@ -24,7 +24,7 @@ void FormationEbe001::onCalledUpEbe(EnemyEbe* pEnemyEbe) {
 //    pEnemyEbe->pVehicleLeader_->adjustAxisYFlip();
 //    pEnemyEbe->pVehicleLeader_->setAbsoluteBeginCoord();
     pEnemyEbe->setPosition(PX_C(300), PX_C(-300), PX_C(0));
-    pEnemyEbe->getLocoVehicle()->setMvAngTwd(PX_C(300), PX_C(0), PX_C(0));
+    pEnemyEbe->getLocusVehicle()->setMvAngTwd(PX_C(300), PX_C(0), PX_C(0));
 }
 
 void FormationEbe001::processBehavior() {

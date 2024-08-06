@@ -1,7 +1,7 @@
 #include "FormationAllas002.h"
 
 #include "EnemyAllas.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
@@ -42,7 +42,7 @@ void FormationAllas002::onActive() {
         EnemyAllas* pAllas = (EnemyAllas*)calledUpMember(num_Allas_);
         if (pAllas) {
             pAllas->setPosition(MyShip::lim_x_behaind_ *2 , pMYSHIP->_y+300000,  pMYSHIP->_z);
-            pAllas->getLocoVehicle()->setMvVelo(velo_mv_);
+            pAllas->getLocusVehicle()->setMvVelo(velo_mv_);
             pAllas->activateDelay(i*interval_frames_ + 1);//interval_frames_ŠÔŠu‚ÅActive‚É‚·‚éB
         }
     }

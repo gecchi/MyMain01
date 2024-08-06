@@ -1,7 +1,7 @@
 #include "EnemyErelmanCore003.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -31,7 +31,7 @@ EnemyErelmanCore003::EnemyErelmanCore003(const char* prm_name, EnemyErelmanContr
 }
 
 void EnemyErelmanCore003::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Phase* pPhase = getPhase();
@@ -61,8 +61,8 @@ void EnemyErelmanCore003::processBehavior() {
 
         case PHASE_WAIT01: {
             if (pPhase->hasJustChanged()) {
-                //pLocoVehicle->turnFaceAng(AXIS_X, D_ANG(90), D_ANG(0.5));
-                pLocoVehicle->setRollPitchYawFaceAngVelo(D_ANG(0.00717), D_ANG(0.0031), D_ANG(0.0057));
+                //pLocusVehicle->turnFaceAng(AXIS_X, D_ANG(90), D_ANG(0.5));
+                pLocusVehicle->setRollPitchYawFaceAngVelo(D_ANG(0.00717), D_ANG(0.0031), D_ANG(0.0057));
             }
             if (pPhase->hasArrivedFrameAt(10*60*60)) {
                 pPhase->changeNext();
@@ -86,7 +86,7 @@ void EnemyErelmanCore003::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
 }
 
 EnemyErelmanCore003::~EnemyErelmanCore003() {

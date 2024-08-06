@@ -1,5 +1,5 @@
 #include "EnemyOzartiaPillar01.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
@@ -35,7 +35,7 @@ void EnemyOzartiaPillar01::onActive() {
 
 void EnemyOzartiaPillar01::processBehavior() {
     //–{‘ÌˆÚ“®Œn‚Ìˆ— ‚±‚±‚©‚ç --->
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
@@ -84,7 +84,7 @@ void EnemyOzartiaPillar01::processBehavior() {
             break;
     }
     pAlphaFader->behave();
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
 }
 
 void EnemyOzartiaPillar01::processJudgement() {

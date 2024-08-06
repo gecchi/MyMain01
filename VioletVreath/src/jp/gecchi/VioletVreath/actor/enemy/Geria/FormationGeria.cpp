@@ -1,6 +1,6 @@
 #include "FormationGeria.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Geria/EnemyGeria.h"
@@ -20,7 +20,7 @@ FormationGeria::FormationGeria(
     for (int i = 0; i < prm_nGeriaStock; i++) {
         std::string name = "Geria"+XTOS(i);
         EnemyGeria* pEnemyGeria = NEW EnemyGeria(name.c_str());
-        pEnemyGeria->getLocoVehicle()->linkFaceAngByMvAng(true);
+        pEnemyGeria->getLocusVehicle()->linkFaceAngByMvAng(true);
         pDepo_->put(pEnemyGeria);
     }
     appendGroupChild(pDepo_);

@@ -1,7 +1,7 @@
 #include "EnemyIrce.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
@@ -37,9 +37,9 @@ void EnemyIrce::onCreateModel() {
 void EnemyIrce::initialize() {
     setHitAble(true);
     setScale(1000);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->linkFaceAngByMvAng(true);
-    pLocoVehicle->setMvVelo(3000);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->linkFaceAngByMvAng(true);
+    pLocusVehicle->setMvVelo(3000);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAABox(0, -10000, -10000, -10000, 10000, 10000, 10000);
@@ -52,10 +52,10 @@ void EnemyIrce::onActive() {
 }
 
 void EnemyIrce::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->turnMvAngTwd(pMYSHIP,
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->turnMvAngTwd(pMYSHIP,
                           50, 0, TURN_CLOSE_TO, true);
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     getScaler()->behave();
     //getSeXmtr()->behave();
 }

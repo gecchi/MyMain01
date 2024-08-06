@@ -3,7 +3,7 @@
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/core/util/Status.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 

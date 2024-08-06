@@ -3,7 +3,7 @@
 #include "MyBunshin.h"
 
 #include "jp/ggaf/core/util/RingLinkedList.hpp"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/manager/TextureConnection.h"
 #include "jp/ggaf/dx/model/Model.h"

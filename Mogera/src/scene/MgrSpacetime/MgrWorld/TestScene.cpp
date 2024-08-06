@@ -57,7 +57,7 @@
 #include "scene/MgrSpacetime/MgrWorld.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 
 using namespace GgafLib;
 using namespace Mogera;

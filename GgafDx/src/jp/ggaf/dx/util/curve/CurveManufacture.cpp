@@ -5,9 +5,9 @@
 #include "jp/ggaf/dx/manager/CurveSourceConnection.h"
 #include "jp/ggaf/dx/manager/CurveSourceManager.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveCoordVehicleLeader.h"
-#include "jp/ggaf/dx/util/curve/FixedFrameCurveLocoVehicleLeader.h"
-#include "jp/ggaf/dx/util/curve/FixedVelocityCurveLocoVehicleLeader.h"
-#include "jp/ggaf/dx/util/curve/SteppedCoordCurveLocoVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveLocusVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedVelocityCurveLocusVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/SteppedCoordCurveLocusVehicleLeader.h"
 
 using namespace GgafDx;
 
@@ -22,7 +22,7 @@ CurveManufacture::CurveManufacture(const char* prm_coord_spl_file) : GgafCore::O
     _total_distance = 0;
     _is_calculated = false;
     _move_method = (MoveMethod)0;
-    _move_driver = LocoVehicle;
+    _move_driver = LocusVehicle;
 }
 
 CurveManufacture::CurveManufacture(CurveSource* prm_pCurve) {
@@ -36,7 +36,7 @@ CurveManufacture::CurveManufacture(CurveSource* prm_pCurve) {
     _total_distance = 0;
     _is_calculated = false;
     _move_method = (MoveMethod)0;
-    _move_driver = LocoVehicle;
+    _move_driver = LocusVehicle;
 }
 
 void CurveManufacture::adjustAxisRate(double prm_rate_x, double prm_rate_y, double prm_rate_z) {
@@ -76,20 +76,20 @@ VehicleLeader* CurveManufacture::createVehicleLeader(GgafDx::GeometricActor* prm
     if (_move_method == FixedVelocity) {
         if (_move_driver == CoordVehicle) {
             //pVehicleLeader = NEW FixedVelocityCurveCoordVehicleLeader(this, prm_pActor->getCoordVehicle());
-        } else if (_move_driver == LocoVehicle) {
-            pVehicleLeader = NEW FixedVelocityCurveLocoVehicleLeader(this, prm_pActor->getLocoVehicle());
+        } else if (_move_driver == LocusVehicle) {
+            pVehicleLeader = NEW FixedVelocityCurveLocusVehicleLeader(this, prm_pActor->getLocusVehicle());
         }
     } else if (_move_method == FixedVelocity) {
         if (_move_driver == CoordVehicle) {
             pVehicleLeader = NEW FixedFrameCurveCoordVehicleLeader(this, prm_pActor->getCoordVehicle());
-        } else if (_move_driver == LocoVehicle) {
-            pVehicleLeader = NEW FixedFrameCurveLocoVehicleLeader(this, prm_pActor->getLocoVehicle());
+        } else if (_move_driver == LocusVehicle) {
+            pVehicleLeader = NEW FixedFrameCurveLocusVehicleLeader(this, prm_pActor->getLocusVehicle());
         }
     } else if (_move_method == SteppedCoord) {
         if (_move_driver == CoordVehicle) {
             //pVehicleLeader = NEW SteppedCoordCurveCoordVehicleLeader(this, prm_pActor->getCoordVehicle());
-        } else if (_move_driver == LocoVehicle) {
-            pVehicleLeader = NEW SteppedCoordCurveLocoVehicleLeader(this, prm_pActor->getLocoVehicle());
+        } else if (_move_driver == LocusVehicle) {
+            pVehicleLeader = NEW SteppedCoordCurveLocusVehicleLeader(this, prm_pActor->getLocusVehicle());
         }
     }
 
@@ -99,8 +99,8 @@ VehicleLeader* CurveManufacture::createVehicleLeader(GgafDx::GeometricActor* prm
     return pVehicleLeader;
 }
 
-VehicleLeader* CurveManufacture::createLocoVehicleLeader(GgafDx::LocoVehicle* prm_pLocoVehicle) {
-    throwCriticalException("CurveManufacture::createLocoVehicleLeader() 下位でオーバーライドして実装が必要です。");
+VehicleLeader* CurveManufacture::createLocusVehicleLeader(GgafDx::LocusVehicle* prm_pLocusVehicle) {
+    throwCriticalException("CurveManufacture::createLocusVehicleLeader() 下位でオーバーライドして実装が必要です。");
     return nullptr;
 }
 

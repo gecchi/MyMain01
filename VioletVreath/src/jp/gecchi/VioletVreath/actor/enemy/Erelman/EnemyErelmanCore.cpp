@@ -1,7 +1,7 @@
 #include "EnemyErelmanCore.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -53,9 +53,9 @@ void EnemyErelmanCore::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->linkFaceAngByMvAng(true);
-    pLocoVehicle->forceMvVeloRange(PX_C(15));
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->linkFaceAngByMvAng(true);
+    pLocusVehicle->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyErelmanCore::onActive() {
@@ -64,7 +64,7 @@ void EnemyErelmanCore::onActive() {
 }
 
 void EnemyErelmanCore::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Phase* pPhase = getPhase();
@@ -72,7 +72,7 @@ void EnemyErelmanCore::processBehavior() {
         case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);
-//            pLocoVehicle->setRollFaceAngVelo(D_ANG(3));
+//            pLocusVehicle->setRollFaceAngVelo(D_ANG(3));
             pPhase->changeNext();
             break;
         }
@@ -95,7 +95,7 @@ void EnemyErelmanCore::processBehavior() {
 
         case PHASE_WAIT01: {
             if (pPhase->hasJustChanged()) {
-//                pLocoVehicle->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
+//                pLocusVehicle->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
             }
             if (pPhase->hasArrivedFrameAt(10*60*60)) {
                 pPhase->changeNext();
@@ -119,7 +119,7 @@ void EnemyErelmanCore::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
 }
 
 void EnemyErelmanCore::processJudgement() {

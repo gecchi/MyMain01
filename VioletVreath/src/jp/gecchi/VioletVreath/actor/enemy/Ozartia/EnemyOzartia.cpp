@@ -3,7 +3,7 @@
 #include "EnemyOzartiaShot01.h"
 #include "EnemyOzartiaLaserChip01.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
@@ -11,7 +11,7 @@
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dx/model/Model.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAssistant.h"
 
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
@@ -109,9 +109,9 @@ void EnemyOzartia::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->forceMvVeloRange(PX_C(1), PX_C(30));
-    pLocoVehicle->linkFaceAngByMvAng(false); //独立
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->forceMvVeloRange(PX_C(1), PX_C(30));
+    pLocusVehicle->linkFaceAngByMvAng(false); //独立
     setHitAble(false);
 }
 
@@ -125,14 +125,14 @@ void EnemyOzartia::onActive() {
 void EnemyOzartia::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
     //本体移動系の処理 ここから --->
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE1_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pLocoVehicle->setMvAngTwd(pMyShip);
+            pLocusVehicle->setMvAngTwd(pMyShip);
             pPhase->changeNext();
             break;
         }
@@ -155,8 +155,8 @@ void EnemyOzartia::processBehavior() {
         case PHASE1_STAY: {
             if (pPhase->hasJustChanged()) {
                 faceto_ship_ = true;
-                pLocoVehicle->setMvAcce(0);
-                pLocoVehicle->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_CLOSE_TO, false);
+                pLocusVehicle->setMvAcce(0);
+                pLocusVehicle->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
             if (is_hit_ || pPhase->hasArrivedFrameAt(4*60)) {
                 //ヒットするか、しばらくボーっとしてると移動開始
@@ -223,11 +223,11 @@ void EnemyOzartia::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 //ターン
                 faceto_ship_ = false;
-                pLocoVehicle->setMvVeloBottom();
-                pLocoVehicle->setMvAcce(10); //微妙に加速
-                pLocoVehicle->turnMvAngTwd(&posMvTarget_, D_ANG(2), 0, TURN_CLOSE_TO, false);
+                pLocusVehicle->setMvVeloBottom();
+                pLocusVehicle->setMvAcce(10); //微妙に加速
+                pLocusVehicle->turnMvAngTwd(&posMvTarget_, D_ANG(2), 0, TURN_CLOSE_TO, false);
             }
-            if (!pLocoVehicle->isTurningMvAng()) {
+            if (!pLocusVehicle->isTurningMvAng()) {
                 //ターンしたら移動へ
                 pPhase->change(PHASE1_MOVING);
             }
@@ -236,10 +236,10 @@ void EnemyOzartia::processBehavior() {
         case PHASE1_MOVING: {
             if (pPhase->hasJustChanged()) {
                 //自機の正面付近へスイーっと行きます
-                pLocoVehicle->asstMv()->slideByVd(pLocoVehicle->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
-                                       0.3, 0.7, pLocoVehicle->getMvVeloBottom(), true);
+                pLocusVehicle->asstMv()->slideByVd(pLocusVehicle->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
+                                       0.3, 0.7, pLocusVehicle->getMvVeloBottom(), true);
             }
-            if (!pLocoVehicle->asstMv()->isSliding()) {
+            if (!pLocusVehicle->asstMv()->isSliding()) {
                 //到着したら終了
                 pPhase->change(PHASE1_STAY);
             }
@@ -248,7 +248,7 @@ void EnemyOzartia::processBehavior() {
         //////////// 特殊移動開始 ////////////
         case PHASE1_SP_MV01: {
             if (pPhase->hasJustChanged()) {
-                pLocoVehicle->setMvAngTwd(pMyShip);
+                pLocusVehicle->setMvAngTwd(pMyShip);
                 pVehicleLeader01_->start(RELATIVE_COORD_DIRECTION, 10); //10回
             }
             if (pVehicleLeader01_->isFinished()) {
@@ -300,20 +300,20 @@ void EnemyOzartia::processBehavior() {
 
     if (faceto_ship_) {
         //自機向きモード
-        if (!pLocoVehicle->isTurningFaceAng()) {
-            pLocoVehicle->turnFaceAngTwd(pMyShip, D_ANG(5), 0, TURN_CLOSE_TO, false);
+        if (!pLocusVehicle->isTurningFaceAng()) {
+            pLocusVehicle->turnFaceAngTwd(pMyShip, D_ANG(5), 0, TURN_CLOSE_TO, false);
         }
     } else {
         //進行方向向きモード
-        if (!pLocoVehicle->isTurningFaceAng()) {
-            pLocoVehicle->turnRzRyFaceAngTo(pLocoVehicle->_rz_mv,pLocoVehicle->_ry_mv,
+        if (!pLocusVehicle->isTurningFaceAng()) {
+            pLocusVehicle->turnRzRyFaceAngTo(pLocusVehicle->_rz_mv,pLocusVehicle->_ry_mv,
                                           D_ANG(2), 0, TURN_CLOSE_TO, false);
         }
     }
 
     pAlphaFader->behave();
     pVehicleLeader01_->behave();
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     is_hit_ = false;
 }
 

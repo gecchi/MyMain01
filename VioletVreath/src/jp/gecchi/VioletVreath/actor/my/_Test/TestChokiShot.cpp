@@ -1,6 +1,6 @@
 #include "TestChokiShot.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -24,11 +24,11 @@ void TestChokiShot::initialize() {
 void TestChokiShot::onActive() {
     getStatus()->reset();
     setHitAble(true);
-    getLocoVehicle()->setMvVelo(PX_C(30));
+    getLocusVehicle()->setMvVelo(PX_C(30));
 }
 
 void TestChokiShot::processBehavior() {
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
 }
 
 void TestChokiShot::processJudgement() {

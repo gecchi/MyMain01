@@ -16,9 +16,9 @@
 #include "jp/ggaf/dx/actor/supporter/Colorist.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAssistant.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
@@ -121,8 +121,8 @@ void MyBunshin::onActive() {
     setAlpha(0); //!!
 //    getAlphaFader()->transitionLinearToTop(120);
     resetMaterialColor(); //!!
-//    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-//    pLocoVehicle->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_); //分身のクルクル速度
+//    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+//    pLocusVehicle->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_); //分身のクルクル速度
 }
 
 void MyBunshin::processBehavior() {
@@ -133,7 +133,7 @@ void MyBunshin::processSettlementBehavior() {
     ry_prev_ = _ry;
     rx_prev_ = _rx;
     changeGeoLocal(); //ローカル座標の操作とする。
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
 
     //ロックオン対象へ方向を向ける
 //    _is_thunder_lock = false;
@@ -154,20 +154,20 @@ void MyBunshin::processSettlementBehavior() {
             //計算の結果、rz_target ry_target に向けば、ロックオン対象に向ける
 //            setRzRyFaceAng(rz_target, ry_target);
             //こここここここｋ
-            pLocoVehicle->turnRzRyFaceAngTo(
+            pLocusVehicle->turnRzRyFaceAngTo(
                             rz_target, ry_target,
                             D_ANG(5), D_ANG(0),
                             TURN_CLOSE_TO, false);
         } else {
 //            setRzRyFaceAng(0, 0);
-            pLocoVehicle->turnRzRyFaceAngTo(
+            pLocusVehicle->turnRzRyFaceAngTo(
                             D_ANG(0), D_ANG(0),
                             D_ANG(5), D_ANG(0),
                             TURN_CLOSE_TO, false);
         }
     }
 
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     getScaler()->behave();
     getAlphaFader()->behave(); //!!
     getColorist()->behave();   //!!
@@ -202,9 +202,9 @@ void MyBunshin::processChangeGeoFinal() {
     //            if (pSnipeShot) {
     //                getSeXmtr()->play3D(SE_FIRE_SHOT);
     //                pSnipeShot->setPositionAt(this);
-    //                pSnipeShot->getLocoVehicle()->setRzRyMvAng(_rz, _ry);
-    //                pSnipeShot->getLocoVehicle()->setMvVelo(PX_C(70));
-    //                pSnipeShot->getLocoVehicle()->setMvAcce(100);
+    //                pSnipeShot->getLocusVehicle()->setRzRyMvAng(_rz, _ry);
+    //                pSnipeShot->getLocusVehicle()->setMvVelo(PX_C(70));
+    //                pSnipeShot->getLocusVehicle()->setMvAcce(100);
     //            }
             } else {
                 if (pMyShip->shot_level_ >= 1) {
@@ -212,9 +212,9 @@ void MyBunshin::processChangeGeoFinal() {
                     if (pShot) {
                         getSeXmtr()->play3D(SE_FIRE_SHOT);
                         pShot->setPositionAt(this);
-                        pShot->getLocoVehicle()->setRzRyMvAng(_rz, _ry);
-                        pShot->getLocoVehicle()->setMvVelo(PX_C(70));
-                        pShot->getLocoVehicle()->setMvAcce(100);
+                        pShot->getLocusVehicle()->setRzRyMvAng(_rz, _ry);
+                        pShot->getLocusVehicle()->setMvVelo(PX_C(70));
+                        pShot->getLocusVehicle()->setMvAcce(100);
                     }
                 }
                 if (pMyShip->shot_level_ == 2) {
@@ -304,7 +304,7 @@ void MyBunshin::onHit(const GgafCore::Actor* prm_pOtherActor) {
 
 void MyBunshin::effectFreeModeIgnited() {
     pBunshinController_->effectFreeModeIgnited();
-//    getLocoVehicle()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_*2); //分身の速いクルクル
+//    getLocusVehicle()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_*2); //分身の速いクルクル
     getColorist()->flush(1.0, 5, 5, 3); //!!
 }
 

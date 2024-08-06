@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/core/util/Status.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/NaviVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
@@ -15,7 +15,7 @@ using namespace GgafDx;
 
 GeometricActor::GeometricActor(const char* prm_name,
                                CollisionChecker* prm_pChecker) : GgafCore::MainActor(prm_name),
-_pLocoVehicle(nullptr),
+_pLocusVehicle(nullptr),
 _pCoordVehicle(nullptr),
 _pNaviVehicle(nullptr),
 _pScaler(nullptr),
@@ -60,8 +60,8 @@ void GeometricActor::setCollisionChecker(CollisionChecker* prm_pChecker) {
     _pChecker= prm_pChecker;
 }
 
-LocoVehicle* GeometricActor::getLocoVehicle() {
-    return _pLocoVehicle ? _pLocoVehicle : _pLocoVehicle = NEW LocoVehicle(this);
+LocusVehicle* GeometricActor::getLocusVehicle() {
+    return _pLocusVehicle ? _pLocusVehicle : _pLocusVehicle = NEW LocusVehicle(this);
 }
 
 CoordVehicle* GeometricActor::getCoordVehicle() {
@@ -77,8 +77,8 @@ VehicleLeader* GeometricActor::createCurveVehicleLeader(CurveManufacture* prm_pC
     CurveManufacture::MoveDriver move_driver = prm_pCurveManufacture->_move_driver;
     if (move_driver == CurveManufacture::MoveDriver::CoordVehicle) {
         pVehicleLeader = prm_pCurveManufacture->createCoordVehicleLeader(getCoordVehicle());
-    } else if (move_driver == CurveManufacture::MoveDriver::LocoVehicle) {
-        pVehicleLeader = prm_pCurveManufacture->createLocoVehicleLeader(getLocoVehicle());
+    } else if (move_driver == CurveManufacture::MoveDriver::LocusVehicle) {
+        pVehicleLeader = prm_pCurveManufacture->createLocusVehicleLeader(getLocusVehicle());
     } else {
         throwCriticalException("createCurveVehicleLeader() : CurveManufacture::MoveDrive Ç™ê›íËÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒÅB"<<
                 "ldr_file="<<prm_pCurveManufacture->_ldr_file<<" move_driver="<<move_driver<<" this="<<NODE_INFO<<"");
@@ -390,8 +390,8 @@ GgafCore::GroupHead* GeometricActor::appendGroupChildAsFk(kind_t prm_kind,
     prm_pGeoActor->_rx = prm_rx_init_local;
     prm_pGeoActor->_ry = prm_ry_init_local;
     prm_pGeoActor->_rz = prm_rz_init_local;
-//    prm_pGeoActor->getLocoVehicle()->_rz_mv = prm_rz_init_local;
-//    prm_pGeoActor->getLocoVehicle()->_ry_mv = prm_ry_init_local;
+//    prm_pGeoActor->getLocusVehicle()->_rz_mv = prm_rz_init_local;
+//    prm_pGeoActor->getLocusVehicle()->_ry_mv = prm_ry_init_local;
 
     prm_pGeoActor->changeGeoFinal();
     return pGroupHead;
@@ -624,7 +624,7 @@ void GeometricActor::onEnd() {
 }
 
 GeometricActor::~GeometricActor() {
-    GGAF_DELETE_NULLABLE(_pLocoVehicle);
+    GGAF_DELETE_NULLABLE(_pLocusVehicle);
     GGAF_DELETE_NULLABLE(_pCoordVehicle);
     GGAF_DELETE_NULLABLE(_pNaviVehicle);
     GGAF_DELETE_NULLABLE(_pScaler);

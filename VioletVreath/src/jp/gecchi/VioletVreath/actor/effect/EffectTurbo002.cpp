@@ -1,7 +1,7 @@
 #include "EffectTurbo002.h"
 
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 
 
@@ -30,13 +30,13 @@ void EffectTurbo002::onActive() {
     setScale(1000);
     getScaler()->transitionLinearUntil(100000, 60);//スケーリング・60F費やして1000に縮小
     setRyFaceAng(D90ANG);
-    getLocoVehicle()->setFaceAngVelo(AXIS_Z, 2000);
+    getLocusVehicle()->setFaceAngVelo(AXIS_Z, 2000);
 }
 
 void EffectTurbo002::processBehavior() {
     addAlpha(-(1.0/60.0));
     getUvFlipper()->behave();
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
     getScaler()->behave();
 }
 

@@ -1,13 +1,13 @@
 #include "AniTest.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/util/Input.h"
 
 using namespace GgafLib;
@@ -31,7 +31,7 @@ void AniTest::onActive() {
 }
 
 void AniTest::processBehavior() {
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
     _pPuppeteer->behave();
 }
 

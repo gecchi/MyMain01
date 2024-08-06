@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_STEPPEDCOORDCURVELOCOVEHICLELEADER_H_
-#define GGAF_DX_STEPPEDCOORDCURVELOCOVEHICLELEADER_H_
+#ifndef GGAF_DX_STEPPEDCOORDCURVELOCUSVEHICLELEADER_H_
+#define GGAF_DX_STEPPEDCOORDCURVELOCUSVEHICLELEADER_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 
@@ -12,10 +12,10 @@ namespace GgafDx {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class SteppedCoordCurveLocoVehicleLeader : public VehicleLeader {
+class SteppedCoordCurveLocusVehicleLeader : public VehicleLeader {
 
 public:
-    GgafDx::LocoVehicle* _pLocoVehicle_target;
+    GgafDx::LocusVehicle* _pLocusVehicle_target;
     SteppedCoordCurveManufacture* _pSteppedSplManuf;
 
     /** [r]補完点(基準点も含む)の数 */
@@ -27,9 +27,9 @@ public:
     /**
      * コンストラクタ .
      * @param prm_pManufacture
-     * @param prm_pLocoVehicle 対象のアクターの移動車両
+     * @param prm_pLocusVehicle 対象のアクターの移動車両
      */
-    SteppedCoordCurveLocoVehicleLeader(CurveManufacture* prm_pManufacture, GgafDx::LocoVehicle* prm_pLocoVehicle);
+    SteppedCoordCurveLocusVehicleLeader(CurveManufacture* prm_pManufacture, GgafDx::LocusVehicle* prm_pLocusVehicle);
 
     virtual void restart() override;
     /**
@@ -38,8 +38,8 @@ public:
      */
     virtual void behave() override;
 
-    virtual ~SteppedCoordCurveLocoVehicleLeader();
+    virtual ~SteppedCoordCurveLocusVehicleLeader();
 };
 
 }
-#endif /*GGAF_DX_FIXEDVELOCITYCURVELOCOVEHICLELEADER_H_*/
+#endif /*GGAF_DX_FIXEDVELOCITYCURVELOCUSVEHICLELEADER_H_*/

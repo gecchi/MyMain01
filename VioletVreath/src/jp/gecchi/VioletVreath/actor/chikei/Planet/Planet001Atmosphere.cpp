@@ -1,7 +1,7 @@
 #include "Planet001Atmosphere.h"
 
 #include "jp/ggaf/dx/model/Model.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/lib/actor/WorldBoundActor.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
@@ -24,12 +24,12 @@ void Planet001Atmosphere::onCreateModel() {
 
 void Planet001Atmosphere::initialize() {
     setCullingDraw(false);
-    getLocoVehicle()->setFaceAngVelo(AXIS_Z, 1000);
+    getLocusVehicle()->setFaceAngVelo(AXIS_Z, 1000);
 }
 
 void Planet001Atmosphere::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->behave();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->behave();
 }
 
 Planet001Atmosphere::~Planet001Atmosphere() {

@@ -1,7 +1,7 @@
 #include "EnemyEmusLaserChip001.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafLib;
@@ -18,9 +18,9 @@ void EnemyEmusLaserChip001::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setCullingDraw(false);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setMvVelo(300000);
-    pLocoVehicle->linkFaceAngByMvAng(true);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setMvVelo(300000);
+    pLocusVehicle->linkFaceAngByMvAng(true);
 }
 
 void EnemyEmusLaserChip001::onActive() {
@@ -30,7 +30,7 @@ void EnemyEmusLaserChip001::onActive() {
 }
 
 void EnemyEmusLaserChip001::processBehavior() {
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
 }
 
 void EnemyEmusLaserChip001::processJudgement() {

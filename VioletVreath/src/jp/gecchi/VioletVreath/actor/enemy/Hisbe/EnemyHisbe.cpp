@@ -1,7 +1,7 @@
 #include "EnemyHisbe.h"
 
 #include "jp/ggaf/core/actor/SceneChief.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
@@ -106,7 +106,7 @@ void EnemyHisbe::onCreateModel() {
 }
 
 void EnemyHisbe::initialize() {
-//    getLocoVehicle()->linkFaceAngByMvAng(true);
+//    getLocusVehicle()->linkFaceAngByMvAng(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliSphere(0, 40000);
@@ -187,7 +187,7 @@ void EnemyHisbe::processBehavior() {
             break;
         }
     }
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
     getMorpher()->behave();
     getSeXmtr()->behave();
 }

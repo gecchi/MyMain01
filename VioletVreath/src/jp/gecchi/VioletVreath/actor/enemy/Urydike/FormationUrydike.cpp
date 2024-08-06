@@ -9,7 +9,7 @@
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/manager/XpmManager.h"
 #include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;

@@ -5,7 +5,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/core/util/RingLinkedList.hpp"
 #include "jp/ggaf/core/util/ResourceConnection.hpp"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/NaviVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/manager/TextureConnection.h"
@@ -65,7 +65,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
 }
 
 void MyBunshinWateringLaserChip001::initialize() {
-    getLocoVehicle()->linkFaceAngByMvAng(true);
+    getLocusVehicle()->linkFaceAngByMvAng(true);
     registerHitAreaCube_AutoGenMidColli(MAX_VELO/4); //‘¬“x‚É‰ž‚¶‚Ä‘å‚«‚³‚ð•Ï‰»
     setHitAble(true);
     setScaleR(6.0);

@@ -4,11 +4,11 @@
 #include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveCoordVehicleLeader.h"
-#include "jp/ggaf/dx/util/curve/FixedFrameCurveLocoVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveLocusVehicleLeader.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Eres/EnemyEresShot001.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
@@ -65,10 +65,10 @@ void EnemyEres::onActive() {
     setHitAble(true);
     getStatus()->reset();
     iMovePatternNo_ = 0;
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->linkFaceAngByMvAng(true);
-    pLocoVehicle->setRollFaceAngVelo(2000);
-//    pLocoVehicle->setMvVelo(3000);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->linkFaceAngByMvAng(true);
+    pLocusVehicle->setRollFaceAngVelo(2000);
+//    pLocusVehicle->setMvVelo(3000);
     pVehicleLeader_->start(RELATIVE_COORD); //カーブ移動を開始
 }
 
@@ -84,14 +84,14 @@ void EnemyEres::processBehavior() {
             pTama = (GgafDx::FigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
                 pTama->setPositionAt(this);
-                pTama->getLocoVehicle()->setRzRyMvAng(-D90ANG + way[i], D90ANG);
+                pTama->getLocusVehicle()->setRzRyMvAng(-D90ANG + way[i], D90ANG);
             }
         }
         for (int i = 16; i < 32; i++) {
             pTama = (GgafDx::FigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
                 pTama->setPositionAt(this);
-                pTama->getLocoVehicle()->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
+                pTama->getLocusVehicle()->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
             }
         }
 
@@ -99,7 +99,7 @@ void EnemyEres::processBehavior() {
     }
     pVehicleLeader_->behave(); //カーブ移動を進める
     getCoordVehicle()->behave();
-    getLocoVehicle()->behave(); //次の座標へ移動
+    getLocusVehicle()->behave(); //次の座標へ移動
     //getSeXmtr()->behave();
 }
 

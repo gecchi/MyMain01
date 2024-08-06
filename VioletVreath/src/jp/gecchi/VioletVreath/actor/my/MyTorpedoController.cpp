@@ -1,7 +1,7 @@
 #include "MyTorpedoController.h"
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "MyTorpedo.h"
 #include "MyTorpedoBlast.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
@@ -93,7 +93,7 @@ bool MyTorpedoController::fire() {
             } else {
                 papTorpedo_[0]->pTarget_ = pLockonCtrler_->listTarget_.getNext(0);
             }
-            papTorpedo_[0]->getLocoVehicle()->setRzRyMvAng(pOrg_->_rz, pOrg_->_ry); //”ò‚Ô•ûŒü
+            papTorpedo_[0]->getLocusVehicle()->setRzRyMvAng(pOrg_->_rz, pOrg_->_ry); //”ò‚Ô•ûŒü
             papTorpedo_[0]->activate();
 
         } else {
@@ -140,7 +140,7 @@ bool MyTorpedoController::fire() {
                     papTorpedo_[i]->pTarget_ = pLockonCtrler_->listTarget_.getNext(i);
                 }
                 UTIL::convVectorToRzRy(x2, y2, z2, rz, ry);
-                papTorpedo_[i]->getLocoVehicle()->setRzRyMvAng(rz, ry); //”ò‚Ô•ûŒü
+                papTorpedo_[i]->getLocusVehicle()->setRzRyMvAng(rz, ry); //”ò‚Ô•ûŒü
                 papTorpedo_[i]->activate();
                 ang_way = UTIL::addAng(ang_way, ang_way_offset); //Ÿ‚Ì•úËó‚Ì‹›—‹‚Ö
             }

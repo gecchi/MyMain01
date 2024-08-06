@@ -1,8 +1,8 @@
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistantA.h"
 
 
@@ -18,7 +18,7 @@ void DefaultCameraViewPoint::initialize() {
 
 void DefaultCameraViewPoint::processBehavior() {
     getCoordVehicle()->behave();
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
 }
 
 void DefaultCameraViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t, double prm_p1, double prm_p2) {

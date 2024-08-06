@@ -1,7 +1,7 @@
 #include "EnemyOebius.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -49,9 +49,9 @@ void EnemyOebius::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->linkFaceAngByMvAng(true);
-    pLocoVehicle->forceMvVeloRange(PX_C(15));
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->linkFaceAngByMvAng(true);
+    pLocusVehicle->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyOebius::onActive() {
@@ -60,14 +60,14 @@ void EnemyOebius::onActive() {
 }
 
 void EnemyOebius::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pLocoVehicle->setRollFaceAngVelo(D_ANG(3));
+            pLocusVehicle->setRollFaceAngVelo(D_ANG(3));
             pPhase->changeNext();
             break;
         }
@@ -100,7 +100,7 @@ void EnemyOebius::processBehavior() {
 
         case PHASE_CURVE: {
             if (pPhase->hasJustChanged()) {
-                getLocoVehicle()->setMvAcce(0); //‰Á‘¬“x‚ª‚ ‚éê‡‚ÍØ‚Á‚Ä‚¨‚­
+                getLocusVehicle()->setMvAcce(0); //‰Á‘¬“x‚ª‚ ‚éê‡‚ÍØ‚Á‚Ä‚¨‚­
                 pVehicleLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1‚Í–³ŒÀƒ‹[ƒv
             }
             //FormationOebius‚Ì‰ñ“]ˆÚ“®‚É’Ç]
@@ -123,9 +123,9 @@ void EnemyOebius::processBehavior() {
             if (pPhase->hasArrivedFrameAt(delay_)) {
                 //ŽU‚èŽU‚è‚É‚È‚é
                 pVehicleLeader_->stop();
-                pLocoVehicle->turnRzRyMvAngTo(RND_ABOUT(pLocoVehicle->_rz_mv, D_ANG(90)), RND_ABOUT(pLocoVehicle->_ry_mv, D_ANG(90)),
+                pLocusVehicle->turnRzRyMvAngTo(RND_ABOUT(pLocusVehicle->_rz_mv, D_ANG(90)), RND_ABOUT(pLocusVehicle->_ry_mv, D_ANG(90)),
                                          D_ANG(2), 0, TURN_CLOSE_TO,false);
-                pLocoVehicle->setMvAcce(100);
+                pLocusVehicle->setMvAcce(100);
             }
 
             if (pPhase->hasArrivedFrameAt(delay_ + 200)) {
@@ -150,7 +150,7 @@ void EnemyOebius::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
 }
 
 void EnemyOebius::processJudgement() {

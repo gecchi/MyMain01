@@ -1,7 +1,7 @@
 #include "EnemyEmus.h"
 
 #include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
@@ -60,7 +60,7 @@ void EnemyEmus::onCreateModel() {
 
 void EnemyEmus::initialize() {
     setHitAble(true);
-    getLocoVehicle()->linkFaceAngByMvAng(true);
+    getLocusVehicle()->linkFaceAngByMvAng(true);
     getMorpher()->setRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
@@ -81,7 +81,7 @@ void EnemyEmus::onActive() {
 
 void EnemyEmus::processBehavior() {
     changeGeoLocal(); //計算はローカル座標系
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
@@ -98,7 +98,7 @@ void EnemyEmus::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(MORPHTARGET_HATCH_OPEN,
                                            0.0f, frame_of_morph_interval_);
-                pLocoVehicle->setRollFaceAngVelo(0);
+                pLocusVehicle->setRollFaceAngVelo(0);
             }
 
             //次へ
@@ -111,7 +111,7 @@ void EnemyEmus::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(MORPHTARGET_HATCH_OPEN,
                                            1.0f, frame_of_morph_interval_);
-                pLocoVehicle->setRollFaceAngVelo(3000);
+                pLocusVehicle->setRollFaceAngVelo(3000);
             }
             if (pPhase->hasArrivedFrameAt(frame_of_morph_interval_/2)) {
                 //開くモーションが半分以上まで到達したなら
@@ -135,7 +135,7 @@ void EnemyEmus::processBehavior() {
             break;
     }
     getMorpher()->behave();
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     changeGeoFinal(); //絶対座標系に戻す
 }
 
@@ -148,7 +148,7 @@ void EnemyEmus::processChangeGeoFinal() {
                 GgafDx::FigureActor* pChip = (GgafDx::FigureActor*)pDepo_->dispatch();
                 if (pChip) {
                     pChip->setPositionAt(this);
-                    pChip->getLocoVehicle()->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
+                    pChip->getLocusVehicle()->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
                 } else {
                     pDepo_ = nullptr;
                 }

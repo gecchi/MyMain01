@@ -1,7 +1,7 @@
 #include "EnemyStraightLaserChip001.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafLib;
@@ -14,7 +14,7 @@ EnemyStraightLaserChip001::EnemyStraightLaserChip001(const char* prm_name) :
 }
 
 void EnemyStraightLaserChip001::initialize() {
-    getLocoVehicle()->setRzRyMvAng(0,0);
+    getLocusVehicle()->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(15000);
     setHitAble(true);
     setScaleR(6.0);

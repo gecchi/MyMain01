@@ -1,7 +1,7 @@
 #include "EnemyTalante.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -41,9 +41,9 @@ void EnemyTalante::onCreateModel() {
 }
 
 void EnemyTalante::initialize() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->linkFaceAngByMvAng(true);
-    pLocoVehicle->setRollFaceAngVelo(5000);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->linkFaceAngByMvAng(true);
+    pLocusVehicle->setRollFaceAngVelo(5000);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
@@ -59,16 +59,16 @@ void EnemyTalante::onActive() {
     getStatus()->reset();
     setHitAble(true);
     Z_ok_ = Y_ok_ = false;
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setMvAcce(0);
-    pLocoVehicle->setMvVelo(4000);
-    pLocoVehicle->forceMvVeloRange(50000);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setMvAcce(0);
+    pLocusVehicle->setMvVelo(4000);
+    pLocusVehicle->forceMvVeloRange(50000);
     getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyTalante::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
@@ -92,14 +92,14 @@ void EnemyTalante::processBehavior() {
             if (Z_ok_ == false && pMyShip->_z - PX_C(5) <= _z && _z <= pMyShip->_z + PX_C(5)) {
                 //Z座標揃った
                 Z_ok_ = true;
-                pLocoVehicle->addMvVelo(2000);
+                pLocusVehicle->addMvVelo(2000);
                 if (pMyShip->_y <= _y) {
                     //真下へ折れる
-                    pLocoVehicle->turnRzRyMvAngTo(D270ANG, D0ANG,
+                    pLocusVehicle->turnRzRyMvAngTo(D270ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //真上へ折れる
-                    pLocoVehicle->turnRzRyMvAngTo(D90ANG, D0ANG,
+                    pLocusVehicle->turnRzRyMvAngTo(D90ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
@@ -107,19 +107,19 @@ void EnemyTalante::processBehavior() {
             if (Y_ok_ == false && pMyShip->_y - PX_C(5) <= _y && _y <= pMyShip->_y + PX_C(5)) {
                 //Y座標揃った
                 Y_ok_ = true;
-                pLocoVehicle->addMvVelo(2000);
+                pLocusVehicle->addMvVelo(2000);
                 if (pMyShip->_z <= _z) {
                     //奥の自機の方向折れる
-                    pLocoVehicle->turnRzRyMvAngTo(D0ANG, D90ANG,
+                    pLocusVehicle->turnRzRyMvAngTo(D0ANG, D90ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //手前の自機の方向折れる
-                    pLocoVehicle->turnRzRyMvAngTo(D0ANG, D270ANG,
+                    pLocusVehicle->turnRzRyMvAngTo(D0ANG, D270ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
 
-            if (pLocoVehicle->isTurningMvAng() == false) {
+            if (pLocusVehicle->isTurningMvAng() == false) {
                 if (Y_ok_ && Z_ok_) {
                     //Z座標Y座標揃ったら次の動きへ
                     pPhase->changeNext();
@@ -136,15 +136,15 @@ void EnemyTalante::processBehavior() {
                 //X軸方向に動く
                 if (pMyShip->_x <= _x) {
                     //左へ折れる
-                    pLocoVehicle->turnRzRyMvAngTo(D180ANG, D0ANG,
+                    pLocusVehicle->turnRzRyMvAngTo(D180ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //右へ折れる
-                    pLocoVehicle->turnRzRyMvAngTo(D0ANG, D0ANG,
+                    pLocusVehicle->turnRzRyMvAngTo(D0ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
-            if (pLocoVehicle->isTurningMvAng() == false) {
+            if (pLocusVehicle->isTurningMvAng() == false) {
                 pPhase->changeNext(); //次の動きへ
             }
             break;
@@ -152,13 +152,13 @@ void EnemyTalante::processBehavior() {
 
         case PHASE_MOVE01_4: {
             if (pPhase->hasJustChanged()) {
-                pLocoVehicle->setMvAcce(300);//加速開始
+                pLocusVehicle->setMvAcce(300);//加速開始
             }
             break;
         }
 
     }
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
 
     //getSeXmtr()->behave();
 }

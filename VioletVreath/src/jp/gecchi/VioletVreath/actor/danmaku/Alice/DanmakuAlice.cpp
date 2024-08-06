@@ -36,7 +36,7 @@ void DanmakuAlice::onActive() {
 }
 
 void DanmakuAlice::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafCore::Phase* pPhase = getPhase();
 
     switch (pPhase->getCurrent()) {

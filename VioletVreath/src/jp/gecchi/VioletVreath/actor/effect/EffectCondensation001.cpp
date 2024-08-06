@@ -1,6 +1,6 @@
 #include "EffectCondensation001.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -31,7 +31,7 @@ void EffectCondensation001::onActive() {
     getScaler()->setRange(30000, 1000); //スケーリング・範囲
     setScale(30000);
     getScaler()->transitionLinearUntil(1000, 30);//スケーリング・60F費やして1000に縮小
-    getLocoVehicle()->setFaceAngVelo(AXIS_Z, 1000);        //回転
+    getLocusVehicle()->setFaceAngVelo(AXIS_Z, 1000);        //回転
 }
 
 void EffectCondensation001::processBehavior() {
@@ -47,7 +47,7 @@ void EffectCondensation001::processBehavior() {
         pScaler->beat(30, 2, 0, 26, -1); //無限ループ
     }
     getUvFlipper()->behave();
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
     pScaler->behave();
 }
 

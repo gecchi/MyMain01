@@ -1,9 +1,9 @@
 #include "MagicMeterCursor001.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAssistant.h"
 
 
 
@@ -31,10 +31,10 @@ void MagicMeterCursor001::onActive() {
 }
 
 void MagicMeterCursor001::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     setAlpha(pMagicMeter_->getAlpha());
-    pLocoVehicle->behave();
-    if (pLocoVehicle->asstMv()->hasJustFinishedSliding()) {
+    pLocusVehicle->behave();
+    if (pLocusVehicle->asstMv()->hasJustFinishedSliding()) {
         //—‘zˆÊ’u‚É•â³
         _x = tx_;
         _y = ty_;
@@ -48,9 +48,9 @@ void MagicMeterCursor001::processJudgement() {
 void MagicMeterCursor001::moveTo(int prm_magic_mater_index) {
     tx_ = pMagicMeter_->_x + pMagicMeter_->width_*prm_magic_mater_index + (pMagicMeter_->width_/2);
     ty_ = pMagicMeter_->_y + (pMagicMeter_->height_/2);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setMvAngTwd(tx_, ty_);
-    pLocoVehicle->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx_, ty_), 12,
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setMvAngTwd(tx_, ty_);
+    pLocusVehicle->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx_, ty_), 12,
                                   0.2, 0.4, 0, true);
 }
 

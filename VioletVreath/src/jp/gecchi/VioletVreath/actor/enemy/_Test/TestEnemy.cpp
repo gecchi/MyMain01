@@ -1,6 +1,6 @@
 #include "TestEnemy.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"

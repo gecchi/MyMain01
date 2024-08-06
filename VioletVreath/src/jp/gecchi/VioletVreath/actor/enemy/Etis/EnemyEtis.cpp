@@ -1,6 +1,6 @@
 #include "EnemyEtis.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
@@ -52,10 +52,10 @@ void EnemyEtis::initialize() {
 void EnemyEtis::onActive() {
     getStatus()->reset();
     setAlpha(1.0);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setFaceAngVelo(AXIS_Z, D_ANG(1));
-    pLocoVehicle->setRzRyMvAng(D0ANG, D180ANG);
-    pLocoVehicle->setMvVelo(PX_C(3));
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setFaceAngVelo(AXIS_Z, D_ANG(1));
+    pLocusVehicle->setRzRyMvAng(D0ANG, D180ANG);
+    pLocusVehicle->setMvVelo(PX_C(3));
     const coord renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 4;
     const coord renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 4;
     Spacetime* pSpacetime =  pCARETAKER->getSpacetime();
@@ -67,7 +67,7 @@ void EnemyEtis::onActive() {
 
 void EnemyEtis::processBehavior() {
     //À•W‚É”½‰f
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
 }
 
 void EnemyEtis::processJudgement() {

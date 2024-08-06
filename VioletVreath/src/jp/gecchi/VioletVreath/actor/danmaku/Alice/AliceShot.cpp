@@ -1,7 +1,7 @@
 #include "AliceShot.h"
 
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 using namespace GgafLib;
@@ -21,22 +21,22 @@ void AliceShot::initialize() {
 }
 void AliceShot::onReset() {
     setCullingDraw(false);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setRollFaceAngVelo(D_ANG(3));
-    pLocoVehicle->linkFaceAngByMvAng(true);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setRollFaceAngVelo(D_ANG(3));
+    pLocusVehicle->linkFaceAngByMvAng(true);
 }
 
 void AliceShot::onActive() {
     setHitAble(true, false);
     getStatus()->reset();
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setRyMvAng(D90ANG);
-    pLocoVehicle->setRzMvAngVelo(D_ANG(1));
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setRyMvAng(D90ANG);
+    pLocusVehicle->setRzMvAngVelo(D_ANG(1));
 }
 
 void AliceShot::processBehavior() {
     //À•W‚É”½‰f
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
 }
 
 void AliceShot::processJudgement() {

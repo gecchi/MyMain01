@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/camera/DefaultCameraUpVector.h"
 
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistantA.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 
@@ -16,7 +16,7 @@ DefaultCameraUpVector::DefaultCameraUpVector(const char* prm_name) : GgafDx::Cam
 
 void DefaultCameraUpVector::processBehavior() {
     getCoordVehicle()->behave();
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
 }
 
 //void DefaultCameraUpVector::moveTo(dir26 prm_dir_no, frame prm_spent) {

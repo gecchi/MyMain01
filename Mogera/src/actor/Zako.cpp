@@ -1,7 +1,7 @@
 #include "Zako.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
@@ -46,10 +46,10 @@ void Zako::onCreateModel() {
 }
 
 void Zako::initialize() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->linkFaceAngByMvAng(true);
-    pLocoVehicle->setRollFaceAngVelo(D_ANG(2));
-    pLocoVehicle->setMvVelo(PX_C(1));
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->linkFaceAngByMvAng(true);
+    pLocusVehicle->setRollFaceAngVelo(D_ANG(2));
+    pLocusVehicle->setMvVelo(PX_C(1));
 
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
@@ -65,7 +65,7 @@ void Zako::onActive() {
 }
 
 void Zako::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
 //    GgafCore::Phase* pPhase = getPhase();
 //    switch (pPhase->getCurrent()) {
 //        case PHASE_INIT: {
@@ -75,7 +75,7 @@ void Zako::processBehavior() {
 //
 //        case PHASE_CURVE: {
 //            if (pPhase->hasJustChanged()) {
-//                getLocoVehicle()->setMvAcce(0); //加速度がある場合は切っておく
+//                getLocusVehicle()->setMvAcce(0); //加速度がある場合は切っておく
 //                pVehicleLeader_->start(RELATIVE_COORD_DIRECTION, 1);
 //            }
 //            pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
@@ -96,7 +96,7 @@ void Zako::processBehavior() {
 //            break;
 //    }
 //
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
 }
 
 void Zako::processJudgement() {

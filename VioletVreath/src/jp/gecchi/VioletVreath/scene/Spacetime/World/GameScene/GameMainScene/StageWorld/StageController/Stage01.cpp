@@ -46,7 +46,7 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
 //    EnemyHisbe* pTest = NEW EnemyHisbe("tst");
 //    pTest->setPosition(PX_C(0),PX_C(0), PX_C(100));
 //    pTest->setFaceAngTwd(PX_C(100), PX_C(100), PX_C(100));
-//    pTest->getLocoVehicle()->behave();
+//    pTest->getLocusVehicle()->behave();
 //    getSceneChief()->appendGroupChild(pTest);
     //<-----debug
 

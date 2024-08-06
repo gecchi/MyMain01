@@ -1,6 +1,6 @@
 #include "EnemyTamago01.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
@@ -44,11 +44,11 @@ void EnemyTamago01::onCreateModel() {
 
 void EnemyTamago01::initialize() {
     setHitAble(true);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->linkFaceAngByMvAng(true);
-    pLocoVehicle->setRollFaceAngVelo(1000);
-    pLocoVehicle->setMvAngTwd(900000, 300000, 300000);
-    pLocoVehicle->setMvVelo(3000);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->linkFaceAngByMvAng(true);
+    pLocusVehicle->setRollFaceAngVelo(1000);
+    pLocusVehicle->setMvAngTwd(900000, 300000, 300000);
+    pLocusVehicle->setMvVelo(3000);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
 //    pChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_PP);
@@ -118,7 +118,7 @@ void EnemyTamago01::processBehavior() {
 //    if (GgafDx::Input::isPressedKey(DIK_0)) {
 //        pModel->getTexBlinker()->->setScaleToBottom();
 //    }
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
 
     if (iMovePatternNo_ == 0) {
         //カーブ移動中
@@ -129,7 +129,7 @@ void EnemyTamago01::processBehavior() {
 
     if (iMovePatternNo_ == 1) {
         //カーブ移動終了時
-        pLocoVehicle->turnMvAngTwd(pMYSHIP->_x+800000, pMYSHIP->_y, pMYSHIP->_z,
+        pLocusVehicle->turnMvAngTwd(pMYSHIP->_x+800000, pMYSHIP->_y, pMYSHIP->_z,
                                             2000, 0,
                                             TURN_CLOSE_TO, false);
         iMovePatternNo_++; //次の行動パターンへ
@@ -143,7 +143,7 @@ void EnemyTamago01::processBehavior() {
 
     }
     if (getBehaveingFrame() % 30U == 0) {
-        pLocoVehicle->turnMvAngTwd(pMYSHIP,
+        pLocusVehicle->turnMvAngTwd(pMYSHIP,
                                 2000,0,TURN_CLOSE_TO, false);
 
         if (pDepo_shot_) {
@@ -160,8 +160,8 @@ void EnemyTamago01::processBehavior() {
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
                 if (pActor) {
-                    pActor->getLocoVehicle()->linkFaceAngByMvAng(true);
-                    pActor->getLocoVehicle()->setRzRyMvAngByRyRz(paAng_way[i], target_RyRz_Rz);
+                    pActor->getLocusVehicle()->linkFaceAngByMvAng(true);
+                    pActor->getLocusVehicle()->setRzRyMvAngByRyRz(paAng_way[i], target_RyRz_Rz);
                     pActor->setPositionAt(this);
                 }
             }
@@ -179,7 +179,7 @@ void EnemyTamago01::processBehavior() {
     if (pVehicleLeader_Tamago01Move_) {
         pVehicleLeader_Tamago01Move_->behave();
     }
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     getScaler()->behave();
     getUvFlipper()->behave();
     //getSeXmtr()->behave();

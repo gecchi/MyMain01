@@ -1,6 +1,6 @@
 #include "VreathItem.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
@@ -28,9 +28,9 @@ VreathItem::VreathItem(const char* prm_name, const char* prm_model, void* prm_pF
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
-    pLocoVehicle->linkFaceAngByMvAng(true);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
+    pLocusVehicle->linkFaceAngByMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
     setHitAble(true, false); //画面外当たり判定は無効
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
@@ -59,8 +59,8 @@ void VreathItem::onActive() {
 //    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
 ////    int scattered_distance = scattered_renge/2 + 400000;
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->forceMvVeloRange(0, 20000);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->forceMvVeloRange(0, 20000);
     double vX, vY, vZ;
     UTIL::getNormalizedVector(
             pMyShip->_x - _x,
@@ -69,11 +69,11 @@ void VreathItem::onActive() {
             vX, vY, vZ);
     int d = PX_C(200);
     int r = PX_C(75);
-    pLocoVehicle->setMvAngTwd( (coord)(_x + (vX * d) + RND(-r, +r)),
+    pLocusVehicle->setMvAngTwd( (coord)(_x + (vX * d) + RND(-r, +r)),
                               (coord)(_y + (vY * d) + RND(-r, +r)),
                               (coord)(_z + (vZ * d) + RND(-r, +r)) );
-    pLocoVehicle->setMvVelo(2000);
-    pLocoVehicle->setMvAcce(100);
+    pLocusVehicle->setMvVelo(2000);
+    pLocusVehicle->setMvAcce(100);
 
     getPhase()->reset(PHASE_DRIFT);
     _sx = _sy = _sz = 1000;
@@ -81,7 +81,7 @@ void VreathItem::onActive() {
 
 void VreathItem::processBehavior() {
     //通常移動
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafDx::CoordVehicle* const pCoordVehicle = getCoordVehicle();
     GgafCore::Phase* pPhase = getPhase();
     if (pPhase->getCurrent() == PHASE_DRIFT) {
@@ -99,11 +99,11 @@ void VreathItem::processBehavior() {
         MyShip* pMyShip = pMYSHIP;
         if (pPhase->hasJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
-            pCoordVehicle->setVeloXYZ(pLocoVehicle->_vX * pLocoVehicle->_velo_mv,
-                                     pLocoVehicle->_vY * pLocoVehicle->_velo_mv,
-                                     pLocoVehicle->_vZ * pLocoVehicle->_velo_mv );
+            pCoordVehicle->setVeloXYZ(pLocusVehicle->_vX * pLocusVehicle->_velo_mv,
+                                     pLocusVehicle->_vY * pLocusVehicle->_velo_mv,
+                                     pLocusVehicle->_vZ * pLocusVehicle->_velo_mv );
             pCoordVehicle->execGravitationMvSequenceTwd(pMyShip, PX_C(20), 200, PX_C(100));
-            pLocoVehicle->stop();
+            pLocusVehicle->stop();
         }
 
         //かつ自機近辺に到達？
@@ -140,7 +140,7 @@ void VreathItem::processBehavior() {
         }
         pMyShip->getStatus()->plus(STAT_Stamina, 1);
     }
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     pCoordVehicle->behave();
 }
 

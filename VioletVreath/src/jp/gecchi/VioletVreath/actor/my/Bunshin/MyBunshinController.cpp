@@ -16,9 +16,9 @@
 #include "jp/ggaf/dx/actor/supporter/Colorist.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAssistant.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
@@ -55,15 +55,15 @@ void MyBunshinController::onReset() {
 }
 
 void MyBunshinController::onActive() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_); //分身のクルクル速度
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_); //分身のクルクル速度
     pBunshin_->onActive();
 }
 
 void MyBunshinController::processBehavior() {
     changeGeoLocal(); //ローカル座標の操作とする。
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->behave();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->behave();
     getScaler()->behave();
     changeGeoFinal();
 }
@@ -76,11 +76,11 @@ void MyBunshinController::onInactive() {
 }
 
 void MyBunshinController::effectFreeModeIgnited() {
-    getLocoVehicle()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_*2); //分身の速いクルクル
+    getLocusVehicle()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_*2); //分身の速いクルクル
 }
 
 void MyBunshinController::effectFreeModePause() {
-    getLocoVehicle()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_);
+    getLocusVehicle()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_);
 }
 
 void MyBunshinController::setRadiusPosition(coord prm_radius_pos) {
@@ -118,8 +118,8 @@ void MyBunshinController::slideMvRadiusPosition(coord prm_target_radius_pos, fra
     bool is_local = _is_local;
     if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
     coord d = prm_target_radius_pos - _y;
-    getLocoVehicle()->setRzRyMvAng(D90ANG, D0ANG); //Y軸方向
-    getLocoVehicle()->asstMv()->slideByDt(d, prm_spent_frames, 0.2, 0.8, 0, true);
+    getLocusVehicle()->setRzRyMvAng(D90ANG, D0ANG); //Y軸方向
+    getLocusVehicle()->asstMv()->slideByDt(d, prm_spent_frames, 0.2, 0.8, 0, true);
     if (!is_local) { changeGeoFinal(); }  //座標系を戻す
 }
 
@@ -127,9 +127,9 @@ void MyBunshinController::addExpanse(angvelo prm_ang_expanse) {
     if (_is_local) {
         _rz = UTIL::simplifyAng(_rz+prm_ang_expanse);
     } else {
-        GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-        if (pLocoVehicle->isTurningFaceAng()) {
-            pLocoVehicle->_target_face[AXIS_Z] = UTIL::simplifyAng(pLocoVehicle->_target_face[AXIS_Z]+prm_ang_expanse);
+        GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+        if (pLocusVehicle->isTurningFaceAng()) {
+            pLocusVehicle->_target_face[AXIS_Z] = UTIL::simplifyAng(pLocusVehicle->_target_face[AXIS_Z]+prm_ang_expanse);
         } else {
             _rz_local = UTIL::simplifyAng(_rz_local+prm_ang_expanse);
         }
@@ -143,7 +143,7 @@ angvelo MyBunshinController::getExpanse() {
 void MyBunshinController::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames) {
     bool is_local = _is_local;
     if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
-    getLocoVehicle()->asstFaceAng()->turnRzRyByDtTo(prm_target_ang_expanse, D_ANG(0), TURN_CLOSE_TO, true,
+    getLocusVehicle()->asstFaceAng()->turnRzRyByDtTo(prm_target_ang_expanse, D_ANG(0), TURN_CLOSE_TO, true,
                                                     prm_spent_frames, 0.3, 0.5, 0, true);
     if (!is_local) { changeGeoFinal(); }  //座標系を戻す
 }

@@ -1,6 +1,6 @@
 #include "FormationErelman003.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
@@ -129,13 +129,13 @@ void FormationErelman003::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_ro
 //    pErelman->setFaceAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
 //                            pErelman->_y + (pErelman->_y - geo_.y),
 //                            pErelman->_z + (pErelman->_z - geo_.z) );
-//    pErelman->getLocoVehicle()->setMvAngByFaceAng();
+//    pErelman->getLocusVehicle()->setMvAngByFaceAng();
 
-    pErelman->getLocoVehicle()->setMvAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
+    pErelman->getLocusVehicle()->setMvAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
                                        pErelman->_y + (pErelman->_y - geo_.y),
                                        pErelman->_z + (pErelman->_z - geo_.z) );
-    pErelman->getLocoVehicle()->setMvVelo(0);
-    pErelman->getLocoVehicle()->setMvAcce(80);
+    pErelman->getLocusVehicle()->setMvVelo(0);
+    pErelman->getLocusVehicle()->setMvAcce(80);
 
 //    if (prm_row == 0) {
 //        pErelman->setMaterialColor(1, 1, 1);

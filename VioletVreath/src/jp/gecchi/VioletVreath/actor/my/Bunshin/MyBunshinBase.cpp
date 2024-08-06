@@ -10,9 +10,9 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAngAssistant.h"
 #include "jp/ggaf/dx/util/GeoElem.h"
 #include "jp/ggaf/lib/util/Quaternion.hpp"
 #include "jp/ggaf/lib/util/Direction26Util.h"
@@ -95,7 +95,7 @@ void MyBunshinBase::config(
 
 void MyBunshinBase::initialize() {
     setScaleR(2.0);
-    getLocoVehicle()->linkFaceAngByMvAng(true);
+    getLocusVehicle()->linkFaceAngByMvAng(true);
 }
 
 void MyBunshinBase::onReset() {
@@ -103,7 +103,7 @@ void MyBunshinBase::onReset() {
     bunshin_radius_pos_ = bunshin_default_radius_pos_;
 
     setRollFaceAng(bunshin_default_ang_pos_);
-    getLocoVehicle()->setRollFaceAngVelo(bunshin_default_angvelo_mv_);
+    getLocusVehicle()->setRollFaceAngVelo(bunshin_default_angvelo_mv_);
     getPhase()->reset(PHASE_INIT);
     trace_mode_ = TRACE_GRADIUS;
 }
@@ -131,11 +131,11 @@ void MyBunshinBase::onInactive() {
 }
 
 void MyBunshinBase::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafDx::CoordVehicle* const pCoordVehicle = getCoordVehicle();
 
     if (is_isolate_mode_) {
-        pLocoVehicle->behave();
+        pLocusVehicle->behave();
         pCoordVehicle->behave();
         return;
     }
@@ -227,12 +227,12 @@ void MyBunshinBase::processBehavior() {
                 //分身フリーモードで移動中
                 //オプションの広がり角より、MyBunshinBaseの移動速度と、MyBunshin旋回半径増加速度にベクトル分解。
                 angvelo bunshin_angvelo_expance = pMyBunshinController_->getExpanse();
-                pLocoVehicle->setMvVelo(ANG_COS(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV); //MyBunshinBase
+                pLocusVehicle->setMvVelo(ANG_COS(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV); //MyBunshinBase
                 pMyBunshinController_->addRadiusPosition(ANG_SIN(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV);
                 // VV_VB_OPTION を離すまで待つ・・・
             } else {
                 //分身フリーモード、中断待機
-                pLocoVehicle->setMvVelo(0);
+                pLocusVehicle->setMvVelo(0);
                 pPhase->change(PHASE_BUNSHIN_FREE_MODE_STOP);
             }
             break;
@@ -338,10 +338,10 @@ void MyBunshinBase::processBehavior() {
             trace_mode_ = TRACE_FREEZE;
             //カメラ位置によって上下左右の操作割当を変える
             const dir26 pos_up = pVAM->getPosUp();
-            const double vX = pLocoVehicle->_vX;
-            const double vY = pLocoVehicle->_vY;
-            const double vZ = pLocoVehicle->_vZ;
-            bool update_updown_rot_axis_timing = (pLocoVehicle->isTurningMvAng() || pVbPlay->isPushedDown(0, VV_VB_OPTION) || pVAM->isJustChangedPosCam());
+            const double vX = pLocusVehicle->_vX;
+            const double vY = pLocusVehicle->_vY;
+            const double vZ = pLocusVehicle->_vZ;
+            bool update_updown_rot_axis_timing = (pLocusVehicle->isTurningMvAng() || pVbPlay->isPushedDown(0, VV_VB_OPTION) || pVAM->isJustChangedPosCam());
 
             //LEFT RIGHT 回転軸 = pos_up = (up_sgn_x, up_sgn_y, up_sgn_z)
             double up_vx, up_vy, up_vz;
@@ -362,14 +362,14 @@ void MyBunshinBase::processBehavior() {
             if (pos_up == VAM_POS_UP) {
                 //高速
                 if (pVbPlay->isPressed(0, VV_VB_LEFT)) {
-                    pLocoVehicle->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
+                    pLocusVehicle->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
                 } else if (pVbPlay->isPressed(0, VV_VB_RIGHT)) {
-                    pLocoVehicle->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
+                    pLocusVehicle->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
                 }
                 if (pVbPlay->isPressed(0, VV_VB_UP)) {
-                    pLocoVehicle->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
+                    pLocusVehicle->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
                 } else if (pVbPlay->isPressed(0, VV_VB_DOWN)) {
-                    pLocoVehicle->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
+                    pLocusVehicle->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
                 }
 
 //TODO:上以外も斜めでなければ高速でいけるのでは？
@@ -434,7 +434,7 @@ void MyBunshinBase::processBehavior() {
         }
     }
 
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     pCoordVehicle->behave();
 }
 
@@ -448,14 +448,14 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
     }
 
     is_isolate_mode_ = false;
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafCore::Phase* pPhase = getPhase();
     //完全にデフォルト状態に元に戻ために、最低限必要なフレーム数基準値
     return_default_pos_frames_ = MyBunshinBase::BUNSHIN_D * (MAX_BUNSHIN_NUM+1); //少しばらつかせる演出
     //エフェクト
 
     //土台がの向きが元に戻る（前方に向く）指示
-    pLocoVehicle->asstMvAng()->turnRzRyByDtTo(D0ANG, D0ANG,
+    pLocusVehicle->asstMvAng()->turnRzRyByDtTo(D0ANG, D0ANG,
                                              TURN_CLOSE_TO,
                                              false,
                                              return_default_pos_frames_ * delay_r_,
@@ -468,7 +468,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
                    return_default_pos_frames_ * delay_r_
                );
     //分身の角度位置が元に戻る指示
-    pLocoVehicle->asstFaceAng()->rollFaceAngByDtTo(
+    pLocusVehicle->asstFaceAng()->rollFaceAngByDtTo(
                           bunshin_default_ang_pos_,
                           SGN(bunshin_default_angvelo_mv_) > 0 ? TURN_COUNTERCLOCKWISE : TURN_CLOCKWISE,
                           return_default_pos_frames_/2, //ばらつかせるとズレるので  * delay_r_ しません
@@ -508,11 +508,11 @@ void MyBunshinBase::addTurnAngleAroundAx1(double prm_ax_x, double prm_ax_y, doub
     double b = prm_ax_y*p_sin_h;
     double c = prm_ax_z*p_sin_h;
 
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     Quaternion H(p_cos_h, -a, -b, -c); //R
-    H.mul(0, pLocoVehicle->_vX, pLocoVehicle->_vY, pLocoVehicle->_vZ); //R*P
+    H.mul(0, pLocusVehicle->_vX, pLocusVehicle->_vY, pLocusVehicle->_vZ); //R*P
     H.mul(p_cos_h, a, b, c);                               //R*P*Q
-    pLocoVehicle->setRzRyMvAng(H.i, H.j, H.k, false);
+    pLocusVehicle->setRzRyMvAng(H.i, H.j, H.k, false);
 }
 
 void MyBunshinBase::addTurnAngleAroundAx2(double prm_ax_x, double prm_ax_y, double prm_ax_z) {
@@ -523,12 +523,12 @@ void MyBunshinBase::addTurnAngleAroundAx2(double prm_ax_x, double prm_ax_y, doub
     double b = prm_ax_y*p_sin_h;
     double c = prm_ax_z*p_sin_h;
 
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     Quaternion H(p_cos_h, -a, -b, -c); //R
     Quaternion H2 = H;
-    H.mul(0, pLocoVehicle->_vX, pLocoVehicle->_vY, pLocoVehicle->_vZ); //R*P
+    H.mul(0, pLocusVehicle->_vX, pLocusVehicle->_vY, pLocusVehicle->_vZ); //R*P
     H.mul(p_cos_h, a, b, c);                               //R*P*Q
-    pLocoVehicle->setRzRyMvAng(H.i, H.j, H.k, false);
+    pLocusVehicle->setRzRyMvAng(H.i, H.j, H.k, false);
 
     //上下入力時の回転軸も回転させる
     H2.mul(0, c_ax_x_, c_ax_y_, c_ax_z_); //R*P

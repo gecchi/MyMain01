@@ -18,7 +18,7 @@
 #include "scene/MgrSpacetime/MgrWorld.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 
 using namespace GgafLib;
 using namespace Mogera;
@@ -60,19 +60,19 @@ void SkinMeshAnimeTestScene::processBehavior() {
         getSceneChief()->appendGroupChild(p1);
         p1->setPosition(PX_C(-200), PX_C(-250), 0);
         p1->_pPuppeteer->stop();
-        p1->getLocoVehicle()->setRyFaceAngVelo(D_ANG(1));
+        p1->getLocusVehicle()->setRyFaceAngVelo(D_ANG(1));
 
         p2 = (AniTest*)receiveActor(1235);
         getSceneChief()->appendGroupChild(p2);
         p2->setPosition(0, PX_C(-250), 0);
         p2->_pPuppeteer->stop();
-        p2->getLocoVehicle()->setRyFaceAngVelo(D_ANG(-1));
+        p2->getLocusVehicle()->setRyFaceAngVelo(D_ANG(-1));
 
         p3 = (AniTest*)receiveActor(1236);
         getSceneChief()->appendGroupChild(p3);
         p3->setPosition(PX_C(200), PX_C(-250), 0);
         p3->_pPuppeteer->stop();
-        p3->getLocoVehicle()->setRyFaceAngVelo(D_ANG(0.5));
+        p3->getLocusVehicle()->setRyFaceAngVelo(D_ANG(0.5));
 
         p4 = (AniTest2*)receiveActor(1237);
         getSceneChief()->appendGroupChild(p4);

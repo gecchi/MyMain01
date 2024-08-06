@@ -1,7 +1,7 @@
 #include "Shot003.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
@@ -28,15 +28,15 @@ void Shot003::initialize() {
 void Shot003::onActive() {
     getStatus()->reset();
     setHitAble(true, false);
-    getLocoVehicle()->setMvVelo(20000);
+    getLocusVehicle()->setMvVelo(20000);
 
 }
 
 void Shot003::processBehavior() {
     //加算ランクポイントを減少
     //座標に反映
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->behave();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->behave();
 }
 
 void Shot003::processJudgement() {

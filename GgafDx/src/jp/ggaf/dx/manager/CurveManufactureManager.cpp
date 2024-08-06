@@ -101,25 +101,25 @@ CurveManufacture* CurveManufactureManager::processCreateResource(const char* prm
         //未作成
         move_method = CurveManufacture::MoveMethod::FixedVelocity;
         move_driver = CurveManufacture::MoveDriver::CoordVehicle;
-    } else if (classname.find("FixedVelocityCurveLocoVehicleLeader") != std::string::npos) {
+    } else if (classname.find("FixedVelocityCurveLocusVehicleLeader") != std::string::npos) {
         move_method = CurveManufacture::MoveMethod::FixedVelocity;
-        move_driver = CurveManufacture::MoveDriver::LocoVehicle;
+        move_driver = CurveManufacture::MoveDriver::LocusVehicle;
     } else if (classname.find("FixedFrameCurveCoordVehicleLeader") != std::string::npos) {
         move_method = CurveManufacture::MoveMethod::FixedFrame;
         move_driver = CurveManufacture::MoveDriver::CoordVehicle;
-    } else if (classname.find("FixedFrameCurveLocoVehicleLeader") != std::string::npos) {
+    } else if (classname.find("FixedFrameCurveLocusVehicleLeader") != std::string::npos) {
         move_method = CurveManufacture::MoveMethod::FixedFrame;
-        move_driver = CurveManufacture::MoveDriver::LocoVehicle;
+        move_driver = CurveManufacture::MoveDriver::LocusVehicle;
     } else if (classname.find("SteppedCoordCurveCoordVehicleLeader") != std::string::npos) {
         //未作成
         move_method = CurveManufacture::MoveMethod::SteppedCoord;
         move_driver = CurveManufacture::MoveDriver::CoordVehicle;
-    } else if (classname.find("SteppedCoordCurveLocoVehicleLeader") != std::string::npos) {
+    } else if (classname.find("SteppedCoordCurveLocusVehicleLeader") != std::string::npos) {
         move_method = CurveManufacture::MoveMethod::SteppedCoord;
-        move_driver = CurveManufacture::MoveDriver::LocoVehicle;
+        move_driver = CurveManufacture::MoveDriver::LocusVehicle;
     } else {
         throwCriticalException(prm_idstr<<" : "
-                "[CLASS]="<<classname<<" は指定出来ません。可能なクラスは FixedVelocityCurveLocoVehicleLeader/FixedFrameCurveCoordVehicleLeader/FixedFrameCurveLocoVehicleLeader/CLASS_SteppedCoordCurveLocoVehicleLeader のみです。");
+                "[CLASS]="<<classname<<" は指定出来ません。可能なクラスは FixedVelocityCurveLocusVehicleLeader/FixedFrameCurveCoordVehicleLeader/FixedFrameCurveLocusVehicleLeader/CLASS_SteppedCoordCurveLocusVehicleLeader のみです。");
     }
 
 

@@ -84,9 +84,9 @@ void NameEntryScene::processBehavior() {
                 _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_INPUT)");
                 pLabel01_->update(PX_C(62), PX_C(32), "PLEASE ENTRY YOUR NAME!!!!");
                 pNameEntryBoard_->rise(PX_C(50), PX_C(10)); //ネームエントリー板出現
-                pLabelInputedName_->getLocoVehicle()->setRollPitchYawFaceAngVelo(1700, 1500, 1000);
+                pLabelInputedName_->getLocusVehicle()->setRollPitchYawFaceAngVelo(1700, 1500, 1000);
             }
-            pLabelInputedName_->getLocoVehicle()->behave();
+            pLabelInputedName_->getLocusVehicle()->behave();
             pLabelSelectedChar_->setFaceAngAs(pLabelInputedName_);
             pLabelSelectedChar_->getAlphaFader()->behave(); //チカチカ
             //EVENT_MENU_NAMEENTRY_DONE まち。
@@ -100,10 +100,10 @@ void NameEntryScene::processBehavior() {
                 pNameEntryBoard_->sinkMe(); //ネームエントリー板消去
                 pLabelSelectedChar_->inactivate(); //選択表示文字消去
                 pLabelInputedName_->getAlphaFader()->beat(10, 5, 0, 5, -1); //入力ネーム点滅
-                pLabelInputedName_->getLocoVehicle()->turnRzRyFaceAngTo(D0ANG, D0ANG,
+                pLabelInputedName_->getLocusVehicle()->turnRzRyFaceAngTo(D0ANG, D0ANG,
                                                                    8000, 0,
                                                                    TURN_COUNTERCLOCKWISE, false);//急いで正常姿勢へ
-                pLabelInputedName_->getLocoVehicle()->rollFaceAngTo(D0ANG, 8000, 0, TURN_COUNTERCLOCKWISE);
+                pLabelInputedName_->getLocusVehicle()->rollFaceAngTo(D0ANG, 8000, 0, TURN_COUNTERCLOCKWISE);
                 //ここでハイスコア更新処理
                 char* cstr = NEW char[pLabelInputedName_->_len + 1];
                 for (int i = 0; i < pLabelInputedName_->_len; i++) {
@@ -123,7 +123,7 @@ void NameEntryScene::processBehavior() {
                 pPhase->change(PHASE_FINISH);
             }
 
-            pLabelInputedName_->getLocoVehicle()->behave();
+            pLabelInputedName_->getLocusVehicle()->behave();
             pLabelSelectedChar_->setFaceAngAs(pLabelInputedName_);
             pLabelInputedName_->getAlphaFader()->behave(); //点滅チカチカ
             break;

@@ -1,7 +1,7 @@
 #include "EnemyAllas.h"
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
@@ -37,9 +37,9 @@ void EnemyAllas::onCreateModel() {
 
 void EnemyAllas::initialize() {
     setHitAble(true);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setFaceAngVelo(AXIS_Z, -7000);
-    pLocoVehicle->linkFaceAngByMvAng(true);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setFaceAngVelo(AXIS_Z, -7000);
+    pLocusVehicle->linkFaceAngByMvAng(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
@@ -56,7 +56,7 @@ void EnemyAllas::onActive() {
 }
 
 void EnemyAllas::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafCore::Phase* pPhase = getPhase();
     //【パターン1：カーブ移動】
     if (pPhase->hasJustChangedTo(1)) {
@@ -100,7 +100,7 @@ void EnemyAllas::processBehavior() {
                     pActor_shot = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
                     if (pActor_shot) {
                         pActor_shot->setPositionAt(this);
-                        pActor_shot->getLocoVehicle()->setRzRyMvAng(paAng_way[i], D90ANG);
+                        pActor_shot->getLocusVehicle()->setRzRyMvAng(paAng_way[i], D90ANG);
                         pActor_shot->activate();
                     }
                 }
@@ -114,7 +114,7 @@ void EnemyAllas::processBehavior() {
                 }
             }
 //            //自機へ方向転換
-            pLocoVehicle->turnMvAngTwd(pMYSHIP->_x, _y, pMYSHIP->_z,
+            pLocusVehicle->turnMvAngTwd(pMYSHIP->_x, _y, pMYSHIP->_z,
                                     2000, 0,
                                     TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
@@ -130,7 +130,7 @@ void EnemyAllas::processBehavior() {
     if (pVehicleLeader_) {
         pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
     }
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     //getSeXmtr()->behave();
 }
 

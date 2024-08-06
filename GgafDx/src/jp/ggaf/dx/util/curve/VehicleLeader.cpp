@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
@@ -183,10 +183,10 @@ void VehicleLeader::restart() {
 //            } else {
 //                //setLoopAngleByMvAng() 設定済みの場合
 //                //１週目はアクターの移動方向が開始移動方向
-//                GgafDx::LocoVehicle* pActorLocoVehicle = _pActor_target->getLocoVehicle();
+//                GgafDx::LocusVehicle* pActorLocusVehicle = _pActor_target->getLocusVehicle();
 //                angle rx_mv_start = D0ANG;
-//                angle rz_mv_start = pActorLocoVehicle->_rz_mv;
-//                angle ry_mv_start = pActorLocoVehicle->_ry_mv;
+//                angle rz_mv_start = pActorLocusVehicle->_rz_mv;
+//                angle ry_mv_start = pActorLocusVehicle->_ry_mv;
 //                _sinRx_begin = ANG_SIN(rx_mv_start);
 //                _cosRx_begin = ANG_COS(rx_mv_start);
 //                _sinRz_begin = ANG_SIN(rz_mv_start);

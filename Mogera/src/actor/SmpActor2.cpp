@@ -1,8 +1,8 @@
 #include "SmpActor2.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAngAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/NaviVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
@@ -84,7 +84,7 @@ void SmpActor2::processBehavior() {
 
 //    _TRACE_("x,y,z="<<_x<<", "<<_y<<", "<<_z);
     pNaviVehicle->behave();
-    getLocoVehicle()->behave();
+    getLocusVehicle()->behave();
 }
 
 void SmpActor2::onHit(const GgafCore::Actor* prm_pOtherActor) {

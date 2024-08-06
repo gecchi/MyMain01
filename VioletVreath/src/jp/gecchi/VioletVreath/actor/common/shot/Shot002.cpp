@@ -1,6 +1,6 @@
 #include "Shot002.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
@@ -31,27 +31,27 @@ void Shot002::onActive() {
     getStatus()->reset();
     setHitAble(true, false);
     setScale(2000);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->linkFaceAngByMvAng(true);
-    pLocoVehicle->setMvVelo(RF_Shot002_MvVelo(G_RANK));
-    pLocoVehicle->setRollFaceAngVelo(RF_Shot002_AngVelo(G_RANK));
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->linkFaceAngByMvAng(true);
+    pLocusVehicle->setMvVelo(RF_Shot002_MvVelo(G_RANK));
+    pLocusVehicle->setRollFaceAngVelo(RF_Shot002_AngVelo(G_RANK));
 }
 
 void Shot002::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     if (getActiveFrame() == 70) {
-        pLocoVehicle->turnMvAngTwd(pMYSHIP,
+        pLocusVehicle->turnMvAngTwd(pMYSHIP,
                               3000, 0,
                               TURN_CLOSE_TO, true);
     }
 
-    if (getActiveFrame() > 70 && !pLocoVehicle->isTurningMvAng()) {
-        pLocoVehicle->turnMvAngTwd(pMYSHIP,
+    if (getActiveFrame() > 70 && !pLocusVehicle->isTurningMvAng()) {
+        pLocusVehicle->turnMvAngTwd(pMYSHIP,
                               100, 0,
                               TURN_CLOSE_TO, true);
     }
     //À•W‚É”½‰f
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     getScaler()->behave();
     getSeXmtr()->behave();
 }

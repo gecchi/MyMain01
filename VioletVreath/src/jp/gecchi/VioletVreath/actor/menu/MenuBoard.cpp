@@ -1,9 +1,9 @@
 #include "MenuBoard.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAssistant.h"
 #include "jp/ggaf/lib/actor/FontBoardActor.h"
 #include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"
@@ -152,20 +152,20 @@ void MenuBoard::onRise() {
     //スライドイントランジション
     setPosition(target_x_ + slide_from_offset_x_,
                 target_y_ + slide_from_offset_y_);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setMvAngTwd(target_x_, target_y_);
-    pLocoVehicle->asstMv()->slideByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setMvAngTwd(target_x_, target_y_);
+    pLocusVehicle->asstMv()->slideByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
                                  0.2, 0.3, 0, true);
     getSeXmtr()->play(SE_ON_RISEN);
 }
 
 void MenuBoard::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    if (pLocoVehicle->asstMv()->hasJustFinishedSliding()) {
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    if (pLocusVehicle->asstMv()->hasJustFinishedSliding()) {
         //スライド終了時、目的の座標へ補正
         setPosition(target_x_, target_y_);
     }
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     DefaultFramedBoardMenu::processBehavior();
     //メニュー選択アイテム、表示アイテム、カーソルは、
     //ボード座標を基にしているため、自身の座標確定後に
@@ -177,10 +177,10 @@ void MenuBoard::processJudgement() {
 
 void MenuBoard::onSink() {
     //スライドアウトトランジション
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setMvAngTwd(target_x_ + slide_from_offset_x_,
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setMvAngTwd(target_x_ + slide_from_offset_x_,
                          target_y_ + slide_from_offset_y_);
-    pLocoVehicle->asstMv()->slideByDt(
+    pLocusVehicle->asstMv()->slideByDt(
                            UTIL::getDistance(
                                   _x, _y,
                                   target_x_+slide_from_offset_x_,

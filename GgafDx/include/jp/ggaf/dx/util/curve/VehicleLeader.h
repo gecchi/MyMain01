@@ -33,7 +33,7 @@ public:
      * [r]オプション
      * ABSOLUTE_COORD     : 絶対座標移動。
      * RELATIVE_COORD     : 始点を現座標とし、スプライン座標群は相対移動で計算。
-     * RELATIVE_COORD_DIRECTION : 始点を現座標とし、さらに現在の向き（_pLocoVehicle の _rz_mv, _ry_mv)でスプライン座標群をワールド変換。
+     * RELATIVE_COORD_DIRECTION : 始点を現座標とし、さらに現在の向き（_pLocusVehicle の _rz_mv, _ry_mv)でスプライン座標群をワールド変換。
      */
     SplinTraceOption _option;
     /** [r] ループカウンタ */
@@ -76,7 +76,7 @@ public:
     /**
      * コンストラクタ .
      * @param prm_pManufacture
-     * @param prm_pLocoVehicle
+     * @param prm_pLocusVehicle
      */
     VehicleLeader(CurveManufacture* prm_pManufacture,  GgafDx::GeometricActor* prm_pActor_target);
 
@@ -149,7 +149,7 @@ public:
      * start() を行った同一フレームに実行を避けるといったことは不要。<BR>
      * start() を行った最初のbehave()は、現在の座標～ポイント[0] が離れていればその移動処理、
      * もし、現在の座標とポイント[0]が重なっていれば、現在の座標～ポイント[1]への移動処理となります。<BR>
-     * 移動車両(GgafDx::LocoVehicle)のbehave();より先に実行して下さい。
+     * 移動車両(GgafDx::LocusVehicle)のbehave();より先に実行して下さい。
      */
     virtual void behave() = 0;
 
@@ -295,7 +295,7 @@ public:
 //
 //    /**
 //     * カーブ移動の開始方向を、自分が移動している方向に対して開始する .
-//     * start()時の対象アクター移動車両の移動方向(getLocoVehicle()->_rz_mv, getLocoVehicle()->_ry_mv）
+//     * start()時の対象アクター移動車両の移動方向(getLocusVehicle()->_rz_mv, getLocusVehicle()->_ry_mv）
 //     * に座標変換されて、スプラインの軌跡が構築される。
 //     */
 //    void setLoopAngleByMvAng() {

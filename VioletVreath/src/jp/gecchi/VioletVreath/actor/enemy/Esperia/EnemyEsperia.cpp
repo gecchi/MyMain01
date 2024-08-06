@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
@@ -84,9 +84,9 @@ void EnemyEsperia::initialize() {
 void EnemyEsperia::onActive() {
     getStatus()->reset();
     setHitAble(false);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setRzRyMvAng(0, D180ANG);
-    pLocoVehicle->setMvVelo(1000);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setRzRyMvAng(0, D180ANG);
+    pLocusVehicle->setMvVelo(1000);
 
     dX_= dZ_ = 0;
     //出現位置
@@ -106,7 +106,7 @@ void EnemyEsperia::onActive() {
 
 void EnemyEsperia::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
@@ -318,8 +318,8 @@ void EnemyEsperia::processBehavior() {
                             pLaserChip->ty2_ = pMyShip->_y + paPos_target_[i].y;
                             pLaserChip->tz2_ = pMyShip->_z + paPos_target_[i].z;
                             //速さと加速度
-                            pLaserChip->getLocoVehicle()->setMvVelo(10000); //初期速度
-                            pLaserChip->getLocoVehicle()->setMvAcce(150+(max_laser_way_-i)*20); //少しバラけるように
+                            pLaserChip->getLocusVehicle()->setMvVelo(10000); //初期速度
+                            pLaserChip->getLocusVehicle()->setMvAcce(150+(max_laser_way_-i)*20); //少しバラけるように
                         }
                     }
                 }
@@ -348,7 +348,7 @@ void EnemyEsperia::processBehavior() {
             break;
         }
     }
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     getMorpher()->behave();
 }
 

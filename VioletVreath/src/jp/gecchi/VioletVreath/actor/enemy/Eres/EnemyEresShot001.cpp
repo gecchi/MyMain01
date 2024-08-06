@@ -1,7 +1,7 @@
 #include "EnemyEresShot001.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
@@ -41,9 +41,9 @@ EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
 }
 
 void EnemyEresShot001::initialize() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->forceMvVeloRange(veloTop_, veloBottom_);
-    pLocoVehicle->linkFaceAngByMvAng(true);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->forceMvVeloRange(veloTop_, veloBottom_);
+    pLocusVehicle->linkFaceAngByMvAng(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, PX_C(60));
@@ -54,33 +54,33 @@ void EnemyEresShot001::onActive() {
     getStatus()->reset();
 
     //oŒ»
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setMvVelo(velo1st_);
-    pLocoVehicle->setMvAcce(iMoveAcce_1st_);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setMvVelo(velo1st_);
+    pLocusVehicle->setMvAcce(iMoveAcce_1st_);
 
     setHitAble(true);
 }
 
 void EnemyEresShot001::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     //•ûŒü“]Š·ŠJn
     if (getActiveFrame() == frame_TurnBegin_) {
-        pLocoVehicle->turnMvAngTwd(pMYSHIP,
+        pLocusVehicle->turnMvAngTwd(pMYSHIP,
                               angVelo_Turn_, 0,
                               TURN_CLOSE_TO, true);
-        pLocoVehicle->setMvAcce(iMoveAcce_2nd_);
+        pLocusVehicle->setMvAcce(iMoveAcce_2nd_);
     }
 
     //•ûŒü“]Š·I—¹
     if (getActiveFrame() == frame_TurnBegin_ + frame_TurnInterval_) {
-        pLocoVehicle->setRzRyMvAngVelo(0,0);
-        pLocoVehicle->_is_targeting_ry_mv = false;
-        pLocoVehicle->_is_targeting_rz_mv = false;
+        pLocusVehicle->setRzRyMvAngVelo(0,0);
+        pLocusVehicle->_is_targeting_ry_mv = false;
+        pLocusVehicle->_is_targeting_rz_mv = false;
     }
 
     //behaveUvFlip();
     //À•W‚É”½‰f
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     //getSeXmtr()->behave();
 }
 

@@ -60,11 +60,11 @@ public:
 
     /**
      * VehicleLeader オブジェクトの生成 .
-     * インスタンスは FixedVelocityCurveLocoVehicleLeader です。
-     * @param prm_pLocoVehicle カーブ移動するための操作するオブジェクト
+     * インスタンスは FixedVelocityCurveLocusVehicleLeader です。
+     * @param prm_pLocusVehicle カーブ移動するための操作するオブジェクト
      * @return VehicleLeader オブジェクト
      */
-    VehicleLeader* createLocoVehicleLeader(GgafDx::LocoVehicle* prm_pLocoVehicle) override;
+    VehicleLeader* createLocusVehicleLeader(GgafDx::LocusVehicle* prm_pLocusVehicle) override;
 
     virtual ~FixedVelocityCurveManufacture();
 };

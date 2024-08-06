@@ -1,8 +1,8 @@
 #include "EnemyHalia.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/LocoVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
@@ -74,7 +74,7 @@ void EnemyHalia::onCreateModel() {
 
 void EnemyHalia::initialize() {
     setHitAble(true);
-    getLocoVehicle()->linkFaceAngByMvAng(true);
+    getLocusVehicle()->linkFaceAngByMvAng(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliSphere(0, 90000);
@@ -85,14 +85,14 @@ void EnemyHalia::onActive() {
     getStatus()->reset();
     setMorphWeight(0.0);
     getPhase()->reset(PHASE_INIT);
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
-    pLocoVehicle->setRollFaceAngVelo(1000);
-    pLocoVehicle->setMvVelo(0);
-    pLocoVehicle->setMvAcce(0);
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
+    pLocusVehicle->setRollFaceAngVelo(1000);
+    pLocusVehicle->setMvVelo(0);
+    pLocusVehicle->setMvAcce(0);
 }
 
 void EnemyHalia::processBehavior() {
-    GgafDx::LocoVehicle* pLocoVehicle = getLocoVehicle();
+    GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
@@ -119,35 +119,35 @@ void EnemyHalia::processBehavior() {
         }
         case PHASE_FIRST_MOVE: { //‰‰ñˆÚ“®
             if (pPhase->hasJustChanged()) {
-                pLocoVehicle->setRzRyMvAng(0, 0);
-                pLocoVehicle->asstMv()->slideByVd(veloTopMv_, PX_C(1000),
+                pLocusVehicle->setRzRyMvAng(0, 0);
+                pLocusVehicle->asstMv()->slideByVd(veloTopMv_, PX_C(1000),
                                               0.4, 0.6, 0, true);
-                pLocoVehicle->setRollFaceAngVelo(D_ANG(1));
+                pLocusVehicle->setRollFaceAngVelo(D_ANG(1));
             }
-            if (!pLocoVehicle->asstMv()->isSliding()) {
+            if (!pLocusVehicle->asstMv()->isSliding()) {
                 pPhase->change(PHASE_TURN_OPEN);
             }
             break;
         }
         case PHASE_MOVE: {  //‚Q‰ñˆÈ~‚ÌˆÚ“®
             if (pPhase->hasJustChanged()) {
-                pLocoVehicle->asstMv()->slideByVd(veloTopMv_, PX_C(1000),
+                pLocusVehicle->asstMv()->slideByVd(veloTopMv_, PX_C(1000),
                                               0.4, 0.6, 0, true);
-                pLocoVehicle->setRollFaceAngVelo(D_ANG(1));
+                pLocusVehicle->setRollFaceAngVelo(D_ANG(1));
             }
-            if (!pLocoVehicle->asstMv()->isSliding()) {
+            if (!pLocusVehicle->asstMv()->isSliding()) {
                 pPhase->change(PHASE_TURN_OPEN);
             }
             break;
         }
         case PHASE_TURN_OPEN: {
             if (pPhase->hasJustChanged()) {
-                pLocoVehicle->turnMvAngTwd(pMYSHIP,
+                pLocusVehicle->turnMvAngTwd(pMYSHIP,
                                       0, 100,
                                       TURN_CLOSE_TO, false);
             }
-            if (!pLocoVehicle->isTurningMvAng()) {
-                pLocoVehicle->turnMvAngTwd(pMYSHIP,
+            if (!pLocusVehicle->isTurningMvAng()) {
+                pLocusVehicle->turnMvAngTwd(pMYSHIP,
                                       D_ANG(1), 0,
                                       TURN_CLOSE_TO, false);
                 getMorpher()->transitionAcceUntil(1, 1.0, 0.0, 0.0004); //ŠJ‚­ 0.0004 ŠJ‚­‘¬‚³
@@ -158,8 +158,8 @@ void EnemyHalia::processBehavior() {
         case PHASE_FIRE_BEGIN: {
             if (!getMorpher()->isTransitioning()) {
                 if ( _x - pMYSHIP->_x > -dZ_camera_init_) {
-                    pLocoVehicle->setMvVelo(PX_C(1)); //‚¿‚å‚Á‚ÆƒoƒbƒN
-                    pLocoVehicle->setRollFaceAngVelo(D_ANG(5));//”­Ë’†‚Í‘¬‚¢‰ñ“]
+                    pLocusVehicle->setMvVelo(PX_C(1)); //‚¿‚å‚Á‚ÆƒoƒbƒN
+                    pLocusVehicle->setRollFaceAngVelo(D_ANG(5));//”­Ë’†‚Í‘¬‚¢‰ñ“]
                     pPhase->change(PHASE_IN_FIRE);
                 } else {
                     //”wŒã‚©‚ç‚ÍŒ‚‚½‚È‚¢B
@@ -190,7 +190,7 @@ void EnemyHalia::processBehavior() {
             break;
         }
     }
-    pLocoVehicle->behave();
+    pLocusVehicle->behave();
     getMorpher()->behave();
     getSeXmtr()->behave();
     getAlphaFader()->behave();

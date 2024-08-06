@@ -478,10 +478,10 @@ class CollisionPart;
 class GeoElem;
 
 class ActorVehicle;
-class LocoVehicle;
-class LocoVehicleMvAssistant;
-class LocoVehicleFaceAngAssistant;
-class LocoVehicleMvAngAssistant;
+class LocusVehicle;
+class LocusVehicleMvAssistant;
+class LocusVehicleFaceAngAssistant;
+class LocusVehicleMvAngAssistant;
 class CoordVehicle;
 class CoordVehicleAssistantA;
 class NaviVehicle;
@@ -508,9 +508,9 @@ class Sound;
 class CWaveDecorder;
 
 class VehicleLeader;
-class FixedFrameCurveLocoVehicleLeader;
-class FixedVelocityCurveLocoVehicleLeader;
-class SteppedCoordCurveLocoVehicleLeader;
+class FixedFrameCurveLocusVehicleLeader;
+class FixedVelocityCurveLocusVehicleLeader;
+class SteppedCoordCurveLocusVehicleLeader;
 class CurveManufacture;
 class CurveSource;
 class FixedFrameCurveManufacture;

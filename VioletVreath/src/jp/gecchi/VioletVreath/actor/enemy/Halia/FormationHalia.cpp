@@ -1,6 +1,6 @@
 #include "FormationHalia.h"
 
-#include "jp/ggaf/dx/actor/supporter/LocoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Halia/EnemyHalia.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -23,7 +23,7 @@ FormationHalia::FormationHalia(const char* prm_name) :
     for (int i = 0; i < num_Halia_; i++) {
         papHalia_[i] = NEW EnemyHalia("Halia01");
         //カーブ移動プログラム設定
-        papHalia_[i]->setCurveLocoVehicleLeader(nullptr);
+        papHalia_[i]->setCurveLocusVehicleLeader(nullptr);
         appendFormationMember(papHalia_[i]);
     }
 }
