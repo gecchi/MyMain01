@@ -79,9 +79,9 @@ Caretaker::Caretaker() : Object(),
     _aTime_offset_of_next_view[1] = CONFIG::RATE_OF_SLOWDOWN1 / CONFIG::FPS;
     _aTime_offset_of_next_view[2] = CONFIG::RATE_OF_SLOWDOWN2 / CONFIG::FPS;
 
-    _apaTime_offset_of_next_view[0] = getArrTimeOffset(1.0 * 1000, CONFIG::FPS); // 1フレームを、(1000 / CONFIG::FPS) ミリ秒とする
-    _apaTime_offset_of_next_view[1] = getArrTimeOffset(CONFIG::RATE_OF_SLOWDOWN1 * 1000, CONFIG::FPS); // 1フレームを、(1500 / CONFIG::FPS) ミリ秒とする
-    _apaTime_offset_of_next_view[2] = getArrTimeOffset(CONFIG::RATE_OF_SLOWDOWN2 * 1000, CONFIG::FPS); // 1フレームを、(2000 / CONFIG::FPS) ミリ秒とする
+    _apaTime_offset_of_next_view[0] = getArrTimeOffset((DWORD)(1.0 * 1000), CONFIG::FPS); // 1フレームを、(1000 / CONFIG::FPS) ミリ秒とする
+    _apaTime_offset_of_next_view[1] = getArrTimeOffset((DWORD)(CONFIG::RATE_OF_SLOWDOWN1 * 1000), CONFIG::FPS); // 1フレームを、(1500 / CONFIG::FPS) ミリ秒とする
+    _apaTime_offset_of_next_view[2] = getArrTimeOffset((DWORD)(CONFIG::RATE_OF_SLOWDOWN2 * 1000), CONFIG::FPS); // 1フレームを、(2000 / CONFIG::FPS) ミリ秒とする
 
 }
 
@@ -106,7 +106,7 @@ DWORD* Caretaker::getArrTimeOffset(DWORD sec, DWORD fps) {
     DWORD* paTimeOffset = new DWORD[fps];
     double x = 1.0;
 
-    for (int i = 0; i < fps; i++) {
+    for (int i = 0; i < (int)fps; i++) {
         x += rr;
         if (x > 1.0) {
             paTimeOffset[i] = base + 1;
@@ -856,8 +856,8 @@ unsigned __stdcall Caretaker::send(void* prm_arg) {
 
 unsigned Caretaker::sending(void* prm_arg) {
     try {
-        Object* (*funcBlessing)(void*, void*, void*) = nullptr;
-        Object* pObject = nullptr;
+        //Object* (*funcBlessing)(void*, void*, void*) = nullptr;
+        //Object* pObject = nullptr;
         Sleep(1000); //crtkr のインスタンスが完成するまでほんのちょっと待つ必要があるかもしれない
 
         //ゴミ掃除しまくる管理者の異界送りループ！

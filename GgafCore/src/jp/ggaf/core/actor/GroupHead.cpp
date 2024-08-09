@@ -21,7 +21,7 @@ GroupHead::GroupHead(kind_t prm_kind) : Actor("GroupHead") {
     std::stringstream ss;
     ss << "kind_t=" << aChar_strbit << "";
     std::string name = ss.str();
-    int len = strlen(name.c_str());
+    int len = (int)strlen(name.c_str());
     _name = NEW char[len+1];
     strcpy(_name, name.c_str());
 #endif
@@ -39,7 +39,7 @@ void GroupHead::setKind(kind_t prm_kind) {
     std::stringstream ss;
     ss << "kind_t=" << aChar_strbit << "";
     std::string name = ss.str();
-    int len = strlen(name.c_str());
+    int len = (int)strlen(name.c_str());
     _name = NEW char[len+1];
     strcpy(_name, name.c_str());
 #endif

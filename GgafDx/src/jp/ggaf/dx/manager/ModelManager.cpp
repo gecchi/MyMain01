@@ -64,6 +64,7 @@ ModelManager::ModelManager(const char* prm_manager_name) :
     GgafCore::ResourceManager<Model> (prm_manager_name) {
 
     static volatile bool is_init = ModelManager::initStatic(); //Ã“Iƒƒ“ƒo‰Šú‰»
+    (void)is_init;
     HRESULT hr;
 
     D3DXFileCreate( &_pID3DXFile_modelx );

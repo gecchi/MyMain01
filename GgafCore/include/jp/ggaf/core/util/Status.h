@@ -47,43 +47,43 @@ public:
     Status(Status* (*prm_pFunc_reset)(Status*) = nullptr);
 
     inline void set(const int prm_status_kind, const int val) {
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
-            _value.resize(prm_status_kind+1);
+        if (_value.size() <= (size_t)(prm_status_kind)) {
+            _value.resize((size_t)prm_status_kind+1);
         }
         _value[prm_status_kind]._int_val = val;
     }
 
     inline void set(const int prm_status_kind, const unsigned int val) {
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
-            _value.resize(prm_status_kind+1);
+        if (_value.size() <= (size_t)(prm_status_kind)) {
+            _value.resize((size_t)prm_status_kind);
         }
         _value[prm_status_kind]._uint_val = val;
     }
 
     inline void set(const int prm_status_kind, const double val) {
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
-            _value.resize(prm_status_kind+1);
+        if (_value.size() <= (size_t)(prm_status_kind)) {
+            _value.resize((size_t)prm_status_kind+1);
         }
         _value[prm_status_kind]._double_val = val;
     }
 
     inline void set(const int prm_status_kind, bool val) {
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
-            _value.resize(prm_status_kind+1);
+        if (_value.size() <= (size_t)(prm_status_kind)) {
+            _value.resize((size_t)prm_status_kind+1);
         }
         _value[prm_status_kind]._bool_val = val;
     }
 
     inline void set(const int prm_status_kind, void* p) {
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
-            _value.resize(prm_status_kind+1);
+        if (_value.size() <= (size_t)(prm_status_kind)) {
+            _value.resize((size_t)prm_status_kind+1);
         }
         _value[prm_status_kind]._ptr = p;
     }
 
     inline int plus(const int prm_status_kind, const int val) {
 #ifdef MY_DEBUG
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
+        if (_value.size() <= (size_t)(prm_status_kind)) {
             throwCriticalException("要素オーバー、prm_status_kind="<<prm_status_kind);
         }
 #endif
@@ -92,7 +92,7 @@ public:
 
     inline double plus(const int prm_status_kind, const double val) {
 #ifdef MY_DEBUG
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
+        if (_value.size() <= (size_t)(prm_status_kind)) {
             throwCriticalException("要素オーバー、prm_status_kind="<<prm_status_kind);
         }
 #endif
@@ -101,7 +101,7 @@ public:
 
     inline int minus(const int prm_status_kind, const int val) {
 #ifdef MY_DEBUG
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
+        if (_value.size() <= (size_t)(prm_status_kind)) {
             throwCriticalException("要素オーバー、prm_status_kind="<<prm_status_kind);
         }
 #endif
@@ -110,7 +110,7 @@ public:
 
     inline double minus(const int prm_status_kind, const double val) {
 #ifdef MY_DEBUG
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
+        if (_value.size() <= (size_t)(prm_status_kind)) {
             throwCriticalException("要素オーバー、prm_status_kind="<<prm_status_kind);
         }
 #endif
@@ -119,7 +119,7 @@ public:
 
     inline int mul(const int prm_status_kind, const int val) {
 #ifdef MY_DEBUG
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
+        if (_value.size() <= (size_t)(prm_status_kind)) {
             throwCriticalException("要素オーバー、prm_status_kind="<<prm_status_kind);
         }
 #endif
@@ -128,7 +128,7 @@ public:
 
     inline double mul(const int prm_status_kind, const double val) {
 #ifdef MY_DEBUG
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
+        if (_value.size() <= (size_t)(prm_status_kind)) {
             throwCriticalException("要素オーバー、prm_status_kind="<<prm_status_kind);
         }
 #endif
@@ -137,7 +137,7 @@ public:
 
     inline int get(const int prm_status_kind) const {
 #ifdef MY_DEBUG
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
+        if (_value.size() <= (size_t)(prm_status_kind)) {
             throwCriticalException("要素オーバー、prm_status_kind="<<prm_status_kind);
         }
 #endif
@@ -146,7 +146,7 @@ public:
 
     inline int getInt(const int prm_status_kind) const {
 #ifdef MY_DEBUG
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
+        if (_value.size() <= (size_t)(prm_status_kind)) {
             throwCriticalException("要素オーバー、prm_status_kind="<<prm_status_kind);
         }
 #endif
@@ -155,7 +155,7 @@ public:
 
     inline unsigned int getUint(const int prm_status_kind) const {
 #ifdef MY_DEBUG
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
+        if (_value.size() <= (size_t)(prm_status_kind)) {
             throwCriticalException("要素オーバー、prm_status_kind="<<prm_status_kind);
         }
 #endif
@@ -164,7 +164,7 @@ public:
 
     inline double getDouble(const int prm_status_kind) const {
 #ifdef MY_DEBUG
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
+        if (_value.size() <= (size_t)(prm_status_kind)) {
             throwCriticalException("要素オーバー、prm_status_kind="<<prm_status_kind);
         }
 #endif
@@ -173,7 +173,7 @@ public:
 
     inline double getBool(const int prm_status_kind) const {
 #ifdef MY_DEBUG
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
+        if (_value.size() <= (size_t)(prm_status_kind)) {
             throwCriticalException("要素オーバー、prm_status_kind="<<prm_status_kind);
         }
 #endif
@@ -182,7 +182,7 @@ public:
 
     inline void* getPtr(const int prm_status_kind) const {
 #ifdef MY_DEBUG
-        if (_value.size() < (size_t)(prm_status_kind+1)) {
+        if (_value.size() <= (size_t)(prm_status_kind)) {
             throwCriticalException("要素オーバー、prm_status_kind="<<prm_status_kind);
         }
 #endif

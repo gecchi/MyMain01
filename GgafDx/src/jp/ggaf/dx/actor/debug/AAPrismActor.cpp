@@ -17,6 +17,7 @@ AAPrismActor::AAPrismActor(const char* prm_name,
                                          prm_pChecker) {
     _class_name = "AAPrismActor";
     static volatile bool is_init = AAPrismActor::initStatic(); //Ã“Iƒƒ“ƒo‰Šú‰»
+    (void)is_init;
 }
 
 bool AAPrismActor::initStatic() {

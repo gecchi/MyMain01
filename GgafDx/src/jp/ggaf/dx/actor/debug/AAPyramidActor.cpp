@@ -17,6 +17,7 @@ AAPyramidActor::AAPyramidActor(const char* prm_name,
                                              prm_pChecker) {
     _class_name = "AAPyramidActor";
     static volatile bool is_init = AAPyramidActor::initStatic(); //Ã“Iƒƒ“ƒo‰Šú‰»
+    (void)is_init;
 }
 
 bool AAPyramidActor::initStatic() {

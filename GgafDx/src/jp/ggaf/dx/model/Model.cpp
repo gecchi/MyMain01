@@ -616,8 +616,7 @@ std::string Model::getMeshXFilePath(std::string prm_xfile) {
             "xfile_path="<<xfile_path<<"\n"
             "xfile_path2="<<xfile_path2<<"\n"
             "xfile_path1="<<xfile_path1<<"\n"
-            "xfile_path0="<<xfile_path0<<"\n"
-            );
+            "xfile_path0="<<xfile_path0);
 }
 
 std::string Model::getPointSpriteXFilePath(std::string prm_xfile) {
@@ -653,8 +652,7 @@ std::string Model::getPointSpriteXFilePath(std::string prm_xfile) {
             "xfile_path="<<xfile_path<<"\n"
             "xfile_path2="<<xfile_path2<<"\n"
             "xfile_path1="<<xfile_path1<<"\n"
-            "xfile_path0="<<xfile_path0<<"\n"
-            );
+            "xfile_path0="<<xfile_path0);
 }
 std::string Model::getSpriteXFilePath(std::string prm_sprxfile) {
     std::string sprxfile_path = _model_def_dir + "/" + prm_sprxfile;
@@ -688,8 +686,7 @@ std::string Model::getSpriteXFilePath(std::string prm_sprxfile) {
             "xfile_path="<<sprxfile_path<<"\n"
             "xfile_path2="<<sprxfile_path2<<"\n"
             "xfile_path1="<<sprxfile_path1<<"\n"
-            "xfile_path0="<<sprxfile_path0<<"\n"
-    );
+            "xfile_path0="<<sprxfile_path0);
 }
 
 std::string Model::getMetaModelInfoDir(std::string prm_modelfile) {
@@ -715,8 +712,7 @@ std::string Model::getMetaModelInfoDir(std::string prm_modelfile) {
     _TRACE_("yŒxzModel::getMetaModelInfoDir() modelx ƒtƒ@ƒCƒ‹‚ªˆÈ‰º‚©‚çŒ©‚Â‚©‚è‚Ü‚¹‚ñBprm_model_name="<<prm_modelfile<<"\n"<<
             "model_define_path2="<<model_define_path2<<"\n"
             "model_define_path1="<<model_define_path1<<"\n"
-            "model_define_path0="<<model_define_path0<<"\n"
-            );
+            "model_define_path0="<<model_define_path0);
     return "";
 }
 
@@ -724,10 +720,10 @@ bool Model::loadMetaModelInfo(ModelManager::ModelXFileFmt* prm_pModelDefineXFile
     _TRACE_("ModelManager::getMetaModelInfo() prm_model_id="<<_model_id);
     std::string model_def_file = std::string(_model_id) + ".modelx";
     _model_def_dir = Model::getMetaModelInfoDir(model_def_file);
-    std::string model_def_filepath = _model_def_dir + "/" + model_def_file;
-    UTIL::strReplace(model_def_filepath, "//", "/");
     ModelManager* pModelManager = pCARETAKER->_pModelManager;
-    if (model_def_filepath != "") {
+    if (_model_def_dir != "") {
+		std::string model_def_filepath = _model_def_dir + "/" + model_def_file;
+		UTIL::strReplace(model_def_filepath, "//", "/");
         pModelManager->obtainMetaModelInfo(prm_pModelDefineXFileFmt_out, model_def_filepath);
         _draw_set_num = prm_pModelDefineXFileFmt_out->DrawSetNum;
         _matBaseTransformMatrix = prm_pModelDefineXFileFmt_out->BaseTransformMatrix;

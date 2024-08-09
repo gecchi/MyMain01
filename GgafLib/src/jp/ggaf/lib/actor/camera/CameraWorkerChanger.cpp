@@ -72,6 +72,7 @@ CameraWorkerChanger::CameraWorkerChanger(const char* prm_name, DefaultCamera* pr
     appendChild(_pActiveCamWorker); //基底デフォルトカメラワーク
 
     static volatile bool is_init = CameraWorkerChanger::initStatic(); //静的メンバ初期化
+    (void)is_init;
     //注意：Cameraはまだ生成されていないためここでP_CAMは使用不可
 }
 

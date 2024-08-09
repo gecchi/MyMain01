@@ -31,6 +31,7 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model) :
     pCriteria_ = pCARETAKER->getSpacetime()->getCamera();
     setFarRate(1.0);
     static volatile bool is_init = HoshiBoshi::initStatic(this); //Ã“Iƒƒ“ƒo‰Šú‰»
+    (void)is_init;
 }
 
 bool HoshiBoshi::initStatic(HoshiBoshi* prm_pHoshiBoshi) {

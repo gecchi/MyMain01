@@ -91,7 +91,7 @@ void Properties::write(std::string prm_properties_filename, const char *header) 
     }
     outs << '#' << "update " << Util::getSystemDateTimeStr() << std::endl;
     StrMap mapProperties = _mapProperties;
-    for (int i = 0; i < lines.size(); i++) {
+    for (int i = 0; i < (int)lines.size(); i++) {
         std::string line = lines[i];
         std::istringstream ins(line);
         int ch = 0;

@@ -328,6 +328,7 @@ VirtualButton::VirtualButton(const char* prm_replay_file) : GgafCore::Object() {
     _with_pov = true;
 
     static volatile bool is_init = VirtualButton::initStatic(); //Ã“Iƒƒ“ƒo‰Šú‰»
+    (void)is_init;
 }
 
 std::map<std::string, vbk> VirtualButton::_mapStr2VBK;

@@ -75,6 +75,7 @@ void MassWallActor::init() {
     _pMassMeshModel->registerCallback_VertexInstanceDataInfo(MassWallActor::createVertexInstanceData);
 
     static volatile bool is_init = MassWallActor::initStatic(this); //Ã“Iƒƒ“ƒo‰Šú‰»
+    (void)is_init;
 }
 
 bool MassWallActor::initStatic(MassWallActor* prm_pMassWallActor) {

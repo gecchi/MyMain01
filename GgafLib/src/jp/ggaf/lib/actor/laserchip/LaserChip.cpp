@@ -50,6 +50,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _dispatch_index = 0;
     //モデル単位でセットすれば事足りるのだが、めんどうなので、アクター毎にセット
     static volatile bool is_init = LaserChip::initStatic(this); //静的メンバ初期化
+    (void)is_init;
 }
 
 bool LaserChip::initStatic(LaserChip* prm_pLaserChip) {

@@ -18,6 +18,7 @@ Rgb::Rgb(std::string prm_str_color) : Object(),
 
 void Rgb::init() {
     static volatile bool is_init = Rgb::initStatic(); //Ã“Iƒƒ“ƒo‰Šú‰»
+    (void)is_init;
 }
 bool Rgb::initStatic() {
     Rgb::_cname["snow"] = "#FFFAFA";

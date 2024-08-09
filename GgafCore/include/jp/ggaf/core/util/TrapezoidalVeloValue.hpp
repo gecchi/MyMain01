@@ -754,7 +754,7 @@ public:
             _phase_no = TVMOVE_DONE;
         }
 #ifdef MY_DEBUG
-        if (_spent_frames > SEC_F(60*60)) {
+        if ((frame)_spent_frames > SEC_F(60*60)) {
             throwCriticalException("1ŽžŠÔˆÈãŠŠ‚è‚Á‚Ï‚È‚µ‚È‚ñ‚Å‚·‚ªI");
         }
 #endif

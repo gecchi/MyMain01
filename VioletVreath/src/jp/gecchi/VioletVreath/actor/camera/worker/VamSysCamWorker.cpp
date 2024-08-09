@@ -620,6 +620,7 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name, Camera* prm_pCamera) : De
     _class_name = "VamSysCamWorker";
 
     static volatile bool is_init = VamSysCamWorker::initStatic(prm_pCamera); //Ã“Iƒƒ“ƒo‰Šú‰»
+    (void)is_init;
 
     pMyShip_ = nullptr; //MyShipScene‚Éİ’è‚µ‚Ä‚à‚ç‚¤
 

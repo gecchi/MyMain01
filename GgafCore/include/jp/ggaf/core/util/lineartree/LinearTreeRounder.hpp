@@ -90,7 +90,7 @@ public:
                 prm_pTStack->clear();
                 return;
             }
-            while ((*_papCur) = prm_pTStack->pop()) { //代入。pop出来なければ nullptr。 I know "=" , not "=="
+            while ( ((*_papCur) = prm_pTStack->pop()) ) { //代入。pop出来なければ nullptr。 I know "=" , not "=="
                  ++_papCur;
                  if (_papCur == _papBanpei) {
                     _TRACE_("【警告】 LinearTreeRounder::popush("<<prm_pTStack<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");

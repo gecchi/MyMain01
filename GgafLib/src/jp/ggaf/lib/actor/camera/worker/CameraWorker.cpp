@@ -37,6 +37,7 @@ CameraWorker::CameraWorker(const char* prm_name, DefaultCamera* prm_pCamera,
     _slide_p1 = prm_slide_p1;
     _slide_p2 = prm_slide_p2;
     static volatile bool is_init = CameraWorker::initStatic(); //Ã“Iƒƒ“ƒo‰Šú‰»
+    (void)is_init;
 }
 
 bool CameraWorker::initStatic() {
