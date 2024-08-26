@@ -18,6 +18,7 @@ void DefaultSpacetime::processSettlementBehavior() {
 #ifdef MY_DEBUG
     ViewCollisionChecker::_num_check_actors = 0;
     WorldCollisionChecker::_num_otoku_check = 0;
+    WorldCollisionChecker::_num_otoku_check_actors = 0;
     WorldCollisionChecker::_num_zannen_check = 0;
     WorldCollisionChecker::_num_check_actors = 0;
     WorldCollisionChecker::_num_check = 0;

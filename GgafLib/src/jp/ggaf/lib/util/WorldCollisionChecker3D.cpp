@@ -123,6 +123,7 @@ bool WorldCollisionChecker3D::isHit(const GgafDx::CollisionChecker* const prm_pO
         }
 #ifdef MY_DEBUG
         WorldCollisionChecker::_num_otoku_check++;
+        WorldCollisionChecker::_num_otoku_check_actors += (colli_part_num*opp_colli_part_num);
 #endif
         return false;
     }

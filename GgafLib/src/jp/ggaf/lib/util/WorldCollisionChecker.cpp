@@ -24,9 +24,23 @@ using namespace GgafLib;
 unsigned int WorldCollisionChecker::_num_check = 0;
 unsigned int WorldCollisionChecker::_num_check_actors = 0;
 unsigned int WorldCollisionChecker::_num_otoku_check = 0;
+unsigned int WorldCollisionChecker::_num_otoku_check_actors = 0;
 unsigned int WorldCollisionChecker::_num_zannen_check = 0;
 #endif
 WorldCollisionChecker::WorldCollisionChecker(GgafDx::GeometricActor* prm_pActor) : GgafDx::CollisionChecker(prm_pActor) {
+    static volatile bool is_init = WorldCollisionChecker::initStatic(); //静的メンバ初期化
+    (void)is_init;
+}
+
+bool WorldCollisionChecker::initStatic() {
+#ifdef MY_DEBUG
+    //当たり判定描画アクターのプレロード
+    ColliAABoxActor::get();
+    ColliAAPrismActor::get();
+    ColliAAPyramidActor::get();
+    ColliSphereActor::get();
+#endif
+    return true;
 }
 
 void WorldCollisionChecker::changeColliSphereR(int prm_index, coord r) {

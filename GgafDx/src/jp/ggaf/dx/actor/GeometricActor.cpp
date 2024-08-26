@@ -223,7 +223,7 @@ void GeometricActor::processSettlementBehavior() {
         const dxcoord fZ = _fZ;
         Camera* pCam = pCARETAKER->getSpacetime()->getCamera();
         const D3DXPLANE* pPlnTop = &(pCam->_plnTop);
-        _dest_from_vppln_top     = pPlnTop->a * fX +
+		_dest_from_vppln_top     = pPlnTop->a * fX +
                                    pPlnTop->b * fY +
                                    pPlnTop->c * fZ +
                                    pPlnTop->d;

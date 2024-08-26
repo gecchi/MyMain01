@@ -25,6 +25,7 @@ public:
     /** ‚PƒtƒŒ[ƒ€‚Ì“–‚½‚è”»’è—v‘f“¯m‚Ì”»’è‰ñ” */
     static unsigned int _num_check;
     static unsigned int _num_otoku_check;
+    static unsigned int _num_otoku_check_actors;
     static unsigned int _num_zannen_check;
     static unsigned int _num_check_actors;
 
@@ -36,6 +37,7 @@ public:
      */
     explicit WorldCollisionChecker(GgafDx::GeometricActor* prm_pActor);
 
+    static bool initStatic();
 
     void changeColliSphereR(int prm_index, coord r);
 

@@ -318,16 +318,20 @@ void World::processBehavior() {
 
 
 #ifdef MY_DEBUG
+    int honrai_check_num = (WorldCollisionChecker::_num_check - 1 - WorldCollisionChecker::_num_zannen_check + WorldCollisionChecker::_num_otoku_check_actors);
+    int otoku_per = 0;
+    if (honrai_check_num > 0 ) {
+        otoku_per = (int)((1.0 - ((WorldCollisionChecker::_num_check * 1.0) / honrai_check_num)) * 100);
+    }
 
-    sprintf(aBufDebug_, "%07uF, %05u/%05uACT, %04u/%04uDRAW, %06u(%06u/%03uDUP)CHK3D(%05uACT), %02uCHK2D(%02uACT), %03.1fFPS(SLOW%d), V%03d",
+    sprintf(aBufDebug_, "%07uF, %05u/%05uACT, %04uDRAW@%04uACT, %06uCHK3D(%03d%%CUT)@%05uACT, %02uCHK2D@%02uACT, %03.1fFPS(SLOW%d), V%03d",
                             pCaretaker->_frame_of_Caretaker,
                             GgafCore::Caretaker::_num_active_actors,
                             GgafCore::Actor::_num_actors,
                             GgafCore::Caretaker::_num_draw,
                             GgafCore::Caretaker::_num_draw_actors,
                             WorldCollisionChecker::_num_check,
-                            WorldCollisionChecker::_num_otoku_check,
-                            WorldCollisionChecker::_num_zannen_check,
+                            otoku_per,
                             WorldCollisionChecker::_num_check_actors,
                             ViewCollisionChecker::_num_check,
                             ViewCollisionChecker::_num_check_actors,

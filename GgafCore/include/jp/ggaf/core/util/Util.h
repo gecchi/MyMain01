@@ -393,7 +393,7 @@ public:
 
     static inline const hashval easy_hash(const char* str) {
         //APHash
-        hashval hash = 0xAAAAAAAA;
+        hashval hash = 0x6a09e667f3bcc908;
         char c;
         for (std::size_t i = 0; (c = *str++) > 0; i++) {
             hash ^= ((i & 1) == 0) ? (  (hash <<  7) ^ c * (hash >> 3)) :
