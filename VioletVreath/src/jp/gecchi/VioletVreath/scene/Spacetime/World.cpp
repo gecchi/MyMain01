@@ -318,7 +318,7 @@ void World::processBehavior() {
 
 
 #ifdef MY_DEBUG
-    int honrai_check_num = (WorldCollisionChecker::_num_check - 1 - WorldCollisionChecker::_num_zannen_check + WorldCollisionChecker::_num_otoku_check_actors);
+    int honrai_check_num = (WorldCollisionChecker::_num_check - WorldCollisionChecker::_num_zannen_check + WorldCollisionChecker::_num_otoku_check_actors);
     int otoku_per = 0;
     if (honrai_check_num > 0 ) {
         otoku_per = (int)((1.0 - ((WorldCollisionChecker::_num_check * 1.0) / honrai_check_num)) * 100);

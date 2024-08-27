@@ -361,6 +361,8 @@ again:
     s.buttons[0] = GetAsyncKeyState(VK_LBUTTON);
     s.buttons[1] = GetAsyncKeyState(VK_RBUTTON);
     s.buttons[2] = GetAsyncKeyState(VK_MBUTTON);
+    s.buttons[3] = GetAsyncKeyState(VK_XBUTTON1);
+    s.buttons[4] = GetAsyncKeyState(VK_XBUTTON2);
     return;
 }
 

@@ -313,7 +313,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
         }
         */
         case WM_KEYDOWN: {
+            bool isFullWindowCommand = false;
             if (wParam == VK_F11) {
+                isFullWindowCommand = true;
+            }
+            //if (wParam == VK_RETURN) {
+            //    if (GetKeyState(VK_MENU) & 0x8000) { // ALTキー
+            //        // ALT+ENTERが押されたときの処理
+            //        isFullWindowCommand = true;
+            //    }
+            //}
+            if (isFullWindowCommand) {
                 //擬似フルスクリーンの切り替え
                 LONG lStyle = GetWindowLong( hWnd, GWL_STYLE );
                 if (lStyle & WS_POPUP) {
@@ -466,7 +476,7 @@ BOOL CustmizeSysMenu(HWND hWnd)
     HMENU hMenu = GetSystemMenu(hWnd, FALSE);
     int i;
     i=5; InsertMenu(hMenu, i, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");
-    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_CHANGE_TO_BORDERLESS_WINDOW ,"Change to borderless windowed.(Double Click)");
+    i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING, MY_IDM_CHANGE_TO_BORDERLESS_WINDOW ,"Change to borderless windowed.(F11)");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)reset_window_size, "Reset window size. >>");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_aspect, "Game view aspect. >>");
     i++; InsertMenu(hMenu, i, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR)menu_vp    , "Game view position. >>");

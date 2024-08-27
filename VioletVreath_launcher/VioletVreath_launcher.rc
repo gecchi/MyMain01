@@ -54,8 +54,8 @@ CAPTION "ÉoÅ[ÉWÉáÉìèÓïÒ"
 FONT 9, "MS UI Gothic", 0, 0, 0x0
 BEGIN
     ICON            IDI_VIOLETVREATH,IDC_MYICON,14,9,20,20
-    LTEXT           "VioletVreath_launcher Version 1.0",IDC_STATIC,46,10,119,8,SS_NOPREFIX
-    LTEXT           "I like SUSHI !!",IDC_STATIC,46,36,119,8
+    LTEXT           "VioletVreath Version 1.0",IDC_STATIC,46,10,119,8,SS_NOPREFIX
+    LTEXT           "I like SUSHI !!",IDC_STATIC,46,36,112,8
     DEFPUSHBUTTON   "OK",IDOK,184,6,41,20,WS_GROUP
     LTEXT           "By Gecchi",IDC_STATIC,107,20,55,8,SS_NOPREFIX
 END
@@ -67,12 +67,12 @@ END
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE
+2 TEXTINCLUDE 
 BEGIN
     "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
     "#include ""windows.h""\r\n"
@@ -80,7 +80,7 @@ BEGIN
     "\0"
 END
 
-3 TEXTINCLUDE
+3 TEXTINCLUDE 
 BEGIN
     "\r\n"
     "\0"
@@ -111,7 +111,7 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_APP_TITLE           "VioletVreath_launcher"
+    IDS_APP_TITLE           "VioletVreath"
     IDC_VIOLETVREATH        "VIOLETVREATH"
 END
 

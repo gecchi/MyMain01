@@ -53,7 +53,31 @@ public:
         return _pHitActor;
     }
     virtual GgafCore::Actor* getSelectedActor();
+
+    /**
+     * マウスのボタンが離された直後かどうか調べる .
+     * @param prm_button_no マウスボタン番号(0~7)
+     * 0:左ボタン
+     * 1:右ボタン
+     * 2:中央ボタン（ホイールボタン）
+     * 3:第4ボタン（サイドボタン1）
+     * 4:第5ボタン（サイドボタン2）
+     * 5~7:未使用
+     * @return true：そのボタンは離された直後である／false：そうでは無い
+     */
     virtual bool isReleasedUpButton(int prm_button_no);
+
+    /**
+     * マウスのボタンが押された直後かどうかを調べる .
+     * @param prm_button_no マウスボタン番号(0~7)
+     * 0:左ボタン
+     * 1:右ボタン
+     * 2:中央ボタン（ホイールボタン）
+     * 3:第4ボタン（サイドボタン1）
+     * 4:第5ボタン（サイドボタン2）
+     * 5~7:未使用
+     * @return true：そのボタンは離された直後である／false：そうでは無い
+     */
     virtual bool isPushedDownButton(int prm_button_no);
 
     virtual ~MousePointerActor();

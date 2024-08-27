@@ -7,6 +7,7 @@
 #include "jp/gecchi/VioletVreath/actor/menu/pause/MenuBoardPause.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "jp/gecchi/VioletVreath/actor/menu/MousePointer.h"
 #include "PreDrawScene.h"
 #include "GameScene/CommonScene.h"
 #include "GameScene/GameBeginningScene.h"
@@ -144,7 +145,7 @@ void GameScene::processBehavior() {
                 getBgmConductor()->performFromTheBegining(BGM_DEMO);
             }
             //VV_VB_UI_EXECUTE で、スキップしてTITLEへ
-            if (VVB->isPushedDown(0, VV_VB_UI_EXECUTE)) { //skip
+            if (VVB->isPushedDown(0, VV_VB_UI_EXECUTE) || pMOUSEPOINTER->isReleasedUpButton(0) ) { //skip
                 pPhase->changeWithSceneFlipping(PHASE_TITLE);
             }
             //EVENT_PREGAMETITLESCENE_FINISH イベント受付
@@ -165,8 +166,8 @@ void GameScene::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_DEMO)");
             }
-            //VV_VB_UI_EXECUTE で、スキップしてTITLEへ
-            if (VVB->isPushedDown(0, VV_VB_UI_EXECUTE)) {
+            //VV_VB_UI_EXECUTE か左クリックで、スキップしてTITLEへ
+            if (VVB->isPushedDown(0, VV_VB_UI_EXECUTE) || pMOUSEPOINTER->isReleasedUpButton(0) ) {
                 pPhase->changeWithSceneFlipping(PHASE_TITLE);
             }
 

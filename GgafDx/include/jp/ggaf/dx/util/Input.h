@@ -103,23 +103,40 @@ public:
     /**
      * マウスのボタンの状態を調べる .
      * @param prm_button_no マウスボタン番号
+     * 0:VK_LBUTTON
+     * 1:VK_RBUTTON
+     * 2:VK_MBUTTON
+     * 3:VK_XBUTTON1
+     * 4:VK_XBUTTON2
+     * 5~7:未使用
      * @return true：そのボタンは押されている状態である／false：そうでは無い
      */
-//    static bool isPressedMouseButton_old(int prm_button_no);
     static bool isPressedMouseButton(int prm_button_no);
+
     /**
      * マウスのボタンが押された直後の状態を調べる .
-     * @param prm_button_no マウスボタン番号
+     * @param prm_button_no マウスボタン番号(0~7)
+     * 0:VK_LBUTTON
+     * 1:VK_RBUTTON
+     * 2:VK_MBUTTON
+     * 3:VK_XBUTTON1
+     * 4:VK_XBUTTON2
+     * 5~7:未使用
      * @return true：そのボタンは押された直後である／false：そうでは無い
      */
-//    static bool isPushedDownMouseButton_old(int prm_button_no);
     static bool isPushedDownMouseButton(int prm_button_no);
+
     /**
      * マウスのボタンが離された直後の状態を調べる .
-     * @param prm_button_no マウスボタン番号
+     * @param prm_button_no マウスボタン番号(0~7)
+     * 0:VK_LBUTTON
+     * 1:VK_RBUTTON
+     * 2:VK_MBUTTON
+     * 3:VK_XBUTTON1
+     * 4:VK_XBUTTON2
+     * 5~7:未使用
      * @return true：そのボタンは離された直後である／false：そうでは無い
      */
-//    static bool isReleasedUpMouseButton_old(int prm_button_no);
     static bool isReleasedUpMouseButton(int prm_button_no);
 
     /**
