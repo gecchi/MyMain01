@@ -26,8 +26,10 @@ public:
       T HEIGHT;
     };
 
-    /** [r] フルスクリーンモードであるかどうかConfig */
+    /** [r] フルスクリーンモードであるかどうか */
     static bool FULL_SCREEN;
+    /** [r] ボーダーレスのウィンドウであるかどうか */
+    static bool BORDERLESS_WINDOW;
     /** [r] 何画面使用するか(1～) */
     static int NUMBER_OF_SCREENS_USED;
     /** [r] ゲーム空間領域幅の基準値 */
@@ -52,7 +54,7 @@ public:
     static pixcoord RENDER_TARGET_BUFFER_HEIGHT;
 
     /** [r] フルスクリーンモード時、ゲーム画面[n]画面目のデイスプレイ番号(n:0～) */
-    static int SCREEN_DISPLAY_NO[MAX_SCREENS];
+    static int SCREEN_PRY_TO_DISPLAY_INDEX[MAX_SCREENS];
     /** [r] 描画先サーフェイス（RENDER_TARGET_BUFFER）の中から、ゲーム画面[n]画面目の実際にゲームに表示するコピー元バッファのクリッピング領域(LEFT/TOP/WIDTH/HEIGHT) */
     static GGAFRECT<pixcoord> SCREEN_RENDER_BUFFER_SOURCE[MAX_SCREENS];
     /** [r] ウィンドウモードだった場合の、ゲーム画面[n]画面目のウィンドウの初期幅サイズ(WIDTH/HEIGHT) */

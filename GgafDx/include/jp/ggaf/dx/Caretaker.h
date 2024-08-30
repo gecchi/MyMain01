@@ -110,7 +110,7 @@ private:
     HRESULT releaseFullScreenRenderTarget();
 
     void setFullScreenWindowPos();
-
+    void setWindowPos();
     /**
      * ウィンドウモード時、ウィンドウサイズに応じた描画範囲を再設定する。
      */
@@ -195,18 +195,18 @@ public:
     ModelManager* _pModelManager;
     /** エフェクト(Effect)資源管理者 */
     EffectManager* _pEffectManager;
-    /** [r] ゲームスクリーン0画面目 （_paHWnd[_screen_pry_to_adapter_no[0]]）のウィンドウハンドル  */
+    /** [r] ゲームスクリーン0画面目 （_paHWnd[_screen_pry_to_adapter_index[0]]）のウィンドウハンドル  */
     HWND _pHWndPrimary;
     /** [r] ウィンドウハンドルの配列、要素の添字は D3DPRESENT_PARAMETERS要素番号(アダプタ番号含む) */
     HWND* _paHWnd;
     /** [r] window数。ウインドウモード時は NUMBER_OF_SCREENS_USED、フルスクリーン時はアダプタ数。 */
     int _num_window;
     /** [r]フルスクリーン時、ゲームスクリーン[n]画面目のアダプタ番号 */
-    int _screen_pry_to_adapter_no[MAX_SCREENS];
-    /** [r]windowインデックス(=フルスクリーン時はアダプタインデックス) → スクリーンプライオリティ。0:SCREEN01/1:SCREEN02/2:TERTIARY */
+    int _screen_pry_to_adapter_index[MAX_SCREENS];
+    /** [r]windowインデックス(=フルスクリーン時はアダプタインデックス) → スクリーンプライオリティ。0:SCREEN01/1:SCREEN02/2:SCREEN03 */
     int* _paWindowNoToScreenPriority;
 
-    /** [r] HWND => スクリーンプライオリティ。0:SCREEN01/1:SCREEN02/2:TERTIARY */
+    /** [r] HWND => スクリーンプライオリティ。0:SCREEN01/1:SCREEN02/2:SCREEN03 */
     std::map<HWND, int> _mapHwndToScreenPriority;
     /** [r] HWND => アダプタ番号 */
     std::map<HWND, int> _mapHwndToWindowNo;
@@ -242,7 +242,7 @@ public:
     /** [r] Present領域(フルスクリーン時、またはウィンドウ＆アスペクトFIXの場合)、[0]:１画面目、[1]:２画面目 (ピクセル) */
     RECT _aRect_Present[MAX_SCREENS];
     /** [r] １画面目アダプタ番号、 _aRectRenderBufferSource[] の序数 0 ～ */
-    int _primary_screen_adpter_no;
+    int _primary_screen_adpter_index;
     /** [r] ２画面目アダプタ番号、 _aRectRenderBufferSource[] の序数 0 ～ */
 //    int _secondary_screen_adpter_no;
 

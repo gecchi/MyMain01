@@ -168,7 +168,7 @@ void World::initialize() {
         //‰ð‘œ“xî•ñ•\Ž¦
         pLabel_resolution1_->update(
             PX_C(cx/2), PX_C(cy),
-            ("DISPLAY["+XTOS(pCARETAKER->_screen_pry_to_adapter_no[SCREEN01])+"] / PRIMARY GAME SCREEN \n"+
+            ("DISPLAY["+XTOS(pCARETAKER->_screen_pry_to_adapter_index[SCREEN01])+"] / PRIMARY GAME SCREEN \n"+
               XTOS(w1)+"*"+XTOS(h1)+"\n"+
               primary_fix_str).c_str()
         );
@@ -180,7 +180,7 @@ void World::initialize() {
         }
         pLabel_resolution2_->update(
             PX_C(cx+(cx/2)), PX_C(cy),
-            ("DISPLAY["+XTOS(pCARETAKER->_screen_pry_to_adapter_no[SCREEN02])+"] / SECONDARY GAME SCREEN\n"+
+            ("DISPLAY["+XTOS(pCARETAKER->_screen_pry_to_adapter_index[SCREEN02])+"] / SECONDARY GAME SCREEN\n"+
                     XTOS(w2)+"*"+XTOS(h2)+"\n"+
                     secondary_fix_str).c_str()
         );

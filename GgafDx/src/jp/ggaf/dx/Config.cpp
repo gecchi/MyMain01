@@ -5,6 +5,7 @@
 using namespace GgafDx;
 
 bool Config::FULL_SCREEN = false;
+bool Config::BORDERLESS_WINDOW = false;
 int Config::NUMBER_OF_SCREENS_USED = 1;
 
 pixcoord Config::GAME_BUFFER_WIDTH = 1600;
@@ -19,7 +20,7 @@ bool Config::PRJ_2D_MODE = false;
 pixcoord Config::RENDER_TARGET_BUFFER_WIDTH = Config::GAME_BUFFER_WIDTH;
 pixcoord Config::RENDER_TARGET_BUFFER_HEIGHT = Config::GAME_BUFFER_HEIGHT;
 
-int Config::SCREEN_DISPLAY_NO[MAX_SCREENS];
+int Config::SCREEN_PRY_TO_DISPLAY_INDEX[MAX_SCREENS];
 
 Config::GGAFRECT<pixcoord> Config::SCREEN_RENDER_BUFFER_SOURCE[MAX_SCREENS];
 Config::GGAFSIZE<pixcoord> Config::SCREEN_WINDOW[MAX_SCREENS];
@@ -124,6 +125,9 @@ void Config::loadProperties(std::string prm_properties_filename) {
     if (GgafCore::Config::_properties.isExistKey("FULL_SCREEN")) {
         Config::FULL_SCREEN = GgafCore::Config::_properties.getBool("FULL_SCREEN");
     }
+    if (GgafCore::Config::_properties.isExistKey("BORDERLESS_WINDOW")) {
+        Config::BORDERLESS_WINDOW = GgafCore::Config::_properties.getBool("BORDERLESS_WINDOW");
+    }
     if (GgafCore::Config::_properties.isExistKey("NUMBER_OF_SCREENS_USED")) {
         Config::NUMBER_OF_SCREENS_USED = GgafCore::Config::_properties.getInt("NUMBER_OF_SCREENS_USED");
     }
@@ -173,19 +177,18 @@ void Config::loadProperties(std::string prm_properties_filename) {
 
     //デフォルト値
     for (int pry = 0; pry < MAX_SCREENS; pry++) {
-        Config::SCREEN_DISPLAY_NO[pry] = pry;
+        Config::SCREEN_PRY_TO_DISPLAY_INDEX[pry] = pry;
     }
     //個別設定値があれば上書き
     for (int pry = 0; pry < MAX_SCREENS; pry++) {
         std::string key = "SCREEN"+ ZPAD(pry+1, 2) + "_DISPLAY_NO"; //SCREEN01_DISPLAY_NO～SCREEN16_DISPLAY_NO
         if (GgafCore::Config::_properties.isExistKey(key)) {
-            Config::SCREEN_DISPLAY_NO[pry] = GgafCore::Config::_properties.getInt(key) - 1;
+            Config::SCREEN_PRY_TO_DISPLAY_INDEX[pry] = GgafCore::Config::_properties.getInt(key) - 1;//ディスプレイ番号 1 は 0、ディスプレイ番号 2 は 1
 
-            if (Config::SCREEN_DISPLAY_NO[pry] < 0 || MAX_SCREENS <= Config::SCREEN_DISPLAY_NO[pry]) {
+            if (Config::SCREEN_PRY_TO_DISPLAY_INDEX[pry] < 0 || MAX_SCREENS <= Config::SCREEN_PRY_TO_DISPLAY_INDEX[pry]) {
                 throwCriticalException(key << "=" << GgafCore::Config::_properties.getInt(key) <<" は範囲外です。\n"<<
                                        "スクリーン番号は 1～"<<MAX_SCREENS<<" の範囲で設定してください。");
             }
-
         }
     }
 
@@ -594,6 +597,7 @@ void Config::loadProperties(std::string prm_properties_filename) {
     }
 
     _TRACE_("Config::FULL_SCREEN=" << Config::FULL_SCREEN);
+    _TRACE_("Config::BORDERLESS_WINDOW=" << Config::BORDERLESS_WINDOW);
     _TRACE_("Config::NUMBER_OF_SCREENS_USED=" << Config::NUMBER_OF_SCREENS_USED);
     _TRACE_("Config::GAME_BUFFER_WIDTH=" << Config::GAME_BUFFER_WIDTH);
     _TRACE_("Config::GAME_BUFFER_HEIGHT=" << Config::GAME_BUFFER_HEIGHT);
@@ -614,7 +618,7 @@ void Config::loadProperties(std::string prm_properties_filename) {
         _TRACE_("Config::SCREEN_WINDOW["<<pry<<"].WIDTH="  << Config::SCREEN_WINDOW[pry].WIDTH);
         _TRACE_("Config::SCREEN_WINDOW["<<pry<<"].HEIGHT=" << Config::SCREEN_WINDOW[pry].HEIGHT);
         _TRACE_("Config::SCREEN_ASPECT_RATIO_FIXED["<<pry<<"]=" << Config::SCREEN_ASPECT_RATIO_FIXED[pry]);
-        _TRACE_("Config::SCREEN_DISPLAY_NO["<<pry<<"]=" << Config::SCREEN_DISPLAY_NO[pry]);
+        _TRACE_("Config::SCREEN_PRY_TO_DISPLAY_INDEX["<<pry<<"]=" << Config::SCREEN_PRY_TO_DISPLAY_INDEX[pry]);
         _TRACE_("Config::SCREEN_PRESENT_POSITION["<<pry<<"]=" << Config::SCREEN_PRESENT_POSITION[pry]);
         _TRACE_("Config::SCREEN_RATIO["<<pry<<"].WIDTH=" << Config::SCREEN_RATIO[pry].WIDTH);
         _TRACE_("Config::SCREEN_RATIO["<<pry<<"].HEIGHT=" << Config::SCREEN_RATIO[pry].HEIGHT);
