@@ -259,18 +259,18 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
     _num_adapter = caps.NumberOfAdaptersInGroup;   //使えるアダプタの数取得
     _TRACE_("_num_adapter = "<< _num_adapter);
     //Configチェックと、_primary_screen_adpter_index、_secondary_screen_adpter_no //TODO:NUMBER_OF_SCREENS_USED ３画面以上のときここは修正
-//    if (CONFIG::FULL_SCREEN) {
+    if (CONFIG::FULL_SCREEN) {
         if (_num_adapter < CONFIG::NUMBER_OF_SCREENS_USED) {
-            throwCriticalException("フルスクリーンの NUMBER_OF_SCREENS_USED="<<(Config::NUMBER_OF_SCREENS_USED)<<"が範囲外です。"<<_num_adapter<<"画面のマルチモニタしか検出できません。");
+            throwCriticalException("フルスクリーンの NUMBER_OF_SCREENS_USED=" << (Config::NUMBER_OF_SCREENS_USED) << "が範囲外です。" << _num_adapter << "画面のマルチモニタしか検出できません。");
         }
         if (_num_adapter > MAX_SCREENS) {
-            throwCriticalException("本アプリは、フルスクリーン時は MAX_SCREENS="<<MAX_SCREENS<<" 以上のマルチモニタはサポート出来ません。"<<_num_adapter<<"画面のマルチモニタが検出されました。");
+            throwCriticalException("本アプリは、フルスクリーン時は MAX_SCREENS=" << MAX_SCREENS << " 以上のマルチモニタはサポート出来ません。" << _num_adapter << "画面のマルチモニタが検出されました。");
         }
 
         for (int pry = 0; pry < CONFIG::NUMBER_OF_SCREENS_USED; pry++) {
-            if (_num_adapter-1 < _screen_pry_to_adapter_index[pry]) {
-                throwCriticalException("_screen_pry_to_adapter_index["<<pry<<"]="<<_screen_pry_to_adapter_index[pry]<<"は範囲外のディスプレイアダプタ番号です。"<<
-                                       "アダプタ番号は 0～"<<_num_adapter-1<<" が有効です。");
+            if (_num_adapter - 1 < _screen_pry_to_adapter_index[pry]) {
+                throwCriticalException("_screen_pry_to_adapter_index[" << pry << "]=" << _screen_pry_to_adapter_index[pry] << "は範囲外のディスプレイアダプタ番号です。" <<
+                    "アダプタ番号は 0～" << _num_adapter - 1 << " が有効です。");
             }
             for (int pry2 = 0; pry2 < CONFIG::NUMBER_OF_SCREENS_USED; pry2++) {
                 if (pry == pry2) {
@@ -278,8 +278,8 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
                 }
                 if (_screen_pry_to_adapter_index[pry] == _screen_pry_to_adapter_index[pry2]) {
                     throwCriticalException("同じディスプレイアダプタ番号を指定しています。\n"
-                                               "_screen_pry_to_adapter_index["<<pry<<"]="<<_screen_pry_to_adapter_index[pry]<<" と "
-                                               "_screen_pry_to_adapter_index["<<pry2<<"]="<<_screen_pry_to_adapter_index[pry2]<<" が重複していました。");
+                        "_screen_pry_to_adapter_index[" << pry << "]=" << _screen_pry_to_adapter_index[pry] << " と "
+                        "_screen_pry_to_adapter_index[" << pry2 << "]=" << _screen_pry_to_adapter_index[pry2] << " が重複していました。");
                 }
             }
         }
@@ -287,21 +287,22 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
         _TRACE_("フルスクリーン時は指定されたアダプタ以外かぶらないようにしておく");
         _TRACE_("処理前");
         for (int pry = 0; pry < CONFIG::NUMBER_OF_SCREENS_USED; pry++) {
-            _TRACE_("_screen_pry_to_adapter_index["<<pry<<"]="<<_screen_pry_to_adapter_index[pry]);
+            _TRACE_("_screen_pry_to_adapter_index[" << pry << "]=" << _screen_pry_to_adapter_index[pry]);
         }
         int wk_adp = CONFIG::NUMBER_OF_SCREENS_USED;
         for (int pry = CONFIG::NUMBER_OF_SCREENS_USED; pry < _num_adapter; pry++) {
             for (int pry2 = 0; pry2 < pry; pry2++) {
                 if (_screen_pry_to_adapter_index[pry] == _screen_pry_to_adapter_index[pry2]) {
-                    _screen_pry_to_adapter_index[pry]=wk_adp;
+                    _screen_pry_to_adapter_index[pry] = wk_adp;
                     wk_adp++;
                 }
             }
         }
         _TRACE_("処理後");
         for (int pry = 0; pry < CONFIG::NUMBER_OF_SCREENS_USED; pry++) {
-            _TRACE_("_screen_pry_to_adapter_index["<<pry<<"]="<<_screen_pry_to_adapter_index[pry]);
+            _TRACE_("_screen_pry_to_adapter_index[" << pry << "]=" << _screen_pry_to_adapter_index[pry]);
         }
+    }
 //    } else {
 //        if (CONFIG::BORDERLESS_WINDOW) {
 //            if (_num_adapter < CONFIG::NUMBER_OF_SCREENS_USED) {
