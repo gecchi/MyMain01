@@ -81,7 +81,7 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\CoordVehicle.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\CoordVehicleAssistantA.h">
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\CoordVehicleAssistant.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\LocusVehicle.h">
@@ -99,7 +99,7 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Morpher.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\MorpherAssistantA.hpp">
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\MorpherAssistant.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\NaviVehicle.h">
@@ -644,7 +644,7 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\CoordVehicle.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\CoordVehicleAssistantA.cpp">
+    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\CoordVehicleAssistant.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\LocusVehicle.cpp">

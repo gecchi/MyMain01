@@ -27,13 +27,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     wcex1.lpszClassName = "VVViewer";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
     //管理者の誕生
-    VvvCaretaker crtkr;
+    VvvCaretaker caretkr;
     //ゲームループ
     MSG msg;
-    crtkr.createWindow(wcex1,
+    caretkr.createWindow(wcex1,
                       "VVViewer", //タイトル文字列
                       dwStyle);
-    DragAcceptFiles(crtkr.getHWND(SCREEN01), TRUE);
+    DragAcceptFiles(caretkr.getHWND(SCREEN01), TRUE);
     //ループ本体
     while (true) {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
@@ -43,7 +43,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         } else {
-            crtkr.present();
+            caretkr.present();
         }
     }
     return (int)msg.wParam;

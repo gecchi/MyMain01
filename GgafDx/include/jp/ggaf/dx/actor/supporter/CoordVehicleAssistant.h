@@ -8,13 +8,13 @@
 namespace GgafDx {
 
 /**
- * 駕籠(平行移動支援) の助手A .
+ * 駕籠(平行移動支援) の助手 .
  * 師匠(駕籠(平行移動支援) )の補佐を行います。
  * @version 1.00
  * @since 2013/12/16
  * @author Masatoshi Tsuge
  */
-class CoordVehicleAssistantA : public GgafCore::Object {
+class CoordVehicleAssistant : public GgafCore::Object {
     friend class CoordVehicle;
 
 private:
@@ -34,7 +34,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit CoordVehicleAssistantA(CoordVehicle* prm_pMaster);
+    explicit CoordVehicleAssistant(CoordVehicle* prm_pMaster);
 
     /**
      * X軸方向でなめらかな移動速度を変化させるシークエンスを実行(時間・距離指定、速度変動) .
@@ -290,7 +290,7 @@ public:
         _smthVzMv.stopTransitioning();
     }
 
-    virtual ~CoordVehicleAssistantA();
+    virtual ~CoordVehicleAssistant();
 };
 
 }

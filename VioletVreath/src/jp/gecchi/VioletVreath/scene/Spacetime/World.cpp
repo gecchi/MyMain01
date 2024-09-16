@@ -42,10 +42,13 @@ World::World(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     is_create_GameScene_ = false;
     pLabel_debug_ = nullptr;
     pLabel_title_ = nullptr;
-    pLabel_resolution1_ = nullptr;
-    pLabel_resolution2_ = nullptr;
-    pLabel_warn1_ = nullptr;
-    pLabel_warn2_ = nullptr;
+//    pLabel_resolution1_ = nullptr;
+//    pLabel_resolution2_ = nullptr;
+    papLabel_resolution_ = nullptr;
+//    pLabel_warn1_ = nullptr;
+//    pLabel_warn2_ = nullptr;
+    papLabel_warn_ = nullptr;
+
     pLabel_warn_dual_view_ = nullptr;
     pPreDrawScene_ = nullptr;
     pGameScene_ = nullptr;
@@ -85,20 +88,19 @@ void World::initialize() {
     pLabel_debug_->update(PX_C(1), PX_C(1), "");
     getSceneChief()->appendGroupChild(pLabel_debug_);
 
-    pLabel_resolution1_ = desireActor(VioletVreath::LabelGecchi16Font, "RESOLUTION1");
-    pLabel_resolution1_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    getSceneChief()->appendGroupChild(pLabel_resolution1_);
-    pLabel_resolution2_ = desireActor(VioletVreath::LabelGecchi16Font, "RESOLUTION2");
-    pLabel_resolution2_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    getSceneChief()->appendGroupChild(pLabel_resolution2_);
+    papLabel_resolution_ = NEW LabelGecchi16Font*[CONFIG::NUMBER_OF_SCREENS_USED];
+    for (int n = 0; n < CONFIG::NUMBER_OF_SCREENS_USED; n++) {
+        papLabel_resolution_[n] = desireActor(VioletVreath::LabelGecchi16Font, "RESOLUTION");
+        papLabel_resolution_[n]->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+        getSceneChief()->appendGroupChild(papLabel_resolution_[n]);
+    }
 
-    pLabel_warn1_ = desireActor(VioletVreath::LabelGecchi8Font, "WARN1");
-    pLabel_warn1_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    getSceneChief()->appendGroupChild(pLabel_warn1_);
-    pLabel_warn2_ = desireActor(VioletVreath::LabelGecchi8Font, "WARN2");
-    pLabel_warn2_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    getSceneChief()->appendGroupChild(pLabel_warn2_);
-
+    papLabel_warn_ = NEW LabelGecchi8Font*[CONFIG::NUMBER_OF_SCREENS_USED];
+    for (int n = 0; n < CONFIG::NUMBER_OF_SCREENS_USED; n++) {
+        papLabel_warn_[n] =  desireActor(VioletVreath::LabelGecchi8Font, "WARN");
+        papLabel_warn_[n]->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+        getSceneChief()->appendGroupChild(papLabel_warn_[n]);
+    }
     pLabel_warn_dual_view_ = desireActor(VioletVreath::LabelGecchi8Font, "WARN_DUAL_SCREEN");
     pLabel_warn_dual_view_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     getSceneChief()->appendGroupChild(pLabel_warn_dual_view_);
@@ -110,108 +112,64 @@ void World::initialize() {
     std::string primary_fix_str = CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01] ? "ASPECT FIX" : "VIEW STRETCH";
     std::string secondary_fix_str = CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN02] ? "ASPECT FIX" : "VIEW STRETCH";
 
-    pixcoord w1,h1,w2,h2;
-    pixcoord w1_bk,h1_bk,w2_bk,h2_bk;
-    w1 = h1 = w2 = h2 = 0;
-    w1_bk = h1_bk = w2_bk = h2_bk = 0;
+    pixcoord w[MAX_SCREENS];
+    pixcoord h[MAX_SCREENS];
+    pixcoord w_bk[MAX_SCREENS];
+    pixcoord h_bk[MAX_SCREENS];
+    bool is_warn[MAX_SCREENS];
+    for (int n = 0; n < MAX_SCREENS; n++) {
+        w[n] = h[n] = w_bk[n] = h_bk[n] = 0;
+        is_warn[n] = false;
+    }
+
     bool is_warn_dual_view = false;
     if (CONFIG::FULL_SCREEN && CONFIG::NUMBER_OF_SCREENS_USED == 1 && CONFIG::_properties.getInt("NUMBER_OF_SCREENS_USED") > 1) {
         //２画面フルスクリーン指定なのに、無理やり１画面フルスクリーンに設定された。
         is_warn_dual_view = true;
     }
-    bool is_warn1 = false;
-    bool is_warn2 = false;
-    if (CONFIG::NUMBER_OF_SCREENS_USED > 1) {
-        if (CONFIG::FULL_SCREEN) {
-            w1 = CONFIG::SCREEN_FULL_SCREEN[SCREEN01].WIDTH;
-            h1 = CONFIG::SCREEN_FULL_SCREEN[SCREEN01].HEIGHT;
-            w2 = CONFIG::SCREEN_FULL_SCREEN[SCREEN02].WIDTH;
-            h2 = CONFIG::SCREEN_FULL_SCREEN[SCREEN02].HEIGHT;
-            w1_bk = CONFIG::SCREEN_FULL_SCREEN_BK[SCREEN01].WIDTH;
-            h1_bk = CONFIG::SCREEN_FULL_SCREEN_BK[SCREEN01].HEIGHT;
-            w2_bk = CONFIG::SCREEN_FULL_SCREEN_BK[SCREEN02].WIDTH;
-            h2_bk = CONFIG::SCREEN_FULL_SCREEN_BK[SCREEN02].HEIGHT;
-            if (w1 != w1_bk || h1 != h1_bk) {
-                is_warn1 = true;
+    if (CONFIG::FULL_SCREEN) {
+        for (int pry = SCREEN01; pry < CONFIG::NUMBER_OF_SCREENS_USED; pry++) {
+            w[pry] =  CONFIG::SCREEN_FULL_SCREEN[pry].WIDTH;
+            h[pry] = CONFIG::SCREEN_FULL_SCREEN[pry].HEIGHT;
+            w_bk[pry] = CONFIG::SCREEN_FULL_SCREEN_BK[pry].WIDTH;
+            h_bk[pry] = CONFIG::SCREEN_FULL_SCREEN_BK[pry].HEIGHT;
+            if (w[pry] != w_bk[pry] || h[pry] != h_bk[pry]) {
+                is_warn[pry] = true;
             }
-            if (w2 != w2_bk || h2 != h2_bk) {
-                is_warn2 = true;
-            }
-        } else {
-            w1 = CONFIG::SCREEN_WINDOW[SCREEN01].WIDTH;
-            h1 = CONFIG::SCREEN_WINDOW[SCREEN01].HEIGHT;
-            w2 = CONFIG::SCREEN_WINDOW[SCREEN02].WIDTH;
-            h2 = CONFIG::SCREEN_WINDOW[SCREEN02].HEIGHT;
-            w1_bk = w1;
-            h1_bk = h1;
-            w2_bk = w2;
-            h2_bk = h2;
+
         }
     } else {
-        if (CONFIG::FULL_SCREEN) {
-            w1 = CONFIG::SCREEN_FULL_SCREEN[SCREEN01].WIDTH;
-            h1 = CONFIG::SCREEN_FULL_SCREEN[SCREEN01].HEIGHT;
-            w1_bk = CONFIG::SCREEN_FULL_SCREEN_BK[SCREEN01].WIDTH;
-            h1_bk = CONFIG::SCREEN_FULL_SCREEN_BK[SCREEN01].HEIGHT;
-            if (w1 != w1_bk || h1 != h1_bk) {
-                is_warn1 = true;
-            }
-        } else {
-            w1 = CONFIG::SCREEN_WINDOW[SCREEN01].WIDTH;
-            h1 = CONFIG::SCREEN_WINDOW[SCREEN01].HEIGHT;
-            w1_bk = w1;
-            h1_bk = h1;
+        for (int pry = SCREEN01; pry < CONFIG::NUMBER_OF_SCREENS_USED; pry++) {
+            w[pry] =  CONFIG::SCREEN_WINDOW[pry].WIDTH;
+            h[pry] = CONFIG::SCREEN_WINDOW[pry].HEIGHT;
+            w_bk[pry] = w[pry];
+            h_bk[pry] = h[pry];
         }
     }
 
-    if (CONFIG::NUMBER_OF_SCREENS_USED > 1) {
-        //解像度情報表示
-        pLabel_resolution1_->update(
-            PX_C(cx/2), PX_C(cy),
-            ("DISPLAY["+XTOS(pCARETAKER->_screen_pry_to_adapter_index[SCREEN01])+"] / PRIMARY GAME SCREEN \n"+
-              XTOS(w1)+"*"+XTOS(h1)+"\n"+
+    for (int pry = SCREEN01; pry < CONFIG::NUMBER_OF_SCREENS_USED; pry++) {
+         //解像度情報表示
+        pixcoord s_left = CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].LEFT;
+        pixcoord s_top = CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].TOP;
+        pixcoord s_width = CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].WIDTH;
+        pixcoord s_height = CONFIG::SCREEN_RENDER_BUFFER_SOURCE[pry].HEIGHT;
+        int ncx = s_left + (s_width/2);
+        int ncy = s_top + (s_height/2);
+        papLabel_resolution_[pry]->update(
+            PX_C(ncx), PX_C(ncy),
+            ("GAME SCREEN "+XTOS(pry+1)+" / DISPLAY "+XTOS(pCARETAKER->_screen_pry_to_adapter_index[pry] + 1)+" \n"+
+              XTOS(w[pry])+"*"+XTOS(h[pry])+"\n"+
               primary_fix_str).c_str()
         );
-        if (is_warn1) {
-            pLabel_warn1_->update(
-                PX_C(cx/2), PX_C(cy+32),
-                ("WARNING, "+XTOS(w1_bk)+"*"+XTOS(h1_bk)+" WAS NOT ABLE !").c_str()
-            );
-        }
-        pLabel_resolution2_->update(
-            PX_C(cx+(cx/2)), PX_C(cy),
-            ("DISPLAY["+XTOS(pCARETAKER->_screen_pry_to_adapter_index[SCREEN02])+"] / SECONDARY GAME SCREEN\n"+
-                    XTOS(w2)+"*"+XTOS(h2)+"\n"+
-                    secondary_fix_str).c_str()
-        );
-        if (is_warn2) {
-            pLabel_warn2_->update(
-                PX_C(cx+(cx/2)), PX_C(cy+32),
-                ("WARNING, "+XTOS(w2_bk)+"*"+XTOS(h2_bk)+" WAS NOT ABLE !").c_str()
-            );
-        }
-
-    } else {
-        //解像度情報表示
-        pLabel_resolution1_->update(
-            PX_C(cx), PX_C(cy),
-            (""+XTOS(w1)+"*"+XTOS(h1)+"\n"+
-                    primary_fix_str).c_str()
-        );
-        if (is_warn1) {
-            pLabel_warn1_->update(
-                PX_C(cx), PX_C(cy+32),
-                ("WARNING, "+XTOS(w1_bk)+"*"+XTOS(h1_bk)+" WAS NOT ABLE !").c_str()
-            );
-        }
-        //強制１画面警告表示
-        if (is_warn_dual_view) {
-            pLabel_warn_dual_view_->update(
-                PX_C(cx), PX_C(cy-32),
-                "WARNING, CAN NOT DUAL VIEW !"
+        if (is_warn[pry]) {
+            papLabel_warn_[pry]->update(
+                PX_C(ncx), PX_C(ncy+32),
+                ("(WARNING !, FAILED TO "+XTOS(w_bk[pry])+"*"+XTOS(h_bk[pry])+")").c_str()
             );
         }
     }
+
+
     requestScene(1, PreDrawScene);
     requestScene(2, GameScene);
     getPhase()->reset(PHASE_INIT);
@@ -255,7 +213,7 @@ void World::processBehavior() {
             if (pPhase->hasJustChanged()) {
             }
             if ((pPhase->getFrame() >= 30 && pCaretaker->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pCaretaker->_fps <= CONFIG::FPS*1.01) || pPhase->getFrame() >= 60*60*3) {
-                pPhase->changeNext();
+//                pPhase->changeNext();
             }
             pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
             break;
@@ -267,10 +225,10 @@ void World::processBehavior() {
             if (pPhase->getFrame() >= SEC_F(1)) {
                 pLabel_aster_->update("*");
                 pLabel_aster_->sayonara(SEC_F(1));
-                pLabel_resolution1_->sayonara();
-                pLabel_resolution2_->sayonara();
-                pLabel_warn1_->sayonara();
-                pLabel_warn2_->sayonara();
+                for (int pry = SCREEN01; pry < CONFIG::NUMBER_OF_SCREENS_USED; pry++) {
+                    papLabel_resolution_[pry]->sayonara();
+                    papLabel_warn_[pry]->sayonara();
+                }
                 pLabel_warn_dual_view_->sayonara();
                 pPhase->changeNext(); //メインへループ
             }
@@ -364,6 +322,8 @@ void World::processBehavior() {
 }
 
 World::~World() {
+    GGAF_DELETEARR(papLabel_resolution_);
+    GGAF_DELETEARR(papLabel_warn_);
     showCursor(true);
 }
 

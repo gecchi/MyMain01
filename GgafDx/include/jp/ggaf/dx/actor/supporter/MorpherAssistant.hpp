@@ -10,13 +10,13 @@ template<class T>
 class Morpher;
 
 /**
- * モーファーの助手A .
+ * モーファーの助手 .
  * @version 1.00
  * @since 2013/12/06
  * @author Masatoshi Tsuge
  */
 template<class T>
-class MorpherAssistantA : public GgafCore::Object {
+class MorpherAssistant : public GgafCore::Object {
 
 //	template<class T>
 	friend class Morpher<T>;
@@ -40,7 +40,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit MorpherAssistantA(Morpher<T>* prm_pMaster);
+    explicit MorpherAssistant(Morpher<T>* prm_pMaster);
 
 
     /**
@@ -122,11 +122,11 @@ public:
                    float prm_p1, float prm_p2, float prm_end_velo,
                    bool prm_zero_acc_end_flg = true);
 
-    virtual ~MorpherAssistantA();
+    virtual ~MorpherAssistant();
 };
 
 template<class T>
-MorpherAssistantA<T>::MorpherAssistantA(Morpher<T>* prm_pMaster) : GgafCore::Object(),
+MorpherAssistant<T>::MorpherAssistant(Morpher<T>* prm_pMaster) : GgafCore::Object(),
         _pMaster(prm_pMaster) {
     _target_num = prm_pMaster->_pActor->_pMorphMeshModel->_morph_target_num;
 
@@ -138,7 +138,7 @@ MorpherAssistantA<T>::MorpherAssistantA(Morpher<T>* prm_pMaster) : GgafCore::Obj
 }
 
 template<class T>
-void MorpherAssistantA<T>::behave() {
+void MorpherAssistant<T>::behave() {
     GgafCore::TrapezoidalVeloValue<float>* pSmthMph = _pa_smthMph;
     GgafCore::ValueTransitioner<float, (MAX_MORPH_TARGET+1)>::Parameter* p = _pMaster->_parameter;
     for (int i = 1; i <= _target_num; i++) {
@@ -153,7 +153,7 @@ void MorpherAssistantA<T>::behave() {
 }
 
 template<class T>
-void MorpherAssistantA<T>::morphByDt(int prm_target_mesh_no,
+void MorpherAssistant<T>::morphByDt(int prm_target_mesh_no,
                                         float prm_target_distance, int prm_target_frames,
                                         float prm_p1, float prm_p2, float prm_end_velo,
                                         bool prm_zero_acc_end_flg) {
@@ -166,7 +166,7 @@ void MorpherAssistantA<T>::morphByDt(int prm_target_mesh_no,
 }
 
 template<class T>
-void MorpherAssistantA<T>::morphByVd(int prm_target_mesh_no,
+void MorpherAssistant<T>::morphByVd(int prm_target_mesh_no,
                                         float prm_top_velo, float prm_target_distance,
                                         float prm_p1, float prm_p2, float prm_end_velo,
                                         bool prm_zero_acc_end_flg) {
@@ -179,7 +179,7 @@ void MorpherAssistantA<T>::morphByVd(int prm_target_mesh_no,
 }
 
 template<class T>
-MorpherAssistantA<T>::~MorpherAssistantA() {
+MorpherAssistant<T>::~MorpherAssistant() {
     GGAF_DELETEARR(_pa_smthMph);
 }
 

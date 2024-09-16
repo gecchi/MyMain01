@@ -277,11 +277,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMoverAssistantA.cpp"
+			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMoverAssistant.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMoverAssistantA.h"
+			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMoverAssistant.h"
 			>
 		</File>
 		<File
@@ -769,11 +769,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxMorpherAssistantA.cpp"
+			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxMorpherAssistant.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxMorpherAssistantA.h"
+			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxMorpherAssistant.h"
 			>
 		</File>
 		<File

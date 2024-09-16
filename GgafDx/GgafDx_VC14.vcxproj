@@ -84,13 +84,13 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\AlphaFader.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Colorist.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\CoordVehicle.h" />
-    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\CoordVehicleAssistantA.h" />
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\CoordVehicleAssistant.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\LocusVehicle.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\LocusVehicleFaceAngAssistant.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\LocusVehicleMvAngAssistant.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\LocusVehicleMvAssistant.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Morpher.hpp" />
-    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\MorpherAssistantA.hpp" />
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\MorpherAssistant.hpp" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\NaviVehicle.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Puppeteer.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Scaler.h" />
@@ -273,7 +273,7 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\AlphaFader.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Colorist.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\CoordVehicle.cpp" />
-    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\CoordVehicleAssistantA.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\CoordVehicleAssistant.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\LocusVehicle.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\LocusVehicleFaceAngAssistant.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\LocusVehicleMvAngAssistant.cpp" />

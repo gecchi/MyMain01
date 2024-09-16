@@ -21,10 +21,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     //プロパティファイル読込み
     CONFIG::loadProperties(".\\config.properties");
 
-    VvCaretaker crtkr;
+    VvCaretaker caretkr;
     MSG msg;
     try {
-        crtkr.createWindow(WndProc, "VioletVrain");
+        caretkr.createWindow(WndProc, "VioletVrain");
         while (true) {
             if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
@@ -33,7 +33,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             } else {
-                crtkr.present();
+                caretkr.present();
             }
         }
 

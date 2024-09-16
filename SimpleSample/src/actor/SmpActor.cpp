@@ -8,7 +8,7 @@
 using namespace SimpleSample;
 
 SmpActor::SmpActor(const char* prm_name) :
-    GgafLib::DefaultMeshActor(prm_name, "Guruguru") { //Guruguru.x が参照される。
+    GgafLib::DefaultMeshActor(prm_name, "Guruguru") { //Guruguru.modelx が参照される。
 }
 
 void SmpActor::initialize() {

@@ -24,10 +24,14 @@ public:
     LabelGecchi16Font* pLabel_aster_;
     LabelGecchi16Font* pLabel_title_;
     LabelGecchi16Font* pLabel_debug_;
-    LabelGecchi16Font* pLabel_resolution1_;
-    LabelGecchi16Font* pLabel_resolution2_;
-    LabelGecchi8Font*  pLabel_warn1_;
-    LabelGecchi8Font*  pLabel_warn2_;
+//    LabelGecchi16Font* pLabel_resolution1_;
+//    LabelGecchi16Font* pLabel_resolution2_;
+    LabelGecchi16Font** papLabel_resolution_; //CONFIG::NUMBER_OF_SCREENS_USED
+
+//    LabelGecchi8Font*  pLabel_warn1_;
+//    LabelGecchi8Font*  pLabel_warn2_;
+    LabelGecchi8Font** papLabel_warn_;
+
     LabelGecchi8Font*  pLabel_warn_dual_view_;
 
     int need_reboot_;

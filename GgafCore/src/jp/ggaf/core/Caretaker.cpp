@@ -754,7 +754,7 @@ unsigned Caretaker::loving(void* prm_arg) {
     try {
         Object* (*funcBlessing)(void*, void*, void*) = nullptr;
         Object* pObject = nullptr;
-        Sleep(1000); //crtkr のインスタンスが完成するまでほんのちょっと待つ必要があるかもしれない
+        Sleep(1000); //caretkr のインスタンスが完成するまでほんのちょっと待つ必要があるかもしれない
 
         //祝福しまくるくる管理者の愛ループ！
         while (_is_loving_flg) {
@@ -858,7 +858,7 @@ unsigned Caretaker::sending(void* prm_arg) {
     try {
         //Object* (*funcBlessing)(void*, void*, void*) = nullptr;
         //Object* pObject = nullptr;
-        Sleep(1000); //crtkr のインスタンスが完成するまでほんのちょっと待つ必要があるかもしれない
+        Sleep(1000); //caretkr のインスタンスが完成するまでほんのちょっと待つ必要があるかもしれない
 
         //ゴミ掃除しまくる管理者の異界送りループ！
         while (_is_sending_flg) {

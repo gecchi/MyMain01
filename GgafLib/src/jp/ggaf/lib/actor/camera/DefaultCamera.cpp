@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistant.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"

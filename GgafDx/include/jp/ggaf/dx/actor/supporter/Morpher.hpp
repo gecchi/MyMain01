@@ -6,7 +6,7 @@
 namespace GgafDx {
 
 template<class T>
-class MorpherAssistantA;
+class MorpherAssistant;
 
 /**
  * モーフィング支援クラス .
@@ -22,8 +22,8 @@ template<class T>
 class Morpher : public GgafCore::ValueTransitioner<float, (MAX_MORPH_TARGET+1) > {
 
 private:
-    /** [r]モーファーの助手A */
-    MorpherAssistantA<T>* _pAsstMv;
+    /** [r]モーファーの助手 */
+    MorpherAssistant<T>* _pAsstMv;
 
 public:
     /** [r]対象アクター */
@@ -37,10 +37,10 @@ public:
     explicit Morpher(T* prm_pActor);
 
     /**
-     * モーファーの助手A(なめらかモーフ)を取得 .
-     * @return モーファーの助手A
+     * モーファーの助手(なめらかモーフ)を取得 .
+     * @return モーファーの助手
      */
-    MorpherAssistantA<T>* asst();
+    MorpherAssistant<T>* asst();
 
     void reset() override;
 
@@ -61,8 +61,8 @@ _pActor(prm_pActor) {
 }
 
 template<class T>
-MorpherAssistantA<T>* Morpher<T>::asst() {
-    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW MorpherAssistantA<T>(this);
+MorpherAssistant<T>* Morpher<T>::asst() {
+    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW MorpherAssistant<T>(this);
 }
 
 template<class T>

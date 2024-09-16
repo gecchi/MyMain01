@@ -3,7 +3,7 @@
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/actor/supporter/Morpher.hpp"
-#include "jp/ggaf/dx/actor/supporter/MorpherAssistantA.hpp"
+#include "jp/ggaf/dx/actor/supporter/MorpherAssistant.hpp"
 #include "jp/ggaf/dx/model/MassMeshModel.h"
 
 #define MAX_MASS_MORPH_TARGET_NUM 4

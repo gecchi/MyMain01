@@ -7,7 +7,7 @@
 namespace GgafDx {
 
 /**
- * ˆÚ“®ŽÔ—¼‚Ì•ŽèA .
+ * ˆÚ“®ŽÔ—¼‚Ì•Žè .
  * Žt (ˆÚ“®ŽÔ—¼)‚ÌˆÚ“®‘¬“x‚Ì•â²‚ðs‚¢‚Ü‚·B
  * @version 1.00
  * @since 2013/12/05

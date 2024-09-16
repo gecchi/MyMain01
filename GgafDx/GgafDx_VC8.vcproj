@@ -773,11 +773,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\supporter\GeoDriverAssistantA.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\GeoDriverAssistant.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\supporter\GeoDriverAssistantA.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\GeoDriverAssistant.h"
 			>
 		</File>
 		<File
@@ -1061,7 +1061,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\supporter\MorpherAssistantA.hpp"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\MorpherAssistant.hpp"
 			>
 		</File>
 		<File

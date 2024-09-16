@@ -67,6 +67,12 @@ Mesh::~Mesh(void) {
 }
 
 void Mesh::UpdateIndices(void) {
+    if (!_FaceMaterials) {
+        _FaceMaterials = NEW uint32_t[_nFaces];
+        for (uint32_t i = 0; i < _nFaces; i++) {
+            _FaceMaterials[i] = 0;
+        }
+    }
     for (uint32_t i = 0; i < _nFaces; i++) {
         _Faces[i].data[0] += _FirstVertex;
         _Faces[i].data[1] += _FirstVertex;

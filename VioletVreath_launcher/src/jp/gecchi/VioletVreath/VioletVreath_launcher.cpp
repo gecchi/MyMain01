@@ -147,8 +147,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     try {
 #endif
         //管理者の誕生
-        VioletVreath::Caretaker crtkr;
-        crtkr.createWindow(wcex1, szTitle,  dwStyle);
+        VioletVreath::Caretaker caretkr;
+        caretkr.createWindow(wcex1, szTitle,  dwStyle);
         // ループ・ザ・ループ
         while (true) {
             if (::PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
@@ -208,7 +208,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             } else {
-                crtkr.present(); //be() で、この世が動く
+                caretkr.present(); //be() で、この世が動く
             }
         }
 #ifdef MY_DEBUG

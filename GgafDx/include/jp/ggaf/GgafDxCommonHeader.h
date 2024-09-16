@@ -483,7 +483,7 @@ class LocusVehicleMvAssistant;
 class LocusVehicleFaceAngAssistant;
 class LocusVehicleMvAngAssistant;
 class CoordVehicle;
-class CoordVehicleAssistantA;
+class CoordVehicleAssistant;
 class NaviVehicle;
 class CollisionChecker;
 class Scaler;

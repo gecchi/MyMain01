@@ -29,12 +29,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
 
     //管理者の誕生
-    HgrCaretaker crtkr;
+    HgrCaretaker caretkr;
     //ゲームループ
     MSG msg;
     try {
         //ウィンドウ生成
-        crtkr.createWindow(wcex1, "Hogera", dwStyle);
+        caretkr.createWindow(wcex1, "Hogera", dwStyle);
         //ループ本体
         while (true) {
             if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
@@ -45,7 +45,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                 DispatchMessage(&msg);
             } else {
                 //次のようにひたすら管理者の present() メソッドをコールしてください。
-                crtkr.present();
+                caretkr.present();
             }
         }
 

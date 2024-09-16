@@ -24,7 +24,7 @@ namespace GgafDx {
 class LocusVehicle : public ActorVehicle {
 
 private:
-    /** [r]移動車両の助手A(移動速度の補佐) */
+    /** [r]移動車両の助手(移動速度の補佐) */
     LocusVehicleMvAssistant* _pAsstMv;
     /** [r]移動車両の助手B(軸回転方角角速度の補佐) */
     LocusVehicleFaceAngAssistant* _pAsstFaceAng;
@@ -43,8 +43,8 @@ public:
     explicit LocusVehicle(GeometricActor* prm_pActor);
 
     /**
-     * 移動車両の助手A(移動速度の補佐)を取得 .
-     * @return 移動車両の助手A
+     * 移動車両の助手(移動速度の補佐)を取得 .
+     * @return 移動車両の助手
      */
     LocusVehicleMvAssistant* asstMv();
 

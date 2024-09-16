@@ -3,7 +3,7 @@
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistant.h"
 
 
 

@@ -2,7 +2,7 @@
 #define GGAF_DX_MORPHMESHACTOR_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/supporter/Morpher.hpp"
-#include "jp/ggaf/dx/actor/supporter/MorpherAssistantA.hpp"
+#include "jp/ggaf/dx/actor/supporter/MorpherAssistant.hpp"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 
 namespace GgafDx {

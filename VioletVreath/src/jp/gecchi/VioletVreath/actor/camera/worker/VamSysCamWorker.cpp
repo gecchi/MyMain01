@@ -7,7 +7,7 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/camera/Camera.h"
 #include "jp/gecchi/VioletVreath/actor/camera/CameraViewPoint.h"
-#include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistant.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 #include "jp/ggaf/lib/util/Direction8Util.h"
 #include "jp/ggaf/lib/util/Quaternion.hpp"

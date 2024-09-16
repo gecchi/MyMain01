@@ -513,7 +513,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
         } else {
             //２画面以上のフルスクリーンは、マルチヘッドのため、全部の画面にウィンドウを作成
             for (int wno = 0; wno < _num_window; wno++) {
-                std::string title = wno == 0 ? std::string(prm_title) : std::string(prm_title) + "(" + XTOS(wno+1) + ")";
+                std::string title = std::string(prm_title) + "[" + XTOS(wno) + "]";
                 WNDCLASSEX wc = prm_wndclass;
                 RegisterClassEx(&wc);
                 _paHWnd[wno] =
@@ -536,7 +536,7 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
     } else {
         //ウィンドウモード時
         for (int wno = 0; wno < _num_window; wno++) {
-            std::string title = wno == 0 ? std::string(prm_title) : std::string(prm_title) + "(" + XTOS(wno+1) + ")";
+            std::string title = std::string(prm_title) + "[" + XTOS(wno) + "]";
             WNDCLASSEX wc = prm_wndclass;
             RegisterClassEx(&wc);
             _paHWnd[wno] =

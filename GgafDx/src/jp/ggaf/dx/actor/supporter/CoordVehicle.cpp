@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 
-#include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistant.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 using namespace GgafDx;
@@ -54,8 +54,8 @@ CoordVehicle::CoordVehicle(GeometricActor* prm_pActor)  : ActorVehicle(prm_pActo
     _grv_mv_flg = false;
 }
 
-CoordVehicleAssistantA* CoordVehicle::asst() {
-    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW CoordVehicleAssistantA(this);
+CoordVehicleAssistant* CoordVehicle::asst() {
+    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW CoordVehicleAssistant(this);
 }
 
 void CoordVehicle::behave() {

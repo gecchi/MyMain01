@@ -66,8 +66,8 @@ public:
     acce _grv_mv_acce;
     coord _grv_mv_stop_renge;
     bool _grv_mv_flg;
-    /** [r]‰íâÄ‚Ì•èA */
-    CoordVehicleAssistantA* _pAsstMv;
+    /** [r]‰íâÄ‚Ì•è */
+    CoordVehicleAssistant* _pAsstMv;
 
 public:
     /**
@@ -80,7 +80,7 @@ public:
      * ‰íâÄ‚Ì•è(ŠŠ‚ç‚©ˆÚ“®’S“–)‚ğæ“¾ .
      * @return ‰íâÄ‚Ì•è
      */
-    CoordVehicleAssistantA* asst();
+    CoordVehicleAssistant* asst();
 
     int dot(int prm_vX, int prm_vY, int prm_vZ);
 

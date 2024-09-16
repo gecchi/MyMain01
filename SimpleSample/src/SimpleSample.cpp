@@ -16,9 +16,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     //プロパティファイル読込み
     CONFIG::loadProperties("config.properties");
     //管理者の誕生
-    SmpCaretaker crtkr;
+    SmpCaretaker caretkr;
     //ウィンドウ作成
-    crtkr.createWindow(WndProc, "SimpleSampleWindow");
+    caretkr.createWindow(WndProc, "SimpleSampleWindow");
     //メインループ処理
     MSG msg;
     while (true) {
@@ -29,7 +29,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         } else {
-            crtkr.present(); //このように管理者の present() メソッドをひたすらコールしてください。
+            caretkr.present(); //このように管理者の present() メソッドをひたすらコールしてください。
         }
     }
     return (int)msg.wParam;

@@ -1,4 +1,4 @@
-#include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/CoordVehicleAssistant.h"
 
 #include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
@@ -7,7 +7,7 @@
 
 using namespace GgafDx;
 
-CoordVehicleAssistantA::CoordVehicleAssistantA(CoordVehicle* prm_pMaster) : GgafCore::Object(),
+CoordVehicleAssistant::CoordVehicleAssistant(CoordVehicle* prm_pMaster) : GgafCore::Object(),
         _pMaster(prm_pMaster) {
     _smthVxMv._t_velo = _pMaster->_velo_x;
     _smthVxMv._t_acce = _pMaster->_acce_x;
@@ -16,7 +16,7 @@ CoordVehicleAssistantA::CoordVehicleAssistantA(CoordVehicle* prm_pMaster) : Ggaf
     _smthVzMv._t_velo = _pMaster->_velo_z;
     _smthVzMv._t_acce = _pMaster->_acce_z;
 }
-void CoordVehicleAssistantA::behave() {
+void CoordVehicleAssistant::behave() {
     if (_smthVxMv.isTransitioning()) {
         _smthVxMv.behave();
         _pMaster->setVeloX(_smthVxMv._t_velo - _smthVxMv._t_acce);
@@ -35,7 +35,7 @@ void CoordVehicleAssistantA::behave() {
 
 }
 
-void CoordVehicleAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
+void CoordVehicleAssistant::slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
                                           double prm_p1, double prm_p2, velo prm_end_velo,
                                           bool prm_zero_acc_end_flg) {
     _smthVxMv._t_value = 0;
@@ -46,7 +46,7 @@ void CoordVehicleAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_ta
                        prm_zero_acc_end_flg);
 }
 
-void CoordVehicleAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
+void CoordVehicleAssistant::slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
                                           double prm_p1, double prm_p2, velo prm_end_velo,
                                           bool prm_zero_acc_end_flg) {
     _smthVyMv._t_value = 0;
@@ -57,7 +57,7 @@ void CoordVehicleAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_ta
                              prm_zero_acc_end_flg);
 }
 
-void CoordVehicleAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
+void CoordVehicleAssistant::slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
                                           double prm_p1, double prm_p2, velo prm_end_velo,
                                           bool prm_zero_acc_end_flg) {
     _smthVzMv._t_value = 0;
@@ -68,7 +68,7 @@ void CoordVehicleAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_ta
                              prm_zero_acc_end_flg);
 }
 
-void CoordVehicleAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
+void CoordVehicleAssistant::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
                                               int prm_target_frames,
                                               double prm_p1, double prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
@@ -80,7 +80,7 @@ void CoordVehicleAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_t
                      prm_zero_acc_end_flg);
 }
 
-void CoordVehicleAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
+void CoordVehicleAssistant::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
                                               int prm_target_frames,
                                               double prm_x_p1, double prm_x_p2, velo prm_x_end_velo,
                                               double prm_y_p1, double prm_y_p2, velo prm_y_end_velo,
@@ -96,7 +96,7 @@ void CoordVehicleAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_t
                      prm_zero_acc_end_flg);
 }
 
-void CoordVehicleAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
+void CoordVehicleAssistant::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
                                           double prm_p1, double prm_p2, velo prm_end_velo,
                                           bool prm_zero_acc_end_flg) {
     _smthVxMv._t_value = 0;
@@ -107,7 +107,7 @@ void CoordVehicleAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_d
                              prm_zero_acc_end_flg);
 }
 
-void CoordVehicleAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
+void CoordVehicleAssistant::slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
                                           double prm_p1, double prm_p2, velo prm_end_velo,
                                           bool prm_zero_acc_end_flg) {
     _smthVyMv._t_value = 0;
@@ -118,7 +118,7 @@ void CoordVehicleAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_d
                        prm_zero_acc_end_flg);
 }
 
-void CoordVehicleAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
+void CoordVehicleAssistant::slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
                                           double prm_p1, double prm_p2, velo prm_end_velo,
                                           bool prm_zero_acc_end_flg) {
     _smthVzMv._t_value = 0;
@@ -129,7 +129,7 @@ void CoordVehicleAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_d
                        prm_zero_acc_end_flg);
 }
 
-void CoordVehicleAssistantA::slideVxyzMvByVd(velo prm_top_velo,
+void CoordVehicleAssistant::slideVxyzMvByVd(velo prm_top_velo,
                                             coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
                                             double prm_p1, double prm_p2, velo prm_end_velo,
                                             bool prm_zero_acc_end_flg) {
@@ -147,7 +147,7 @@ void CoordVehicleAssistantA::slideVxyzMvByVd(velo prm_top_velo,
     }
 }
 
-void CoordVehicleAssistantA::slideVxyzMvByVdTo(velo prm_top_velo,
+void CoordVehicleAssistant::slideVxyzMvByVdTo(velo prm_top_velo,
                                               coord prm_x_target, coord prm_y_target, coord prm_z_target,
                                               double prm_p1, double prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
@@ -159,7 +159,7 @@ void CoordVehicleAssistantA::slideVxyzMvByVdTo(velo prm_top_velo,
                     prm_zero_acc_end_flg);
 }
 
-CoordVehicleAssistantA::~CoordVehicleAssistantA() {
+CoordVehicleAssistant::~CoordVehicleAssistant() {
 }
 
 

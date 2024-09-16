@@ -28,12 +28,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     wcex1.lpszClassName = "Mogera";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
     //管理者の誕生
-    MgrCaretaker crtkr;
+    MgrCaretaker caretkr;
     //ゲームループ
     MSG msg;
     try {
         //ウィンドウ生成
-        crtkr.createWindow(wcex1, "Mogera", dwStyle);
+        caretkr.createWindow(wcex1, "Mogera", dwStyle);
         //ループ本体
         while (true) {
             if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
@@ -44,7 +44,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                 DispatchMessage(&msg);
             } else {
                 //次のようにひたすら管理者の present() メソッドをコールしてください。
-                crtkr.present();
+                caretkr.present();
             }
         }
     } catch (std::exception& e2) {
