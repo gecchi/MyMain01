@@ -23,23 +23,31 @@ namespace GgafDx {
 class Texture : public GgafCore::Object {
     friend class TextureManager;
 
+    /**
+     * CONFIGのリソースディレクトリを参照し、パス付きテクスチャファイル名を得る .
+     * @param prm_file テクスチャファイル名
+     * @return パス付きテクスチャファイル名
+     */
     static std::string getTextureFilePath(std::string prm_file);
 
 public:
-    /** モデル定義の識別名。(50文字まで) */
+    /** テクスチャファイル名 */
     char* _texture_name;
+    /** パス付きテクスチャファイル名 */
     std::string _texture_file_name;
     /** テクスチャの幅(px) */
     UINT _tex_width;
     /** テクスチャの高さ(px) */
     UINT _tex_height;
+
     D3DXIMAGE_INFO* _pD3DXIMAGE_INFO;
+
     LPDIRECT3DBASETEXTURE9 _pIDirect3DBaseTexture9;
 
 public:
     /**
      * コンストラクタ<BR>
-     * @param prm_texture_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
+     * @param prm_texture_name テクスチャファイル名
      */
     explicit Texture(const char* prm_texture_name);
 

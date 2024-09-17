@@ -33,7 +33,7 @@ public:
 public:
     /**
      * コンストラクタ<BR>
-     * @param prm_model モデルの識別名。".x"を追加すると定義Xファイル名になる。
+     * @param prm_model モデルの識別名。".modelx"を追加するとモデル定義ファイル名になる。
      * @return
      */
     D3DXAniMeshModel(const char* prm_model);

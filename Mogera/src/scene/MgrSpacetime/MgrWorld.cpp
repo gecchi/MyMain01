@@ -5,6 +5,7 @@
 #include "scene/MgrSpacetime/MgrWorld/TrialAndErrScene.h"
 #include "scene/MgrSpacetime/MgrWorld/ParallelCurveTestScene.h"
 #include "scene/MgrSpacetime/MgrWorld/TestScene.h"
+#include "scene/MgrSpacetime/MgrWorld/SkinMeshAnimeTestScene.h"
 #include "scene/MgrSpacetime.h"
 #include "actor/PointerTest.h"
 #include "MgrCaretaker.h"
@@ -16,6 +17,7 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pTestScene_ = nullptr;
     pPointerTest_ = nullptr;
     pTrialAndErrScene_ = nullptr;
+    pSkinMeshAnimeTestScene_ = nullptr;
 //    pHitCheckRounder_ = pCARETAKER->getSpacetime()->getLinearOctreeHitCheckRounder();
 //    pHitCheckRounder_b_ = pCARETAKER->getSpacetime()->getLinearQuadtreeHitCheckRounder_b();
 }
@@ -28,6 +30,9 @@ void MgrWorld::initialize() {
     getSceneChief()->appendGroupChild(MGR_TEKI, pPointerTest_);
     pTrialAndErrScene_ = desireScene(TrialAndErrScene);
     appendChild(pTrialAndErrScene_);
+
+    pSkinMeshAnimeTestScene_ = desireScene(SkinMeshAnimeTestScene);
+    appendChild(pSkinMeshAnimeTestScene_);
 }
 
 void MgrWorld::processBehavior() {

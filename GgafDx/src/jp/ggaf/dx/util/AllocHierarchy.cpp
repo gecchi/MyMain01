@@ -213,11 +213,11 @@ HRESULT AllocHierarchy::DestroyMeshContainer(THIS_
     delete[] p->pMaterials;
 
     // エフェクト
-    for(int i = 0; i < p->pEffects->NumDefaults; i++) {
+    for(int i = 0; i < (int)(p->pEffects->NumDefaults); i++) {
         delete[] p->pEffects->pDefaults[i].pParamName;
-        delete[] p->pEffects->pDefaults[i].pValue;
+        BYTE* paByte = (BYTE*)(p->pEffects->pDefaults[i].pValue);
+        delete[] paByte;
     }
-
     delete[] p->pEffects->pEffectFilename;
     delete[] p->pEffects->pDefaults;
     delete p->pEffects;

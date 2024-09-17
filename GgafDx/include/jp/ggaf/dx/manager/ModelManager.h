@@ -109,10 +109,6 @@ public:
         DWORD TextureSplitCols;
         DWORD  FanNum;
         DWORD  IsCW; //1:ŽžŒv‰ñ‚è / 0:”½ŽžŒv‰ñ‚è
-        RegPolySpriteXFileFmt() {
-        }
-        ~RegPolySpriteXFileFmt() {
-        }
     };
 
     class PointSpriteXFileFmt {

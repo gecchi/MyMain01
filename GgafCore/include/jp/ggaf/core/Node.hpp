@@ -554,7 +554,7 @@ void Node<T>::appendChild(T* prm_pChild) {
 #ifdef MY_DEBUG
     if (prm_pChild->_pParent) {
         throwCriticalException("[Node<" << _class_name << ">::appendChild()] Error! 引数ノードは既に所属("
-                << prm_pChild->_pParent->_name << "に所属)しています(this=" << _name << "/prm_pChild=" << prm_pChild->getName() << ")");
+                << prm_pChild->_pParent->_name << "に所属)しています。二重で appendChild() していませんか？ (this=" << _name << "/prm_pChild=" << prm_pChild->getName() << ":"<<prm_pChild<<")");
     }
 #endif
     prm_pChild->_pParent = (T*)this;

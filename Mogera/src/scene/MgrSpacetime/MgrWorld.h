@@ -28,7 +28,7 @@ public:
 
     DefaultScene* pTestScene_;
     DefaultScene* pTrialAndErrScene_;
-
+    SkinMeshAnimeTestScene* pSkinMeshAnimeTestScene_;
     PointerTest* pPointerTest_;
 
 

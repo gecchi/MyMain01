@@ -96,7 +96,7 @@ public:
 public:
     /**
      * コンストラクタ .
-     * @param prm_model_id スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+     * @param prm_model_id スプライト定義の識別名。".modelx"を追加するとモデル定義ファイル名になる。
      */
     MassModel(const char* prm_model_id);
 

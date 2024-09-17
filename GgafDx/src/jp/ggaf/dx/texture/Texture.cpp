@@ -38,8 +38,7 @@ std::string Texture::getTextureFilePath(std::string prm_file) {
                 _TRACE_("【警告】Texture::getTextureFilePath テクスチャファイルが見つかりません。prm_file="<<prm_file<<"\n"<<
                         "texture_file2="<<texture_file2<<"\n"
                         "texture_file1="<<texture_file1<<"\n"
-                        "texture_file0="<<texture_file0<<"\n"
-                        );
+                        "texture_file0="<<texture_file0);
                 return "";
             }
         }
