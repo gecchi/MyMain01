@@ -5,6 +5,8 @@
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
 #include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
+#include "jp/ggaf/dx/util/CollisionChecker.h"
+#include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinWateringLaserChip001.h"
@@ -242,7 +244,7 @@ int MyStgUtil::judgeAdvantage(uint32_t attribute_this, uint32_t attribute_opp) {
 }
 
 
-GgafDx::FigureActor* MyStgUtil::activateExplosionEffectOf(GgafCore::Actor* prm_pActor) {
+GgafDx::FigureActor* MyStgUtil::activateExplosionEffectOf(GgafCore::Actor* prm_pActor, bool prm_is_adjust_part) {
     GgafDx::FigureActor* pE = nullptr;
     GgafCore::Status* pPrmActorStatus = prm_pActor->getStatus();
     GgafDx::GeometricActor* pTargetActor = nullptr;
@@ -259,6 +261,23 @@ GgafDx::FigureActor* MyStgUtil::activateExplosionEffectOf(GgafCore::Actor* prm_p
         }
     }
     if (pTargetActor) {
+        coord tx = pTargetActor->_x;
+        coord ty = pTargetActor->_y;
+        coord tz = pTargetActor->_z;
+        if (prm_is_adjust_part) {
+            //ヒットパートレベルに爆発位置を補正
+            GgafDx::CollisionChecker* pChecker = pTargetActor->getCollisionChecker();
+            if (pChecker) {
+                GgafDx::CollisionArea* pCollisionArea = pChecker->_pCollisionArea;
+                if (pCollisionArea) {
+                    GgafDx::CollisionPart* pHitPart = pCollisionArea->getHitPart();
+                    tx += pHitPart->_cx;
+                    ty += pHitPart->_cy;
+                    tz += pHitPart->_cz;
+                }
+            }
+        }
+
         switch (pPrmActorStatus->get(STAT_ExplosionEffectKind)) {
             case 0: {
                 pE = nullptr; //爆発エフェクト無し
@@ -266,25 +285,25 @@ GgafDx::FigureActor* MyStgUtil::activateExplosionEffectOf(GgafCore::Actor* prm_p
             }
             case EF_EXPLOSION001: {
                 pE = CommonScene_dispatchForce(EffectExplosion001);
-                pE->setPositionAt(pTargetActor);
+                pE->setPosition(tx, ty, tz);
                 pE->getLocusVehicle()->takeoverFrom(pTargetActor->getLocusVehicle());
                 break;
             }
             case EF_EXPLOSION002: {
                 pE = CommonScene_dispatchForce(EffectExplosion002);
-                pE->setPositionAt(pTargetActor);
+                pE->setPosition(tx, ty, tz);
                 pE->getLocusVehicle()->takeoverFrom(pTargetActor->getLocusVehicle());
                 break;
             }
             case EF_EXPLOSION003: {
                 pE = CommonScene_dispatchForce(EffectExplosion003);
-                pE->setPositionAt(pTargetActor);
+                pE->setPosition(tx, ty, tz);
                 pE->getLocusVehicle()->takeoverFrom(pTargetActor->getLocusVehicle());
                 break;
             }
             case EF_EXPLOSION001_STAY: {
                 pE = CommonScene_dispatchForce(EffectExplosion001);
-                pE->setPositionAt(pTargetActor);
+                pE->setPosition(tx, ty, tz);
                 pE->getLocusVehicle()->setMvVelo(0);
                 pE->getLocusVehicle()->setMvAcce(0);
                 break;

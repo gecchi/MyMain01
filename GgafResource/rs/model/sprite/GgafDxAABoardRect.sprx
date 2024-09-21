@@ -1,0 +1,10 @@
+xof 0303txt 0032
+
+SpriteModelDef GgafDxAABoardRect {
+  1.0;            # FLOAT  Width
+  1.0;            # FLOAT  Height
+  "GgafDxAABoardRect.dds";  # STRING TextureFile
+  1;                # DWORD  TextureSplitRows
+  1;                # DWORD  TextureSplitCols
+}
+

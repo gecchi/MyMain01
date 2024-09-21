@@ -213,7 +213,7 @@ void World::processBehavior() {
             if (pPhase->hasJustChanged()) {
             }
             if ((pPhase->getFrame() >= 30 && pCaretaker->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pCaretaker->_fps <= CONFIG::FPS*1.01) || pPhase->getFrame() >= 60*60*3) {
-//                pPhase->changeNext();
+                pPhase->changeNext();
             }
             pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
             break;

@@ -842,6 +842,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/VioletVreath/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
@@ -874,6 +875,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.misc.other.1399934795" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++2a -Wunreachable-code -Winit-self -Wshadow -Wsign-compare -Wfloat-equal -Woverloaded-virtual" valueType="string"/>
@@ -896,6 +898,7 @@
 									<listOptionValue builtIn="false" value="GgafLib"/>
 									<listOptionValue builtIn="false" value="GgafDx"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
+									<listOptionValue builtIn="false" value="GgafResource"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
 									<listOptionValue builtIn="false" value="dinput8"/>
@@ -913,6 +916,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}/${ConfigName}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/VioletVreath}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg}/${ConfigName}&quot;"/>
 								</option>
@@ -1095,7 +1099,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser" id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.247885131.632570595.1231278847" name="ReleaseCdt_x64_DLL" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=" parent="cdt.managedbuild.config.gnu.cygwin.exe.debug" postannouncebuildStep="" postbuildStep="mkdir -p &quot;../../${ConfigName}&quot;;cp -f &quot;./${ProjName}.exe&quot; &quot;../../${ConfigName}/${ProjName}.exe&quot;" preannouncebuildStep="" prebuildStep="">
+				<configuration artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser" id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.247885131.632570595.1231278847" name="ReleaseCdt_x64_DLL" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="cdt.managedbuild.config.gnu.cygwin.exe.debug" postannouncebuildStep="" postbuildStep="mkdir -p &quot;../../${ConfigName}&quot;;cp -f &quot;./${ProjName}.exe&quot; &quot;../../${ConfigName}/${ProjName}.exe&quot;" preannouncebuildStep="" prebuildStep="">
 					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.247885131.632570595.1231278847." name="/" resourcePath="">
 						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.base.301001835" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.PE;org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="cdt.managedbuild.target.gnu.platform.mingw.base.435470593" name="デバッグ・プラットフォーム" osList="win32" superClass="cdt.managedbuild.target.gnu.platform.mingw.base"/>

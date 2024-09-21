@@ -34,6 +34,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.1994231129" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++1y " valueType="string"/>
@@ -55,6 +56,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.misc.other.1555123963" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++1y " valueType="string"/>
@@ -67,6 +69,7 @@
 									<listOptionValue builtIn="false" value="Shlwapi"/>
 									<listOptionValue builtIn="false" value="GgafDx"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
+									<listOptionValue builtIn="false" value="GgafResource"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
 									<listOptionValue builtIn="false" value="dinput8"/>
@@ -80,10 +83,11 @@
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.paths.1822767778" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis}/${ConfigName}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x64&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}/${ConfigName}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg}/${ConfigName}&quot;"/>
 								</option>
 								<option id="gnu.cpp.link.option.flags.986609506" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" useByScannerDiscovery="false" value="-Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932  -std=c++1y -static-libgcc -static-libstdc++ -static " valueType="string"/>
@@ -131,6 +135,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.1226513029" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++1y " valueType="string"/>
@@ -151,6 +156,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.misc.other.1062982026" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++1y " valueType="string"/>
@@ -162,10 +168,11 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.release.1374908851" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.release">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.paths.116739193" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis}/${ConfigName}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x64&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}/${ConfigName}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg}/${ConfigName}&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.libs.608657203" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
@@ -173,6 +180,7 @@
 									<listOptionValue builtIn="false" value="Shlwapi"/>
 									<listOptionValue builtIn="false" value="GgafDx"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
+									<listOptionValue builtIn="false" value="GgafResource"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
 									<listOptionValue builtIn="false" value="dinput8"/>
@@ -229,6 +237,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.202294998" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++2a " valueType="string"/>
@@ -249,6 +258,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.misc.other.1867077299" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++2a " valueType="string"/>
@@ -264,6 +274,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}/${ConfigName}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg}/${ConfigName}&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.libs.372126847" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" useByScannerDiscovery="false" valueType="libs">
@@ -271,6 +282,7 @@
 									<listOptionValue builtIn="false" value="Shlwapi"/>
 									<listOptionValue builtIn="false" value="GgafDx"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
+									<listOptionValue builtIn="false" value="GgafResource"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
 									<listOptionValue builtIn="false" value="dinput8"/>
@@ -319,15 +331,16 @@
 							<tool id="cdt.managedbuild.tool.gnu.archiver.mingw.base.1309472065" name="GCC アーカイバー" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.base"/>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base.1557696505" name="GCC C++ コンパイラー" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.351180497" name="インクルード・パス (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/lib}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/lib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.1062959447" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++1y " valueType="string"/>
@@ -346,15 +359,16 @@
 							</tool>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.mingw.base.2026510954" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.1402288515" name="インクルード・パス (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/lib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.misc.other.264214235" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++1y " valueType="string"/>
@@ -377,6 +391,7 @@
 									<listOptionValue builtIn="false" value="Shlwapi"/>
 									<listOptionValue builtIn="false" value="GgafDx"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
+									<listOptionValue builtIn="false" value="GgafResource"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
 									<listOptionValue builtIn="false" value="dinput8"/>
@@ -390,10 +405,11 @@
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.paths.1486363222" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis}/${ConfigName}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x64&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}/${ConfigName}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg}/${ConfigName}&quot;"/>
 								</option>
 								<option id="gnu.cpp.link.option.flags.441904613" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="-Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932  -std=c++1y -static-libgcc -static-libstdc++ -static " valueType="string"/>
@@ -450,6 +466,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.723908839" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++2a -Wunreachable-code -Winit-self -Wshadow -Wsign-compare -Wfloat-equal -Woverloaded-virtual" valueType="string"/>
@@ -474,6 +491,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.misc.other.1035246047" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++2a -Wunreachable-code -Winit-self -Wshadow -Wsign-compare -Wfloat-equal -Woverloaded-virtual" valueType="string"/>
@@ -489,6 +507,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}/${ConfigName}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg}/${ConfigName}&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.libs.435320624" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
@@ -496,6 +515,7 @@
 									<listOptionValue builtIn="false" value="Shlwapi"/>
 									<listOptionValue builtIn="false" value="GgafDx"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
+									<listOptionValue builtIn="false" value="GgafResource"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
 									<listOptionValue builtIn="false" value="dinput8"/>
@@ -544,15 +564,16 @@
 							<tool id="cdt.managedbuild.tool.gnu.archiver.mingw.base.84175966" name="GCC アーカイバー" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.base"/>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base.425827542" name="GCC C++ コンパイラー" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.841943101" name="インクルード・パス (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/lib}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/lib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.1857307285" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value="  -c -fmessage-length=0 -s -mwindows -Winit-self --input-charset=cp932 --exec-charset=cp932 -std=c++2a " valueType="string"/>
@@ -571,15 +592,16 @@
 							</tool>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.mingw.base.317064277" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.730269546" name="インクルード・パス (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/lib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.misc.other.1184794616" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++2a " valueType="string"/>
@@ -602,6 +624,7 @@
 									<listOptionValue builtIn="false" value="Shlwapi"/>
 									<listOptionValue builtIn="false" value="GgafDx"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
+									<listOptionValue builtIn="false" value="GgafResource"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
 									<listOptionValue builtIn="false" value="dinput8"/>
@@ -619,6 +642,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}/${ConfigName}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg}/${ConfigName}&quot;"/>
 								</option>
 								<option id="gnu.cpp.link.option.flags.851108836" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" useByScannerDiscovery="false" value="-Wl,--enable-auto-import -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++2a -static-libgcc -static-libstdc++ -g -pg -static " valueType="string"/>
@@ -675,6 +699,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.12408682" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++2a " valueType="string"/>
@@ -695,6 +720,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.misc.other.1755046917" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value=" -c -fmessage-length=0 -s -mwindows --input-charset=cp932 --exec-charset=cp932 -std=c++2a " valueType="string"/>
@@ -705,16 +731,28 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.release.1776382332" name="MinGW C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.release"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.release.848296407" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.release">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.paths.125757618" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis}/${ConfigName}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x64&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx}/${ConfigName}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib}/${ConfigName}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}/${ConfigName}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafResource}/${ConfigName}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg}/${ConfigName}&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.libs.1867844261" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" useByScannerDiscovery="false" valueType="libs">
+									<listOptionValue builtIn="false" value="GgafLib"/>
 									<listOptionValue builtIn="false" value="Shlwapi"/>
+									<listOptionValue builtIn="false" value="GgafDx"/>
+									<listOptionValue builtIn="false" value="GgafCore"/>
+									<listOptionValue builtIn="false" value="GgafResource"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
 									<listOptionValue builtIn="false" value="dinput8"/>
 									<listOptionValue builtIn="false" value="d3d9"/>
 									<listOptionValue builtIn="false" value="d3dx9"/>
 									<listOptionValue builtIn="false" value="uuid"/>
+									<listOptionValue builtIn="false" value="_Vorbis"/>
+									<listOptionValue builtIn="false" value="_Ogg"/>
 									<listOptionValue builtIn="false" value="dsound"/>
 									<listOptionValue builtIn="false" value="winmm"/>
 								</option>

@@ -535,8 +535,11 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass,
         }
     } else {
         //ウィンドウモード時
+        std::string title = std::string(prm_title);
         for (int wno = 0; wno < _num_window; wno++) {
-            std::string title = std::string(prm_title) + "[" + XTOS(wno) + "]";
+            if (CONFIG::NUMBER_OF_SCREENS_USED > 1) {
+                title = std::string(prm_title) + "[" + XTOS(wno) + "]";
+            }
             WNDCLASSEX wc = prm_wndclass;
             RegisterClassEx(&wc);
             _paHWnd[wno] =

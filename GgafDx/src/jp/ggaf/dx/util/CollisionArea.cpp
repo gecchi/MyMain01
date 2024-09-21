@@ -19,7 +19,7 @@ CollisionArea::CollisionArea(int prm_colli_part_num) : GgafCore::Object() {
     }
     _aabb_x1=_aabb_y1=_aabb_z1=_aabb_x2=_aabb_y2=_aabb_z2 = 0;
 
-    _hit_colli_part_index = -1;
+    _hit_colli_part_index = 0;
     _need_update_aabb = true;
     _rotate_part_num = 0;
 }

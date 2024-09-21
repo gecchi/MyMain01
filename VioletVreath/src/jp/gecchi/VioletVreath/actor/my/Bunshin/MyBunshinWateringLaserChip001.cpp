@@ -556,9 +556,7 @@ bool MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ, bool chk_don
 void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;
     //ヒットエフェクト
-    GgafDx::FigureActor* pE = UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
-    GgafDx::CollisionPart* pColliPart = getWorldCollisionChecker()->getLastHitCollisionPart();
-    pE->setPosition(pE->_x + pColliPart->_cx, pE->_y + pColliPart->_cy, pE->_z + pColliPart->_cz); //爆発エフェクト位置を補正
+    GgafDx::FigureActor* pE = UTIL::activateExplosionEffectOf(this, true); //爆発エフェクト出現
 
     if ((pOther->lookUpKind() & KIND_ENEMY_BODY) ) {
         //ロックオン可能アクターならロックオン

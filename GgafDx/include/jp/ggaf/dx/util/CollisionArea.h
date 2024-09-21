@@ -48,6 +48,10 @@ public:
     inline CollisionPart* getPart(int prm_index) {
         return _papColliPart[prm_index];
     }
+    inline CollisionPart* getHitPart() {
+        return _papColliPart[_hit_colli_part_index];
+    }
+
     virtual ~CollisionArea();
 };
 

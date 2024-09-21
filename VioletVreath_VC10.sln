@@ -68,6 +68,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VioletVreath_launcher", "Vi
 		{55C018DB-2586-4F20-ADDB-8DA23932824C} = {55C018DB-2586-4F20-ADDB-8DA23932824C}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GgafResource", "GgafResource\GgafResource.vcxproj", "{5D838D9B-A09B-4397-B012-824285AEDDBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -172,6 +174,14 @@ Global
 		{F0ABEF9E-74C5-490D-B4D6-E377EFF40675}.Release|Win32.Build.0 = Release|Win32
 		{F0ABEF9E-74C5-490D-B4D6-E377EFF40675}.Release|x64.ActiveCfg = Release|x64
 		{F0ABEF9E-74C5-490D-B4D6-E377EFF40675}.Release|x64.Build.0 = Release|x64
+		{5D838D9B-A09B-4397-B012-824285AEDDBA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5D838D9B-A09B-4397-B012-824285AEDDBA}.Debug|Win32.Build.0 = Debug|Win32
+		{5D838D9B-A09B-4397-B012-824285AEDDBA}.Debug|x64.ActiveCfg = Debug|x64
+		{5D838D9B-A09B-4397-B012-824285AEDDBA}.Debug|x64.Build.0 = Debug|x64
+		{5D838D9B-A09B-4397-B012-824285AEDDBA}.Release|Win32.ActiveCfg = Release|Win32
+		{5D838D9B-A09B-4397-B012-824285AEDDBA}.Release|Win32.Build.0 = Release|Win32
+		{5D838D9B-A09B-4397-B012-824285AEDDBA}.Release|x64.ActiveCfg = Release|x64
+		{5D838D9B-A09B-4397-B012-824285AEDDBA}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
