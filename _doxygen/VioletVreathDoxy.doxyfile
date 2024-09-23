@@ -771,6 +771,7 @@ WARN_LOGFILE           =
 INPUT                  = ../GgafCore \
                          ../GgafDx \
                          ../GgafLib \
+                         ../GgafResource \
                          ../VioletVreath \
                          ../SimpleSample
 
@@ -798,6 +799,17 @@ FILE_PATTERNS          = *.c \
                          *.hpp \
                          *.fx \
                          *.rc \
+                         *.ldr \
+                         *.spl \
+                         *.fxo \
+                         *.modelx \
+                         *.sprx \
+                         *.x \
+                         *.X \
+                         *.psprx \
+                         *.sprx \
+                         *.fsprx \
+                         *.rsprx \
                          *.C
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories should

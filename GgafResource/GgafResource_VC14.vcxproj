@@ -35,93 +35,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\jp\ggaf\core\actor\Actor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepository.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepositoryStore.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\DepositoryFormation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\DestructActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\Formation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\TreeFormation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\GroupHead.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\MainActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\SceneChief.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Caretaker.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Config.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Cradle.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\exception\CriticalException.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\exception\Exception.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\GarbageBox.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Object.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Phase.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Properties.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\scene\MainScene.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\scene\Scene.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\scene\Spacetime.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\DetectMemoryLeaks.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Logger.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\RepeatSeq.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Rgb.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Status.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Table.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Util.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Xpm.cpp" />
+    <ClCompile Include="src\jp\ggaf\resource\util\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\jp\ggaf\core\actor\Actor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\DisusedActor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\ActorDepository.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\ActorDepositoryStore.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\DepositoryFormation.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\DestructActor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\Formation.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\TreeFormation.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\GroupHead.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\MainActor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\SceneChief.h" />
-    <ClInclude Include="include\jp\ggaf\core\Caretaker.h" />
-    <ClInclude Include="include\jp\ggaf\core\Config.h" />
-    <ClInclude Include="include\jp\ggaf\core\Cradle.h" />
-    <ClInclude Include="include\jp\ggaf\core\Element.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\exception\CriticalException.h" />
-    <ClInclude Include="include\jp\ggaf\core\exception\Exception.h" />
-    <ClInclude Include="include\jp\ggaf\core\GarbageBox.h" />
-    <ClInclude Include="include\jp\ggaf\core\Node.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\Object.h" />
-    <ClInclude Include="include\jp\ggaf\core\Phase.h" />
-    <ClInclude Include="include\jp\ggaf\core\Properties.h" />
-    <ClInclude Include="include\jp\ggaf\core\scene\DisusedScene.h" />
-    <ClInclude Include="include\jp\ggaf\core\scene\MainScene.h" />
-    <ClInclude Include="include\jp\ggaf\core\scene\Scene.h" />
-    <ClInclude Include="include\jp\ggaf\core\scene\Spacetime.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\CmRandomNumberGenerator.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\Curtain.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\DetectMemoryLeaks.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\EnumIndex.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\lineartree\ITreeNodeElem.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\lineartree\LinearOctree.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\lineartree\LinearOctreeRounder.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\lineartree\LinearQuadtree.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\lineartree\LinearQuadtreeRounder.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\lineartree\LinearTree.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\lineartree\LinearTreeRounder.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\Logger.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\RepeatSeq.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\ResourceConnection.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\ResourceManager.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\Rgb.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\RingLinkedList.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\Status.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\Table.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\TransitionValue.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\TrapezoidalVeloValue.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\Util.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\ValueTransitioner.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\Xpm.h" />
-    <ClInclude Include="include\jp\ggaf\GgafCommonHeader.h" />
+    <ClInclude Include="include\jp\ggaf\GgafResourceHeader.h" />
+    <ClInclude Include="include\jp\ggaf\resource\util\Util.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{3A785B3F-EA57-4320-9034-7BC4A9C4A105}</ProjectGuid>
+    <ProjectGuid>{1C0D415E-6016-4985-A4FC-B3D8ABAA200A}</ProjectGuid>
     <RootNamespace>GgafResource_VC14</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <ProjectName>GgafResource</ProjectName>
@@ -246,7 +167,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\include;..\GgafCore\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -262,7 +183,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\include;..\GgafCore\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -276,7 +197,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\include;..\GgafCore\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN64;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -289,7 +210,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\include;..\GgafCore\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN64;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -302,7 +223,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\include;..\GgafCore\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -322,7 +243,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\include;..\GgafCore\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -342,7 +263,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\include;..\GgafCore\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN64;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -359,7 +280,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\include;..\GgafCore\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN64;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
