@@ -59,7 +59,8 @@ public:
         pChecker->addCollisionArea(1);
         pChecker->setColliAABox(0, 0.5);
         pHitActor_->setHitAble(true);
-        T::appendGroupChild(KIND_ACTOR, pHitActor_);
+        pHitActor_->setDefaultKind(KIND_ACTOR);
+        T::appendChild(pHitActor_);
     }
 
     virtual void processBehavior() override {
@@ -73,18 +74,18 @@ public:
 
 VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pCamWorker_ = NEW VvvCamWorker("VvvCamWorker", pCARETAKER->getSpacetime()->getCamera());
-    getSceneChief()->appendGroupChild(pCamWorker_);
+    getSceneChief()->appendChild(pCamWorker_);
     pCursor_ = NEW VvvCursor("Cursor");
-    getSceneChief()->appendGroupChild(pCursor_);
+    getSceneChief()->appendChild(pCursor_);
     pGrid_ = NEW VvvGrid("GRID");
-    getSceneChief()->appendGroupChild(pGrid_);
+    getSceneChief()->appendChild(pGrid_);
 //    pGrid_ = NEW VvvGrid2("GRID2");
-//    getSceneChief()->appendGroupChild(pGrid_);
+//    getSceneChief()->appendChild(pGrid_);
     vb_ = NEW VirtualButton();
     pFont01_info_ =  NEW Font01("Font01");
-    getSceneChief()->appendGroupChild(pFont01_info_);
+    getSceneChief()->appendChild(pFont01_info_);
     pFont01_help_ =  NEW Font01("Font01");
-    getSceneChief()->appendGroupChild(pFont01_help_);
+    getSceneChief()->appendChild(pFont01_help_);
     view_help_ = true;
     view_info_ = true;
     pVvvMousePointer_= nullptr;
@@ -112,7 +113,8 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 void VvvWorld::initialize() {
     pVvvMousePointer_ = desireActor(VvvMousePointer);
 //    pVvvMousePointer_->setDefaultKind(KIND_2DFIX_MOUSE_POINTER);
-    getSceneChief()->appendGroupChild(KIND_POINTER, pVvvMousePointer_);
+    pVvvMousePointer_->setDefaultKind(KIND_POINTER);
+    getSceneChief()->appendChild(pVvvMousePointer_);
 
      pFont01_help_->setAlign(ALIGN_LEFT, VALIGN_TOP);
      pFont01_help_->setMaterialColor(1.0,0.5,0.2);
@@ -912,7 +914,8 @@ void VvvWorld::processDragAndDrop() {
             pChecker->addCollisionArea(1);
             pChecker->setColliSphere(0, DX_C(bound));
             pActor->setHitAble(true);
-            getSceneChief()->appendGroupChild(KIND_ACTOR, pActor);
+            pActor->setDefaultKind(KIND_ACTOR);
+            getSceneChief()->appendChild(pActor);
             ActorInfo* pActorInfo = NEW ActorInfo(pActor, pChecker, string(VvvCaretaker::dropfiles_), ext == "MODELX" ? true : false);
             listActorInfo_.addLast(pActorInfo);
             listActorInfo_.createIndex();
@@ -974,7 +977,8 @@ void VvvWorld::processDragAndDrop() {
             pNewActor->setPositionAt(pCurrentActor);
             pNewActor->setFaceAngAs(pCurrentActor);
             pNewActor->setScaleAt(pCurrentActor);
-            getSceneChief()->appendGroupChild(KIND_ACTOR, pNewActor);
+            pNewActor->setDefaultKind(KIND_ACTOR);
+            getSceneChief()->appendChild(pNewActor);
 
             dxcoord new_bound = pNewActor->getModel()->_bounding_sphere_radius * pNewActor->_rate_of_bounding_sphere_radius;
             pNewChecker->addCollisionArea(1);

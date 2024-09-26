@@ -167,7 +167,7 @@ public:
      */
     void execute(uint32_t prm_index) {
         typename LinearTree<T,DIM,N>::NodeSpace* pOctant_this_level = &(_paLinearTreeSpace[prm_index]);
-        ITreeNodeElem* pElem = pOctant_this_level->_pNodeValueList;
+        ITreeNodeElem* pElem = pOctant_this_level->_pRootNodeElem;
         const kind_t kind_groupA = _kind_groupA;
         const kind_t kind_groupB = _kind_groupB;
         const kind_t kind_groupAB = kind_groupA | kind_groupB;
@@ -179,7 +179,7 @@ public:
                 } else if (kind & kind_groupB) {
                     _stackCurrent_GroupB.push((T*)pElem);
                 }
-                pElem = pElem->_pNextValue;
+                pElem = pElem->_pNextNodeElem;
             }
 
             if (_stackCurrent_GroupA.isExist()) {

@@ -27,7 +27,7 @@ namespace GgafLib {
  *     pLaserDepo->appendChild(pChip);             //本デポジトリに LaserChip オブジェクトを登録(子に所属させる)
  * }
  * pLaserDepo->config(40, 25);                    //LaserChip の最大連結数、弾切れフレーム数を設定。
- * appendGroupChild(_pLaserChipDepo);                  //デポジトリ自体を活動可能にさせるため、何処かに所属させる。
+ * appendChild(_pLaserChipDepo);                  //デポジトリ自体を活動可能にさせるため、何処かに所属させる。
  *
  *
  * ----- 発射処理（Zキー押しっぱなしで発射例） --------------

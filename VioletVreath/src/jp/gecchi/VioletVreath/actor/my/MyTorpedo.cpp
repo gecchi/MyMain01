@@ -36,7 +36,7 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pTorpedoCont
         pTailEffectDepository_->put(NEW MyTorpedoTail(name.c_str(), this));
     }
     move_section_ = 0;
-    appendGroupChild(pTailEffectDepository_);
+    appendChild(pTailEffectDepository_);
     effectBlendOne(); //加算合成するTechnique指定
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない

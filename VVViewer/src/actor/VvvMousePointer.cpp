@@ -41,7 +41,8 @@ void VvvMousePointer::initialize() {
     pChecker->setColliSphere(0, PX_C(100));
     pI_->setScaleR(3.0);
     pI_->setHitAble(true);
-    appendGroupChild(KIND_ACTOR, pI_);
+    pI_->setDefaultKind(KIND_ACTOR);
+    appendChild(pI_);
 }
 
 void VvvMousePointer::onActive() {

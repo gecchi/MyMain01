@@ -30,16 +30,16 @@ enum {
 GameDemoScene::GameDemoScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "GameDemoScene";
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    getSceneChief()->appendGroupChild(pLabel01_);
+    getSceneChief()->appendChild(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    getSceneChief()->appendGroupChild(pLabel02_);
+    getSceneChief()->appendChild(pLabel02_);
     demo_stage_ = 1;
 
     papLabel_ranking_ = NEW LabelRankingFont*[G_RANKING_TABLE.getCount()];
     int cnt = (int)(G_RANKING_TABLE.getCount());
     for (int i = 0; i < cnt; i++) {
         papLabel_ranking_[i] = NEW LabelRankingFont("RANK_INFO");
-        getSceneChief()->appendGroupChild(papLabel_ranking_[i]);
+        getSceneChief()->appendChild(papLabel_ranking_[i]);
     }
 
 }

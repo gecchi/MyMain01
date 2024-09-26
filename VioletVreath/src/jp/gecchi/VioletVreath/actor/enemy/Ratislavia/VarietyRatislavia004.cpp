@@ -17,7 +17,7 @@ VarietyRatislavia004::VarietyRatislavia004(const char* prm_name) : EnemyRatislav
     for (angle ang1 = D0ANG; ang1 < D360ANG;  ang1 += D_ANG(20)) {
         for (angle ang2 = D0ANG; ang2 < D360ANG;  ang2 += D_ANG(20)) {
             EnemyOmulus* p = NEW EnemyOmulus("pEV1");
-            appendGroupChildAsFkOnSurface(p, ang1, ang2);
+            appendChildAsFkOnSurface(p, ang1, ang2);
             Sleep(1);
         }
     }

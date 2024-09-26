@@ -49,13 +49,13 @@ void FkFormation::appendFormationMember(GeometricActor* prm_pMember,
     GeometricActor* pFkBase = (GeometricActor*)(getChildFirst());
     _num_formation_member++;
     prm_pMember->_pFormation = this; //メンバーへフォーメーションを設定
-    pFkBase->appendGroupChildAsFk(prm_pMember,
-                                  prm_x_init_local,
-                                  prm_y_init_local,
-                                  prm_z_init_local,
-                                  prm_rx_init_local,
-                                  prm_ry_init_local,
-                                  prm_rz_init_local);
+    pFkBase->appendChildAsFk(prm_pMember,
+                              prm_x_init_local,
+                              prm_y_init_local,
+                              prm_z_init_local,
+                              prm_rx_init_local,
+                              prm_ry_init_local,
+                              prm_rz_init_local);
     prm_pMember->inactivate(); //フォーメーションなのでCalledUpを待つため
 }
 
@@ -87,8 +87,8 @@ GeometricActor* FkFormation::calledUpMember(int prm_formation_child_num) {
         return nullptr;
     }
     if (_can_called_up) {
-                                 //FkBase     -> GroupHead   ->Actor
-        GgafCore::Actor* pFirstActor = getChildFirst()->getChildFirst()->getChildFirst(); //今の先頭アクター
+                                 //FkBase      ->Actor
+        GgafCore::Actor* pFirstActor = getChildFirst()->getChildFirst(); //今の先頭アクター
         if (_pIte) {
             _pIte = _pIte->getNext();
         } else {

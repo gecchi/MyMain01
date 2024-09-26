@@ -37,9 +37,6 @@ public:
     virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override {
     }
 
-    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override {
-        return false;
-    }
 
     virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }

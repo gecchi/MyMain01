@@ -204,19 +204,19 @@ void MassWallActor::createVertexInstanceData(void* prm, GgafDx::MassModel::Verte
     out_info->pInstancedata = MassWallActor::_aInstancedata;
 }
 
-void MassWallActor::executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) {
-    if ((prm_pOtherActor->_obj_class & Obj_LaserChip) == Obj_LaserChip) {
-        LaserChip* pLaserChip = (LaserChip*)prm_pOtherActor;
-        if (pLaserChip->getInfrontChip() == nullptr) {
-            //相手が先端チップだけ地形ブロックと判定
-            GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
-        } else {
-            return;
-        }
-    } else {
-        GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
-    }
-}
+//void MassWallActor::executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) {
+//    if ((prm_pOtherActor->_obj_class & Obj_LaserChip) == Obj_LaserChip) {
+//        LaserChip* pLaserChip = (LaserChip*)prm_pOtherActor;
+//        if (pLaserChip->getInfrontChip() == nullptr) {
+//            //相手が先端チップだけ地形ブロックと判定
+//            GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
+//        } else {
+//            return;
+//        }
+//    } else {
+//        GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
+//    }
+//}
 
 void MassWallActor::initialize() {
 }

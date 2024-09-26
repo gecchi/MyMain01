@@ -26,7 +26,7 @@ MgrSpacetime::MgrSpacetime(const char* prm_name, MgrCamera* prm_pCam) :
     UTIL::center_y_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_HEIGHT / 2);
 
     pActiveCamWorker_ = NEW MgrCameraWorker("MgrCameraWorker", prm_pCam);
-    getSceneChief()->appendGroupChild(pActiveCamWorker_); //基底デフォルトカメラワーク
+    getSceneChief()->appendChild(pActiveCamWorker_); //基底デフォルトカメラワーク
 
     pVb_ = NEW VirtualButton();
     pVb_->remapK(0, VB_UI_DEBUG, VBK_Q     );

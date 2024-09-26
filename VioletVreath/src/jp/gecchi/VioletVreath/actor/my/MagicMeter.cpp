@@ -79,7 +79,7 @@ height_(PX_C(height_px_)) {
 
     int magic_num = lstMagic_.length();
     for (int i = 0; i < magic_num; i++) {
-        appendGroupChild(lstMagic_.getNext(i));
+        appendChild(lstMagic_.getNext(i));
     }
 
     papLvTgtMvCur_   = NEW MagicLvCursor001*[magic_num];
@@ -102,15 +102,15 @@ height_(PX_C(height_px_)) {
         r_roll_velo_[i] = 0.0f;
     }
 
-    //表示プリオリティを考慮して、appendGroupChildを行う事！
+    //表示プリオリティを考慮して、appendChildを行う事！
     for (int i = 0; i < magic_num; i++) {
-        appendGroupChild(papLvNowCur_[i]); //現レベル強調カーソル
+        appendChild(papLvNowCur_[i]); //現レベル強調カーソル
     }
     for (int i = 0; i < magic_num; i++) {
-        appendGroupChild(papLvCastingCur_[i]); //詠唱レベル強調カーソル
+        appendChild(papLvCastingCur_[i]); //詠唱レベル強調カーソル
     }
     for (int i = 0; i < magic_num; i++) {
-        appendGroupChild(papLvTgtMvCur_[i]); //メータ補助カーソル
+        appendChild(papLvTgtMvCur_[i]); //メータ補助カーソル
     }
 
     const int mp_max_val = MY_SHIP_MAX_MP;
@@ -121,33 +121,33 @@ height_(PX_C(height_px_)) {
     pMpBar_ = NEW MpBar("MpBar");
     pMpBar_->linkVariable(prm_pMP_MyShip);
     pMpBar_->scale(0, mp_max_val, mp_disp_width);
-    appendGroupChild(pMpBar_);
+    appendChild(pMpBar_);
     //Vreathバー設置
     pVreathBar_ = NEW VreathBar("VreathBar");
     pVreathBar_->linkVariable(prm_pVreath_MyShip);
     pVreathBar_->scale(0, vreath_max_val, vreath_disp_width);
-    appendGroupChild(pVreathBar_);
+    appendChild(pVreathBar_);
 
     //エネルギーバーのコスト表示バー
     pMpCostDispBar_ = NEW CostDispBar("CostDispBar", pMpBar_);
     pMpCostDispBar_->scale(-mp_max_val, +mp_max_val, mp_disp_width*2);
-    appendGroupChild(pMpCostDispBar_);
+    appendChild(pMpCostDispBar_);
     //Vreathバー、コスト表示バー
     pVreathCostDispBar_ = NEW CostDispBar("CostDispBar2", pVreathBar_);
     pVreathCostDispBar_->scale(-vreath_max_val, +vreath_max_val, vreath_disp_width*2);
-    appendGroupChild(pVreathCostDispBar_);
+    appendChild(pVreathCostDispBar_);
     //Vreathバー、ダメージ表示バー
     pDamageDispBar_ = NEW DamageDispBar("DamageDispBar", pVreathBar_);
     pDamageDispBar_->scale(-vreath_max_val, +vreath_max_val, vreath_disp_width*2);
-    appendGroupChild(pDamageDispBar_);
+    appendChild(pDamageDispBar_);
 
     //残魔法効果持続時間表示
     pMagicMeterStatus_ = NEW MagicMeterStatus("MagicMeterStatus", this);
-    appendGroupChild(pMagicMeterStatus_);
+    appendChild(pMagicMeterStatus_);
 
     //メータ主カーソル
     pMainCur_ = NEW MagicMeterCursor001("MagicCursor", this);
-    appendGroupChild(pMainCur_);
+    appendChild(pMainCur_);
 
     GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
     pSeXmtr->set(SE_CURSOR_MOVE_METER             , "SE_MM_CURSOR_MOVE_METER");  //主メーターカーソル移動時

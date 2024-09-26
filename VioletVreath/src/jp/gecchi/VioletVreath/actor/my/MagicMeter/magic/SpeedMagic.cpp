@@ -34,7 +34,7 @@ SpeedMagic::SpeedMagic(const char* prm_name, int*prm_pMP)
 
     pEffect_ = NEW EffectSpeedMagic("EffectSpeedMagic");
     pEffect_->inactivate();
-    appendGroupChild(pEffect_);
+    appendChild(pEffect_);
 }
 
 void SpeedMagic::onReset() {

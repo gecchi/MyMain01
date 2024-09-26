@@ -32,11 +32,11 @@ EnemyIdaBase::EnemyIdaBase(const char* prm_name) :
     for (int i = 0; i < n; i++) {
         std::string name1 = "ParallelCurve_"+XTOS(i)+"_1";
         EnemyIda* p1 = NEW EnemyIda(name1.c_str());
-        appendGroupChildAsFk(p1, 0, D*(i + 1), 0, 0, 0, 0);
+        appendChildAsFk(p1, 0, D*(i + 1), 0, 0, 0, 0);
         _list_child.addLast(p1, false);
         std::string name2 = "ParallelCurve_"+XTOS(i)+"_2";
         EnemyIda* p2 = NEW EnemyIda(name2.c_str());
-        appendGroupChildAsFk(p2, 0, -D*(i + 1), 0, 0, 0, 0);
+        appendChildAsFk(p2, 0, -D*(i + 1), 0, 0, 0, 0);
         _list_child.addLast(p2, false);
     }
     _list_child.createIndex();

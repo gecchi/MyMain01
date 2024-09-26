@@ -3,7 +3,6 @@
 #include "jp/ggaf/GgafLibCommonHeader.h"
 
 #include "jp/ggaf/core/util/RingLinkedList.hpp"
-#include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/LocusVehicleMvAssistant.h"
@@ -1027,7 +1026,7 @@ void MenuActor<T>::addItem(GgafDx::FigureActor* prm_pItem,
     prm_pItem->inactivate();
     _lstItems.addLast(prm_pItem, false);
 //    T::appendChild(prm_pItem);
-    T::appendGroupChild(prm_pItem);
+    T::appendChild(prm_pItem);
 
 }
 
@@ -1588,10 +1587,6 @@ void MenuActor<T>::riseMe() {
                        T::_z + p->_z_local);
         p->setAlpha(T::getAlpha());
         p->activate();
-        GgafCore::GroupHead* pH = p->getGroupHead(); //Itemの間には団長が存在する
-        if (pH) {
-            pH->activate();
-        }
         pElem = pElem->_pNext;
     }
     //表示メニューアイテム初期配置

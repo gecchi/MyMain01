@@ -45,8 +45,6 @@ public:
 
     virtual void processSettlementBehavior() override;
 
-    virtual bool processHitChkLogic(Actor* prm_pOtherActor);
-
     virtual void onHit(const Actor* prm_pOtherActor);
 
     virtual GgafCore::Actor* getHitActor() {

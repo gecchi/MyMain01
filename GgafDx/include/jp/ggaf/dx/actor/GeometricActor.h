@@ -66,7 +66,7 @@ public:
     scale _sz;
     /** [r]チェッカー */
     CollisionChecker* _pChecker;
-
+//    CollisionChecker* _pSubChecker;
     /** [r]モデルの境界球半径倍率 */
     dxcoord _rate_of_bounding_sphere_radius;
     /** [r]内部で _x から計算されるDirectXのワールドX座標(_x : _fX = 1000 : 0.1) */
@@ -264,17 +264,6 @@ public:
     virtual void processChangeGeoFinal() {
     }
 
-    /**
-     * 当たり判定ロジック .
-     * 当たり判定ロジックを実装している。<BR>
-     * チェッカーオブジェクトがある場合、<BR>
-     * CollisionChecker::isHit() で判定する。<BR>
-     * チェッカーオブジェクトが無い場合、<BR>
-     * ヒットしていないこととする。<BR>
-     * @param prm_pOtherActor 相手のアクター
-     * @return true：ヒットしている／false：ヒットしていない
-     */
-    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override;
 
     /**
      * 当たり判定領域を描画 .
@@ -627,7 +616,6 @@ public:
      * 【注意】<BR>
      * 移動車両(getLocusVehicle()) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
-     * @param prm_kind     種別
      * @param prm_pGeoActor 従属させるアクター
      * @param prm_x_init_local  従属アクターのローカル(this)位置からのX座標位置
      * @param prm_y_init_local  従属アクターのローカル(this)位置からのY座標位置
@@ -637,39 +625,13 @@ public:
      * @param prm_rz_init_local 従属アクターのローカル(this)回転からのZ軸回転値
      * @return 種別トップの団長
      */
-    virtual GgafCore::GroupHead* appendGroupChildAsFk(kind_t prm_kind,
-                                                      GeometricActor* prm_pGeoActor,
-                                                      int prm_x_init_local,
-                                                      int prm_y_init_local,
-                                                      int prm_z_init_local,
-                                                      int prm_rx_init_local,
-                                                      int prm_ry_init_local,
-                                                      int prm_rz_init_local);
-
-    /**
-     * 引数のアクターを、自身の子アクターとして追加し、姿勢をフォワードキネマティクスで設定する .
-     * 引数の従属アクターは、次の２つのメソッドの使用が可能となります。 <BR>
-     * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
-     * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
-     * 【注意】<BR>
-     * 移動車両(getLocusVehicle()) は、ローカル座標系でのみ使用可能となります。<BR>
-     * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
-     * @param prm_pGeoActor 従属させるアクター
-     * @param prm_x_init_local  従属アクターのローカル(this)位置からのX座標位置
-     * @param prm_y_init_local  従属アクターのローカル(this)位置からのY座標位置
-     * @param prm_z_init_local  従属アクターのローカル(this)位置からのZ座標位置
-     * @param prm_rx_init_local 従属アクターのローカル(this)回転からのX軸回転値
-     * @param prm_ry_init_local 従属アクターのローカル(this)回転からのY軸回転値
-     * @param prm_rz_init_local 従属アクターのローカル(this)回転からのZ軸回転値
-     * @return 種別トップの団長
-     */
-    virtual GgafCore::GroupHead* appendGroupChildAsFk(GeometricActor* prm_pGeoActor,
-                                                      int prm_x_init_local,
-                                                      int prm_y_init_local,
-                                                      int prm_z_init_local,
-                                                      int prm_rx_init_local,
-                                                      int prm_ry_init_local,
-                                                      int prm_rz_init_local);
+    virtual void appendChildAsFk(GeometricActor* prm_pGeoActor,
+                                  int prm_x_init_local,
+                                  int prm_y_init_local,
+                                  int prm_z_init_local,
+                                  int prm_rx_init_local,
+                                  int prm_ry_init_local,
+                                  int prm_rz_init_local);
 
     /**
      * 座標と回転 _x,_y,_z,_rx,_ry,_rz を絶対座標系を退避して、ローカル座標(土台からの相対座標)に置き換える .
@@ -726,8 +688,7 @@ public:
 
     /**
      * 土台となるアクターを取得 .
-     * 土台とは、appendGroupChildAsFk() によって追加された側のオブジェクトが、
-     * appendGroupChildAsFk()を実行したアクターを指す。
+     * 土台とは、appendChildAsFk() によって追加されたオブジェクト親
      * @return 土台となるアクター
      */
     inline GeometricActor* getBaseActor() const {

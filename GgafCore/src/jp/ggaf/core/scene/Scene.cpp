@@ -252,7 +252,7 @@ Caretaker* Scene::askCaretaker() {
 }
 
 void Scene::dump() {
-    _TRACE_("œ"<<NODE_INFO<<DUMP_FLGS);
+    _TRACE_("œ"<<NODE_INFO<< DUMP_FLGS_SCENE);
     if (_pSceneChief) {
         _pSceneChief->dump();
         Scene* pScene_tmp = _pChildFirst;

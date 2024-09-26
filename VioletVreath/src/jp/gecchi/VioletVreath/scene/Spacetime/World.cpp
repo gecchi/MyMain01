@@ -35,7 +35,7 @@ World::World(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     pMousePointer_ = nullptr;
 
     pLabel_aster_ = NEW LabelGecchi16Font("ASTER");
-    getSceneChief()->appendGroupChild(pLabel_aster_);
+    getSceneChief()->appendChild(pLabel_aster_);
     pLabel_aster_->update(PX_C(CONFIG::GAME_BUFFER_WIDTH), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
     pLabel_aster_->getAlphaFader()->beat(30, 15, 0, 15, -1); //チカチカ点滅
 
@@ -72,7 +72,7 @@ void World::initialize() {
     std::ostringstream os;
     os << "[ VIOLET VREATH ]\n" << VERSION << "\n" << "PLEASE WAIT A MOMENT ...";
     pLabel_title_ = desireActor(LabelGecchi16Font, "STR01");
-    getSceneChief()->appendGroupChild(pLabel_title_);
+    getSceneChief()->appendChild(pLabel_title_);
     pLabel_title_->update(PX_C(cx), PX_C(cy/2),
                           os.str().c_str(),
                           ALIGN_CENTER, VALIGN_MIDDLE);
@@ -82,31 +82,31 @@ void World::initialize() {
 #endif
     pMousePointer_ = desireActor(MousePointer);
     pMousePointer_->setDefaultKind(KIND_2DFIX_MOUSE_POINTER);
-    getSceneChief()->appendGroupChild(pMousePointer_);
+    getSceneChief()->appendChild(pMousePointer_);
 
     pLabel_debug_ = desireActor(LabelGecchi16Font, "DebugStr");
     pLabel_debug_->update(PX_C(1), PX_C(1), "");
-    getSceneChief()->appendGroupChild(pLabel_debug_);
+    getSceneChief()->appendChild(pLabel_debug_);
 
     papLabel_resolution_ = NEW LabelGecchi16Font*[CONFIG::NUMBER_OF_SCREENS_USED];
     for (int n = 0; n < CONFIG::NUMBER_OF_SCREENS_USED; n++) {
         papLabel_resolution_[n] = desireActor(VioletVreath::LabelGecchi16Font, "RESOLUTION");
         papLabel_resolution_[n]->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-        getSceneChief()->appendGroupChild(papLabel_resolution_[n]);
+        getSceneChief()->appendChild(papLabel_resolution_[n]);
     }
 
     papLabel_warn_ = NEW LabelGecchi8Font*[CONFIG::NUMBER_OF_SCREENS_USED];
     for (int n = 0; n < CONFIG::NUMBER_OF_SCREENS_USED; n++) {
         papLabel_warn_[n] =  desireActor(VioletVreath::LabelGecchi8Font, "WARN");
         papLabel_warn_[n]->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-        getSceneChief()->appendGroupChild(papLabel_warn_[n]);
+        getSceneChief()->appendChild(papLabel_warn_[n]);
     }
     pLabel_warn_dual_view_ = desireActor(VioletVreath::LabelGecchi8Font, "WARN_DUAL_SCREEN");
     pLabel_warn_dual_view_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    getSceneChief()->appendGroupChild(pLabel_warn_dual_view_);
+    getSceneChief()->appendChild(pLabel_warn_dual_view_);
 
     pLabel_need_reboot_ = desireActor(VioletVreath::LabelGecchi16Font, "reboot");
-    getSceneChief()->appendGroupChild(pLabel_need_reboot_);
+    getSceneChief()->appendChild(pLabel_need_reboot_);
     pLabel_need_reboot_->update(PX_C(cx), PX_C(cy/2), "", ALIGN_CENTER, VALIGN_MIDDLE);
 
     std::string primary_fix_str = CONFIG::SCREEN_ASPECT_RATIO_FIXED[SCREEN01] ? "ASPECT FIX" : "VIEW STRETCH";

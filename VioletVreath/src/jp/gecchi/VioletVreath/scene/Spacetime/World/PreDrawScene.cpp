@@ -151,7 +151,7 @@ void PreDrawScene::processBehavior() {
                     } else {
                         pActor->setPosition(PX_C(_id_*60), PX_C(100), 0);
                     }
-                    getSceneChief()->appendGroupChild(pActor);
+                    getSceneChief()->appendChild(pActor);
                     _id_++;
                 }
             }

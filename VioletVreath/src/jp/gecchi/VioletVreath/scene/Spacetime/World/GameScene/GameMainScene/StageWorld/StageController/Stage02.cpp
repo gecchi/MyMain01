@@ -21,13 +21,13 @@ Stage02::Stage02(const char* prm_name) : Stage(prm_name) {
     appendChild(pScene_StagePartCtrler_);
     Sleep(2);
     pWorldBound_  = NEW WorldBound002("BG_SPACE_TEST");
-    getSceneChief()->appendGroupChild(KIND_EFFECT, pWorldBound_);
+    getSceneChief()->appendChild(pWorldBound_);
 
     pHoshiBoshi_ = NEW HoshiBoshi001("HoshiBoshi001");
-    getSceneChief()->appendGroupChild(KIND_EFFECT, pHoshiBoshi_);
+    getSceneChief()->appendChild(pHoshiBoshi_);
 
     pMessage_ = NEW LabelGecchi16Font("Stage02Msg");
-    getSceneChief()->appendGroupChild(KIND_EFFECT, pMessage_);
+    getSceneChief()->appendChild(pMessage_);
     pMessage_->inactivate();
 
     fadeoutSceneWithBgm(0); //Å‰‚Í”ñ•\¦

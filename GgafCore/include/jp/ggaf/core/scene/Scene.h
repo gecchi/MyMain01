@@ -85,7 +85,6 @@ class Scene : public Element<Scene> {
     friend class Caretaker;
     friend class Spacetime;
     friend class Actor;
-    friend class GroupHead;
     friend class SceneChief;
     friend class GarbageBox;
 

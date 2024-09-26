@@ -24,31 +24,14 @@ class BoardActor : public FigureActor, public IAlignAbleActor {
      * 使用不可のため、privateでoverride
      * @return
      */
-    GgafCore::GroupHead* appendGroupChildAsFk(kind_t prm_kind,
-                                              GeometricActor* prm_pGeoActor,
-                                              int prm_x_init_local,
-                                              int prm_y_init_local,
-                                              int prm_z_init_local,
-                                              int prm_rx_init_local,
-                                              int prm_ry_init_local,
-                                              int prm_rz_init_local) override {
+    void appendChildAsFk(GeometricActor* prm_pGeoActor,
+                          int prm_x_init_local,
+                          int prm_y_init_local,
+                          int prm_z_init_local,
+                          int prm_rx_init_local,
+                          int prm_ry_init_local,
+                          int prm_rz_init_local) override {
         throwCriticalException("使用不可です。");
-        return nullptr;
-    }
-
-    /**
-     * 使用不可のため、privateでoverride
-     * @return
-     */
-    GgafCore::GroupHead* appendGroupChildAsFk(GeometricActor* prm_pGeoActor,
-                                              int prm_x_init_local,
-                                              int prm_y_init_local,
-                                              int prm_z_init_local,
-                                              int prm_rx_init_local,
-                                              int prm_ry_init_local,
-                                              int prm_rz_init_local) override {
-        throwCriticalException("使用不可です。");
-        return nullptr;
     }
 
 public:

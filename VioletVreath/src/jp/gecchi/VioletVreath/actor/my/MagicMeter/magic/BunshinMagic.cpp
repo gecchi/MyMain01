@@ -43,7 +43,7 @@ BunshinMagic::BunshinMagic(const char* prm_name, int* prm_pMP)
     for (int i = 0; i < max_level_; i++) {
         papEffect_[i] = NEW EffectBunshinMagic001("EF");
         papEffect_[i]->inactivate();
-        appendGroupChild(papEffect_[i]);
+        appendChild(papEffect_[i]);
     }
 }
 

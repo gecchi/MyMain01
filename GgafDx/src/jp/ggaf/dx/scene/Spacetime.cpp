@@ -1,6 +1,7 @@
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
 #include "jp/ggaf/core/actor/SceneChief.h"
+#include "jp/ggaf/core/util/Checker.h"
 #include "jp/ggaf/core/util/RingLinkedList.hpp"
 #include "jp/ggaf/core/util/RepeatSeq.h"
 #include "jp/ggaf/core/util/lineartree/LinearOctree.hpp"
@@ -119,7 +120,7 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
     _pCamera = prm_pCamera;
     Util::_pCam = prm_pCamera;
 
-    getSceneChief()->appendGroupChild(_pCamera);
+    getSceneChief()->appendChild(_pCamera);
 
     _pRing_pSeArray = NEW GgafCore::RingLinkedList<SeArray>();
     for (int i = 0; i < SeTransmitterForActor::_se_delay_max_depth; i++) { //CONFIG::END_DELAY_FRAMEは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
@@ -168,7 +169,7 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
                                                               _x_bound_left  ,_y_bound_bottom,
                                                               _x_bound_right ,_y_bound_top    );
         Spacetime::_pWorldQuadtreeRounder =
-                _pWorldQuadtree->createRounder(&GgafCore::Actor::executeHitChk_MeAnd);
+                _pWorldQuadtree->createRounder(&GgafCore::Checker::executeHitChk_MeAnd);
         _TRACE_("四分木作成終了");
     } else {
         //八分木作成
@@ -177,7 +178,7 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
                                                           _x_bound_left  ,_y_bound_bottom, _z_bound_near ,
                                                           _x_bound_right ,_y_bound_top   , _z_bound_far   );
         Spacetime::_pWorldOctreeRounder =
-                _pWorldOctree->createRounder(&GgafCore::Actor::executeHitChk_MeAnd);
+                _pWorldOctree->createRounder(&GgafCore::Checker::executeHitChk_MeAnd);
         _TRACE_("八分木作成終了");
     }
 
@@ -187,7 +188,7 @@ _y_bound_top_b    (-_y_bound_top    + PX_C(CONFIG::GAME_BUFFER_HEIGHT / 2))
                                                         _x_bound_left_b  ,_y_bound_top_b,
                                                         _x_bound_right_b , _y_bound_bottom_b   );
     Spacetime::_pViewQuadtreeRounder =
-            _pViewQuadtree->createRounder(&GgafCore::Actor::executeHitChk_MeAnd);
+            _pViewQuadtree->createRounder(&GgafCore::Checker::executeHitChk_MeAnd);
     _TRACE_("Board用四分木作成終了");
 }
 

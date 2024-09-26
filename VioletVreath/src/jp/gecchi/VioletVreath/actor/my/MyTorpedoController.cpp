@@ -28,7 +28,7 @@ MyTorpedoController::MyTorpedoController(const char* prm_name,
         std::string name = std::string(prm_pOrg->getName())+"'s Torpedo("+XTOS(i)+")";
         papTorpedo_[i] = NEW MyTorpedo(name.c_str(), this);
         papTorpedo_[i]->inactivate();
-        appendGroupChild(papTorpedo_[i]);
+        appendChild(papTorpedo_[i]);
     }
 
     pDepo_TorpedoBlast_ = NEW GgafCore::ActorDepository("DP_TorpedoBlast");
@@ -36,7 +36,7 @@ MyTorpedoController::MyTorpedoController(const char* prm_name,
         std::string name = std::string(prm_pOrg->getName())+"'s TorpedoBlast("+XTOS(i)+")";
         pDepo_TorpedoBlast_->put(NEW MyTorpedoBlast(name.c_str()));
     }
-    appendGroupChild(pDepo_TorpedoBlast_);
+    appendChild(pDepo_TorpedoBlast_);
 }
 
 void MyTorpedoController::initialize() {

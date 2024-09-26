@@ -22,7 +22,7 @@ DanmakuAlice::DanmakuAlice(const char* prm_name, const char* prm_shot_model) :
         std::string name = "AliceShot["+XTOS(i)+"]";
         pShotDepo_->put(NEW AliceShot(name.c_str(), prm_shot_model));
     }
-    appendGroupChild(pShotDepo_);
+    appendChild(pShotDepo_);
 }
 
 void DanmakuAlice::initialize() {

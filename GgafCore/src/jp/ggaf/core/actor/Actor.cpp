@@ -7,7 +7,7 @@ using namespace GgafCore;
 #ifdef MY_DEBUG
 unsigned int Actor::_num_actors = 0;
 #endif
-Actor::Actor(const char* prm_name) : Element<Actor>(prm_name), ITreeNodeElem(),
+Actor::Actor(const char* prm_name) : Element<Actor>(prm_name),
 _pDependenceDepository(nullptr),
 _pFormation(nullptr),
 _can_hit_flg(false),
@@ -86,6 +86,11 @@ void Actor::notifyDestroyed() {
     if (_pFormation) {
         _pFormation->destroyedFollower(this);
     }
+}
+
+void Actor::appendChild(Actor* prm_pActor) {
+    //prm_pActor->_kind = prm_pActor->getDefaultKind();
+    Element<Actor>::appendChild(prm_pActor);
 }
 
 void Actor::dump() {

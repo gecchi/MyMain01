@@ -27,11 +27,11 @@ EnemyOebiusController::EnemyOebiusController(const char* prm_name, EnemyOebiusCo
 
     pOebiusCore_ = prm_pCore;
     pOebiusCore_->inactivate();
-    appendGroupChild(pOebiusCore_);
+    appendChild(pOebiusCore_);
 
     pFormationOebius_ = prm_pFormation;
     pFormationOebius_->inactivate();
-    appendGroupChild(pFormationOebius_);
+    appendChild(pFormationOebius_);
 }
 
 void EnemyOebiusController::initialize() {

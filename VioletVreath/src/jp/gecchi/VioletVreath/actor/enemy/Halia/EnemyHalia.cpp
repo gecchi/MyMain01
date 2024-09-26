@@ -52,7 +52,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
         pChip->setSource(this); //ˆÊ’uŒü‚«“¯Šú
         pLaserChipDepo_->put(pChip);
     }
-    appendGroupChild(pLaserChipDepo_);
+    appendChild(pLaserChipDepo_);
     GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
     pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
     pSeXmtr->set(SE_UNDAMAGED, "SE_ENEMY_UNDAMAGED_001");

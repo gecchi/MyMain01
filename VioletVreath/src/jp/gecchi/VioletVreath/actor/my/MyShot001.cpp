@@ -45,7 +45,7 @@ void MyShot001::processJudgement() {
 
 void MyShot001::onHit(const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
-    if (pOther->lookUpKind() & KIND_CHIKEI) {
+    if (pOther->getDefaultKind() & KIND_CHIKEI) {
         //ヒット相手が地形ならば自機の大きさで判定し、ヒットしなければ消失しない
         MyShip* pMyShip = pMYSHIP;
         WorldCollisionChecker* pMyShipChecker = pMyShip->getWorldCollisionChecker();

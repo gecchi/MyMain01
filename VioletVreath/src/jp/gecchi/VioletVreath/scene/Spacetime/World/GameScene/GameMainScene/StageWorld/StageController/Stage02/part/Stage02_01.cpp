@@ -40,7 +40,7 @@ void Stage02_01::processBehavior() {
             }
             case 100: {
                 FormationGeria001* pF = (FormationGeria001*)receiveActor(80000000);
-                getSceneChief()->appendGroupChild(pF);
+                getSceneChief()->appendChild(pF);
                 break;
             }
             case 400: {

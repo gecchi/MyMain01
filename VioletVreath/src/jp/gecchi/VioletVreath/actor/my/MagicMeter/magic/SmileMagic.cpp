@@ -32,7 +32,7 @@ SmileMagic::SmileMagic(const char* prm_name, int* prm_pMP)
 
     pMoji_ = NEW SpriteLabelTest("(^_^)");
     pMoji_->inactivate();
-    appendGroupChild(pMoji_);
+    appendChild(pMoji_);
 }
 
 void SmileMagic::onReset() {

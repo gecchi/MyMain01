@@ -68,7 +68,7 @@ protected:
      * @param prm_ang1 —Ö‚ÌŠp“xˆÊ’u
      * @param prm_ang2 —ÖŽü‚è‚ÌŠp“xˆÊ’u
      */
-    void appendGroupChildAsFkOnSurface(GgafDx::GeometricActor* prm_pGeoActor, angle prm_ang1, angle prm_ang2);
+    void appendChildAsFkOnSurface(GgafDx::GeometricActor* prm_pGeoActor, angle prm_ang1, angle prm_ang2);
 
 };
 

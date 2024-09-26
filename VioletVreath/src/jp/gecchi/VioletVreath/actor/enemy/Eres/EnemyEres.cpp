@@ -1,7 +1,6 @@
 #include "EnemyEres.h"
 
 #include "jp/ggaf/core/actor/SceneChief.h"
-#include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
@@ -38,7 +37,7 @@ EnemyEres::EnemyEres(const char* prm_name, GgafCore::ActorDepository* prm_pDepo_
         for (int i = 0; i < 32; i++) {
             pDepo_shot001_->put(NEW EnemyEresShot001("EnemyEresShot"));
         }
-        appendGroupChild(pDepo_shot001_);
+        appendChild(pDepo_shot001_);
         createActorDepository_ = true;
     } else {
         //‹¤—L‚Ì’e‚ªŽw’è‚³‚ê‚Ä‚é‚Ìê‡
@@ -123,7 +122,7 @@ void EnemyEres::onHit(const GgafCore::Actor* prm_pOtherActor) {
 void EnemyEres::onInactive() {
     if (createActorDepository_) {
         //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
-        getSceneChief()->appendChild(pDepo_shot001_->getGroupHead()->extract());
+        getSceneChief()->appendChild(pDepo_shot001_->extract());
         pDepo_shot001_->sayonara(SEC_F(5));//‰ð•ú—\–ñ
     }
     sayonara();

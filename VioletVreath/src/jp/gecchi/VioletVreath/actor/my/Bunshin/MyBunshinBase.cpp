@@ -52,7 +52,7 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_bunshin_no) 
     delay_r_ = RCNV(1,MAX_BUNSHIN_NUM,bunshin_no_,0.4,1.0);
     std::string bunshin_name = "BunshinController" + XTOS(bunshin_no_);
     pMyBunshinController_ = NEW MyBunshinController(bunshin_name.c_str(), this);
-    this->appendGroupChildAsFk(pMyBunshinController_,
+    this->appendChildAsFk(pMyBunshinController_,
                           0, PX_C(80), 0,
                           D0ANG, D0ANG, D0ANG);
 

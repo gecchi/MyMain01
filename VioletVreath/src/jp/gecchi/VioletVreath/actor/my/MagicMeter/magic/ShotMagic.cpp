@@ -30,7 +30,7 @@ ShotMagic::ShotMagic(const char* prm_name, int* prm_pMP)
 
     pEffect_ = NEW EffectShotMagic("EffectShotMagic");
     pEffect_->inactivate();
-    appendGroupChild(pEffect_);
+    appendChild(pEffect_);
 }
 
 void ShotMagic::onReset() {

@@ -27,6 +27,7 @@ _x(0), _y(0), _z(0),
 _rx(0), _ry(0), _rz(0),
 _sx(R_SC(1.0)), _sy(R_SC(1.0)), _sz(R_SC(1.0)),
 _pChecker(prm_pChecker),
+//_pSubChecker(nullptr),
 _rate_of_bounding_sphere_radius(1.0f),
 _fX(C_DX(_x)), _fY(C_DX(_y)), _fZ(C_DX(_z)),
 _dest_from_vppln_top(0.0f),
@@ -140,8 +141,8 @@ void GeometricActor::processSettlementBehavior() {
         //デフォルトでは、_matWorldRotMv = 回転変換行列 × 平行移動変換行列
         //                _matWorld      = 拡大縮小変換行列 × _matWorldRotMv となるようにしている。
         //つまり _matWorld = 拡大縮小＞回転＞平行移動
-        //_matWorldRotMv は appendGroupChildAsFk() 実行時に使用されるために作成している。
-        //従って appendGroupChildAsFk() を絶対使用しないならば、_matWorldRotMvの計算は不要。
+        //_matWorldRotMv は appendChildAsFk() 実行時に使用されるために作成している。
+        //従って appendChildAsFk() を絶対使用しないならば、_matWorldRotMvの計算は不要。
         //processSettlementBehavior() をオーバーライドし、
         //変換行列作成をもっと単純化することで、少し最適化が可能。
 
@@ -223,7 +224,7 @@ void GeometricActor::processSettlementBehavior() {
         const dxcoord fZ = _fZ;
         Camera* pCam = pCARETAKER->getSpacetime()->getCamera();
         const D3DXPLANE* pPlnTop = &(pCam->_plnTop);
-		_dest_from_vppln_top     = pPlnTop->a * fX +
+        _dest_from_vppln_top     = pPlnTop->a * fX +
                                    pPlnTop->b * fY +
                                    pPlnTop->c * fZ +
                                    pPlnTop->d;
@@ -262,14 +263,20 @@ void GeometricActor::judge() {
     if (_is_active_in_the_tree_flg) {
         processJudgement();    //ユーザー実装用
         //当たり判定の為に八分木（四分木）に登録する .
-        if (_pChecker) {
+        if (_pChecker && _pChecker->_kind > 0) {
             if (_can_hit_flg) {
                 if (_enable_out_of_view_hit_flg == false && isOutOfView()) {
                     //視野外当たり判定無効の場合は登録しない
                 } else  {
                     //木登録
-                    _kind = lookUpKind();
+                    //_kind = getDefaultKind();
                     _pChecker->updateHitArea();
+//                    if (_sub_kind > 0 && _pSubChecker) {
+//                        kind_t bk_kind = _kind;
+//                        _kind = _sub_kind;
+//                        _pSubChecker->updateHitArea();
+//                        _kind = bk_kind;
+//                    }
                 }
             }
         }
@@ -365,23 +372,22 @@ void GeometricActor::changeGeoFinal() {
 //void GeometricActor::updateGeoFinalFromLocal() {
 //
 //}
-GgafCore::GroupHead* GeometricActor::appendGroupChildAsFk(kind_t prm_kind,
-                                                          GeometricActor* prm_pGeoActor,
-                                                          coord prm_x_init_local,
-                                                          coord prm_y_init_local,
-                                                          coord prm_z_init_local,
-                                                          coord prm_rx_init_local,
-                                                          coord prm_ry_init_local,
-                                                          coord prm_rz_init_local) {
+void GeometricActor::appendChildAsFk( GeometricActor* prm_pGeoActor,
+                                      coord prm_x_init_local,
+                                      coord prm_y_init_local,
+                                      coord prm_z_init_local,
+                                      coord prm_rx_init_local,
+                                      coord prm_ry_init_local,
+                                      coord prm_rz_init_local) {
 #ifdef MY_DEBUG
     if (_pFunc_calc_rot_mv_world_matrix) {
         //OK
     } else {
-        throwCriticalException("GeometricActor::appendGroupChildAsFk() : "<<
+        throwCriticalException("GeometricActor::appendChildAsFk() : "<<
                 "this="<<NODE_INFO<<" は、_pFunc_calc_rot_mv_world_matrix が nullptrの為、FKベースとなる資格がありません");
     }
 #endif
-    GgafCore::GroupHead* pGroupHead = appendGroupChild(prm_kind, prm_pGeoActor);
+    appendChild( prm_pGeoActor);
     prm_pGeoActor->_pActor_base = this;
     prm_pGeoActor->changeGeoLocal();
     prm_pGeoActor->_x = prm_x_init_local;
@@ -394,38 +400,6 @@ GgafCore::GroupHead* GeometricActor::appendGroupChildAsFk(kind_t prm_kind,
 //    prm_pGeoActor->getLocusVehicle()->_ry_mv = prm_ry_init_local;
 
     prm_pGeoActor->changeGeoFinal();
-    return pGroupHead;
-}
-
-GgafCore::GroupHead* GeometricActor::appendGroupChildAsFk(GeometricActor* prm_pGeoActor,
-                                                          coord prm_x_init_local,
-                                                          coord prm_y_init_local,
-                                                          coord prm_z_init_local,
-                                                          coord prm_rx_init_local,
-                                                          coord prm_ry_init_local,
-                                                          coord prm_rz_init_local) {
-    return appendGroupChildAsFk(prm_pGeoActor->getDefaultKind(),
-                                prm_pGeoActor,
-                                prm_x_init_local,
-                                prm_y_init_local,
-                                prm_z_init_local,
-                                prm_rx_init_local,
-                                prm_ry_init_local,
-                                prm_rz_init_local);
-}
-
-bool GeometricActor::processHitChkLogic(GgafCore::Actor* prm_pOtherActor) {
-    if (_can_hit_flg && prm_pOtherActor->_can_hit_flg) {
-        //&& prm_pOtherActor->instanceOf(Obj_GgafDx_GeometricActor)) { 当たり判定があるのでGeometricActor以上と判断
-        //_can_hit_flg && prm_pOtherActor->_can_hit_flg のチェックは八分木登録前にもチェックしてるが
-        //ここでももう一度チェックするほうがより良い。
-        //なぜならば、無駄なヒットチェックを行わないため、onHit(GgafCore::Actor*) 処理中で setHitAble(false) が行われ、
-        //２重ヒットチェック防止を行っているかもしれないから。
-        if (_pChecker) {
-            return _pChecker->isHit(((GeometricActor*)prm_pOtherActor)->_pChecker);
-        }
-    }
-    return false;
 }
 
 int GeometricActor::isOutOfView() {

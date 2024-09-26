@@ -155,22 +155,22 @@ MyShip::MyShip(const char* prm_name) :
 //    for (int i = 0; i < 25; i++) { //テストグー弾ストック
 //        pDepo_TestGuShot_->appendChild(NEW TestGuShot("TestGuShot"));
 //    }
-//    appendGroupChild(pDepo_TestGuShot_);
+//    appendChild(pDepo_TestGuShot_);
 //    pDepo_TestChokiShot_ = NEW GgafCore::ActorDepository("Depo_TestChokiShot");
 //    for (int i = 0; i < 25; i++) { //テストチョキ弾ストック
 //        pDepo_TestChokiShot_->appendChild(NEW TestChokiShot("TestChokiShot"));
 //    }
-//    appendGroupChild(pDepo_TestChokiShot_);
+//    appendChild(pDepo_TestChokiShot_);
 //    pDepo_TestPaShot_ = NEW GgafCore::ActorDepository("Depo_TestPaShot");
 //    for (int i = 0; i < 25; i++) { //テストパー弾ストック
 //        pDepo_TestPaShot_->appendChild(NEW TestPaShot("TestPaShot"));
 //    }
-//    appendGroupChild(pDepo_TestPaShot_);
+//    appendChild(pDepo_TestPaShot_);
 //    pDepo_TestNomalShot_ = NEW GgafCore::ActorDepository("Depo_TestNomalShot");
 //    for (int i = 0; i < 25; i++) { //テストノーマル弾ストック
 //        pDepo_TestNomalShot_->appendChild(NEW TestNomalShot("TestNomalShot"));
 //    }
-//    appendGroupChild(pDepo_TestNomalShot_);
+//    appendChild(pDepo_TestNomalShot_);
 //    //<---- debug
 
 
@@ -181,7 +181,7 @@ MyShip::MyShip(const char* prm_name) :
         pShot->inactivate();
         pDepo_MyShots001_->put(pShot);
     }
-    appendGroupChild(pDepo_MyShots001_);
+    appendChild(pDepo_MyShots001_);
 
     pDepo_MySnipeShots001_ = NEW GgafCore::ActorDepository("RotShot001");
     MySnipeShot001* pSnipeShot;
@@ -190,7 +190,7 @@ MyShip::MyShip(const char* prm_name) :
         pSnipeShot->inactivate();
         pDepo_MySnipeShots001_->put(pSnipeShot);
     }
-    appendGroupChild(pDepo_MySnipeShots001_);
+    appendChild(pDepo_MySnipeShots001_);
 
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
     MyStraightLaserChip001* pChip;
@@ -201,23 +201,23 @@ MyShip::MyShip(const char* prm_name) :
         pLaserChipDepo_->put(pChip);
     }
     pLaserChipDepo_->config(80, 25);
-    appendGroupChild(pLaserChipDepo_);
+    appendChild(pLaserChipDepo_);
 
     //ロックオンコントローラー
     pLockonCtrler_ = NEW MyLockonController("MySHipLockonController");
-    appendGroupChild(pLockonCtrler_);
+    appendChild(pLockonCtrler_);
 
     //フォトンコントローラー
     pTorpedoCtrler_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrler_);
-    appendGroupChild(pTorpedoCtrler_);
+    appendChild(pTorpedoCtrler_);
 
     pEffectTurbo001_ = NEW EffectTurbo001("EffectTurbo001");
-    appendGroupChild(pEffectTurbo001_);
+    appendChild(pEffectTurbo001_);
 //    pEffectTurbo002_ = NEW EffectTurbo002("EffectTurbo002");
-//    appendGroupChild(pEffectTurbo002_);
+//    appendChild(pEffectTurbo002_);
 
     pMyMagicEnergyCore_ = NEW MyMagicEnergyCore("MyMagicEnergyCore");
-    appendGroupChild(pMyMagicEnergyCore_);
+    appendChild(pMyMagicEnergyCore_);
 
     //26方向に移動した場合の自機の傾き定義
     pSenakai_ = &(senakai_[13]);
@@ -297,7 +297,7 @@ MyShip::MyShip(const char* prm_name) :
     //魔法メーター設置
     pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &(getStatus()->_value[STAT_Stamina]._int_val) );
     pMagicMeter_->setPosition(PX_C(100), PX_C(CONFIG::GAME_BUFFER_HEIGHT) - (pMagicMeter_->height_) - PX_C(16+16+16));
-    appendGroupChild(pMagicMeter_);
+    appendChild(pMagicMeter_);
 
     r_blown_velo_decay_ = 0.8;
 
@@ -322,9 +322,9 @@ void MyShip::initialize() {
     _TRACE_(FUNC_NAME<<"");
 
     //種別に振り分け
-//    getSceneChief()->appendGroupChild(KIND_MY_SHOT_NOMAL, pDepo_MyShots001_->extract());
-//    getSceneChief()->appendGroupChild(KIND_MY_SHOT_NOMAL, pDepo_MyWaves001_->extract());
-    //getSceneChief()->appendGroupChild(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
+//    getSceneChief()->appendChild(KIND_MY_SHOT_NOMAL, pDepo_MyShots001_->extract());
+//    getSceneChief()->appendChild(KIND_MY_SHOT_NOMAL, pDepo_MyWaves001_->extract());
+    //getSceneChief()->appendChild(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
 
     setHitAble(true);
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
@@ -760,7 +760,7 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
     }
 
     //壁の場合特別な処理
-    if (pOther->lookUpKind() & KIND_CHIKEI) {
+    if (pOther->getDefaultKind() & KIND_CHIKEI) {
         //吹っ飛び方向を考える。
         //現在の移動の逆方向（吹っ飛び威力は２倍に）
         double vx1,vy1,vz1;
@@ -997,7 +997,7 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
         setBlownVelo(vx3*PX_C(40), vy3*PX_C(40), vz3*PX_C(40), 0.8);
         setInvincibleFrames(120);
     }
-    if (pOther->lookUpKind() & KIND_ITEM)  {
+    if (pOther->getDefaultKind() & KIND_ITEM)  {
     } else {
         UTIL::activateExplosionEffectOf(this);
         getSeXmtr()->play3D(SE_DAMAGED);

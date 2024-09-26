@@ -35,22 +35,25 @@ void TrialAndErrScene::processBehavior() {
 
 //        ColliAABoxActor* XXX = NEW ColliAABoxActor("HOGEHOGE");
 //        XXX->setScaleR(100);
-//        getSceneChief()->appendGroupChild(XXX);
+//        getSceneChief()->appendChild(XXX);
 //        XXX->sayonara(2);
 
 
         Test01* pTest = (Test01*)receiveActor(10000);
         pTest->setPosition(0,0,0);
-        getSceneChief()->appendGroupChild(VV_TEKI, pTest);
+        pTest->setDefaultKind(VV_TEKI);
+        getSceneChief()->appendChild(pTest);
 
         Zako* pZako = (Zako*)receiveActor(10002);
         pZako->setPosition(PX_C(200), PX_C(200),0);
-        getSceneChief()->appendGroupChild(VV_TEKI, pZako);
+        pZako->setDefaultKind(VV_TEKI);
+        getSceneChief()->appendChild(pZako);
 
         Jiki* pJiki = (Jiki*)receiveActor(10001);
         pJiki->setPosition(PX_C(100), PX_C(100),0);
 //        pJiki->setPosition(PX_C(100), PX_C(100),0);
-        getSceneChief()->appendGroupChild(VV_MIKATA, pJiki);
+        pJiki->setDefaultKind(VV_MIKATA);
+        getSceneChief()->appendChild(pJiki);
     }
 
     VirtualButton* pVb = &(pCARETAKER->getSpacetime()->getWorld()->vb_);

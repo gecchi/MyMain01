@@ -2,7 +2,6 @@
 #define VVFORMATIONACTOR_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
 
-#include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/ggaf/core/util/Status.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"

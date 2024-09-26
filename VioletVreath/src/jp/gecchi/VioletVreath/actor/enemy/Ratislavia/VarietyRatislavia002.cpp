@@ -19,7 +19,7 @@ VarietyRatislavia002::VarietyRatislavia002(const char* prm_name) :
         for (angle ang2 = 0; ang2 < D360ANG;  ang2 += (D_ANG(20))) {
             std::string name = "Emus(" + XTOS(ang1) + "," + XTOS(ang2) + ")";
             EnemyEmus* p = NEW EnemyEmus(name.c_str());
-            appendGroupChildAsFkOnSurface(p, ang1, ang2);
+            appendChildAsFkOnSurface(p, ang1, ang2);
             p->ini_wait_ = ( ((ang2/D_ANG(20)) * (D360ANG/D_ANG(20))) + (ang1/D_ANG(20)) ) * 3;
             Sleep(1);
         }

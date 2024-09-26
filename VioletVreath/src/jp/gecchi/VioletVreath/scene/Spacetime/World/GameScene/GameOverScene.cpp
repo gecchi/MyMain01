@@ -24,7 +24,7 @@ GameOverScene::GameOverScene(const char* prm_name) : VvScene<DefaultScene>(prm_n
     _class_name = "GameOverScene";
     pNameEntryScene_ = nullptr;
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    getSceneChief()->appendGroupChild(pLabel01_);
+    getSceneChief()->appendChild(pLabel01_);
     need_name_entry_ = false;
 }
 

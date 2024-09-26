@@ -86,7 +86,7 @@ public:
 
     static bool initStatic(LaserChip* prm_pLaserChip);
 
-    virtual void executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) override;
+//    virtual void executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) override;
 
     virtual void onActive() override;
     /**

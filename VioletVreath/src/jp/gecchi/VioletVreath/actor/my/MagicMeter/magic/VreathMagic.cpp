@@ -74,7 +74,7 @@ VreathMagic::VreathMagic(const char* prm_name, int* prm_pMP)
 
     pEffect_ = NEW EffectVreathMagic001("EffectVreathMagic001");
     pEffect_->inactivate();
-    appendGroupChild(pEffect_);
+    appendChild(pEffect_);
 
     for (int i = 0; i <= MMETER_MAX_LEVEL; i++) {
         beat_time_[i]               = 0;

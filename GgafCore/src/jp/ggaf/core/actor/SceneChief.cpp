@@ -2,7 +2,6 @@
 
 #include "jp/ggaf/core/scene/Scene.h"
 #include "jp/ggaf/core/actor/MainActor.h"
-#include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/util/Status.h"
 
 using namespace GgafCore;
@@ -25,52 +24,6 @@ void SceneChief::throwEventUpperTree(eventval prm_event_val, void* prm_pSource) 
 
 void SceneChief::remove() {
     throwCriticalException("Error! SceneChiefはremove()によって削除は行えません！");
-}
-
-GroupHead* SceneChief::appendGroupChild(kind_t prm_kind, MainActor* prm_pMainActor) {
-    if (prm_pMainActor->_pSceneChief) {
-        throwCriticalException("Error! SceneChief::appendGroupChild 所属済みを無理やり移動させようとしています。\n"
-                " extract() を行ってから出来ないですか？ prm_pMainActor="<<NODE_INFO_P(prm_pMainActor)<<"/this="<<NODE_INFO);
-    }
-    GroupHead* pChildGroupActor = searchChildGroupHead(prm_kind); //子に同じ種別団長が居るか探す
-    if (!pChildGroupActor) {
-        //子に同じ種別団長がいない場合、団長を新たに作成
-        pChildGroupActor = NEW GroupHead(prm_kind);
-        appendChild(pChildGroupActor);
-        pChildGroupActor->setSceneChief(this);
-    }
-    pChildGroupActor->appendChild(prm_pMainActor);
-    prm_pMainActor->setGroupHead(pChildGroupActor);
-    prm_pMainActor->setSceneChief(this);
-    return pChildGroupActor;
-}
-
-GroupHead* SceneChief::appendGroupChild(MainActor* prm_pMainActor) {
-    return appendGroupChild(prm_pMainActor->getDefaultKind(), prm_pMainActor);
-}
-
-GroupHead* SceneChief::searchChildGroupHead(kind_t prm_kind) {
-    if (_pChildFirst == nullptr) {
-        return nullptr;
-    } else {
-        Actor* pChildActor = _pChildFirst;
-        GroupHead* pChildGroupHead_ret = nullptr;
-        do {
-            if (pChildActor->instanceOf(Obj_ggaf_GroupHead)) {
-                pChildGroupHead_ret = (GroupHead*)pChildActor;
-                if (pChildGroupHead_ret->_kind == prm_kind && pChildGroupHead_ret->_frame_of_life_when_end == 0) {
-                    return pChildGroupHead_ret;
-                }
-            }
-            if (pChildActor->_is_last_flg) {
-                break;
-            } else {
-                pChildActor = pChildActor->_pNext;
-            }
-        } while (true);
-
-        return nullptr;
-    }
 }
 
 void SceneChief::updateActiveInTheTree() {

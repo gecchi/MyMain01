@@ -1,6 +1,7 @@
 #ifndef GGAF_CORE_ITREENODEELEM_H_
 #define GGAF_CORE_ITREENODEELEM_H_
 #include "jp/ggaf/GgafCommonHeader.h"
+#include "jp/ggaf/core/util/Util.h"
 
 namespace GgafCore {
 
@@ -14,15 +15,17 @@ class ITreeNodeElem  {
 public:
     /** [r]要素オブジェクトの種別 */
     kind_t _kind;
-    /** [r]空間に登録された要素（NodeSpace._pNodeValueList）にぶら下がる次要素 */
-    ITreeNodeElem* _pNextValue;
+//    kind_t _sub_kind;
+    /** [r]空間に登録された要素（NodeSpace._pRootNodeElem）にぶら下がる次要素 */
+    ITreeNodeElem* _pNextNodeElem;
     /**
      * コンストラクタ .
      * @param prm_pObject 対象オブジェクト(キャラクタなどN分木で管理したい実際の値)
      */
-    ITreeNodeElem(kind_t prm_kind = 0) {
-        _kind = prm_kind;
-        _pNextValue = nullptr;
+    ITreeNodeElem() {
+        _kind = 0;
+//        _sub_kind = 0;
+        _pNextNodeElem = nullptr;
     }
 
     void dump() {

@@ -798,18 +798,6 @@ FILE_PATTERNS          = *.c \
                          *.h \
                          *.hpp \
                          *.fx \
-                         *.rc \
-                         *.ldr \
-                         *.spl \
-                         *.fxo \
-                         *.modelx \
-                         *.sprx \
-                         *.x \
-                         *.X \
-                         *.psprx \
-                         *.sprx \
-                         *.fsprx \
-                         *.rsprx \
                          *.C
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories should

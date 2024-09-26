@@ -76,8 +76,6 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
     //次のようなツリー構造を作る(腕が３本の場合)
     //Ermione
     // ↓
-    //GroupHead()
-    // ↓
     //ArmPart(根本)  ⇔   ArmPart(根本)   ⇔  ArmPart(根本)
     // ↓                   ↓                  ↓
     //ArmPart              ArmPart             ArmPart
@@ -115,7 +113,7 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
                 //関節固定させる
                 paArm_[arm].papArmPart_[i]->config(arm, i, 0, 0);
                 //自身を土台とするFK設定
-                this->appendGroupChildAsFk(
+                this->appendChildAsFk(
                         paArm_[arm].papArmPart_[i],
                         vx*R, vy*R, vz*R,
                         D0ANG, paArm_[arm].pos_Ry_, paArm_[arm].pos_Rz_);
@@ -124,7 +122,7 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
                 //先に行くほど可動範囲と回転スピードが大きくする（これで、FKなのにIKっぽくも見える！）
                 paArm_[arm].papArmPart_[i]->config(arm, i, D_ANG(10+(i*2.5)), 10+(i*10));
                 //一つ前の腕の節を土台とするFK設定
-                paArm_[arm].papArmPart_[i-1]->appendGroupChildAsFk(
+                paArm_[arm].papArmPart_[i-1]->appendChildAsFk(
                                                paArm_[arm].papArmPart_[i],
                                                arm_R, 0, 0,
                                                D0ANG, D0ANG, D0ANG); //土台移行は真っ直ぐつけるので Face rz,ry=0,0 で良い

@@ -72,10 +72,6 @@ void MousePointerActor::processSettlementBehavior() {
     _pHitActor = nullptr;
 }
 
-bool MousePointerActor::processHitChkLogic(Actor* prm_pOtherActor) {
-     return DefaultBoardActor::processHitChkLogic(prm_pOtherActor);
-}
-
 void MousePointerActor::onHit(const Actor* prm_pOtherActor) {
     _pHitActor = (Actor*)prm_pOtherActor;
 }

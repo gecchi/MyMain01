@@ -82,158 +82,158 @@ void RankUp002::processBehavior() {
             }
             case 200: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000000);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 requestActor(100000030, EnemyTamago01, "EnemyTamago01-100000030");
                 break;
             }
             case 260: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000001);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 320: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000002);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 380: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000003);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 440: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000004);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 500: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000005);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 560: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000006);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 620: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000007);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 680: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000008);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 740: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000009);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 800: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000010);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 860: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000011);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 920: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000012);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 980: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000013);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1040: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000014);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1100: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000015);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1160: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000016);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1220: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000017);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1280: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000018);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1340: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000019);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1400: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000020);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1460: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000021);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1520: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000022);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1580: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000023);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1640: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000024);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1700: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000025);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1760: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000026);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1820: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000027);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1880: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000028);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 1940: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000029);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             case 2000: {
                 EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000030);
-                getSceneChief()->appendGroupChild(pActor);
+                getSceneChief()->appendChild(pActor);
                 break;
             }
             default :

@@ -80,7 +80,3 @@ void ActorDepository::end(frame prm_offset_frames) {
     }
 }
 
-//＜最適化案＞
-//TODO:ActorDepositoryは、GroupHeadを継承して、
-//特別なGroupHeadという扱いにすればアクターの数を減らせれるのではないか
-//場合によりけりか、あとで考える。

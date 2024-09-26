@@ -74,10 +74,6 @@ public:
     virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override {
     }
 
-    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override {
-        return false;
-    }
-
     inline frame getSwitchedFrame() {
         return _frame_of_behaving_since_onSwitch;
     }

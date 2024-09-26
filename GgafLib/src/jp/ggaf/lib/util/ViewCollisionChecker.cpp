@@ -1,6 +1,5 @@
 #include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 
-#include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/util/lineartree/LinearQuadtree.hpp"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
@@ -31,17 +30,16 @@ void ViewCollisionChecker::updateHitArea() {
     if (pActiveCollisionArea == nullptr) {
         return;
     }
-    GgafDx::GeometricActor* const pActor = _pActor;
+    GgafDx::GeometricActor* const pActor = _pColliActor;
     if (pActor->isActiveInTheTree()) {
         //四分木に登録！
-//        _pNodeElem->_kind = pActor->lookUpKind();
 #ifdef MY_DEBUG
-        if (pActor->_kind == 0) {
+        if (_kind == 0) {
             _TRACE_("【警告】 ViewCollisionChecker::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
         }
 #endif
         pActiveCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //最外域の境界AABB更新
-        DefaultSpacetime::_pViewQuadtree->registerElem(pActor, pActor->_x + pActiveCollisionArea->_aabb_x1,
+        DefaultSpacetime::_pViewQuadtree->registerElem(this, pActor->_x + pActiveCollisionArea->_aabb_x1,
                                                                pActor->_y + pActiveCollisionArea->_aabb_y1,
                                                                pActor->_x + pActiveCollisionArea->_aabb_x2,
                                                                pActor->_y + pActiveCollisionArea->_aabb_y2);
@@ -55,8 +53,8 @@ bool ViewCollisionChecker::isHit(const GgafDx::CollisionChecker* const prm_pOppC
     //TODO:WorldCollisionChecker2D::isHit() のコピペ、２重管理を何とかする
     GgafDx::CollisionArea* const pActiveCollisionArea = _pCollisionArea;
     GgafDx::CollisionArea* const pOppActiveCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
-    const GgafDx::GeometricActor* const pActor = _pActor;                //相手のアクター
-    const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
+    const GgafDx::GeometricActor* const pActor = _pColliActor;                //相手のアクター
+    const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pColliActor;                //相手のアクター
     const int colli_part_num = pActiveCollisionArea->_colli_part_num;
     const int opp_colli_part_num = pOppActiveCollisionArea->_colli_part_num; //相手の当たり判定要素数
 
@@ -214,8 +212,8 @@ bool ViewCollisionChecker::isHit(const GgafDx::CollisionChecker* const prm_pOppC
 bool ViewCollisionChecker::isHit_old(const GgafDx::CollisionChecker* const prm_pOppChecker) {
     GgafDx::CollisionArea* const pActiveCollisionArea = _pCollisionArea;
     GgafDx::CollisionArea* const pOppActiveCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
-    const GgafDx::GeometricActor* const pActor = _pActor;                //相手のアクター
-    const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
+    const GgafDx::GeometricActor* const pActor = _pColliActor;                //相手のアクター
+    const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pColliActor;                //相手のアクター
 
 #ifdef MY_DEBUG
     ViewCollisionChecker::_num_check++;

@@ -13,7 +13,7 @@ RotateFormationScene::RotateFormationScene(const char* prm_name) :
 }
 
 
-GgafCore::GroupHead* RotateFormationScene::addFormation(GgafCore::Formation* prm_pFormationActor, frame prm_max_delay_offset) {
+void RotateFormationScene::addFormation(GgafCore::Formation* prm_pFormationActor, frame prm_max_delay_offset) {
     if (prm_pFormationActor->instanceOf(Obj_ggaf_Formation)) {
         //OK
     } else {
@@ -22,8 +22,7 @@ GgafCore::GroupHead* RotateFormationScene::addFormation(GgafCore::Formation* prm
     prm_pFormationActor->_offset_frames_end = FORMATION_END_DELAY;
     prm_pFormationActor->inactivate();
     _table.addLast(NEW FormationTblElem(prm_pFormationActor, prm_max_delay_offset), true);
-
-    return getSceneChief()->appendGroupChild(prm_pFormationActor);
+    getSceneChief()->appendChild(prm_pFormationActor);
 }
 
 void RotateFormationScene::onActive() {

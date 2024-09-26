@@ -63,17 +63,18 @@ void TrialAndErrScene::processBehavior() {
 
     if (hasJustChangedToActive()) {
 //        p1 = (AniTest*)receiveActor(5000);
-//        getSceneChief()->appendGroupChild(p1);
+//        getSceneChief()->appendChild(p1);
 
         for (int i = 0; i < NN; i++) {
             aA[i] = (EffectExplosion004*)receiveActor(1000+i);
-            getSceneChief()->appendGroupChild(MGR_MIKATA, aA[i]);
+            aA[i]->setDefaultKind(MGR_MIKATA);
+            getSceneChief()->appendChild(aA[i]);
             aA[i]->setPosition(PX_C(-200) + PX_C(i)*20, 0, 0);
         }
 
 
 //        pItemBoardTest = (ItemBoardTest*)receiveActor(3000);
-//        getSceneChief()->appendGroupChild(MGR_MIKATA, pItemBoardTest);
+//        getSceneChief()->appendChild(MGR_MIKATA, pItemBoardTest);
 //        pItemBoardTest->setPosition(PX_C(100), PX_C(200));
 //
 //        pLabelMenuItemFont01 = (LabelMenuItemFont01*)receiveActor(4000);
@@ -81,7 +82,7 @@ void TrialAndErrScene::processBehavior() {
 //        pLabelMenuItemFont01->getViewCollisionChecker()->addCollisionArea(1);
 //        pLabelMenuItemFont01->getViewCollisionChecker()->setColliAABox(0, 0.8);
 //        pLabelMenuItemFont01->setHitAble(true);
-//        getSceneChief()->appendGroupChild(MGR_MIKATA, pLabelMenuItemFont01);
+//        getSceneChief()->appendChild(MGR_MIKATA, pLabelMenuItemFont01);
 //        pLabelMenuItemFont01->setPosition(PX_C(300), PX_C(250));
     }
     if (GgafDx::Input::isPressedKey(DIK_C)) {

@@ -83,161 +83,161 @@ void RankUp001::processBehavior() {
             }
             case 200: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000000);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 requestActor(90000030, EnemyIrce, "EnemyIrce-90000030");
                 FormationThagoras001* pF1 = (FormationThagoras001*)receiveActor(90000031);
-                getSceneChief()->appendGroupChild(pF1);
+                getSceneChief()->appendChild(pF1);
                 pF1->setPosition(PX_C(-200), PX_C(  0), PX_C(500));
                 break;
             }
             case 260: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000001);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 320: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000002);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 380: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000003);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 440: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000004);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 500: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000005);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 560: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000006);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 620: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000007);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 680: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000008);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 740: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000009);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 800: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000010);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 860: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000011);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 920: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000012);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 980: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000013);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1040: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000014);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1100: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000015);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1160: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000016);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1220: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000017);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1280: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000018);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1340: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000019);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1400: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000020);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1460: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000021);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1520: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000022);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1580: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000023);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1640: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000024);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1700: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000025);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1760: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000026);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1820: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000027);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1880: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000028);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 1940: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000029);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             case 2000: {
                 EnemyIrce* p = (EnemyIrce*)receiveActor(90000030);
-                getSceneChief()->appendGroupChild(p);
+                getSceneChief()->appendChild(p);
                 break;
             }
             default :

@@ -38,8 +38,8 @@ public:
         uint32_t _self_index;
         /** [r]この空間＋子孫空間に所属してる要素の種別情報 */
         kind_t _kind_bit_field;
-        /** [r]この空間に登録された要素連結リストの根本。_pNextValue で連結されている。 */
-        ITreeNodeElem* _pNodeValueList;
+        /** [r]この空間に登録された要素連結リストの根本。_pNextNodeElem で連結されている。 */
+        ITreeNodeElem* _pRootNodeElem;
         /** [r]登録を行った空間連結リスト用、次の空間(開放時に使用) */
         NodeSpace* _pRegNodeSpaceNext;
 
@@ -49,7 +49,7 @@ public:
          * @return
          */
         NodeSpace() : Object() {
-            _pNodeValueList = nullptr;
+            _pRootNodeElem = nullptr;
             _kind_bit_field = 0;
             _self_index = 0xffffffff; //ありえない0xffffffffを入れておく
             _pRegNodeSpaceNext = nullptr;
@@ -80,18 +80,18 @@ public:
                 index = (index-1)>>DIM;
                 p = p - (p->_self_index - index);
             }
-            prm_pNodeElem->_pNextValue = _pNodeValueList; //初回は _pNodeValueList == nullptr
-            _pNodeValueList = prm_pNodeElem;
+            prm_pNodeElem->_pNextNodeElem = _pRootNodeElem; //初回は _pRootNodeElem == nullptr
+            _pRootNodeElem = prm_pNodeElem;
         }
 
         void dump() {
-            if (_pNodeValueList == nullptr) {
+            if (_pRootNodeElem == nullptr) {
                 _TRACE_N_(""); //ノードなし
             } else {
-                ITreeNodeElem* pElem = _pNodeValueList;
+                ITreeNodeElem* pElem = _pRootNodeElem;
                 while (pElem) {
                     pElem->dump();
-                    pElem = pElem ->_pNextValue;
+                    pElem = pElem ->_pNextNodeElem;
                 }
             }
         }
@@ -258,7 +258,7 @@ public:
 #endif
         //要素を線形N分木空間に登録(所属させる)
         NodeSpace* pNodeSpace = &(_paNodeSpaceArray[index]);
-        if (pNodeSpace->_pNodeValueList) {
+        if (pNodeSpace->_pRootNodeElem) {
             pNodeSpace->registerElem(prm_pNodeElem);
         } else {
             pNodeSpace->registerElem(prm_pNodeElem);
@@ -274,7 +274,7 @@ public:
         //登録済み空間リストを使用してクリア
         NodeSpace* pNodeSpace = _pRegNodeSpaceList;
         while (pNodeSpace) {
-            pNodeSpace->_pNodeValueList = nullptr; //登録済み空間の根本を nullptr でクリア
+            pNodeSpace->_pRootNodeElem = nullptr; //登録済み空間の根本を nullptr でクリア
             uint32_t index = pNodeSpace->_self_index;
             //_kind_bit_field の値は親空間に遡って 0 でリセットする。
             while (true) {

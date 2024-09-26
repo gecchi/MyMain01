@@ -322,7 +322,7 @@ CameraViewPoint* Camera::getCameraViewPoint() {
     } else {
         _pCameraViewPoint = createCameraViewPoint();
         _pCameraViewPoint->setPosition(0, 0, 0);
-        appendGroupChild(_pCameraViewPoint);
+        appendChild(_pCameraViewPoint);
         return _pCameraViewPoint;
     }
 }
@@ -333,7 +333,7 @@ CameraUpVector* Camera::getCameraUpVector() {
     } else {
         _pCameraUpVector = createCameraUpVector();
         _pCameraUpVector->setPosition(0, DX_C(1), 0);
-        appendGroupChild(_pCameraUpVector);
+        appendChild(_pCameraUpVector);
         return _pCameraUpVector;
     }
 }

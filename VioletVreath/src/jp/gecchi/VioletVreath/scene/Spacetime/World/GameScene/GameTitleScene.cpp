@@ -33,22 +33,22 @@ GameTitleScene::GameTitleScene(const char* prm_name) : VvScene<DefaultScene>(prm
     getPhase()->reset(PHASE_INIT);
 
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    getSceneChief()->appendGroupChild(pLabel01_);
+    getSceneChief()->appendChild(pLabel01_);
 
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    getSceneChief()->appendGroupChild(pLabel02_);
+    getSceneChief()->appendChild(pLabel02_);
 
     pTitleBoard_ = NEW TitleBoard("TitleBoard");
-    getSceneChief()->appendGroupChild(pTitleBoard_);
+    getSceneChief()->appendChild(pTitleBoard_);
 
     pMenu_ = NEW MenuBoardTitle("MenuBoardTitle");
-    getSceneChief()->appendGroupChild(pMenu_);
+    getSceneChief()->appendChild(pMenu_);
 
     pWorldBound_ = NEW WorldBoundTitle("TITLE_BG_WB");
-    getSceneChief()->appendGroupChild(pWorldBound_);
+    getSceneChief()->appendChild(pWorldBound_);
 
     pHoshiBoshi_ = NEW HoshiBoshiTitle("TITLE_BG_HOSHI");
-    getSceneChief()->appendGroupChild(pHoshiBoshi_);
+    getSceneChief()->appendChild(pHoshiBoshi_);
 
     pSeConnection_exec_ = connectToSeManager("SE_EXECUTE");
 

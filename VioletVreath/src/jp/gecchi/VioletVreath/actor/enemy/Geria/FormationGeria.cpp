@@ -23,7 +23,7 @@ FormationGeria::FormationGeria(
         pEnemyGeria->getLocusVehicle()->linkFaceAngByMvAng(true);
         pDepo_->put(pEnemyGeria);
     }
-    appendGroupChild(pDepo_);
+    appendChild(pDepo_);
 }
 
 EnemyGeria* FormationGeria::summonGeria() {

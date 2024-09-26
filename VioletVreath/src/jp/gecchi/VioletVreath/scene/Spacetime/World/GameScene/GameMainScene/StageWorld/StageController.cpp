@@ -46,7 +46,7 @@ StageController::StageController(const char* prm_name) : VvScene<DefaultScene>(p
     appendChild(pTransitStage_);
 
     _pSceneSymbol = NEW LabelSceneSymbol("LabelSceneSymbol");
-    getSceneChief()->appendGroupChild(_pSceneSymbol);
+    getSceneChief()->appendChild(_pSceneSymbol);
 }
 
 void StageController::onReset() {

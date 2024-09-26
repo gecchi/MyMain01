@@ -20,13 +20,13 @@
 
 namespace GgafDx {
 
-typedef GgafCore::LinearOctree<GgafCore::Actor> WorldOctree;
-typedef GgafCore::LinearOctreeRounder<GgafCore::Actor> WorldOctreeRounder;
-typedef GgafCore::LinearQuadtree<GgafCore::Actor> WorldQuadtree;
-typedef GgafCore::LinearQuadtreeRounder<GgafCore::Actor> WorldQuadtreeRounder;
+typedef GgafCore::LinearOctree<GgafCore::Checker> WorldOctree;
+typedef GgafCore::LinearOctreeRounder<GgafCore::Checker> WorldOctreeRounder;
+typedef GgafCore::LinearQuadtree<GgafCore::Checker> WorldQuadtree;
+typedef GgafCore::LinearQuadtreeRounder<GgafCore::Checker> WorldQuadtreeRounder;
 
-typedef GgafCore::LinearQuadtree<GgafCore::Actor> ViewQuadtree;
-typedef GgafCore::LinearQuadtreeRounder<GgafCore::Actor> ViewQuadtreeRounder;
+typedef GgafCore::LinearQuadtree<GgafCore::Checker> ViewQuadtree;
+typedef GgafCore::LinearQuadtreeRounder<GgafCore::Checker> ViewQuadtreeRounder;
 
 /**
  * Core–¼‘O‹óŠÔ‚Ì‚±‚Ì¢ƒNƒ‰ƒX.

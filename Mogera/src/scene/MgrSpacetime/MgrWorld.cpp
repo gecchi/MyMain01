@@ -27,7 +27,8 @@ void MgrWorld::initialize() {
 //    appendChild(pTestScene_);
     pPointerTest_ = desireActor(PointerTest);
     pPointerTest_->setPosition(PX_C(300), PX_C(100));
-    getSceneChief()->appendGroupChild(MGR_TEKI, pPointerTest_);
+    pPointerTest_->setDefaultKind(MGR_TEKI);
+    getSceneChief()->appendChild(pPointerTest_);
     pTrialAndErrScene_ = desireScene(TrialAndErrScene);
     appendChild(pTrialAndErrScene_);
 

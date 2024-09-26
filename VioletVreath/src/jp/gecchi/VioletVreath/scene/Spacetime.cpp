@@ -19,7 +19,7 @@ Spacetime::Spacetime(const char* prm_name, Camera* prm_pCamera) : DefaultSpaceti
     pWorld_ = nullptr;
     _TRACE_(FUNC_NAME<<"");
     pCameraWorkerChanger_ = NEW VVCameraWorkerChanger("CameraWorkerChanger", prm_pCamera);
-    getSceneChief()->appendGroupChild(pCameraWorkerChanger_);
+    getSceneChief()->appendChild(pCameraWorkerChanger_);
     //【めも】
     //ここでActorやSceneのNEWをしてはならない。
     //まずはこの世を作ることを優先しないと、いろいろと不都合がある。

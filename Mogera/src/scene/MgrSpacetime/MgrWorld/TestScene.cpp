@@ -159,7 +159,7 @@ void TestScene::processBehavior() {
                     } else {
                         pActor->setPosition(PX_C(_id_*40), PX_C(_id_*10), 0);
                     }
-                    getSceneChief()->appendGroupChild(pActor);
+                    getSceneChief()->appendChild(pActor);
                     _id_++;
                 }
             }

@@ -7,16 +7,18 @@
 
 using namespace GgafDx;
 
-CollisionChecker::CollisionChecker(GeometricActor* prm_pActor) : GgafCore::Object(),
-_pActor(prm_pActor) {
+CollisionChecker::CollisionChecker(GeometricActor* prm_pColliActor) : GgafCore::Checker(prm_pColliActor),
+_pColliActor(prm_pColliActor) {
     _pCollisionArea = nullptr;
 }
 
 void CollisionChecker::addCollisionArea(int prm_colli_part_num) {
+    _kind = _pActor->getDefaultKind(); //TODO:ここでいいのか
+
     CollisionArea* pNewCollisionArea = NEW CollisionArea(prm_colli_part_num);
     _pCollisionArea = pNewCollisionArea;
     _pCollisionArea->_need_update_aabb = true;
-    _pActor->setHitAble(true);
+    _pColliActor->setHitAble(true);
     //ストック
     _vecCollisionArea.push_back(pNewCollisionArea);
 }
@@ -28,6 +30,19 @@ void CollisionChecker::changeCollisionArea(int prm_index) {
     }
 #endif
     _pCollisionArea = _vecCollisionArea.at(prm_index);
+}
+
+bool CollisionChecker::processHitChkLogic(GgafCore::Checker* prm_pOtherChecker) {
+    if (_pActor->_can_hit_flg && prm_pOtherChecker->_pActor->_can_hit_flg) {
+        //&& prm_pOtherActor->instanceOf(Obj_GgafDx_GeometricActor)) { 当たり判定があるのでGeometricActor以上と判断
+        //_can_hit_flg && prm_pOtherActor->_can_hit_flg のチェックは八分木登録前にもチェックしてるが
+        //ここでももう一度チェックするほうがより良い。
+        //なぜならば、無駄なヒットチェックを行わないため、onHit(GgafCore::Actor*) 処理中で setHitAble(false) が行われ、
+        //２重ヒットチェック防止を行っているかもしれないから。
+        return isHit((CollisionChecker*)prm_pOtherChecker);
+    } else {
+        return false;
+    }
 }
 
 //void CollisionChecker::enable(int prm_index) {

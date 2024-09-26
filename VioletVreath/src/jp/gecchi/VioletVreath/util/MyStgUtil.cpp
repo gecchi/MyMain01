@@ -1,6 +1,5 @@
 #include "MyStgUtil.h"
 
-#include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
@@ -804,7 +803,7 @@ GgafDx::FigureActor* MyStgUtil::activateProperEffect01Of(GgafDx::GeometricActor*
 //    if (UTIL::calcEnemyStamina(prm_this, prm_pOther) <= 0) { //体力が無くなったら
 //        //＜破壊された場合＞
 //        prm_this->setHitAble(false); //当たり判定消失
-//        if (prm_pOther->_pGroupHead->_kind & KIND_MY) {
+//        if (prm_pOther->_kind & KIND_MY) {
 //            //相手(自機)の種別が MY*** （自機関連） ならば
 //            G_SCORE += pThisStatus->get(STAT_AddDestroyScorePoint);   //破壊時得点
 //            double rp = pThisStatus->getDouble(STAT_AddRankPoint);    //加算初期ランク値
@@ -849,7 +848,7 @@ GgafDx::FigureActor* MyStgUtil::activateProperEffect01Of(GgafDx::GeometricActor*
 //        return true;
 //    } else {
 //        //＜非破壊時、ダメージを受けた場合＞
-//        if (prm_pOther->_pGroupHead->_kind & KIND_MY) { //相手(自機)の種別が MY*** （自機関連） ならば
+//        if (prm_pOther->_kind & KIND_MY) { //相手(自機)の種別が MY*** （自機関連） ならば
 //            G_SCORE += pThisStatus->get(STAT_AddDamagedScorePoint);   //ダメージ時得点
 //        }
 //        if (pThisStatus->get(STAT_FlushAble)) { //ダメージフラッシュするかどうか
@@ -1168,7 +1167,7 @@ GgafCore::Status* MyStgUtil::resetMyBunshinWateringLaserChip001Status(GgafCore::
     p->set(STAT_Stamina, 100 );  //体力
     p->set(STAT_Attack, (int)(105+((MyBunshinWateringLaserChip001::tex_no_*0.5)*100)));  //基本攻撃力
     if (!p->hasBeenReset()) {
-        p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_HIT);  //種別(デフォルト)
+        p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_CHIKEI_THRU);  //種別(デフォルト)
         p->set(STAT_Attribute , ATTRIBUTE_CHOKI);  //優劣属性
         p->set(STAT_LockonAble, 0 );  //ロックオン可否(1:可/0:不可)
         p->set(STAT_AddDestroyScorePoint, 0 );  //破壊時加算得点(編隊は全滅時)

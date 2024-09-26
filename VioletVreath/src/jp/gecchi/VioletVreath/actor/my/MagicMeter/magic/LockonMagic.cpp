@@ -33,7 +33,7 @@ LockonMagic::LockonMagic(const char* prm_name, int* prm_pMP)
 
     pEffect_ = NEW EffectLockonMagic("EffectLockonMagic");
     pEffect_->inactivate();
-    appendGroupChild(pEffect_);
+    appendChild(pEffect_);
 }
 
 void LockonMagic::onReset() {

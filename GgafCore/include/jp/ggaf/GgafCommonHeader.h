@@ -352,10 +352,9 @@ typedef hashval eventval;
 #define Obj_ggaf_MainActor          (0x2ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
 #define Obj_ggaf_DestructActor      (0x4ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100
 #define Obj_ggaf_SceneChief      (0x8ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
-#define Obj_ggaf_GroupHead         (0x10ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00010000
-#define Obj_ggaf_DisusedActor      (0x20ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00100000
-#define Obj_ggaf_ActorDepository   (0x40ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 01000000
-#define Obj_ggaf_Formation         (0x80ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 10000000
+#define Obj_ggaf_DisusedActor         (0x10ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00010000
+#define Obj_ggaf_ActorDepository      (0x20ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00100000
+#define Obj_ggaf_Formation   (0x40ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 01000000
 
 #define MAX_FRAME (0xffffffff)
 
@@ -398,6 +397,8 @@ class ValueTransitioner;
 
 class GarbageBox;
 class Phase;
+class Checker;
+
 class Scene;
 class DisusedScene;
 class Actor;
@@ -408,7 +409,6 @@ class DestructActor;
 class Spacetime;
 class MainScene;
 class SceneChief;
-class GroupHead;
 
 class Formation;
 class TreeFormation;

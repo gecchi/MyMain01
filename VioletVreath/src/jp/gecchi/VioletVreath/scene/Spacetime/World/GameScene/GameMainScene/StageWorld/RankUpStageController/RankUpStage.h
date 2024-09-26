@@ -44,19 +44,15 @@ public:
             all_hit_num_ = 0;
             hit_enemy_num_ = 0;
         }
-        GgafCore::GroupHead* appendGroupChild(kind_t prm_kind, GgafCore::MainActor* prm_pMainActor) {
-            GgafCore::GroupHead* pGroupHead = GgafLib::DefaultSceneChief::appendGroupChild(prm_kind, prm_pMainActor);
+        void appendChild(GgafCore::MainActor* prm_pMainActor) {
+            GgafLib::DefaultSceneChief::appendChild(prm_pMainActor);
             //‘S•Ò‘à”‚ª—~‚µ‚¢‚Ì‚ÅA’Ç‰ÁŒã‚Éƒƒ“ƒo[”‚ð‡ŽZ‚µ‚Ä•ÛŽ‚µ‚Ä‚¨‚­
             if (prm_pMainActor->instanceOf(Obj_ggaf_Formation)) {
                 GgafCore::Formation* pF = (GgafCore::Formation*)prm_pMainActor;
                 all_hit_num_ += pF->getMemberNum();
-            } else if (prm_pMainActor->lookUpKind() & KIND_ENEMY_BODY) {
+            } else if (prm_pMainActor->getDefaultKind() & KIND_ENEMY_BODY) {
                 all_hit_num_ ++;
             }
-            return pGroupHead;
-        }
-        GgafCore::GroupHead* appendGroupChild(GgafCore::MainActor* prm_pMainActor) {
-            return SceneChief::appendGroupChild(prm_pMainActor->getDefaultKind(), prm_pMainActor);
         }
     };
 

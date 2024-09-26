@@ -57,35 +57,35 @@ void SkinMeshAnimeTestScene::processBehavior() {
     static AniTest2* p6 = nullptr;
     if (getActiveFrame() == 200) {
         p1 = (AniTest*)receiveActor(1234);
-        getSceneChief()->appendGroupChild(p1);
+        getSceneChief()->appendChild(p1);
         p1->setPosition(PX_C(-800), PX_C(-300), 0);
         p1->_pPuppeteer->stop();
         p1->getLocusVehicle()->setRyFaceAngVelo(D_ANG(1));
 
         p2 = (AniTest*)receiveActor(1235);
-        getSceneChief()->appendGroupChild(p2);
+        getSceneChief()->appendChild(p2);
         p2->setPosition(0, PX_C(-300), 0);
         p2->_pPuppeteer->stop();
         p2->getLocusVehicle()->setRyFaceAngVelo(D_ANG(-1));
 
         p3 = (AniTest*)receiveActor(1236);
-        getSceneChief()->appendGroupChild(p3);
+        getSceneChief()->appendChild(p3);
         p3->setPosition(PX_C(800), PX_C(-300), 0);
         p3->_pPuppeteer->stop();
         p3->getLocusVehicle()->setRyFaceAngVelo(D_ANG(0.5));
 
         p4 = (AniTest2*)receiveActor(1237);
-        getSceneChief()->appendGroupChild(p4);
+        getSceneChief()->appendChild(p4);
         p4->setPosition(PX_C(-800), PX_C(300), 0);
         p4->_pPuppeteer->stop();
 
         p5 = (AniTest2*)receiveActor(1238);
-        getSceneChief()->appendGroupChild(p5);
+        getSceneChief()->appendChild(p5);
         p5->setPosition(0, PX_C(300), 0);
         p5->_pPuppeteer->stop();
 
         p6 = (AniTest2*)receiveActor(1239);
-        getSceneChief()->appendGroupChild(p6);
+        getSceneChief()->appendChild(p6);
         p6->setPosition(PX_C(800), PX_C(300), 0);
         p6->_pPuppeteer->stop();
     }

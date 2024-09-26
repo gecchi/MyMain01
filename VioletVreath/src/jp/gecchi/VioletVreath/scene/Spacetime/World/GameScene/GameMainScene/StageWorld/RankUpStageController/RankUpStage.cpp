@@ -27,18 +27,18 @@ RankUpStage::RankUpStage(const char* prm_name) : VvScene<DefaultScene>(prm_name,
 
     pWorldBound_  = NEW WorldBoundRankUp("BG_RankUp");
     pWorldBound_->inactivate();
-    getSceneChief()->appendGroupChild(pWorldBound_);
+    getSceneChief()->appendChild(pWorldBound_);
     pHoshiBoshi_ = NEW HoshiBoshiRankUp("HoshiBoshiRankUp");
-    getSceneChief()->appendGroupChild( pHoshiBoshi_);
+    getSceneChief()->appendChild( pHoshiBoshi_);
     pMessage1_ = NEW LabelGecchi16Font("RankUpMsg1");
     pMessage1_->setPosition(PX_C(400), PX_C(200));
-    getSceneChief()->appendGroupChild(pMessage1_);
+    getSceneChief()->appendChild(pMessage1_);
     pMessage2_ = NEW LabelGecchi16Font("RankUpMsg2");
     pMessage2_->setPosition(PX_C(400), PX_C(230));
-    getSceneChief()->appendGroupChild(pMessage2_);
+    getSceneChief()->appendChild(pMessage2_);
     pMessage3_ = NEW LabelGecchi16Font("RankUpMsg2");
     pMessage3_->setPosition(PX_C(400), PX_C(260));
-    getSceneChief()->appendGroupChild(pMessage3_);
+    getSceneChief()->appendChild(pMessage3_);
 
     pSeConnection_all_hit_ = connectToSeManager("SE_EXPLOSION_002"); //‘S–Å‚ÌÅŒã‚Ìˆê‹@”j‰óŽžSE
 }
@@ -54,7 +54,7 @@ void RankUpStage::processBehavior() {
     pMessage3_->update(buff);
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
-            _TRACE_("RankUpStage::processBehavior()  "<<this<<" š"<<NODE_INFO<<DUMP_FLGS);
+            _TRACE_("RankUpStage::processBehavior()  "<<this<<" š"<<NODE_INFO<< DUMP_FLGS_SCENE);
             _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PHASE_BEGIN !");
             pMessage1_->update("RANKUPSTAGE::PHASE_BEGIN");
             std::string m = "RUNKUP LEVEL:" + XTOS(G_RANKUP_LEVEL) ;

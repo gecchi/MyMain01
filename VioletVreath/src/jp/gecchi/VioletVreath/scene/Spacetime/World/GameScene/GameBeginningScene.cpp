@@ -23,9 +23,9 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : VvScene<DefaultSc
     _class_name = "GameBeginningScene";
 
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    getSceneChief()->appendGroupChild(KIND_EFFECT, pLabel01_);
+    getSceneChief()->appendChild(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    getSceneChief()->appendGroupChild(KIND_EFFECT, pLabel02_);
+    getSceneChief()->appendChild(pLabel02_);
     selected_stage_ = 0;
 }
 

@@ -52,7 +52,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinCont
         std::string name = std::string(getName()) + "'s Shot(" + XTOS(i) + ")";
         pDepo_MyBunshinShot_->put(NEW MyBunshinShot001(name.c_str()));
     }
-    appendGroupChild(pDepo_MyBunshinShot_);
+    appendChild(pDepo_MyBunshinShot_);
 
 //    //自弾（スナイプ）ストック
 //    pDepo_MySnipeBunshinShot_ = NEW GgafCore::ActorDepository("Depo_MySnipeBunshinShot");
@@ -60,7 +60,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinCont
 //        std::string name = std::string(getName()) + "'s SnipeShot(" + XTOS(i) + ")";
 //        pDepo_MySnipeBunshinShot_->put(NEW MyBunshinSnipeShot001(name.c_str()));
 //    }
-//    appendGroupChild(pDepo_MySnipeBunshinShot_);
+//    appendChild(pDepo_MySnipeBunshinShot_);
     //レーザーストック
     if (_laser_kind == LASER_KOANYA) {
         pLaserChipDepo_ = NEW LaserChipDepository("DepoBunshinLaser");
@@ -69,7 +69,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinCont
             pLaserChipDepo_->put(NEW MyBunshinWateringLaserChip001(name.c_str()));
         }
         pLaserChipDepo_->config(MAX_LASER_CHIP_NUM, MAX_LASER_CHIP_NUM/3);
-        appendGroupChild(pLaserChipDepo_);
+        appendChild(pLaserChipDepo_);
     } else if (_laser_kind == LASER_THUNDER) {
         pLaserChipDepo_ = NEW LaserChipDepository("DepoBunshinLaser");
         for (int i = 0; i < MAX_LASER_CHIP_NUM; i++) {
@@ -79,16 +79,16 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinCont
             pLaserChipDepo_->put(pChip);
         }
         pLaserChipDepo_->config(MAX_LASER_CHIP_NUM, MAX_LASER_CHIP_NUM/3);
-        appendGroupChild(pLaserChipDepo_);
+        appendChild(pLaserChipDepo_);
     }
 
     //ロックオンコントローラー
     pLockonCtrler_ = NEW MyLockonController("LockonController");
-    appendGroupChild(pLockonCtrler_);
+    appendChild(pLockonCtrler_);
 
     //フォトンコントローラー
     pTorpedoCtrler_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrler_);
-    appendGroupChild(pTorpedoCtrler_);
+    appendChild(pTorpedoCtrler_);
 
     GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
     pSeXmtr->set(SE_FIRE_LASER,   "SE_MY_FIRE_LASER_002");

@@ -41,7 +41,7 @@ EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
         pLaserChipDepo_->put(pChip);
     }
     pLaserChipDepo_->config(240, 1); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
-    appendGroupChild(pLaserChipDepo_);
+    appendChild(pLaserChipDepo_);
 
     GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
     pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");

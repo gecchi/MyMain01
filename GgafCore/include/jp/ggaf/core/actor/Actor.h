@@ -2,7 +2,6 @@
 #define GGAF_CORE_ACTOR_H_
 #include "jp/ggaf/GgafCommonHeader.h"
 #include "jp/ggaf/core/Element.hpp"
-#include "jp/ggaf/core/util/lineartree/ITreeNodeElem.hpp"
 #include "jp/ggaf/core/util/Status.h"
 
 #define STAT_DEFAULT_ACTOR_KIND 0
@@ -28,7 +27,6 @@ namespace GgafCore {
  * void processFinal() ・・・フレーム毎の終端処理 <BR>
  * ＜毎フレーム呼び出されるわけではない純粋仮想関数＞<BR>
  * void onCatchEvent(eventval prm_event_val, void* prm_pSource) ・・・その他のイベント時の処理 <BR>
- * bool processHitChkLogic(Actor* prm_pOtherActor) ・・・衝突判定ロジック <BR>
  * void onHit(const Actor* prm_pOtherActor) ・・・衝突判定ロジックがtrueの場合の処理 <BR>
  * <BR>
  * 基底テンプレートクラスの Node と、Element の説明も参照のこと。<BR>
@@ -36,12 +34,11 @@ namespace GgafCore {
  * @since 2007/11/14
  * @author Masatoshi Tsuge
  */
-class Actor : public Element<Actor>, public ITreeNodeElem {
+class Actor : public Element<Actor> {
 
     friend class Caretaker;
     friend class MainActor;
     friend class SceneChief;
-    friend class GroupHead;
     friend class DestructActor;
     friend class Scene;
     friend class Spacetime;
@@ -122,39 +119,10 @@ public:
         }
     }
 
-    /**
-     * 自アクターと他アクターの１対１の当たり判定処理を行う。
-     * @param prm_pOtherActor 他アクター
-     */
-    virtual void executeHitChk_MeAnd(Actor* prm_pOtherActor) {
-        if (prm_pOtherActor == this) {
-            return;
-        } else {
-            //ヒットできる物どうかの判定は事前にすんでいるようにする事。
-            if (processHitChkLogic(prm_pOtherActor)) { //自身のヒットチェック
-                onHit(prm_pOtherActor); //自分のヒット時の振る舞い
-                prm_pOtherActor->onHit(this); //相手のヒット時の振る舞い
-            }
-        }
-    }
-
-    /**
-     * 自アクターと何かのアクターと衝突したかどうか判定するロジック。 .
-     * executeHitChk_MeAnd(Actor*) が実行された場合に呼び出されることになる。<BR>
-     * 下位クラスで独自に衝突判定ロジックを実装する。<BR>
-     * このメソッドは何時呼び出されるかは決まっていない。呼び出しタイミングも下位クラス依存。<BR>
-     * 想定としては、processJudgement() メソッドを実装したクラスが、その中で本メソッドを呼び出すものとしている。<BR>
-     * もしそのように実装した場合、相手アクターも processJudgement() でこちらのアクターとの衝突判定を行うことになれば、<BR>
-     * 衝突判定処理重複することになる。どーしたらよいか考えること。<BR>
-     * @param	prm_pOtherActor	相手アクター
-     * @retval	true	衝突しているを返す事
-     * @retval	false	衝突していないを返す事
-     */
-    virtual bool processHitChkLogic(Actor* prm_pOtherActor) = 0;
 
     /**
      * アクターと衝突した時の処理 .
-     * processHitChkLogic(Actor*) が true の場合に呼び出されることになります。<BR>
+     * _pChecker->processHitChkLogic(Checker*) が true の場合に呼び出されることになります。<BR>
      * 衝突判定の結果、衝突した場合の処理を下位クラス実装してください。<BR>
      * @param	prm_pOtherActor	衝突している相手のアクター（１つ）
      */
@@ -187,9 +155,9 @@ public:
      * ＜例＞
      * void SampleActor::onHit(const Actor* prm_pOtherActor) {
      *    //自身の耐久力チェック
-     *    if (MyStgUtil::calcSampleStatus(_pStatus, lookUpKind(), pOther->_pStatus, pOther->lookUpKind()) <= 0) {
+     *    if (MyStgUtil::calcSampleStatus(_pStatus, _kind, pOther->_pStatus, pOther->_kind) <= 0) {
      *        //Hitの相手のチェック
-     *        if (pOther->lookUpKind() & KIND_MY) {
+     *        if (pOther->kind & KIND_MY) {
      *            //Hitの相手は自機関連（自機、自機ユニット、自機発射弾)
      *            notifyDestroyed(); //編隊全滅判定に有効な破壊を通知する
      *        }
@@ -252,6 +220,8 @@ public:
     inline void setDefaultKind(kind_t prm_kind) const {
         return getStatus()->set(STAT_DEFAULT_ACTOR_KIND, prm_kind);
     }
+
+    virtual void appendChild(Actor* prm_pActor) override;
 
     /**
      * デバッグ用：ツリー構造を表示<BR>

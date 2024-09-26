@@ -271,10 +271,6 @@ public:
 
     virtual void processJudgement() override {}
 
-    virtual bool processHitChkLogic(Actor* prm_pOtherActor) override {
-        return false;
-    }
-
     virtual void processDraw() override {}
 
     virtual void processFinal() override {}

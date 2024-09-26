@@ -27,7 +27,6 @@
     <ClInclude Include="include\jp\ggaf\core\actor\ex\destructactor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\formation.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\treeformation.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\grouphead.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\mainactor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\scenechief.h" />
     <ClInclude Include="include\jp\ggaf\core\caretaker.h" />
@@ -45,6 +44,7 @@
     <ClInclude Include="include\jp\ggaf\core\scene\mainscene.h" />
     <ClInclude Include="include\jp\ggaf\core\scene\scene.h" />
     <ClInclude Include="include\jp\ggaf\core\scene\spacetime.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\Checker.h" />
     <ClInclude Include="include\jp\ggaf\core\util\cmrandomnumbergenerator.h" />
     <ClInclude Include="include\jp\ggaf\core\util\curtain.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\DetectMemoryLeaks.h" />
@@ -80,7 +80,6 @@
     <ClCompile Include="src\jp\ggaf\core\actor\ex\DestructActor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\Formation.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\TreeFormation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\GroupHead.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\MainActor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\SceneChief.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Caretaker.cpp" />
@@ -95,6 +94,7 @@
     <ClCompile Include="src\jp\ggaf\core\scene\MainScene.cpp" />
     <ClCompile Include="src\jp\ggaf\core\scene\Scene.cpp" />
     <ClCompile Include="src\jp\ggaf\core\scene\Spacetime.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\Checker.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\DetectMemoryLeaks.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\Logger.cpp" />

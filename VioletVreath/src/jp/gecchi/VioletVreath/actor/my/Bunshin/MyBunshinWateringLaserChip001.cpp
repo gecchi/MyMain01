@@ -62,6 +62,9 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     prev_velo_vc_x_ = 0;
     prev_velo_vc_y_ = 0;
     prev_velo_vc_z_ = 0;
+
+    //_sub_kind = KIND_MY_SHOT_CHIKEI_HIT;
+
 }
 
 void MyBunshinWateringLaserChip001::initialize() {
@@ -555,10 +558,11 @@ bool MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ, bool chk_don
 
 void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;
-    //ヒットエフェクト
-    GgafDx::FigureActor* pE = UTIL::activateExplosionEffectOf(this, true); //爆発エフェクト出現
 
-    if ((pOther->lookUpKind() & KIND_ENEMY_BODY) ) {
+
+    if ((pOther->getDefaultKind() & KIND_ENEMY_BODY) ) {
+        //ヒットエフェクト
+        GgafDx::FigureActor* pE = UTIL::activateExplosionEffectOf(this, true); //爆発エフェクト出現
         //ロックオン可能アクターならロックオン
         if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
             pOrg_->pLockonCtrler_->lockon(pOther);
@@ -586,9 +590,80 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
             getPhase()->change(PHASE_T2);
         }
 
-    } else if (pOther->lookUpKind() & KIND_CHIKEI) {
+    } else if (pOther->getDefaultKind() & KIND_CHIKEI) {
+        //ヒットエフェクト
+        GgafDx::FigureActor* pE = UTIL::activateExplosionEffectOf(this, true); //爆発エフェクト出現
         //地形相手は無条件さようなら
         sayonara();
+
+//        //ヒットパートレベルに爆発位置を補正
+//        GgafDx::GeometricActor* pOppActor = pOther;
+//        GgafDx::CollisionChecker* pOppChecker = pOther->getCollisionChecker();
+//        if (pOppChecker) {
+//            GgafDx::CollisionArea* pOppCollisionArea = pOppChecker->_pCollisionArea;
+//            if (pOppCollisionArea) {
+//                GgafDx::CollisionPart* pOppColliPart = pOppCollisionArea->getHitPart();
+//                ColliAABox* pHitColliPart = (ColliAABox*)(getCollisionChecker()->_pCollisionArea->getHitPart());
+//                //一時的に大きさを変える
+//                ColliAABox part_small =  (*pHitColliPart); //コピー
+//                part_small._dx = part_small._dx/4;
+//                part_small._dy = part_small._dy/4;
+//                part_small._dz = part_small._dz/4;
+//                part_small._hdx = part_small._dx/2;
+//                part_small._hdy = part_small._dy/2;
+//                part_small._hdz = part_small._dz/2;
+//                part_small._x1 = part_small._cx - part_small._hdx;
+//                part_small._y1 = part_small._cy - part_small._hdy;
+//                part_small._z1 = part_small._cz - part_small._hdz;
+//                part_small._x2 = part_small._cx + part_small._hdx;
+//                part_small._y2 = part_small._cy + part_small._hdy;
+//                part_small._z2 = part_small._cz + part_small._hdz;
+//                ColliAABox* pColliPart = &part_small;
+//
+//                const int opp_shape_kind = pColliPart->_shape_kind;
+//                bool is_hit = false;
+//                if (opp_shape_kind == COLLI_AABOX) {
+//                    //＜AAB と AAB＞
+//                    coord max_dx = pColliPart->_hdx + pOppColliPart->_hdx;
+//                    if ((ucoord)( (pOppActor->_x + pOppColliPart->_cx) - (pOppActor->_x + pColliPart->_cx) + max_dx ) < (ucoord)(max_dx<<1)) {
+//                        //↑左辺計算が0より小さい場合 unsigned キャストにより正の大きな数になるので条件成立しない事を利用し、ABSの判定を一つ除去してる。
+//                        //BOX vs BOX の当たり判定頻度はパフォーマンスに大きな影響を与えるため、わずかでも高速化したいため。
+//                        coord max_dz = pColliPart->_hdz + pOppColliPart->_hdz;
+//                        if ((ucoord)( (pOppActor->_z + pOppColliPart->_cz) - (_z + pColliPart->_cz) + max_dz ) < (ucoord)(max_dz<<1)) {
+//                            coord max_dy = pColliPart->_hdy + pOppColliPart->_hdy;
+//                            if ((ucoord)( (pOppActor->_y + pOppColliPart->_cy) - (_y + pColliPart->_cy) + max_dy ) < (ucoord)(max_dy<<1)) {
+//                                is_hit = true;
+//                            }
+//                        }
+//                    }
+//                 } else if (opp_shape_kind == COLLI_SPHERE) {
+//                     //＜AAB と 球＞
+//                     if (UTIL::isHit3D(this     , (ColliAABox*)pColliPart,
+//                                       pOppActor, (ColliSphere*)pOppColliPart)) {
+//                         is_hit = true;
+//                     }
+//                 } else if (opp_shape_kind == COLLI_AAPRISM) {
+//                     //＜AAB と AAPrism＞
+//                     if (UTIL::isHit3D(pOppActor, (ColliAAPrism*)pOppColliPart,
+//                                       this   , (ColliAABox*)pColliPart        )) {
+//                         is_hit = true;
+//                     }
+//                 } else if (opp_shape_kind == COLLI_AAPYRAMID) {
+//                     //＜AAB と AAPyramid＞
+//                     if (UTIL::isHit3D(pOppActor, (ColliAAPyramid*)pOppColliPart,
+//                                       this   , (ColliAABox*)pColliPart        )) {
+//                         is_hit = true;
+//                     }
+//                 }
+//
+//                if (is_hit == true) {
+//                    //ヒットエフェクト
+//                    GgafDx::FigureActor* pE = UTIL::activateExplosionEffectOf(this, true); //爆発エフェクト出現
+//                    //地形相手は無条件さようなら
+//                    sayonara();
+//                }
+//            }
+//        }
     }
 }
 

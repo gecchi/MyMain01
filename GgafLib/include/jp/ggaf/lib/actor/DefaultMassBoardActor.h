@@ -67,10 +67,6 @@ public:
     virtual void onInactive() override {
     }
 
-    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override {
-        return false;
-    }
-
     virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 

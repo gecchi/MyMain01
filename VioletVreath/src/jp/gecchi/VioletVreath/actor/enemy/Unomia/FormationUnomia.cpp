@@ -57,7 +57,7 @@ void FormationUnomia::initialize() {
     getPhase()->reset(PHASE_INIT);
 //    if (pConn_depo_Unomia_->chkFirstConnectionIs(this)) {
 //        _TRACE_("pConn_depo_Unomia_ は、ワシ(this="<<NODE_INFO<<")が育てたエヘン！")
-//        getPlatformScene()->getSceneChief()->appendGroupChild(
+//        getPlatformScene()->getSceneChief()->appendChild(
 //                pConn_depo_Unomia_->peek()->extract()
 //                );
 //    }

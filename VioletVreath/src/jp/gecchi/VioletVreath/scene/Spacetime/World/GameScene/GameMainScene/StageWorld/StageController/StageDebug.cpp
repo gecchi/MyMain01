@@ -27,27 +27,27 @@ StageDebug::StageDebug(const char* prm_name) : Stage(prm_name) {
     appendChild(pScene_StagePartCtrler_);
     Sleep(2);
     pWorldBound_  = NEW WorldBound001("BG_SPACE");
-    getSceneChief()->appendGroupChild(pWorldBound_);
+    getSceneChief()->appendChild(pWorldBound_);
 
     pHoshiBoshi_ = NEW HoshiBoshi001("HoshiBoshi001");
-    getSceneChief()->appendGroupChild(pHoshiBoshi_);
+    getSceneChief()->appendChild(pHoshiBoshi_);
 
     pMessage_ = NEW LabelGecchi16Font("StageDebugMsg");
-    getSceneChief()->appendGroupChild(pMessage_);
+    getSceneChief()->appendChild(pMessage_);
     pMessage_->inactivate();
 
 
     pPlanet_ = NEW Planet001("Planet001");
-    getSceneChief()->appendGroupChild(KIND_EFFECT, pPlanet_);
+    getSceneChief()->appendChild(pPlanet_);
 //    pHorizon_ = NEW Horizon001("Horizon001");
-//    getSceneChief()->appendGroupChild(KIND_CHIKEI, pHorizon_);
+//    getSceneChief()->appendChild(KIND_CHIKEI, pHorizon_);
 
     //debug ---->
 //    EnemyHisbe* pTest = NEW EnemyHisbe("tst");
 //    pTest->setPosition(PX_C(0),PX_C(0), PX_C(100));
 //    pTest->setFaceAngTwd(PX_C(100), PX_C(100), PX_C(100));
 //    pTest->getLocusVehicle()->behave();
-//    getSceneChief()->appendGroupChild(pTest);
+//    getSceneChief()->appendChild(pTest);
     //<-----debug
 
     fadeoutSceneWithBgm(0); //Å‰‚Í”ñ•\Ž¦

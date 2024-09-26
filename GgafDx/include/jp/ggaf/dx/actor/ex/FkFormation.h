@@ -58,8 +58,6 @@ public:
      * 複数可。移動制御用ダミーなどを想定。
      * もちろん実アクターでも良い。その場合本フォーメーションオブジェクトの種別を１つするため、
      * ２つ目以降は追加同じ種別である必要がある。
-     * ベースのFKの追加するアクターの種別は、内部でappendGroupChildAsFkを使用し、団長が挟まっているので、
-     * ここで追加するベースと同じ種別であるかどうかを気にする必要がない。
      * @param prm_pFkBase
      */
     virtual void registerFormationFkBase(GeometricActor* prm_pFkBase);
@@ -75,8 +73,6 @@ public:
      * 構成メンバーを活動させるには、calledUpMember() を使用。<BR>
      * 構成メンバーを活動終了時は、sayonara() を使用。解放対象になる。<BR>
      * 編隊メンバーは使い捨てである。<BR>
-     * 内部的には、引数 prm_fkbase_index 番目の子アクターをベースとし、そのベースアクターが appendGroupChildAsFk により
-     * prm_pMemberを配下に登録します。<BR>
      * <BR>
      * 引数の編隊メンバーアクターは、次の２つのメソッドの使用が可能となります。 <BR>
      * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>

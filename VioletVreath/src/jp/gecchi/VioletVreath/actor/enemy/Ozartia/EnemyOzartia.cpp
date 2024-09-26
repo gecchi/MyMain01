@@ -84,7 +84,7 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
 //        pDepo_shot01_->put(NEW EnemyOzartiaShot01(name.c_str()));
 //        Sleep(1);
 //    }
-//    appendGroupChild(pDepo_shot01_);
+//    appendChild(pDepo_shot01_);
 //
 //    pDepo_shot02_ = NEW LaserChipDepository("MyRotLaser");
 //    pDepo_shot02_->config(60, 1, nullptr); //Haliaは弾切れフレームを1にしないとパクパクしちゃいます。
@@ -95,7 +95,7 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
 //        pChip->setSource(this); //位置向き同期
 //        pDepo_shot02_->put(pChip);
 //    }
-//    appendGroupChild(pDepo_shot02_);
+//    appendChild(pDepo_shot02_);
     faceto_ship_ = false;
     effectBlendOne(); //加算合成
 }

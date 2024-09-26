@@ -44,7 +44,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 //        pEffect = NEW EffectLaserRefraction001(name.c_str());
 //        pDepoEffect->put(pEffect);
 //    }
-//    appendGroupChild(pDepoEffect);
+//    appendChild(pDepoEffect);
 //
 //    pLaserChipDepo_ = NEW LaserChipDepository("HisbeLaser");
 //    pLaserChipDepo_->config(100, 1); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
@@ -55,7 +55,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 //        pChip->config(num_refraction, 1, 1, false, pDepoEffect);
 //        pLaserChipDepo_->put(pChip);
 //    }
-//    appendGroupChild(pLaserChipDepo_);
+//    appendChild(pLaserChipDepo_);
 //    //<---------------------
 
 //    //ホーミング------>
@@ -67,7 +67,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 //        pChip->_is_fix_begin_pos = false;
 //        pLaserChipDepo_->appendChild(pChip);
 //    }
-//    appendGroupChild(pLaserChipDepo_);
+//    appendChild(pLaserChipDepo_);
 //    //<---------------------
 
 //    //水------>
@@ -78,7 +78,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 //        EnemyHisbeLaserChip003* pChip = NEW EnemyHisbeLaserChip003(name.c_str());
 //        pLaserChipDepo_->appendChild(pChip);
 //    }
-//    appendGroupChild(pLaserChipDepo_);
+//    appendChild(pLaserChipDepo_);
 //    //<---------------------
 
 
@@ -113,7 +113,7 @@ void EnemyHisbe::initialize() {
 
 //    if (pConn_pDepoStore_laser_set->chkFirstConnectionIs(this)) {
 //        _TRACE_("pConn_pDepoStore_laser_setは、ワシ"<<NODE_INFO<<"が育てたエヘン！")
-//        getPlatformScene()->getSceneChief()->appendGroupChild(
+//        getPlatformScene()->getSceneChief()->appendChild(
 //                pConn_pDepoStore_laser_set->peek()->extract()
 //                );
 //    }

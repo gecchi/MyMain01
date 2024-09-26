@@ -1,7 +1,7 @@
 #ifndef GGAF_DX_COLLISIONCHECKER_H_
 #define GGAF_DX_COLLISIONCHECKER_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/core/Object.h"
+#include "jp/ggaf/core/util/Checker.h"
 #include <vector>
 
 namespace GgafDx {
@@ -13,10 +13,10 @@ namespace GgafDx {
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class CollisionChecker : public GgafCore::Object {
+class CollisionChecker : public GgafCore::Checker {
 public:
     /** 対象アクター */
-    GeometricActor* const _pActor;
+    GeometricActor* const _pColliActor;
     /** 当たり判定領域 */
     CollisionArea* _pCollisionArea;
 
@@ -28,6 +28,18 @@ public:
      * @param	prm_pActor	適用Actor
      */
     explicit CollisionChecker(GeometricActor* prm_pActor);
+
+    /**
+     * 当たり判定ロジック .
+     * 当たり判定ロジックを実装している。<BR>
+     * チェッカーオブジェクトがある場合、<BR>
+     * CollisionChecker::isHit() で判定する。<BR>
+     * チェッカーオブジェクトが無い場合、<BR>
+     * ヒットしていないこととする。<BR>
+     * @param prm_pOtherChecker 相手のチェッカー
+     * @return true：ヒットしている／false：ヒットしていない
+     */
+    virtual bool processHitChkLogic(GgafCore::Checker* prm_pOtherChecker) override;
 
     /**
      * 当たり判定領域を更新し、その領域をツリーに登録 .
@@ -75,10 +87,8 @@ public:
         if (_pActor == nullptr) {
             _TRACE_(FUNC_NAME<<" nullptrであるがよいのか！");
         }
-        return _pActor;
+        return _pColliActor;
     }
-
-
 
     virtual ~CollisionChecker();
 };

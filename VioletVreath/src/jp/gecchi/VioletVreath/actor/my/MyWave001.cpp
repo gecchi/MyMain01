@@ -82,11 +82,6 @@ void MyWave001::processJudgement() {
 
 }
 
-/*
- bool MyWave001::processHitChkLogic(GgafDx::GeometricActor* prm_pOtherActor) {
- return false;
- }
- */
 
 void MyWave001::onHit(const GgafCore::Actor* prm_pOtherActor) {
     //_TRACE_(FUNC_NAME<<" ショットがヒットしました");

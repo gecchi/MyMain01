@@ -13,7 +13,7 @@ using namespace VioletVreath;
 #define REGISTER_DEPO(TYPE, NUM)   do { \
         CommonScene_pCOMMON_DEPO(TYPE) = NEW GgafCore::ActorDepository("Depo_" #TYPE); \
         CommonScene_pCOMMON_DEPO(TYPE)->putn<TYPE>(NUM); \
-        getSceneChief()->appendGroupChild(CommonScene_pCOMMON_DEPO(TYPE)); \
+        getSceneChief()->appendChild(CommonScene_pCOMMON_DEPO(TYPE)); \
 }while(0)
 #define REGISTER_LASERDEPO_STORE(TYPE, SET_NUM, LASER_NUM) do { \
     CommonScene_pCOMMON_DEPO_STORE(TYPE) = NEW GgafCore::ActorDepositoryStore("DepoStore_" #TYPE); \
@@ -24,7 +24,7 @@ using namespace VioletVreath;
         pLaserChipDepo->putn<TYPE>(LASER_NUM); \
         CommonScene_pCOMMON_DEPO_STORE(TYPE)->put(pLaserChipDepo); \
     } \
-    getSceneChief()->appendGroupChild(CommonScene_pCOMMON_DEPO_STORE(TYPE)); \
+    getSceneChief()->appendChild(CommonScene_pCOMMON_DEPO_STORE(TYPE)); \
 }while(0)
 
 
@@ -87,7 +87,7 @@ void CommonScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3)
     if (pThat->instanceOf(Obj_GgafDx_GeometricActor)) {
         GgafDx::GeometricActor* pActor = (GgafDx::GeometricActor*)pThat;
 
-        if (pActor->lookUpKind() & KIND_ITEM) {
+        if (pActor->getDefaultKind() & KIND_ITEM) {
             //Itemはスクロールの影響を受けない
         } else {
             pActor->_x -= (*((coord*)p1));
@@ -101,7 +101,7 @@ void CommonScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3)
 
         //ここだめ_was_paused_flg
 //        if (pActor->getSceneChief()->getPlatformScene()->_was_paused_flg == false) {
-//            if (pActor->lookUpKind() & KIND_ITEM) {
+//            if (pActor->_kind & KIND_ITEM) {
 //                //Itemはスクロールの影響を受けない
 //            } else {
 //                pActor->_x -= (*((coord*)p1));

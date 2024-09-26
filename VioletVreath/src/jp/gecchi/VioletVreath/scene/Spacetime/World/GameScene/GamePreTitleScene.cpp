@@ -20,16 +20,16 @@ enum {
 GamePreTitleScene::GamePreTitleScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "GamePreTitleScene";
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    getSceneChief()->appendGroupChild(pLabel01_);
+    getSceneChief()->appendChild(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    getSceneChief()->appendGroupChild(pLabel02_);
+    getSceneChief()->appendChild(pLabel02_);
     pTitleBoard_ = NEW TitleBoard("TitleBoard4Pre");
-    getSceneChief()->appendGroupChild(pTitleBoard_);
+    getSceneChief()->appendChild(pTitleBoard_);
 
 //    papSpriteLabel_ = NEW SpriteLabelTest*[9];
 //    for (int i = 0; i < 9; i++) {
 //        papSpriteLabel_[i] = NEW SpriteLabelTest("tst");
-//        getSceneChief()->appendGroupChild(papSpriteLabel_[i]);
+//        getSceneChief()->appendChild(papSpriteLabel_[i]);
 //    }
 }
 void GamePreTitleScene::onReset() {

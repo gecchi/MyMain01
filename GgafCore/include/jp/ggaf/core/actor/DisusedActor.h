@@ -27,9 +27,6 @@ public:
     }
     void processJudgement() override {
     }
-    bool processHitChkLogic(Actor* prm_pOtherActor) override {
-        return false;
-    }
     void processPreDraw() override {
     }
     void processDraw() override {

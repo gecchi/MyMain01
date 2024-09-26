@@ -41,7 +41,7 @@ pStageWorld_(nullptr) {
     appendChild(pStageWorld_);
 
     pMenuBoardPause_ = NEW MenuBoardPause("MenuBoardPause");
-    getSceneChief()->appendGroupChild(pMenuBoardPause_);
+    getSceneChief()->appendChild(pMenuBoardPause_);
 
     appendChild(NEW GamePreTitleScene("PreGameTitle"));   //PHASE_PRE_TITLE
     appendChild(NEW GameTitleScene("GameTitle"));         //PHASE_TITLE

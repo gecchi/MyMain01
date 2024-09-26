@@ -9,7 +9,7 @@
 namespace GgafDx {
 
 /**
- * D3DXActor用モデルクラス.(未使用、自前のアニメーションフレームで解決。appendGroupChildAsFk()で事足りる)
+ * D3DXActor用モデルクラス.(未使用、自前のアニメーションフレームで解決。appendChildAsFk()で事足りる)
  * SkinAniMeshModel は D3DXLoadMeshFromX を使用して、Xファイルからモデルデータを読み込み設定する。<BR>
  * @version 1.00
  * @since 2009/11/25

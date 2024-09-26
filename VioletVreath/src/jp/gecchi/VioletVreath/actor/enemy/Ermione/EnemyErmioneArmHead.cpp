@@ -71,7 +71,7 @@ void EnemyErmioneArmHead::onHit(const GgafCore::Actor* prm_pOtherActor) {
 //        getSeXmtr()->play3D(SE_EXPLOSION);
 //
 //        //自機側に撃たれて消滅の場合、
-//        if (pOther->lookUpKind() & KIND_MY) {
+//        if (pOther->_kind & KIND_MY) {
 //            //アイテム出現
 //            UTIL::activateItemOf(this);
 //        }

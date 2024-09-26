@@ -57,18 +57,18 @@ bool LaserChip::initStatic(LaserChip* prm_pLaserChip) {
     return true;
 }
 
-void LaserChip::executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) {
-    if (_pChip_infront == nullptr) {  //先端チップ
-        GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
-    } else {
-        if ((prm_pOtherActor->_obj_class & Obj_MassWallActor) == Obj_MassWallActor) {
-            //相手が地形ブロックならば、先端だけしか判定しない
-            return;
-        } else {
-            GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
-        }
-    }
-}
+//void LaserChip::executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) {
+//    if (_pChip_infront == nullptr) {  //先端チップ
+//        GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
+//    } else {
+//        if ((prm_pOtherActor->_obj_class & Obj_MassWallActor) == Obj_MassWallActor) {
+//            //相手が地形ブロックならば、先端だけしか判定しない
+//            return;
+//        } else {
+//            GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
+//        }
+//    }
+//}
 
 void LaserChip::onActive() {
     //出現時
@@ -89,6 +89,8 @@ void LaserChip::processSettlementBehavior() {
     //ここだめ_was_paused_flg
 
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
+//    WorldCollisionChecker* pSubChecker = (WorldCollisionChecker*)_pSubChecker;
+
     const LaserChip* pChip_infront = _pChip_infront;
     const LaserChip* pChip_behind = _pChip_behind;
 
@@ -187,6 +189,10 @@ void LaserChip::processSettlementBehavior() {
                 coord cZ = dZ * 0.25;
                 pChecker->changeCollisionArea(0);
                 pChecker->moveColliAABoxPos(0, cX, cY, cZ);
+//                if (_sub_kind > 0) {
+//                    pSubChecker->changeCollisionArea(0);
+//                    pSubChecker->moveColliAABoxPos(0, cX, cY, cZ);
+//                }
             }
         } else { //if (_chip_kind != 5)
             //この処理はprocessBehavior()で行えない。なぜならば、_pChip_infront が座標移動済みの保証がないため。
@@ -227,6 +233,9 @@ void LaserChip::processSettlementBehavior() {
                         setHitAble(false);
                     } else {
                         pChecker->changeCollisionArea(0);  // [0] -□----------
+//                        if (_sub_kind > 0) {
+//                            pSubChecker->changeCollisionArea(0);
+//                        }
                     }
                 } else {
                     if ((ucoord)(dX+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
@@ -234,6 +243,9 @@ void LaserChip::processSettlementBehavior() {
                         (ucoord)(dZ+_hitarea_edge_length_3) < _hitarea_edge_length_3_2)
                     {
                         pChecker->changeCollisionArea(0);  // [0] -□----------
+//                        if (_sub_kind > 0) {
+//                            pSubChecker->changeCollisionArea(0);
+//                        }
                         _rate_of_length = 4.0f;
                     } else {
                         //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
@@ -247,6 +259,10 @@ void LaserChip::processSettlementBehavior() {
                         {
                             pChecker->changeCollisionArea(1); // [1] -□----□----
                             pChecker->moveColliAABoxPos(1, cX, cY, cZ);
+//                            if (_sub_kind > 0) {
+//                                pSubChecker->changeCollisionArea(1); // [1] -□----□----
+//                                pSubChecker->moveColliAABoxPos(1, cX, cY, cZ);
+//                            }
                             _rate_of_length = 8.0f;
                         } else {
                             pChecker->changeCollisionArea(2); // [2] -□-□-□-□-
@@ -259,6 +275,13 @@ void LaserChip::processSettlementBehavior() {
                             coord cY3 = cY2 + cY;
                             coord cZ3 = cZ2 + cZ;
                             pChecker->moveColliAABoxPos(3, cX3, cY3, cZ3);
+//                            if (_sub_kind > 0) {
+//                                pSubChecker->changeCollisionArea(2); // [2] -□-□-□-□-
+//                                pSubChecker->moveColliAABoxPos(2, cX, cY, cZ);
+//                                pSubChecker->moveColliAABoxPos(1, cX2, cY2, cZ2);
+//                                pSubChecker->moveColliAABoxPos(3, cX3, cY3, cZ3);
+//                            }
+
                             _rate_of_length = 16.0f;
                         }
                     }
@@ -290,6 +313,9 @@ void LaserChip::processPreDraw() {
 void LaserChip::drawHitArea() {
 #ifdef MY_DEBUG
     WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+//    if (_sub_kind > 0) {
+//        WorldCollisionChecker::drawHitArea(_pSubChecker);
+//    }
 #endif
 }
 
@@ -374,6 +400,22 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     pChecker->setColliAACube(1, prm_edge_length);
     pChecker->setColliAACube(2, prm_edge_length);
     pChecker->setColliAACube(3, prm_edge_length);
+//    _pSubChecker = UTIL::createCollisionChecker(this);
+//    WorldCollisionChecker* pSubChecke = (WorldCollisionChecker*)_pSubChecker;
+//    pSubChecke->addCollisionArea(1);
+//    pSubChecke->setColliAACube(0, prm_edge_length/4);
+//
+//    pSubChecke->addCollisionArea(2);
+//    pSubChecke->setColliAACube(0, prm_edge_length/4);
+//    pSubChecke->setColliAACube(1, prm_edge_length/4);
+//
+//    pSubChecke->addCollisionArea(4);
+//    pSubChecke->setColliAACube(0, prm_edge_length/4);
+//    pSubChecke->setColliAACube(1, prm_edge_length/4);
+//    pSubChecke->setColliAACube(2, prm_edge_length/4);
+//    pSubChecke->setColliAACube(3, prm_edge_length/4);
+
+
     setHitAble(true);
 }
 
@@ -511,5 +553,6 @@ void LaserChip::addModel(const char* prm_model) {
 LaserChip::~LaserChip() {
     GGAF_DELETE(_pUvFlipper);
     GGAF_DELETE(_pColliCollisionChecker);
+//    GGAF_DELETE_NULLABLE(_pSubChecker);
 }
 

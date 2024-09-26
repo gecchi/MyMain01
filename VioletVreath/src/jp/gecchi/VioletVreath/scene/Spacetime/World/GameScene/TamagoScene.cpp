@@ -51,12 +51,12 @@ void TamagoScene::initialize() {
 void TamagoScene::processBehavior() {
 //    if (getActiveFrame() == 60) {
 //        VarietyRatislavia001* p = (VarietyRatislavia001*)receiveActor(900000001);
-//        getSceneChief()->appendGroupChild(p);
+//        getSceneChief()->appendChild(p);
 //    }
 
 //    if (getActiveFrame() == 120) {
 //        FormationGeria001* p = (FormationGeria001*)receiveActor(100000001);
-//        getSceneChief()->appendGroupChild(p);
+//        getSceneChief()->appendChild(p);
 //    }
 //    if (getActiveFrame() == 120) {
 //
@@ -69,21 +69,21 @@ void TamagoScene::processBehavior() {
 //
 //        EnemyIrce* p9 = (EnemyIrce*)receiveActor(100000009);
 //        p9->setPosition(80000,50000,50000);
-//        p9->appendGroupChildAsFk(p1,       0,       0,  300000, D0ANG, D270ANG,  D0ANG);
-//        p9->appendGroupChildAsFk(p2,  300000,       0,       0, D0ANG, D0ANG,  D0ANG);
-//        p9->appendGroupChildAsFk(p3,       0,       0, -300000, D0ANG, D90ANG,  D0ANG);
-//        p9->appendGroupChildAsFk(p4, -300000,       0,       0, D0ANG, D180ANG,    D0ANG);
-//        p9->appendGroupChildAsFk(p5,       0,  300000,       0, D0ANG, D0ANG,     D90ANG);
-//        p9->appendGroupChildAsFk(p6,       0, -300000,       0, D0ANG, D0ANG,    D270ANG);
+//        p9->appendChildAsFk(p1,       0,       0,  300000, D0ANG, D270ANG,  D0ANG);
+//        p9->appendChildAsFk(p2,  300000,       0,       0, D0ANG, D0ANG,  D0ANG);
+//        p9->appendChildAsFk(p3,       0,       0, -300000, D0ANG, D90ANG,  D0ANG);
+//        p9->appendChildAsFk(p4, -300000,       0,       0, D0ANG, D180ANG,    D0ANG);
+//        p9->appendChildAsFk(p5,       0,  300000,       0, D0ANG, D0ANG,     D90ANG);
+//        p9->appendChildAsFk(p6,       0, -300000,       0, D0ANG, D0ANG,    D270ANG);
 //
-//        getSceneChief()->appendGroupChild(p9);
+//        getSceneChief()->appendChild(p9);
 //
 //    }
 //    for (int i = 1; i <= 1; i++) {
 //        if (getBehaveingFrame() == (i*8)) {
 //            HoshiBoshi001* p = (HoshiBoshi001*)(receiveActor(100000000+i));
 //            p->setPosition(0,0,0);
-//            getSceneChief()->appendGroupChild(p);
+//            getSceneChief()->appendChild(p);
 //        }
 //    }
 

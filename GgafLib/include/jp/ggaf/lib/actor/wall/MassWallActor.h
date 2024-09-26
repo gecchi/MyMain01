@@ -77,7 +77,7 @@ public:
 
     static bool initStatic(MassWallActor* prm_pMassWallActor);
 
-    virtual void executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) override;
+//    virtual void executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) override;
 
     virtual void onCreateModel() override {
     }
