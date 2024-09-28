@@ -44,7 +44,7 @@ public:
     /**
      * 当たり判定領域を更新し、その領域をツリーに登録 .
      */
-    virtual void updateHitArea() = 0;
+    virtual void updateHitArea() {};
 
     /**
      * 当たり判定領域（現在有効となっているもの）を取得 .
@@ -77,7 +77,9 @@ public:
      * @param prm_pOtherCollisionChecker 相手のチェッカー
      * @return
      */
-    virtual bool isHit(const CollisionChecker* const prm_pOtherCollisionChecker) = 0;
+    virtual bool isHit(const CollisionChecker* const prm_pOtherCollisionChecker) {
+        return false;
+    }
 
     /**
      * 当たり判定領域が適用されているアクターを取得 .

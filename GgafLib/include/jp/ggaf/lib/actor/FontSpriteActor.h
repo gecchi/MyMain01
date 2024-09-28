@@ -29,7 +29,7 @@ protected:
     static void createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info);
 public:
     /** 衝突判定支援オブジェクト */
-    WorldCollisionChecker* _pColliCollisionChecker;
+    WorldCollisionChecker* _pWorldCollisionChecker;
     Align _align;
     Valign _valign;
 
@@ -72,6 +72,11 @@ public:
      * @param prm_model モデル定義名
      */
     virtual void addModel(const char* prm_model) override;
+
+    virtual GgafDx::CollisionChecker* createChecker() override;
+    inline WorldCollisionChecker* getWorldCollisionChecker() {
+        return _pWorldCollisionChecker;
+    }
 
     virtual ~FontSpriteActor();
 

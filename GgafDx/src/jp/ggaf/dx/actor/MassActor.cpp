@@ -14,16 +14,14 @@ MassActor::MassActor(const char* prm_name,
                      const char prm_model_type,
                      const char* prm_effect_id,
                      const char prm_effect_type,
-                     const char* prm_technique,
-                     CollisionChecker* prm_pChecker) :
+                     const char* prm_technique) :
 
                        FigureActor(prm_name,
                                    prm_model,
                                    prm_model_type,
                                    prm_effect_id,
                                    prm_effect_type,
-                                   prm_technique,
-                                   prm_pChecker),
+                                   prm_technique),
 _pMassModel((MassModel*)_pModel) {
 
     _obj_class |= Obj_GgafDx_MassActor;

@@ -139,14 +139,13 @@ public:
      * @param prm_model モデル定義名。末尾に ".psprx" をつけてXファイル名になること。
      * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
      * @param prm_technique エフェクトのテクニック名
-     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
+     * @param prm_pColliChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
      */
     PointSpriteActor(const char* prm_name,
                      const char* prm_model,
                      const char* prm_effect_id,
-                     const char* prm_technique,
-                     CollisionChecker* prm_pChecker );
-    /**
+                     const char* prm_technique);
+      /**
      * 下位継承用コンストラクタ
      * @param prm_name アクター名称（任意）
      * @param prm_model モデル定義名
@@ -154,7 +153,7 @@ public:
      * @param prm_effect_id エフェクト定義名
      * @param prm_effect_type エフェクトタイプ
      * @param prm_technique エフェクトのテクニック
-     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
+     * @param prm_pColliChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
      * @return
      */
     PointSpriteActor(const char* prm_name,
@@ -162,8 +161,7 @@ public:
                      const char prm_model_type,
                      const char* prm_effect_id,
                      const char prm_effect_type,
-                     const char* prm_technique,
-                     CollisionChecker* prm_pChecker);
+                     const char* prm_technique);
 
     virtual void processDraw() override;
 

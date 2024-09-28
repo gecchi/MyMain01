@@ -14,16 +14,14 @@ using namespace GgafDx;
 SpriteSetActor::SpriteSetActor(const char* prm_name,
                                const char* prm_model,
                                const char* prm_effect_id,
-                               const char* prm_technique,
-                               CollisionChecker* prm_pChecker) :
+                               const char* prm_technique) :
 
                                    FigureActor(prm_name,
                                                prm_model,
                                                TYPE_SPRITESET_MODEL,
                                                prm_effect_id,
                                                TYPE_SPRITESET_EFFECT,
-                                               prm_technique,
-                                               prm_pChecker) ,
+                                               prm_technique),
 _pSpriteSetModel((SpriteSetModel*)_pModel),
 _pSpriteSetEffect((SpriteSetEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper()) {

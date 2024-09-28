@@ -11,19 +11,21 @@ DefaultPointSpriteActor::DefaultPointSpriteActor(const char* prm_name, const cha
     GgafDx::PointSpriteActor(prm_name,
                            prm_model,
                            "DefaultPointSpriteEffect",
-                           "DefaultPointSpriteTechnique",
-                           UTIL::createCollisionChecker(this) ) {
+                           "DefaultPointSpriteTechnique") {
 
     _class_name = "DefaultPointSpriteActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 }
 
 void DefaultPointSpriteActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* DefaultPointSpriteActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 DefaultPointSpriteActor::~DefaultPointSpriteActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

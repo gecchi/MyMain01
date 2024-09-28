@@ -30,7 +30,7 @@ public:
      * @param prm_effect_id エフェクト定義名
      * @param prm_effect_type エフェクトタイプ
      * @param prm_technique エフェクトのテクニック
-     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
+     * @param prm_pColliChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
      * @return
      */
     MassActor(const char* prm_name,
@@ -38,8 +38,7 @@ public:
               const char prm_model_type,
               const char* prm_effect_id,
               const char prm_effect_type,
-              const char* prm_technique,
-              CollisionChecker* prm_pChecker);
+              const char* prm_technique);
 
 
     virtual ~MassActor();

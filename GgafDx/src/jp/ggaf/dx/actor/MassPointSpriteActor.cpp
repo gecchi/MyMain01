@@ -14,16 +14,14 @@ using namespace GgafDx;
 MassPointSpriteActor::MassPointSpriteActor(const char* prm_name,
                                            const char* prm_model,
                                            const char* prm_effect_id,
-                                           const char* prm_technique,
-                                           CollisionChecker* prm_pChecker) :
+                                           const char* prm_technique) :
 
                                              MassActor(prm_name,
                                                        prm_model,
                                                        TYPE_MASSPOINTSPRITE_MODEL,
                                                        prm_effect_id,
                                                        TYPE_MASSPOINTSPRITE_EFFECT,
-                                                       prm_technique,
-                                                       prm_pChecker),
+                                                       prm_technique),
 _pMassPointSpriteModel((MassPointSpriteModel*)_pModel),
 _pMassPointSpriteEffect((MassPointSpriteEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper())

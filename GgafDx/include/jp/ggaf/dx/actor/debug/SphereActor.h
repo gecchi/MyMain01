@@ -16,8 +16,7 @@ namespace GgafDx {
 class SphereActor : public MeshActor {
 
 public:
-    SphereActor(const char* prm_name,
-                CollisionChecker* prm_pChecker);
+    SphereActor(const char* prm_name);
 
     void drawSphere(coord prm_x, coord prm_y, coord prm_z, coord prm_r);
 

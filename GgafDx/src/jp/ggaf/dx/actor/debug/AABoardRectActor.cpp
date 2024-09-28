@@ -6,13 +6,12 @@
 
 using namespace GgafDx;
 
-AABoardRectActor::AABoardRectActor(const char* prm_name,
-                                   CollisionChecker* prm_pChecker) :
+AABoardRectActor::AABoardRectActor(const char* prm_name) :
+
                                 BoardActor(prm_name,
                                      CONFIG::COLI_AABOARDRECT_MODEL.c_str(),
                                      "DefaultBoardEffect",
-                                     "DefaultBoardTechnique",
-                                     prm_pChecker) {
+                                     "DefaultBoardTechnique") {
     _class_name = "AABoardRectActor";
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;

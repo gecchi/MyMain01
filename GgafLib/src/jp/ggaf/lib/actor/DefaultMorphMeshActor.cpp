@@ -11,19 +11,21 @@ DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* p
     GgafDx::MorphMeshActor(prm_name,
                          prm_model,
                          "DefaultMorphMeshEffect",
-                         "DefaultMorphMeshTechnique",
-                         UTIL::createCollisionChecker(this) ) {
+                         "DefaultMorphMeshTechnique") {
 
     _class_name = "DefaultMorphMeshActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 }
 
 void DefaultMorphMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* DefaultMorphMeshActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 DefaultMorphMeshActor::~DefaultMorphMeshActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

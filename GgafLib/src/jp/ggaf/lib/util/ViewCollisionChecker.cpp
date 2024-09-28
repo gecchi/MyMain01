@@ -374,9 +374,9 @@ void ViewCollisionChecker::setColliSquare(int prm_index, coord prm_edge) {
     setColliAABox(prm_index, x1, y1, x2, y2);
 }
 
-void ViewCollisionChecker::drawHitArea(GgafDx::CollisionChecker* prm_pChecker) {
+void ViewCollisionChecker::drawHitArea(GgafDx::CollisionChecker* prm_pColliChecker) {
 #ifdef MY_DEBUG
-    ColliAABoardRectActor::get()->drawHitarea(prm_pChecker);
+    ColliAABoardRectActor::get()->drawHitarea(prm_pColliChecker);
 #endif
 }
 

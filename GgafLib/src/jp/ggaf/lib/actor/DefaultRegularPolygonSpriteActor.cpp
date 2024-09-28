@@ -11,20 +11,22 @@ DefaultRegularPolygonSpriteActor::DefaultRegularPolygonSpriteActor(const char* p
     GgafDx::RegularPolygonSpriteActor(prm_name,
                                   prm_model,
                                   "DefaultRegularPolygonSpriteEffect",
-                                  "DefaultRegularPolygonSpriteTechnique",
-                                  UTIL::createCollisionChecker(this) ) {
+                                  "DefaultRegularPolygonSpriteTechnique") {
     _class_name = "DefaultRegularPolygonSpriteActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
     setZWriteEnable(false);
 }
 
 void DefaultRegularPolygonSpriteActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* DefaultRegularPolygonSpriteActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 DefaultRegularPolygonSpriteActor::~DefaultRegularPolygonSpriteActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }
 

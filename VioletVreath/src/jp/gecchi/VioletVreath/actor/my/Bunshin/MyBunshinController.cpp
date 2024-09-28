@@ -33,7 +33,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MyBunshinController::MyBunshinController(const char* prm_name, MyBunshinBase* prm_pBase) :
-        GgafLib::DefaultGeometricActor(prm_name, nullptr) {
+        GgafLib::DefaultGeometricActor(prm_name) {
 
     _class_name = "MyBunshinController";
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //DefaultGeometricActorでFKベースになるために必要

@@ -15,12 +15,11 @@ GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model) :
     GgafDx::MeshActor(prm_name,
                      prm_model,
                      "GroundMeshEffect",
-                     "GroundMeshTechnique",
-                     UTIL::createCollisionChecker(this) ) {
+                     "GroundMeshTechnique") {
 
     _class_name = "GroundMeshActor";
     offset_frames_ = 0;
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 
 //    if (pMeshModel_->paVtxBuffer_data_[0].nx == 0 &&
 //        pMeshModel_->paVtxBuffer_data_[0].ny == 0 &&
@@ -50,10 +49,11 @@ void GroundMeshActor::processDraw() {
 
 void GroundMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
-
+GgafDx::CollisionChecker* GroundMeshActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
 GroundMeshActor::~GroundMeshActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

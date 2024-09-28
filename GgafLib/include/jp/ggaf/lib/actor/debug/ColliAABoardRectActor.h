@@ -40,7 +40,7 @@ public:
     virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
-    void drawHitarea(GgafDx::CollisionChecker* prm_pChecker);
+    void drawHitarea(GgafDx::CollisionChecker* prm_pColliChecker);
 
     virtual ~ColliAABoardRectActor();
 

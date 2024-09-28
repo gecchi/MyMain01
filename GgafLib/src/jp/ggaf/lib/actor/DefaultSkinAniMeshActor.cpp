@@ -11,18 +11,20 @@ DefaultSkinAniMeshActor::DefaultSkinAniMeshActor(const char* prm_name,
                                          GgafDx::SkinAniMeshActor(prm_name,
                                                                   prm_model,
                                                                   "DefaultSkinAniMeshEffect",
-                                                                  "DefaultSkinAniMeshTechnique",
-                                                                  UTIL::createCollisionChecker(this) ) {
+                                                                  "DefaultSkinAniMeshTechnique") {
     _class_name = "DefaultSkinAniMeshActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 }
 
 void DefaultSkinAniMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* DefaultSkinAniMeshActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 DefaultSkinAniMeshActor::~DefaultSkinAniMeshActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

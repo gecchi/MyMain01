@@ -11,18 +11,20 @@ DefaultD3DXAniMeshActor::DefaultD3DXAniMeshActor(const char* prm_name, const cha
     GgafDx::D3DXAniMeshActor(prm_name,
                            prm_model,
                            "DefaultD3DXAniMeshEffect",
-                           "DefaultD3DXAniMeshTechnique",
-                           UTIL::createCollisionChecker(this) ) {
+                           "DefaultD3DXAniMeshTechnique") {
     _class_name = "DefaultD3DXAniMeshActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 }
 
 void DefaultD3DXAniMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* DefaultD3DXAniMeshActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 DefaultD3DXAniMeshActor::~DefaultD3DXAniMeshActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

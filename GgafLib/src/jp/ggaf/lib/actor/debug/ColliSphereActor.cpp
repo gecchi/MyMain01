@@ -13,7 +13,7 @@ using namespace GgafLib;
 
 ColliSphereActor* ColliSphereActor::_pObj = nullptr;
 
-ColliSphereActor::ColliSphereActor(const char* prm_name) : GgafDx::SphereActor(prm_name, nullptr) {
+ColliSphereActor::ColliSphereActor(const char* prm_name) : GgafDx::SphereActor(prm_name) {
     _class_name = "ColliSphereActor";
     setAlpha(0.8);
 }
@@ -30,13 +30,13 @@ void ColliSphereActor::release() {
     GGAF_DELETE_NULLABLE(ColliSphereActor::_pObj);
 }
 
-void ColliSphereActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
-    if (prm_pChecker != nullptr &&
-        prm_pChecker->_pCollisionArea != nullptr &&
-        prm_pChecker->getTargetActor()->canHit() &&
-        prm_pChecker->getTargetActor()->isActiveInTheTree()) {
-        GgafDx::GeometricActor* pActor = prm_pChecker->getTargetActor();
-        GgafDx::CollisionArea* pActiveCollisionArea = prm_pChecker->_pCollisionArea;
+void ColliSphereActor::drawHitarea(GgafDx::CollisionChecker* prm_pColliChecker) {
+    if (prm_pColliChecker != nullptr &&
+        prm_pColliChecker->_pCollisionArea != nullptr &&
+        prm_pColliChecker->getTargetActor()->canHit() &&
+        prm_pColliChecker->getTargetActor()->isActiveInTheTree()) {
+        GgafDx::GeometricActor* pActor = prm_pColliChecker->getTargetActor();
+        GgafDx::CollisionArea* pActiveCollisionArea = prm_pColliChecker->_pCollisionArea;
 
         int iAreaNum = pActiveCollisionArea->_colli_part_num;
         if (iAreaNum > 0) {

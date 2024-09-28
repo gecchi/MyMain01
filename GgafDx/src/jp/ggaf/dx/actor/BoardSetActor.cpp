@@ -14,15 +14,13 @@ using namespace GgafDx;
 BoardSetActor::BoardSetActor(const char* prm_name,
                              const char* prm_model,
                              const char* prm_effect_id,
-                             const char* prm_technique,
-                             CollisionChecker* prm_pChecker) :
+                             const char* prm_technique) :
                                  FigureActor(prm_name,
                                              prm_model,
                                              TYPE_BOARDSET_MODEL,
                                              prm_effect_id,
                                              TYPE_BOARDSET_EFFECT,
-                                             prm_technique,
-                                             prm_pChecker) ,
+                                             prm_technique),
                                  IAlignAbleActor(),
 _pBoardSetModel((BoardSetModel*)_pModel),
 _pBoardSetEffect((BoardSetEffect*)_pEffect),

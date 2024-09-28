@@ -15,7 +15,7 @@ class GroundMeshActor : public GgafDx::MeshActor {
 public:
     frame offset_frames_;
 
-    GgafLib::WorldCollisionChecker* _pColliCollisionChecker;
+    GgafLib::WorldCollisionChecker* _pWorldCollisionChecker;
 
 public:
     GroundMeshActor(const char* prm_name, const char* prm_model);
@@ -44,6 +44,10 @@ public:
 
     virtual void drawHitArea() override;
 
+    virtual GgafDx::CollisionChecker* createChecker() override;
+    inline GgafLib::WorldCollisionChecker* getWorldCollisionChecker() {
+        return _pWorldCollisionChecker;
+    }
 
     virtual ~GroundMeshActor();
 };

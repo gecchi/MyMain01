@@ -58,7 +58,7 @@ bool MyMagicEnergy::isOutOfSpacetime() const {
 }
 
 void MyMagicEnergy::drawHitArea() {
-    //WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    //WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 }
 
 MyMagicEnergy::~MyMagicEnergy() {

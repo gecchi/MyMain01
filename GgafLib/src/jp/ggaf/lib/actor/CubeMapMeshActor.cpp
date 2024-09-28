@@ -9,20 +9,21 @@ using namespace GgafLib;
 
 CubeMapMeshActor::CubeMapMeshActor(const char* prm_name, const char* prm_model) :
     GgafDx::CubeMapMeshActor(prm_name,
-                           prm_model,
-                           "CubeMapMeshEffect",
-                           "CubeMapMeshTechnique",
-                           UTIL::createCollisionChecker(this) ) {
+                             prm_model,
+                             "CubeMapMeshEffect",
+                             "CubeMapMeshTechnique") {
     _class_name = "CubeMapMeshActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 }
 
 void CubeMapMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
+}
+GgafDx::CollisionChecker* CubeMapMeshActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
 }
 
 CubeMapMeshActor::~CubeMapMeshActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

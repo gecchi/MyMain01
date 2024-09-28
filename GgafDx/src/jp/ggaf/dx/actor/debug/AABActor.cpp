@@ -6,13 +6,11 @@
 
 using namespace GgafDx;
 
-AABActor::AABActor(const char* prm_name,
-                   CollisionChecker* prm_pChecker) :
+AABActor::AABActor(const char* prm_name) :
                            MeshActor(prm_name,
                                      CONFIG::COLI_AABOX_MODEL.c_str(),
                                      "DefaultMeshEffect",
-                                     "DefaultMeshTechnique",
-                                     prm_pChecker) {
+                                     "DefaultMeshTechnique") {
     _class_name = "AABActor";
 }
 

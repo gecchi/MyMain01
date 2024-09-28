@@ -25,7 +25,7 @@ namespace GgafLib {
 class SpriteMeshActor : public GgafDx::SpriteMeshActor {
 public:
     /** 衝突判定支援オブジェクト */
-    WorldCollisionChecker* _pColliCollisionChecker;
+    WorldCollisionChecker* _pWorldCollisionChecker;
 public:
     SpriteMeshActor(const char* prm_name, const char* prm_model);
 
@@ -49,8 +49,9 @@ public:
 
     virtual void drawHitArea() override;
 
+    virtual GgafDx::CollisionChecker* createChecker() override;
     inline WorldCollisionChecker* getWorldCollisionChecker() {
-        return _pColliCollisionChecker;
+        return _pWorldCollisionChecker;
     }
 
     virtual ~SpriteMeshActor();

@@ -13,16 +13,14 @@ using namespace GgafDx;
 BoardActor::BoardActor(const char* prm_name,
                        const char* prm_model,
                        const char* prm_effect_id,
-                       const char* prm_technique,
-                       CollisionChecker* prm_pChecker) :
+                       const char* prm_technique) :
 
                            FigureActor(prm_name,
                                        prm_model,
                                        TYPE_BOARD_MODEL,
                                        prm_effect_id,
                                        TYPE_BOARD_EFFECT,
-                                       prm_technique,
-                                       prm_pChecker) ,
+                                       prm_technique),
                            IAlignAbleActor(),
 _pBoardModel((BoardModel*)_pModel),
 _pBoardEffect((BoardEffect*)_pEffect) ,

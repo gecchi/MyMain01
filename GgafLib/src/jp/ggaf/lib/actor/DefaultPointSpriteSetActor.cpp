@@ -11,18 +11,20 @@ DefaultPointSpriteSetActor::DefaultPointSpriteSetActor(const char* prm_name, con
     GgafDx::PointSpriteSetActor(prm_name,
                                 prm_model,
                                 "DefaultPointSpriteSetEffect",
-                                "DefaultPointSpriteSetTechnique",
-                                UTIL::createCollisionChecker(this) ) {
+                                "DefaultPointSpriteSetTechnique") {
     _class_name = "DefaultPointSpriteSetActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 }
 
 void DefaultPointSpriteSetActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* DefaultPointSpriteSetActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 DefaultPointSpriteSetActor::~DefaultPointSpriteSetActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

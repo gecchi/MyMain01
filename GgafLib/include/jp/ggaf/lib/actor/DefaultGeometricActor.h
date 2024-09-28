@@ -14,9 +14,9 @@ namespace GgafLib {
 class DefaultGeometricActor : public GgafDx::GeometricActor {
 public:
     /** 衝突判定支援オブジェクト */
-    WorldCollisionChecker* _pColliCollisionChecker;
+    WorldCollisionChecker* _pWorldCollisionChecker;
 public:
-    DefaultGeometricActor(const char* prm_name, GgafDx::CollisionChecker* prm_pChecker = nullptr);
+    DefaultGeometricActor(const char* prm_name);
 
     virtual void initialize() override {}
 
@@ -28,8 +28,10 @@ public:
 
     virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override {}
 
+    //virtual GgafDx::CollisionChecker* createChecker() override;
+
     inline WorldCollisionChecker* getWorldCollisionChecker() {
-        return _pColliCollisionChecker;
+        return _pWorldCollisionChecker;
     }
     virtual void drawHitArea() override;
 

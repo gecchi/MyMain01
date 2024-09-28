@@ -11,20 +11,22 @@ DefaultFramedSpriteActor::DefaultFramedSpriteActor(const char* prm_name, const c
     GgafDx::FramedSpriteActor(prm_name,
                       prm_model,
                       "DefaultFramedSpriteEffect",
-                      "DefaultFramedSpriteTechnique",
-                      UTIL::createCollisionChecker(this) ) {
+                      "DefaultFramedSpriteTechnique") {
     _class_name = "DefaultFramedSpriteActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
     setZWriteEnable(false);
 }
 
 void DefaultFramedSpriteActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* DefaultFramedSpriteActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 DefaultFramedSpriteActor::~DefaultFramedSpriteActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }
 

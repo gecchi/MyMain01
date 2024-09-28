@@ -12,16 +12,14 @@ DWORD D3DXAniMeshActor::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3D
 D3DXAniMeshActor::D3DXAniMeshActor(const char* prm_name,
                                    const char* prm_model,
                                    const char* prm_effect_id,
-                                   const char* prm_technique,
-                                   CollisionChecker* prm_pChecker) :
+                                   const char* prm_technique) :
 
                                        FigureActor(prm_name,
                                                    prm_model,
                                                    TYPE_D3DXANIMESH_MODEL,
                                                    prm_effect_id,
                                                    TYPE_D3DXANIMESH_EFFECT,
-                                                   prm_technique,
-                                                   prm_pChecker),
+                                                   prm_technique),
 _stackWorldMat() {
     _obj_class |= Obj_GgafDx_D3DXAniMeshActor;
     _class_name = "D3DXAniMeshActor";

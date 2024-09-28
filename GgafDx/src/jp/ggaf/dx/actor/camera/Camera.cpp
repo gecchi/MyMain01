@@ -10,7 +10,7 @@
 using namespace GgafDx;
 
 Camera::Camera(const char* prm_name, double prm_rad_fovX, double prm_dep) :
-        GeometricActor(prm_name, nullptr),
+        GeometricActor(prm_name),
 _rad_fovX(prm_rad_fovX),      //全ての基準は視野角Xラジアン(fovX)から考える
 _dep(prm_dep),                //深さ（_cameraZ_orgの何倍か)
 _rad_half_fovX(_rad_fovX / 2.0),   //視野角Xラジアンの半分（計算用）

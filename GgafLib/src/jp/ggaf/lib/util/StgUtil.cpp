@@ -6,6 +6,7 @@
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
+#include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker2D.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker3D.h"
 #include "jp/ggaf/lib/util/ColliSphere.h"
@@ -56,10 +57,14 @@ void StgUtil::init() {
 }
 
 GgafDx::CollisionChecker* StgUtil::createCollisionChecker(GgafDx::GeometricActor* prm_pActor) {
-    if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
-        return NEW WorldCollisionChecker2D(prm_pActor);
+    if (!prm_pActor->_is_fix_2D) {
+        if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
+            return NEW WorldCollisionChecker2D(prm_pActor);
+        } else {
+            return NEW WorldCollisionChecker3D(prm_pActor);
+        }
     } else {
-        return NEW WorldCollisionChecker3D(prm_pActor);
+        return NEW ViewCollisionChecker(prm_pActor);
     }
 }
 

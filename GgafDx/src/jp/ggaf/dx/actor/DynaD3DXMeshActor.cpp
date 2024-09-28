@@ -13,16 +13,14 @@ DWORD DynaD3DXMeshActor::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3
 DynaD3DXMeshActor::DynaD3DXMeshActor(const char* prm_name,
                                      const char* prm_model,
                                      const char* prm_effect_id,
-                                     const char* prm_technique,
-                                     CollisionChecker* prm_pChecker) :
+                                     const char* prm_technique) :
 
                                          FigureActor(prm_name,
                                                      prm_model,
                                                      TYPE_DYNAD3DXMESH_MODEL,
                                                      prm_effect_id,
                                                      TYPE_MESH_EFFECT,
-                                                     prm_technique,
-                                                     prm_pChecker) {
+                                                     prm_technique) {
     _obj_class |= Obj_GgafDx_DynaD3DXMeshActor;
     _class_name = "DynaD3DXMeshActor";
 

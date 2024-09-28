@@ -42,7 +42,7 @@ public:
     }
 
 
-    void drawHitarea(GgafDx::CollisionChecker* prm_pChecker);
+    void drawHitarea(GgafDx::CollisionChecker* prm_pColliChecker);
 
     virtual ~ColliSphereActor();
 

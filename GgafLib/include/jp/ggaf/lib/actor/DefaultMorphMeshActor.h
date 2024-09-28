@@ -26,7 +26,7 @@ class DefaultMorphMeshActor : public GgafDx::MorphMeshActor {
 
 public:
     /** 衝突判定支援オブジェクト */
-    WorldCollisionChecker* _pColliCollisionChecker;
+    WorldCollisionChecker* _pWorldCollisionChecker;
 
 public:
     DefaultMorphMeshActor(const char* prm_name, const char* prm_model);
@@ -51,8 +51,9 @@ public:
 
     virtual void drawHitArea() override;
 
+    virtual GgafDx::CollisionChecker* createChecker() override;
     inline WorldCollisionChecker* getWorldCollisionChecker() {
-        return _pColliCollisionChecker;
+        return _pWorldCollisionChecker;
     }
 
     virtual ~DefaultMorphMeshActor();

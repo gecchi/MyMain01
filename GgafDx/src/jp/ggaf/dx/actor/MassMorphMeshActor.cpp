@@ -13,16 +13,14 @@ using namespace GgafDx;
 MassMorphMeshActor::MassMorphMeshActor(const char* prm_name,
                                        const char* prm_model,
                                        const char* prm_effect_id,
-                                       const char* prm_technique,
-                                       CollisionChecker* prm_pChecker) :
+                                       const char* prm_technique) :
 
                                            FigureActor(prm_name,
                                                        prm_model,
                                                        TYPE_MASSMORPHMESH_MODEL,
                                                        prm_effect_id,
                                                        TYPE_MASSMORPHMESH_EFFECT,
-                                                       prm_technique,
-                                                       prm_pChecker),
+                                                       prm_technique),
 _pMorpher(new Morpher<MassMorphMeshActor>(this)),
 _pMassMorphMeshModel((MassMorphMeshModel*)_pModel),
 _pMassMorphMeshEffect((MassMorphMeshEffect*)_pEffect)
@@ -43,16 +41,14 @@ MassMorphMeshActor::MassMorphMeshActor(const char* prm_name,
                                        const char prm_model_type,
                                        const char* prm_effect_id,
                                        const char prm_effect_type,
-                                       const char* prm_technique,
-                                       CollisionChecker* prm_pChecker) :
+                                       const char* prm_technique) :
 
                                            FigureActor(prm_name,
                                                        prm_model,
                                                        prm_model_type,
                                                        prm_effect_id,
                                                        prm_effect_type,
-                                                       prm_technique,
-                                                       prm_pChecker),
+                                                       prm_technique),
 _pMorpher(new Morpher<MassMorphMeshActor>(this)),
 _pMassMorphMeshModel((MassMorphMeshModel*)_pModel),
 _pMassMorphMeshEffect((MassMorphMeshEffect*)_pEffect)

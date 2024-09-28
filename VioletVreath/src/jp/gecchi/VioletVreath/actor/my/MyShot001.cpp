@@ -53,7 +53,7 @@ void MyShot001::onHit(const GgafCore::Actor* prm_pOtherActor) {
         coord y = pMyShip->_y;
         coord z = pMyShip->_z;
         pMyShip->setPositionAt(this); //À•W‚¾‚¯‚·‚°‚©‚¦‚é
-        WorldCollisionChecker* pOtherChecker = (WorldCollisionChecker*)pOther->getCollisionChecker();
+        WorldCollisionChecker* pOtherChecker = (WorldCollisionChecker*)pOther->getChecker();
         bool r = pOtherChecker->isHit(pMyShipChecker);
         pMyShip->_x = x;
         pMyShip->_y = y;
@@ -70,7 +70,7 @@ void MyShot001::onHit(const GgafCore::Actor* prm_pOtherActor) {
 
 
 //void MyShot001::drawHitArea() {
-//    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+//    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 //}
 MyShot001::~MyShot001() {
 }

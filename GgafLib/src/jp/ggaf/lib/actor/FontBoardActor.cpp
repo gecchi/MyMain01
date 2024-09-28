@@ -3,21 +3,21 @@
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/effect/MassBoardEffect.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
-
 
 using namespace GgafLib;
 
 FontBoardActor::VERTEX_instancedata FontBoardActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
 FontBoardActor::FontBoardActor(const char* prm_name, const char* prm_model) :
-          GgafDx::MassBoardActor(prm_name, prm_model, "FontBoardEffect", "FontBoardTechnique", NEW ViewCollisionChecker(this)),
+          GgafDx::MassBoardActor(prm_name, prm_model, "FontBoardEffect", "FontBoardTechnique"),
           ICharacterChip<FontBoardActor, 256, 1024>(this, (int)(_pMassBoardModel->_model_width_px), (int)(_pMassBoardModel->_model_height_px))
 {
     _class_name = "FontBoardActor";
     _obj_class |= Obj_FontBoardActor;
-    _pColliCollisionChecker = (ViewCollisionChecker*)_pChecker;
+    _pViewCollisionChecker = (ViewCollisionChecker*)getChecker();
     _pMassBoardModel->registerCallback_VertexInstanceDataInfo(FontBoardActor::createVertexInstanceData);
 }
 
@@ -118,7 +118,7 @@ void FontBoardActor::processDraw() {
 
 void FontBoardActor::drawHitArea() {
 #ifdef MY_DEBUG
-    ViewCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    ViewCollisionChecker::drawHitArea(_pViewCollisionChecker);
 #endif
 }
 
@@ -128,8 +128,11 @@ void FontBoardActor::addModel(const char* prm_model) {
     pModel->registerCallback_VertexInstanceDataInfo(FontBoardActor::createVertexInstanceData);
 }
 
+GgafDx::CollisionChecker* FontBoardActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 FontBoardActor::~FontBoardActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }
 
 

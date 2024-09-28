@@ -3,6 +3,7 @@
 #include "jp/ggaf/GgafDxCommonHeader.h"
 #include "jp/ggaf/core/actor/MainActor.h"
 
+#include "jp/ggaf/dx/util/CollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include <D3dx9math.h>
 
@@ -64,8 +65,6 @@ public:
     scale _sy;
     /** [r/w]ワールドZ軸方向スケール(_sz : 倍率 = 1000 : 1.0倍) */
     scale _sz;
-    /** [r]チェッカー */
-    CollisionChecker* _pChecker;
 //    CollisionChecker* _pSubChecker;
     /** [r]モデルの境界球半径倍率 */
     dxcoord _rate_of_bounding_sphere_radius;
@@ -155,11 +154,9 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name アクター名
-     * @param prm_pChecker チェッカー(使用しない時 nullptr)
      * @return
      */
-    GeometricActor(const char* prm_name,
-                   CollisionChecker* prm_pChecker);
+    GeometricActor(const char* prm_name);
 
     virtual GeometricActor* getPrev() const override { //共変の戻り値
         return (GeometricActor*)GgafCore::Actor::getPrev();
@@ -169,11 +166,18 @@ public:
         return (GeometricActor*)GgafCore::Actor::getNext();
     }
 
-    void setCollisionChecker(CollisionChecker* prm_pChecker);
 
-    CollisionChecker* getCollisionChecker() {
-        return _pChecker;
+    virtual CollisionChecker* getChecker() override { //共変の戻り値
+        if (!_pChecker) {
+            _pChecker = createChecker();
+        }
+        return (CollisionChecker*)_pChecker;
     }
+
+    virtual CollisionChecker* createChecker() override { //共変の戻り値
+        return nullptr;
+    }
+
     /**
      * 本アクターの移動車両を取得 .
      * @return 移動車両

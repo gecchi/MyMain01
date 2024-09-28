@@ -9,20 +9,22 @@ DefaultSpriteSetActor::DefaultSpriteSetActor(const char* prm_name, const char* p
     GgafDx::SpriteSetActor(prm_name,
                            prm_model,
                            "DefaultSpriteSetEffect",
-                           "DefaultSpriteSetTechnique",
-                           UTIL::createCollisionChecker(this) ) {
+                           "DefaultSpriteSetTechnique") {
 
     _class_name = "DefaultSpriteSetActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
     setZWriteEnable(false);
 }
 
 void DefaultSpriteSetActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* DefaultSpriteSetActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 DefaultSpriteSetActor::~DefaultSpriteSetActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

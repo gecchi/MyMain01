@@ -9,20 +9,22 @@ DefaultBoardActor::DefaultBoardActor(const char* prm_name, const char* prm_model
                                         GgafDx::BoardActor(prm_name,
                                                            prm_model,
                                                            "DefaultBoardEffect",
-                                                           "DefaultBoardTechnique",
-                                                           NEW ViewCollisionChecker(this) ) {
+                                                           "DefaultBoardTechnique") {
 
     _class_name = "DefaultBoardActor";
-    _pColliCollisionChecker = (ViewCollisionChecker*)_pChecker;
+    _pViewCollisionChecker = (ViewCollisionChecker*)getChecker();
 }
 
 void DefaultBoardActor::drawHitArea() {
 #ifdef MY_DEBUG
-    ViewCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    ViewCollisionChecker::drawHitArea(_pViewCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* DefaultBoardActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 DefaultBoardActor::~DefaultBoardActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }
 

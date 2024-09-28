@@ -265,7 +265,7 @@ GgafDx::FigureActor* MyStgUtil::activateExplosionEffectOf(GgafCore::Actor* prm_p
         coord tz = pTargetActor->_z;
         if (prm_is_adjust_part || prm_pActor->instanceOf(Obj_LaserChip)) {
             //ヒットパートレベルに爆発位置を補正
-            GgafDx::CollisionChecker* pChecker = pTargetActor->getCollisionChecker();
+            GgafDx::CollisionChecker* pChecker = pTargetActor->getChecker();
             if (pChecker) {
                 GgafDx::CollisionArea* pCollisionArea = pChecker->_pCollisionArea;
                 if (pCollisionArea) {

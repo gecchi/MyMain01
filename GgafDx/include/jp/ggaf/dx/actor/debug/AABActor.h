@@ -16,7 +16,7 @@ namespace GgafDx {
 class AABActor : public MeshActor {
 
 public:
-    AABActor(const char* prm_name, CollisionChecker* prm_pChecker);
+    AABActor(const char* prm_name);
 
     void drawBox(coord prm_x1, coord prm_y1, coord prm_z1, coord prm_x2, coord prm_y2, coord prm_z2);
 

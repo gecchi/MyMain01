@@ -13,8 +13,6 @@ _pColliActor(prm_pColliActor) {
 }
 
 void CollisionChecker::addCollisionArea(int prm_colli_part_num) {
-    _kind = _pActor->getDefaultKind(); //TODO:‚±‚±‚Å‚¢‚¢‚Ì‚©
-
     CollisionArea* pNewCollisionArea = NEW CollisionArea(prm_colli_part_num);
     _pCollisionArea = pNewCollisionArea;
     _pCollisionArea->_need_update_aabb = true;

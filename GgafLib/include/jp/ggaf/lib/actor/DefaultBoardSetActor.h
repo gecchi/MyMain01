@@ -33,7 +33,7 @@ private:
 public:
 
     /** 衝突判定支援オブジェクト */
-    ViewCollisionChecker* _pColliCollisionChecker;
+    ViewCollisionChecker* _pViewCollisionChecker;
 
     DefaultBoardSetActor(const char* prm_name, const char* prm_model);
 
@@ -67,8 +67,10 @@ public:
 
     virtual void drawHitArea() override;
 
+    virtual GgafDx::CollisionChecker* createChecker() override;
+
     inline ViewCollisionChecker* getViewCollisionChecker() {
-        return _pColliCollisionChecker;
+        return _pViewCollisionChecker;
     }
 
     virtual ~DefaultBoardSetActor();

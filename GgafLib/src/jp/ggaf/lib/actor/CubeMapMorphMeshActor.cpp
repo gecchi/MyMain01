@@ -11,19 +11,19 @@ CubeMapMorphMeshActor::CubeMapMorphMeshActor(const char* prm_name, const char* p
         GgafDx::CubeMapMorphMeshActor(prm_name,
                                     prm_model,
                                     "CubeMapMorphMeshEffect",
-                                    "CubeMapMorphMeshTechnique",
-                                    UTIL::createCollisionChecker(this) ) {
+                                    "CubeMapMorphMeshTechnique") {
     _class_name = "CubeMapMorphMeshActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 }
 
 void CubeMapMorphMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
-    }
+}
 
-
+GgafDx::CollisionChecker* CubeMapMorphMeshActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
 CubeMapMorphMeshActor::~CubeMapMorphMeshActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

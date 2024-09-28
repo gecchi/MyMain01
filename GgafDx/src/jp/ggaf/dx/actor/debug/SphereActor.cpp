@@ -6,14 +6,12 @@
 
 using namespace GgafDx;
 
-SphereActor::SphereActor(const char* prm_name,
-                         CollisionChecker* prm_pChecker) :
+SphereActor::SphereActor(const char* prm_name) :
 
                              MeshActor(prm_name,
                                        CONFIG::COLI_SPHERE_MODEL.c_str(),
                                        "DefaultMeshEffect",
-                                       "DefaultMeshTechnique",
-                                       prm_pChecker) {
+                                       "DefaultMeshTechnique") {
     _class_name = "SphereActor";
 }
 

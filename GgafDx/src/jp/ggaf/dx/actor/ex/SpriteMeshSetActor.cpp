@@ -13,14 +13,12 @@
 using namespace GgafDx;
 
 SpriteMeshSetActor::SpriteMeshSetActor(const char* prm_name,
-                                       const char* prm_model,
-                                       CollisionChecker* prm_pChecker) :
+                                       const char* prm_model) :
 
                                                MeshSetActor(prm_name,
                                                             prm_model,
                                                             "SpriteMeshSetEffect",
-                                                            "SpriteMeshSetTechnique",
-                                                            prm_pChecker) {
+                                                            "SpriteMeshSetTechnique") {
 
     _obj_class |= Obj_GgafDx_SpriteMeshSetActor;
     _class_name = "SpriteMeshSetActor";

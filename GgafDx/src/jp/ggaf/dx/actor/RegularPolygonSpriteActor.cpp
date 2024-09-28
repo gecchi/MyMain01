@@ -14,16 +14,14 @@ using namespace GgafDx;
 RegularPolygonSpriteActor::RegularPolygonSpriteActor(const char* prm_name,
                                                      const char* prm_model,
                                                      const char* prm_effect_id,
-                                                     const char* prm_technique,
-                                                     CollisionChecker* prm_pChecker) :
+                                                     const char* prm_technique) :
 
                                                          FigureActor(prm_name,
                                                                      prm_model,
                                                                      TYPE_REGULARPOLYGONSPRITE_MODEL,
                                                                      prm_effect_id,
                                                                      TYPE_REGULARPOLYGONSPRITE_EFFECT,
-                                                                     prm_technique,
-                                                                     prm_pChecker),
+                                                                     prm_technique),
 _pRegularPolygonSpriteModel( (RegularPolygonSpriteModel*)_pModel),
 _pRegularPolygonSpriteEffect( (RegularPolygonSpriteEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper()) {

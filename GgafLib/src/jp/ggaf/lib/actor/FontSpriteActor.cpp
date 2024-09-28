@@ -7,7 +7,6 @@
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 
 
-
 using namespace GgafLib;
 
 FontSpriteActor::VERTEX_instancedata FontSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
@@ -16,12 +15,11 @@ FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model) :
             GgafDx::MassSpriteActor(prm_name,
                                     prm_model,
                                     "FontSpriteEffect",
-                                    "FontSpriteTechnique",
-                                    UTIL::createCollisionChecker(this) ) ,
+                                    "FontSpriteTechnique") ,
             ICharacterChip<FontSpriteActor, 256, 1024>(this, (int)(_pMassSpriteModel->_model_width_px), (int)(_pMassSpriteModel->_model_height_px))
 {
     _class_name = "FontSpriteActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
     _align = ALIGN_CENTER;
     _valign = VALIGN_MIDDLE;
     _pMassSpriteModel->registerCallback_VertexInstanceDataInfo(FontSpriteActor::createVertexInstanceData);
@@ -171,8 +169,11 @@ void FontSpriteActor::addModel(const char* prm_model) {
     pModel->registerCallback_VertexInstanceDataInfo(FontSpriteActor::createVertexInstanceData);
 }
 
+GgafDx::CollisionChecker* FontSpriteActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 FontSpriteActor::~FontSpriteActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }
 
 

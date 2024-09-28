@@ -12,8 +12,7 @@ using namespace GgafLib;
 SpriteMeshWorldBoundActor::SpriteMeshWorldBoundActor(const char* prm_name,
                                                      const char* prm_model) :
         GgafDx::SpriteMeshActor(prm_name,
-                               prm_model,
-                               nullptr) {
+                               prm_model) {
 
     _class_name = "SpriteMeshWorldBoundActor";
     changeEffectTechnique("NoLight"); //NoLightでベタ塗りテクニック

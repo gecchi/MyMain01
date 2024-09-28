@@ -13,16 +13,14 @@ using namespace GgafDx;
 MassMeshActor::MassMeshActor(const char* prm_name,
                              const char* prm_model,
                              const char* prm_effect_id,
-                             const char* prm_technique,
-                             CollisionChecker* prm_pChecker) :
+                             const char* prm_technique) :
 
                                  MassActor(prm_name,
                                            prm_model,
                                            TYPE_MASSMESH_MODEL,
                                            prm_effect_id,
                                            TYPE_MASSMESH_EFFECT,
-                                           prm_technique,
-                                           prm_pChecker),
+                                           prm_technique),
 _pMassMeshModel((MassMeshModel*)_pModel),
 _pMassMeshEffect((MassMeshEffect*)_pEffect)
 {
@@ -36,16 +34,14 @@ MassMeshActor::MassMeshActor(const char* prm_name,
                              const char prm_model_type,
                              const char* prm_effect_id,
                              const char prm_effect_type,
-                             const char* prm_technique,
-                             CollisionChecker* prm_pChecker) :
+                             const char* prm_technique) :
 
                                  MassActor(prm_name,
                                            prm_model,
                                            prm_model_type,
                                            prm_effect_id,
                                            prm_effect_type,
-                                           prm_technique,
-                                           prm_pChecker),
+                                           prm_technique),
 _pMassMeshModel((MassMeshModel*)_pModel),
 _pMassMeshEffect((MassMeshEffect*)_pEffect) {
 

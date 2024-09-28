@@ -9,22 +9,24 @@ using namespace GgafLib;
 
 DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_model) :
     GgafDx::SpriteActor(prm_name,
-                      prm_model,
-                      "DefaultSpriteEffect",
-                      "DefaultSpriteTechnique",
-                      UTIL::createCollisionChecker(this) ) {
+                        prm_model,
+                        "DefaultSpriteEffect",
+                        "DefaultSpriteTechnique") {
     _class_name = "DefaultSpriteActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
     setZWriteEnable(false);
 }
 
 void DefaultSpriteActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* DefaultSpriteActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 DefaultSpriteActor::~DefaultSpriteActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }
 

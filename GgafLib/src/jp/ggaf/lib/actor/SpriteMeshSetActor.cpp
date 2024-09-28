@@ -9,20 +9,22 @@ using namespace GgafLib;
 
 SpriteMeshSetActor::SpriteMeshSetActor(const char* prm_name, const char* prm_model) :
     GgafDx::SpriteMeshSetActor(prm_name,
-                             prm_model,
-                             UTIL::createCollisionChecker(this) ) {
+                             prm_model) {
 
     _class_name = "SpriteMeshSetActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 }
 
 void SpriteMeshSetActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* SpriteMeshSetActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 SpriteMeshSetActor::~SpriteMeshSetActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }
 

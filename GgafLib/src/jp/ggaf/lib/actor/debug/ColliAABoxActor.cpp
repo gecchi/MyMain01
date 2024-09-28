@@ -13,7 +13,7 @@ using namespace GgafLib;
 
 ColliAABoxActor* ColliAABoxActor::_pObj = nullptr;
 
-ColliAABoxActor::ColliAABoxActor(const char* prm_name) : GgafDx::AABActor(prm_name, nullptr) {
+ColliAABoxActor::ColliAABoxActor(const char* prm_name) : GgafDx::AABActor(prm_name) {
     _class_name = "ColliAABoxActor";
     setAlpha(0.8);
 }
@@ -30,14 +30,14 @@ void ColliAABoxActor::release() {
     GGAF_DELETE_NULLABLE(ColliAABoxActor::_pObj);
 }
 
-void ColliAABoxActor::drawHitarea(GgafDx::CollisionChecker* prm_pChecker) {
-    if (prm_pChecker != nullptr &&
-        prm_pChecker->_pCollisionArea != nullptr &&
-        prm_pChecker->getTargetActor()->canHit() &&
-        prm_pChecker->getTargetActor()->isActiveInTheTree()) {
+void ColliAABoxActor::drawHitarea(GgafDx::CollisionChecker* prm_pColliChecker) {
+    if (prm_pColliChecker != nullptr &&
+        prm_pColliChecker->_pCollisionArea != nullptr &&
+        prm_pColliChecker->getTargetActor()->canHit() &&
+        prm_pColliChecker->getTargetActor()->isActiveInTheTree()) {
 
-        GgafDx::GeometricActor* pActor = prm_pChecker->getTargetActor();
-        GgafDx::CollisionArea* pActiveCollisionArea = prm_pChecker->_pCollisionArea;
+        GgafDx::GeometricActor* pActor = prm_pColliChecker->getTargetActor();
+        GgafDx::CollisionArea* pActiveCollisionArea = prm_pColliChecker->_pCollisionArea;
         int iAreaNum = pActiveCollisionArea->_colli_part_num;
         if (iAreaNum > 0) {
             getEffect()->setAlphaMaster(1.0); //シーンに所属しないので固定値の設定が必要

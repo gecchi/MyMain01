@@ -66,7 +66,7 @@ public:
 
     void setColliSquare(int prm_index, coord prm_edge);
 
-    static void drawHitArea(GgafDx::CollisionChecker* prm_pChecker);
+    static void drawHitArea(GgafDx::CollisionChecker* prm_pColliChecker);
     static void releaseHitArea();
 
     virtual ~ViewCollisionChecker();

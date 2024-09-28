@@ -50,7 +50,7 @@ void MyBunshinShot001::onHit(const GgafCore::Actor* prm_pOtherActor) {
 
 
 //void MyBunshinShot001::drawHitArea() {
-//    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+//    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 //}
 MyBunshinShot001::~MyBunshinShot001() {
 }

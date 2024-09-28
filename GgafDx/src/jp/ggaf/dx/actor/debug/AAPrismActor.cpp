@@ -8,13 +8,12 @@ using namespace GgafDx;
 
 std::map<int, AAPrismActor::RotPosPrism> AAPrismActor::pos2r;
 
-AAPrismActor::AAPrismActor(const char* prm_name,
-                           CollisionChecker* prm_pChecker) :
+AAPrismActor::AAPrismActor(const char* prm_name) :
+
                                MeshActor(prm_name,
                                          CONFIG::COLI_AAPRISM_MODEL.c_str(),
                                          "DefaultMeshEffect",
-                                         "DefaultMeshTechnique",
-                                         prm_pChecker) {
+                                         "DefaultMeshTechnique") {
     _class_name = "AAPrismActor";
     static volatile bool is_init = AAPrismActor::initStatic(); //ê√ìIÉÅÉìÉoèâä˙âª
     (void)is_init;

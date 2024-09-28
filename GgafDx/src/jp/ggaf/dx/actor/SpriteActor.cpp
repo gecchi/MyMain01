@@ -13,16 +13,14 @@ using namespace GgafDx;
 SpriteActor::SpriteActor(const char* prm_name,
                          const char* prm_model,
                          const char* prm_effect_id,
-                         const char* prm_technique,
-                         CollisionChecker* prm_pChecker) :
+                         const char* prm_technique) :
 
                              FigureActor(prm_name,
                                          prm_model,
                                          TYPE_SPRITE_MODEL,
                                          prm_effect_id,
                                          TYPE_SPRITE_EFFECT,
-                                         prm_technique,
-                                         prm_pChecker),
+                                         prm_technique),
                              IAlignAbleActor(),
 _pSpriteModel( (SpriteModel*)_pModel),
 _pSpriteEffect( (SpriteEffect*)_pEffect),

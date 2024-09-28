@@ -14,10 +14,9 @@ DefaultMassMorphMeshActor::DefaultMassMorphMeshActor(const char* prm_name, const
     GgafDx::MassMorphMeshActor(prm_name,
                                prm_model,
                                "DefaultMassMorphMeshEffect",
-                               "DefaultMassMorphMeshTechnique",
-                               UTIL::createCollisionChecker(this) ) {
+                               "DefaultMassMorphMeshTechnique") {
     _class_name = "DefaultMassMorphMeshActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
     _pMassMorphMeshModel->registerCallback_VertexInstanceDataInfo(DefaultMassMorphMeshActor::createVertexInstanceData);
 }
 
@@ -125,10 +124,13 @@ void DefaultMassMorphMeshActor::processDraw() {
 }
 void DefaultMassMorphMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* DefaultMassMorphMeshActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 DefaultMassMorphMeshActor::~DefaultMassMorphMeshActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

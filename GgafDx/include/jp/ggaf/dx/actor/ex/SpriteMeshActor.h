@@ -26,11 +26,10 @@ public:
      * SpriteMeshSetActor で使用するモデルIDは避けて下さい。
      * @param prm_name
      * @param prm_model
-     * @param prm_pChecker
+     * @param prm_pColliChecker
      */
     SpriteMeshActor(const char* prm_name,
-                    const char* prm_model,
-                    CollisionChecker* prm_pChecker );
+                    const char* prm_model);
 
     virtual void processDraw() override;
 

@@ -12,18 +12,20 @@ DefaultMeshActor::DefaultMeshActor(const char* prm_name,
     GgafDx::MeshActor(prm_name,
                      prm_model,
                      "DefaultMeshEffect",
-                     "DefaultMeshTechnique",
-                     UTIL::createCollisionChecker(this) ) {
+                     "DefaultMeshTechnique") {
     _class_name = "DefaultMeshActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 }
 
 void DefaultMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* DefaultMeshActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 DefaultMeshActor::~DefaultMeshActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

@@ -21,11 +21,10 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
         GgafDx::MassMeshActor(prm_name,
                               prm_model,
                               "LaserChipEffect",
-                              "LaserChipTechnique",
-                              UTIL::createCollisionChecker(this) ) {
+                              "LaserChipTechnique") {
 //    _pMeshSetModel->_draw_set_num = 11; //現在のレーザーの最大セット数は11。
     _obj_class |= Obj_LaserChip;
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
     _class_name = "LaserChip";
     _pChip_infront = nullptr;
     _pChip_behind = nullptr;
@@ -312,7 +311,7 @@ void LaserChip::processPreDraw() {
 
 void LaserChip::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 //    if (_sub_kind > 0) {
 //        WorldCollisionChecker::drawHitArea(_pSubChecker);
 //    }
@@ -549,10 +548,13 @@ void LaserChip::addModel(const char* prm_model) {
     GgafDx::MassMeshModel* pModel = (GgafDx::MassMeshModel*)_lstModel.back(); //今追加したモデル
     pModel->registerCallback_VertexInstanceDataInfo(LaserChip::createVertexInstanceData);
 }
+GgafDx::CollisionChecker* LaserChip::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
 
 LaserChip::~LaserChip() {
     GGAF_DELETE(_pUvFlipper);
-    GGAF_DELETE(_pColliCollisionChecker);
+    GGAF_DELETE(_pWorldCollisionChecker);
 //    GGAF_DELETE_NULLABLE(_pSubChecker);
 }
 

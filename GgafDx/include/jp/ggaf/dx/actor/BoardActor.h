@@ -54,8 +54,7 @@ public:
     BoardActor(const char* prm_name,
                const char* prm_model,
                const char* prm_effect_id,
-               const char* prm_technique,
-               CollisionChecker* prm_pChecker = nullptr);
+               const char* prm_technique);
 
     virtual void processDraw() override;
     virtual void setPositionAt(const GeometricActor* prm_pActor) override;

@@ -36,7 +36,7 @@ public:
     static std::map<int, AAPrismActor::RotPosPrism> pos2r;
 
 public:
-    AAPrismActor(const char* prm_name, CollisionChecker* prm_pChecker);
+    AAPrismActor(const char* prm_name);
 
     /**
      * プリズムの姿勢マップを設定

@@ -11,18 +11,20 @@ CubeMapMeshSetActor::CubeMapMeshSetActor(const char* prm_name, const char* prm_m
     GgafDx::CubeMapMeshSetActor(prm_name,
                               prm_model,
                               "CubeMapMeshSetEffect",
-                              "CubeMapMeshSetTechnique",
-                              UTIL::createCollisionChecker(this) ) {
+                              "CubeMapMeshSetTechnique") {
     _class_name = "CubeMapMeshSetActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 }
 
 void CubeMapMeshSetActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* CubeMapMeshSetActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 CubeMapMeshSetActor::~CubeMapMeshSetActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

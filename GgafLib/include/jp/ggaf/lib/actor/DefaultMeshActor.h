@@ -25,7 +25,7 @@ class DefaultMeshActor : public GgafDx::MeshActor {
 
 public:
     /** 衝突判定支援オブジェクト */
-    WorldCollisionChecker* _pColliCollisionChecker;
+    WorldCollisionChecker* _pWorldCollisionChecker;
 
 public:
     /**
@@ -55,8 +55,10 @@ public:
 
     virtual void drawHitArea() override;
 
+    virtual GgafDx::CollisionChecker* createChecker() override;
+
     inline WorldCollisionChecker* getWorldCollisionChecker() {
-        return _pColliCollisionChecker;
+        return _pWorldCollisionChecker;
     }
 
     virtual ~DefaultMeshActor();

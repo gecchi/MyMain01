@@ -17,10 +17,9 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model) :
                                   TYPE_SINGLELASER_MODEL,
                                   "SingleLaserEffect",
                                   TYPE_SINGLELASER_EFFECT,
-                                  "SingleLaserTechnique",
-                                  UTIL::createCollisionChecker(this) ) {
+                                  "SingleLaserTechnique") {
     _class_name = "SingleLaser";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 
     setZEnableDraw(true);    //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
@@ -58,10 +57,13 @@ void SingleLaser::processDraw() {
 
 void SingleLaser::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
+GgafDx::CollisionChecker* SingleLaser::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 SingleLaser::~SingleLaser() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

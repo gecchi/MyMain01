@@ -12,15 +12,13 @@ using namespace GgafDx;
 CubeMapMeshActor::CubeMapMeshActor(const char* prm_name,
                                    const char* prm_model,
                                    const char* prm_effect_id,
-                                   const char* prm_technique,
-                                   CollisionChecker* prm_pChecker) :
+                                   const char* prm_technique) :
                                            MeshActor(prm_name,
                                                      prm_model,
                                                      TYPE_CUBEMAPMESH_MODEL,
                                                      prm_effect_id,
                                                      TYPE_CUBEMAPMESH_EFFECT,
-                                                     prm_technique,
-                                                     prm_pChecker) ,
+                                                     prm_technique),
                                            ICubeMapActor() {
     _obj_class |= Obj_GgafDx_CubeMapMeshActor;
     _class_name = "CubeMapMeshActor";

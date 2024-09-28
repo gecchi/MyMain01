@@ -90,13 +90,13 @@ public:
 //     * @param prm_model モデル識別キー文字列
 //     * @param prm_effect エフェクト識別キー文字列
 //     * @param prm_technique エフェクトのテクニック
-//     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
+//     * @param prm_pColliChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
 //     */
 //    FigureActor(const char* prm_name,
 //                const char* prm_model,
 //                const char* prm_effect,
-//                const char* prm_technique,
-//                CollisionChecker* prm_pChecker);
+//                const char* prm_technique);
+//                CollisionChecker* prm_pColliChecker);
 
     /**
      * コンストラクタ .
@@ -109,15 +109,13 @@ public:
      * @param prm_effect_id エフェクト定義名
      * @param prm_effect_type エフェクトタイプ
      * @param prm_technique エフェクトのテクニック
-     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
      */
     FigureActor(const char* prm_name,
                 const char* prm_model,
                 const char prm_model_type,
                 const char* prm_effect_id,
                 const char prm_effect_type,
-                const char* prm_technique,
-                CollisionChecker* prm_pChecker);
+                const char* prm_technique);
 
     virtual FigureActor* getPrev() const override {  //共変の戻り値
         return (FigureActor*)GgafCore::Actor::getPrev();

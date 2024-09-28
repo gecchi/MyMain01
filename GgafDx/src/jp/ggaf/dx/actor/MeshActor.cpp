@@ -12,16 +12,14 @@ using namespace GgafDx;
 MeshActor::MeshActor(const char* prm_name,
                      const char* prm_model,
                      const char* prm_effect_id,
-                     const char* prm_technique,
-                     CollisionChecker* prm_pChecker) :
+                     const char* prm_technique) :
 
                          FigureActor(prm_name,
                                      prm_model,
                                      TYPE_MESH_MODEL,
                                      prm_effect_id,
                                      TYPE_MESH_EFFECT,
-                                     prm_technique,
-                                     prm_pChecker) ,
+                                     prm_technique),
                          IBumpMapActor(),
 _pMeshModel((MeshModel*)_pModel),
 _pMeshEffect((MeshEffect*)_pEffect)
@@ -37,16 +35,14 @@ MeshActor::MeshActor(const char* prm_name,
                      const char prm_model_type,
                      const char* prm_effect_id,
                      const char prm_effect_type,
-                     const char* prm_technique,
-                     CollisionChecker* prm_pChecker) :
+                     const char* prm_technique) :
 
                          FigureActor(prm_name,
                                      prm_model,
                                      prm_model_type,
                                      prm_effect_id,
                                      prm_effect_type,
-                                     prm_technique,
-                                     prm_pChecker) ,
+                                     prm_technique),
                          IBumpMapActor(),
 _pMeshModel((MeshModel*)_pModel),
 _pMeshEffect((MeshEffect*)_pEffect)

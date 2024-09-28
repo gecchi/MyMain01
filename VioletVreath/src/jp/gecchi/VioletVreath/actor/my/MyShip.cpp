@@ -778,7 +778,7 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
         if ( pOther->instanceOf(Obj_MassWallActor)) {
             GgafLib::MassWallActor* pOtherWall = (GgafLib::MassWallActor*)pOther;
             pos_t pos_info = pOtherWall->_pos_info;
-//            GgafDx::CollisionPart** papColli = pOther->_pChecker->_pCollisionArea->_papColliPart;
+//            GgafDx::CollisionPart** papColli = pOther->_pColliChecker->_pCollisionArea->_papColliPart;
 //            ColliAABox* pBox = (ColliAABox*)(papColli[0]); //[0]BOX,[1]プリズム,[2]ピラミッド
 //            ColliAAPrism* pPrism = (ColliAAPrism*)(papColli[1]); //[0]BOX,[1]プリズム,[2]ピラミッド
 //            ColliAAPyramid* pPyramid = (ColliAAPyramid*)(papColli[2]); //[0]BOX,[1]プリズム,[2]ピラミッド
@@ -791,7 +791,7 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
 //            } else if (pPrism->_is_valid_flg) {
             } else if (POS_PRISM_XY_NN <= pos_info && pos_info <= POS_PRISM_ZX_PP) {
                 //プリズム壁
-                ColliAAPrism* pPrism = (ColliAAPrism*)(pOtherWall->_pChecker->_pCollisionArea->_papColliPart[0]);
+                ColliAAPrism* pPrism = (ColliAAPrism*)(pOtherWall->getChecker()->_pCollisionArea->_papColliPart[0]);
                 //吹っ飛ぶ重心座標を補正
                 if (pos_info & POS_PRISM_XY_xx) {
                     if (pos_info & POS_PRISM_xx_PP) {
@@ -970,7 +970,7 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
             }
         } else {
             //壁じゃない場合は中心座標で吹っ飛ぶ方向決定
-            GgafDx::CollisionArea* pActiveCollisionArea = pOther->_pChecker->_pCollisionArea;
+            GgafDx::CollisionArea* pActiveCollisionArea = pOther->getChecker()->_pCollisionArea;
             if (pActiveCollisionArea->_hit_colli_part_index >= 0) {
                 GgafDx::CollisionPart* pPart = pActiveCollisionArea->_papColliPart[pActiveCollisionArea->_hit_colli_part_index];
                 dX2 = (_x - (pOther->_x + pPart->_cx));

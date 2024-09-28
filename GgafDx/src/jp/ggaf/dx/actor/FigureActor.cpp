@@ -26,11 +26,7 @@ FigureActor::FigureActor(const char* prm_name,
                          const char prm_model_type,
                          const char* prm_effect_id,
                          const char prm_effect_type,
-                         const char* prm_technique,
-
-                         CollisionChecker* prm_pChecker) :
-                         GeometricActor(prm_name,
-                                        prm_pChecker),
+                         const char* prm_technique) : GeometricActor(prm_name),
 _pModelCon(
     connectToModelManager( (std::string(1, prm_model_type) + "," + std::string(prm_model)).c_str() )
 ),

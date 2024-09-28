@@ -60,6 +60,7 @@ public:
     /** [r/w]自由ステータス */
     Status* _pStatus;
 
+    Checker* _pChecker;
 public:
     /**
      * コンストラクタ .
@@ -122,7 +123,7 @@ public:
 
     /**
      * アクターと衝突した時の処理 .
-     * _pChecker->processHitChkLogic(Checker*) が true の場合に呼び出されることになります。<BR>
+     * _pColliChecker->processHitChkLogic(Checker*) が true の場合に呼び出されることになります。<BR>
      * 衝突判定の結果、衝突した場合の処理を下位クラス実装してください。<BR>
      * @param	prm_pOtherActor	衝突している相手のアクター（１つ）
      */
@@ -219,6 +220,17 @@ public:
      */
     inline void setDefaultKind(kind_t prm_kind) const {
         return getStatus()->set(STAT_DEFAULT_ACTOR_KIND, prm_kind);
+    }
+
+    virtual Checker* getChecker() {
+        if (!_pChecker) {
+            _pChecker = createChecker();
+        }
+        return _pChecker;
+    }
+
+    virtual Checker* createChecker() {
+        return nullptr;
     }
 
     virtual void appendChild(Actor* prm_pActor) override;

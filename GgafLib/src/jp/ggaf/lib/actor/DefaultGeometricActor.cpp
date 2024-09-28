@@ -4,19 +4,18 @@
 
 using namespace GgafLib;
 
-DefaultGeometricActor::DefaultGeometricActor(const char* prm_name, GgafDx::CollisionChecker* prm_pChecker) :
-    GgafDx::GeometricActor(prm_name, prm_pChecker)
+DefaultGeometricActor::DefaultGeometricActor(const char* prm_name) :
+    GgafDx::GeometricActor(prm_name)
 {
     _class_name = "DefaultGeometricActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 }
 
 void DefaultGeometricActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
-
 
 DefaultGeometricActor::~DefaultGeometricActor() {
 }

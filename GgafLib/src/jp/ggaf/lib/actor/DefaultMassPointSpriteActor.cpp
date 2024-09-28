@@ -18,16 +18,15 @@ DefaultMassPointSpriteActor::DefaultMassPointSpriteActor(const char* prm_name, c
     GgafDx::MassPointSpriteActor(prm_name,
                         prm_model,
                         "DefaultMassPointSpriteEffect",
-                        "DefaultMassPointSpriteTechnique",
-                        UTIL::createCollisionChecker(this) ) {
+                        "DefaultMassPointSpriteTechnique") {
     _class_name = "DefaultMassPointSpriteActor";
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
     _pMassPointSpriteModel->registerCallback_VertexInstanceDataInfo(DefaultMassPointSpriteActor::createVertexInstanceData);
 }
 
 void DefaultMassPointSpriteActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
@@ -138,6 +137,9 @@ void DefaultMassPointSpriteActor::addModel(const char* prm_model) {
     pModel->registerCallback_VertexInstanceDataInfo(DefaultMassPointSpriteActor::createVertexInstanceData);
 }
 
+GgafDx::CollisionChecker* DefaultMassPointSpriteActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
+
 DefaultMassPointSpriteActor::~DefaultMassPointSpriteActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

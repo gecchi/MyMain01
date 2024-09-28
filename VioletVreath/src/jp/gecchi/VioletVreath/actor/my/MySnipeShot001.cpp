@@ -51,7 +51,7 @@ void MySnipeShot001::onHit(const GgafCore::Actor* prm_pOtherActor) {
 
 
 //void MySnipeShot001::drawHitArea() {
-//    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+//    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 //}
 MySnipeShot001::~MySnipeShot001() {
 }

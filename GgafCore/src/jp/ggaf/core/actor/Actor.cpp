@@ -1,6 +1,7 @@
 #include "jp/ggaf/core/actor/Actor.h"
 
 #include "jp/ggaf/core/Caretaker.h"
+#include "jp/ggaf/core/util/Checker.h"
 #include "jp/ggaf/core/actor/ex/Formation.h"
 using namespace GgafCore;
 
@@ -11,7 +12,8 @@ Actor::Actor(const char* prm_name) : Element<Actor>(prm_name),
 _pDependenceDepository(nullptr),
 _pFormation(nullptr),
 _can_hit_flg(false),
-_enable_out_of_view_hit_flg(true)
+_enable_out_of_view_hit_flg(true),
+_pChecker(nullptr)
 {
     _class_name = "Actor";
     _obj_class = Obj_ggaf_Actor;
@@ -26,6 +28,7 @@ _enable_out_of_view_hit_flg(true)
 Actor::~Actor() {
     _pFormation = nullptr;
     GGAF_DELETE(_pStatus);
+    GGAF_DELETE_NULLABLE(_pChecker);
     if (pCARETAKER->_is_loving_flg) {
         pCARETAKER->repent(this); //©g‚ª–]‚ñ‚¾–½‚ğ”jŠü
     } else {

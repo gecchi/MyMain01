@@ -32,7 +32,7 @@ public:
     static std::map<int, AAPyramidActor::RotPosPyramid> pos2r;
 
 public:
-    AAPyramidActor(const char* prm_name, CollisionChecker* prm_pChecker);
+    AAPyramidActor(const char* prm_name);
 
     static bool initStatic();
 

@@ -61,7 +61,7 @@ public:
     };
 
     static VERTEX_instancedata _aInstancedata[];
-    WorldCollisionChecker* _pColliCollisionChecker;
+    WorldCollisionChecker* _pWorldCollisionChecker;
 
     /** レーザーテクスチャ種別  0:不明 1:末尾 2:中間 3:先頭から２番目で先頭のテクスチャ （末尾かつ先頭は末尾が優先） 4:本当の先頭(但し描画できない) */
     int _chip_kind;
@@ -120,8 +120,9 @@ public:
      */
     virtual void registerHitAreaCube_AutoGenMidColli(int prm_edge_length);
 
+    virtual GgafDx::CollisionChecker* createChecker() override;
     inline WorldCollisionChecker* getWorldCollisionChecker() {
-        return _pColliCollisionChecker;
+        return _pWorldCollisionChecker;
     }
 
     /**

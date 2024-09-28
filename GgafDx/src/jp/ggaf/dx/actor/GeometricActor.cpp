@@ -13,8 +13,7 @@
 
 using namespace GgafDx;
 
-GeometricActor::GeometricActor(const char* prm_name,
-                               CollisionChecker* prm_pChecker) : GgafCore::MainActor(prm_name),
+GeometricActor::GeometricActor(const char* prm_name) : GgafCore::MainActor(prm_name),
 _pLocusVehicle(nullptr),
 _pCoordVehicle(nullptr),
 _pNaviVehicle(nullptr),
@@ -26,7 +25,6 @@ _offscreen_kind(-1),
 _x(0), _y(0), _z(0),
 _rx(0), _ry(0), _rz(0),
 _sx(R_SC(1.0)), _sy(R_SC(1.0)), _sz(R_SC(1.0)),
-_pChecker(prm_pChecker),
 //_pSubChecker(nullptr),
 _rate_of_bounding_sphere_radius(1.0f),
 _fX(C_DX(_x)), _fY(C_DX(_y)), _fZ(C_DX(_z)),
@@ -51,14 +49,6 @@ _is_local(false)
     _obj_class |= Obj_GgafDx_GeometricActor;
     _class_name = "GeometricActor";
     _pFormation = nullptr;
-}
-
-void GeometricActor::setCollisionChecker(CollisionChecker* prm_pChecker) {
-    if (_pChecker) {
-        throwCriticalException("eometricActor::setCollisionChecker() : "<<
-                "this="<<NODE_INFO<<" ‚ÍAŠù‚É CollisionChecker ‚ª‚ ‚è‚ñ‚·B");
-    }
-    _pChecker= prm_pChecker;
 }
 
 LocusVehicle* GeometricActor::getLocusVehicle() {
@@ -262,21 +252,27 @@ void GeometricActor::processSettlementBehavior() {
 void GeometricActor::judge() {
     if (_is_active_in_the_tree_flg) {
         processJudgement();    //ƒ†[ƒU[ŽÀ‘•—p
+        CollisionChecker* pColliChecker = getChecker();
         //“–‚½‚è”»’è‚Ìˆ×‚É”ª•ª–ØiŽl•ª–Øj‚É“o˜^‚·‚é .
-        if (_pChecker && _pChecker->_kind > 0) {
-            if (_can_hit_flg) {
-                if (_enable_out_of_view_hit_flg == false && isOutOfView()) {
-                    //Ž‹–ìŠO“–‚½‚è”»’è–³Œø‚Ìê‡‚Í“o˜^‚µ‚È‚¢
-                } else  {
-                    //–Ø“o˜^
-                    //_kind = getDefaultKind();
-                    _pChecker->updateHitArea();
-//                    if (_sub_kind > 0 && _pSubChecker) {
-//                        kind_t bk_kind = _kind;
-//                        _kind = _sub_kind;
-//                        _pSubChecker->updateHitArea();
-//                        _kind = bk_kind;
-//                    }
+        if (pColliChecker) {
+            pColliChecker->_kind = getDefaultKind();
+            if (pColliChecker->_kind > 0) {
+                if (_can_hit_flg) {
+                    if (_enable_out_of_view_hit_flg == false && isOutOfView()) {
+                        //Ž‹–ìŠO“–‚½‚è”»’è–³Œø‚Ìê‡‚Í“o˜^‚µ‚È‚¢
+                    }
+                    else {
+                        //–Ø“o˜^
+                        //_kind = getDefaultKind();
+                        pColliChecker->_kind = getDefaultKind();
+                        pColliChecker->updateHitArea();
+                        //                    if (_sub_kind > 0 && _pSubChecker) {
+                        //                        kind_t bk_kind = _kind;
+                        //                        _kind = _sub_kind;
+                        //                        _pSubChecker->updateHitArea();
+                        //                        _kind = bk_kind;
+                        //                    }
+                    }
                 }
             }
         }

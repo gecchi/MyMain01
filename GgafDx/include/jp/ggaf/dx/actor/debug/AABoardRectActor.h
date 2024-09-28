@@ -15,7 +15,7 @@ namespace GgafDx {
 class AABoardRectActor : public BoardActor {
 
 public:
-    AABoardRectActor(const char* prm_name, CollisionChecker* prm_pChecker);
+    AABoardRectActor(const char* prm_name);
 
     void drawRect(coord prm_x1, coord prm_y1, coord prm_x2, coord prm_y2);
 

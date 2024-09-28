@@ -26,8 +26,7 @@ MassWallActor::MassWallActor(const char* prm_name,
                                                      TYPE_MASSMESH_MODEL,
                                                      "MassWallEffect",
                                                      TYPE_MASSWALL_EFFECT,
-                                                     "MassWallTechnique",
-                                                     UTIL::createCollisionChecker(this))
+                                                     "MassWallTechnique")
 {
     init();
 }
@@ -42,8 +41,7 @@ MassWallActor::MassWallActor(const char* prm_name,
                                                      TYPE_MASSMESH_MODEL,
                                                      prm_effect,
                                                      TYPE_MASSWALL_EFFECT,
-                                                     prm_technique,
-                                                     UTIL::createCollisionChecker(this))
+                                                     prm_technique)
 {
     init();
 }
@@ -51,7 +49,7 @@ MassWallActor::MassWallActor(const char* prm_name,
 void MassWallActor::init() {
     _class_name = "MassWallActor";
     _obj_class |= Obj_MassWallActor;
-    _pColliCollisionChecker = (WorldCollisionChecker*)_pChecker;
+    _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
     _wall_draw_face = 0;
     _pos_info = 0;
     _pWallSectionScene = nullptr;
@@ -419,7 +417,7 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
 
 void MassWallActor::drawHitArea() {
 #ifdef MY_DEBUG
-    WorldCollisionChecker::drawHitArea(_pColliCollisionChecker);
+    WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
 
@@ -428,7 +426,9 @@ void MassWallActor::addModel(const char* prm_model) {
     GgafDx::MassMeshModel* pModel = (GgafDx::MassMeshModel*)_lstModel.back(); //¡’Ç‰Á‚µ‚½ƒ‚ƒfƒ‹
     pModel->registerCallback_VertexInstanceDataInfo(MassWallActor::createVertexInstanceData);
 }
+GgafDx::CollisionChecker* MassWallActor::createChecker() {
+    return UTIL::createCollisionChecker(this);
+}
 
 MassWallActor::~MassWallActor() {
-    GGAF_DELETE(_pColliCollisionChecker);
 }

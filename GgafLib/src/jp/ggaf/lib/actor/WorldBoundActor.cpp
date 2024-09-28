@@ -4,17 +4,13 @@
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
-
-
-
 using namespace GgafLib;
 
 WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
         GgafDx::WorldBoundActor(prm_name,
                               prm_model,
                               "WorldBoundEffect",
-                              "WorldBoundTechnique",
-                              nullptr) {
+                              "WorldBoundTechnique") {
 
     _class_name = "WorldBoundActor";
     _offset_frames = 0;
