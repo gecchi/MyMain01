@@ -18,7 +18,8 @@ public:
         if (prm_pFuncResetStatus) {
             T::getStatus()->reset((GgafCore::Status* (*)(GgafCore::Status*))prm_pFuncResetStatus);
 #ifdef MY_DEBUG
-            if (!(T::_pChecker->_kind & KIND_FORMATION)) {
+            //if (!(T::_pChecker->_kind & KIND_FORMATION)) {
+            if (!(T::getDefaultKind() & KIND_FORMATION)) {
                 throwCriticalException("KIND_FORMATION と、ステータスが異なっています。name="<<prm_name);
             }
 #endif
