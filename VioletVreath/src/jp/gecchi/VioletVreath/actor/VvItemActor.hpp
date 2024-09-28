@@ -9,11 +9,10 @@ template<class T>
 class VvItemActor : public VvActor<T> {
 
 public:
-    VvItemActor(const char* prm_name, const char* prm_model, void* prm_pPrm1 = nullptr)
-            : VvActor<T>(prm_name, prm_model) {
-        T::getStatus()->reset((GgafCore::Status* (*)(GgafCore::Status*))prm_pPrm1);
+    VvItemActor(const char* prm_name, const char* prm_model, void* prm_pFuncResetStatus = nullptr)
+            : VvActor<T>(prm_name, prm_model, prm_pFuncResetStatus) {
 #ifdef MY_DEBUG
-        if (!(T::getDefaultKind() & KIND_ITEM)) {
+        if (!(T::_pChecker->_kind & KIND_ITEM)) {
             throwCriticalException("KIND_ITEM と、ステータスが異なっています。name="<<prm_name);
         }
 #endif

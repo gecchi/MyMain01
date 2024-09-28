@@ -9,11 +9,10 @@ template<class T>
 class VvEnemyActor : public VvActor<T> {
 
 public:
-    VvEnemyActor(const char* prm_name, const char* prm_model, void* prm_pPrm1 = nullptr)
-            : VvActor<T>(prm_name, prm_model) {
-        T::getStatus()->reset((GgafCore::Status* (*)(GgafCore::Status*))prm_pPrm1);
+    VvEnemyActor(const char* prm_name, const char* prm_model, void* prm_pFuncResetStatus = nullptr)
+            : VvActor<T>(prm_name, prm_model, prm_pFuncResetStatus) {
 #ifdef MY_DEBUG
-        if (!(T::getDefaultKind() & KIND_ENEMRY)) {
+        if (!(T::_pChecker->_kind & KIND_ENEMRY)) {
             throwCriticalException("KIND_ENEMRY と、ステータスが異なっています。name="<<prm_name);
         }
 #endif

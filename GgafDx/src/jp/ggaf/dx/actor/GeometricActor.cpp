@@ -255,7 +255,6 @@ void GeometricActor::judge() {
         CollisionChecker* pColliChecker = getChecker();
         //“–‚½‚è”»’è‚Ìˆ×‚É”ª•ª–Øil•ª–Øj‚É“o˜^‚·‚é .
         if (pColliChecker) {
-            pColliChecker->_kind = getDefaultKind();
             if (pColliChecker->_kind > 0) {
                 if (_can_hit_flg) {
                     if (_enable_out_of_view_hit_flg == false && isOutOfView()) {
@@ -264,7 +263,7 @@ void GeometricActor::judge() {
                     else {
                         //–Ø“o˜^
                         //_kind = getDefaultKind();
-                        pColliChecker->_kind = getDefaultKind();
+
                         pColliChecker->updateHitArea();
                         //                    if (_sub_kind > 0 && _pSubChecker) {
                         //                        kind_t bk_kind = _kind;

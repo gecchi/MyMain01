@@ -554,7 +554,6 @@ GgafDx::CollisionChecker* LaserChip::createChecker() {
 
 LaserChip::~LaserChip() {
     GGAF_DELETE(_pUvFlipper);
-    GGAF_DELETE(_pWorldCollisionChecker);
 //    GGAF_DELETE_NULLABLE(_pSubChecker);
 }
 

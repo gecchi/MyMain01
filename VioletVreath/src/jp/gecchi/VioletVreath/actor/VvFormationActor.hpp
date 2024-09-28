@@ -12,13 +12,13 @@ template<class T>
 class VvFormationActor : public T {
 
 public:
-    VvFormationActor(const char* prm_name, void* prm_pPrm1 = nullptr)
+    VvFormationActor(const char* prm_name, void* prm_pFuncResetStatus = nullptr)
             : T(prm_name) {
 
-        if (prm_pPrm1) {
-            T::getStatus()->reset((GgafCore::Status* (*)(GgafCore::Status*))prm_pPrm1);
+        if (prm_pFuncResetStatus) {
+            T::getStatus()->reset((GgafCore::Status* (*)(GgafCore::Status*))prm_pFuncResetStatus);
 #ifdef MY_DEBUG
-            if (!(T::getDefaultKind() & KIND_FORMATION)) {
+            if (!(T::_pChecker->_kind & KIND_FORMATION)) {
                 throwCriticalException("KIND_FORMATION と、ステータスが異なっています。name="<<prm_name);
             }
 #endif

@@ -15,10 +15,15 @@ class VvActor : public T {
 //    GgafLib::DefaultScene* pFeatureScene_;
 //    GgafDx::VehicleLeader* pFeatureVehicleLeader_;
 public:
-    VvActor(const char* prm_name, const char* prm_model)
+    VvActor(const char* prm_name, const char* prm_model, void* prm_pFuncResetStatus)
         : T(prm_name, prm_model) {
-//        pFeatureScene_ = nullptr;
-//        pFeatureVehicleLeader_ = nullptr;
+        if (prm_pFuncResetStatus) {
+            T::getStatus()->reset((GgafCore::Status * (*)(GgafCore::Status*))prm_pFuncResetStatus);
+            T::_pChecker->_kind = T::getDefaultKind();
+        }
+        else {
+            T::getStatus()->reset(StatusReset(Default));
+        }
     }
     /**
      * ‘Šè‚©‚çUŒ‚‚ğó‚¯‚½ê‡‚ÌA©•ª‚Ì‘Ì—ÍŒvZŒ‹‰Êæ“¾ .
