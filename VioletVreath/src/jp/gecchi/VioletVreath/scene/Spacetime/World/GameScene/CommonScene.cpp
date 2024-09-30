@@ -87,7 +87,7 @@ void CommonScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3)
     if (pThat->instanceOf(Obj_GgafDx_GeometricActor)) {
         GgafDx::GeometricActor* pActor = (GgafDx::GeometricActor*)pThat;
 
-        if (pActor->getDefaultKind() & KIND_ITEM) {
+        if (pActor->getCheckerKind() & KIND_ITEM) {
             //Item‚ÍƒXƒNƒ[ƒ‹‚Ì‰e‹¿‚ðŽó‚¯‚È‚¢
         } else {
             pActor->_x -= (*((coord*)p1));

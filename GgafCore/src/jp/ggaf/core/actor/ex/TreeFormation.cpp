@@ -22,19 +22,20 @@ void TreeFormation::appendFormationMember(Actor* prm_pChild) {
     }
 #endif
     _num_formation_member++;
-    if (_pChildFirst == nullptr) {
-        //団長に種別を正しく伝えるために、初回追加の種別を、自身の種別に上書（TreeFormation）きする
-        kind_t kind = prm_pChild->getDefaultKind();
-        getStatus()->set(STAT_DEFAULT_ACTOR_KIND, kind);
-    } else {
-#ifdef MY_DEBUG
-        if (getDefaultKind() != prm_pChild->getDefaultKind()) {
-            throwCriticalException("異なる種別のアクターを登録しようとしています。 \n"
-                                       "想定="<<getDefaultKind()<<"[_pChildFirst="<<_pChildFirst->getName()<<"] \n"
-                                       "引数="<<prm_pChild->getDefaultKind()<<"["<<prm_pChild->getName()<<"]");
-        }
-#endif
-    }
+//    if (_pChildFirst == nullptr) {
+//        //団長に種別を正しく伝えるために、初回追加の種別を、自身の種別に上書（TreeFormation）きする
+//        //kind_t kind = prm_pChild->getCheckerKind();
+//        //getStatus()->set(STAT_DEFAULT_ACTOR_KIND, kind);
+//        setDefaultKind(prm_pChild->getCheckerKind());
+//    } else {
+//#ifdef MY_DEBUG
+//        if (getCheckerKind() != prm_pChild->getCheckerKind()) {
+//            throwCriticalException("異なる種別のアクターを登録しようとしています。 \n"
+//                                       "想定="<<getCheckerKind()<<"[_pChildFirst="<<_pChildFirst->getName()<<"] \n"
+//                                       "引数="<<prm_pChild->getCheckerKind()<<"["<<prm_pChild->getName()<<"]");
+//        }
+//#endif
+//    }
     prm_pChild->_pFormation = this; //メンバーへフォーメーションを設定
     Formation::appendChild(prm_pChild);
     prm_pChild->inactivate(); //フォーメーションなのでcalledUpまで非活動。

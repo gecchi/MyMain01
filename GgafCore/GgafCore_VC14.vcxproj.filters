@@ -36,9 +36,6 @@
     <ClCompile Include="src\jp\ggaf\core\actor\Actor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\core\actor\GroupHead.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\ggaf\core\actor\MainActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -108,6 +105,9 @@
     <ClCompile Include="src\jp\ggaf\core\Properties.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\ggaf\core\util\Checker.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\jp\ggaf\core\actor\ex\ActorDepository.h">
@@ -132,9 +132,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\core\actor\DisusedActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\core\actor\GroupHead.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\core\actor\MainActor.h">
@@ -261,6 +258,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\GgafCommonHeader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\core\util\Checker.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

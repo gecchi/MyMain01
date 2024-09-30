@@ -174,9 +174,7 @@ public:
         return (CollisionChecker*)_pChecker;
     }
 
-    virtual CollisionChecker* createChecker() override { //共変の戻り値
-        return nullptr;
-    }
+    virtual CollisionChecker* createChecker() override; //共変の戻り値
 
     /**
      * 本アクターの移動車両を取得 .

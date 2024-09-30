@@ -50,7 +50,9 @@ _is_local(false)
     _class_name = "GeometricActor";
     _pFormation = nullptr;
 }
-
+CollisionChecker* GeometricActor::createChecker() {
+    return NEW CollisionChecker(this);
+}
 LocusVehicle* GeometricActor::getLocusVehicle() {
     return _pLocusVehicle ? _pLocusVehicle : _pLocusVehicle = NEW LocusVehicle(this);
 }
@@ -255,7 +257,6 @@ void GeometricActor::judge() {
         CollisionChecker* pColliChecker = getChecker();
         //“–‚½‚è”»’è‚Ìˆ×‚É”ª•ª–ØiŽl•ª–Øj‚É“o˜^‚·‚é .
         if (pColliChecker) {
-            pColliChecker->_kind = getDefaultKind(); //TODO:‚±‚±‚ÅÝ’è‚µ‚½‚­‚È‚¢
             if (pColliChecker->_kind > 0) {
                 if (_can_hit_flg) {
                     if (_enable_out_of_view_hit_flg == false && isOutOfView()) {

@@ -50,7 +50,7 @@ public:
             if (prm_pMainActor->instanceOf(Obj_ggaf_Formation)) {
                 GgafCore::Formation* pF = (GgafCore::Formation*)prm_pMainActor;
                 all_hit_num_ += pF->getMemberNum();
-            } else if (prm_pMainActor->getDefaultKind() & KIND_ENEMY_BODY) {
+            } else if (prm_pMainActor->getCheckerKind() & KIND_ENEMY_BODY) {
                 all_hit_num_ ++;
             }
         }

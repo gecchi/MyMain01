@@ -16,7 +16,7 @@ void ActorDepositoryStore::put(Actor* prm_pChild) {
         throwCriticalException("this="<<getName()<<" à¯êî prm_pChild("<<prm_pChild->getName()<<") ÇÕ ÉfÉ|ÉWÉgÉäÇ≈Ç»ÇØÇÍÇŒÇ¢ÇØÇ‹ÇπÇÒ");
     }
     if (_pChildFirst == nullptr) {
-        if (prm_pChild->getDefaultKind() == 0U) {
+        if (prm_pChild->getCheckerKind() == 0U) {
             _TRACE_("ÅyåxçêÅz ActorDepositoryStore::appendChild à¯êî this="<<getName()<<" prm_pChild("<<prm_pChild->getName()<<") ÇÕ ÇÃéÌï Ç™0Ç≈Ç∑Ç™à”ê}ÇµÇƒÇ¢Ç‹Ç∑Ç©ÅH");
         }
     }

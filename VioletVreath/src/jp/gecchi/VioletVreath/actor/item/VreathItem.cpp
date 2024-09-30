@@ -171,7 +171,7 @@ void VreathItem::onHit(const GgafCore::Actor* prm_pOtherActor) {
     //ここにヒットエフェクト
 
     GgafCore::Phase* pPhase = getPhase();
-    if (pPhase->getCurrent() == PHASE_DRIFT && (pOther->getDefaultKind() & KIND_MY_BODY))  {
+    if (pPhase->getCurrent() == PHASE_DRIFT && (pOther->getCheckerKind() & KIND_MY_BODY))  {
         setHitAble(false);
         pPhase->change(PHASE_ATTACH);
     }

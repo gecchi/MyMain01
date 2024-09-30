@@ -15,14 +15,15 @@ FkFormation::FkFormation(const char* prm_name, frame prm_offset_frames_end) :
 void FkFormation::registerFormationFkBase(GeometricActor* prm_pFkBase) {
     if (_pChildFirst == nullptr) { //最初の１つ目
         //本フォーメーションオブジェクト自体の種別を確定
-        getStatus()->set(STAT_DEFAULT_ACTOR_KIND,
-                      prm_pFkBase->getDefaultKind());
+//        getStatus()->set(STAT_DEFAULT_ACTOR_KIND,
+//                      prm_pFkBase->getCheckerKind());
+        setDefaultKind(prm_pFkBase->getCheckerKind());
     } else {
 #ifdef MY_DEBUG
-        if (getDefaultKind() != prm_pFkBase->getDefaultKind()) {
+        if (getCheckerKind() != prm_pFkBase->getCheckerKind()) {
             throwCriticalException("異なる種別のFKベースアクターを登録しようとしています。 \n"
-                                       "想定="<<getDefaultKind()<<"[_pChildFirst="<<_pChildFirst->getName()<<"] \n"
-                                       "引数="<<prm_pFkBase->getDefaultKind()<<"["<<prm_pFkBase->getName()<<"]");
+                                       "想定="<<getCheckerKind()<<"[_pChildFirst="<<_pChildFirst->getName()<<"] \n"
+                                       "引数="<<prm_pFkBase->getCheckerKind()<<"["<<prm_pFkBase->getName()<<"]");
         }
 #endif
     }

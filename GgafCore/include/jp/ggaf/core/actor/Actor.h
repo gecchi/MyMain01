@@ -210,17 +210,17 @@ public:
      * アクターのデフォルトの種別を取得 .
      * @return アクターのデフォルトの種別
      */
-    inline kind_t getDefaultKind() const {
+    virtual kind_t getDefaultKind() {
         return (kind_t)getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND);
     }
+
+    virtual kind_t getCheckerKind();
 
     /**
      * アクターのデフォルトの種別を設定 .
      * @param prm_kind アクターのデフォルトの種別
      */
-    inline void setDefaultKind(kind_t prm_kind) const {
-        return getStatus()->set(STAT_DEFAULT_ACTOR_KIND, prm_kind);
-    }
+    virtual void setDefaultKind(kind_t prm_kind);
 
     virtual Checker* getChecker() {
         if (!_pChecker) {
@@ -229,9 +229,7 @@ public:
         return _pChecker;
     }
 
-    virtual Checker* createChecker() {
-        return nullptr;
-    }
+    virtual Checker* createChecker();
 
     virtual void appendChild(Actor* prm_pActor) override;
 

@@ -116,7 +116,7 @@ void MyBunshinStraightLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
     //ヒットエフェクト
     GgafDx::FigureActor* pE = UTIL::activateExplosionEffectOf(this, true); //爆発エフェクト出現
 
-    if ((pOther->getDefaultKind() & KIND_ENEMY_BODY) ) {
+    if ((pOther->getCheckerKind() & KIND_ENEMY_BODY) ) {
         //ロックオン可能アクターならロックオン
         if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
             pOrg_->pLockonCtrler_->lockon(pOther);
@@ -132,7 +132,7 @@ void MyBunshinStraightLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
             getStatus()->set(STAT_Stamina, default_stamina_);
         }
 
-    } else if (pOther->getDefaultKind() & KIND_CHIKEI) {
+    } else if (pOther->getCheckerKind() & KIND_CHIKEI) {
         //地形相手は無条件さようなら
         sayonara();
     }

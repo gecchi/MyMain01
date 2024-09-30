@@ -41,7 +41,7 @@ public:
         if (VvActor<T>::calcStamina(prm_pOther) <= 0) { //体力が無くなったら
             //＜破壊された場合＞
             VvActor<T>::setHitAble(false); //当たり判定消失
-            if (prm_pOther->getDefaultKind() & KIND_MY) {
+            if (T::_pChecker->_kind & KIND_MY) {
                 //相手(自機)の種別が MY*** （自機関連） ならば
                 GameGlobal::addDestroyedScoreBy(prm_pOther);
                 VvActor<T>::notifyDestroyed(); //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
@@ -53,7 +53,7 @@ public:
             return true;
         } else {
             //＜非破壊時、ダメージを受けた場合＞
-            if (prm_pOther->getDefaultKind() & KIND_MY) { //相手(自機)の種別が MY*** （自機関連） ならば
+            if (T::_pChecker->_kind & KIND_MY) { //相手(自機)の種別が MY*** （自機関連） ならば
                 GameGlobal::addDamagedScoreBy(prm_pOther); //ダメージ時得点
             }
             if (pThisStatus->get(STAT_FlushAble)) { //ダメージフラッシュするかどうか

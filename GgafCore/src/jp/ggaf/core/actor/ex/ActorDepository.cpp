@@ -11,18 +11,19 @@ ActorDepository::ActorDepository(const char* prm_name) : DestructActor(prm_name)
 }
 
 void ActorDepository::put(Actor* prm_pChild) {
-    if (_pChildFirst == nullptr) {
-        //種別を引き継ぐ
-        getStatus()->set(STAT_DEFAULT_ACTOR_KIND, prm_pChild->getDefaultKind());
-    } else {
-#ifdef MY_DEBUG
-        if (getDefaultKind() != prm_pChild->getDefaultKind()) {
-            throwCriticalException("異なる種別のアクターを登録しようとしています。 \n"
-                                       "想定="<<getDefaultKind()<<"[_pChildFirst="<<_pChildFirst->getName()<<"] \n"
-                                       "引数="<<prm_pChild->getDefaultKind()<<"["<<prm_pChild->getName()<<"]");
-        }
-#endif
-    }
+//    if (_pChildFirst == nullptr) {
+//        //種別を引き継ぐ
+//        //getStatus()->set(STAT_DEFAULT_ACTOR_KIND, prm_pChild->getCheckerKind());
+//        setDefaultKind(prm_pChild->getCheckerKind());
+//    } else {
+//#ifdef MY_DEBUG
+//        if (getCheckerKind() != prm_pChild->getCheckerKind()) {
+//            throwCriticalException("異なる種別のアクターを登録しようとしています。 \n"
+//                                       "想定="<<getCheckerKind()<<"[_pChildFirst="<<_pChildFirst->getName()<<"] \n"
+//                                       "引数="<<prm_pChild->getCheckerKind()<<"["<<prm_pChild->getName()<<"]");
+//        }
+//#endif
+//    }
     prm_pChild->_pDependenceDepository = this;
     prm_pChild->inactivate(); //強制非活動に。
     DestructActor::appendChild(prm_pChild);

@@ -90,10 +90,24 @@ void Actor::notifyDestroyed() {
         _pFormation->destroyedFollower(this);
     }
 }
-
+Checker* Actor::createChecker() {
+    return NEW Checker(this);
+}
 void Actor::appendChild(Actor* prm_pActor) {
-    //prm_pActor->_kind = prm_pActor->getDefaultKind();
+    //prm_pActor->_kind = prm_pActor->getCheckerKind();
     Element<Actor>::appendChild(prm_pActor);
+}
+kind_t Actor::getCheckerKind() {
+    if (_pChecker) {
+        return _pChecker->_kind;
+    } else {
+        return STAT_DEFAULT_ACTOR_KIND;
+    }
+
+}
+void Actor::setDefaultKind(kind_t prm_kind) {
+    getChecker()->_kind = prm_kind;
+    getStatus()->set(STAT_DEFAULT_ACTOR_KIND, prm_kind);
 }
 
 void Actor::dump() {

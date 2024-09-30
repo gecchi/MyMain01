@@ -79,7 +79,7 @@ void EnemyWateringLaserChip001::processJudgement() {
 
 void EnemyWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
-    if (getActiveFrame() <= 2 && (pOther->getDefaultKind() & KIND_CHIKEI)) {
+    if (getActiveFrame() <= 2 && (pOther->getCheckerKind() & KIND_CHIKEI)) {
         //出現2フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
         return;
     }

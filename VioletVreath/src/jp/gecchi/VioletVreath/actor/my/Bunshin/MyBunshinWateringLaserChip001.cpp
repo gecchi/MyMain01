@@ -560,7 +560,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;
 
 
-    if ((pOther->getDefaultKind() & KIND_ENEMY_BODY) ) {
+    if ((pOther->getCheckerKind() & KIND_ENEMY_BODY) ) {
         //ヒットエフェクト
         GgafDx::FigureActor* pE = UTIL::activateExplosionEffectOf(this, true); //爆発エフェクト出現
         //ロックオン可能アクターならロックオン
@@ -590,7 +590,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
             getPhase()->change(PHASE_T2);
         }
 
-    } else if (pOther->getDefaultKind() & KIND_CHIKEI) {
+    } else if (pOther->getCheckerKind() & KIND_CHIKEI) {
         //ヒットエフェクト
         GgafDx::FigureActor* pE = UTIL::activateExplosionEffectOf(this, true); //爆発エフェクト出現
         //地形相手は無条件さようなら

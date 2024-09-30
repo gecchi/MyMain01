@@ -760,7 +760,7 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
     }
 
     //•Ç‚Ìê‡“Á•Ê‚Èˆ—
-    if (pOther->getDefaultKind() & KIND_CHIKEI) {
+    if (pOther->getCheckerKind() & KIND_CHIKEI) {
         //‚Á”ò‚Ñ•ûŒü‚ðl‚¦‚éB
         //Œ»Ý‚ÌˆÚ“®‚Ì‹t•ûŒüi‚Á”ò‚ÑˆÐ—Í‚Í‚Q”{‚Éj
         double vx1,vy1,vz1;
@@ -997,7 +997,7 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
         setBlownVelo(vx3*PX_C(40), vy3*PX_C(40), vz3*PX_C(40), 0.8);
         setInvincibleFrames(120);
     }
-    if (pOther->getDefaultKind() & KIND_ITEM)  {
+    if (pOther->getCheckerKind() & KIND_ITEM)  {
     } else {
         UTIL::activateExplosionEffectOf(this);
         getSeXmtr()->play3D(SE_DAMAGED);

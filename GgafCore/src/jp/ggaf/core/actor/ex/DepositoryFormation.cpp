@@ -41,8 +41,10 @@ void DepositoryFormation::setFormationMember(ActorDepository* prm_pDepo) {
     _pDepo = prm_pDepo;
     _num_formation_member = _pDepo->getNumChild();
     //団長に種別を正しく伝えるためにデポジトリ種別引継ぎ
-    getStatus()->set(STAT_DEFAULT_ACTOR_KIND, _pDepo->getDefaultKind());
+    //getStatus()->set(STAT_DEFAULT_ACTOR_KIND, _pDepo->getCheckerKind());
     //TODO:↑必要だっただろうか、Treeじゃないので不要ではないか？？2015/02/20
+
+    //setDefaultKind(prm_pDepo->getCheckerKind());
 }
 
 void DepositoryFormation::processFinal() {
