@@ -17,7 +17,7 @@ void FkFormation::registerFormationFkBase(GeometricActor* prm_pFkBase) {
         //本フォーメーションオブジェクト自体の種別を確定
 //        getStatus()->set(STAT_DEFAULT_ACTOR_KIND,
 //                      prm_pFkBase->getCheckerKind());
-        setDefaultKind(prm_pFkBase->getCheckerKind());
+        //setDefaultKind(prm_pFkBase->getCheckerKind());
     } else {
 #ifdef MY_DEBUG
         if (getCheckerKind() != prm_pFkBase->getCheckerKind()) {

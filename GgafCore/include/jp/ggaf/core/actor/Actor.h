@@ -4,7 +4,7 @@
 #include "jp/ggaf/core/Element.hpp"
 #include "jp/ggaf/core/util/Status.h"
 
-#define STAT_DEFAULT_ACTOR_KIND 0
+//#define STAT_DEFAULT_ACTOR_KIND 0
 
 namespace GgafCore {
 
@@ -206,21 +206,22 @@ public:
         return _pStatus;
     }
 
-    /**
-     * アクターのデフォルトの種別を取得 .
-     * @return アクターのデフォルトの種別
-     */
-    virtual kind_t getDefaultKind() {
-        return (kind_t)getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND);
-    }
+//    /**
+//     * アクターのデフォルトの種別を取得 .
+//     * @return アクターのデフォルトの種別
+//     */
+//    virtual kind_t getDefaultKind() {
+//        return (kind_t)getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND);
+//    }
 
     virtual kind_t getCheckerKind();
 
-    /**
-     * アクターのデフォルトの種別を設定 .
-     * @param prm_kind アクターのデフォルトの種別
-     */
-    virtual void setDefaultKind(kind_t prm_kind);
+    virtual void setCheckerKind(kind_t prm_kind);
+//    /**
+//     * アクターのデフォルトの種別を設定 .
+//     * @param prm_kind アクターのデフォルトの種別
+//     */
+//    virtual void setDefaultKind(kind_t prm_kind);
 
     virtual Checker* getChecker() {
         if (!_pChecker) {

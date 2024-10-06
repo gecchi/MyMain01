@@ -81,7 +81,7 @@ void World::initialize() {
     WorldCollisionChecker::drawHitArea(nullptr);  //当たり判定領域表示用プリロード
 #endif
     pMousePointer_ = desireActor(MousePointer);
-    pMousePointer_->setDefaultKind(KIND_2DFIX_MOUSE_POINTER);
+    pMousePointer_->setCheckerKind(KIND_2DFIX_MOUSE_POINTER);
     getSceneChief()->appendChild(pMousePointer_);
 
     pLabel_debug_ = desireActor(LabelGecchi16Font, "DebugStr");

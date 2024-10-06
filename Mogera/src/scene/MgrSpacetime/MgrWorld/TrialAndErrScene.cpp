@@ -67,7 +67,7 @@ void TrialAndErrScene::processBehavior() {
 
         for (int i = 0; i < NN; i++) {
             aA[i] = (EffectExplosion004*)receiveActor(1000+i);
-            aA[i]->setDefaultKind(MGR_MIKATA);
+            aA[i]->setCheckerKind(MGR_MIKATA);
             getSceneChief()->appendChild(aA[i]);
             aA[i]->setPosition(PX_C(-200) + PX_C(i)*20, 0, 0);
         }

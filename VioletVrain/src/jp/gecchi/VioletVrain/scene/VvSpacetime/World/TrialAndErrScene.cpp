@@ -41,18 +41,18 @@ void TrialAndErrScene::processBehavior() {
 
         Test01* pTest = (Test01*)receiveActor(10000);
         pTest->setPosition(0,0,0);
-        pTest->setDefaultKind(VV_TEKI);
+        pTest->setCheckerKind(VV_TEKI);
         getSceneChief()->appendChild(pTest);
 
         Zako* pZako = (Zako*)receiveActor(10002);
         pZako->setPosition(PX_C(200), PX_C(200),0);
-        pZako->setDefaultKind(VV_TEKI);
+        pZako->setCheckerKind(VV_TEKI);
         getSceneChief()->appendChild(pZako);
 
         Jiki* pJiki = (Jiki*)receiveActor(10001);
         pJiki->setPosition(PX_C(100), PX_C(100),0);
 //        pJiki->setPosition(PX_C(100), PX_C(100),0);
-        pJiki->setDefaultKind(VV_MIKATA);
+        pJiki->setCheckerKind(VV_MIKATA);
         getSceneChief()->appendChild(pJiki);
     }
 

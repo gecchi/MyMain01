@@ -198,7 +198,7 @@ void MenuBoard::addItem(GgafDx::FigureActor* prm_pItem,
         pItem->getViewCollisionChecker()->addCollisionArea(1);
         pItem->getViewCollisionChecker()->setColliAABox(0, 0.95, 1.0); //‰¡95%Ac100%
         pItem->setHitAble(true);
-        pItem->setDefaultKind(KIND_2DFIX_MENU_ITEM);
+        pItem->setCheckerKind(KIND_2DFIX_MENU_ITEM);
     }
     DefaultFramedBoardMenu::addItem(prm_pItem, prm_x_local, prm_y_local, prm_z_local);
 }

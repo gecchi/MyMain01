@@ -29,7 +29,7 @@ public:
     Checker(Actor* prm_pActor);
 
     /**
-     * 自アクターと他アクターの１対１の当たり判定処理を行う。
+     * 自チェッカーと他チェッカーの１対１の当たり判定処理を行う。
      * @param prm_pOtherActor 他アクター
      */
     virtual void executeHitChk_MeAnd(Checker* prm_pOtherChecker) {
@@ -52,11 +52,11 @@ public:
      * 想定としては、processJudgement() メソッドを実装したクラスが、その中で本メソッドを呼び出すものとしている。<BR>
      * もしそのように実装した場合、相手アクターも processJudgement() でこちらのアクターとの衝突判定を行うことになれば、<BR>
      * 衝突判定処理重複することになる。どーしたらよいか考えること。<BR>
-     * @param	prm_pOtherActor	相手アクター
+     * @param	prm_pOtherChecker　相手チェッカー
      * @retval	true	衝突しているを返す事
      * @retval	false	衝突していないを返す事
      */
-    virtual bool processHitChkLogic(Checker* prm_pOtherActor) {
+    virtual bool processHitChkLogic(Checker* prm_pOtherChecker) {
         return false;
     }
 

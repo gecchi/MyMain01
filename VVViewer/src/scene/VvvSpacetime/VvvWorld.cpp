@@ -59,7 +59,7 @@ public:
         pChecker->addCollisionArea(1);
         pChecker->setColliAABox(0, 0.5);
         pHitActor_->setHitAble(true);
-        pHitActor_->setDefaultKind(KIND_ACTOR);
+        pHitActor_->setCheckerKind(KIND_ACTOR);
         T::appendChild(pHitActor_);
     }
 
@@ -112,8 +112,8 @@ VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 
 void VvvWorld::initialize() {
     pVvvMousePointer_ = desireActor(VvvMousePointer);
-//    pVvvMousePointer_->setDefaultKind(KIND_2DFIX_MOUSE_POINTER);
-    pVvvMousePointer_->setDefaultKind(KIND_POINTER);
+//    pVvvMousePointer_->setCheckerKind(KIND_2DFIX_MOUSE_POINTER);
+    pVvvMousePointer_->setCheckerKind(KIND_POINTER);
     getSceneChief()->appendChild(pVvvMousePointer_);
 
      pFont01_help_->setAlign(ALIGN_LEFT, VALIGN_TOP);
@@ -914,7 +914,7 @@ void VvvWorld::processDragAndDrop() {
             pChecker->addCollisionArea(1);
             pChecker->setColliSphere(0, DX_C(bound));
             pActor->setHitAble(true);
-            pActor->setDefaultKind(KIND_ACTOR);
+            pActor->setCheckerKind(KIND_ACTOR);
             getSceneChief()->appendChild(pActor);
             ActorInfo* pActorInfo = NEW ActorInfo(pActor, pChecker, string(VvvCaretaker::dropfiles_), ext == "MODELX" ? true : false);
             listActorInfo_.addLast(pActorInfo);
@@ -977,7 +977,7 @@ void VvvWorld::processDragAndDrop() {
             pNewActor->setPositionAt(pCurrentActor);
             pNewActor->setFaceAngAs(pCurrentActor);
             pNewActor->setScaleAt(pCurrentActor);
-            pNewActor->setDefaultKind(KIND_ACTOR);
+            pNewActor->setCheckerKind(KIND_ACTOR);
             getSceneChief()->appendChild(pNewActor);
 
             dxcoord new_bound = pNewActor->getModel()->_bounding_sphere_radius * pNewActor->_rate_of_bounding_sphere_radius;

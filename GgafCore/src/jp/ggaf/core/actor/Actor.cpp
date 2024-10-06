@@ -18,7 +18,7 @@ _pChecker(nullptr)
     _class_name = "Actor";
     _obj_class = Obj_ggaf_Actor;
     _pStatus = NEW Status();
-    getStatus()->set(STAT_DEFAULT_ACTOR_KIND, 0);
+   // getStatus()->set(STAT_DEFAULT_ACTOR_KIND, 0);
 #ifdef MY_DEBUG
     Actor::_num_actors++;
 #endif
@@ -94,21 +94,29 @@ Checker* Actor::createChecker() {
     return NEW Checker(this);
 }
 void Actor::appendChild(Actor* prm_pActor) {
-    //prm_pActor->_kind = prm_pActor->getCheckerKind();
+    kind_t kind = getCheckerKind();
+    _pChecker->_kind = kind;
     Element<Actor>::appendChild(prm_pActor);
 }
 kind_t Actor::getCheckerKind() {
     if (_pChecker) {
         return _pChecker->_kind;
     } else {
-        return STAT_DEFAULT_ACTOR_KIND;
+        _pChecker = createChecker();
+        return _pChecker->_kind;
     }
-
 }
-void Actor::setDefaultKind(kind_t prm_kind) {
-    getChecker()->_kind = prm_kind;
-    getStatus()->set(STAT_DEFAULT_ACTOR_KIND, prm_kind);
+void Actor::setCheckerKind(kind_t prm_kind) {
+    if (_pChecker) {
+        _pChecker->_kind = prm_kind;
+    } else {
+        getChecker()->_kind = prm_kind;
+    }
 }
+//void Actor::setDefaultKind(kind_t prm_kind) {
+//    getChecker()->_kind = prm_kind;
+//    getStatus()->set(STAT_DEFAULT_ACTOR_KIND, prm_kind);
+//}
 
 void Actor::dump() {
     _TRACE_("\t\t\t\t\t\t\t\t"<<NODE_INFO<<DUMP_FLGS);

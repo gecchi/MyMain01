@@ -7,6 +7,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 
+#define STAT_DEFAULT_ACTOR_KIND (0)
 
 namespace VioletVreath {
 
@@ -19,7 +20,8 @@ public:
         : T(prm_name, prm_model) {
         if (prm_pFuncResetStatus) {
             T::getStatus()->reset((GgafCore::Status * (*)(GgafCore::Status*))prm_pFuncResetStatus);
-            T::_pChecker->_kind = T::getDefaultKind();
+            kind_t kind = (kind_t)getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND);
+            T::setCheckerKind(kind);
         }
         else {
             T::getStatus()->reset(StatusReset(Default));
