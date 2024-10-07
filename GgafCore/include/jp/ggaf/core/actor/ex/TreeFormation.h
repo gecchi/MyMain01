@@ -30,6 +30,7 @@ private:
     /** [r]calledUpMember()用のカーソル */
     Actor* _pIte;
     bool _can_called_up;
+    /** [r]メンバー追加が行われたかどうか */
     bool _is_append_member_experienced;
 
 public:

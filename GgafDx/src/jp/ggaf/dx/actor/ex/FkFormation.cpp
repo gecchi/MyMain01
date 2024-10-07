@@ -20,11 +20,12 @@ void FkFormation::registerFormationFkBase(GeometricActor* prm_pFkBase) {
         //setDefaultKind(prm_pFkBase->getCheckerKind());
     } else {
 #ifdef MY_DEBUG
-        if (getCheckerKind() != prm_pFkBase->getCheckerKind()) {
-            throwCriticalException("異なる種別のFKベースアクターを登録しようとしています。 \n"
-                                       "想定="<<getCheckerKind()<<"[_pChildFirst="<<_pChildFirst->getName()<<"] \n"
-                                       "引数="<<prm_pFkBase->getCheckerKind()<<"["<<prm_pFkBase->getName()<<"]");
-        }
+        throwCriticalException("registerFormationFkBase 既に FkBase 追加されてます！_pChildFirst="<<_pChildFirst->getName()<<" prm_pFkBase="<<prm_pFkBase>getName() );
+//        if (getCheckerKind() != prm_pFkBase->getCheckerKind()) {
+//            throwCriticalException("異なる種別のFKベースアクターを登録しようとしています。 \n"
+//                                       "想定="<<getCheckerKind()<<"[_pChildFirst="<<_pChildFirst->getName()<<"] \n"
+//                                       "引数="<<prm_pFkBase->getCheckerKind()<<"["<<prm_pFkBase->getName()<<"]");
+//        }
 #endif
     }
     GgafCore::Formation::appendChild(prm_pFkBase);
@@ -68,6 +69,7 @@ void FkFormation::processFinal() {
         if (pFkBase) {
             if (pFkBase->getChildFirst() == nullptr) { //FKベースの配下がなければ
                 pFkBase->sayonara(); //FKベースを開放
+                //TODO:イベントを作るか？FKベースだけ残された場合、FKベースが先に倒された場合、全消失とか
             }
         } else {
             //配下のFKベースがない場合、フォーメーションはなかったことになり、自身を終了

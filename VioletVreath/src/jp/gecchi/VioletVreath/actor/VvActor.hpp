@@ -20,7 +20,7 @@ public:
         : T(prm_name, prm_model) {
         if (prm_pFuncResetStatus) {
             T::getStatus()->reset((GgafCore::Status * (*)(GgafCore::Status*))prm_pFuncResetStatus);
-            kind_t kind = (kind_t)getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND);
+            kind_t kind = (kind_t)(T::getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND));
             T::setCheckerKind(kind);
         }
         else {
