@@ -20,7 +20,8 @@ void FkFormation::registerFormationFkBase(GeometricActor* prm_pFkBase) {
         //setDefaultKind(prm_pFkBase->getCheckerKind());
     } else {
 #ifdef MY_DEBUG
-        throwCriticalException("registerFormationFkBase 既に FkBase 追加されてます！_pChildFirst="<<_pChildFirst->getName()<<" prm_pFkBase="<<prm_pFkBase>getName() );
+        throwCriticalException("registerFormationFkBase 既に FkBase 追加されてます！\n"<<
+                "_pChildFirst="<<_pChildFirst->getName()<<"   prm_pFkBase="<<prm_pFkBase->getName() );
 //        if (getCheckerKind() != prm_pFkBase->getCheckerKind()) {
 //            throwCriticalException("異なる種別のFKベースアクターを登録しようとしています。 \n"
 //                                       "想定="<<getCheckerKind()<<"[_pChildFirst="<<_pChildFirst->getName()<<"] \n"
