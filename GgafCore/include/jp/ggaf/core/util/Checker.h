@@ -38,8 +38,8 @@ public:
         } else {
             //ヒットできる物どうかの判定は事前にすんでいるようにする事。
             if (processHitChkLogic(prm_pOtherChecker)) { //自身のヒットチェック
-                _pActor->onHit(prm_pOtherChecker->_pActor); //自分のヒット時の振る舞い
-                prm_pOtherChecker->_pActor->onHit(_pActor); //相手のヒット時の振る舞い
+                _pActor->onHit(prm_pOtherChecker, prm_pOtherChecker->_pActor); //自分のヒット時の振る舞い
+                prm_pOtherChecker->_pActor->onHit(this, _pActor); //相手のヒット時の振る舞い
             }
         }
     }

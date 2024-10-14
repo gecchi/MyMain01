@@ -225,7 +225,7 @@ void EnemyDelheid::processJudgement() {
     }
 }
 
-void EnemyDelheid::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void EnemyDelheid::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     if (getMorphWeight(MPH_OPEN) > 0.1) {
         bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
         if (is_stamina_zero) {

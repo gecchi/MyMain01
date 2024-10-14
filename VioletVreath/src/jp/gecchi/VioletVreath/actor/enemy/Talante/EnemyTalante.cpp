@@ -169,7 +169,7 @@ void EnemyTalante::processJudgement() {
     }
 }
 
-void EnemyTalante::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void EnemyTalante::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     if (getActiveFrame() < 30 && (pOther->getCheckerKind() & KIND_CHIKEI)) {
          //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）

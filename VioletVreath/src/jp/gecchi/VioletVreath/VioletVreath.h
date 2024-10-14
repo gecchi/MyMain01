@@ -99,7 +99,9 @@ enum {
     STAT_EntryEffectKind,                 //出現エフェクト種別
     STAT_LeaveEffectKind,                 //退出エフェクト種別
     STAT_ExplosionEffectKind,             //爆発エフェクト種別
+    STAT_ExplosionSeKind,                 //爆発SE種別
     STAT_DamagedEffectKind,               //ダメージ時エフェクト種別
+    STAT_DamagedSeKind,                   //ダメージ時Se種別
     STAT_DestroyedEffectKind,             //やられエフェクト種別
     STAT_ItemKind,                        //やられアイテム種別
     STAT_ProperEffect01Kind,              //その他固有エフェクト０１

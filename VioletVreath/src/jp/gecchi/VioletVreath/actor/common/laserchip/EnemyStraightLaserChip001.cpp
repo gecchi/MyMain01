@@ -32,7 +32,7 @@ void EnemyStraightLaserChip001::processJudgement() {
     }
 }
 
-void EnemyStraightLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void EnemyStraightLaserChip001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     if (getActiveFrame() <= 2 && (pOther->getCheckerKind() & KIND_CHIKEI)) {
         //出現2フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）

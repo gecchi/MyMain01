@@ -37,7 +37,7 @@ void TestChokiShot::processJudgement() {
     }
 }
 
-void TestChokiShot::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void TestChokiShot::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     setHitAble(false);
     UTIL::activateExplosionEffectOf(this);
     sayonara();

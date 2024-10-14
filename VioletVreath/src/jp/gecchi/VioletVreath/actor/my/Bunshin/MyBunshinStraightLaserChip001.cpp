@@ -111,7 +111,7 @@ void MyBunshinStraightLaserChip001::processJudgement() {
     }
 }
 
-void MyBunshinStraightLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void MyBunshinStraightLaserChip001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;
     //ヒットエフェクト
     GgafDx::FigureActor* pE = UTIL::activateExplosionEffectOf(this, true); //爆発エフェクト出現

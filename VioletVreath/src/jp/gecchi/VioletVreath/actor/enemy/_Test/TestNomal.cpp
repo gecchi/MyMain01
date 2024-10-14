@@ -37,7 +37,7 @@ void TestNomal::processJudgement() {
     }
 }
 
-void TestNomal::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void TestNomal::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
 _TRACE_(FUNC_NAME<<" !");
 
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);

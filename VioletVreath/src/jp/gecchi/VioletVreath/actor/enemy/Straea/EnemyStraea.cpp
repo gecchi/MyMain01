@@ -241,7 +241,7 @@ void EnemyStraea::processJudgement() {
     }
 }
 
-void EnemyStraea::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void EnemyStraea::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     static uint32_t spritedoller[24] = {
                                      6144      ,       //  000000000001100000000000
                                      14336     ,       //  000000000011100000000000

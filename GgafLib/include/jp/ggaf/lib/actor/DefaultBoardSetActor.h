@@ -62,7 +62,7 @@ public:
 //        return false;
 //    }
 
-    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     virtual void drawHitArea() override;

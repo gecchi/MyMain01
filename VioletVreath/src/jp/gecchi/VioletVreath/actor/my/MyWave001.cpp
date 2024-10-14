@@ -83,7 +83,7 @@ void MyWave001::processJudgement() {
 }
 
 
-void MyWave001::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void MyWave001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     //_TRACE_(FUNC_NAME<<" ショットがヒットしました");
     //_TRACE_("MyWave001ヒットしました。("<<_x<<","<<_y<<")");
     sayonara();

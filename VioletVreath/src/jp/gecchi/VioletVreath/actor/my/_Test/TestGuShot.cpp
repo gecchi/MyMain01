@@ -40,7 +40,7 @@ void TestGuShot::processJudgement() {
     }
 }
 
-void TestGuShot::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void TestGuShot::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     setHitAble(false);
     UTIL::activateExplosionEffectOf(this);
     sayonara();

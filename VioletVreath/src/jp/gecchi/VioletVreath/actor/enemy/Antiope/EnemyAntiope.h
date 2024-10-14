@@ -58,7 +58,7 @@ public:
      * アンティオペの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
-    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) override;
 
     void onInactive() override;
 

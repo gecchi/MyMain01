@@ -22,6 +22,9 @@ public:
             T::getStatus()->reset((GgafCore::Status * (*)(GgafCore::Status*))prm_pFuncResetStatus);
             kind_t kind = (kind_t)(T::getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND));
             T::setCheckerKind(kind);
+
+            //”š”­SEBƒ_ƒ[ƒWSE“o˜^ TODO:SE”­¶‚Ìˆ—
+            MyStgUtil::registerCommonSeOf(this);
         }
         else {
             T::getStatus()->reset(StatusReset(Default));

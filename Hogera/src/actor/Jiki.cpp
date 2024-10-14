@@ -95,7 +95,7 @@ void Jiki::processJudgement() {
 void Jiki::onInactive() {
 }
 
-void Jiki::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void Jiki::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     _TRACE_("Jiki::onHit!"<<prm_pOtherActor->getName()<<"");
 }
 

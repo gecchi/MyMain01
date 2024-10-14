@@ -24,7 +24,7 @@ private:
 
 public:
     /** [r/w]各SE（配列）の、擬似3D再生かどうかの情報を保持 */
-    std::vector<int> _vec_is_playing_3d;
+    std::map<t_se_id, int> _map_is_playing_3d;
     //0:3D再生していない
     //1:3D再生しているが、音がまだなっていない（遠距離演出の遅延中、サウンドバッファにデータがない）
     //2:3D再生してるし、音が鳴っている。
@@ -49,35 +49,42 @@ public:
      * チャンネル数は、引数の prm_se_key+"_CH" というプロパティ値が参照される。
      * 存在しない場合、再生チャンネル番号は0固定(∴チャンネル数は1)
      * 設定済みIDに、上書き再設定可能。
-     * @param se_no SE登録番号 ( 0 ～ SE数-1 )
+     * @param se_id SE登録ID
      * @param prm_se_key SE定義名（プロパティファイルのキー）
      */
-    void set(int prm_se_no, const char* prm_se_key);
+    void set(t_se_id prm_se_id, const char* prm_se_key);
+
+    /**
+     * SEの設定を行う .
+     * @param prm_se_key SE定義名（プロパティファイルのキー）
+     * @return SE登録ID
+     */
+    t_se_id set(const char* prm_se_key);
 
     /**
      * SEの設定を行う .
      * 但し、SEの再生時間は CONFIG::END_DELAY_FRAME+(最大距離遅延) フレーム以内でなければいけない。
      * 上書き再設定可能。
-     * @param se_no SE登録番号 ( 0 ～ SE数-1 )
+     * @param se_id SE登録ID
      * @param prm_se_key SE定義名（プロパティファイルのキー）
      * @param prm_cannel 再生チャンネル番号
      */
-    void set(int prm_se_no, const char* prm_se_key, int prm_cannel) override;
+    void set(t_se_id prm_se_id, const char* prm_se_key, int prm_cannel) override;
 
     /**
      * 即座にSEを再生する(擬似３D無し)。
-     * @param prm_se_no SE登録番号 ( 0 ～ SE数-1 )
+     * @param prm_se_id SE登録ID
      */
-    void play(int prm_se_no, bool prm_can_looping = false) override;
+    void play(t_se_id prm_se_id, bool prm_can_looping = false) override;
 
     /**
      * SEの擬似３D再生 .
      * オブジェクトの座標とカメラの座標から、左右のパン。<BR>
      * 距離に応じてのボリューム減少と、遅延再生を行う。<BR>
      * さらに behave() を毎フレーム呼び出しておくと、効果音発声中の移動も擬似３D効果を得る。<BR>
-     * @param prm_se_no SE登録番号 ( 0 ～ SE数-1 )
+     * @param prm_se_id SE登録ID
      */
-    void play3D(int prm_se_no, bool prm_can_looping = false);
+    void play3D(t_se_id prm_se_id, bool prm_can_looping = false);
 
     /**
      * 擬似３D効果再生の毎フレームの処理 .

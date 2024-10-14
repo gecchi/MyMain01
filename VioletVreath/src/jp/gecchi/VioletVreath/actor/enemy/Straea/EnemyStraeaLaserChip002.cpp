@@ -70,7 +70,7 @@ void EnemyStraeaLaserChip002::processJudgement() {
     }
 }
 
-void EnemyStraeaLaserChip002::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void EnemyStraeaLaserChip002::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
 //    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
 //    //ƒqƒbƒgŽž
 //

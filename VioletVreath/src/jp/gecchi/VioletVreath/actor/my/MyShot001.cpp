@@ -43,7 +43,7 @@ void MyShot001::processJudgement() {
     }
 }
 
-void MyShot001::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void MyShot001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     if (pOther->getCheckerKind() & KIND_CHIKEI) {
         //ヒット相手が地形ならば自機の大きさで判定し、ヒットしなければ消失しない

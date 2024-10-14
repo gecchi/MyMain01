@@ -230,7 +230,7 @@ void MyTorpedo::processJudgement() {
 void MyTorpedo::onInactive() {
 }
 
-void MyTorpedo::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void MyTorpedo::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     //ƒqƒbƒgŽž’ÊŠÑ‚Í‚µ‚Ü‚¹‚ñ
     int sta = calcStamina(pOther);

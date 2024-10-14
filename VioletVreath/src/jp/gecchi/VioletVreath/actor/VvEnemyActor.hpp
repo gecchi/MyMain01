@@ -2,6 +2,9 @@
 #define VVENEMYACTOR_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "VvActor.hpp"
+
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
 namespace VioletVreath {
 
@@ -16,6 +19,9 @@ public:
             throwCriticalException("KIND_ENEMRY と、ステータスが異なっています。name="<<prm_name);
         }
 #endif
+        GgafCore::Status* pStatus = T::getStatus();
+        GgafDx::SeTransmitterForActor* pSeXmtr = T::getSeXmtr();
+
     }
 
     /**

@@ -128,7 +128,7 @@ void EnemyErelmanCore::processJudgement() {
     }
 }
 
-void EnemyErelmanCore::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void EnemyErelmanCore::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     pController_->onCoreHit();
     if (is_stamina_zero) {

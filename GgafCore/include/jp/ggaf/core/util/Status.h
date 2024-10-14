@@ -26,6 +26,7 @@ class Status : public Object {
       unsigned int _uint_val;
       double _double_val;
       bool _bool_val;
+      const char* _p_cstr;
       void* _ptr;
     };
 
@@ -74,12 +75,20 @@ public:
         _value[prm_status_kind]._bool_val = val;
     }
 
+    inline void set(const int prm_status_kind, const char* p) {
+        if (_value.size() <= (size_t)(prm_status_kind)) {
+            _value.resize((size_t)prm_status_kind+1);
+        }
+        _value[prm_status_kind]._p_cstr = p;
+    }
+
     inline void set(const int prm_status_kind, void* p) {
         if (_value.size() <= (size_t)(prm_status_kind)) {
             _value.resize((size_t)prm_status_kind+1);
         }
         _value[prm_status_kind]._ptr = p;
     }
+
 
     inline int plus(const int prm_status_kind, const int val) {
 #ifdef MY_DEBUG
@@ -178,6 +187,15 @@ public:
         }
 #endif
         return _value[prm_status_kind]._bool_val;
+    }
+
+    inline const char* getCstr(const int prm_status_kind) const {
+#ifdef MY_DEBUG
+        if (_value.size() <= (size_t)(prm_status_kind)) {
+            throwCriticalException("要素オーバー、prm_status_kind="<<prm_status_kind);
+        }
+#endif
+        return _value[prm_status_kind]._p_cstr;
     }
 
     inline void* getPtr(const int prm_status_kind) const {

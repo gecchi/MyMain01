@@ -24,9 +24,9 @@ public:
     /** [r]Bgm資源接続 */
     std::vector<BgmConnection*>  _vecBgmConnection;
     /** [r]BGMのボリューム配列(添字はBGM番号) */
-    std::vector<double> _vec_volume;
+    std::vector<double> _map_volume;
     /** [r]BGMのパン値(添字はBGM番号) */
-    std::vector<float> _vec_pan;
+    std::vector<float> _map_pan;
     /** [r]フェードターゲットボリュームの配列(添字はチャンネル) */
     std::vector<double> _vec_target_volume;
     /** [r]ボリューム加算値の配列(添字はチャンネル) */
@@ -69,7 +69,7 @@ public:
      * @return ボリューム値(0 ～ 1000)
      */
     virtual int getVolume(int prm_bgm_no) {
-        return _vec_volume[prm_bgm_no];
+        return _map_volume[prm_bgm_no];
     }
 
     /**
@@ -80,7 +80,7 @@ public:
      * @return
      */
     virtual void addVolume(int prm_bgm_no, double prm_volume) {
-        setVolume(prm_bgm_no, _vec_volume[prm_bgm_no] + prm_volume);
+        setVolume(prm_bgm_no, _map_volume[prm_bgm_no] + prm_volume);
     }
 
     /**
@@ -96,7 +96,7 @@ public:
      * @return
      */
     virtual float getPan(int prm_bgm_no) {
-        return _vec_pan[prm_bgm_no];
+        return _map_pan[prm_bgm_no];
     }
 
     /**

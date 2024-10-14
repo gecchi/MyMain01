@@ -17,7 +17,7 @@ public:
 
     void processJudgement() override;
 
-    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) override;
 
     virtual ~EnemyRatislaviaEyeStraightLaserChip001();
 

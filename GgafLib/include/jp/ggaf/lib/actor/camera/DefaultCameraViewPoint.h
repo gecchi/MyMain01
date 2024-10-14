@@ -38,7 +38,7 @@ public:
     virtual void processFinal() override {
     }
 
-    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     void slideMvTo(coord tx, coord ty, coord tz, frame t, double prm_p1, double prm_p2);

@@ -45,7 +45,7 @@ public:
 
     virtual void processJudgement() override;
 
-    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override;
+    virtual void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) override;
 
     virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override;
 

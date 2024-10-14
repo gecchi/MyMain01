@@ -6,6 +6,7 @@
 #include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/util/CollisionChecker.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinWateringLaserChip001.h"
@@ -26,6 +27,7 @@ bool MyStgUtil::_was_MyStgUtil_inited_flg = false;
 double MyStgUtil::SMOOTH_DV[3600+1];
 angle MyStgUtil::GOLDEN_ANG[1000];
 double MyStgUtil::SHOT_POWER[300+1];
+std::map<int, const char*> MyStgUtil::_mapSeId;
 
 void MyStgUtil::init() {
     StgUtil::init();
@@ -66,6 +68,20 @@ void MyStgUtil::init() {
         double x = (double)f;
         SHOT_POWER[f] = (3.0 / ( (x/5.0) + 1 ) ) + 0.5;
     }
+
+//    enum SeKind {
+//        SE_NOTHING,
+//        SE_EXPLOSION_001 = 10000,
+//        SE_EXPLOSION_002,
+//        SE_EXPLOSION_MIDDLE_001,
+//        SE_ENEMY_DAMAGED_001,
+//    };
+
+    MyStgUtil::_mapSeId[SE_EXPLOSION_001] = "SE_EXPLOSION_001";
+    MyStgUtil::_mapSeId[SE_EXPLOSION_002] = "SE_EXPLOSION_002";
+    MyStgUtil::_mapSeId[SE_EXPLOSION_MIDDLE_001] = "SE_EXPLOSION_MIDDLE_001";
+    MyStgUtil::_mapSeId[SE_ENEMY_DAMAGED_001] = "SE_ENEMY_DAMAGED_001";
+
     MyStgUtil::_was_MyStgUtil_inited_flg = true;
 
 }
@@ -242,6 +258,19 @@ int MyStgUtil::judgeAdvantage(uint32_t attribute_this, uint32_t attribute_opp) {
     return ret;
 }
 
+void MyStgUtil::activateExplosionSoundOf(GgafCore::Actor* prm_pActor) {
+    GgafCore::Status* pPrmActorStatus = prm_pActor->getStatus();
+    GgafDx::GeometricActor* pTargetActor = nullptr;
+    if (prm_pActor->instanceOf(Obj_GgafDx_GeometricActor)) {
+        pTargetActor = (GgafDx::GeometricActor*)prm_pActor;
+    } else if (prm_pActor->instanceOf(Obj_ggaf_Formation)) {
+        return;
+    }
+    int explosion_se_id = pPrmActorStatus->get(STAT_ExplosionSeKind);
+    if (explosion_se_id != SE_NOTHING) {
+        pTargetActor->getSeXmtr()->play3D((t_se_id)explosion_se_id);
+    }
+}
 
 GgafDx::FigureActor* MyStgUtil::activateExplosionEffectOf(GgafCore::Actor* prm_pActor, bool prm_is_adjust_part) {
     GgafDx::FigureActor* pE = nullptr;
@@ -869,7 +898,16 @@ GgafDx::FigureActor* MyStgUtil::activateProperEffect01Of(GgafDx::GeometricActor*
 //    return pEffect;
 //}
 
-
+void MyStgUtil::registerCommonSeOf(GgafDx::GeometricActor* prm_pActor) {
+    t_se_id se_id = prm_pActor->getStatus()->get(STAT_ExplosionSeKind);
+    if (se_id != SE_NOTHING) {
+        prm_pActor->getSeXmtr()->set(se_id, MyStgUtil::_mapSeId[se_id]);
+    }
+    se_id = prm_pActor->getStatus()->get(STAT_DamagedSeKind);
+    if (se_id != SE_NOTHING) {
+        prm_pActor->getSeXmtr()->set(se_id, MyStgUtil::_mapSeId[se_id]);
+    }
+}
 // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
 // コード変更は「ステータスCreater.xls」から行うこと。
 // gen02 start
@@ -892,7 +930,9 @@ GgafCore::Status* MyStgUtil::resetDefaultStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_NOTHING);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_NOTHING);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -921,7 +961,9 @@ GgafCore::Status* MyStgUtil::resetMyShipStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
@@ -950,7 +992,9 @@ GgafCore::Status* MyStgUtil::resetMyShot001Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -979,7 +1023,9 @@ GgafCore::Status* MyStgUtil::resetMySnipeShot001Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1008,7 +1054,9 @@ GgafCore::Status* MyStgUtil::resetMyMagicEnergyCoreStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_NOTHING);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_NOTHING);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1037,7 +1085,9 @@ GgafCore::Status* MyStgUtil::resetMyStraightLaserChip001Status(GgafCore::Status*
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1066,7 +1116,9 @@ GgafCore::Status* MyStgUtil::resetMyBunshinStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1095,7 +1147,9 @@ GgafCore::Status* MyStgUtil::resetMyBunshinShot001Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1124,7 +1178,9 @@ GgafCore::Status* MyStgUtil::resetMyBunshinSnipeShot001Status(GgafCore::Status* 
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1153,7 +1209,9 @@ GgafCore::Status* MyStgUtil::resetMyBunshinStraightLaserChip001Status(GgafCore::
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1182,7 +1240,9 @@ GgafCore::Status* MyStgUtil::resetMyBunshinWateringLaserChip001Status(GgafCore::
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1211,7 +1271,9 @@ GgafCore::Status* MyStgUtil::resetMyTorpedoStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1240,7 +1302,9 @@ GgafCore::Status* MyStgUtil::resetMyTorpedoBlastStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_EXPLOSION001);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1269,7 +1333,9 @@ GgafCore::Status* MyStgUtil::resetShot001Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1298,7 +1364,9 @@ GgafCore::Status* MyStgUtil::resetShot002Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1327,7 +1395,9 @@ GgafCore::Status* MyStgUtil::resetShot003Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1356,7 +1426,9 @@ GgafCore::Status* MyStgUtil::resetShot004Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1385,7 +1457,9 @@ GgafCore::Status* MyStgUtil::resetEnemyStraightLaserChip001Status(GgafCore::Stat
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1414,7 +1488,9 @@ GgafCore::Status* MyStgUtil::resetEnemyWateringLaserChip001Status(GgafCore::Stat
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1443,7 +1519,9 @@ GgafCore::Status* MyStgUtil::resetEnemyEresStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1472,7 +1550,9 @@ GgafCore::Status* MyStgUtil::resetEnemyEresShot001Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1501,7 +1581,9 @@ GgafCore::Status* MyStgUtil::resetEnemyStraeaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_MIDDLE001);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1530,7 +1612,9 @@ GgafCore::Status* MyStgUtil::resetEnemyStraeaLaserChip001Status(GgafCore::Status
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1559,7 +1643,9 @@ GgafCore::Status* MyStgUtil::resetEnemyStraeaLaserChip002Status(GgafCore::Status
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1588,7 +1674,9 @@ GgafCore::Status* MyStgUtil::resetEnemyStraeaLaserChip003Status(GgafCore::Status
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1617,7 +1705,9 @@ GgafCore::Status* MyStgUtil::resetEnemyStraeaLaserChip004Status(GgafCore::Status
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1646,7 +1736,9 @@ GgafCore::Status* MyStgUtil::resetEnemyOmulusStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1675,7 +1767,9 @@ GgafCore::Status* MyStgUtil::resetEnemyEmusStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1704,7 +1798,9 @@ GgafCore::Status* MyStgUtil::resetEnemyEmusLaserChip001Status(GgafCore::Status* 
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1733,7 +1829,9 @@ GgafCore::Status* MyStgUtil::resetEnemyEtisStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_MIDDLE);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1762,7 +1860,9 @@ GgafCore::Status* MyStgUtil::resetEnemyRisStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1791,7 +1891,9 @@ GgafCore::Status* MyStgUtil::resetFormationRis001Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_MIDDLE_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS_FORMATION);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_MIDDLE);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1820,7 +1922,9 @@ GgafCore::Status* MyStgUtil::resetFormationRis002Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_MIDDLE_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS_FORMATION);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_MIDDLE);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1849,7 +1953,9 @@ GgafCore::Status* MyStgUtil::resetEnemyGeriaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F60);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1878,7 +1984,9 @@ GgafCore::Status* MyStgUtil::resetEnemyHaliaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F90);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1907,7 +2015,9 @@ GgafCore::Status* MyStgUtil::resetFormationHaliaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_MIDDLE_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS_FORMATION);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_MIDDLE);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1936,7 +2046,9 @@ GgafCore::Status* MyStgUtil::resetEnemyTamago01Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1965,7 +2077,9 @@ GgafCore::Status* MyStgUtil::resetEnemyIrceStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -1994,7 +2108,9 @@ GgafCore::Status* MyStgUtil::resetEnemyRatislaviaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2023,7 +2139,9 @@ GgafCore::Status* MyStgUtil::resetEnemyAllasStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2052,7 +2170,9 @@ GgafCore::Status* MyStgUtil::resetFormationAllas001Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_MIDDLE_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS_FORMATION);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_MIDDLE);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2081,7 +2201,9 @@ GgafCore::Status* MyStgUtil::resetFormationAllas002Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_MIDDLE_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS_FORMATION);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_MIDDLE);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2110,7 +2232,9 @@ GgafCore::Status* MyStgUtil::resetEnemyUnomiaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2139,7 +2263,9 @@ GgafCore::Status* MyStgUtil::resetFormationUnomia001Status(GgafCore::Status* p) 
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_MIDDLE_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS_FORMATION);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_MIDDLE);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2168,7 +2294,9 @@ GgafCore::Status* MyStgUtil::resetFormationUnomia002Status(GgafCore::Status* p) 
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_MIDDLE_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS_FORMATION);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_MIDDLE);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2197,7 +2325,9 @@ GgafCore::Status* MyStgUtil::resetEnemyEmiliaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2226,7 +2356,9 @@ GgafCore::Status* MyStgUtil::resetEnemyEmiliaFragmentStatus(GgafCore::Status* p)
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2255,7 +2387,9 @@ GgafCore::Status* MyStgUtil::resetEnemyEmiliaFragment2Status(GgafCore::Status* p
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2284,7 +2418,9 @@ GgafCore::Status* MyStgUtil::resetEnemyEmiliaFragment3Status(GgafCore::Status* p
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2313,7 +2449,9 @@ GgafCore::Status* MyStgUtil::resetMagicPointItem001Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2342,7 +2480,9 @@ GgafCore::Status* MyStgUtil::resetMagicPointItem002Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2371,7 +2511,9 @@ GgafCore::Status* MyStgUtil::resetMagicPointItem003Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2400,7 +2542,9 @@ GgafCore::Status* MyStgUtil::resetScoreItem001Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2429,7 +2573,9 @@ GgafCore::Status* MyStgUtil::resetVreathItem001Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2458,7 +2604,9 @@ GgafCore::Status* MyStgUtil::resetEnemyEbeStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2487,7 +2635,9 @@ GgafCore::Status* MyStgUtil::resetFormationEbe001Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_MIDDLE_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS_FORMATION);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_MIDDLE);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2516,7 +2666,9 @@ GgafCore::Status* MyStgUtil::resetEnemyHisbeStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2545,7 +2697,9 @@ GgafCore::Status* MyStgUtil::resetEnemyHisbe002Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2574,7 +2728,9 @@ GgafCore::Status* MyStgUtil::resetEnemyHisbeLaserChip001Status(GgafCore::Status*
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2603,7 +2759,9 @@ GgafCore::Status* MyStgUtil::resetEnemyHisbeLaserChip002Status(GgafCore::Status*
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2632,7 +2790,9 @@ GgafCore::Status* MyStgUtil::resetEnemyHisbeLaserChip003Status(GgafCore::Status*
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2661,7 +2821,9 @@ GgafCore::Status* MyStgUtil::resetEnemyDrasteaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2690,7 +2852,9 @@ GgafCore::Status* MyStgUtil::resetEnemyTalanteStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2719,7 +2883,9 @@ GgafCore::Status* MyStgUtil::resetEnemyEsperiaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_MIDDLE001);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION002);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2748,7 +2914,9 @@ GgafCore::Status* MyStgUtil::resetEnemyEsperiaLaserChip001Status(GgafCore::Statu
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2777,7 +2945,9 @@ GgafCore::Status* MyStgUtil::resetTestGuStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2806,7 +2976,9 @@ GgafCore::Status* MyStgUtil::resetTestChokiStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2835,7 +3007,9 @@ GgafCore::Status* MyStgUtil::resetTestPaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2864,7 +3038,9 @@ GgafCore::Status* MyStgUtil::resetTestNomalStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2893,7 +3069,9 @@ GgafCore::Status* MyStgUtil::resetTestGuShotStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2922,7 +3100,9 @@ GgafCore::Status* MyStgUtil::resetTestChokiShotStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2951,7 +3131,9 @@ GgafCore::Status* MyStgUtil::resetTestPaShotStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -2980,7 +3162,9 @@ GgafCore::Status* MyStgUtil::resetTestNomalShotStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3009,7 +3193,9 @@ GgafCore::Status* MyStgUtil::resetEnemyRatislaviaEyeStatus(GgafCore::Status* p) 
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_LARGE);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3038,7 +3224,9 @@ GgafCore::Status* MyStgUtil::resetEnemyRatislaviaEyeStraightLaserChip001Status(G
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3067,7 +3255,9 @@ GgafCore::Status* MyStgUtil::resetEnemyErmioneStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
@@ -3096,7 +3286,9 @@ GgafCore::Status* MyStgUtil::resetEnemyErmioneArmHeadStatus(GgafCore::Status* p)
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_DAMAGED001);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
@@ -3125,7 +3317,9 @@ GgafCore::Status* MyStgUtil::resetEnemyErmioneArmBodyStatus(GgafCore::Status* p)
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_DAMAGED001);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
@@ -3154,7 +3348,9 @@ GgafCore::Status* MyStgUtil::resetEnemyErmioneArmWeakStatus(GgafCore::Status* p)
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_DAMAGED001);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_TURBO);  //その他固有エフェクト０１
@@ -3183,7 +3379,9 @@ GgafCore::Status* MyStgUtil::resetEnemyApphoStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_LONG);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3212,7 +3410,9 @@ GgafCore::Status* MyStgUtil::resetFormationAppho001Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_MIDDLE_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS_FORMATION);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_MIDDLE);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3241,7 +3441,9 @@ GgafCore::Status* MyStgUtil::resetEnemyAntiopeStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3270,7 +3472,9 @@ GgafCore::Status* MyStgUtil::resetEnemyDelheidStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3299,7 +3503,9 @@ GgafCore::Status* MyStgUtil::resetFormationDelheid001Status(GgafCore::Status* p)
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_MIDDLE_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS_FORMATION);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_MIDDLE);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3328,7 +3534,9 @@ GgafCore::Status* MyStgUtil::resetEnemyAlisanaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_LARGE001);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_LARGE001);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3357,7 +3565,9 @@ GgafCore::Status* MyStgUtil::resetEnemyIdaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3386,7 +3596,9 @@ GgafCore::Status* MyStgUtil::resetEnemyThagorasStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3415,7 +3627,9 @@ GgafCore::Status* MyStgUtil::resetEnemyOrtunaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3444,7 +3658,9 @@ GgafCore::Status* MyStgUtil::resetFormationOrtuna001Status(GgafCore::Status* p) 
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_MIDDLE_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS_FORMATION);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_MIDDLE);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3473,7 +3689,9 @@ GgafCore::Status* MyStgUtil::resetEnemyGlajaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3502,7 +3720,9 @@ GgafCore::Status* MyStgUtil::resetEnemyGlajaLance001Status(GgafCore::Status* p) 
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3531,7 +3751,9 @@ GgafCore::Status* MyStgUtil::resetEnemyDunaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3560,7 +3782,9 @@ GgafCore::Status* MyStgUtil::resetEnemyOzartiaStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_LARGE001);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_DAMAGED001);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_LARGE);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3589,7 +3813,9 @@ GgafCore::Status* MyStgUtil::resetEnemyOzartiaShot01Status(GgafCore::Status* p) 
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3618,7 +3844,9 @@ GgafCore::Status* MyStgUtil::resetEnemyOzartiaLaserChip01Status(GgafCore::Status
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001_STAY);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3647,7 +3875,9 @@ GgafCore::Status* MyStgUtil::resetEnemyOzartiaPillar01Status(GgafCore::Status* p
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_F60);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_NOTHING);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_NOTHING);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3676,7 +3906,9 @@ GgafCore::Status* MyStgUtil::resetEnemyOebiusStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3705,7 +3937,9 @@ GgafCore::Status* MyStgUtil::resetEnemyOebiusCoreStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_MIDDLE001);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3734,7 +3968,9 @@ GgafCore::Status* MyStgUtil::resetEnemyErelmanStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3763,7 +3999,9 @@ GgafCore::Status* MyStgUtil::resetEnemyErelmanCoreStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_MIDDLE001);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_MIDDLE001);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION003);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3792,7 +4030,9 @@ GgafCore::Status* MyStgUtil::resetEnemyUrydikeStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_ENTRY_SMALL001_STAY_F60);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_LEAVE_SMALL001_F30);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_BONUS001);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3821,7 +4061,9 @@ GgafCore::Status* MyStgUtil::resetAliceShotStatus(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_NOTHING);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１
@@ -3850,7 +4092,9 @@ GgafCore::Status* MyStgUtil::resetWall01Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_001);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
+        p->set(STAT_DamagedSeKind, SE_ENEMY_DAMAGED_001);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
         p->set(STAT_ItemKind, ITEM_MP_SMALL);  //やられアイテム種別(編隊は全滅時)
         p->set(STAT_ProperEffect01Kind, EF_NOTHING);  //その他固有エフェクト０１

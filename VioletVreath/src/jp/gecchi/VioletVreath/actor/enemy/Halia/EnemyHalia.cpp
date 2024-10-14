@@ -202,7 +202,7 @@ void EnemyHalia::processJudgement() {
     }
 }
 
-void EnemyHalia::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void EnemyHalia::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     if (getMorphWeight(1) > 0.3) { //Œû‚ª‹ó‚¢‚Ä‚½‚ç
         bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
         if (is_stamina_zero) {

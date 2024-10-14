@@ -117,7 +117,7 @@ void BoardTest::processBehavior() {
 void BoardTest::processJudgement() {
 }
 
-void BoardTest::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void BoardTest::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
 }
 
 void BoardTest::onInactive() {

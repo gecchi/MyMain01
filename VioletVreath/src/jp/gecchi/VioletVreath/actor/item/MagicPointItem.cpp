@@ -170,7 +170,7 @@ void MagicPointItem::processJudgement() {
 void MagicPointItem::onInactive() {
 }
 
-void MagicPointItem::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void MagicPointItem::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
 

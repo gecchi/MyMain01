@@ -20,8 +20,8 @@ void BgmConductor::ready(int prm_bgm_no, const char* prm_bgm_name) {
     if (prm_bgm_no >= bgm_num) {
         for (int i = bgm_num; i <= prm_bgm_no; i++) {
             _vecBgmConnection.push_back(nullptr);
-            _vec_volume.push_back(GGAF_MAX_VOLUME);
-            _vec_pan.push_back(0);
+            _map_volume.push_back(GGAF_MAX_VOLUME);
+            _map_pan.push_back(0);
             _vec_is_fade.push_back(false);
             _vec_is_fadeafter_stop.push_back(true);
             _vec_target_volume.push_back(GGAF_MAX_VOLUME);
@@ -33,8 +33,8 @@ void BgmConductor::ready(int prm_bgm_no, const char* prm_bgm_name) {
     if (_vecBgmConnection[prm_bgm_no]) {
         _TRACE_("【警告】BgmConductor::ready() IDが使用済みです、上書きしますが意図してますか？？。prm_bgm_no="<<prm_bgm_no<<" prm_bgm_name="<<prm_bgm_name);
         _vecBgmConnection[prm_bgm_no]->close();
-        _vec_volume[prm_bgm_no] = GGAF_MAX_VOLUME;
-        _vec_pan[prm_bgm_no] = 0;
+        _map_volume[prm_bgm_no] = GGAF_MAX_VOLUME;
+        _map_pan[prm_bgm_no] = 0;
         _vec_is_fade[prm_bgm_no] = false;
         _vec_is_fadeafter_stop[prm_bgm_no] = true;
         _vec_target_volume[prm_bgm_no] = GGAF_MAX_VOLUME;
@@ -45,8 +45,8 @@ void BgmConductor::ready(int prm_bgm_no, const char* prm_bgm_name) {
     _vecBgmConnection[prm_bgm_no] = connectToBgmManager(idstr.c_str());
     Bgm* pBgm = _vecBgmConnection[prm_bgm_no]->peek();
     pBgm->stop();
-    pBgm->setVolume(_vec_volume[prm_bgm_no]);
-    pBgm->setPan(_vec_pan[prm_bgm_no]);
+    pBgm->setVolume(_map_volume[prm_bgm_no]);
+    pBgm->setPan(_map_pan[prm_bgm_no]);
 }
 
 bool BgmConductor::isReady(int prm_bgm_no) {
@@ -72,16 +72,16 @@ void BgmConductor::performFromTheBegining(int prm_bgm_no, bool prm_is_loop) {
     }
 #endif
 
-    _vec_volume[prm_bgm_no] = GGAF_MAX_VOLUME;
-    _vec_pan[prm_bgm_no] = 0;
+    _map_volume[prm_bgm_no] = GGAF_MAX_VOLUME;
+    _map_pan[prm_bgm_no] = 0;
     _vec_is_fade[prm_bgm_no] = false;
     _vec_is_fadeafter_stop[prm_bgm_no] = true;
     _vec_target_volume[prm_bgm_no] = GGAF_MAX_VOLUME;
     _vec_inc_volume[prm_bgm_no] = 0;
     Bgm* pBgm = getBgm(prm_bgm_no);
     pBgm->stop();
-    pBgm->setVolume(_vec_volume[prm_bgm_no]);
-    pBgm->setPan(_vec_pan[prm_bgm_no]);
+    pBgm->setVolume(_map_volume[prm_bgm_no]);
+    pBgm->setPan(_map_pan[prm_bgm_no]);
     pBgm->play(prm_is_loop);
 //    BgmConductor::_active_bgm_bpm = _vecBgmConnection[prm_bgm_no]->peek()->_bpm; //最新のBGMのBPMリズム
 }
@@ -97,8 +97,8 @@ void BgmConductor::perform(int prm_bgm_no, bool prm_is_loop) {
 #endif
 
     Bgm* pBgm = getBgm(prm_bgm_no);
-    pBgm->setVolume(_vec_volume[prm_bgm_no]);
-    pBgm->setPan(_vec_pan[prm_bgm_no]);
+    pBgm->setVolume(_map_volume[prm_bgm_no]);
+    pBgm->setPan(_map_pan[prm_bgm_no]);
     pBgm->play(prm_is_loop);
 //    BgmConductor::_active_bgm_bpm = _vecBgmConnection[prm_bgm_no]->peek()->_bpm; //最新のBGMのBPMリズム
 }
@@ -171,13 +171,13 @@ bool BgmConductor::isStopping(int prm_bgm_no) {
     return getBgm(prm_bgm_no)->isStopping();
 }
 void BgmConductor::setVolume(int prm_bgm_no, double prm_volume) {
-    _vec_volume[prm_bgm_no] = prm_volume;
-    getBgm(prm_bgm_no)->setVolume((int)(_vec_volume[prm_bgm_no]));
+    _map_volume[prm_bgm_no] = prm_volume;
+    getBgm(prm_bgm_no)->setVolume((int)(_map_volume[prm_bgm_no]));
 }
 
 void BgmConductor::setPan(int prm_bgm_no, float prm_pan) {
-    _vec_pan[prm_bgm_no] = prm_pan;
-    getBgm(prm_bgm_no)->setPan(_vec_pan[prm_bgm_no]);
+    _map_pan[prm_bgm_no] = prm_pan;
+    getBgm(prm_bgm_no)->setPan(_map_pan[prm_bgm_no]);
 }
 
 Bgm* BgmConductor::getBgm(int prm_bgm_no) {

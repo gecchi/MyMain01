@@ -69,7 +69,7 @@ void SeActor3::processBehavior() {
     getSeXmtr()->behave(); //‚RDŒø‰ÊŠˆ“®
 }
 
-void SeActor3::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void SeActor3::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     _TRACE_("SeActor3::onHit!!!! ‘Šè"<<prm_pOtherActor->getName()<<"");
 }
 

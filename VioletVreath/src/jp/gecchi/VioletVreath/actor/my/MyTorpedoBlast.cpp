@@ -52,7 +52,7 @@ void MyTorpedoBlast::processBehavior() {
 void MyTorpedoBlast::processJudgement() {
 }
 
-void MyTorpedoBlast::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void MyTorpedoBlast::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     //ÉqÉbÉgÇµÇƒÇ‡è¡ñ≈ÇµÇ‹ÇπÇÒ
     int sta = calcStamina(pOther);

@@ -45,7 +45,7 @@ void Shot003::processJudgement() {
     }
 }
 
-void Shot003::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void Shot003::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
 //    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
 //    //・・・ココにヒットされたエフェクト
 //    if (MyStgUtil::calcEnemyStamina(this, pOther) <= 0) {

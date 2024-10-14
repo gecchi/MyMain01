@@ -21,42 +21,44 @@ SeTransmitterForActor::SeTransmitterForActor(GeometricActor* prm_pActor) : SeTra
     _playing_3d_freames = 0;
 }
 
-void SeTransmitterForActor::set(int prm_se_no, const char* prm_se_key, int prm_cannel) {
-    int se_num = _vec_is_playing_3d.size();
-    if (prm_se_no >= se_num) {
-        for (int i = se_num; i <= prm_se_no; i++) {
-            _vec_is_playing_3d.push_back(0);
-        }
-    }
-    SeTransmitter::set(prm_se_no, prm_se_key, prm_cannel);
+void SeTransmitterForActor::set(t_se_id prm_se_id, const char* prm_se_key, int prm_cannel) {
+    SeTransmitter::set(prm_se_id, prm_se_key, prm_cannel);
+    _map_is_playing_3d[prm_se_id] = 0;
 }
 
-void SeTransmitterForActor::set(int prm_se_no, const char* prm_se_key) {
+void SeTransmitterForActor::set(t_se_id prm_se_id, const char* prm_se_key) {
     std::string ch_key = std::string(prm_se_key) + std::string("_CH");
     if (GgafCore::RepeatSeq::isExist(ch_key)) {
-        set(prm_se_no, prm_se_key, GgafCore::RepeatSeq::nextVal(ch_key));
+        set(prm_se_id, prm_se_key, GgafCore::RepeatSeq::nextVal(ch_key));
     } else {
         if (GgafCore::Config::_properties.isExistKey(ch_key)) {
             int max_ch_num = GgafCore::Config::_properties.getInt(ch_key);
             GgafCore::RepeatSeq::create(ch_key, 1, max_ch_num);
-            set(prm_se_no, prm_se_key, GgafCore::RepeatSeq::nextVal(ch_key));
+            set(prm_se_id, prm_se_key, GgafCore::RepeatSeq::nextVal(ch_key));
         } else {
-            set(prm_se_no, prm_se_key, 0);
+            set(prm_se_id, prm_se_key, 0);
         }
     }
 }
-void SeTransmitterForActor::play(int prm_se_no, bool prm_can_looping) {
-    SeTransmitter::play(prm_se_no, prm_can_looping);
-    _vec_is_playing_3d[prm_se_no] = 0;
+
+t_se_id SeTransmitterForActor::set(const char* prm_se_key) {
+    t_se_id se_id = HASHVAL(prm_se_key);
+    set(se_id, prm_se_key);
+    return se_id;
+}
+void SeTransmitterForActor::play(t_se_id prm_se_id, bool prm_can_looping) {
+    SeTransmitter::play(prm_se_id, prm_can_looping);
+    _map_is_playing_3d[prm_se_id] = 0;
 }
 
-void SeTransmitterForActor::play3D(int prm_se_no, bool prm_can_looping) {
+void SeTransmitterForActor::play3D(t_se_id prm_se_id, bool prm_can_looping) {
     Spacetime* const pSpacetime = pCARETAKER->getSpacetime();
 #ifdef MY_DEBUG
-    if (prm_se_no < 0 || prm_se_no >= _se_num) {
-        throwCriticalException("IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_se_no="<<prm_se_no);
+    if (_map_is_playing_3d.find(prm_se_id) == _map_is_playing_3d.end()) {
+        throwCriticalException("SeTransmitterForActor::play3D() Se番号が未設定です。prm_se_id="<<prm_se_id);
     }
 #endif
+
 //    static const int VOLUME_RANGE_3D = GGAF_MAX_VOLUME - GGAF_MIN_VOLUME;
     const Camera* const pCam = pSpacetime->getCamera();
     //距離計算
@@ -106,8 +108,8 @@ void SeTransmitterForActor::play3D(int prm_se_no, bool prm_can_looping) {
 //        }
 //    }
 
-    pSpacetime->registerSe(getSe(prm_se_no), vol, pan, rate_frequency, delay, prm_can_looping, _pActor); // + (Se::VOLUME_RANGE / 6) は音量底上げ
-    _vec_is_playing_3d[prm_se_no] = 1;
+    pSpacetime->registerSe(getSe(prm_se_id), vol, pan, rate_frequency, delay, prm_can_looping, _pActor); // + (Se::VOLUME_RANGE / 6) は音量底上げ
+    _map_is_playing_3d[prm_se_id] = 1;
     _playing_3d_freames = 0;
     _px_d_cam_acter_prev = px_d;
     //真ん中からの距離
@@ -122,7 +124,7 @@ void SeTransmitterForActor::play3D(int prm_se_no, bool prm_can_looping) {
    //                    //d * tan (_rad_half_fovY - θ) = 距離
    //                    //d * tan (_rad_half_fovY - asin(dPlnLeft/d)) = 距離
    //                    //本当にこうしなければいけない？
-   // _papSe[prm_se_no]->play();
+   // _papSe[prm_se_id]->play();
 }
 
 void SeTransmitterForActor::updatePanVolume3D() {
@@ -131,24 +133,27 @@ void SeTransmitterForActor::updatePanVolume3D() {
     float pan = 0.0f;
     int vol = 0;
     float rate_frequency = 1.0;
-    const int se_num = _se_num;
-    for (int i = 0; i < se_num; i++) {
-        Se* pSe = getSe(i);
-        //_vec_is_playing_3d[i]の意味
+//    const int se_num = _se_num;
+
+    //    for (int i = 0; i < se_num; i++) {
+    for (std::map<t_se_id, SeConnection*>::iterator it = _mapSeConnection.begin(); it != _mapSeConnection.end(); ++it) {
+        t_se_id se_id = it->first;
+        Se* pSe = getSe(se_id);
+        //_map_is_playing_3d[se_id]の意味
         if (pSe->isPlaying()) {
-            if (_vec_is_playing_3d[i] == 1) {
-                _vec_is_playing_3d[i] = 2;
+            if (_map_is_playing_3d[se_id] == 1) {
+                _map_is_playing_3d[se_id] = 2;
             }
         } else {
-            if (_vec_is_playing_3d[i] == 1) {
+            if (_map_is_playing_3d[se_id] == 1) {
                 if (_playing_3d_freames > SeTransmitterForActor::_se_delay_max_depth) {
-                    _vec_is_playing_3d[i] = 0;
+                    _map_is_playing_3d[se_id] = 0;
                 }
-            } else if (_vec_is_playing_3d[i] == 2) {
-                _vec_is_playing_3d[i] = 0;
+            } else if (_map_is_playing_3d[se_id] == 2) {
+                _map_is_playing_3d[se_id] = 0;
             }
         }
-        if (_vec_is_playing_3d[i] > 0 && pSe->_pActor_last_played == _pActor) {
+        if (_map_is_playing_3d[se_id] > 0 && pSe->_pActor_last_played == _pActor) {
             if (calc_flg) { //初回のみ計算
                 calc_flg = false; //最初の１回目のループだけ距離計算
 

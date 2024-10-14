@@ -168,7 +168,7 @@ void ScoreItem::processJudgement() {
 void ScoreItem::onInactive() {
 }
 
-void ScoreItem::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void ScoreItem::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
 

@@ -323,7 +323,7 @@ void EnemyOzartia::processJudgement() {
     }
 }
 
-void EnemyOzartia::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void EnemyOzartia::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)

@@ -556,7 +556,7 @@ bool MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ, bool chk_don
     return false;
 }
 
-void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void MyBunshinWateringLaserChip001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;
 
 

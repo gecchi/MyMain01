@@ -100,7 +100,7 @@ void ItemBoardTest::processBehavior() {
 void ItemBoardTest::processJudgement() {
 }
 
-void ItemBoardTest::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void ItemBoardTest::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     _TRACE_("ItemBoardTestがひっとおお！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
 }
 
