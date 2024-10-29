@@ -39,7 +39,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\enemy\Zako\Zako.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Jiki.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvActor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvGeometricActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvChikeiActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvEffectActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvEnemyActor.h" />

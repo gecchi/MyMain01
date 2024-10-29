@@ -96,7 +96,7 @@ void MyStraightLaserChip001::processJudgement() {
 void MyStraightLaserChip001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;
     //ヒットエフェクト
-    UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
+    UTIL::activateEffectOf(this, STAT_ExplosionEffectKind); //爆発エフェクト出現
 
     if ((pOther->getCheckerKind() & KIND_ENEMY_BODY) ) {
         //ロックオン可能アクターならロックオンを試みる

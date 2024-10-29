@@ -9,7 +9,6 @@
 
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -23,10 +22,6 @@ enum {
     PHASE_BANPEI,
 };
 enum {
-    SE_DAMAGED  ,
-    SE_EXPLOSION,
-};
-enum {
     MPH_HATCH_CLOSE,
     MPH_HATCH_OPEN,
 };
@@ -34,11 +29,7 @@ enum {
 EnemyAlisana::EnemyAlisana(const char* prm_name) :
         VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Alisana", StatusReset(EnemyAlisana)) {
     _class_name = "EnemyAlisana";
-
     frame_of_morph_interval_ = 120;
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
 }
 
 void EnemyAlisana::onCreateModel() {
@@ -73,7 +64,7 @@ void EnemyAlisana::processBehavior() {
         case PHASE_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
             if (pPhase->hasJustChanged()) {
-                pEffectEntry = UTIL::activateEntryEffectOf(this);
+                pEffectEntry = (EffectBlink*)UTIL::activateEffectOf(this, STAT_EntryEffectKind);
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
@@ -118,7 +109,7 @@ void EnemyAlisana::processBehavior() {
         case PHASE_LEAVE: {
             if (pPhase->hasJustChanged()) {
                 setHitAble(false);
-                UTIL::activateLeaveEffectOf(this);
+                UTIL::activateEffectOf(this, STAT_LeaveEffectKind);
                 pAlphaFader->transitionLinearUntil(0.0, 30);
             }
             if (pPhase->hasArrivedFrameAt(60)) {
@@ -142,11 +133,9 @@ void EnemyAlisana::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafC
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeXmtr()->play3D(SE_DAMAGED);
     }
 }
 

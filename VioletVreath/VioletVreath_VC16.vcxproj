@@ -686,7 +686,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\title\TitleBoard.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\ViewPointGuide.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvGeometricActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvChikeiActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVCommonActorsHeader.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvEffectActor.hpp" />

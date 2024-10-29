@@ -27,8 +27,6 @@ enum {
     PHASE_BANPEI,
 };
 enum {
-    SE_DAMAGED  ,
-    SE_EXPLOSION,
     SE_FIRE,
 };
 
@@ -55,8 +53,6 @@ EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* pr
     pEffect_->inactivate();
     appendChild(pEffect_);
     GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_MIDDLE_001");
     pSeXmtr->set(SE_FIRE     , "SE_ENEMY_FIRE_LASER_001");
 
     is_wake_ = false;
@@ -179,13 +175,11 @@ void EnemyRatislaviaEye::onHit(const GgafCore::Checker* prm_pOtherChecker, const
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
         _TRACE_(FUNC_NAME<<" 上位になげるthrowEventUpperTree(RATISLAVIA_EXPLOSION)");
         throwEventUpperTree(RATISLAVIA_EXPLOSION); //親のEnemyRatislaviaを破壊するイベントを投げる
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeXmtr()->play3D(SE_DAMAGED);
     }
 }
 

@@ -30,8 +30,8 @@ public:
     //2:3D再生してるし、音が鳴っている。
     frame _playing_3d_freames;
     /** [r]SE発生元アクター */
-    GeometricActor* const _pActor;
-
+    GeometricActor*  _pActor;
+    GgafCore::Formation*  	_pFormation;
     /** [r]前回計算時のカメラからアクターの距離 */
     double _px_d_cam_acter_prev;
 
@@ -42,6 +42,8 @@ public:
      * コンストラクタ .
      */
     explicit SeTransmitterForActor(GeometricActor* prm_pActor);
+
+    explicit SeTransmitterForActor(GgafCore::Formation* prm_pFormation);
 
     /**
      * SEの設定を行う .

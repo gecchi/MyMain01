@@ -26,9 +26,7 @@ enum {
     PHASE_BANPEI,
 };
 enum {
-    SE_DAMAGED  ,
     SE_UNDAMAGED  ,
-    SE_EXPLOSION,
     SE_FIRE,
 };
 
@@ -37,12 +35,8 @@ EnemyOebiusCore::EnemyOebiusCore(const char* prm_name, EnemyOebiusController* pr
     _class_name = "EnemyOebiusCore";
     pController_ = prm_pController;
     GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
     pSeXmtr->set(SE_UNDAMAGED, "SE_ENEMY_UNDAMAGED_001");
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_002");
     pSeXmtr->set(SE_FIRE     , "SE_ENEMY_FIRE_LASER_001");
-
-
 }
 
 void EnemyOebiusCore::onCreateModel() {
@@ -79,7 +73,7 @@ void EnemyOebiusCore::processBehavior() {
         case PHASE_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
             if (pPhase->hasJustChanged()) {
-                pEffectEntry = UTIL::activateEntryEffectOf(this);
+                pEffectEntry = (EffectBlink*)UTIL::activateEffectOf(this, STAT_EntryEffectKind);
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
@@ -106,7 +100,7 @@ void EnemyOebiusCore::processBehavior() {
 
         case PHASE_LEAVE: {
             if (pPhase->hasJustChanged()) {
-                UTIL::activateLeaveEffectOf(this);
+                UTIL::activateEffectOf(this, STAT_LeaveEffectKind);
                 pAlphaFader->transitionLinearUntil(0.0, 30);
             }
             if (pPhase->hasArrivedFrameAt(60)) {
@@ -133,7 +127,6 @@ void EnemyOebiusCore::onHit(const GgafCore::Checker* prm_pOtherChecker, const Gg
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

@@ -64,7 +64,7 @@ void MyShot001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore
         }
     }
     setHitAble(false);
-    UTIL::activateExplosionEffectOf(this);
+    UTIL::activateEffectOf(this, STAT_ExplosionEffectKind);
     sayonara(); //•K‚¸ŠÑ’Ê‚µ‚È‚¢
 }
 

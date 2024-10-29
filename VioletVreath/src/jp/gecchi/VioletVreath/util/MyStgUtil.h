@@ -4,6 +4,7 @@
 #include "jp/ggaf/lib/util/StgUtil.h"
 
 #include "jp/ggaf/core/util/Status.h"
+#include <map>
 
 #ifdef UTIL
     #undef UTIL
@@ -12,6 +13,8 @@
 
 //#define STATUS(X) (NEW GgafCore::Status(VioletVreath::MyStgUtil::reset##X##Status))
 #define StatusReset(X) ((void*)(VioletVreath::MyStgUtil::reset##X##Status))
+
+namespace VioletVreath {
 
 //イベント用 eventval 数値宣言
 DECLARE_EVENT_VAL(EVENT_CARETAKER_WILL_DEMISE);
@@ -31,8 +34,6 @@ DECLARE_EVENT_VAL(EVENT_GAMEMODE_DECIDE);
 DECLARE_EVENT_VAL(EVENT_GAMEOVERSCENE_FINISH);
 DECLARE_EVENT_VAL(EVENT_GO_TO_TITLE);
 DECLARE_EVENT_VAL(EVENT_NAMEENTRYSCENE_FINISH);
-
-namespace VioletVreath {
 
 enum EffectKind {
     EF_NOTHING,
@@ -66,6 +67,17 @@ enum SeKind {
     SE_EXPLOSION_002,
     SE_EXPLOSION_MIDDLE_001,
     SE_ENEMY_DAMAGED_001,
+};
+
+class MyStgUtil_SeKind {
+public:
+    static std::map<int, const char*> mapSeId;
+    static void initMapSeId() {
+        mapSeId[SE_EXPLOSION_001]        = "SE_EXPLOSION_001";
+        mapSeId[SE_EXPLOSION_002]        = "SE_EXPLOSION_002";
+        mapSeId[SE_EXPLOSION_MIDDLE_001] = "SE_EXPLOSION_MIDDLE_001";
+        mapSeId[SE_ENEMY_DAMAGED_001]    = "SE_ENEMY_DAMAGED_001";
+    }
 };
 
 
@@ -117,7 +129,7 @@ public:
      * @param prm_pActor 対象アクタ
      * @return 対象アクターの消滅エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
-    static GgafDx::FigureActor* activateDestroyedEffectOf(GgafCore::Actor* prm_pActor);
+    //static GgafDx::FigureActor* activateDestroyedEffectOf(GgafCore::Actor* prm_pActor);
     /**
      * 打ち返し弾 .
      * @param prm_pActor
@@ -132,7 +144,7 @@ public:
      * @return 対象アクターのダメージ時エフェクト（活動済み）。又は、取得できない場合 nullptr。
      * @return
      */
-    static GgafDx::FigureActor* activateDamagedEffectOf(GgafDx::GeometricActor* prm_pActor);
+//    static GgafDx::FigureActor* activateDamagedEffectOf(GgafDx::GeometricActor* prm_pActor);
 
 
     /**
@@ -153,10 +165,7 @@ public:
 
 
 public:
-
-    static std::map<int, const char*> _mapSeId;
     static bool _was_MyStgUtil_inited_flg;
-
     static void init();
 
     /**
@@ -235,13 +244,13 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWayGoldenAng(GgafDx::GeometricActor* prm_pFrom,
-                                                  GgafCore::ActorDepository* prm_pDepo_shot,
-                                                  coord prm_r,
-                                                  int prm_way_num,
-                                                  angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
-                                                  velo prm_velo_first, acce prm_acce,
-                                                  int prm_draw_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                  void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
+                                                 GgafCore::ActorDepository* prm_pDepo_shot,
+                                                 coord prm_r,
+                                                 int prm_way_num,
+                                                 angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
+                                                 velo prm_velo_first, acce prm_acce,
+                                                 int prm_draw_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                 void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
 
 
 
@@ -264,8 +273,9 @@ public:
      * @param prm_pActor 対象アクター
      * @return 対象アクターの爆発エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
-    static GgafDx::FigureActor* activateExplosionEffectOf(GgafCore::Actor* prm_pActor, bool prm_is_adjust_part = false);
-    static void activateExplosionSoundOf(GgafCore::Actor* prm_pActor);
+//    static GgafDx::FigureActor* activateExplosionEffectOf(GgafCore::Actor* prm_pActor, bool prm_is_adjust_part = false);
+//    static void activateExplosionSoundOf(GgafCore::Actor* prm_pActor);
+//    static void activateDamagedSoundOf(GgafCore::Actor* prm_pActor);
     /**
      * 通常ショット .
      * @param prm_pActor
@@ -277,28 +287,26 @@ public:
     static GgafCore::ActorDepository* getDepositoryOf(GgafDx::GeometricActor* prm_pActor);
 
     /**
-     * 対象アクターに紐ついた入場エフェクトを、取得できれば有効にし、それを返す .
-     * ステータス(getStatus())の STAT_EntryEffectKind の値によって種類が振り分けられる。
+     * 対象アクターに紐ついた エフェクト（アクターとSE） を取得できれば有効にし、それを返す .
      * @param prm_pActor 対象アクター
-     * @return 対象アクターの入場エフェクト（活動済み、nullptrは返らない)
+     * @param prm_status_kind エフェクト種類
+     *   STAT_ExplosionEffectKind
+     *   STAT_DamagedEffectKind
+     *   STAT_EntryEffectKind
+     *   STAT_LeaveEffectKind
+     *   STAT_ProperEffect01Kind
+     * @return エフェクト（活動済み、nullptrは返らない)
      */
-    static EffectBlink* activateEntryEffectOf(GgafDx::GeometricActor* prm_pActor);
+    static GgafDx::FigureActor* activateEffectOf(GgafCore::Actor* prm_pActor, int prm_status_kind, bool prm_is_adjust_part=false);
 
-    /**
-     * 対象アクターに紐ついた退場エフェクトを、取得できれば有効にし、それを返す .
-     * ステータス(getStatus())の STAT_LeaveEffectKind の値によって種類が振り分けられる。
-     * @param prm_pActor 対象アクター
-     * @return 対象アクターの退場エフェクト（活動済み、nullptrは返らない)
-     */
-    static EffectBlink* activateLeaveEffectOf(GgafDx::GeometricActor* prm_pActor);
-
+    static void adjustHitCoord(GgafDx::GeometricActor* prm_pTargetAtor, bool prm_is_adjust_part, coord& out_x, coord& out_y, coord& out_z);
     /**
      * 対象アクターに紐ついた固有エフェクト（その１）を、取得できれば有効にし、それを返す .
      * ステータス(getStatus())の STAT_ProperEffect01Kind の値によって種類が振り分けられる。
      * @param prm_pActor 対象アクター
      * @return 対象アクターの入場エフェクト（活動済み）。又は、取得できない場合 nullptr。
      */
-    static GgafDx::FigureActor* activateProperEffect01Of(GgafDx::GeometricActor* prm_pActor);
+    //static GgafDx::FigureActor* activateProperEffect01Of(GgafDx::GeometricActor* prm_pActor);
 
     /**
      * 敵キャラヒット時の標準的な処理 .
@@ -335,212 +343,212 @@ public:
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コード変更は「ステータスCreater.xls」から行うこと。
     // gen01 start
-    //デフォルト
-    static GgafCore::Status* resetDefaultStatus(GgafCore::Status* p);
-    //自機
-    static GgafCore::Status* resetMyShipStatus(GgafCore::Status* p);
-    //自機ショット
-    static GgafCore::Status* resetMyShot001Status(GgafCore::Status* p);
-    //自機スナイプショット
-    static GgafCore::Status* resetMySnipeShot001Status(GgafCore::Status* p);
-    //マジックエネルギー核
-    static GgafCore::Status* resetMyMagicEnergyCoreStatus(GgafCore::Status* p);
-    //自機レーザー
-    static GgafCore::Status* resetMyStraightLaserChip001Status(GgafCore::Status* p);
-    //分身
-    static GgafCore::Status* resetMyBunshinStatus(GgafCore::Status* p);
-    //分身ションショット
-    static GgafCore::Status* resetMyBunshinShot001Status(GgafCore::Status* p);
-    //分身スナイプションショット
-    static GgafCore::Status* resetMyBunshinSnipeShot001Status(GgafCore::Status* p);
-    //分身ストレートレーザー
-    static GgafCore::Status* resetMyBunshinStraightLaserChip001Status(GgafCore::Status* p);
-    //分身カーブレーザー
-    static GgafCore::Status* resetMyBunshinWateringLaserChip001Status(GgafCore::Status* p);
-    //トゥピード
-    static GgafCore::Status* resetMyTorpedoStatus(GgafCore::Status* p);
-    //トゥピード爆風
-    static GgafCore::Status* resetMyTorpedoBlastStatus(GgafCore::Status* p);
-    //汎用ショット001
-    static GgafCore::Status* resetShot001Status(GgafCore::Status* p);
-    //汎用ショット002
-    static GgafCore::Status* resetShot002Status(GgafCore::Status* p);
-    //汎用ショット003ミニレーザー
-    static GgafCore::Status* resetShot003Status(GgafCore::Status* p);
-    //汎用ミニレーザーショット
-    static GgafCore::Status* resetShot004Status(GgafCore::Status* p);
-    //汎用敵ストレートレーザー001
-    static GgafCore::Status* resetEnemyStraightLaserChip001Status(GgafCore::Status* p);
-    //汎用敵カーブレーザー001
-    static GgafCore::Status* resetEnemyWateringLaserChip001Status(GgafCore::Status* p);
-    //エレス
-    static GgafCore::Status* resetEnemyEresStatus(GgafCore::Status* p);
-    //エレスショット001
-    static GgafCore::Status* resetEnemyEresShot001Status(GgafCore::Status* p);
-    //ストラエア
-    static GgafCore::Status* resetEnemyStraeaStatus(GgafCore::Status* p);
-    //ストラエアレーザー
-    static GgafCore::Status* resetEnemyStraeaLaserChip001Status(GgafCore::Status* p);
-    //ストラエアレーザー
-    static GgafCore::Status* resetEnemyStraeaLaserChip002Status(GgafCore::Status* p);
-    //ストラエアレーザー
-    static GgafCore::Status* resetEnemyStraeaLaserChip003Status(GgafCore::Status* p);
-    //ストラエアレーザー
-    static GgafCore::Status* resetEnemyStraeaLaserChip004Status(GgafCore::Status* p);
-    //オムルス（ラティスラヴィアのハッチ）
-    static GgafCore::Status* resetEnemyOmulusStatus(GgafCore::Status* p);
-    //エムス（ラティスラヴィアのハッチ）
-    static GgafCore::Status* resetEnemyEmusStatus(GgafCore::Status* p);
-    //エムスのレーザー
-    static GgafCore::Status* resetEnemyEmusLaserChip001Status(GgafCore::Status* p);
-    //エティス
-    static GgafCore::Status* resetEnemyEtisStatus(GgafCore::Status* p);
-    //リス
-    static GgafCore::Status* resetEnemyRisStatus(GgafCore::Status* p);
-    //リス編隊001
-    static GgafCore::Status* resetFormationRis001Status(GgafCore::Status* p);
-    //リス編隊002
-    static GgafCore::Status* resetFormationRis002Status(GgafCore::Status* p);
-    //ゲリア
-    static GgafCore::Status* resetEnemyGeriaStatus(GgafCore::Status* p);
-    //ハリア
-    static GgafCore::Status* resetEnemyHaliaStatus(GgafCore::Status* p);
-    //ハリア編隊
-    static GgafCore::Status* resetFormationHaliaStatus(GgafCore::Status* p);
-    //たまご１
-    static GgafCore::Status* resetEnemyTamago01Status(GgafCore::Status* p);
-    //イルケ
-    static GgafCore::Status* resetEnemyIrceStatus(GgafCore::Status* p);
-    //ラティスラヴィア（トーラス）
-    static GgafCore::Status* resetEnemyRatislaviaStatus(GgafCore::Status* p);
-    //アラス
-    static GgafCore::Status* resetEnemyAllasStatus(GgafCore::Status* p);
-    //アラス編隊001
-    static GgafCore::Status* resetFormationAllas001Status(GgafCore::Status* p);
-    //アラス編隊001
-    static GgafCore::Status* resetFormationAllas002Status(GgafCore::Status* p);
-    //ウーノミア
-    static GgafCore::Status* resetEnemyUnomiaStatus(GgafCore::Status* p);
-    //ウノミア編隊001
-    static GgafCore::Status* resetFormationUnomia001Status(GgafCore::Status* p);
-    //ウノミア編隊001
-    static GgafCore::Status* resetFormationUnomia002Status(GgafCore::Status* p);
-    //エミリア
-    static GgafCore::Status* resetEnemyEmiliaStatus(GgafCore::Status* p);
-    //エミリア断片
-    static GgafCore::Status* resetEnemyEmiliaFragmentStatus(GgafCore::Status* p);
-    //エミリア断片の断片
-    static GgafCore::Status* resetEnemyEmiliaFragment2Status(GgafCore::Status* p);
-    //エミリア断片の断片の断片
-    static GgafCore::Status* resetEnemyEmiliaFragment3Status(GgafCore::Status* p);
-    //MPアイテム小
-    static GgafCore::Status* resetMagicPointItem001Status(GgafCore::Status* p);
-    //MPアイテム中
-    static GgafCore::Status* resetMagicPointItem002Status(GgafCore::Status* p);
-    //MPアイテム大
-    static GgafCore::Status* resetMagicPointItem003Status(GgafCore::Status* p);
-    //スコアアイテム
-    static GgafCore::Status* resetScoreItem001Status(GgafCore::Status* p);
-    //Vreathアイテム
-    static GgafCore::Status* resetVreathItem001Status(GgafCore::Status* p);
-    //エーベ
-    static GgafCore::Status* resetEnemyEbeStatus(GgafCore::Status* p);
-    //エーベ編隊001
-    static GgafCore::Status* resetFormationEbe001Status(GgafCore::Status* p);
-    //ヒズビー
-    static GgafCore::Status* resetEnemyHisbeStatus(GgafCore::Status* p);
-    //ヒズビー2
-    static GgafCore::Status* resetEnemyHisbe002Status(GgafCore::Status* p);
-    //ヒズビーレーザー
-    static GgafCore::Status* resetEnemyHisbeLaserChip001Status(GgafCore::Status* p);
-    //ヒズビーレーザー
-    static GgafCore::Status* resetEnemyHisbeLaserChip002Status(GgafCore::Status* p);
-    //ヒズビーレーザー
-    static GgafCore::Status* resetEnemyHisbeLaserChip003Status(GgafCore::Status* p);
-    //ドラステア
-    static GgafCore::Status* resetEnemyDrasteaStatus(GgafCore::Status* p);
-    //タランテ
-    static GgafCore::Status* resetEnemyTalanteStatus(GgafCore::Status* p);
-    //エスペリア
-    static GgafCore::Status* resetEnemyEsperiaStatus(GgafCore::Status* p);
-    //エスペリアアレーザー
-    static GgafCore::Status* resetEnemyEsperiaLaserChip001Status(GgafCore::Status* p);
-    //グーテスト
-    static GgafCore::Status* resetTestGuStatus(GgafCore::Status* p);
-    //チョキーテスト
-    static GgafCore::Status* resetTestChokiStatus(GgafCore::Status* p);
-    //パーテスト
-    static GgafCore::Status* resetTestPaStatus(GgafCore::Status* p);
-    //ノーマルーテスト
-    static GgafCore::Status* resetTestNomalStatus(GgafCore::Status* p);
-    //グーショット
-    static GgafCore::Status* resetTestGuShotStatus(GgafCore::Status* p);
-    //チョキーショット
-    static GgafCore::Status* resetTestChokiShotStatus(GgafCore::Status* p);
-    //パーショット
-    static GgafCore::Status* resetTestPaShotStatus(GgafCore::Status* p);
-    //ノーマルーショット
-    static GgafCore::Status* resetTestNomalShotStatus(GgafCore::Status* p);
-    //ラティスラヴィアアイ
-    static GgafCore::Status* resetEnemyRatislaviaEyeStatus(GgafCore::Status* p);
-    //ラティスラヴィアアイ用ストレートレーザー001
-    static GgafCore::Status* resetEnemyRatislaviaEyeStraightLaserChip001Status(GgafCore::Status* p);
-    //エルミオネ
-    static GgafCore::Status* resetEnemyErmioneStatus(GgafCore::Status* p);
-    //エルミオネ腕の頭
-    static GgafCore::Status* resetEnemyErmioneArmHeadStatus(GgafCore::Status* p);
-    //エルミオネ腕の胴体
-    static GgafCore::Status* resetEnemyErmioneArmBodyStatus(GgafCore::Status* p);
-    //エルミオネ腕の弱点
-    static GgafCore::Status* resetEnemyErmioneArmWeakStatus(GgafCore::Status* p);
-    //アッフォー
-    static GgafCore::Status* resetEnemyApphoStatus(GgafCore::Status* p);
-    //アッフォー編隊001
-    static GgafCore::Status* resetFormationAppho001Status(GgafCore::Status* p);
-    //アンティオペ
-    static GgafCore::Status* resetEnemyAntiopeStatus(GgafCore::Status* p);
-    //デルヘイド
-    static GgafCore::Status* resetEnemyDelheidStatus(GgafCore::Status* p);
-    //デルヘイド編隊001
-    static GgafCore::Status* resetFormationDelheid001Status(GgafCore::Status* p);
-    //アリサナ
-    static GgafCore::Status* resetEnemyAlisanaStatus(GgafCore::Status* p);
-    //イーダ
-    static GgafCore::Status* resetEnemyIdaStatus(GgafCore::Status* p);
-    //タゴラス
-    static GgafCore::Status* resetEnemyThagorasStatus(GgafCore::Status* p);
-    //オルトゥナ
-    static GgafCore::Status* resetEnemyOrtunaStatus(GgafCore::Status* p);
-    //オルトゥナ編隊001
-    static GgafCore::Status* resetFormationOrtuna001Status(GgafCore::Status* p);
-    //グラヤ
-    static GgafCore::Status* resetEnemyGlajaStatus(GgafCore::Status* p);
-    //グラヤ槍弾
-    static GgafCore::Status* resetEnemyGlajaLance001Status(GgafCore::Status* p);
-    //ドゥーナ
-    static GgafCore::Status* resetEnemyDunaStatus(GgafCore::Status* p);
-    //オーツァルティア
-    static GgafCore::Status* resetEnemyOzartiaStatus(GgafCore::Status* p);
-    //オーツァルティアショット０１(壁ブロック)
-    static GgafCore::Status* resetEnemyOzartiaShot01Status(GgafCore::Status* p);
-    //オーツァルティアレーザーチップ
-    static GgafCore::Status* resetEnemyOzartiaLaserChip01Status(GgafCore::Status* p);
-    //オーツァルティア氷柱
-    static GgafCore::Status* resetEnemyOzartiaPillar01Status(GgafCore::Status* p);
-    //エビウス
-    static GgafCore::Status* resetEnemyOebiusStatus(GgafCore::Status* p);
-    //エビウスコア
-    static GgafCore::Status* resetEnemyOebiusCoreStatus(GgafCore::Status* p);
-    //エレルマン
-    static GgafCore::Status* resetEnemyErelmanStatus(GgafCore::Status* p);
-    //エレルマンコア
-    static GgafCore::Status* resetEnemyErelmanCoreStatus(GgafCore::Status* p);
-    //ウリュディケ
-    static GgafCore::Status* resetEnemyUrydikeStatus(GgafCore::Status* p);
-    //弾幕アリス用ショット
-    static GgafCore::Status* resetAliceShotStatus(GgafCore::Status* p);
-    //地形ボックス01
-    static GgafCore::Status* resetWall01Status(GgafCore::Status* p);
+	//デフォルト
+	static GgafCore::Status* resetDefaultStatus(GgafCore::Status* p);
+	//自機
+	static GgafCore::Status* resetMyShipStatus(GgafCore::Status* p);
+	//自機ショット
+	static GgafCore::Status* resetMyShot001Status(GgafCore::Status* p);
+	//自機スナイプショット
+	static GgafCore::Status* resetMySnipeShot001Status(GgafCore::Status* p);
+	//マジックエネルギー核
+	static GgafCore::Status* resetMyMagicEnergyCoreStatus(GgafCore::Status* p);
+	//自機レーザー
+	static GgafCore::Status* resetMyStraightLaserChip001Status(GgafCore::Status* p);
+	//分身
+	static GgafCore::Status* resetMyBunshinStatus(GgafCore::Status* p);
+	//分身ションショット
+	static GgafCore::Status* resetMyBunshinShot001Status(GgafCore::Status* p);
+	//分身スナイプションショット
+	static GgafCore::Status* resetMyBunshinSnipeShot001Status(GgafCore::Status* p);
+	//分身ストレートレーザー
+	static GgafCore::Status* resetMyBunshinStraightLaserChip001Status(GgafCore::Status* p);
+	//分身カーブレーザー
+	static GgafCore::Status* resetMyBunshinWateringLaserChip001Status(GgafCore::Status* p);
+	//トゥピード
+	static GgafCore::Status* resetMyTorpedoStatus(GgafCore::Status* p);
+	//トゥピード爆風
+	static GgafCore::Status* resetMyTorpedoBlastStatus(GgafCore::Status* p);
+	//汎用ショット001
+	static GgafCore::Status* resetShot001Status(GgafCore::Status* p);
+	//汎用ショット002
+	static GgafCore::Status* resetShot002Status(GgafCore::Status* p);
+	//汎用ショット003ミニレーザー
+	static GgafCore::Status* resetShot003Status(GgafCore::Status* p);
+	//汎用ミニレーザーショット
+	static GgafCore::Status* resetShot004Status(GgafCore::Status* p);
+	//汎用敵ストレートレーザー001
+	static GgafCore::Status* resetEnemyStraightLaserChip001Status(GgafCore::Status* p);
+	//汎用敵カーブレーザー001
+	static GgafCore::Status* resetEnemyWateringLaserChip001Status(GgafCore::Status* p);
+	//エレス
+	static GgafCore::Status* resetEnemyEresStatus(GgafCore::Status* p);
+	//エレスショット001
+	static GgafCore::Status* resetEnemyEresShot001Status(GgafCore::Status* p);
+	//ストラエア
+	static GgafCore::Status* resetEnemyStraeaStatus(GgafCore::Status* p);
+	//ストラエアレーザー
+	static GgafCore::Status* resetEnemyStraeaLaserChip001Status(GgafCore::Status* p);
+	//ストラエアレーザー
+	static GgafCore::Status* resetEnemyStraeaLaserChip002Status(GgafCore::Status* p);
+	//ストラエアレーザー
+	static GgafCore::Status* resetEnemyStraeaLaserChip003Status(GgafCore::Status* p);
+	//ストラエアレーザー
+	static GgafCore::Status* resetEnemyStraeaLaserChip004Status(GgafCore::Status* p);
+	//オムルス（ラティスラヴィアのハッチ）
+	static GgafCore::Status* resetEnemyOmulusStatus(GgafCore::Status* p);
+	//エムス（ラティスラヴィアのハッチ）
+	static GgafCore::Status* resetEnemyEmusStatus(GgafCore::Status* p);
+	//エムスのレーザー
+	static GgafCore::Status* resetEnemyEmusLaserChip001Status(GgafCore::Status* p);
+	//エティス
+	static GgafCore::Status* resetEnemyEtisStatus(GgafCore::Status* p);
+	//リス
+	static GgafCore::Status* resetEnemyRisStatus(GgafCore::Status* p);
+	//リス編隊001
+	static GgafCore::Status* resetFormationRis001Status(GgafCore::Status* p);
+	//リス編隊002
+	static GgafCore::Status* resetFormationRis002Status(GgafCore::Status* p);
+	//ゲリア
+	static GgafCore::Status* resetEnemyGeriaStatus(GgafCore::Status* p);
+	//ハリア
+	static GgafCore::Status* resetEnemyHaliaStatus(GgafCore::Status* p);
+	//ハリア編隊
+	static GgafCore::Status* resetFormationHaliaStatus(GgafCore::Status* p);
+	//たまご１
+	static GgafCore::Status* resetEnemyTamago01Status(GgafCore::Status* p);
+	//イルケ
+	static GgafCore::Status* resetEnemyIrceStatus(GgafCore::Status* p);
+	//ラティスラヴィア（トーラス）
+	static GgafCore::Status* resetEnemyRatislaviaStatus(GgafCore::Status* p);
+	//アラス
+	static GgafCore::Status* resetEnemyAllasStatus(GgafCore::Status* p);
+	//アラス編隊001
+	static GgafCore::Status* resetFormationAllas001Status(GgafCore::Status* p);
+	//アラス編隊001
+	static GgafCore::Status* resetFormationAllas002Status(GgafCore::Status* p);
+	//ウーノミア
+	static GgafCore::Status* resetEnemyUnomiaStatus(GgafCore::Status* p);
+	//ウノミア編隊001
+	static GgafCore::Status* resetFormationUnomia001Status(GgafCore::Status* p);
+	//ウノミア編隊001
+	static GgafCore::Status* resetFormationUnomia002Status(GgafCore::Status* p);
+	//エミリア
+	static GgafCore::Status* resetEnemyEmiliaStatus(GgafCore::Status* p);
+	//エミリア断片
+	static GgafCore::Status* resetEnemyEmiliaFragmentStatus(GgafCore::Status* p);
+	//エミリア断片の断片
+	static GgafCore::Status* resetEnemyEmiliaFragment2Status(GgafCore::Status* p);
+	//エミリア断片の断片の断片
+	static GgafCore::Status* resetEnemyEmiliaFragment3Status(GgafCore::Status* p);
+	//MPアイテム小
+	static GgafCore::Status* resetMagicPointItem001Status(GgafCore::Status* p);
+	//MPアイテム中
+	static GgafCore::Status* resetMagicPointItem002Status(GgafCore::Status* p);
+	//MPアイテム大
+	static GgafCore::Status* resetMagicPointItem003Status(GgafCore::Status* p);
+	//スコアアイテム
+	static GgafCore::Status* resetScoreItem001Status(GgafCore::Status* p);
+	//Vreathアイテム
+	static GgafCore::Status* resetVreathItem001Status(GgafCore::Status* p);
+	//エーベ
+	static GgafCore::Status* resetEnemyEbeStatus(GgafCore::Status* p);
+	//エーベ編隊001
+	static GgafCore::Status* resetFormationEbe001Status(GgafCore::Status* p);
+	//ヒズビー
+	static GgafCore::Status* resetEnemyHisbeStatus(GgafCore::Status* p);
+	//ヒズビー2
+	static GgafCore::Status* resetEnemyHisbe002Status(GgafCore::Status* p);
+	//ヒズビーレーザー
+	static GgafCore::Status* resetEnemyHisbeLaserChip001Status(GgafCore::Status* p);
+	//ヒズビーレーザー
+	static GgafCore::Status* resetEnemyHisbeLaserChip002Status(GgafCore::Status* p);
+	//ヒズビーレーザー
+	static GgafCore::Status* resetEnemyHisbeLaserChip003Status(GgafCore::Status* p);
+	//ドラステア
+	static GgafCore::Status* resetEnemyDrasteaStatus(GgafCore::Status* p);
+	//タランテ
+	static GgafCore::Status* resetEnemyTalanteStatus(GgafCore::Status* p);
+	//エスペリア
+	static GgafCore::Status* resetEnemyEsperiaStatus(GgafCore::Status* p);
+	//エスペリアアレーザー
+	static GgafCore::Status* resetEnemyEsperiaLaserChip001Status(GgafCore::Status* p);
+	//グーテスト
+	static GgafCore::Status* resetTestGuStatus(GgafCore::Status* p);
+	//チョキーテスト
+	static GgafCore::Status* resetTestChokiStatus(GgafCore::Status* p);
+	//パーテスト
+	static GgafCore::Status* resetTestPaStatus(GgafCore::Status* p);
+	//ノーマルーテスト
+	static GgafCore::Status* resetTestNomalStatus(GgafCore::Status* p);
+	//グーショット
+	static GgafCore::Status* resetTestGuShotStatus(GgafCore::Status* p);
+	//チョキーショット
+	static GgafCore::Status* resetTestChokiShotStatus(GgafCore::Status* p);
+	//パーショット
+	static GgafCore::Status* resetTestPaShotStatus(GgafCore::Status* p);
+	//ノーマルーショット
+	static GgafCore::Status* resetTestNomalShotStatus(GgafCore::Status* p);
+	//ラティスラヴィアアイ
+	static GgafCore::Status* resetEnemyRatislaviaEyeStatus(GgafCore::Status* p);
+	//ラティスラヴィアアイ用ストレートレーザー001
+	static GgafCore::Status* resetEnemyRatislaviaEyeStraightLaserChip001Status(GgafCore::Status* p);
+	//エルミオネ
+	static GgafCore::Status* resetEnemyErmioneStatus(GgafCore::Status* p);
+	//エルミオネ腕の頭
+	static GgafCore::Status* resetEnemyErmioneArmHeadStatus(GgafCore::Status* p);
+	//エルミオネ腕の胴体
+	static GgafCore::Status* resetEnemyErmioneArmBodyStatus(GgafCore::Status* p);
+	//エルミオネ腕の弱点
+	static GgafCore::Status* resetEnemyErmioneArmWeakStatus(GgafCore::Status* p);
+	//アッフォー
+	static GgafCore::Status* resetEnemyApphoStatus(GgafCore::Status* p);
+	//アッフォー編隊001
+	static GgafCore::Status* resetFormationAppho001Status(GgafCore::Status* p);
+	//アンティオペ
+	static GgafCore::Status* resetEnemyAntiopeStatus(GgafCore::Status* p);
+	//デルヘイド
+	static GgafCore::Status* resetEnemyDelheidStatus(GgafCore::Status* p);
+	//デルヘイド編隊001
+	static GgafCore::Status* resetFormationDelheid001Status(GgafCore::Status* p);
+	//アリサナ
+	static GgafCore::Status* resetEnemyAlisanaStatus(GgafCore::Status* p);
+	//イーダ
+	static GgafCore::Status* resetEnemyIdaStatus(GgafCore::Status* p);
+	//タゴラス
+	static GgafCore::Status* resetEnemyThagorasStatus(GgafCore::Status* p);
+	//オルトゥナ
+	static GgafCore::Status* resetEnemyOrtunaStatus(GgafCore::Status* p);
+	//オルトゥナ編隊001
+	static GgafCore::Status* resetFormationOrtuna001Status(GgafCore::Status* p);
+	//グラヤ
+	static GgafCore::Status* resetEnemyGlajaStatus(GgafCore::Status* p);
+	//グラヤ槍弾
+	static GgafCore::Status* resetEnemyGlajaLance001Status(GgafCore::Status* p);
+	//ドゥーナ
+	static GgafCore::Status* resetEnemyDunaStatus(GgafCore::Status* p);
+	//オーツァルティア
+	static GgafCore::Status* resetEnemyOzartiaStatus(GgafCore::Status* p);
+	//オーツァルティアショット０１(壁ブロック)
+	static GgafCore::Status* resetEnemyOzartiaShot01Status(GgafCore::Status* p);
+	//オーツァルティアレーザーチップ
+	static GgafCore::Status* resetEnemyOzartiaLaserChip01Status(GgafCore::Status* p);
+	//オーツァルティア氷柱
+	static GgafCore::Status* resetEnemyOzartiaPillar01Status(GgafCore::Status* p);
+	//エビウス
+	static GgafCore::Status* resetEnemyOebiusStatus(GgafCore::Status* p);
+	//エビウスコア
+	static GgafCore::Status* resetEnemyOebiusCoreStatus(GgafCore::Status* p);
+	//エレルマン
+	static GgafCore::Status* resetEnemyErelmanStatus(GgafCore::Status* p);
+	//エレルマンコア
+	static GgafCore::Status* resetEnemyErelmanCoreStatus(GgafCore::Status* p);
+	//ウリュディケ
+	static GgafCore::Status* resetEnemyUrydikeStatus(GgafCore::Status* p);
+	//弾幕アリス用ショット
+	static GgafCore::Status* resetAliceShotStatus(GgafCore::Status* p);
+	//地形ボックス01
+	static GgafCore::Status* resetWall01Status(GgafCore::Status* p);
     // gen01 end
 };
 

@@ -20,9 +20,6 @@ enum {
     MPH_OPEN = 1,
 };
 enum {
-    SE_EXPLOSION ,
-};
-enum {
     PHASE_INIT   ,
     PHASE_ENTRY  ,
     PHASE_MOVE01 ,
@@ -36,8 +33,6 @@ enum {
 EnemyGlaja::EnemyGlaja(const char* prm_name) :
         VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Glaja_1", StatusReset(EnemyGlaja)) {
     _class_name = "EnemyGlaja";
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
     pConn_pShot_ = connectToDepositoryManager("GlajaLance001");
     effectBlendOne(); //加算合成
     setScaleR(0.3);
@@ -77,7 +72,7 @@ void EnemyGlaja::processBehavior() {
          case PHASE_ENTRY: {
              EffectBlink* pEffectEntry = nullptr;
              if (pPhase->hasJustChanged()) {
-                 pEffectEntry = UTIL::activateEntryEffectOf(this);
+                 pEffectEntry = (EffectBlink*)UTIL::activateEffectOf(this, STAT_EntryEffectKind);
              }
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
              static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
@@ -181,7 +176,6 @@ void EnemyGlaja::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCor
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

@@ -490,6 +490,7 @@ class MyShipScene;
 class MyShot001;
 class MySnipeShot001;
 class MyStgUtil;
+class MyStgUtil_SeKind;
 class MyStraightLaserChip001;
 class MyTorpedo;
 class MyTorpedoBlast;

@@ -10,10 +10,6 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-enum {
-    ERESSHOT001_SE_EXPLOSION,
-};
-
 EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "myvic", StatusReset(EnemyEresShot001)) {
     _class_name = "EnemyEresShot001";
@@ -35,9 +31,6 @@ EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
     angVelo_Turn_ = 7000;
     /** 方向転換を開始（frame_TurnBegin_）から再設定される加速度 */
     iMoveAcce_2nd_ = 100;
-
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(ERESSHOT001_SE_EXPLOSION, "SE_EXPLOSION_002");
 }
 
 void EnemyEresShot001::initialize() {
@@ -94,7 +87,6 @@ void EnemyEresShot001::onHit(const GgafCore::Checker* prm_pOtherChecker, const G
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(ERESSHOT001_SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

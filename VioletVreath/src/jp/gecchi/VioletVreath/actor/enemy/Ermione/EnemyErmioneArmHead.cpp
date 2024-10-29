@@ -67,7 +67,7 @@ void EnemyErmioneArmHead::onHit(const GgafCore::Checker* prm_pOtherChecker, cons
 //    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
 //        setHitAble(false);
 //        //”š”­Œø‰Ê
-//        UTIL::activateExplosionEffectOf(this);
+//        UTIL::activateEffectOf(this, STAT_ExplosionEffectKind);
 //        getSeXmtr()->play3D(SE_EXPLOSION);
 //
 //        //©‹@‘¤‚ÉŒ‚‚½‚ê‚ÄÁ–Å‚Ìê‡A

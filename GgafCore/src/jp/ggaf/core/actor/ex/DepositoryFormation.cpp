@@ -54,9 +54,6 @@ void DepositoryFormation::processFinal() {
 //    }
 //    _TRACE_("processFinal() "<<getActiveFrame()<<"<-----");
 
-
-
-
     int n = _listFollower.length();
     Actor* pFollower;
     for (int i = 0; i < n; i++) {

@@ -20,7 +20,6 @@ Shot001::Shot001(const char* prm_name) :
         VvEnemyActor<DefaultMassMeshActor>(prm_name, "Flora", StatusReset(Shot001)) {
     _class_name = "Shot001";
     GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(0, "SE_EXPLOSION_002");
     pCurveManufConn_ = connectToCurveManufactureManager("Shot001_curve");
     pVehicleLeader_ = createCurveVehicleLeader(pCurveManufConn_->peek());
 }
@@ -65,7 +64,6 @@ void Shot001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(0);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

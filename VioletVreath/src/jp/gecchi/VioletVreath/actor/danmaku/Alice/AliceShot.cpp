@@ -19,6 +19,7 @@ void AliceShot::initialize() {
     pChecker->addCollisionArea(1);
     pChecker->setColliAACube(0, PX_C(16));
 }
+
 void AliceShot::onReset() {
     setCullingDraw(false);
     GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();

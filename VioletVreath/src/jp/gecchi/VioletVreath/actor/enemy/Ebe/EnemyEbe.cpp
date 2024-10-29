@@ -20,10 +20,6 @@ enum {
     PHASE_MOVE02_2   ,
     PHASE_BANPEI,
 };
-enum {
-    SE_DAMAGED  ,
-    SE_EXPLOSION,
-};
 
 EnemyEbe::EnemyEbe(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "Ebe", StatusReset(EnemyEbe)) {
@@ -31,9 +27,6 @@ EnemyEbe::EnemyEbe(const char* prm_name) :
     pVehicleLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //爆発
     getLocusVehicle()->linkFaceAngByMvAng(true);
 }
 
@@ -115,11 +108,9 @@ void EnemyEbe::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore:
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeXmtr()->play3D(SE_DAMAGED);
     }
 }
 

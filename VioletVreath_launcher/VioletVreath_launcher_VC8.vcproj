@@ -2959,7 +2959,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath_launcher\actor\VvActor.hpp"
+			RelativePath=".\src\jp\gecchi\VioletVreath_launcher\actor\VvGeometricActor.hpp"
 			>
 		</File>
 		<File

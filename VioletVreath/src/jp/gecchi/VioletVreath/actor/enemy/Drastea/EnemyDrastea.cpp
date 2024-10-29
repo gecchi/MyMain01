@@ -20,17 +20,10 @@ enum {
     PHASE_MOVE02_2   ,
     PHASE_BANPEI,
 };
-enum {
-    SE_DAMAGED   ,
-    SE_EXPLOSION ,
-};
 
 EnemyDrastea::EnemyDrastea(const char* prm_name) :
         VvEnemyActor<CubeMapMeshSetActor>(prm_name, "Drastea", StatusReset(EnemyDrastea)) {
     _class_name = "EnemyDrastea";
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_MIDDLE_001");
 }
 
 void EnemyDrastea::onCreateModel() {
@@ -117,11 +110,9 @@ void EnemyDrastea::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafC
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeXmtr()->play3D(SE_DAMAGED);
     }
 }
 

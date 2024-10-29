@@ -104,15 +104,14 @@ uint32_t MyShip::shot3_matrix_[2][MYSHIP_SHOT_MATRIX] = {
 #define SOFT_RAPIDSHOT_NUM       (3)
 /** ソフト連射数でのショットとショットの間隔 */
 #define SOFT_RAPIDSHOT_INTERVAL  (4)
-
 enum {
-    SE_DAMAGED     ,
-    SE_EXPLOSION   ,
-    SE_TURBO       ,
-    SE_CANT_TURBO  ,
-    SE_FIRE_LASER  ,
-    SE_FIRE_SHOT   ,
-    SE_FIRE_TORPEDO,
+    SE_MY_DAMAGED_001     ,
+    SE_MY_SE_EXPLOSION_001   ,
+    SE_MY_TURBO_001       ,
+    SE_MY_CANT_TURBO_001  ,
+    SE_MY_FIRE_LASER_001  ,
+    SE_MY_FIRE_SHOT_001   ,
+    SE_MY_FIRE_TORPEDO_001,
 };
 
 
@@ -250,13 +249,13 @@ MyShip::MyShip(const char* prm_name) :
     pSenakai_[DIR26( 1, 1, 1)] =  D_ANG(30);
 
     GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_DAMAGED     , "SE_MY_DAMAGED_001");
-    pSeXmtr->set(SE_EXPLOSION   , "SE_MY_SE_EXPLOSION_001");
-    pSeXmtr->set(SE_TURBO       , "SE_MY_TURBO_001");
-    pSeXmtr->set(SE_CANT_TURBO  , "SE_MY_CANT_TURBO_001");
-    pSeXmtr->set(SE_FIRE_LASER  , "SE_MY_FIRE_LASER_001");
-    pSeXmtr->set(SE_FIRE_SHOT   , "SE_MY_FIRE_SHOT_001");
-    pSeXmtr->set(SE_FIRE_TORPEDO, "SE_MY_FIRE_TORPEDO_001");
+    pSeXmtr->set(SE_MY_DAMAGED_001     , "SE_MY_DAMAGED_001");
+    pSeXmtr->set(SE_MY_SE_EXPLOSION_001   , "SE_MY_SE_EXPLOSION_001");
+    pSeXmtr->set(SE_MY_TURBO_001       , "SE_MY_TURBO_001");
+    pSeXmtr->set(SE_MY_CANT_TURBO_001  , "SE_MY_CANT_TURBO_001");
+    pSeXmtr->set(SE_MY_FIRE_LASER_001  , "SE_MY_FIRE_LASER_001");
+    pSeXmtr->set(SE_MY_FIRE_SHOT_001   , "SE_MY_FIRE_SHOT_001");
+    pSeXmtr->set(SE_MY_FIRE_TORPEDO_001, "SE_MY_FIRE_TORPEDO_001");
 
     veloTurboTop_ = 30000;
     veloTurboBottom_ = 10000;
@@ -419,11 +418,11 @@ void MyShip::processBehavior() {
             if (pCoordVehicle->_velo_x == 0 && pCoordVehicle->_velo_y == 0 && pCoordVehicle->_velo_z == 0) {
                 //ターボ移動完全に終了しないと次のターボは実行不可
                 moveTurbo();
-                UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
-                getSeXmtr()->play3D(SE_TURBO);
+                UTIL::activateEffectOf(this, STAT_ProperEffect01Kind); //ターボ開始のエフェクト
+                getSeXmtr()->play3D(SE_MY_CANT_TURBO_001);
             } else {
                 //ターボ移動中
-                getSeXmtr()->play3D(SE_CANT_TURBO);
+                getSeXmtr()->play3D(SE_MY_CANT_TURBO_001);
             }
         } else {
             //Notターボ開始時
@@ -566,7 +565,7 @@ void MyShip::processBehavior() {
             LaserChip* pLaserChip = pLaserChipDepo_->dispatch();
             if (pLaserChip) {
                 if (pLaserChip->getInfrontChip() == nullptr) {
-                    getSeXmtr()->play3D(SE_FIRE_LASER);
+                    getSeXmtr()->play3D(SE_MY_FIRE_LASER_001);
                 }
             }
         } else {
@@ -658,7 +657,7 @@ void MyShip::processBehavior() {
             //スナイプショット時
             MySnipeShot001* const pSnipeShot = (MySnipeShot001*)pDepo_MySnipeShots001_->dispatch();
             if (pSnipeShot) {
-                getSeXmtr()->play3D(SE_FIRE_SHOT);
+                getSeXmtr()->play3D(SE_MY_FIRE_SHOT_001);
                 pSnipeShot->setPositionAt(this);
                 pSnipeShot->getLocusVehicle()->setRzRyMvAng(_rz, _ry);
                 pSnipeShot->getLocusVehicle()->setMvVelo(PX_C(100));
@@ -669,7 +668,7 @@ void MyShip::processBehavior() {
             if (shot_level_ >= 1) {
                 MyShot001* const pShot = (MyShot001*)pDepo_MyShots001_->dispatch();
                 if (pShot) {
-                    getSeXmtr()->play3D(SE_FIRE_SHOT);
+                    getSeXmtr()->play3D(SE_MY_FIRE_SHOT_001);
                     pShot->setPositionAt(this);
                     pShot->getLocusVehicle()->setRzRyMvAng(_rz, _ry);
                     pShot->getLocusVehicle()->setMvVelo(PX_C(70));
@@ -707,7 +706,7 @@ void MyShip::processBehavior() {
     //光子魚雷発射
     if (pVbPlay->isPushedDown(0, VV_VB_SHOT2)) {
         if (this->pTorpedoCtrler_->fire()) {
-            getSeXmtr()->play3D(SE_FIRE_TORPEDO);
+            getSeXmtr()->play3D(SE_MY_FIRE_TORPEDO_001);
         }
     }
 
@@ -730,7 +729,7 @@ void MyShip::processJudgement() {
     if (GgafDx::Input::isPushedDownKey(DIK_0)) {
         //自機爆発開催
         setHitAble(false);
-        getSeXmtr()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_MY_SE_EXPLOSION_001);
         throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }
     //TODO:ダメージテスト TEST
@@ -751,7 +750,7 @@ void MyShip::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::A
     if (calcStamina(pOther) <= 0) {
         //自機爆発開催
         setHitAble(false);
-        getSeXmtr()->play3D(SE_EXPLOSION);
+        getSeXmtr()->play3D(SE_MY_SE_EXPLOSION_001);
         throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }
     int damage = vreath - getStatus()->get(STAT_Stamina);
@@ -999,8 +998,8 @@ void MyShip::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::A
     }
     if (pOther->getCheckerKind() & KIND_ITEM)  {
     } else {
-        UTIL::activateExplosionEffectOf(this);
-        getSeXmtr()->play3D(SE_DAMAGED);
+        UTIL::activateEffectOf(this, STAT_ExplosionEffectKind);
+        getSeXmtr()->play3D(SE_MY_DAMAGED_001);
     }
 }
 

@@ -4,7 +4,7 @@
 
 template <class T>
 VvEffectActor<T>::VvEffectActor(const char* prm_name, const char* prm_model, void* prm_pPrm1)
-    : VvActor<T>(prm_name, prm_model) {
+    : VvGeometricActor<T>(prm_name, prm_model) {
     T::getStatus()->reset((GgafCore::Status* (*)(GgafCore::Status*))prm_pPrm1);
 }
 

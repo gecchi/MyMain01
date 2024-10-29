@@ -10,21 +10,13 @@
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
-
-enum {
-    SE_EXPLOSION,
-};
 
 EnemyIrce::EnemyIrce(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "Eres", StatusReset(EnemyErmione)) {
     _class_name = "EnemyIrce";
     iMovePatternNo_ = 0;
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
 }
 
 void EnemyIrce::onCreateModel() {
@@ -71,7 +63,6 @@ void EnemyIrce::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

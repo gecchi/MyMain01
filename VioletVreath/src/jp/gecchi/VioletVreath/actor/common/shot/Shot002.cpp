@@ -8,8 +8,6 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -18,7 +16,6 @@ Shot002::Shot002(const char* prm_name) :
     _class_name = "Shot002";
 
     GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(0, "SE_EXPLOSION_002");
 }
 
 void Shot002::initialize() {
@@ -66,7 +63,6 @@ void Shot002::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(0);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

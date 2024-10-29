@@ -39,7 +39,7 @@ void TestNomalShot::processJudgement() {
 
 void TestNomalShot::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     setHitAble(false);
-    UTIL::activateExplosionEffectOf(this);
+    UTIL::activateEffectOf(this, STAT_ExplosionEffectKind);
     sayonara();
 }
 

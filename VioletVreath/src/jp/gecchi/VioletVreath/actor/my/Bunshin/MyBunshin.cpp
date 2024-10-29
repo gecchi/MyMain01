@@ -33,9 +33,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    SE_FIRE_LASER  ,
-    SE_FIRE_SHOT   ,
-    SE_FIRE_TORPEDO,
+    SE_MY_FIRE_LASER_002  ,
+    SE_MY_FIRE_SHOT_002   ,
+    SE_MY_FIRE_TORPEDO_002,
 };
 
 MyBunshin::MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinController, MyBunshinBase* prm_pBase) :
@@ -91,9 +91,9 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinController* prm_pBunshinCont
     appendChild(pTorpedoCtrler_);
 
     GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_FIRE_LASER,   "SE_MY_FIRE_LASER_002");
-    pSeXmtr->set(SE_FIRE_SHOT,    "SE_MY_FIRE_SHOT_002");
-    pSeXmtr->set(SE_FIRE_TORPEDO, "SE_MY_FIRE_TORPEDO_002");
+    pSeXmtr->set(SE_MY_FIRE_LASER_002,   "SE_MY_FIRE_LASER_002");
+    pSeXmtr->set(SE_MY_FIRE_SHOT_002,    "SE_MY_FIRE_SHOT_002");
+    pSeXmtr->set(SE_MY_FIRE_TORPEDO_002, "SE_MY_FIRE_TORPEDO_002");
 
     std::string name2 = std::string(prm_name) + "'s Geo2";
     pGeo2_ = NEW GgafLib::DefaultGeometricActor(name2.c_str());
@@ -210,7 +210,7 @@ void MyBunshin::processChangeGeoFinal() {
                 if (pMyShip->shot_level_ >= 1) {
                     MyBunshinShot001* const  pShot = (MyBunshinShot001*)pDepo_MyBunshinShot_->dispatch();
                     if (pShot) {
-                        getSeXmtr()->play3D(SE_FIRE_SHOT);
+                        getSeXmtr()->play3D(SE_MY_FIRE_SHOT_002);
                         pShot->setPositionAt(this);
                         pShot->getLocusVehicle()->setRzRyMvAng(_rz, _ry);
                         pShot->getLocusVehicle()->setMvVelo(PX_C(70));
@@ -251,7 +251,7 @@ void MyBunshin::processChangeGeoFinal() {
                     if (pLaserChip) {
                         pLaserChip->setOrg(this);
                         if (pLaserChip->getInfrontChip() == nullptr) {
-                            getSeXmtr()->play3D(SE_FIRE_LASER);
+                            getSeXmtr()->play3D(SE_MY_FIRE_LASER_002);
                         }
                     }
                 }
@@ -263,7 +263,7 @@ void MyBunshin::processChangeGeoFinal() {
                     if (pLaserChip) {
                         pLaserChip->setOrg(this);
                         if (pLaserChip->getInfrontChip() == nullptr) {
-                            getSeXmtr()->play3D(SE_FIRE_LASER);
+                            getSeXmtr()->play3D(SE_MY_FIRE_LASER_002);
                         }
                     }
                 }
@@ -282,7 +282,7 @@ void MyBunshin::processChangeGeoFinal() {
         //ŒõŽq‹›—‹”­ŽË
         if (pVbPlay->isPushedDown(0, VV_VB_SHOT2)) {
             if (pTorpedoCtrler_->fire()) {
-                getSeXmtr()->play3D(SE_FIRE_TORPEDO);
+                getSeXmtr()->play3D(SE_MY_FIRE_TORPEDO_002);
             }
         }
     } //getAlpha() > 0.5

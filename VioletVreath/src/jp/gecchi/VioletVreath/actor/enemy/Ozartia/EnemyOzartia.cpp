@@ -54,9 +54,7 @@ enum {
 };
 enum {
     SE_ENTRY,
-    SE_DAMAGED ,
     SE_UNDAMAGED,
-    SE_EXPLOSION,
     SE_SHOT01 ,
     SE_SHOT02 ,
     SE_SHOT03 ,
@@ -69,8 +67,6 @@ enum {
 EnemyOzartia::EnemyOzartia(const char* prm_name) :
         VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Ozartia", StatusReset(EnemyOzartia)) {
     _class_name = "EnemyOzartia";
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
     pPhase2_ = createAnotherPhase();
     is_hit_ = false;
     pDepo_shot01_ = nullptr;
@@ -139,7 +135,7 @@ void EnemyOzartia::processBehavior() {
         case PHASE1_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
             if (pPhase->hasJustChanged()) {
-                pEffectEntry = UTIL::activateEntryEffectOf(this);
+                pEffectEntry = (EffectBlink*)UTIL::activateEffectOf(this, STAT_EntryEffectKind);
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
@@ -259,7 +255,7 @@ void EnemyOzartia::processBehavior() {
         //////////// 時間切れ退出 ////////////
         case PHASE1_LEAVE: {
             if (pPhase->hasJustChanged()) {
-                UTIL::activateLeaveEffectOf(this);
+                UTIL::activateEffectOf(this, STAT_LeaveEffectKind);
                 pAlphaFader->transitionLinearUntil(0.0, 30);
             }
             if (pPhase->hasArrivedFrameAt(60)) {
@@ -327,7 +323,6 @@ void EnemyOzartia::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafC
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

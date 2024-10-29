@@ -26,10 +26,6 @@ enum {
     PHASE_NOTHING    ,
     PHASE_BANPEI,
 };
-enum {
-    SE_DAMAGED  ,
-    SE_EXPLOSION,
-};
 
 EnemyEmus::EnemyEmus(const char* prm_name) :
         VvEnemyActor<DefaultMassMorphMeshActor>(prm_name, "Emus", StatusReset(EnemyEmus)) {
@@ -44,9 +40,6 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
 //         );
 //    pDepoStore_laser_set = (GgafCore::ActorDepositoryStore*)(pConn_pDepoStore_laser_set->peek());
     pDepo_ = nullptr;
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
     ini_wait_ = 0;
 }
 
@@ -179,11 +172,9 @@ void EnemyEmus::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //”j‰óŽž
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //”ñ”j‰óŽž
-        getSeXmtr()->play3D(SE_DAMAGED);
     }
 }
 

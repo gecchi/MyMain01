@@ -19,8 +19,6 @@ enum {
     PHASE_BANPEI,
 };
 enum {
-    SE_DAMAGED  ,
-    SE_EXPLOSION,
     SE_FIRE,
 };
 
@@ -44,8 +42,6 @@ EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
     appendChild(pLaserChipDepo_);
 
     GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
     pSeXmtr->set(SE_FIRE     , "SE_ENEMY_FIRE_LASER_001");
 
 }
@@ -134,11 +130,9 @@ void EnemyHisbe002::onHit(const GgafCore::Checker* prm_pOtherChecker, const Ggaf
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeXmtr()->play3D(SE_DAMAGED);
     }
 }
 

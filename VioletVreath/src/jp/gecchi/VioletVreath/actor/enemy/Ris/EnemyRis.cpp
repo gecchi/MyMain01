@@ -14,10 +14,6 @@ using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-enum {
-    SE_EXPLOSION,
-};
-
 EnemyRis::EnemyRis(const char* prm_name)
       : VvEnemyActor<DefaultMeshSetActor>(prm_name, "Ris", StatusReset(EnemyRis)) {
     _class_name = "EnemyRis";
@@ -25,8 +21,6 @@ EnemyRis::EnemyRis(const char* prm_name)
     pVehicleLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //爆発
 }
 
 void EnemyRis::onCreateModel() {
@@ -133,7 +127,6 @@ void EnemyRis::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore:
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

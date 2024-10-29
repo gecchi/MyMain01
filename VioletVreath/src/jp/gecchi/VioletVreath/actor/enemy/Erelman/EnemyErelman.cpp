@@ -19,9 +19,6 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    SE_EXPLOSION ,
-};
-enum {
     PHASE_INIT   ,
     PHASE_ENTRY  ,
     PHASE_MOVE_BEGIN ,
@@ -34,8 +31,6 @@ enum {
 EnemyErelman::EnemyErelman(const char* prm_name) :
         VvEnemyActor<DefaultMassMeshActor>(prm_name, "Erelman", StatusReset(EnemyErelman)) {
     _class_name = "EnemyErelman";
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
     pVehicleLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     scatter_flg_ = false;
     delay_ = 0;
@@ -77,7 +72,7 @@ void EnemyErelman::processBehavior() {
         case PHASE_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
             if (pPhase->hasJustChanged()) {
-                pEffectEntry = UTIL::activateEntryEffectOf(this);
+                pEffectEntry = (EffectBlink*)UTIL::activateEffectOf(this, STAT_EntryEffectKind);
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
@@ -141,7 +136,7 @@ void EnemyErelman::processBehavior() {
 
         case PHASE_LEAVE: {
             if (pPhase->hasJustChanged()) {
-                UTIL::activateLeaveEffectOf(this);
+                UTIL::activateEffectOf(this, STAT_LeaveEffectKind);
                 pAlphaFader->transitionLinearUntil(0.0, 30);
             }
             if (pPhase->hasArrivedFrameAt(60)) {
@@ -168,7 +163,6 @@ void EnemyErelman::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafC
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

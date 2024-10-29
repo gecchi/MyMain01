@@ -21,10 +21,6 @@ enum {
     PHASE_HATCH_OPEN ,
     PHASE_BANPEI,
 };
-enum {
-    SE_DAMAGED  ,
-    SE_EXPLOSION,
-};
 
 EnemyOmulus::EnemyOmulus(const char* prm_name) :
         VvEnemyActor<DefaultMassMorphMeshActor>(prm_name, "Omulus", StatusReset(EnemyOmulus)) {
@@ -36,9 +32,6 @@ EnemyOmulus::EnemyOmulus(const char* prm_name) :
 
     pDepo_Fired_ = nullptr;
     pConn_depo_ = connectToDepositoryManager("Talante");
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
 }
 
 void EnemyOmulus::onCreateModel() {
@@ -207,11 +200,9 @@ void EnemyOmulus::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCo
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
-        getSeXmtr()->play3D(SE_DAMAGED);
     }
 }
 

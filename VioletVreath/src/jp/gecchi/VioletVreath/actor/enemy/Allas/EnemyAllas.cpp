@@ -15,10 +15,6 @@ using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-enum {
-    SE_EXPLOSION ,
-};
-
 EnemyAllas::EnemyAllas(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "Allas", StatusReset(EnemyAllas)) {
     _class_name = "EnemyAllas";
@@ -26,8 +22,6 @@ EnemyAllas::EnemyAllas(const char* prm_name) :
     pVehicleLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //爆発
 }
 
 void EnemyAllas::onCreateModel() {
@@ -144,7 +138,6 @@ void EnemyAllas::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCor
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

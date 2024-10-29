@@ -13,20 +13,12 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-enum {
-    SE_DAMAGED   ,
-    SE_EXPLOSION ,
-};
-
 EnemyEtis::EnemyEtis(const char* prm_name) :
         VvEnemyActor<DefaultMassMeshActor>(prm_name, "Etis", StatusReset(EnemyEtis)) {
     _class_name = "EnemyEtis";
     width_x_ = 220*2*LEN_UNIT;
     height_z_ = 220*2*LEN_UNIT;
     depth_y_ = 36*2*LEN_UNIT;
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_MIDDLE_001");
 }
 
 void EnemyEtis::onCreateModel() {
@@ -80,10 +72,8 @@ void EnemyEtis::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
-        getSeXmtr()->play3D(SE_DAMAGED);
         //破壊されなかった時(スタミナ > 0)
     }
 }

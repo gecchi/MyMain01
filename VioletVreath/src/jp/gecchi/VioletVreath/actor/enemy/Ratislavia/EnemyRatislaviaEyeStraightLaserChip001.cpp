@@ -4,11 +4,8 @@
 #include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 EnemyRatislaviaEyeStraightLaserChip001::EnemyRatislaviaEyeStraightLaserChip001(const char* prm_name) :
         VvEnemyActor<StraightLaserChip>(prm_name, "RatislaviaEyeStraightLaserChip001", StatusReset(EnemyRatislaviaEyeStraightLaserChip001)) {

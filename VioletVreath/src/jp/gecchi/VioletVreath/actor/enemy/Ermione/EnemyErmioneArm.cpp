@@ -19,9 +19,6 @@ EnemyErmioneArm::EnemyErmioneArm(const char* prm_name, const char* prm_model, vo
 
     aiming_ang_velo_ = 0;
     aiming_movable_limit_ang_ = 0;
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001"); //腕破壊
     behave_frames_ = 0;
     arm_no_ = 0;
     arm_part_no_ = 0;
@@ -50,7 +47,7 @@ void EnemyErmioneArm::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 //本体からFKとして追加された直後は、一度processSettlementBehavior()が実行されないと
                 //座標反映されない、したがって。１フレーム後のPHASE_WAITINGでエントリエフェ実行行う事
-                UTIL::activateEntryEffectOf(this);
+                (EffectBlink*)UTIL::activateEffectOf(this, STAT_EntryEffectKind);
             }
             break;
         }
@@ -147,7 +144,7 @@ void EnemyErmioneArm::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
     if ( prm_event_val == EVENT_ERMIONE_SAYONARA) {
         //本体破壊時
         setHitAble(false);
-        UTIL::activateExplosionEffectOf(this);//爆発エフェ
+        UTIL::activateEffectOf(this, STAT_ExplosionEffectKind);//爆発エフェ
         sayonara();
     }
     if ( prm_event_val == EVENT_ERMIONE_ENTRY_DONE) {

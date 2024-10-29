@@ -1,5 +1,5 @@
-#ifndef VVACTOR_H_
-#define VVACTOR_H_
+#ifndef VVGEOMETRICACTOR_H_
+#define VVGEOMETRICACTOR_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/core/util/Status.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
@@ -12,17 +12,16 @@
 namespace VioletVreath {
 
 template<class T>
-class VvActor : public T {
+class VvGeometricActor : public T {
 //    GgafLib::DefaultScene* pFeatureScene_;
 //    GgafDx::VehicleLeader* pFeatureVehicleLeader_;
 public:
-    VvActor(const char* prm_name, const char* prm_model, void* prm_pFuncResetStatus)
+    VvGeometricActor(const char* prm_name, const char* prm_model, void* prm_pFuncResetStatus)
         : T(prm_name, prm_model) {
         if (prm_pFuncResetStatus) {
             T::getStatus()->reset((GgafCore::Status * (*)(GgafCore::Status*))prm_pFuncResetStatus);
             kind_t kind = (kind_t)(T::getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND));
             T::setCheckerKind(kind);
-
             //爆発SE。ダメージSE登録 TODO:SE発生の処理
             MyStgUtil::registerCommonSeOf(this);
         }
@@ -75,10 +74,10 @@ public:
 //        }
 //    }
 
-    virtual ~VvActor() {
+    virtual ~VvGeometricActor() {
     }
 };
 
 }
 
-#endif /* VVACTOR_H_ */
+#endif /* VVGEOMETRICACTOR_H_ */

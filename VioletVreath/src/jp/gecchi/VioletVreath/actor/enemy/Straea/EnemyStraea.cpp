@@ -27,7 +27,6 @@ enum {
     PHASE_BANPEI,
 };
 enum {
-    SE_EXPLOSION,
     SE_FIRE     ,
 };
 
@@ -79,9 +78,7 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
     }
     GGAF_DELETEARR(paAng_way);
     GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_MIDDLE_001");
     pSeXmtr->set(SE_FIRE     , "SE_ENEMY_FIRE_LASER_001");
-
     pConn_pShotDepo2_ = connectToDepositoryManager("Shot004Yellow");
     pConn_pShotDepo3_ = connectToDepositoryManager("Shot004Blue");
 }
@@ -123,7 +120,7 @@ void EnemyStraea::processBehavior() {
         case PHASE_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
             if (pPhase->hasJustChanged()) {
-                pEffectEntry = UTIL::activateEntryEffectOf(this);
+                pEffectEntry = (EffectBlink*)UTIL::activateEffectOf(this, STAT_EntryEffectKind);
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
@@ -314,7 +311,6 @@ void EnemyStraea::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCo
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
         //固有打ち返し
         UTIL::shotWay003(this,

@@ -22,9 +22,6 @@ enum {
     PHASE_LEAVE      ,
     PHASE_BANPEI,
 };
-enum {
-    SE_EXPLOSION ,
-};
 
 EnemyUnomia::EnemyUnomia(const char* prm_name) :
         VvEnemyActor<DefaultMassMeshActor>(prm_name, "Unomia", StatusReset(EnemyUnomia)) {
@@ -32,8 +29,6 @@ EnemyUnomia::EnemyUnomia(const char* prm_name) :
     pVehicleLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //爆発
 }
 
 void EnemyUnomia::onCreateModel() {
@@ -143,7 +138,6 @@ void EnemyUnomia::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCo
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

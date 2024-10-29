@@ -23,7 +23,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    SE_RETURNNING_CAM_POS     ,
+    SE_MY_RETURNNING_CAM_POS     ,
 };
 
 dir26 VamSysCamWorker::nbhd_dir_entity_[3*3*3][6];
@@ -634,7 +634,7 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name, Camera* prm_pCamera) : De
     pos_vam_up_ = VAM_POS_UP;
     pos_vam_up_prev_ = VAM_POS_NON;
     pSe_ = NEW GgafDx::SeTransmitter();
-    pSe_->set(SE_RETURNNING_CAM_POS, "SE_MY_RETURNNING_CAM_POS" ,0);
+    pSe_->set(SE_MY_RETURNNING_CAM_POS, "SE_MY_RETURNNING_CAM_POS" ,0);
 
     mv_t_x_vUP_  = 0;
     mv_t_y_vUP_  = DX_C(1);
@@ -693,7 +693,7 @@ void VamSysCamWorker::processBehavior() {
 
     if (isDoublePushedDown_VV_VB_VIEW) {
         //プリセット位置に移動
-        pSe_->play(SE_RETURNNING_CAM_POS);
+        pSe_->play(SE_MY_RETURNNING_CAM_POS);
         mv_t_x_vUP_  = 0;
         mv_t_y_vUP_  = DX_C(1);
         mv_t_z_vUP_  = 0;

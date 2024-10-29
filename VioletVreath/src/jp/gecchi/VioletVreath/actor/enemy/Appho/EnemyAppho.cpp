@@ -15,9 +15,6 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    SE_EXPLOSION ,
-};
-enum {
     PHASE_INIT   ,
     PHASE_ENTRY  ,
     PHASE_MOVE01 ,
@@ -30,8 +27,6 @@ enum {
 EnemyAppho::EnemyAppho(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "Appho", StatusReset(EnemyAppho)) {
     _class_name = "EnemyAppho";
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");
 }
 
 void EnemyAppho::onCreateModel() {
@@ -53,7 +48,6 @@ void EnemyAppho::onActive() {
 void EnemyAppho::processBehavior() {
     GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafCore::Phase* pPhase = getPhase();
-
     switch (pPhase->getCurrent()) {
 
          case PHASE_INIT: {
@@ -71,7 +65,7 @@ void EnemyAppho::processBehavior() {
          case PHASE_ENTRY: {
              EffectBlink* pEffectEntry = nullptr;
              if (pPhase->hasJustChanged()) {
-                 pEffectEntry = UTIL::activateEntryEffectOf(this);
+                 pEffectEntry = (EffectBlink*)UTIL::activateEffectOf(this, STAT_EntryEffectKind);
                  pLocusVehicle->setRollFaceAngVelo(D_ANG(3));
              }
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
@@ -193,7 +187,6 @@ void EnemyAppho::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCor
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

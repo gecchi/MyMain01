@@ -1,7 +1,7 @@
 #ifndef VVENEMYACTOR_H_
 #define VVENEMYACTOR_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
-#include "VvActor.hpp"
+#include "VvGeometricActor.hpp"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -9,11 +9,11 @@
 namespace VioletVreath {
 
 template<class T>
-class VvEnemyActor : public VvActor<T> {
+class VvEnemyActor : public VvGeometricActor<T> {
 
 public:
     VvEnemyActor(const char* prm_name, const char* prm_model, void* prm_pFuncResetStatus = nullptr)
-            : VvActor<T>(prm_name, prm_model, prm_pFuncResetStatus) {
+            : VvGeometricActor<T>(prm_name, prm_model, prm_pFuncResetStatus) {
 #ifdef MY_DEBUG
         if (!(T::_pChecker->_kind & KIND_ENEMRY)) {
             throwCriticalException("KIND_ENEMRY と、ステータスが異なっています。name="<<prm_name);
@@ -43,29 +43,29 @@ public:
      * @return true:スタミナ0(破壊された)/false:スタミナ残あり(破壊されてない)
      */
     bool performEnemyHit(const GgafDx::GeometricActor* prm_pOther) {
-        GgafCore::Status* pThisStatus  = VvActor<T>::getStatus();
-        if (VvActor<T>::calcStamina(prm_pOther) <= 0) { //体力が無くなったら
+        GgafCore::Status* pThisStatus  = VvGeometricActor<T>::getStatus();
+        if (VvGeometricActor<T>::calcStamina(prm_pOther) <= 0) { //体力が無くなったら
             //＜破壊された場合＞
-            VvActor<T>::setHitAble(false); //当たり判定消失
-            if (T::_pChecker->_kind & KIND_MY) {
+            VvGeometricActor<T>::setHitAble(false); //当たり判定消失
+            if ((prm_pOther->_pChecker->_kind) & KIND_MY) {
                 //相手(自機)の種別が MY*** （自機関連） ならば
                 GameGlobal::addDestroyedScoreBy(prm_pOther);
-                VvActor<T>::notifyDestroyed(); //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
+                VvGeometricActor<T>::notifyDestroyed(); //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
                 UTIL::activateItemOf(this);    //アイテム出現
-                UTIL::activateDestroyedEffectOf(this);  //やられ特殊エフェクト（ボーナス表示等）
+                UTIL::activateEffectOf(this, STAT_DestroyedEffectKind);  //やられ特殊エフェクト（ボーナス表示等）
             }
             UTIL::activateRevengeShotOf(this);     //打ち返し弾
-            UTIL::activateExplosionEffectOf(this); //爆発エフェクト
+            UTIL::activateEffectOf(this, STAT_ExplosionEffectKind); //爆発エフェクト
             return true;
         } else {
             //＜非破壊時、ダメージを受けた場合＞
-            if (T::_pChecker->_kind & KIND_MY) { //相手(自機)の種別が MY*** （自機関連） ならば
+            if ((prm_pOther->_pChecker->_kind) & KIND_MY) { //相手(自機)の種別が MY*** （自機関連） ならば
                 GameGlobal::addDamagedScoreBy(prm_pOther); //ダメージ時得点
             }
             if (pThisStatus->get(STAT_FlushAble)) { //ダメージフラッシュするかどうか
-                VvActor<T>::effectFlush(2); //フラッシュ！
+                VvGeometricActor<T>::effectFlush(2); //フラッシュ！
             }
-            UTIL::activateDamagedEffectOf(this); //ダメージエフェクト
+            UTIL::activateEffectOf(this, STAT_DamagedEffectKind); //ダメージエフェクト
             return false;
         }
     }

@@ -1,5 +1,6 @@
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 
+#include "jp/ggaf/core/actor/ex/Formation.h"
 #include "jp/ggaf/core/util/RepeatSeq.h"
 #include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/actor/camera/Camera.h"
@@ -17,6 +18,14 @@ frame SeTransmitterForActor::_se_delay_max_depth = MSEC_F(CONFIG::MILLISEC_OF_SE
 
 SeTransmitterForActor::SeTransmitterForActor(GeometricActor* prm_pActor) : SeTransmitter() ,
         _pActor(prm_pActor),
+        _pFormation(nullptr),
+        _px_d_cam_acter_prev(1.0) {
+    _playing_3d_freames = 0;
+}
+
+SeTransmitterForActor::SeTransmitterForActor(GgafCore::Formation* prm_pFormation) : SeTransmitter() ,
+        _pActor(nullptr),
+        _pFormation(prm_pFormation),
         _px_d_cam_acter_prev(1.0) {
     _playing_3d_freames = 0;
 }
@@ -46,6 +55,7 @@ t_se_id SeTransmitterForActor::set(const char* prm_se_key) {
     set(se_id, prm_se_key);
     return se_id;
 }
+
 void SeTransmitterForActor::play(t_se_id prm_se_id, bool prm_can_looping) {
     SeTransmitter::play(prm_se_id, prm_can_looping);
     _map_is_playing_3d[prm_se_id] = 0;
@@ -58,8 +68,18 @@ void SeTransmitterForActor::play3D(t_se_id prm_se_id, bool prm_can_looping) {
         throwCriticalException("SeTransmitterForActor::play3D() Se番号が未設定です。prm_se_id="<<prm_se_id);
     }
 #endif
-
-//    static const int VOLUME_RANGE_3D = GGAF_MAX_VOLUME - GGAF_MIN_VOLUME;
+    if (_pFormation) {
+        if (_pFormation->_pLastDestroyedActor) {
+            if (_pFormation->_pLastDestroyedActor->instanceOf(Obj_GgafDx_GeometricActor)) {
+                _pActor = (GeometricActor*)_pFormation->_pLastDestroyedActor;
+            }
+        }
+        if (!_pActor) {
+            _TRACE_("【警告】 SeTransmitterForActor::play3D() フォーメーションの最終破壊アクターからSEを発生させようとしましたが、最終破壊アクターがありません。おかしくないでしょうか？ _pFormation="<<_pFormation->getName()<<"("<<_pFormation<<")");
+            return;
+        }
+    }
+    static const int VOLUME_RANGE_3D = GGAF_MAX_VOLUME - GGAF_MIN_VOLUME;
     const Camera* const pCam = pSpacetime->getCamera();
     //距離計算
     //遅延なし、音量100％の場所をP_CAMの場所とする

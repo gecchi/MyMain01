@@ -6,8 +6,6 @@
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

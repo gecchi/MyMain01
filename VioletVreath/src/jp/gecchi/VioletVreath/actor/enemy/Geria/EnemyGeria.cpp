@@ -11,8 +11,6 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -25,10 +23,8 @@ enum {
     PHASE_BANPEI,
 };
 enum {
-    SE_EXPLOSION,
     SE_FIRE     ,
 };
-
 EnemyGeria::EnemyGeria(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "Geria", StatusReset(EnemyGeria)) {
     _class_name = "EnemyGeria";
@@ -39,11 +35,12 @@ EnemyGeria::EnemyGeria(const char* prm_name) :
     will_shot_ = false;
     velo_mv_begin_ = 0;
     frame_when_shot_ = 0;
-    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
-    pSeXmtr->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //爆発
-    pSeXmtr->set(SE_FIRE     , "SE_ENEMY_FIRE_SHOT_001");     //発射
     migration_length_ = PX_C(10000);
     mvd_ = 0;
+
+    GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
+    pSeXmtr->set(SE_FIRE     , "SE_ENEMY_FIRE_SHOT_001");     //発射
+
 }
 
 void EnemyGeria::onCreateModel() {
@@ -92,7 +89,7 @@ void EnemyGeria::processBehavior() {
         case PHASE_ENTRY: {  //登場
             EffectBlink* pEffectEntry = nullptr;
             if (pPhase->hasJustChanged()) {
-                pEffectEntry = UTIL::activateEntryEffectOf(this);
+                pEffectEntry = (EffectBlink*)UTIL::activateEffectOf(this, STAT_EntryEffectKind);
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
@@ -157,7 +154,7 @@ void EnemyGeria::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 setHitAble(false);
                 pLocusVehicle->setMvVelo(0);
-                UTIL::activateLeaveEffectOf(this);
+                UTIL::activateEffectOf(this, STAT_LeaveEffectKind);
                 pAlphaFader->transitionLinearUntil(0.0, 30);
             }
             if (pPhase->hasArrivedFrameAt(60)) {
@@ -192,7 +189,6 @@ void EnemyGeria::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCor
     bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
-        getSeXmtr()->play3D(SE_EXPLOSION);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
