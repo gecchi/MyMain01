@@ -57,6 +57,7 @@ public:
     }
 
     virtual ~VvFormationActor() {
+        GGAF_DELETEARR_NULLABLE(_pSeTransmitter);
     }
 };
 
