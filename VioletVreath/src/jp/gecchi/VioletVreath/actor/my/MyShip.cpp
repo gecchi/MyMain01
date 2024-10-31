@@ -418,7 +418,7 @@ void MyShip::processBehavior() {
             if (pCoordVehicle->_velo_x == 0 && pCoordVehicle->_velo_y == 0 && pCoordVehicle->_velo_z == 0) {
                 //ターボ移動完全に終了しないと次のターボは実行不可
                 moveTurbo();
-                UTIL::activateEffectOf(this, STAT_ProperEffect01Kind); //ターボ開始のエフェクト
+                UTIL::activateCommonEffectOf(this, STAT_ProperEffect01Kind); //ターボ開始のエフェクト
                 getSeXmtr()->play3D(SE_MY_CANT_TURBO_001);
             } else {
                 //ターボ移動中
@@ -998,7 +998,7 @@ void MyShip::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::A
     }
     if (pOther->getCheckerKind() & KIND_ITEM)  {
     } else {
-        UTIL::activateEffectOf(this, STAT_ExplosionEffectKind);
+        UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind);
         getSeXmtr()->play3D(SE_MY_DAMAGED_001);
     }
 }

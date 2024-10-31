@@ -115,7 +115,7 @@ void EnemyEmus::processBehavior() {
         case PHASE_FIRE: {
             if (pPhase->hasJustChanged()) {
                 if (!pDepo_) {
-                    pDepo_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
+                    pDepo_ = (LaserChipDepository*)UTIL::getCommonDepositoryOf(this);
                 }
             }
             if (pPhase->getFrame() >= (frame_of_morph_interval_/2) + frame_of_open_interval_) {

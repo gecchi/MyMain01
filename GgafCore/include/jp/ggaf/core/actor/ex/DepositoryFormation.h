@@ -25,6 +25,7 @@ class DepositoryFormation : public Formation {
 public:
     /** [r]編隊要素として管理されているアクターのリスト */
     RingLinkedList<Actor> _listFollower;
+    /** [r]calledUpMember() できるかどうかフラフ。true:招集できる／false：招集できない（メンバー数分招集した） */
     bool _can_called_up;
     /** [r]構成メンバーのストッカー（nullptrの場合構成メンバーは配下アクターのはず） */
     ActorDepository* _pDepo;

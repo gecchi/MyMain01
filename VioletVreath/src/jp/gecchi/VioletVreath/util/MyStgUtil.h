@@ -120,7 +120,7 @@ public:
      * @param prm_pActor 対象アクター
      * @return 対象アクターの保持アイテム（活動済み）。又は、取得できない場合 nullptr。
      */
-    static GgafDx::FigureActor* activateItemOf(GgafCore::Actor* prm_pActor);
+    static GgafDx::FigureActor* activateCommonItemOf(GgafCore::Actor* prm_pActor);
     /**
      * 対象アクターに紐ついた消滅エフェクトを、取得できれば有効にし、それを返す .
      * タイミング的には、爆発エフェクトと同じであることが多い。<BR>
@@ -281,10 +281,10 @@ public:
      * @param prm_pActor
      * @return
      */
-    static GgafDx::FigureActor* activateAttackShotOf(GgafDx::GeometricActor* prm_pActor);
+    static GgafDx::FigureActor* activateCommonAttackShotOf(GgafDx::GeometricActor* prm_pActor);
 
     /**     */
-    static GgafCore::ActorDepository* getDepositoryOf(GgafDx::GeometricActor* prm_pActor);
+    static GgafCore::ActorDepository* getCommonDepositoryOf(GgafDx::GeometricActor* prm_pActor);
 
     /**
      * 対象アクターに紐ついた エフェクト（アクターとSE） を取得できれば有効にし、それを返す .
@@ -297,7 +297,7 @@ public:
      *   STAT_ProperEffect01Kind
      * @return エフェクト（活動済み、nullptrは返らない)
      */
-    static GgafDx::FigureActor* activateEffectOf(GgafCore::Actor* prm_pActor, int prm_status_kind, bool prm_is_adjust_part=false);
+    static GgafDx::FigureActor* activateCommonEffectOf(GgafCore::Actor* prm_pActor, int prm_status_kind, bool prm_is_adjust_part=false);
 
     static void adjustHitCoord(GgafDx::GeometricActor* prm_pTargetAtor, bool prm_is_adjust_part, coord& out_x, coord& out_y, coord& out_z);
     /**
@@ -313,7 +313,7 @@ public:
      * ＜破壊された場合＞<br>
      * ・破壊時得点加算<br>
      * ・ランク加算<br>
-     * ・アイテム出現             activateItemOf()<br>
+     * ・アイテム出現             activateCommonItemOf()<br>
      * ・消滅時特殊エフェクト開始 activateDestroyedEffectOf()<br>
      * ・打ち返し弾出現           activateRevengeShotOf()<br>
      * ・爆発エフェクト出現       activateExplosionEffectOf()<br>

@@ -29,7 +29,7 @@ public:
      * ＜破壊された場合＞<br>
      * ・破壊時得点加算<br>
      * ・ランク加算<br>
-     * ・アイテム出現             activateItemOf()<br>
+     * ・アイテム出現             activateCommonItemOf()<br>
      * ・消滅時特殊エフェクト開始 activateDestroyedEffectOf()<br>
      * ・打ち返し弾出現           activateRevengeShotOf()<br>
      * ・爆発エフェクト出現       activateExplosionEffectOf()<br>
@@ -51,11 +51,11 @@ public:
                 //相手(自機)の種別が MY*** （自機関連） ならば
                 GameGlobal::addDestroyedScoreBy(prm_pOther);
                 VvGeometricActor<T>::notifyDestroyed(); //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
-                UTIL::activateItemOf(this);    //アイテム出現
-                UTIL::activateEffectOf(this, STAT_DestroyedEffectKind);  //やられ特殊エフェクト（ボーナス表示等）
+                UTIL::activateCommonItemOf(this);    //アイテム出現
+                UTIL::activateCommonEffectOf(this, STAT_DestroyedEffectKind);  //やられ特殊エフェクト（ボーナス表示等）
+                UTIL::activateRevengeShotOf(this);     //打ち返し弾
             }
-            UTIL::activateRevengeShotOf(this);     //打ち返し弾
-            UTIL::activateEffectOf(this, STAT_ExplosionEffectKind); //爆発エフェクト
+            UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind); //爆発エフェクト
             return true;
         } else {
             //＜非破壊時、ダメージを受けた場合＞
@@ -65,7 +65,7 @@ public:
             if (pThisStatus->get(STAT_FlushAble)) { //ダメージフラッシュするかどうか
                 VvGeometricActor<T>::effectFlush(2); //フラッシュ！
             }
-            UTIL::activateEffectOf(this, STAT_DamagedEffectKind); //ダメージエフェクト
+            UTIL::activateCommonEffectOf(this, STAT_DamagedEffectKind); //ダメージエフェクト
             return false;
         }
     }

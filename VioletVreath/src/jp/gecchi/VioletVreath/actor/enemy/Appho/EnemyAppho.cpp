@@ -65,7 +65,7 @@ void EnemyAppho::processBehavior() {
          case PHASE_ENTRY: {
              EffectBlink* pEffectEntry = nullptr;
              if (pPhase->hasJustChanged()) {
-                 pEffectEntry = (EffectBlink*)UTIL::activateEffectOf(this, STAT_EntryEffectKind);
+                 pEffectEntry = (EffectBlink*)UTIL::activateCommonEffectOf(this, STAT_EntryEffectKind);
                  pLocusVehicle->setRollFaceAngVelo(D_ANG(3));
              }
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
@@ -120,7 +120,7 @@ void EnemyAppho::processBehavior() {
                  int shot_num   = RF_EnemyAppho_ShotWay(G_RANK);    //弾数、ランク変動
                  velo shot_velo = RF_EnemyAppho_ShotMvVelo(G_RANK); //弾速、ランク変動
                  for (int i = 0; i < shot_num; i++) {
-                     GgafDx::FigureActor* pShot = UTIL::activateAttackShotOf(this);
+                     GgafDx::FigureActor* pShot = UTIL::activateCommonAttackShotOf(this);
                      if (pShot) {
                          pShot->activateDelay(1+(i*10)); //ばらつかせ。activate タイミング上書き！
                          GgafDx::LocusVehicle* pShot_pLocusVehicle = pShot->getLocusVehicle();

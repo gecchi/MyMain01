@@ -66,7 +66,7 @@ void EnemyUrydike::processBehavior() {
         case PHASE_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
             if (pPhase->hasJustChanged()) {
-                pEffectEntry = (EffectBlink*)UTIL::activateEffectOf(this, STAT_EntryEffectKind);
+                pEffectEntry = (EffectBlink*)UTIL::activateCommonEffectOf(this, STAT_EntryEffectKind);
                 pLocusVehicle->setRollFaceAngVelo(D_ANG(3));
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
@@ -123,7 +123,7 @@ void EnemyUrydike::processBehavior() {
 
         case PHASE_LEAVE: {
             if (pPhase->hasJustChanged()) {
-                UTIL::activateEffectOf(this, STAT_LeaveEffectKind);
+                UTIL::activateCommonEffectOf(this, STAT_LeaveEffectKind);
                 pAlphaFader->transitionLinearUntil(0.0, 30);
             }
             if (pPhase->hasArrivedFrameAt(60)) {

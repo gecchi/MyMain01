@@ -47,7 +47,7 @@ void EnemyErmioneArm::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 //本体からFKとして追加された直後は、一度processSettlementBehavior()が実行されないと
                 //座標反映されない、したがって。１フレーム後のPHASE_WAITINGでエントリエフェ実行行う事
-                (EffectBlink*)UTIL::activateEffectOf(this, STAT_EntryEffectKind);
+                (EffectBlink*)UTIL::activateCommonEffectOf(this, STAT_EntryEffectKind);
             }
             break;
         }
@@ -144,7 +144,7 @@ void EnemyErmioneArm::onCatchEvent(eventval prm_event_val, void* prm_pSource) {
     if ( prm_event_val == EVENT_ERMIONE_SAYONARA) {
         //本体破壊時
         setHitAble(false);
-        UTIL::activateEffectOf(this, STAT_ExplosionEffectKind);//爆発エフェ
+        UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind);//爆発エフェ
         sayonara();
     }
     if ( prm_event_val == EVENT_ERMIONE_ENTRY_DONE) {

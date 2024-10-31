@@ -236,10 +236,8 @@ void SeTransmitterForActor::updatePanVolume3D() {
 
 void SeTransmitterForActor::behave() {
     _playing_3d_freames++;
-//    if ((_pActor->_frame_of_life & 1) == 0) {//2回に1回
-//        //擬似３D音効果の為2フレームに１回SEの環境効果更新
-        updatePanVolume3D();
-//    }
+    //擬似３D音効果の環境効果更新
+    updatePanVolume3D();
 }
 
 SeTransmitterForActor::~SeTransmitterForActor() {

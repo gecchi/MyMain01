@@ -114,7 +114,7 @@ void MyBunshinStraightLaserChip001::processJudgement() {
 void MyBunshinStraightLaserChip001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;
     //ヒットエフェクト
-    GgafDx::FigureActor* pE = UTIL::activateEffectOf(this, STAT_ExplosionEffectKind, true); //爆発エフェクト出現
+    GgafDx::FigureActor* pE = UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind, true); //爆発エフェクト出現
 
     if ((pOther->getCheckerKind() & KIND_ENEMY_BODY) ) {
         //ロックオン可能アクターならロックオン

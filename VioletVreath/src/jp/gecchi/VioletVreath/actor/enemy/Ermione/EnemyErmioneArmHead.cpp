@@ -35,7 +35,7 @@ void EnemyErmioneArmHead::processBehavior() {
     GgafCore::Phase* pPhase = getPhase();
     if (pPhase->getCurrent() == PHASE_NOTHING || pPhase->getCurrent() == PHASE_AIMING) { //出現間隔
         if (!pDepo_laser_chip_) {
-            pDepo_laser_chip_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
+            pDepo_laser_chip_ = (LaserChipDepository*)UTIL::getCommonDepositoryOf(this);
         }
     } else {
         pDepo_laser_chip_ = nullptr;
@@ -67,13 +67,13 @@ void EnemyErmioneArmHead::onHit(const GgafCore::Checker* prm_pOtherChecker, cons
 //    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
 //        setHitAble(false);
 //        //爆発効果
-//        UTIL::activateEffectOf(this, STAT_ExplosionEffectKind);
+//        UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind);
 //        getSeXmtr()->play3D(SE_EXPLOSION);
 //
 //        //自機側に撃たれて消滅の場合、
 //        if (pOther->_kind & KIND_MY) {
 //            //アイテム出現
-//            UTIL::activateItemOf(this);
+//            UTIL::activateCommonItemOf(this);
 //        }
 //        sayonara();
 //    } else {

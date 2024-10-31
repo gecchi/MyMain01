@@ -64,7 +64,7 @@ void EnemyAlisana::processBehavior() {
         case PHASE_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
             if (pPhase->hasJustChanged()) {
-                pEffectEntry = (EffectBlink*)UTIL::activateEffectOf(this, STAT_EntryEffectKind);
+                pEffectEntry = (EffectBlink*)UTIL::activateCommonEffectOf(this, STAT_EntryEffectKind);
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
@@ -109,7 +109,7 @@ void EnemyAlisana::processBehavior() {
         case PHASE_LEAVE: {
             if (pPhase->hasJustChanged()) {
                 setHitAble(false);
-                UTIL::activateEffectOf(this, STAT_LeaveEffectKind);
+                UTIL::activateCommonEffectOf(this, STAT_LeaveEffectKind);
                 pAlphaFader->transitionLinearUntil(0.0, 30);
             }
             if (pPhase->hasArrivedFrameAt(60)) {

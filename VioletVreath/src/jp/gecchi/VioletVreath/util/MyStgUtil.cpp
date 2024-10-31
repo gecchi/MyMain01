@@ -153,69 +153,6 @@ GgafDx::FigureActor* MyStgUtil::shotWayGoldenAng(GgafDx::GeometricActor* prm_pFr
 }
 
 
-
-//int MyStgUtil::judgeMyAdvantage(kind_t attribute_my, kind_t attribute_enemy) {
-//    int ret = 0;
-//    if (attribute_my & ATTRIBUTE_GU) {
-//        if (attribute_enemy & ATTRIBUTE_CHOKI) {
-//            ret++;
-//        }
-//        if (attribute_enemy & ATTRIBUTE_PA) {
-//            ret--;
-//        }
-//    }
-//
-//    if (attribute_my & ATTRIBUTE_CHOKI) {
-//        if (attribute_enemy & ATTRIBUTE_PA) {
-//            ret++;
-//        }
-//        if (attribute_enemy & ATTRIBUTE_GU) {
-//            ret--;
-//        }
-//    }
-//
-//    if (attribute_my & ATTRIBUTE_PA) {
-//        if (attribute_enemy & ATTRIBUTE_GU) {
-//            ret++;
-//        }
-//        if (attribute_enemy & ATTRIBUTE_CHOKI) {
-//            ret--;
-//        }
-//    }
-//    return ret;
-//}
-//
-//int MyStgUtil::judgeEnemyAdvantage(kind_t kattribute_enemy, kind_t attribute_my) {
-//    int ret = 0;
-//    if (kattribute_enemy & ATTRIBUTE_GU) {
-//        if (attribute_my & ATTRIBUTE_CHOKI) {
-//            ret++;
-//        }
-//        if (attribute_my & ATTRIBUTE_PA) {
-//            ret--;
-//        }
-//    }
-//
-//    if (kattribute_enemy & ATTRIBUTE_CHOKI) {
-//        if (attribute_my & ATTRIBUTE_PA) {
-//            ret++;
-//        }
-//        if (attribute_my & ATTRIBUTE_GU) {
-//            ret--;
-//        }
-//    }
-//
-//    if (kattribute_enemy & ATTRIBUTE_PA) {
-//        if (attribute_my & ATTRIBUTE_GU) {
-//            ret++;
-//        }
-//        if (attribute_my & ATTRIBUTE_CHOKI) {
-//            ret--;
-//        }
-//    }
-//    return ret;
-//}
-
 int MyStgUtil::judgeAdvantage(uint32_t attribute_this, uint32_t attribute_opp) {
     int ret = 0;
     if (attribute_this & ATTRIBUTE_GU) {
@@ -247,45 +184,7 @@ int MyStgUtil::judgeAdvantage(uint32_t attribute_this, uint32_t attribute_opp) {
     return ret;
 }
 
-//void MyStgUtil::activateExplosionSoundOf(GgafCore::Actor* prm_pActor) {
-//    GgafCore::Status* pPrmActorStatus = prm_pActor->getStatus();
-//    GgafDx::GeometricActor* pTargetActor = nullptr;
-//    if (prm_pActor->instanceOf(Obj_GgafDx_GeometricActor)) {
-//        pTargetActor = (GgafDx::GeometricActor*)prm_pActor;
-//    } else if (prm_pActor->instanceOf(Obj_ggaf_Formation)) {
-//        //フォーメーション場合は、最後に破壊されたアクターの座標に発生させる
-//        GgafCore::Formation* pFormation = (GgafCore::Formation*)prm_pActor;
-//        GgafCore::Actor* pLastDestroyedActor = pFormation->_pLastDestroyedActor;
-//        if (pLastDestroyedActor) {
-//            if (pLastDestroyedActor->instanceOf(Obj_GgafDx_GeometricActor)) {
-//                pTargetActor = (GgafDx::GeometricActor*)pLastDestroyedActor;
-//            }
-//        }
-//    }
-//    if (pTargetActor) {
-//        int explosion_se_id = pPrmActorStatus->get(STAT_ExplosionSeKind);
-//        if (explosion_se_id != SE_NOTHING) {
-//            pTargetActor->getSeXmtr()->play3D((t_se_id)explosion_se_id);
-//        }
-//    }
-//}
-
-//void MyStgUtil::activateDamagedSoundOf(GgafCore::Actor* prm_pActor) {
-//    GgafCore::Status* pPrmActorStatus = prm_pActor->getStatus();
-//    GgafDx::GeometricActor* pTargetActor = nullptr;
-//    if (prm_pActor->instanceOf(Obj_GgafDx_GeometricActor)) {
-//        pTargetActor = (GgafDx::GeometricActor*)prm_pActor;
-//    } else if (prm_pActor->instanceOf(Obj_ggaf_Formation)) {
-//        return;
-//    }
-//    int damaged_se_id = pPrmActorStatus->get(STAT_DamagedSeKind);
-//    if (damaged_se_id != SE_NOTHING) {
-//        pTargetActor->getSeXmtr()->play3D((t_se_id)damaged_se_id);
-//    }
-//}
-
-
-GgafDx::FigureActor* MyStgUtil::activateAttackShotOf(GgafDx::GeometricActor* prm_pActor) {
+GgafDx::FigureActor* MyStgUtil::activateCommonAttackShotOf(GgafDx::GeometricActor* prm_pActor) {
     GgafDx::FigureActor* pI = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_AttackShotKind)) {
         case 0: {
@@ -309,7 +208,7 @@ GgafDx::FigureActor* MyStgUtil::activateAttackShotOf(GgafDx::GeometricActor* prm
     return pI;
 }
 
-GgafCore::ActorDepository* MyStgUtil::getDepositoryOf(GgafDx::GeometricActor* prm_pActor) {
+GgafCore::ActorDepository* MyStgUtil::getCommonDepositoryOf(GgafDx::GeometricActor* prm_pActor) {
     GgafCore::ActorDepository* pDepo = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_DepositoryKind)) {
         case 0: {
@@ -409,7 +308,7 @@ GgafDx::FigureActor* MyStgUtil::activateRevengeShotOf(GgafDx::GeometricActor* pr
     return pI;
 }
 
-GgafDx::FigureActor* MyStgUtil::activateItemOf(GgafCore::Actor* prm_pActor) {
+GgafDx::FigureActor* MyStgUtil::activateCommonItemOf(GgafCore::Actor* prm_pActor) {
 
     GgafDx::FigureActor* pI = nullptr;
     GgafCore::Status* pPrmActorStatus = prm_pActor->getStatus();
@@ -459,64 +358,6 @@ GgafDx::FigureActor* MyStgUtil::activateItemOf(GgafCore::Actor* prm_pActor) {
 }
 
 
-
-//GgafDx::FigureActor* MyStgUtil::activateDestroyedEffectOf(GgafCore::Actor* prm_pActor) {
-//    GgafDx::FigureActor* pE = nullptr;
-//    GgafCore::Status* pPrmActorStatus = prm_pActor->getStatus();
-//    GgafDx::GeometricActor* pTargetActor = nullptr;
-//    if (prm_pActor->instanceOf(Obj_GgafDx_GeometricActor)) {
-//        pTargetActor = (GgafDx::GeometricActor*)prm_pActor;
-//    } else if (prm_pActor->instanceOf(Obj_ggaf_Formation)) {
-//        //フォーメーション場合は、最後に破壊されたアクターの座標に発生させる
-//        GgafCore::Formation* pFormation = (GgafCore::Formation*)prm_pActor;
-//        GgafCore::Actor* pLastDestroyedActor = pFormation->_pLastDestroyedActor;
-//        if (pLastDestroyedActor) {
-//            if (pLastDestroyedActor->instanceOf(Obj_GgafDx_GeometricActor)) {
-//                pTargetActor = (GgafDx::GeometricActor*)pLastDestroyedActor;
-//            }
-//        }
-//    }
-//
-//    if (pTargetActor) {
-//        switch (pPrmActorStatus->get(STAT_DestroyedEffectKind)) {
-//            case 0: {
-//                pE = nullptr; //爆発エフェクト無し
-//                break;
-//            }
-//            case EF_BONUS001: {
-//                //スコアが表示される消滅エフェクト
-//                SpriteLabelBonus001* pLabel = CommonScene_dispatchForce(SpriteLabelBonus001);
-//                pLabel->onDispatched(pTargetActor); //初期設定が行われる
-//                std::string s = XTOS(pPrmActorStatus->get(STAT_AddDestroyScorePoint));
-//                pLabel->update(s.c_str()); //破壊時得点が表示される
-//                pE = pLabel;
-//                break;
-//            }
-//            case EF_BONUS_FORMATION: {
-//                //スコアが表示される消滅エフェクト
-//                SpriteLabelBonus002* pLabel = CommonScene_dispatchForce(SpriteLabelBonus002);
-//                pLabel->onDispatched(pTargetActor); //初期設定が行われる
-//                std::string s = XTOS(pPrmActorStatus->get(STAT_AddDestroyScorePoint));
-//                pLabel->update(s.c_str()); //破壊時得点が表示される
-//                pE = pLabel;
-//                break;
-//            }
-//            default: {
-//                throwCriticalException("STAT_DestroyedEffectKind が範囲外。pTargetActor="<<pTargetActor->getName()<<"("<<pTargetActor<<"),prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
-//                pE = nullptr;
-//                break;
-//            }
-//        }
-//    }
-//    if (pE) {
-//        //出現座標を設定
-//        //pE->setPositionAt(pTargetActor);
-//        //pE->getLocusVehicle()->takeoverFrom(pTargetActor->getLocusVehicle());
-//    }
-//    return pE;
-//}
-
-
 void MyStgUtil::adjustHitCoord(GgafDx::GeometricActor* prm_pTargetAtor, bool prm_is_adjust_part, coord& out_x, coord& out_y, coord& out_z) {
     out_x = prm_pTargetAtor->_x;
     out_y = prm_pTargetAtor->_y;
@@ -535,7 +376,7 @@ void MyStgUtil::adjustHitCoord(GgafDx::GeometricActor* prm_pTargetAtor, bool prm
         }
     }
 }
-GgafDx::FigureActor* MyStgUtil::activateEffectOf(GgafCore::Actor* prm_pActor, int prm_status_kind, bool prm_is_adjust_part) {
+GgafDx::FigureActor* MyStgUtil::activateCommonEffectOf(GgafCore::Actor* prm_pActor, int prm_status_kind, bool prm_is_adjust_part) {
     GgafCore::Status* pPrmActorStatus = prm_pActor->getStatus();
     GgafDx::GeometricActor* pTargetActor =  (GgafDx::GeometricActor*)prm_pActor;
 
@@ -556,8 +397,8 @@ GgafDx::FigureActor* MyStgUtil::activateEffectOf(GgafCore::Actor* prm_pActor, in
         }
     }
 
+    //フォーメーション場合は、最後に破壊されたアクターの座標に発生させる(pTargetActor置き換え)
     if (prm_pActor->instanceOf(Obj_ggaf_Formation)) {
-        //フォーメーション場合は、最後に破壊されたアクターの座標に発生させる(pTargetActor置き換え)
         GgafCore::Formation* pFormation = (GgafCore::Formation*)prm_pActor;
         GgafCore::Actor* pLastDestroyedActor = pFormation->_pLastDestroyedActor;
         if (pLastDestroyedActor) {
@@ -747,183 +588,6 @@ GgafDx::FigureActor* MyStgUtil::activateEffectOf(GgafCore::Actor* prm_pActor, in
     }
     return pRet;
 }
-
-
-//GgafDx::FigureActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDx::GeometricActor* prm_pActor) {
-//
-//    GgafDx::FigureActor* pE = nullptr;
-//    switch (prm_pActor->getStatus()->get(STAT_FormationDestroyedEffectKind)) {
-//        case 0: {
-//            pE = nullptr; //エフェクト無し
-//            break;
-//        }
-//        case EF_EXPLO_AND_BONUS001: {
-//            //1は通常のフォーメーションボーナススコア表示エフェクト
-//            SpriteLabelBonus001* pLabel = CommonScene_dispatchForce(SpriteLabelBonus001);
-//            pLabel->onDispatched(prm_pActor); //初期設定が行われる
-//            pLabel->setPositionAt(prm_pActor);
-//            pLabel->getLocusVehicle()->takeoverFrom(prm_pActor->getLocusVehicle());
-//            int addscore = prm_pActor->getStatus()->get(STAT_FormationDestroyedAddScorePoint); //フォーメーション全滅得点
-//            std::string s = XTOS(addscore);
-//            pLabel->update(s.c_str());
-//            pE = pLabel;
-//
-//            EffectTurbo002* pTurbo002 = CommonScene_dispatchForce(EffectTurbo002);
-//            pTurbo002->setPositionAt(prm_pActor);
-//            pTurbo002->getLocusVehicle()->takeoverFrom(prm_pActor->getLocusVehicle());
-//            break;
-//        }
-////            case 2: {
-////                pE = CommonScene_dispatch(EffectExplosion002);
-////                break;
-////            }
-////            case 3: {
-////                pE = CommonScene_dispatch(EffectExplosion003);
-////                break;
-////            }
-//        default: {
-//            throwCriticalException("対応 FormationDestroyedEffect が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
-//            pE = nullptr;
-//            break;
-//        }
-//    }
-
-//        if (pE) {
-//            //出現座標を設定
-//            pE->setPositionAt(prm_pActor);
-//            pE->getLocusVehicle()->takeoverFrom(prm_pActor->getLocusVehicle());
-//        }
-//    return pE;
-//}
-
-//GgafDx::FigureActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDx::GeometricActor* prm_pActor) {
-//    GgafDx::FigureActor* pI = nullptr;
-//    switch (prm_pActor->getStatus()->get(STAT_FormationDestroyedItemKind)) {
-//        case 0: {
-//            pI = nullptr; //アイテム無し
-//            break;
-//        }
-//        case ITEM_MP_SMALL: {
-//            pI = CommonScene_dispatch(MagicPointItem001);
-//            break;
-//        }
-//        case ITEM_MP_MIDDLE: {
-//            pI = CommonScene_dispatch(MagicPointItem002);
-//            break;
-//        }
-//        case ITEM_MP_LARGE: {
-//            pI = CommonScene_dispatch(MagicPointItem003);
-//            break;
-//        }
-//        default: {
-//            throwCriticalException("対応 FormationDestroyedItem が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
-//            pI = nullptr;
-//            break;
-//        }
-//    }
-//    if (pI) {
-//        //出現座標を設定
-//        pI->setPositionAt(prm_pActor);
-//    }
-//    return pI;
-//}
-
-//GgafDx::FigureActor* MyStgUtil::activateProperEffect01Of(GgafDx::GeometricActor* prm_pActor) {
-//    GgafDx::FigureActor* pE = nullptr;
-//    switch (prm_pActor->getStatus()->get(STAT_ProperEffect01Kind)) {
-//        case 0: {
-//            pE = nullptr; //エフェクト無し
-//            break;
-//        }
-//        case EF_TURBO: {
-//            //ターボエフェクト
-//            pE = CommonScene_dispatch(EffectTurbo002);
-//            break;
-//        }
-//        default: {
-//            throwCriticalException("対応 ProperEffect01 が定義されてない。prm_pActor="<<prm_pActor->getName()<<"("<<prm_pActor<<")");
-//            pE = nullptr;
-//            break;
-//        }
-//    }
-//    if (pE) {
-//        //出現座標を設定
-//        pE->setPositionAt(prm_pActor);
-//    }
-//    return pE;
-//
-//}
-
-//bool MyStgUtil::performEnemyHit(GgafDx::FigureActor* prm_this, const GgafDx::GeometricActor* const prm_pOther) {
-//    GgafCore::Status* pThisStatus  = prm_this->getStatus();
-//    if (UTIL::calcEnemyStamina(prm_this, prm_pOther) <= 0) { //体力が無くなったら
-//        //＜破壊された場合＞
-//        prm_this->setHitAble(false); //当たり判定消失
-//        if (prm_pOther->_kind & KIND_MY) {
-//            //相手(自機)の種別が MY*** （自機関連） ならば
-//            G_SCORE += pThisStatus->get(STAT_AddDestroyScorePoint);   //破壊時得点
-//            double rp = pThisStatus->getDouble(STAT_AddRankPoint);    //加算初期ランク値
-//            if (!ZEROd_EQ(rp)) {
-//                double rp_r = pThisStatus->getDouble(STAT_AddRankPoint_Reduction); //毎フレームのランク倍率
-//                if (ZEROd_EQ(rp_r)) { //倍率が0.0ならば
-//                    //なにもしない
-//                } else if (ONEd_EQ(rp_r)) {
-//                    G_RANK += rp; //倍率が1.0ならば、そのまま加算初期ランク値をプラス
-//                    if (G_RANK > G_MAX_RANK) {
-//                        G_RANK = G_MAX_RANK;
-//                    }
-//                    if (G_RANK < G_MIN_RANK) {
-//                        G_RANK = G_MIN_RANK;
-//                    }
-//                } else if (rp_r > 0) {
-//                    frame n = prm_this->getActiveFrame();   //稼働フレーム
-//                    G_RANK += (rp * pow(rp_r, (double)n)); //rp * (rp_r ^ n)  ランク加算
-//                    if (G_RANK > G_MAX_RANK) {
-//                        G_RANK = G_MAX_RANK;
-//                    }
-//                    if (G_RANK < G_MIN_RANK) {
-//                        G_RANK = G_MIN_RANK;
-//                    }
-//                } else {
-//                    //なにもしない
-//                }
-//
-//            }
-//            prm_this->notifyDestroyed();     //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
-//            UTIL::activateItemOf(prm_this);             //アイテム出現
-//            UTIL::activateDestroyedEffectOf(prm_this);  //やられたエフェクト
-//            GgafCore::Scene* pThisPlatformScene = prm_this->getSceneChief()->getPlatformScene();
-//            if (pThisPlatformScene->instanceOf(Obj_RankUpStage)) {
-//                //ランクアップステージの敵ならば、
-//                RankUpStage* pRankUpStage = (RankUpStage*)(pThisPlatformScene);
-//                pRankUpStage->onDestroyedEnemy(prm_this, prm_pOther);
-//            }
-//        }
-//        UTIL::activateRevengeShotOf(prm_this);     //打ち返し弾
-//        UTIL::activateExplosionEffectOf(prm_this); //爆発エフェクト
-//        return true;
-//    } else {
-//        //＜非破壊時、ダメージを受けた場合＞
-//        if (prm_pOther->_kind & KIND_MY) { //相手(自機)の種別が MY*** （自機関連） ならば
-//            G_SCORE += pThisStatus->get(STAT_AddDamagedScorePoint);   //ダメージ時得点
-//        }
-//        if (pThisStatus->get(STAT_FlushAble)) { //ダメージフラッシュするかどうか
-//            prm_this->effectFlush(2); //フラッシュ！
-//        }
-//        UTIL::activateDamagedEffectOf(prm_this); //ダメージエフェクト
-//        return false;
-//    }
-//}
-
-//GgafDx::FigureActor* MyStgUtil::performFormationDestroyAll(GgafDx::FigureActor* prm_pActor_last_destroyed) {
-//    //編隊全滅時ボーナス加算
-//    G_SCORE += prm_pActor_last_destroyed->getStatus()->get(STAT_FormationDestroyedAddScorePoint);
-//    //編隊全滅時エフェクト出現
-//    GgafDx::FigureActor* pEffect = UTIL::activateFormationDestroyedEffectOf(prm_pActor_last_destroyed);
-//    //編隊全滅アイテム出現
-//    UTIL::activateFormationDestroyedItemOf(prm_pActor_last_destroyed);
-//    return pEffect;
-//}
 
 void MyStgUtil::registerCommonSeOf(GgafDx::GeometricActor* prm_pActor) {
     t_se_id se_id = prm_pActor->getStatus()->get(STAT_ExplosionSeKind);
@@ -1360,7 +1024,7 @@ GgafCore::Status* MyStgUtil::resetShot001Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
-        p->set(STAT_ExplosionSeKind, SE_NOTHING);  //爆発SE種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_002);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
         p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
@@ -1391,7 +1055,7 @@ GgafCore::Status* MyStgUtil::resetShot002Status(GgafCore::Status* p) {
         p->set(STAT_EntryEffectKind, EF_NOTHING);  //出現エフェクト種別
         p->set(STAT_LeaveEffectKind, EF_NOTHING);  //退出エフェクト種別
         p->set(STAT_ExplosionEffectKind, EF_EXPLOSION001);  //爆発エフェクト種別(編隊は全滅時)
-        p->set(STAT_ExplosionSeKind, SE_NOTHING);  //爆発SE種別(編隊は全滅時)
+        p->set(STAT_ExplosionSeKind, SE_EXPLOSION_002);  //爆発SE種別(編隊は全滅時)
         p->set(STAT_DamagedEffectKind, EF_NOTHING);  //ダメージエフェクト種別
         p->set(STAT_DamagedSeKind, SE_NOTHING);  //ダメージSE種別
         p->set(STAT_DestroyedEffectKind, EF_NOTHING);  //やられ特殊エフェクト種別(編隊は全滅時)
