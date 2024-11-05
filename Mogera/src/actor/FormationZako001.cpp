@@ -37,7 +37,7 @@ void FormationZako001::processBehavior() {
     FormationZako::processBehavior();
 }
 
-void FormationZako001::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
+void FormationZako001::onSummon(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     Zako* pZako = (Zako*)prm_pActor;
     if (pZako->pVehicleLeader_) {
         throwCriticalException("pZako->pVehicleLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpZako="<<pZako<<"("<<pZako->getName()<<")");

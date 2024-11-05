@@ -25,10 +25,10 @@ FormationErelman002::FormationErelman002(const char* prm_name, EnemyErelmanContr
     formation_col_num_ = 6;
     formation_row_num_ = 200;
     num_Erelman_ = formation_col_num_ * formation_row_num_;
-    called_up_cnt_ = 0;
-    papa_frame_of_called_up_ = NEW frame*[formation_col_num_];
+    summon_cnt_ = 0;
+    papa_frame_of_summon_ = NEW frame*[formation_col_num_];
     pa_spent_frames_ = NEW frame[formation_col_num_];
-    pa_called_up_row_idx_ = NEW int[formation_col_num_];
+    pa_summon_row_idx_ = NEW int[formation_col_num_];
     papCurveManufConn_ = NEW CurveManufactureConnection*[formation_col_num_];
 
     for (int i = 0; i < num_Erelman_; i++) {
@@ -37,8 +37,8 @@ FormationErelman002::FormationErelman002(const char* prm_name, EnemyErelmanContr
     }
 
     for (int col = 0; col < formation_col_num_; col++) {
-        papa_frame_of_called_up_[col] = NEW frame[formation_row_num_];
-        pa_called_up_row_idx_[col] = 0;
+        papa_frame_of_summon_[col] = NEW frame[formation_row_num_];
+        pa_summon_row_idx_[col] = 0;
         papCurveManufConn_[col] = connectToCurveManufactureManager(("FormationErelman002,"+XTOS(col)).c_str());
         FixedFrameCurveManufacture* Manuf =  ((FixedFrameCurveManufacture*)(papCurveManufConn_[col])->peek());
         pa_spent_frames_[col] = Manuf->getSpentFrames();
@@ -47,7 +47,7 @@ FormationErelman002::FormationErelman002(const char* prm_name, EnemyErelmanContr
     for (int col = 0; col < formation_col_num_; col++) {
         for (int row = 0; row < formation_row_num_; row++) {
             //出現フレーム(最後の +1は getFrame() が 1フレームから始まる為
-            papa_frame_of_called_up_[col][row] = (frame)( ( (1.0*pa_spent_frames_[col]*(1+row))  /  formation_row_num_)  ) + 1;
+            papa_frame_of_summon_[col][row] = (frame)( ( (1.0*pa_spent_frames_[col]*(1+row))  /  formation_row_num_)  ) + 1;
         }
     }
 }
@@ -66,16 +66,16 @@ void FormationErelman002::processBehavior() {
         case PHASE_CALL_UP: {
             if (pPhase->hasJustChanged()) {
             }
-            if (called_up_cnt_ < num_Erelman_) {
+            if (summon_cnt_ < num_Erelman_) {
                 frame f = pPhase->getFrame();
                 for (int col = 0; col < formation_col_num_; col++) {
-                    if (f == papa_frame_of_called_up_[col][pa_called_up_row_idx_[col]]) {
-                        EnemyErelman* pErelman = (EnemyErelman*)calledUpMember();
+                    if (f == papa_frame_of_summon_[col][pa_summon_row_idx_[col]]) {
+                        EnemyErelman* pErelman = (EnemyErelman*)summonMember();
                         if (pErelman) {
-                            onCalledUp(pErelman, pa_called_up_row_idx_[col], col);
+                            onSummon(pErelman, pa_summon_row_idx_[col], col);
                         }
-                        called_up_cnt_++;
-                        pa_called_up_row_idx_[col]++;
+                        summon_cnt_++;
+                        pa_summon_row_idx_[col]++;
                     }
                 }
             } else {
@@ -93,7 +93,7 @@ void FormationErelman002::processBehavior() {
     }
 }
 
-void FormationErelman002::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
+void FormationErelman002::onSummon(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyErelman* pErelman = (EnemyErelman*)prm_pActor;
     if (pErelman->pVehicleLeader_) {
         throwCriticalException("pErelman->pVehicleLeader_が設定されてます。pErelman="<<pErelman<<"("<<pErelman->getName()<<")");
@@ -136,12 +136,12 @@ void FormationErelman002::onFinshLeading(GgafDx::FigureActor* prm_pActor) {
 FormationErelman002::~FormationErelman002() {
     for (int col = 0; col < getFormationColNum(); col++) {
         papCurveManufConn_[col]->close();
-        frame* p = papa_frame_of_called_up_[col];
+        frame* p = papa_frame_of_summon_[col];
         GGAF_DELETEARR(p);
     }
     GGAF_DELETEARR(papCurveManufConn_);
-    GGAF_DELETEARR(papa_frame_of_called_up_);
+    GGAF_DELETEARR(papa_frame_of_summon_);
     GGAF_DELETEARR(pa_spent_frames_);
-    GGAF_DELETEARR(pa_called_up_row_idx_);
+    GGAF_DELETEARR(pa_summon_row_idx_);
 }
 

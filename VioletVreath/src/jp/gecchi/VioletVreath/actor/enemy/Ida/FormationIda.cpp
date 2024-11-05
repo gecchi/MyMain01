@@ -15,10 +15,10 @@ FormationIda::FormationIda(const char* prm_name) : VvFormationActor<FkFormation>
 
 }
 void FormationIda::onActive() {
-    while (canCalledUp()) {
-        EnemyIda* pIda = (EnemyIda*)calledUpMember();
+    while (canSummon()) {
+        EnemyIda* pIda = (EnemyIda*)summonMember();
         if (pIda) {
-            onCalledUpIda(pIda); //コールバック
+            onSummonIda(pIda); //コールバック
         }
     }
 }

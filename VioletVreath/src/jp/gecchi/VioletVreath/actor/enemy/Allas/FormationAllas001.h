@@ -38,7 +38,7 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void onCalledUpAllas(EnemyAllas* prm_pAllas) = 0;
+    virtual void onSummonAllas(EnemyAllas* prm_pAllas) = 0;
 
     virtual ~FormationAllas001();
 };

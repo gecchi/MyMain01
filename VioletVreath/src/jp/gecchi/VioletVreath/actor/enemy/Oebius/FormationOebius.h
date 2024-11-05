@@ -27,7 +27,7 @@ public:
 public:
     FormationOebius(const char* prm_name, EnemyOebiusController* prm_pController);
 
-    virtual void onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) = 0;
+    virtual void onSummon(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) = 0;
 
     virtual void onFinshLeading(GgafDx::FigureActor* prm_pActor) = 0;
 

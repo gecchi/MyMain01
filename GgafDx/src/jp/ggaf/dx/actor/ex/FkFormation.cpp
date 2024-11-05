@@ -10,7 +10,7 @@ FkFormation::FkFormation(const char* prm_name, frame prm_offset_frames_end) :
 {
     _class_name = "FkFormation";
     _pIte = nullptr;
-    _can_called_up = true;
+    _can_summon = true;
 }
 void FkFormation::registerFormationFkBase(GeometricActor* prm_pFkBase) {
     if (_pChildFirst == nullptr) { //最初の１つ目
@@ -59,7 +59,7 @@ void FkFormation::appendFormationMember(GeometricActor* prm_pMember,
                               prm_rx_init_local,
                               prm_ry_init_local,
                               prm_rz_init_local);
-    prm_pMember->inactivate(); //フォーメーションなのでCalledUpを待つため
+    prm_pMember->inactivate(); //フォーメーションなのでSummonを待つため
 }
 
 void FkFormation::processFinal() {
@@ -85,12 +85,12 @@ void FkFormation::onEnd() {
     GgafCore::Formation::onEnd();
 }
 
-GeometricActor* FkFormation::calledUpMember(int prm_formation_child_num) {
+GeometricActor* FkFormation::summonMember(int prm_formation_child_num) {
     if (wasDeclaredEnd() || isInactivateScheduled()) {
         //終了を待つのみ
         return nullptr;
     }
-    if (_can_called_up) {
+    if (_can_summon) {
                                  //FkBase      ->Actor
         GgafCore::Actor* pFirstActor = getChildFirst()->getChildFirst(); //今の先頭アクター
         if (_pIte) {
@@ -100,28 +100,28 @@ GeometricActor* FkFormation::calledUpMember(int prm_formation_child_num) {
             _pIte = pFirstActor;
             if (!_pIte) {
                 //メンバーが追加されてない
-                _TRACE_("【警告】 FkFormation::calledUpMember() メンバーが追加されてません。おかしいのでは？。this="<<NODE_INFO);
-                _can_called_up = false; //次回から calledUpMember() 不可
+                _TRACE_("【警告】 FkFormation::summonMember() メンバーが追加されてません。おかしいのでは？。this="<<NODE_INFO);
+                _can_summon = false; //次回から summonMember() 不可
                 _num_formation_member = 0;
                 return nullptr;
             }
         }
-        _num_called_up++;
+        _num_summon++;
         _pIte->activate();
         if (_pIte->getNext() == pFirstActor) {
             //次が今の先頭アクターなら、これ(_pIte)は最後の一つ
-            _can_called_up = false;
+            _can_summon = false;
         }
 
         if (_pIte->getNext() == pFirstActor) {
             //最後の１つ
-            _can_called_up = false; //次回から calledUpMember() 不可
-            _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
+            _can_summon = false; //次回から summonMember() 不可
+            _num_formation_member = _num_summon; //destroyedFollower 編隊全滅判定の為再設定
         }
-        if (prm_formation_child_num <= _num_called_up) {
+        if (prm_formation_child_num <= _num_summon) {
             //上限数に達した
-            _can_called_up = false; //次回から calledUpMember() 不可
-            _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
+            _can_summon = false; //次回から summonMember() 不可
+            _num_formation_member = _num_summon; //destroyedFollower 編隊全滅判定の為再設定
         }
         return (GeometricActor*)_pIte;
     } else {

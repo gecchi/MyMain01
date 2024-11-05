@@ -46,7 +46,7 @@ public:
 
     virtual void onActive() override;
 
-    virtual void onCalledUpUnomia(EnemyUnomia* pEnemyUnomia, int col) = 0;
+    virtual void onSummonUnomia(EnemyUnomia* pEnemyUnomia, int col) = 0;
 
     virtual void processBehavior() override;
 

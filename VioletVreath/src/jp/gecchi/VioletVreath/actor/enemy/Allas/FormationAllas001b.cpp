@@ -13,7 +13,7 @@ FormationAllas001b::FormationAllas001b(const char* prm_name) : FormationAllas001
     _class_name = "FormationAllas001b";
 }
 
-void FormationAllas001b::onCalledUpAllas(EnemyAllas* prm_pAllas) {
+void FormationAllas001b::onSummonAllas(EnemyAllas* prm_pAllas) {
     prm_pAllas->pVehicleLeader_->adjustAxisYFlip();
     prm_pAllas->pVehicleLeader_->setAbsoluteBeginCoord();
 }

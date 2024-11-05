@@ -16,7 +16,7 @@ class FormationOrtuna001a : public FormationOrtuna001 {
 public:
     FormationOrtuna001a(const char* prm_name);
 
-    virtual void onCalledUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) override;
+    virtual void onSummonOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) override;
 
     virtual ~FormationOrtuna001a();
 };

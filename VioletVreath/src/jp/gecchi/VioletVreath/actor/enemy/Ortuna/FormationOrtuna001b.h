@@ -23,7 +23,7 @@ public:
 
     /**
      * 基点座標セット。
-     * onCalledUpOrtuna() の初回時一回実行される
+     * onSummonOrtuna() の初回時一回実行される
      * @param X
      * @param Y
      * @param Z
@@ -34,7 +34,7 @@ public:
         pos_.z = z;
     }
 
-    virtual void onCalledUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) override;
+    virtual void onSummonOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) override;
 
     virtual ~FormationOrtuna001b();
 };

@@ -39,7 +39,7 @@ void FormationAllas002::onActive() {
 
 
     for (int i = 0; i < num_Allas_; i++) {
-        EnemyAllas* pAllas = (EnemyAllas*)calledUpMember(num_Allas_);
+        EnemyAllas* pAllas = (EnemyAllas*)summonMember(num_Allas_);
         if (pAllas) {
             pAllas->setPosition(MyShip::lim_x_behaind_ *2 , pMYSHIP->_y+300000,  pMYSHIP->_z);
             pAllas->getLocusVehicle()->setMvVelo(velo_mv_);

@@ -10,7 +10,7 @@ DepositoryFormation::DepositoryFormation(const char* prm_name, frame prm_offset_
 {
     _class_name = "DepositoryFormation";
     _pDepo = nullptr;
-    _can_called_up = true;
+    _can_summon = true;
 }
 void DepositoryFormation::setFormationMember(ActorDepository* prm_pDepo) {
 #ifdef MY_DEBUG
@@ -55,9 +55,9 @@ void DepositoryFormation::processFinal() {
     }
 
     if (_listFollower.length() == 0) {
-        if (_can_called_up == false && _was_all_sayonara == false) {
+        if (_can_summon == false && _was_all_sayonara == false) {
             //編隊メンバーが0かつ、
-            //もうこれ以上 calledUp 不可で、onSayonaraAll()コールバック未実行の場合
+            //もうこれ以上 summon 不可で、onSayonaraAll()コールバック未実行の場合
             onSayonaraAll(); //コールバック
             sayonara(_offset_frames_end); //編隊自体がさよなら。
             _was_all_sayonara = true;
@@ -65,7 +65,7 @@ void DepositoryFormation::processFinal() {
     }
 }
 
-Actor* DepositoryFormation::calledUpMember(int prm_formation_child_num) {
+Actor* DepositoryFormation::summonMember(int prm_formation_child_num) {
     if (wasDeclaredEnd() || isInactivateScheduled()) {
         //終了を待つのみ
         return nullptr;
@@ -77,36 +77,36 @@ Actor* DepositoryFormation::calledUpMember(int prm_formation_child_num) {
     }
 #endif
     if (prm_formation_child_num	> 0) {
-        if (_can_called_up) {
+        if (_can_summon) {
             MainActor* pActor = _pDepo->dispatch();
             if (pActor) {
-                _can_called_up = true;
-                _num_called_up++;
+                _can_summon = true;
+                _num_summon++;
                 pActor->_pFormation = this;
                 _listFollower.addLast(pActor, false);
-                if (prm_formation_child_num <= _num_called_up) {
-                    _can_called_up = false; //次回から calledUpMember() 不可
-                    _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
+                if (prm_formation_child_num <= _num_summon) {
+                    _can_summon = false; //次回から summonMember() 不可
+                    _num_formation_member = _num_summon; //destroyedFollower 編隊全滅判定の為再設定
                 }
                 return (Actor*)pActor;
             } else {
-                _can_called_up = false; //次回から calledUpMember() 不可
-                _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
-                return nullptr; //もうこれ以上calledUpUntil不可
+                _can_summon = false; //次回から summonMember() 不可
+                _num_formation_member = _num_summon; //destroyedFollower 編隊全滅判定の為再設定
+                return nullptr; //もうこれ以上summonUntil不可
             }
 
         } else {
             return nullptr;
         }
     } else {
-        _can_called_up = false; //次回から calledUpMember() 不可
-        _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
-        return nullptr; //もうこれ以上calledUpUntil不可
+        _can_summon = false; //次回から summonMember() 不可
+        _num_formation_member = _num_summon; //destroyedFollower 編隊全滅判定の為再設定
+        return nullptr; //もうこれ以上summonUntil不可
     }
 }
 
-bool DepositoryFormation::canCalledUp() const {
-    return _can_called_up;
+bool DepositoryFormation::canSummon() const {
+    return _can_summon;
 }
 
 void DepositoryFormation::onEnd() {

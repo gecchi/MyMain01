@@ -19,7 +19,7 @@ public:
     FormationUrydike001(const char* prm_name);
 
     virtual void processBehavior() override;
-    virtual void onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) override;
+    virtual void onSummon(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) override;
     virtual void onFinshLeading(GgafDx::FigureActor* prm_pActor) override;
 
     virtual ~FormationUrydike001();

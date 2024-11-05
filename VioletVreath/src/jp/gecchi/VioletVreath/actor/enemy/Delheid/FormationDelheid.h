@@ -49,7 +49,7 @@ public:
 
     virtual void onActive() override;
 
-    virtual void onCalledUpDelheid(EnemyDelheid* pEnemyDelheid) = 0;
+    virtual void onSummonDelheid(EnemyDelheid* pEnemyDelheid) = 0;
 
     virtual void processBehavior() override;
     /**

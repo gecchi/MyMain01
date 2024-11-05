@@ -18,8 +18,8 @@ class FormationOebius001 : public FormationOebius {
 
     int formation_col_num_;
     int formation_row_num_;
-    int called_up_row_idx_;
-    frame* pa_frame_of_called_up_;
+    int summon_row_idx_;
+    frame* pa_frame_of_summon_;
 public:
     GgafDx::CurveManufactureConnection** papCurveManufConn_;
 
@@ -27,7 +27,7 @@ public:
 
     virtual void onActive() override;
     virtual void processBehavior() override;
-    virtual void onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) override;
+    virtual void onSummon(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) override;
     virtual void onFinshLeading(GgafDx::FigureActor* prm_pActor) override;
 
     virtual ~FormationOebius001();

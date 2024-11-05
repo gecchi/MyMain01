@@ -29,7 +29,7 @@ FormationIda001::FormationIda001(const char* prm_name) :
     }
 }
 
-void FormationIda001::onCalledUpIda(EnemyIda* pEnemyIda) {
+void FormationIda001::onSummonIda(EnemyIda* pEnemyIda) {
 }
 
 void FormationIda001::processBehavior() {

@@ -42,7 +42,7 @@ public:
 
     virtual void onActive() override;
 
-    virtual void onCalledUpEbe(EnemyEbe* pEnemyEbe) = 0;
+    virtual void onSummonEbe(EnemyEbe* pEnemyEbe) = 0;
 
     virtual void processBehavior() override;
 

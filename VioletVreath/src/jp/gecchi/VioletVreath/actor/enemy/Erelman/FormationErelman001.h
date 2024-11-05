@@ -19,18 +19,18 @@ public:
 
     int formation_col_num_;
     int formation_row_num_;
-    int called_up_cnt_;
+    int summon_cnt_;
     frame spent_frames_;
-    frame* pa_frame_of_called_up_;
+    frame* pa_frame_of_summon_;
 
-    int called_up_row_idx_;
+    int summon_row_idx_;
 
     GgafDx::CurveManufactureConnection** papCurveManufConn_;
 
     FormationErelman001(const char* prm_name, EnemyErelmanController* prm_pController);
     virtual void onActive() override;
     virtual void processBehavior() override;
-    virtual void onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) override;
+    virtual void onSummon(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) override;
     virtual void onFinshLeading(GgafDx::FigureActor* prm_pActor) override;
     int getFormationColNum() {
         return formation_col_num_;

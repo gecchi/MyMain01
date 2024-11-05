@@ -49,7 +49,7 @@ public:
             VvGeometricActor<T>::setHitAble(false); //当たり判定消失
             if ((prm_pOther->_pChecker->_kind) & KIND_MY) {
                 //相手(自機)の種別が MY*** （自機関連） ならば
-                GameGlobal::addDestroyedScoreBy(prm_pOther);
+                GameGlobal::addDestroyedScoreBy(this);
                 VvGeometricActor<T>::notifyDestroyed(); //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
                 UTIL::activateCommonItemOf(this);    //アイテム出現
                 UTIL::activateCommonEffectOf(this, STAT_DestroyedEffectKind);  //やられ特殊エフェクト（ボーナス表示等）
@@ -60,7 +60,7 @@ public:
         } else {
             //＜非破壊時、ダメージを受けた場合＞
             if ((prm_pOther->_pChecker->_kind) & KIND_MY) { //相手(自機)の種別が MY*** （自機関連） ならば
-                GameGlobal::addDamagedScoreBy(prm_pOther); //ダメージ時得点
+                GameGlobal::addDamagedScoreBy(this); //ダメージ時得点
             }
             if (pThisStatus->get(STAT_FlushAble)) { //ダメージフラッシュするかどうか
                 VvGeometricActor<T>::effectFlush(2); //フラッシュ！

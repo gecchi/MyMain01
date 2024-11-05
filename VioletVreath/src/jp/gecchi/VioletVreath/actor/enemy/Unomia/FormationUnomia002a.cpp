@@ -8,7 +8,7 @@ using namespace VioletVreath;
 FormationUnomia002a::FormationUnomia002a(const char* prm_name) : FormationUnomia002(prm_name) {
     _class_name = "FormationUnomia002a";
 }
-void FormationUnomia002a::onCalledUpUnomia(EnemyUnomia* pEnemyUnomia, int col) {
+void FormationUnomia002a::onSummonUnomia(EnemyUnomia* pEnemyUnomia, int col) {
 //    pEnemyUnomia->pVehicleLeader_->adjustAxisRate(
 //                                        MyShip::lim_x_infront_, //X•ûŒü”{—¦
 //                                        MyShip::lim_y_top_,   //Y•ûŒü”{—¦

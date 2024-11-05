@@ -13,7 +13,7 @@ FormationOrtuna001a::FormationOrtuna001a(const char* prm_name) : FormationOrtuna
     _class_name = "FormationOrtuna001a";
 }
 
-void FormationOrtuna001a::onCalledUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) {
+void FormationOrtuna001a::onSummonOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) {
     int d = 300;
     MyShip* pMyShip = pMYSHIP;
 

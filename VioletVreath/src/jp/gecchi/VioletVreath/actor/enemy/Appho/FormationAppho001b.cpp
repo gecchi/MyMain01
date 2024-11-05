@@ -11,7 +11,7 @@ FormationAppho001b::FormationAppho001b(const char* prm_name) : FormationAppho001
     _class_name = "FormationAppho001b";
 }
 
-void FormationAppho001b::onCalledUpAppho(EnemyAppho* prm_pAppho, int prm_index) {
+void FormationAppho001b::onSummonAppho(EnemyAppho* prm_pAppho, int prm_index) {
     int d = 200;
     prm_pAppho->entry_pos_.set( pMYSHIP->_x + PX_C(200) + RND(-PX_C(d),PX_C(d)),
                                 pMYSHIP->_y + RND(-PX_C(d),PX_C(d)),

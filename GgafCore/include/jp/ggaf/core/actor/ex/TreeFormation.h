@@ -27,9 +27,9 @@ private:
         throwCriticalException("使用不可です。");
     }
 
-    /** [r]calledUpMember()用のカーソル */
+    /** [r]summonMember()用のカーソル */
     Actor* _pIte;
-    bool _can_called_up;
+    bool _can_summon;
     /** [r]メンバー追加が行われたかどうか */
     bool _is_append_member_experienced;
 
@@ -60,7 +60,7 @@ public:
      * 編隊を構成するために、本メソッドを実行し、メンバーを予め配下アクターに設定する必要がある。<BR>
      * 最初に登録したアクターが、フォーメーションの種別となるため、同じ種別をappendFormationMember する必要がある。<BR>
      * 内部で自動で inactivateImmed() が実行され、最初は待機状態となる。<BR>
-     * 構成メンバーを活動させるには、calledUpMember() を使用。<BR>
+     * 構成メンバーを活動させるには、summonMember() を使用。<BR>
      * 構成メンバーを活動終了時は、sayonara() を使用。解放対象になる。<BR>
      * 編隊メンバーは使い捨てである。<BR>
      * @param prm_pChild 編隊のメンバーのアクター
@@ -74,14 +74,14 @@ public:
      * @param prm_formation_child_num 本フォーメーションの管理される要員数（＝編隊全滅数）。省略時は配下メンバー数となる。
      * @return 未活動の編隊登録メンバー。又は nullptr、未活動の編隊登録メンバーはもう無い。
      */
-    Actor* calledUpMember(int prm_formation_child_num = INT_MAX);
+    Actor* summonMember(int prm_formation_child_num = INT_MAX);
 
     /**
-     * calledUpMember() 可能な場合 true
+     * summonMember() 可能な場合 true
      * @return true:未活動の編隊登録メンバーが未だ存在/false:もう存在しない。
      */
-    inline bool canCalledUp() {
-        return _can_called_up;
+    inline bool canSummon() {
+        return _can_summon;
     }
 
     /**

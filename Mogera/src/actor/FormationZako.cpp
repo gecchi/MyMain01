@@ -23,11 +23,11 @@ FormationZako::FormationZako(const char* prm_name) :
     formation_col_num_ = 0;
     formation_row_num_ = 0;
     num_Zako_ = 0;
-    called_up_interval_ = 0;
-    called_up_row_idx_ = 0;
+    summon_interval_ = 0;
+    summon_row_idx_ = 0;
 }
 
-void FormationZako::addMember(int prm_formation_col_num, int prm_formation_row_num, frame prm_called_up_interval) {
+void FormationZako::addMember(int prm_formation_col_num, int prm_formation_row_num, frame prm_summon_interval) {
     formation_col_num_ = prm_formation_col_num;
     formation_row_num_ = prm_formation_row_num;
     num_Zako_ = prm_formation_col_num  * prm_formation_row_num;
@@ -35,14 +35,14 @@ void FormationZako::addMember(int prm_formation_col_num, int prm_formation_row_n
         std::string name = "Zako("+XTOS(i)+")";
         appendFormationMember(NEW Zako(name.c_str()));
     }
-    called_up_interval_ = prm_called_up_interval; //oŒ»ŠÔŠu
-    called_up_row_idx_ = 0;
+    summon_interval_ = prm_summon_interval; //oŒ»ŠÔŠu
+    summon_row_idx_ = 0;
 }
 void FormationZako::initialize() {
 }
 
 void FormationZako::onActive() {
-    called_up_row_idx_ = 0;
+    summon_row_idx_ = 0;
     getPhase()->reset(PHASE_INIT);
 }
 
@@ -56,15 +56,15 @@ void FormationZako::processBehavior() {
         case PHASE_CALL_UP: {
             if (pPhase->hasJustChanged()) {
             }
-            if (formation_row_num_ > called_up_row_idx_ && canCalledUp()) {
-                if (getActiveFrame() % called_up_interval_ == 0) {
+            if (formation_row_num_ > summon_row_idx_ && canSummon()) {
+                if (getActiveFrame() % summon_interval_ == 0) {
                     for (int col = 0; col < formation_col_num_; col++) {
-                        Zako* pZako = (Zako*)calledUpMember();
+                        Zako* pZako = (Zako*)summonMember();
                         if (pZako) {
-                            onCalledUp(pZako, called_up_row_idx_, col);
+                            onSummon(pZako, summon_row_idx_, col);
                         }
                     }
-                    called_up_row_idx_ ++;
+                    summon_row_idx_ ++;
                 }
             } else {
                 pPhase->changeNext();

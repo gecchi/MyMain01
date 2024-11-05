@@ -17,7 +17,7 @@ FormationAppho001::FormationAppho001(const char* prm_name) :
         std::string name = "Appho("+XTOS(i)+")";
         appendFormationMember(NEW EnemyAppho(name.c_str()));
     }
-    cnt_called_up_ = 0;
+    cnt_summon_ = 0;
 }
 
 void FormationAppho001::initialize() {
@@ -29,11 +29,11 @@ void FormationAppho001::onActive() {
 }
 
 void FormationAppho001::processBehavior() {
-    if (canCalledUp() && getActiveFrame() % interval_frames_ == 0) {
-        EnemyAppho* pAppho = (EnemyAppho*)calledUpMember(num_Appho_);
+    if (canSummon() && getActiveFrame() % interval_frames_ == 0) {
+        EnemyAppho* pAppho = (EnemyAppho*)summonMember(num_Appho_);
         if (pAppho) {
-            onCalledUpAppho(pAppho, cnt_called_up_);  //コールバック
-            cnt_called_up_++;
+            onSummonAppho(pAppho, cnt_summon_);  //コールバック
+            cnt_summon_++;
         }
     }
 }

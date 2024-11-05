@@ -22,7 +22,7 @@ public:
     virtual void processBehavior() override;
 
 
-    virtual void onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) override;
+    virtual void onSummon(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) override;
 
     virtual ~FormationThagoras001();
 };

@@ -13,9 +13,9 @@ FormationOrtuna001b::FormationOrtuna001b(const char* prm_name) : FormationOrtuna
     _class_name = "FormationOrtuna001b";
 }
 
-void FormationOrtuna001b::onCalledUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) {
+void FormationOrtuna001b::onSummonOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) {
     if (prm_index == 0) {
-        //初CalledUp、基点をセット
+        //初Summon、基点をセット
         MyShip* pMyShip = pMYSHIP;
         setPosition(pMyShip->_x+PX_C(200), pMyShip->_y, pMyShip->_z);
     }

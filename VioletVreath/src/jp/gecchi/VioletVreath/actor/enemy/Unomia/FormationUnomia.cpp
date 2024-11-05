@@ -79,14 +79,14 @@ void FormationUnomia::processBehavior() {
             break;
         }
         case PHASE_CALL_UP: {
-            if (canCalledUp()) {
+            if (canSummon()) {
                 if (getActiveFrame() % launch_interval_ == 0) {
                     for (int col = 0; col < num_formation_col_; col++) {
-                        EnemyUnomia* pUnomia = (EnemyUnomia*)calledUpMember(num_formation_member_);
+                        EnemyUnomia* pUnomia = (EnemyUnomia*)summonMember(num_formation_member_);
                         if (pUnomia) {
                             pUnomia->config(pConn_pCurveManuf_->peek(), nullptr, nullptr);
                             pUnomia->getLocusVehicle()->setMvVelo(mv_velo_);
-                            onCalledUpUnomia(pUnomia, col); //フォーメーション個別実装の処理
+                            onSummonUnomia(pUnomia, col); //フォーメーション個別実装の処理
                         }
                     }
                 }

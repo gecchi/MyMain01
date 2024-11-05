@@ -17,8 +17,8 @@ void FormationEres001::initialize() {
 }
 
 void FormationEres001::processBehavior() {
-    if (canCalledUp() && (getActiveFrame()-1) % 32U == 0) {
-        calledUpMember();
+    if (canSummon() && (getActiveFrame()-1) % 32U == 0) {
+        summonMember();
     }
 }
 

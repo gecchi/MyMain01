@@ -16,7 +16,7 @@ class FormationAllas001c : public FormationAllas001 {
 public:
     FormationAllas001c(const char* prm_name);
 
-    virtual void onCalledUpAllas(EnemyAllas* prm_pAllas) override;
+    virtual void onSummonAllas(EnemyAllas* prm_pAllas) override;
 
     virtual ~FormationAllas001c();
 };

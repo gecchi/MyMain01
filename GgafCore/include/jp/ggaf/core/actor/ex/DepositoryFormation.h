@@ -25,8 +25,8 @@ class DepositoryFormation : public Formation {
 public:
     /** [r]編隊要素として管理されているアクターのリスト */
     RingLinkedList<Actor> _listFollower;
-    /** [r]calledUpMember() できるかどうかフラフ。true:招集できる／false：招集できない（メンバー数分招集した） */
-    bool _can_called_up;
+    /** [r]summonMember() できるかどうかフラフ。true:招集できる／false：招集できない（メンバー数分招集した） */
+    bool _can_summon;
     /** [r]構成メンバーのストッカー（nullptrの場合構成メンバーは配下アクターのはず） */
     ActorDepository* _pDepo;
 
@@ -41,7 +41,7 @@ public:
 
     /**
      * 編隊構成メンバーがストックされたデポジトリを設定する .
-     * メンバーを活動させるには、専用メソッド calledUpMember() を使用する。
+     * メンバーを活動させるには、専用メソッド summonMember() を使用する。
      * メンバーを活動終了時は、sayonara() を使用。
      * @param prm_pDepo
      */
@@ -66,27 +66,27 @@ public:
      * 本メソッドを呼び出すと、デポジトリに管理されたメンバーが一つ dispatch() されます。(同時に activate() もされる)
      * デポジトリのメンバーがすべて活動中で、枯渇している場合 nullptr が返ります。<BR>
      * また、引数の prm_formation_child_num は最大編隊構成要員数で、この数以上の呼び出しでも nullptr が返ります。<BR>
-     * 一度でも nullptr が返されると、内部フラグ _can_called_up が false になり、以降本フォーメーションオブジェクトは
-     * メンバー呼び出しできないようになります。と同時に(_can_called_up==falseを受けて)processFinal() 内では、
+     * 一度でも nullptr が返されると、内部フラグ _can_summon が false になり、以降本フォーメーションオブジェクトは
+     * メンバー呼び出しできないようになります。と同時に(_can_summon==falseを受けて)processFinal() 内では、
      * 全ての編隊メンバーが非活動時、本フォーメーションオブジェクトが自動的に sayonara(_offset_frames_end) が実行されるようになります。<BR>
-     * 【ハマったメモ１】初っ端に calledUpMember 呼び出しで、デポジトリストック枯渇により、いきなりnullptrが返った場合も、
-     * _can_called_up = false になります。よって、本フォーメーションオブジェクトは、いきなり sayonara(_offset_frames_end) が実行され終了する。
+     * 【ハマったメモ１】初っ端に summonMember 呼び出しで、デポジトリストック枯渇により、いきなりnullptrが返った場合も、
+     * _can_summon = false になります。よって、本フォーメーションオブジェクトは、いきなり sayonara(_offset_frames_end) が実行され終了する。
      * という動作になります。構成メンバーが確保できなかった場合も考慮して下さい。<BR>
-     * 【ハマったメモ２】calledUpMember() して取得したメンバーは sayonara() (内部的にはinactive()) することにより、編隊から離脱したことになります。
-     * 従って、calledUpMember() したメンバーを、inactive() して、内部一時保有し確保することは、その瞬間に編隊から離脱したこと同意になりますので、
+     * 【ハマったメモ２】summonMember() して取得したメンバーは sayonara() (内部的にはinactive()) することにより、編隊から離脱したことになります。
+     * 従って、summonMember() したメンバーを、inactive() して、内部一時保有し確保することは、その瞬間に編隊から離脱したこと同意になりますので、
      * できません。そのようにしたい場合は TreeFormation を使うしかありません。<BR>
      * @param prm_formation_child_num 本フォーメーションの管理される要員数（＝編隊全滅数）。省略時は配下メンバー数となる。
      * @return 編隊構成要員のアクター。
      *         最大編隊構成要員数をオーバーして呼び出した場合、或いは
      *         デポジトリに構成要員がもういない場合は nullptr
      */
-    Actor* calledUpMember(int prm_formation_child_num = INT_MAX);
+    Actor* summonMember(int prm_formation_child_num = INT_MAX);
 
     /**
-     * まだ、編隊隊員確保が不十分で、calledUpMember() をする余地があるかどうか。 .
+     * まだ、編隊隊員確保が不十分で、summonMember() をする余地があるかどうか。 .
      * @return true：余地あり／false：余地なし
      */
-    bool canCalledUp() const;
+    bool canSummon() const;
 
     /**
      * メンバーが残っていれば解放します。

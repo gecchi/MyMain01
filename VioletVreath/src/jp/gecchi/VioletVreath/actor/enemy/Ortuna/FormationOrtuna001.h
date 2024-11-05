@@ -20,7 +20,7 @@ public:
     /** 編隊間隔フレーム(RANK変動) */
     frame interval_frames_;
 
-    int index_called_up_;
+    int index_summon_;
 
 public:
     FormationOrtuna001(const char* prm_name);
@@ -33,11 +33,11 @@ public:
     virtual void onActive() override;
 
     /**
-     * オルトゥナCalledUp時にコールバックされるメソッド。
-     * @param prm_pOrtuna CalledUpされたオルトゥナ
+     * オルトゥナSummon時にコールバックされるメソッド。
+     * @param prm_pOrtuna Summonされたオルトゥナ
      * @param prm_index インデックス (0～・・・)
      */
-    virtual void onCalledUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) = 0;
+    virtual void onSummonOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) = 0;
 
     virtual void processBehavior() override;
 

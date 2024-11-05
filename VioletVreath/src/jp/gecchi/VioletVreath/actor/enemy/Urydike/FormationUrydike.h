@@ -21,8 +21,8 @@ public:
 
     int formation_col_num_;
     int formation_row_num_;
-    frame called_up_interval_;
-    int called_up_row_idx_;
+    frame summon_interval_;
+    int summon_row_idx_;
 
     /** [r]出現座標(シーンが設定) */
     GgafDx::GeoElem entry_pos_;
@@ -30,8 +30,8 @@ public:
     XpmConnection* pXpmCon_;
 
 public:
-    FormationUrydike(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_called_up_interval);
-    FormationUrydike(const char* prm_name, const char* prm_xpm_id, frame prm_called_up_interval);
+    FormationUrydike(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_summon_interval);
+    FormationUrydike(const char* prm_name, const char* prm_xpm_id, frame prm_summon_interval);
 
     /**
      * 編隊を作成 .
@@ -42,7 +42,7 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) = 0;
+    virtual void onSummon(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) = 0;
 
     virtual void onFinshLeading(GgafDx::FigureActor* prm_pActor) = 0;
 

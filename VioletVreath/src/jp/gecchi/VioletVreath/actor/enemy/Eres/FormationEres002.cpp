@@ -22,8 +22,8 @@ void FormationEres002::initialize() {
 }
 
 void FormationEres002::processBehavior() {
-    if (canCalledUp() && (getActiveFrame()-1) % 64 == 0) {
-        EnemyEres* pEres = (EnemyEres*)calledUpMember();
+    if (canSummon() && (getActiveFrame()-1) % 64 == 0) {
+        EnemyEres* pEres = (EnemyEres*)summonMember();
         if (pEres) {
             pEres->activate();
         }

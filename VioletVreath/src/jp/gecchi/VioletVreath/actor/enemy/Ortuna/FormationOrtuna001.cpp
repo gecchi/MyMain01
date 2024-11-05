@@ -16,7 +16,7 @@ FormationOrtuna001::FormationOrtuna001(const char* prm_name) :
         std::string name = "Ortuna("+XTOS(i)+")";
         appendFormationMember(NEW EnemyOrtuna(name.c_str()));
     }
-    index_called_up_ = 0;
+    index_summon_ = 0;
 }
 
 void FormationOrtuna001::initialize() {
@@ -28,11 +28,11 @@ void FormationOrtuna001::onActive() {
 }
 
 void FormationOrtuna001::processBehavior() {
-    if (canCalledUp() && getActiveFrame() % interval_frames_ == 0) {
-        EnemyOrtuna* pOrtuna = (EnemyOrtuna*)calledUpMember(num_Ortuna_);
+    if (canSummon() && getActiveFrame() % interval_frames_ == 0) {
+        EnemyOrtuna* pOrtuna = (EnemyOrtuna*)summonMember(num_Ortuna_);
         if (pOrtuna) {
-            onCalledUpOrtuna(pOrtuna, index_called_up_);  //コールバック
-            index_called_up_++;
+            onSummonOrtuna(pOrtuna, index_summon_);  //コールバック
+            index_summon_++;
         }
     }
 }

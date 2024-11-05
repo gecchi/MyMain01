@@ -23,7 +23,7 @@ public:
      * 編隊メンバーとして招集された瞬間に呼び出されるコールバック実装、設置座標と向きをセット。
      * @param pEnemyDelheid 招集された編隊メンバー
      */
-    void onCalledUpDelheid(EnemyDelheid* pEnemyDelheid) override;
+    void onSummonDelheid(EnemyDelheid* pEnemyDelheid) override;
 
     /**
      * スプライン情報オブジェクトを取得 .

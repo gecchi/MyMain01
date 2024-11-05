@@ -86,7 +86,7 @@ void FormationDelheid::processBehavior() {
              pDummy_->setPositionAt(&geoLocate_);
              pDummy_->setFaceAngAs(&geoLocate_);
              pDummy_->getLocusVehicle()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
-             onCalledUpDelheid(pDummy_);
+             onSummonDelheid(pDummy_);
              pDummy_->pVehicleLeader_->start(RELATIVE_COORD_DIRECTION); //座標計算のためスタート＆オプション指定が必要
              coord next_x, next_y, next_z;             //開始+1 の補完点座標
              coord end_x, end_y, end_z;                //最終の補完点座標
@@ -118,7 +118,7 @@ void FormationDelheid::processBehavior() {
                  }
              } else {
                  //開始ハッチがオープン前にやられた
-                 calledUpMember(0); //強制招集打ち切り
+                 summonMember(0); //強制招集打ち切り
                  pPhase->changeNothing(); //本フォーメーション自体終了！
              }
              //ハッチオープン完了待ち
@@ -128,11 +128,11 @@ void FormationDelheid::processBehavior() {
          case PHASE_FROMATION_MOVE1: {
              if (pAlisana_start) {
                  //開始ハッチがオープンが存在中の場合
-                 if (canCalledUp()) {
+                 if (canSummon()) {
                      //招集未完了時
                      if (pPhase->getFrame() % RV_LaunchInterval == 0) {
                          //機数 RV_Num_ 機まで招集
-                         EnemyDelheid* pDelheid = (EnemyDelheid*)calledUpMember(RV_Num_);
+                         EnemyDelheid* pDelheid = (EnemyDelheid*)summonMember(RV_Num_);
                          if (pDelheid) {
                              pDelheid->config(getSplManuf(),
                                               pConn_pShotDepo_->peek() );
@@ -145,7 +145,7 @@ void FormationDelheid::processBehavior() {
                              pDelheid->getLocusVehicle()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
                              pDelheid->pVehicleLeader_->setStartAngle(geoLocate_.rx, geoLocate_.ry, geoLocate_.rz);
 //                             pDelheid->pVehicleLeader_->setLoopAngleByMvAng();
-                             onCalledUpDelheid(pDelheid); //下位フォーメーションクラス個別実装の処理
+                             onSummonDelheid(pDelheid); //下位フォーメーションクラス個別実装の処理
                          } else {
                              //招集おしまい
                          }
@@ -157,7 +157,7 @@ void FormationDelheid::processBehavior() {
                  }
              } else {
                  //開始ハッチが無い(無くなった)場合
-                 calledUpMember(0); //強制招集打ち切り（本フォーメションオブジェクトを解放させる条件として必要）
+                 summonMember(0); //強制招集打ち切り（本フォーメションオブジェクトを解放させる条件として必要）
                  pPhase->changeNext(); //出現終了！
              }
              break;

@@ -57,13 +57,13 @@ void FormationAllas001::processBehavior() {
             if (pPhase->hasJustChanged()) {
 
             }
-            if (canCalledUp()) {
+            if (canSummon()) {
                 if (getActiveFrame() % interval_frames_ == 0) {
-                    EnemyAllas* pAllas = (EnemyAllas*)calledUpMember(num_Allas_);
+                    EnemyAllas* pAllas = (EnemyAllas*)summonMember(num_Allas_);
                     if (pAllas) {
                         pAllas->getLocusVehicle()->setMvVelo(velo_mv_);
                         pAllas->config(pConn_pCurveManuf_->peek(), nullptr, nullptr);
-                        onCalledUpAllas(pAllas);
+                        onSummonAllas(pAllas);
                     }
                 }
             } else {

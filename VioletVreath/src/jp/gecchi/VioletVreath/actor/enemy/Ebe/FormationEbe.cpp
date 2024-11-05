@@ -35,13 +35,13 @@ void FormationEbe::onActive() {
 }
 
 void FormationEbe::processBehavior() {
-    if (canCalledUp() && (getActiveFrame() % RV_LaunchInterval == 0)) {
-        EnemyEbe* pEbe = (EnemyEbe*)calledUpMember(RV_Num_);
+    if (canSummon() && (getActiveFrame() % RV_LaunchInterval == 0)) {
+        EnemyEbe* pEbe = (EnemyEbe*)summonMember(RV_Num_);
         if (pEbe) {
             GgafCore::ActorDepository* pDepo_shot = pConn_pShotDepo_ ? pConn_pShotDepo_->peek() : nullptr;
             pEbe->config(getSplManuf(), pDepo_shot, nullptr);
             pEbe->getLocusVehicle()->setMvVelo(RV_MvVelo_);
-            onCalledUpEbe(pEbe); //下位フォーメーションクラス個別実装の処理
+            onSummonEbe(pEbe); //下位フォーメーションクラス個別実装の処理
         }
     }
 }

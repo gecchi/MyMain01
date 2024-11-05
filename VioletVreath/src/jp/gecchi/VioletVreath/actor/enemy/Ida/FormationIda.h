@@ -24,7 +24,7 @@ public:
 
     virtual void onActive() override;
 
-    virtual void onCalledUpIda(EnemyIda* pEnemyIda) = 0;
+    virtual void onSummonIda(EnemyIda* pEnemyIda) = 0;
 
     virtual ~FormationIda();
 };

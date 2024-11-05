@@ -41,8 +41,8 @@ void FormationRis001::onActive() {
 }
 
 void FormationRis001::processBehavior() {
-    if (canCalledUp() && (getActiveFrame()-1) % interval_frames_ == 0) {
-        EnemyRis* pRis = (EnemyRis*)calledUpMember(num_Ris_);
+    if (canSummon() && (getActiveFrame()-1) % interval_frames_ == 0) {
+        EnemyRis* pRis = (EnemyRis*)summonMember(num_Ris_);
         if (pRis) {
             pRis->setPosition(MyShip::lim_x_behaind_ - 500000, 0, MyShip::lim_z_left_ * 0.8);
             pRis->getLocusVehicle()->setMvVelo(velo_mv_);

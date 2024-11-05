@@ -19,7 +19,7 @@ public:
     /**
      * Т▓Ро .
      */
-    void onCalledUpUnomia(EnemyUnomia* pEnemyUnomia, int col) override;
+    void onSummonUnomia(EnemyUnomia* pEnemyUnomia, int col) override;
 
     virtual ~FormationUnomia001a();
 };

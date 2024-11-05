@@ -9,7 +9,7 @@ FormationUnomia002b::FormationUnomia002b(const char* prm_name) : FormationUnomia
     _class_name = "FormationUnomia002b";
 }
 
-void FormationUnomia002b::onCalledUpUnomia(EnemyUnomia* pEnemyUnomia, int col) {
+void FormationUnomia002b::onSummonUnomia(EnemyUnomia* pEnemyUnomia, int col) {
 //    pEnemyUnomia->pVehicleLeader_->adjustAxisRate(
 //                                        MyShip::lim_x_infront_, //X•ûŒü”{—¦
 //                                       -1.0 * MyShip::lim_y_top_,   //Y•ûŒü”{—¦
