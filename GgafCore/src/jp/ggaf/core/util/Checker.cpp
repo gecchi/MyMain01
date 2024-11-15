@@ -4,7 +4,8 @@
 using namespace GgafCore;
 
 Checker::Checker(Actor* prm_pActor) : Object(), ITreeNodeElem(),
-_pActor(prm_pActor)
+_pActor(prm_pActor),
+_pNextChecker(nullptr)
 {
 }
 

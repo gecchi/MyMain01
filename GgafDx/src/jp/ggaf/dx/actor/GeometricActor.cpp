@@ -254,27 +254,20 @@ void GeometricActor::processSettlementBehavior() {
 void GeometricActor::judge() {
     if (_is_active_in_the_tree_flg) {
         processJudgement();    //ƒ†[ƒU[À‘•—p
-        CollisionChecker* pColliChecker = getChecker();
-        //“–‚½‚è”»’è‚Ìˆ×‚É”ª•ª–Øil•ª–Øj‚É“o˜^‚·‚é .
-        if (pColliChecker) {
-            if (pColliChecker->_kind > 0) {
-                if (_can_hit_flg) {
-                    if (_enable_out_of_view_hit_flg == false && isOutOfView()) {
-                        //‹–ìŠO“–‚½‚è”»’è–³Œø‚Ìê‡‚Í“o˜^‚µ‚È‚¢
-                    }
-                    else {
-                        //–Ø“o˜^
-                        //_kind = getDefaultKind();
 
+        //“–‚½‚è”»’è‚Ìˆ×‚É”ª•ª–Øil•ª–Øj‚É“o˜^‚·‚é .
+        if (_can_hit_flg) {
+            if (_enable_out_of_view_hit_flg == false && isOutOfView()) {
+                //‹–ìŠO“–‚½‚è”»’è–³Œø‚Ìê‡‚Í“o˜^‚µ‚È‚¢
+            } else {
+                //–Ø“o˜^
+                CollisionChecker* pColliChecker = getChecker();
+                do {
+                    if (pColliChecker->_kind > 0) {
                         pColliChecker->updateHitArea();
-                        //                    if (_sub_kind > 0 && _pSubChecker) {
-                        //                        kind_t bk_kind = _kind;
-                        //                        _kind = _sub_kind;
-                        //                        _pSubChecker->updateHitArea();
-                        //                        _kind = bk_kind;
-                        //                    }
                     }
-                }
+                    pColliChecker = (CollisionChecker*)pColliChecker->_pNextChecker;
+                } while (pColliChecker);
             }
         }
         //Ä‹A

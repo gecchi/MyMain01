@@ -93,25 +93,24 @@ void Actor::notifyDestroyed() {
 Checker* Actor::createChecker() {
     return NEW Checker(this);
 }
+
 void Actor::appendChild(Actor* prm_pActor) {
-    kind_t kind = getCheckerKind();
-    _pChecker->_kind = kind;
+    if (!_pChecker) {
+        _pChecker = createChecker();
+    }
     Element<Actor>::appendChild(prm_pActor);
 }
 kind_t Actor::getCheckerKind() {
-    if (_pChecker) {
-        return _pChecker->_kind;
-    } else {
+    if (!_pChecker) {
         _pChecker = createChecker();
-        return _pChecker->_kind;
     }
+    return _pChecker->_kind;
 }
 void Actor::setCheckerKind(kind_t prm_kind) {
-    if (_pChecker) {
-        _pChecker->_kind = prm_kind;
-    } else {
-        getChecker()->_kind = prm_kind;
+    if (!_pChecker) {
+        _pChecker = createChecker();
     }
+    _pChecker->_kind = prm_kind;
 }
 //void Actor::setDefaultKind(kind_t prm_kind) {
 //    getChecker()->_kind = prm_kind;

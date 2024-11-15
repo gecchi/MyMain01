@@ -20,7 +20,8 @@ class Checker : public Object, public ITreeNodeElem {
 
 public:
     Actor* const _pActor;
-
+    /** 拡張 */
+    Checker* _pNextChecker;
     /**
      * ステータスセットを作成 .
      * リセットメソッドを実行しステータス初期化を行います。

@@ -82,12 +82,15 @@ bool WorldCollisionChecker2D::isHit(const GgafDx::CollisionChecker* const prm_pO
 CNT:
 
     for (int i = 0; i < colli_part_num; i++) {
+        pActiveCollisionArea->_hit_colli_part_index = i;
+
         const GgafDx::CollisionPart* const pColliPart = pActiveCollisionArea->_papColliPart[i];
         const int shape_kind = pColliPart->_shape_kind;
 
         if (shape_kind == COLLI_AABOX) {
 
             for (int j = 0; j < opp_colli_part_num; j++) {
+                pOppActiveCollisionArea->_hit_colli_part_index = j;
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
@@ -97,8 +100,7 @@ CNT:
                     //ƒ’·•ûŒ` ‚Æ ’·•ûŒ`„
                     if (UTIL::isHit2D(pActor   , (ColliAABox*)pColliPart,
                                       pOppActor, (ColliAABox*)pOppColliPart)) {
-                        pActiveCollisionArea->_hit_colli_part_index = i;
-                        pOppActiveCollisionArea->_hit_colli_part_index = j;
+
                         return true;
                     }
                  } else if (opp_shape_kind == COLLI_SPHERE) {
@@ -126,6 +128,7 @@ CNT:
             }
         } else if (shape_kind == COLLI_SPHERE) {
             for (int j = 0; j < opp_colli_part_num; j++) {
+                pOppActiveCollisionArea->_hit_colli_part_index = j;
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
@@ -164,6 +167,7 @@ CNT:
             }
         } else if (shape_kind == COLLI_AAPRISM) {
             for (int j = 0; j < opp_colli_part_num; j++) {
+                pOppActiveCollisionArea->_hit_colli_part_index = j;
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
                 const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG

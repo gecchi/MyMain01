@@ -194,10 +194,16 @@ GgafDx::CollisionPart* WorldCollisionChecker::getLastHitCollisionPart() {
 
 void WorldCollisionChecker::drawHitArea(GgafDx::CollisionChecker* prm_pColliChecker) {
 #ifdef MY_DEBUG
-    ColliAABoxActor::get()->drawHitarea(prm_pColliChecker);
-    ColliAAPrismActor::get()->drawHitarea(prm_pColliChecker);
-    ColliAAPyramidActor::get()->drawHitarea(prm_pColliChecker);
-    ColliSphereActor::get()->drawHitarea(prm_pColliChecker);
+    GgafDx::CollisionChecker* pColliChecker = prm_pColliChecker;
+    do {
+        ColliAABoxActor::get()->drawHitarea(pColliChecker);
+        ColliAAPrismActor::get()->drawHitarea(pColliChecker);
+        ColliAAPyramidActor::get()->drawHitarea(pColliChecker);
+        ColliSphereActor::get()->drawHitarea(pColliChecker);
+        if (pColliChecker) {
+            pColliChecker = (GgafDx::CollisionChecker*)pColliChecker->_pNextChecker;
+        }
+    } while (pColliChecker);
 #endif
 }
 
