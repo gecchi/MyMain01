@@ -12,13 +12,18 @@ namespace VioletVreath {
 template<class T>
 class VvFormationActor : public T {
 public:
+    //TODO:フォーメーションアクター用のSEはここしかないのか・・・？
     GgafDx::SeTransmitterForActor* _pSeTransmitter;
+
 public:
     VvFormationActor(const char* prm_name, void* prm_pFuncResetStatus = nullptr)
             : T(prm_name) {
         _pSeTransmitter = nullptr;
         if (prm_pFuncResetStatus) {
             T::getStatus()->reset((GgafCore::Status* (*)(GgafCore::Status*))prm_pFuncResetStatus);
+            kind_t kind = (kind_t)(T::getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND));
+            T::setCheckerKind(kind);
+
             _pSeTransmitter = NEW GgafDx::SeTransmitterForActor((GgafCore::Formation*)this);
             t_se_id se_id = T::getStatus()->get(STAT_ExplosionSeKind);
             if (se_id != SE_NOTHING) {

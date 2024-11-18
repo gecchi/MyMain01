@@ -8,7 +8,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PHASE_INIT ,
+    PHASE_DISP ,
     PHASE_FADE ,
     PHASE_BANPEI,
 };
@@ -35,7 +35,13 @@ void SpriteLabelBonus001::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
     setPositionAt(prm_pOrgActor);
     GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     pLocusVehicle->takeoverFrom(prm_pOrgActor->getLocusVehicle());
-    getPhase()->reset(PHASE_INIT);
+
+    getPhase()->reset(PHASE_DISP);
+    setAlpha(0.9);
+    if (pLocusVehicle->getMvVelo() > PX_C(1)) {
+        pLocusVehicle->setMvAcceByT(60, PX_C(1));
+    }
+
 }
 
 void SpriteLabelBonus001::processBehavior() {
@@ -43,10 +49,9 @@ void SpriteLabelBonus001::processBehavior() {
     GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
-        case PHASE_INIT: {
-            setAlpha(0.9);
-            pLocusVehicle->setMvAcceByT(60, 100);
+        case PHASE_DISP: {
             if(pPhase->getFrame() >= 60) {
+                pLocusVehicle->setMvAcce(0); //setMvAcceByT() ‚Ì PX_C(1) ‘¬“x‚Ì‚Ü‚Ü
                 pPhase->changeNext();
             }
             break;

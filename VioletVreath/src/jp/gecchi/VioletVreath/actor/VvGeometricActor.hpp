@@ -7,7 +7,6 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 
-#define STAT_DEFAULT_ACTOR_KIND (0)
 
 namespace VioletVreath {
 
