@@ -17,9 +17,7 @@ class Morpher;
  */
 template<class T>
 class MorpherAssistant : public GgafCore::Object {
-
-//	template<class T>
-	friend class Morpher<T>;
+    friend class Morpher<T>;
 
 private:
     /** [r]étè† */

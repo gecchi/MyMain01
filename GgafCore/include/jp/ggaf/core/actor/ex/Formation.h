@@ -22,7 +22,7 @@ public:
     int _num_formation_member;
     //実際に配下に登録されているアクター数と同じとは限らない。
     //appendChild()で増加、 setFormationMember() によりセット、summonMember() 上限で上書き再設定
-    //やりたいことは、destroyedFollower() で編隊全滅判定を行いたい。
+    //やりたいことは、onDestroyMember() で編隊全滅判定を行いたい。
     //生成時に、配下に余裕を持って最大メンバーを 10 登録しておき、
     //実際に活動時に使用するメンバー数は 8 である、と後から確定したい。
     //この場合 8 消滅で編隊全滅とする。
@@ -39,7 +39,8 @@ public:
     bool _was_all_destroyed;
 
     bool _was_all_sayonara;
-
+    /** [r]summonMember() できるかどうかフラフ。true:招集できる／false：招集できない（メンバー数分招集した） */
+    bool _can_summon;
     /** 最後に破壊されたアクター */
     Actor* _pLastDestroyedActor;
 public:
@@ -55,9 +56,9 @@ public:
      * 編隊構成要員が破壊された時の処理 .
      * pActor->notifyDestroyed() 時に自動的に実行される。
      * 通常フレームワーク実装者は本メソッドを使用することはない。
-     * @param prm_pActor_destroyed
+     * @param prm_pActor_destroyed やられたアクター
      */
-    void destroyedFollower(Actor* prm_pActor_destroyed);
+    virtual void onDestroyMember(Actor* prm_pActor_destroyed);
 
     /**
      * 編隊に所属したアクターが破壊(画面外ではない)により全滅した場合にコールバックされるメソッド（とする) .
@@ -86,6 +87,18 @@ public:
     inline int getMemberNum() const {
         return _num_formation_member;
     }
+    /**
+     * summonMember() 可能な場合 true
+     * @return true:未活動の編隊登録メンバーが未だ存在/false:もう存在しない。
+     */
+    inline bool canSummon() {
+        return _can_summon;
+    }
+    /**
+     * 登録した編隊のメンバーを順番にアクティブにして取得します.
+     * @return 未活動の編隊登録メンバー。又は nullptr、未活動の編隊登録メンバーはもう無い。
+     */
+    virtual Actor* summonMember(int prm_formation_child_num = INT_MAX) = 0;
 
     virtual ~Formation();
 };

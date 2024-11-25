@@ -10,7 +10,6 @@ TreeFormation::TreeFormation(const char* prm_name, frame prm_offset_frames_end) 
 {
     _class_name = "TreeFormation";
     _pIte = nullptr;
-    _can_summon = true;
     _is_append_member_experienced = false;
 }
 
@@ -93,12 +92,12 @@ Actor* TreeFormation::summonMember(int prm_formation_child_num) {
             if (_pIte->getNext() == getChildFirst()) {
                 //最後の１つ
                 _can_summon = false; //次回から summonMember() 不可
-                _num_formation_member = _num_summon; //destroyedFollower 編隊全滅判定の為再設定
+                _num_formation_member = _num_summon; //onDestroyMember 編隊全滅判定の為再設定
             }
             if (prm_formation_child_num <= _num_summon) {
                 //上限数に達した
                 _can_summon = false; //次回から summonMember() 不可
-                _num_formation_member = _num_summon; //destroyedFollower 編隊全滅判定の為再設定
+                _num_formation_member = _num_summon; //onDestroyMember 編隊全滅判定の為再設定
             }
 
             return _pIte;
@@ -107,7 +106,7 @@ Actor* TreeFormation::summonMember(int prm_formation_child_num) {
         }
     } else {
         _can_summon = false; //次回から summonMember() 不可
-        _num_formation_member = _num_summon; //destroyedFollower 編隊全滅判定の為再設定
+        _num_formation_member = _num_summon; //onDestroyMember 編隊全滅判定の為再設定
         return nullptr;
     }
 }

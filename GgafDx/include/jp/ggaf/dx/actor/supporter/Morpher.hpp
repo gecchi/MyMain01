@@ -23,7 +23,7 @@ class Morpher : public GgafCore::ValueTransitioner<float, (MAX_MORPH_TARGET+1) >
 
 private:
     /** [r]モーファーの助手 */
-    MorpherAssistant<T>* _pAsstMv;
+    MorpherAssistant<T>* _pAsstMph;
 
 public:
     /** [r]対象アクター */
@@ -56,13 +56,13 @@ public:
 template<class T>
 Morpher<T>::Morpher(T* prm_pActor) : GgafCore::ValueTransitioner<float, (MAX_MORPH_TARGET+1) >(),
 _pActor(prm_pActor) {
-    _pAsstMv = nullptr;
+    _pAsstMph = nullptr;
     setRange(0.0f, 1.0f);
 }
 
 template<class T>
 MorpherAssistant<T>* Morpher<T>::asst() {
-    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW MorpherAssistant<T>(this);
+    return _pAsstMph ? _pAsstMph : _pAsstMph = NEW MorpherAssistant<T>(this);
 }
 
 template<class T>
@@ -83,15 +83,15 @@ void Morpher<T>::setValue(int idx, float value) {
 
 template<class T>
 void Morpher<T>::behave(int s, int n) {
-    if (_pAsstMv) {
-        _pAsstMv->behave();
+    if (_pAsstMph) {
+        _pAsstMph->behave();
     }
     GgafCore::ValueTransitioner<float, (MAX_MORPH_TARGET+1) >::behave(1, _pActor->_morph_target_num);
 }
 
 template<class T>
 Morpher<T>::~Morpher() {
-    GGAF_DELETE_NULLABLE(_pAsstMv);
+    GGAF_DELETE_NULLABLE(_pAsstMph);
 }
 
 

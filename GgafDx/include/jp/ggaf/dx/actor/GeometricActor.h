@@ -65,7 +65,6 @@ public:
     scale _sy;
     /** [r/w]ワールドZ軸方向スケール(_sz : 倍率 = 1000 : 1.0倍) */
     scale _sz;
-//    CollisionChecker* _pSubChecker;
     /** [r]モデルの境界球半径倍率 */
     dxcoord _rate_of_bounding_sphere_radius;
     /** [r]内部で _x から計算されるDirectXのワールドX座標(_x : _fX = 1000 : 0.1) */
@@ -628,12 +627,12 @@ public:
      * @return 種別トップの団長
      */
     virtual void appendChildAsFk(GeometricActor* prm_pGeoActor,
-                                  int prm_x_init_local,
-                                  int prm_y_init_local,
-                                  int prm_z_init_local,
-                                  int prm_rx_init_local,
-                                  int prm_ry_init_local,
-                                  int prm_rz_init_local);
+                                 int prm_x_init_local,
+                                 int prm_y_init_local,
+                                 int prm_z_init_local,
+                                 int prm_rx_init_local,
+                                 int prm_ry_init_local,
+                                 int prm_rz_init_local);
 
     /**
      * 座標と回転 _x,_y,_z,_rx,_ry,_rz を絶対座標系を退避して、ローカル座標(土台からの相対座標)に置き換える .
@@ -648,7 +647,6 @@ public:
      */
     void changeGeoFinal();
 
-//    void updateGeoFinalFromLocal();
 
     /**
      * 本アクターが3Dの場合、 回転×移動のワールド変換行列を計算する関数を定義 .

@@ -10,7 +10,6 @@ DepositoryFormation::DepositoryFormation(const char* prm_name, frame prm_offset_
 {
     _class_name = "DepositoryFormation";
     _pDepo = nullptr;
-    _can_summon = true;
 }
 void DepositoryFormation::setFormationMember(ActorDepository* prm_pDepo) {
 #ifdef MY_DEBUG
@@ -86,12 +85,12 @@ Actor* DepositoryFormation::summonMember(int prm_formation_child_num) {
                 _listFollower.addLast(pActor, false);
                 if (prm_formation_child_num <= _num_summon) {
                     _can_summon = false; //次回から summonMember() 不可
-                    _num_formation_member = _num_summon; //destroyedFollower 編隊全滅判定の為再設定
+                    _num_formation_member = _num_summon; //onDestroyMember 編隊全滅判定の為再設定
                 }
                 return (Actor*)pActor;
             } else {
                 _can_summon = false; //次回から summonMember() 不可
-                _num_formation_member = _num_summon; //destroyedFollower 編隊全滅判定の為再設定
+                _num_formation_member = _num_summon; //onDestroyMember 編隊全滅判定の為再設定
                 return nullptr; //もうこれ以上summonUntil不可
             }
 
@@ -100,13 +99,9 @@ Actor* DepositoryFormation::summonMember(int prm_formation_child_num) {
         }
     } else {
         _can_summon = false; //次回から summonMember() 不可
-        _num_formation_member = _num_summon; //destroyedFollower 編隊全滅判定の為再設定
+        _num_formation_member = _num_summon; //onDestroyMember 編隊全滅判定の為再設定
         return nullptr; //もうこれ以上summonUntil不可
     }
-}
-
-bool DepositoryFormation::canSummon() const {
-    return _can_summon;
 }
 
 void DepositoryFormation::onEnd() {

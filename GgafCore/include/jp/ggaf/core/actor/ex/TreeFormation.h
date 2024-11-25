@@ -74,15 +74,7 @@ public:
      * @param prm_formation_child_num 本フォーメーションの管理される要員数（＝編隊全滅数）。省略時は配下メンバー数となる。
      * @return 未活動の編隊登録メンバー。又は nullptr、未活動の編隊登録メンバーはもう無い。
      */
-    Actor* summonMember(int prm_formation_child_num = INT_MAX);
-
-    /**
-     * summonMember() 可能な場合 true
-     * @return true:未活動の編隊登録メンバーが未だ存在/false:もう存在しない。
-     */
-    inline bool canSummon() {
-        return _can_summon;
-    }
+    virtual Actor* summonMember(int prm_formation_child_num = INT_MAX) override;
 
     /**
      * メンバーが残っていれば解放します。

@@ -87,7 +87,7 @@ void Actor::sayonara(frame prm_offset_frames) {
 
 void Actor::notifyDestroyed() {
     if (_pFormation) {
-        _pFormation->destroyedFollower(this);
+        _pFormation->onDestroyMember(this);
     }
 }
 Checker* Actor::createChecker() {

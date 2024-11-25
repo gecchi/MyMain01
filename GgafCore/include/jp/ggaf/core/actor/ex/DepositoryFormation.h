@@ -25,8 +25,6 @@ class DepositoryFormation : public Formation {
 public:
     /** [r]編隊要素として管理されているアクターのリスト */
     RingLinkedList<Actor> _listFollower;
-    /** [r]summonMember() できるかどうかフラフ。true:招集できる／false：招集できない（メンバー数分招集した） */
-    bool _can_summon;
     /** [r]構成メンバーのストッカー（nullptrの場合構成メンバーは配下アクターのはず） */
     ActorDepository* _pDepo;
 
@@ -80,13 +78,8 @@ public:
      *         最大編隊構成要員数をオーバーして呼び出した場合、或いは
      *         デポジトリに構成要員がもういない場合は nullptr
      */
-    Actor* summonMember(int prm_formation_child_num = INT_MAX);
+    virtual Actor* summonMember(int prm_formation_child_num = INT_MAX) override;
 
-    /**
-     * まだ、編隊隊員確保が不十分で、summonMember() をする余地があるかどうか。 .
-     * @return true：余地あり／false：余地なし
-     */
-    bool canSummon() const;
 
     /**
      * メンバーが残っていれば解放します。
