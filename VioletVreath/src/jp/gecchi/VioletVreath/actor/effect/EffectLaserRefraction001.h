@@ -1,7 +1,9 @@
 #ifndef EFFECTLASERREFRACTION001_H_
 #define EFFECTLASERREFRACTION001_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
+#include "jp/gecchi/VioletVreath/actor/VvEffectActor.hpp"
 
 namespace VioletVreath {
 
@@ -11,7 +13,7 @@ namespace VioletVreath {
  * @since 2010/07/26
  * @author Masatoshi Tsuge
  */
-class EffectLaserRefraction001 : public GgafLib::DefaultMeshSetActor {
+class EffectLaserRefraction001 : public VvEffectActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     EffectLaserRefraction001(const char* prm_name);

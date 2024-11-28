@@ -1,7 +1,9 @@
 #ifndef EFFECTEXPLOSION004_H_
 #define EFFECTEXPLOSION004_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+
 #include "jp/ggaf/lib/actor/DefaultMassSpriteActor.h"
+#include "jp/gecchi/VioletVreath/actor/VvEffectActor.hpp"
 
 namespace VioletVreath {
 
@@ -12,7 +14,7 @@ namespace VioletVreath {
  * @since 2012/10/19
  * @author Masatoshi Tsuge
  */
-class EffectExplosion004 : public GgafLib::DefaultMassSpriteActor {
+class EffectExplosion004 : public VvEffectActor<GgafLib::DefaultMassSpriteActor> {
 
 public:
     EffectExplosion004(const char* prm_name);

@@ -1,7 +1,9 @@
 #ifndef EFFECTTURBO002_H_
 #define EFFECTTURBO002_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
+#include "jp/gecchi/VioletVreath/actor/VvEffectActor.hpp"
 
 namespace VioletVreath {
 
@@ -11,7 +13,7 @@ namespace VioletVreath {
  * @since 2010/02/25
  * @author Masatoshi Tsuge
  */
-class EffectTurbo002 : public GgafLib::DefaultSpriteActor {
+class EffectTurbo002 : public VvEffectActor<GgafLib::DefaultSpriteActor> {
 
 public:
     EffectTurbo002(const char* prm_name);

@@ -2,6 +2,7 @@
 #define EFFECTCONDENSATION001_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteSetActor.h"
+#include "jp/gecchi/VioletVreath/actor/VvEffectActor.hpp"
 
 namespace VioletVreath {
 
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2010/03/19
  * @author Masatoshi Tsuge
  */
-class EffectCondensation001 : public GgafLib::DefaultSpriteSetActor {
+class EffectCondensation001 : public VvEffectActor<GgafLib::DefaultSpriteSetActor> {
 
 public:
     EffectCondensation001(const char* prm_name);

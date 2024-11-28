@@ -168,14 +168,7 @@ void EnemyTalante::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafC
          //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
          return;
     }
-
-    bool is_stamina_zero = performEnemyHit(pOther);
-    if (is_stamina_zero) {
-        //破壊された時(スタミナ <= 0)
-        sayonara();
-    } else {
-        //破壊されなかった時(スタミナ > 0)
-    }
+    VvEnemyActor<DefaultMassMeshActor>::onHit(prm_pOtherChecker, prm_pOtherActor);
 }
 
 void EnemyTalante::onInactive() {

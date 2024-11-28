@@ -53,12 +53,6 @@ public:
      */
     void processJudgement() override;
 
-    /**
-     * ƒOƒ‰ƒ„‚ÌÕ“Ëˆ— .
-     * @param prm_pOtherActor Õ“Ë‘ÎÛ
-     */
-    void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) override;
-
     void onInactive() override;
 
     static void onDispatchedShot(GgafDx::FigureActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index);

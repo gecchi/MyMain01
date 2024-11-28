@@ -4,7 +4,6 @@
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/gecchi/VioletVreath/Config.h"
 
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -17,7 +16,7 @@ enum {
 };
 
 EffectBlink::EffectBlink(const char* prm_name, const char* prm_model) :
-        DefaultMassMeshActor(prm_name, prm_model) {
+        VvEffectActor<DefaultMassMeshActor>(prm_name, prm_model) {
     _class_name = "EffectBlink";
     setHitAble(false);
     pTarget_ = nullptr;

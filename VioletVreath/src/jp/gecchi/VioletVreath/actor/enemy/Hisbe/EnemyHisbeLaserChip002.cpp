@@ -71,16 +71,6 @@ void EnemyHisbeLaserChip002::processJudgement() {
     }
 }
 
-void EnemyHisbeLaserChip002::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
-    if (is_stamina_zero) {
-        //破壊された時(スタミナ <= 0)
-        sayonara();
-    } else {
-        //破壊されなかった時(スタミナ > 0)
-    }
-}
-
 EnemyHisbeLaserChip002::~EnemyHisbeLaserChip002() {
     GGAF_DELETE(pVehicleLeader_);
     pConn_pCurveManuf_->close();

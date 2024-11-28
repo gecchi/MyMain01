@@ -1,7 +1,9 @@
 #ifndef EFFECTWORMHOLE_H_
 #define EFFECTWORMHOLE_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
+#include "jp/gecchi/VioletVreath/actor/VvEffectActor.hpp"
 
 namespace VioletVreath {
 
@@ -11,7 +13,7 @@ namespace VioletVreath {
  * @since 2011/02/02
  * @author Masatoshi Tsuge
  */
-class EffectWormhole : public GgafLib::DefaultMorphMeshActor {
+class EffectWormhole : public VvEffectActor<GgafLib::DefaultMorphMeshActor> {
 
 public:
     EffectWormhole(const char* prm_name, const char* prm_model);

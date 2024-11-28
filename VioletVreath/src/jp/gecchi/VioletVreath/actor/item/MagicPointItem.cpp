@@ -4,13 +4,10 @@
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
-#include "jp/gecchi/VioletVreath/actor/item/Item.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
-
-
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -26,7 +23,7 @@ enum {
 };
 
 MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, void* prm_pFuncStatusReset)
-               : Item(prm_name, prm_model, prm_pFuncStatusReset) {
+               : VvItemActor<GgafLib::DefaultMassMeshActor>(prm_name, prm_model, prm_pFuncStatusReset) {
     _class_name = "MagicPointItem";
     effectBlendOne(); //加算合成するTechnique指定
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される

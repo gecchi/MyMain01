@@ -3,13 +3,11 @@
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectLaserRefraction001::EffectLaserRefraction001(const char* prm_name)
-               : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001") {
+               : VvEffectActor<DefaultMeshSetActor>(prm_name, "EffectLaserRefraction001") {
     _class_name = "EffectLaserRefraction001";
     effectBlendOne(); //加算合成するTechnique指定
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される

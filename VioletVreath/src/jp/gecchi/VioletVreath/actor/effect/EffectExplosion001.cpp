@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectExplosion001::EffectExplosion001(const char* prm_name) :
-        DefaultMassSpriteActor(prm_name, "EffectExplosion001") {
+        VvEffectActor<DefaultMassSpriteActor>(prm_name, "EffectExplosion001") {
     _class_name = "EffectExplosion001";
     effectBlendOne(); //加算合成Technique指定
     defineRotMvWorldMatrix_Billboard(); //XYZ軸ビルボード

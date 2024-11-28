@@ -1,7 +1,9 @@
 #ifndef VREATHITEM_H_
 #define VREATHITEM_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
-#include "jp/gecchi/VioletVreath/actor/item/Item.h"
+
+#include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
+#include "jp/gecchi/VioletVreath/actor/VvItemActor.hpp"
 
 namespace VioletVreath {
 
@@ -11,7 +13,7 @@ namespace VioletVreath {
  * @since 2011/11/21
  * @author Masatoshi Tsuge
  */
-class VreathItem : public Item {
+class VreathItem : public VvItemActor<GgafLib::DefaultMassMeshActor> {
 
 public:
     /** ãzíÖç∑ï™ç¿ïW */

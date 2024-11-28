@@ -1,7 +1,9 @@
 #ifndef EFFECTEXPLOSION003_H_
 #define EFFECTEXPLOSION003_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+
 #include "jp/ggaf/lib/actor/DefaultPointSpriteSetActor.h"
+#include "jp/gecchi/VioletVreath/actor/VvEffectActor.hpp"
 
 namespace VioletVreath {
 
@@ -11,7 +13,7 @@ namespace VioletVreath {
  * @since 2010/07/05
  * @author Masatoshi Tsuge
  */
-class EffectExplosion003 : public GgafLib::DefaultPointSpriteSetActor {
+class EffectExplosion003 : public VvEffectActor<GgafLib::DefaultPointSpriteSetActor> {
 
 public:
     EffectExplosion003(const char* prm_name);

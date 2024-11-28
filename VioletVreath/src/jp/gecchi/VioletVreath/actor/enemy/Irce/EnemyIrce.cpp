@@ -59,16 +59,6 @@ void EnemyIrce::processJudgement() {
 //    }
 }
 
-void EnemyIrce::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
-    if (is_stamina_zero) {
-        //破壊された時(スタミナ <= 0)
-        sayonara();
-    } else {
-        //破壊されなかった時(スタミナ > 0)
-    }
-}
-
 void EnemyIrce::onInactive() {
     sayonara();
 }

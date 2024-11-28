@@ -5,13 +5,11 @@
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectCondensation001::EffectCondensation001(const char* prm_name) :
-        DefaultSpriteSetActor(prm_name, "Lockon001") {
+        VvEffectActor<DefaultSpriteSetActor>(prm_name, "Lockon001") {
     _class_name = "EffectCondensation001";
     inactivate();
     effectBlendOne(); //â¡éZçáê¨

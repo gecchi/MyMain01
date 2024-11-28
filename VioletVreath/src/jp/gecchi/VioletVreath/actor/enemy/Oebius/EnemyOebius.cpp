@@ -154,16 +154,6 @@ void EnemyOebius::processJudgement() {
     }
 }
 
-void EnemyOebius::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
-    if (is_stamina_zero) {
-        //破壊された時(スタミナ <= 0)
-        sayonara();
-    } else {
-        //破壊されなかった時(スタミナ > 0)
-    }
-}
-
 void EnemyOebius::onInactive() {
     if (getBehaveingFrame() > 10) {
         //EnemyOebiusCoreに管理されている。初めはInactive()であるため。

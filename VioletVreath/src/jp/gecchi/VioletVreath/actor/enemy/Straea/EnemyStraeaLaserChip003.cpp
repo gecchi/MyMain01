@@ -45,15 +45,6 @@ void EnemyStraeaLaserChip003::processJudgement() {
     }
 }
 
-void EnemyStraeaLaserChip003::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
-    if (is_stamina_zero) {
-        //破壊された時(スタミナ <= 0)
-        sayonara();
-    } else {
-        //破壊されなかった時(スタミナ > 0)
-    }
-}
 void EnemyStraeaLaserChip003::onInactive() {
     WateringLaserChip::onInactive();
 }

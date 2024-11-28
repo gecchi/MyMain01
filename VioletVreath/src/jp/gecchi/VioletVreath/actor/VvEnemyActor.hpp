@@ -24,6 +24,16 @@ public:
 
     }
 
+    virtual void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor)  override {
+        bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
+        if (is_stamina_zero) {
+            //破壊された時(スタミナ <= 0)
+            VvGeometricActor<T>::sayonara();
+        } else {
+            //破壊されなかった時(スタミナ > 0)
+        }
+    }
+
     /**
      * 敵キャラヒット時の標準的な処理 .
      * ＜破壊された場合＞<br>

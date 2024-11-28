@@ -429,7 +429,6 @@ class HoshiboshiEffect;
 class HoshiBoshiRankUp;
 class HoshiBoshiTitle;
 class HoshiBoshiTransit;
-class Item;
 class LabelBonus001;
 class LabelFix16Font01;
 class LabelFont16x32;

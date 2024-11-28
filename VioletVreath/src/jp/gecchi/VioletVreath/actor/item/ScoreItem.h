@@ -1,7 +1,9 @@
 #ifndef SCOREITEM_H_
 #define SCOREITEM_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
-#include "jp/gecchi/VioletVreath/actor/item/Item.h"
+
+#include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
+#include "jp/gecchi/VioletVreath/actor/VvItemActor.hpp"
 
 namespace VioletVreath {
 
@@ -11,7 +13,7 @@ namespace VioletVreath {
  * @since 2011/11/21
  * @author Masatoshi Tsuge
  */
-class ScoreItem : public Item {
+class ScoreItem : public VvItemActor<GgafLib::DefaultMassMeshActor> {
 
 public:
     /** ãzíÖç∑ï™ç¿ïW */

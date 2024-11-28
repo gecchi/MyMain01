@@ -168,16 +168,6 @@ void EnemyEmus::processJudgement() {
 //    }
 }
 
-void EnemyEmus::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
-    if (is_stamina_zero) {
-        //”j‰óŽž
-        sayonara();
-    } else {
-        //”ñ”j‰óŽž
-    }
-}
-
 void EnemyEmus::onInactive() {
     sayonara();
 }

@@ -200,13 +200,7 @@ void EnemyHalia::processJudgement() {
 
 void EnemyHalia::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
     if (getMorphWeight(1) > 0.3) { //口が空いてたら
-        bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
-        if (is_stamina_zero) {
-            //破壊された時(スタミナ <= 0)
-            sayonara();
-        } else {
-            //破壊されなかった時(スタミナ > 0)
-        }
+        VvEnemyActor<DefaultMassMorphMeshActor>::onHit(prm_pOtherChecker, prm_pOtherActor);
     } else {
         getSeXmtr()->play3D(SE_UNDAMAGED);
     }

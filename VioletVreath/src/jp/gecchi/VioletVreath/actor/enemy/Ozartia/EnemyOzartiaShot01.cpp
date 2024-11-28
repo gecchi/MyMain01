@@ -94,16 +94,6 @@ void EnemyOzartiaShot01::processJudgement() {
     }
 }
 
-void EnemyOzartiaShot01::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
-    if (is_stamina_zero) {
-        //破壊された時(スタミナ <= 0)
-        sayonara();
-    } else {
-        //破壊されなかった時(スタミナ > 0)
-    }
-}
-
 void EnemyOzartiaShot01::onInactive() {
     sayonara();
 }

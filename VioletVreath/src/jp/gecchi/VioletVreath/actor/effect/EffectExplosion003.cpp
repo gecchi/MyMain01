@@ -5,13 +5,11 @@
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectExplosion003::EffectExplosion003(const char* prm_name) :
-        DefaultPointSpriteSetActor(prm_name, "EffectExplosion003") {
+        VvEffectActor<DefaultPointSpriteSetActor>(prm_name, "EffectExplosion003") {
     _class_name = "EffectExplosion003";
     setHitAble(false);
 }

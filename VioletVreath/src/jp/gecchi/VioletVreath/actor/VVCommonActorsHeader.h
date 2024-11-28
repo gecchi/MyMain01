@@ -28,7 +28,6 @@
 #include "jp/gecchi/VioletVreath/actor/effect/EffectWormhole.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectWormhole001.h"
 
-#include "jp/gecchi/VioletVreath/actor/item/Item.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem001.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem002.h"

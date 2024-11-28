@@ -46,13 +46,5 @@ void AliceShot::processJudgement() {
     }
 }
 
-void AliceShot::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
-    if (is_stamina_zero) {
-        sayonara();
-    } else {
-    }
-}
-
 AliceShot::~AliceShot() {
 }

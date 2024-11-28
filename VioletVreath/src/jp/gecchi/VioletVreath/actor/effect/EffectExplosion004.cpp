@@ -7,13 +7,11 @@
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectExplosion004::EffectExplosion004(const char* prm_name) :
-        DefaultMassSpriteActor(prm_name, "EffectExplosion004") {
+        VvEffectActor<DefaultMassSpriteActor>(prm_name, "EffectExplosion004") {
     _class_name = "EffectExplosion004";
     //â¡éZçáê¨TechniqueéwíË
     effectBlendOne();

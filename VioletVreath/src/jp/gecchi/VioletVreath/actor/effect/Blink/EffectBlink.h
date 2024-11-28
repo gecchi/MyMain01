@@ -1,7 +1,9 @@
 #ifndef EFFECTENTRY_H_
 #define EFFECTENTRY_H_
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
+
 #include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
+#include "jp/gecchi/VioletVreath/actor/VvEffectActor.hpp"
 
 namespace VioletVreath {
 
@@ -12,7 +14,7 @@ namespace VioletVreath {
  * @since 2013/06/28
  * @author Masatoshi Tsuge
  */
-class EffectBlink : public GgafLib::DefaultMassMeshActor {
+class EffectBlink : public VvEffectActor<GgafLib::DefaultMassMeshActor> {
 
 public:
     /** [r]エフェクト発生～最大の大きさまで拡大、までのフレーム数 */
