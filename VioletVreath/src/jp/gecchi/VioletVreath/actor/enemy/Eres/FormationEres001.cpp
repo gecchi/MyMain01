@@ -6,7 +6,7 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationEres001::FormationEres001(const char* prm_name) : VvFormationActor<TreeFormation>(prm_name) {
+FormationEres001::FormationEres001(const char* prm_name) : VvFormationActor<TreeFormation>(prm_name, StatusReset(FormationEres001)) {
     _class_name = "FormationEres001";
     for (int i = 0; i < 10; i++) {
         appendFormationMember(NEW EnemyEres("Eres"));

@@ -23,10 +23,7 @@
     <ClInclude Include="include\jp\ggaf\core\actor\DisusedActor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\actordepository.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\actordepositorystore.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\depositoryformation.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\destructactor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\formation.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\treeformation.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\mainactor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\scenechief.h" />
     <ClInclude Include="include\jp\ggaf\core\caretaker.h" />
@@ -65,7 +62,6 @@
     <ClInclude Include="include\jp\ggaf\core\util\status.h" />
     <ClInclude Include="include\jp\ggaf\core\util\table.h" />
     <ClInclude Include="include\jp\ggaf\core\util\transitionvalue.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\transitionvalueset.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\trapezoidalvelovalue.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\util.h" />
     <ClInclude Include="include\jp\ggaf\core\util\valuetransitioner.hpp" />
@@ -76,10 +72,7 @@
     <ClCompile Include="src\jp\ggaf\core\actor\Actor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepository.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepositoryStore.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\DepositoryFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\DestructActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\Formation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\TreeFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\MainActor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\SceneChief.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Caretaker.cpp" />

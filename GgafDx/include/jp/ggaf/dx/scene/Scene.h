@@ -108,6 +108,14 @@ public:
 
     virtual void onEnd() override;
 
+    /**
+     * 配下のアクターが破壊された場合に呼び出される .
+     * 配下 Actor の notifyDestroyed() が呼び出されるとコールバックされる。
+     * 必要であればオーバーライドし、処理を追加してください。
+     * @param prm_pDestroyedActor シーン配下の破壊されたアクター
+     */
+    virtual void onDestroyedActor(GeometricActor* prm_pDestroyedActor) {}
+
     virtual ~Scene();
 };
 

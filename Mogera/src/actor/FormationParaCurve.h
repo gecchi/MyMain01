@@ -37,7 +37,7 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
+    virtual void onDestroyAll(GgafDx::GeometricActor* prm_pActor_last_destroyed) override;
 
     virtual void onSummon(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) = 0;
 

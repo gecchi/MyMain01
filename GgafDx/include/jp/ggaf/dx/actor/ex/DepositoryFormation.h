@@ -1,11 +1,11 @@
-#ifndef GGAF_CORE_DEPOSITORYFORMATION_H_
-#define GGAF_CORE_DEPOSITORYFORMATION_H_
-#include "jp/ggaf/GgafCommonHeader.h"
-#include "jp/ggaf/core/actor/ex/Formation.h"
+#ifndef GGAF_DX_DEPOSITORYFORMATION_H_
+#define GGAF_DX_DEPOSITORYFORMATION_H_
+#include "jp/ggaf/GgafDxCommonHeader.h"
+#include "Formation.h"
 
 #include "jp/ggaf/core/util/RingLinkedList.hpp"
 
-namespace GgafCore {
+namespace GgafDx {
 
 /**
  * デポジトリ管理のフォーメーション管理ークラス .
@@ -24,9 +24,9 @@ class DepositoryFormation : public Formation {
 
 public:
     /** [r]編隊要素として管理されているアクターのリスト */
-    RingLinkedList<Actor> _listFollower;
+    GgafCore::RingLinkedList<GeometricActor> _listFollower;
     /** [r]構成メンバーのストッカー（nullptrの場合構成メンバーは配下アクターのはず） */
-    ActorDepository* _pDepo;
+    GgafCore::ActorDepository* _pDepo;
 
 public:
     /**
@@ -43,7 +43,7 @@ public:
      * メンバーを活動終了時は、sayonara() を使用。
      * @param prm_pDepo
      */
-    void setFormationMember(ActorDepository* prm_pDepo);
+    void setFormationMember(GgafCore::ActorDepository* prm_pDepo);
 
     /**
      * 編隊メンバーが全て非活動ならば、本フォーメーションオブジェクト解放 .
@@ -78,7 +78,7 @@ public:
      *         最大編隊構成要員数をオーバーして呼び出した場合、或いは
      *         デポジトリに構成要員がもういない場合は nullptr
      */
-    virtual Actor* summonMember(int prm_formation_child_num = INT_MAX) override;
+    virtual GeometricActor* summonMember(int prm_formation_child_num = INT_MAX) override;
 
 
     /**
@@ -104,4 +104,4 @@ public:
 };
 
 }
-#endif /*GGAF_CORE_DEPOSITORYFORMATION_H_*/
+#endif /*GGAF_DX_DEPOSITORYFORMATION_H_*/

@@ -64,7 +64,7 @@ private:
     class FormationTblElem {
     public:
         /** 編隊アクター */
-        GgafCore::Formation* _pFormationActor;
+        GgafDx::Formation* _pFormationActor;
         /** 編隊アクターが放置されたとしても、次の敵が出現するまでのフレーム数 */
         frame _max_delay_offset;
 
@@ -74,7 +74,7 @@ private:
          * @param prm_max_delay_offset 次の敵が出現するまでのフレーム数(省略時は0)
          * @return
          */
-        FormationTblElem(GgafCore::Formation* prm_pFormationActor, frame prm_max_delay_offset = 0) {
+        FormationTblElem(GgafDx::Formation* prm_pFormationActor, frame prm_max_delay_offset = 0) {
             _pFormationActor = prm_pFormationActor;
             _max_delay_offset = prm_max_delay_offset;
         }
@@ -107,7 +107,7 @@ public:
      * @param prm_max_delay_offset 次の敵出現までの、最大待ちフレーム数
      * @return
      */
-    virtual void addFormation(GgafCore::Formation* prm_pFormationActor, frame prm_max_delay_offset = 0);
+    virtual void addFormation(GgafDx::Formation* prm_pFormationActor, frame prm_max_delay_offset = 0);
 
     /**
      * 早回し敵出現テーブル全体の許容フレームを設定する。

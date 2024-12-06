@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationThagoras001::FormationThagoras001(const char* prm_name) :
-        FormationThagoras(prm_name, "jiki") {
+        FormationThagoras(prm_name, "jiki", StatusReset(FormationThagoras001)) {
     _class_name = "FormationThagoras001";
     int col_num = getXpm()->getWidth();
     papCurveManufConn_ = NEW CurveManufactureConnection*[col_num];

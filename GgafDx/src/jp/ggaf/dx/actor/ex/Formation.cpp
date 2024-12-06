@@ -1,11 +1,11 @@
-#include "jp/ggaf/core/actor/ex/Formation.h"
+#include "jp/ggaf/dx/actor/ex/Formation.h"
 
-using namespace GgafCore;
+using namespace GgafDx;
 
 Formation::Formation(const char* prm_name, frame prm_offset_frames_end) :
-        MainActor(prm_name)
+        GeometricActor(prm_name)
 {
-    _obj_class |= Obj_ggaf_Formation;
+    _obj_class |= Obj_GgafDx_Formation;
     _class_name = "Formation";
     _offset_frames_end = prm_offset_frames_end > 0 ? prm_offset_frames_end : 1;
     _num_formation_member = 0;
@@ -18,7 +18,7 @@ Formation::Formation(const char* prm_name, frame prm_offset_frames_end) :
     _pLastDestroyedActor = nullptr;
 }
 
-void Formation::onDestroyMember(Actor* prm_pActor_destroyed) {
+void Formation::onDestroyMember(GeometricActor* prm_pActor_destroyed) {
     _num_destory++;
     _pLastDestroyedActor = prm_pActor_destroyed;
     if (_num_formation_member == _num_destory) {
@@ -27,7 +27,7 @@ void Formation::onDestroyMember(Actor* prm_pActor_destroyed) {
     }
 }
 void Formation::onEnd() {
-    Actor::onEnd();
+    GeometricActor::onEnd();
 }
 
 

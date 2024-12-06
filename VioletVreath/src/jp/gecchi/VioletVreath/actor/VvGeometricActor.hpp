@@ -17,6 +17,15 @@ class VvGeometricActor : public T {
 public:
     VvGeometricActor(const char* prm_name, const char* prm_model, void* prm_pFuncResetStatus)
         : T(prm_name, prm_model) {
+        initStatus(prm_pFuncResetStatus);
+    }
+    VvGeometricActor(const char* prm_name, void* prm_pFuncResetStatus)
+        : T(prm_name) {
+        initStatus(prm_pFuncResetStatus);
+    }
+
+    void initStatus(void* prm_pFuncResetStatus) {
+
         if (prm_pFuncResetStatus) {
             T::getStatus()->reset((GgafCore::Status * (*)(GgafCore::Status*))prm_pFuncResetStatus);
             kind_t kind = (kind_t)(T::getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND));

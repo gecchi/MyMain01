@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationIda001::FormationIda001(const char* prm_name) :
-        FormationIda(prm_name) {
+        FormationIda(prm_name, StatusReset(FormationIda001)) {
     _class_name = "FormationIda001";
     registerFormationFkBase(NEW EnemyIdaBase001("Base"));
 

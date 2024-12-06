@@ -351,10 +351,9 @@ typedef hashval eventval;
 #define Obj_ggaf_Actor              (0x1ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
 #define Obj_ggaf_MainActor          (0x2ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
 #define Obj_ggaf_DestructActor      (0x4ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100
-#define Obj_ggaf_SceneChief      (0x8ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
-#define Obj_ggaf_DisusedActor         (0x10ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00010000
-#define Obj_ggaf_ActorDepository      (0x20ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00100000
-#define Obj_ggaf_Formation   (0x40ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 01000000
+#define Obj_ggaf_SceneChief         (0x8ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
+#define Obj_ggaf_DisusedActor      (0x10ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00010000
+#define Obj_ggaf_ActorDepository   (0x20ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00100000
 
 #define MAX_FRAME (0xffffffff)
 
@@ -410,9 +409,6 @@ class Spacetime;
 class MainScene;
 class SceneChief;
 
-class Formation;
-class TreeFormation;
-class DepositoryFormation;
 class ActorDepository;
 class ActorDepositoryStore;
 

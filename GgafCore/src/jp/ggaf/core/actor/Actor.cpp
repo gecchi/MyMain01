@@ -2,7 +2,6 @@
 
 #include "jp/ggaf/core/Caretaker.h"
 #include "jp/ggaf/core/util/Checker.h"
-#include "jp/ggaf/core/actor/ex/Formation.h"
 using namespace GgafCore;
 
 #ifdef MY_DEBUG
@@ -10,7 +9,6 @@ unsigned int Actor::_num_actors = 0;
 #endif
 Actor::Actor(const char* prm_name) : Element<Actor>(prm_name),
 _pDependenceDepository(nullptr),
-_pFormation(nullptr),
 _can_hit_flg(false),
 _enable_out_of_view_hit_flg(true),
 _pChecker(nullptr)
@@ -26,7 +24,6 @@ _pChecker(nullptr)
 }
 
 Actor::~Actor() {
-    _pFormation = nullptr;
     GGAF_DELETE(_pStatus);
     GGAF_DELETE_NULLABLE(_pChecker);
     if (pCARETAKER->_is_loving_flg) {
@@ -85,11 +82,6 @@ void Actor::sayonara(frame prm_offset_frames) {
     }
 }
 
-void Actor::notifyDestroyed() {
-    if (_pFormation) {
-        _pFormation->onDestroyMember(this);
-    }
-}
 Checker* Actor::createChecker() {
     return NEW Checker(this);
 }

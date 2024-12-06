@@ -13,7 +13,7 @@ using namespace VioletVreath;
 
 
 FormationThagoras002::FormationThagoras002(const char* prm_name) :
-        FormationThagoras(prm_name, "jikir") {
+        FormationThagoras(prm_name, "jikir", StatusReset(FormationThagoras002)) {
     _class_name = "FormationThagoras002";
     int col_num = getXpm()->getWidth();
     papCurveManufConn_ = NEW CurveManufactureConnection*[col_num];

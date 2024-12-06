@@ -23,7 +23,7 @@ enum {
 };
 
 FormationOebius002::FormationOebius002(const char* prm_name, EnemyOebiusController* prm_pController) :
-        FormationOebius(prm_name, prm_pController) {
+        FormationOebius(prm_name, prm_pController, StatusReset(FormationOebius002)) {
     _class_name = "FormationOebius002";
 
     pXpmCon_ = connectToXpmManager("FormationOebius002_Xpm");

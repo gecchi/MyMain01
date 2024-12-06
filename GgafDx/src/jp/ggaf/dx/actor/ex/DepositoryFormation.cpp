@@ -1,9 +1,9 @@
-#include "jp/ggaf/core/actor/ex/DepositoryFormation.h"
+#include "jp/ggaf/dx/actor/ex/DepositoryFormation.h"
 
 #include "jp/ggaf/core/util/Status.h"
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 
-using namespace GgafCore;
+using namespace GgafDx;
 
 DepositoryFormation::DepositoryFormation(const char* prm_name, frame prm_offset_frames_end) :
         Formation(prm_name, prm_offset_frames_end)
@@ -11,7 +11,7 @@ DepositoryFormation::DepositoryFormation(const char* prm_name, frame prm_offset_
     _class_name = "DepositoryFormation";
     _pDepo = nullptr;
 }
-void DepositoryFormation::setFormationMember(ActorDepository* prm_pDepo) {
+void DepositoryFormation::setFormationMember(GgafCore::ActorDepository* prm_pDepo) {
 #ifdef MY_DEBUG
     if (_pDepo) {
         throwCriticalException("既にデポジトリは登録済み("<<_pDepo->getName()<<")です。\n"
@@ -49,7 +49,7 @@ void DepositoryFormation::processFinal() {
             _listFollower.next();
         } else {
             //編隊メンバーから外す
-            _listFollower.remove()->_pFormation = nullptr; //remove() 時、新たなカレント要素は next の要素になる。
+            ((GeometricActor*)(_listFollower.remove()))->_pFormation = nullptr; //remove() 時、新たなカレント要素は next の要素になる。
         }
     }
 
@@ -64,7 +64,7 @@ void DepositoryFormation::processFinal() {
     }
 }
 
-Actor* DepositoryFormation::summonMember(int prm_formation_child_num) {
+GeometricActor* DepositoryFormation::summonMember(int prm_formation_child_num) {
     if (wasDeclaredEnd() || isInactivateScheduled()) {
         //終了を待つのみ
         return nullptr;
@@ -77,7 +77,7 @@ Actor* DepositoryFormation::summonMember(int prm_formation_child_num) {
 #endif
     if (prm_formation_child_num	> 0) {
         if (_can_summon) {
-            MainActor* pActor = _pDepo->dispatch();
+            GeometricActor* pActor = (GeometricActor*)_pDepo->dispatch();
             if (pActor) {
                 _can_summon = true;
                 _num_summon++;
@@ -87,7 +87,7 @@ Actor* DepositoryFormation::summonMember(int prm_formation_child_num) {
                     _can_summon = false; //次回から summonMember() 不可
                     _num_formation_member = _num_summon; //onDestroyMember 編隊全滅判定の為再設定
                 }
-                return (Actor*)pActor;
+                return pActor;
             } else {
                 _can_summon = false; //次回から summonMember() 不可
                 _num_formation_member = _num_summon; //onDestroyMember 編隊全滅判定の為再設定
@@ -111,7 +111,7 @@ void DepositoryFormation::onEnd() {
 
 void DepositoryFormation::sayonaraFollwer() {
     int n = _listFollower.length();
-    Actor* pFollower;
+    GeometricActor* pFollower;
     for (int i = 0; i < n; i++) {
 #ifdef MY_DEBUG
         if (_listFollower.getCurrent()->_pFormation != this) {

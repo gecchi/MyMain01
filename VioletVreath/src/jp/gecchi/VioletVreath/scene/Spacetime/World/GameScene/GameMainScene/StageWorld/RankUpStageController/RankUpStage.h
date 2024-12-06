@@ -3,7 +3,7 @@
 #include "jp/gecchi/VioletVreath/VioletVreath.h"
 
 #include "jp/ggaf/core/actor/MainActor.h"
-#include "jp/ggaf/core/actor/ex/Formation.h"
+#include "jp/ggaf/dx/actor/ex/Formation.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 #include "jp/ggaf/lib/actor/DefaultSceneChief.h"
 #include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
@@ -47,8 +47,8 @@ public:
         void appendChild(GgafCore::MainActor* prm_pMainActor) {
             GgafLib::DefaultSceneChief::appendChild(prm_pMainActor);
             //全編隊数が欲しいので、追加後にメンバー数を合算して保持しておく
-            if (prm_pMainActor->instanceOf(Obj_ggaf_Formation)) {
-                GgafCore::Formation* pF = (GgafCore::Formation*)prm_pMainActor;
+            if (prm_pMainActor->instanceOf(Obj_GgafDx_Formation)) {
+                GgafDx::Formation* pF = (GgafDx::Formation*)prm_pMainActor;
                 all_hit_num_ += pF->getMemberNum();
             } else if (prm_pMainActor->getCheckerKind() & KIND_ENEMY_BODY) {
                 all_hit_num_ ++;
@@ -82,7 +82,7 @@ public:
      * シーン配下アクターが破壊された場合にコールバック .
      * @param prm_pDestroyedActor 破壊されたシーン配下アクター
      */
-    virtual void onDestroyedActor(GgafCore::Actor* prm_pDestroyedActor) override {
+    virtual void onDestroyedActor(GgafDx::GeometricActor* prm_pDestroyedActor) override {
         getSceneChief()->hit_enemy_num_ ++; //ランクアップステージの敵倒したよ！カウントアップ
     }
 

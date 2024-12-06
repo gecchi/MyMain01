@@ -31,7 +31,7 @@ public:
     frame _playing_3d_freames;
     /** [r]SE発生元アクター */
     GeometricActor*  _pActor;
-    GgafCore::Formation*  	_pFormation;
+    Formation*       _pFormation;
     /** [r]前回計算時のカメラからアクターの距離 */
     double _px_d_cam_acter_prev;
 
@@ -43,7 +43,7 @@ public:
      */
     explicit SeTransmitterForActor(GeometricActor* prm_pActor);
 
-    explicit SeTransmitterForActor(GgafCore::Formation* prm_pFormation);
+    explicit SeTransmitterForActor(Formation* prm_pFormation);
 
     /**
      * SEの設定を行う .

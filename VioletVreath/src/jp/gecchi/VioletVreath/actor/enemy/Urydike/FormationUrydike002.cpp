@@ -13,7 +13,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationUrydike002::FormationUrydike002(const char* prm_name) :
-        FormationUrydike(prm_name, "FormationUrydike002_Xpm", 8) {
+        FormationUrydike(prm_name, "FormationUrydike002_Xpm", 8, StatusReset(FormationUrydike002)) {
     _class_name = "FormationUrydike002";
 
     papCurveManufConn_ = NEW CurveManufactureConnection*[getFormationColNum()];

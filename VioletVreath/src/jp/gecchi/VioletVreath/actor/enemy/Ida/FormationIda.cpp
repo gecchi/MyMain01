@@ -10,7 +10,7 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationIda::FormationIda(const char* prm_name) : VvFormationActor<FkFormation>(prm_name) {
+FormationIda::FormationIda(const char* prm_name, void* prm_pFuncResetStatus) : VvFormationActor<FkFormation>(prm_name, prm_pFuncResetStatus) {
     _class_name = "FormationIda";
 
 }

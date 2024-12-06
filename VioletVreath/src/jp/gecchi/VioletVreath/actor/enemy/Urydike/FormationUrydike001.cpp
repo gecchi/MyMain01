@@ -12,7 +12,7 @@ using namespace VioletVreath;
 
 FormationUrydike001::FormationUrydike001(const char* prm_name) :
 //        FormationUrydike(prm_name, 9, 256, 8) {
-    FormationUrydike(prm_name, 1, 300, 1) {
+    FormationUrydike(prm_name, 1, 300, 1, StatusReset(FormationUrydike001)) {
     _class_name = "FormationUrydike001";
 
     papCurveManufConn_ = NEW CurveManufactureConnection*[getFormationColNum()];

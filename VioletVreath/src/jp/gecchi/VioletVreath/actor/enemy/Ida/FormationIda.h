@@ -20,7 +20,7 @@ public:
      * @param prm_name
      * @param prm_ldr_id ‹ÈüˆÚ“®‚Ìî•ñID(XXX.ldr ‚Ì XXX)
      */
-    FormationIda(const char* prm_name) ;
+    FormationIda(const char* prm_name, void* prm_pFuncResetStatus) ;
 
     virtual void onActive() override;
 

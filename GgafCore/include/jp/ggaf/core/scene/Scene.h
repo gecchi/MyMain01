@@ -266,14 +266,6 @@ public:
     }
 
     /**
-     * 配下のアクターが破壊された場合に呼び出される .
-     * 配下 Actor の notifyDestroyed() が呼び出されるとコールバックされる。
-     * 必要であればオーバーライドし、処理を追加してください。
-     * @param prm_pDestroyedActor シーン配下の破壊されたアクター
-     */
-    virtual void onDestroyedActor(Actor* prm_pDestroyedActor) {}
-
-    /**
      * デバッグ用：ツリー構造を表示 .
      */
     virtual void dump();

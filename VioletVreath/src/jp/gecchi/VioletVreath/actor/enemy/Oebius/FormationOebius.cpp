@@ -15,8 +15,8 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationOebius::FormationOebius(const char* prm_name, EnemyOebiusController* prm_pController) :
-        VvFormationActor<TreeFormation>(prm_name) {
+FormationOebius::FormationOebius(const char* prm_name, EnemyOebiusController* prm_pController, void* prm_pFuncResetStatus) :
+        VvFormationActor<TreeFormation>(prm_name, prm_pFuncResetStatus) {
     _class_name = "FormationOebius";
     pController_ = prm_pController;
 }

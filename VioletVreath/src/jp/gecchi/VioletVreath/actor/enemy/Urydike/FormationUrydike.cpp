@@ -22,8 +22,8 @@ enum {
     PHASE_BANPEI,
 };
 
-FormationUrydike::FormationUrydike(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_summon_interval) :
-        VvFormationActor<TreeFormation>(prm_name) {
+FormationUrydike::FormationUrydike(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_summon_interval, void* prm_pFuncResetStatus) :
+        VvFormationActor<TreeFormation>(prm_name, prm_pFuncResetStatus) {
     _class_name = "FormationUrydike";
     pXpmCon_ = nullptr;
     formation_col_num_ = prm_formation_col_num;
@@ -33,8 +33,8 @@ FormationUrydike::FormationUrydike(const char* prm_name, int prm_formation_col_n
     summon_row_idx_ = 0;
 }
 
-FormationUrydike::FormationUrydike(const char* prm_name, const char* prm_xpm_id, frame prm_summon_interval)  :
-        VvFormationActor<TreeFormation>(prm_name) {
+FormationUrydike::FormationUrydike(const char* prm_name, const char* prm_xpm_id, frame prm_summon_interval, void* prm_pFuncResetStatus)  :
+        VvFormationActor<TreeFormation>(prm_name, prm_pFuncResetStatus) {
     _class_name = "FormationUrydike";
     pXpmCon_ = connectToXpmManager(prm_xpm_id);
     GgafCore::Xpm* pXpM = pXpmCon_->peek();

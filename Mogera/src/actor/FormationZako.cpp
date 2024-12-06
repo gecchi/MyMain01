@@ -81,7 +81,7 @@ void FormationZako::processBehavior() {
     }
 }
 
-void FormationZako::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
+void FormationZako::onDestroyAll(GgafDx::GeometricActor* prm_pActor_last_destroyed) {
 }
 
 void FormationZako::onSayonaraAll() {

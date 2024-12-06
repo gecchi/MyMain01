@@ -1,9 +1,10 @@
-#ifndef GGAF_CORE_TREEFORMATION_H_
-#define GGAF_CORE_TREEFORMATION_H_
-#include "jp/ggaf/GgafCommonHeader.h"
-#include "jp/ggaf/core/actor/ex/Formation.h"
+#ifndef GGAF_DX_TREEFORMATION_H_
+#define GGAF_DX_TREEFORMATION_H_
+#include "jp/ggaf/GgafDxCommonHeader.h"
 
-namespace GgafCore {
+#include "Formation.h"
+
+namespace GgafDx {
 
 /**
  * 配下ツリー管理のフォーメーション管理クラス .
@@ -28,8 +29,7 @@ private:
     }
 
     /** [r]summonMember()用のカーソル */
-    Actor* _pIte;
-    bool _can_summon;
+    GeometricActor* _pIte;
     /** [r]メンバー追加が行われたかどうか */
     bool _is_append_member_experienced;
 
@@ -65,7 +65,7 @@ public:
      * 編隊メンバーは使い捨てである。<BR>
      * @param prm_pChild 編隊のメンバーのアクター
      */
-    virtual void appendFormationMember(Actor* prm_pChild);
+    virtual void appendFormationMember(GgafCore::Actor* prm_pChild);
 
     /**
      * 登録した編隊のメンバーを順番にアクティブにして取得します.
@@ -74,7 +74,7 @@ public:
      * @param prm_formation_child_num 本フォーメーションの管理される要員数（＝編隊全滅数）。省略時は配下メンバー数となる。
      * @return 未活動の編隊登録メンバー。又は nullptr、未活動の編隊登録メンバーはもう無い。
      */
-    virtual Actor* summonMember(int prm_formation_child_num = INT_MAX) override;
+    virtual GeometricActor* summonMember(int prm_formation_child_num = INT_MAX) override;
 
     /**
      * メンバーが残っていれば解放します。
@@ -94,4 +94,4 @@ public:
 };
 
 }
-#endif /*GGAF_CORE_TREEFORMATION_H_*/
+#endif /*GGAF_DX_TREEFORMATION_H_*/

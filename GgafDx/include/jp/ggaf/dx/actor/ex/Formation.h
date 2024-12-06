@@ -1,11 +1,11 @@
-#ifndef GGAF_CORE_FORMATION_H_
-#define GGAF_CORE_FORMATION_H_
-#include "jp/ggaf/GgafCommonHeader.h"
-#include "jp/ggaf/core/actor/MainActor.h"
+#ifndef GGAF_DX_FORMATION_H_
+#define GGAF_DX_FORMATION_H_
+#include "jp/ggaf/GgafDxCommonHeader.h"
+#include "jp/ggaf/dx/actor/GeometricActor.h"
 
 #define FORMATION_END_DELAY (SEC_F(30))
 
-namespace GgafCore {
+namespace GgafDx {
 
 /**
  * フォーメーション管理クラス .
@@ -15,7 +15,7 @@ namespace GgafCore {
  * @since 2008/08/08
  * @author Masatoshi Tsuge
  */
-class Formation : public MainActor {
+class Formation : public GeometricActor {
 
 public:
     /** [r]編隊要素として「管理されている」アクター数 . */
@@ -42,7 +42,7 @@ public:
     /** [r]summonMember() できるかどうかフラフ。true:招集できる／false：招集できない（メンバー数分招集した） */
     bool _can_summon;
     /** 最後に破壊されたアクター */
-    Actor* _pLastDestroyedActor;
+    GeometricActor* _pLastDestroyedActor;
 public:
     /**
      * コンストラクタ .
@@ -58,7 +58,7 @@ public:
      * 通常フレームワーク実装者は本メソッドを使用することはない。
      * @param prm_pActor_destroyed やられたアクター
      */
-    virtual void onDestroyMember(Actor* prm_pActor_destroyed);
+    virtual void onDestroyMember(GeometricActor* prm_pActor_destroyed);
 
     /**
      * 編隊に所属したアクターが破壊(画面外ではない)により全滅した場合にコールバックされるメソッド（とする) .
@@ -70,7 +70,7 @@ public:
      * その場合は、本メソッドは空実装しておいて下さい 。 <BR>
      * @param prm_pActor_last_destroyed 最後にやられたアクター
      */
-    virtual void onDestroyAll(Actor* prm_pActor_last_destroyed) = 0;
+    virtual void onDestroyAll(GeometricActor* prm_pActor_last_destroyed) = 0;
 
     /**
      * 編隊に所属したアクターが全てさよなら(sayonara()が呼び出された)した場合コールバックされるメソッド（とする) .
@@ -98,10 +98,10 @@ public:
      * 登録した編隊のメンバーを順番にアクティブにして取得します.
      * @return 未活動の編隊登録メンバー。又は nullptr、未活動の編隊登録メンバーはもう無い。
      */
-    virtual Actor* summonMember(int prm_formation_child_num = INT_MAX) = 0;
+    virtual GeometricActor* summonMember(int prm_formation_child_num = INT_MAX) = 0;
 
     virtual ~Formation();
 };
 
 }
-#endif /*GGAF_CORE_FORMATION_H_*/
+#endif /*GGAF_DX_FORMATION_H_*/

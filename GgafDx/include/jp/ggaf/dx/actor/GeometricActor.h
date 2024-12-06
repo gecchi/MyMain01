@@ -36,8 +36,6 @@ private:
 
     /** [r]拡大縮小支援 */
     Scaler* _pScaler;
-    /** [r]効果音発生管理オブジェクト */
-    SeTransmitterForActor* _pSeTransmitter;
 
     VehicleLeader* _pVehicleLeader;
 
@@ -149,6 +147,12 @@ public:
     //値1000が1.0倍のスケール意味する。したがってデフォルトは1000になっている。
     //描画の直前に 1000 で除算され、拡大縮小率に変換し使用する。
 
+
+    /** [r]所属フォーメーション(nullptrは未所属) */
+    Formation* _pFormation;
+
+    /** [r]効果音発生管理オブジェクト */
+    SeTransmitterForActor* _pSeTransmitter;
 public:
     /**
      * コンストラクタ .
@@ -737,6 +741,45 @@ public:
         out_local_vz = (T)(prm_final_target_vx*pBaseInvMatRM->_13 + prm_final_target_vy*pBaseInvMatRM->_23 + prm_final_target_vz*pBaseInvMatRM->_33);
     }
 
+    /**
+     * 破壊されたことを通知 .
+     * 自身が編隊全滅判定に有効な破壊のされ方などで、破壊されて消滅した事を、所属のフォーメーションに通知するメソッド .
+     * 自身がフォーメーションに所属している(_pFormation != nullptr)場合、
+     * フォーメーションの編隊全滅判定を行うために、自身が編隊全滅に有効な消滅、つまり
+     * 画面外、自滅、では無く、自機に破壊された場合、本メソッドを実行して、管理フォーメーションに通知して下さい。<BR>
+     * 通知を行うことにより、管理されている Formation オブジェクトから、
+     * 編隊全滅時に、
+     *
+     * Formation::onDestroyAll()
+     *
+     * のコールバックが行われます。
+     * 編隊ボーナス、アイテム出現等の処理を GgafDx::FormationActor::onDestroyAll() の
+     * オーバーライドで行って下さい。
+     * <code><pre>
+     * ＜例＞
+     * void SampleActor::onHit(const Checker* prm_pOtherChecker, const Actor* prm_pOtherActor) {
+     *    //自身の耐久力チェック
+     *    if (MyStgUtil::calcSampleStatus(_pStatus, _kind, pOther->_pStatus, pOther->_kind) <= 0) {
+     *        //Hitの相手のチェック
+     *        if (pOther->kind & KIND_MY) {
+     *            //Hitの相手は自機関連（自機、自機ユニット、自機発射弾)
+     *            notifyDestroyed(); //編隊全滅判定に有効な破壊を通知する
+     *        }
+     *    }
+     * }
+     *
+     * </pre></code>
+     * 自身がフォーメーションに所属していない(_pFormation == nullptr)場合、本メソッドは何も起こりません。
+     */
+    virtual void notifyDestroyed();
+
+    /**
+     * 自身がの所属のフォーメーションを返す .
+     * @return フォーメーション。或いは、所属してない場合はnullptr
+     */
+    inline virtual Formation* getFormation() const {
+        return _pFormation;
+    }
     /**
      * デストラクタ
      */

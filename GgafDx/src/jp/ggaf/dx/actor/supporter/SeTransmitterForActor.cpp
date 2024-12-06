@@ -1,10 +1,10 @@
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 
-#include "jp/ggaf/core/actor/ex/Formation.h"
 #include "jp/ggaf/core/util/RepeatSeq.h"
 #include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/actor/camera/Camera.h"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
+#include "jp/ggaf/dx/actor/ex/Formation.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/manager/SeConnection.h"
@@ -23,7 +23,7 @@ SeTransmitterForActor::SeTransmitterForActor(GeometricActor* prm_pActor) : SeTra
     _playing_3d_freames = 0;
 }
 
-SeTransmitterForActor::SeTransmitterForActor(GgafCore::Formation* prm_pFormation) : SeTransmitter() ,
+SeTransmitterForActor::SeTransmitterForActor(Formation* prm_pFormation) : SeTransmitter() ,
         _pActor(nullptr),
         _pFormation(prm_pFormation),
         _px_d_cam_acter_prev(1.0) {

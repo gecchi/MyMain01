@@ -23,7 +23,7 @@ public:
     GgafDx::GeoElem geo_;
 
 public:
-    FormationErelman(const char* prm_name, EnemyErelmanController* prm_pController);
+    FormationErelman(const char* prm_name, EnemyErelmanController* prm_pController, void* prm_pFuncResetStatus);
 
     /**
      * ï“ë‡ÇçÏê¨ .

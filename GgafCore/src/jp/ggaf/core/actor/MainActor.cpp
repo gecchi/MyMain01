@@ -83,11 +83,5 @@ Caretaker* MainActor::askCaretaker() {
     return _pCaretaker;
 }
 
-void MainActor::notifyDestroyed() {
-    Actor::notifyDestroyed();
-    GgafCore::Scene* pPlatformScene = getSceneChief()->getPlatformScene();
-    pPlatformScene->onDestroyedActor(this);
-}
-
 MainActor::~MainActor() {
 }

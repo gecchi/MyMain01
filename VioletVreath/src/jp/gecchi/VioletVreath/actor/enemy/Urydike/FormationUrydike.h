@@ -30,8 +30,8 @@ public:
     XpmConnection* pXpmCon_;
 
 public:
-    FormationUrydike(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_summon_interval);
-    FormationUrydike(const char* prm_name, const char* prm_xpm_id, frame prm_summon_interval);
+    FormationUrydike(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_summon_interval, void* prm_pFuncResetStatus);
+    FormationUrydike(const char* prm_name, const char* prm_xpm_id, frame prm_summon_interval, void* prm_pFuncResetStatus);
 
     /**
      * ï“ë‡ÇçÏê¨ .

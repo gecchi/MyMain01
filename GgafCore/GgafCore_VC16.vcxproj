@@ -31,10 +31,7 @@
     <ClInclude Include="include\jp\ggaf\core\actor\DisusedActor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\ActorDepository.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\ActorDepositoryStore.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\DepositoryFormation.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\ex\DestructActor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\Formation.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\TreeFormation.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\MainActor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\SceneChief.h" />
     <ClInclude Include="include\jp\ggaf\core\Caretaker.h" />
@@ -83,10 +80,7 @@
     <ClCompile Include="src\jp\ggaf\core\actor\Actor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepository.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepositoryStore.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\DepositoryFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\DestructActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\Formation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\TreeFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\MainActor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\SceneChief.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Caretaker.cpp" />

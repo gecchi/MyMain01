@@ -1,7 +1,7 @@
 #ifndef GGAF_DX_FKFORMATION_H_
 #define GGAF_DX_FKFORMATION_H_
 #include "jp/ggaf/GgafDxCommonHeader.h"
-#include "jp/ggaf/core/actor/ex/Formation.h"
+#include "Formation.h"
 
 namespace GgafDx {
 
@@ -15,7 +15,7 @@ namespace GgafDx {
  * @since 2008/08/08
  * @author Masatoshi Tsuge
  */
-class FkFormation : public GgafCore::Formation {
+class FkFormation : public Formation {
 private:
     /**
      * 使用不可 .
@@ -26,7 +26,7 @@ private:
     }
 
     /** [r]summonMember()用のカーソル */
-    GgafCore::Actor* _pIte;
+    GeometricActor* _pIte;
 
 
 public:
@@ -87,7 +87,7 @@ public:
      * @param prm_ry_init_local 従属アクターのローカル(this)回転からのY軸回転値
      * @param prm_rz_init_local 従属アクターのローカル(this)回転からのZ軸回転値
      */
-    virtual void appendFormationMember(GeometricActor* prm_pMember,
+    virtual void appendFormationMember(GgafCore::Actor* prm_pMember,
                                        int prm_x_init_local,
                                        int prm_y_init_local,
                                        int prm_z_init_local,
@@ -102,7 +102,7 @@ public:
      * @param prm_formation_child_num 本フォーメーションの管理される要員数（＝編隊全滅数）。省略時は配下メンバー数となる。
      * @return 未活動の編隊登録メンバー。又は nullptr、未活動の編隊登録メンバーはもう無い。
      */
-    virtual Actor* summonMember(int prm_formation_child_num = INT_MAX) override;
+    virtual GeometricActor* summonMember(int prm_formation_child_num = INT_MAX) override;
 
     /**
      * メンバーが残っていれば解放します。

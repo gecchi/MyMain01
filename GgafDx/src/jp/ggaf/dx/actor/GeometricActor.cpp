@@ -1,13 +1,16 @@
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 
-#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/core/util/Status.h"
+#include "jp/ggaf/core/actor/SceneChief.h"
+#include "jp/ggaf/dx/Caretaker.h"
+#include "jp/ggaf/dx/actor/ex/Formation.h"
 #include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/CoordVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/NaviVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/util/CollisionChecker.h"
+#include "jp/ggaf/dx/scene/Scene.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/util/Util.h"
 
@@ -44,7 +47,8 @@ _x_local(_x), _y_local(_y), _z_local(_z),
 _rx_local(_rx), _ry_local(_ry), _rz_local(_rz),
 _x_final(_x), _y_final(_y), _z_final(_z),
 _rx_final(_rx), _ry_final(_ry), _rz_final(_rz),
-_is_local(false)
+_is_local(false),
+_pFormation(nullptr)
 {
     _obj_class |= Obj_GgafDx_GeometricActor;
     _class_name = "GeometricActor";
@@ -587,7 +591,17 @@ void GeometricActor::onEnd() {
     _pFormation = nullptr;
 }
 
+void GeometricActor::notifyDestroyed() {
+    if (_pFormation) {
+        _pFormation->onDestroyMember(this);
+    }
+    //Š‘®ƒV[ƒ“‚É‚à’Ê’m
+    GgafDx::Scene* pPlatformScene = (GgafDx::Scene*)getSceneChief()->getPlatformScene();
+    pPlatformScene->onDestroyedActor(this);
+}
+
 GeometricActor::~GeometricActor() {
+    _pFormation = nullptr;
     GGAF_DELETE_NULLABLE(_pLocusVehicle);
     GGAF_DELETE_NULLABLE(_pCoordVehicle);
     GGAF_DELETE_NULLABLE(_pNaviVehicle);

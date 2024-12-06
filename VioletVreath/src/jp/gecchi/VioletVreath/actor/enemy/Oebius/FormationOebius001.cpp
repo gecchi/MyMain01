@@ -19,7 +19,7 @@ enum {
 };
 
 FormationOebius001::FormationOebius001(const char* prm_name, EnemyOebiusController* prm_pController) :
-        FormationOebius(prm_name, prm_pController) {
+        FormationOebius(prm_name, prm_pController, StatusReset(FormationOebius001)) {
     _class_name = "FormationOebius001";
 
     formation_col_num_ = 3;

@@ -1,7 +1,7 @@
 #ifndef GGAF_LIB_DEPOSITORYFORMATION_H_
 #define GGAF_LIB_DEPOSITORYFORMATION_H_
 #include "jp/ggaf/GgafLibCommonHeader.h"
-#include "jp/ggaf/core/actor/ex/DepositoryFormation.h"
+#include "jp/ggaf/dx/actor/ex/DepositoryFormation.h"
 
 namespace GgafLib {
 
@@ -12,7 +12,7 @@ namespace GgafLib {
  * @since 2008/08/08
  * @author Masatoshi Tsuge
  */
-class DepositoryFormation : public GgafCore::DepositoryFormation {
+class DepositoryFormation : public GgafDx::DepositoryFormation {
 
 public:
     /**

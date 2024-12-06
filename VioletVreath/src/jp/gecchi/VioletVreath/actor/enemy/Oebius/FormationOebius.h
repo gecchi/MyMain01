@@ -25,7 +25,7 @@ public:
 
 
 public:
-    FormationOebius(const char* prm_name, EnemyOebiusController* prm_pController);
+    FormationOebius(const char* prm_name, EnemyOebiusController* prm_pController, void* prm_pFuncResetStatus);
 
     virtual void onSummon(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) = 0;
 

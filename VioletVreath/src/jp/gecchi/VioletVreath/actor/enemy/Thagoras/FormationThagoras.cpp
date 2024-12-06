@@ -16,8 +16,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationThagoras::FormationThagoras(const char* prm_name,
-                                     const char* prm_xpm_id) :
-        VvFormationActor<TreeFormation>(prm_name) {
+                                     const char* prm_xpm_id,
+                                     void* prm_pFuncResetStatus) :
+        VvFormationActor<TreeFormation>(prm_name, prm_pFuncResetStatus) {
     _class_name = "FormationThagoras";
 
     pXpmCon_ = connectToXpmManager(prm_xpm_id);

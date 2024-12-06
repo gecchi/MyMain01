@@ -1,9 +1,9 @@
-#include "jp/ggaf/core/actor/ex/TreeFormation.h"
+#include "jp/ggaf/dx/actor/ex/TreeFormation.h"
 
 #include "jp/ggaf/core/actor/SceneChief.h"
 #include "jp/ggaf/core/util/Status.h"
 
-using namespace GgafCore;
+using namespace GgafDx;
 
 TreeFormation::TreeFormation(const char* prm_name, frame prm_offset_frames_end) :
         Formation(prm_name, prm_offset_frames_end)
@@ -13,7 +13,7 @@ TreeFormation::TreeFormation(const char* prm_name, frame prm_offset_frames_end) 
     _is_append_member_experienced = false;
 }
 
-void TreeFormation::appendFormationMember(Actor* prm_pChild) {
+void TreeFormation::appendFormationMember(GgafCore::Actor* prm_pChild) {
 #ifdef MY_DEBUG
     if (wasDeclaredEnd()) {
         //終了を待つのみ
@@ -35,9 +35,11 @@ void TreeFormation::appendFormationMember(Actor* prm_pChild) {
 //        }
 //#endif
 //    }
-    prm_pChild->_pFormation = this; //メンバーへフォーメーションを設定
-    Formation::appendChild(prm_pChild);
-    prm_pChild->inactivate(); //フォーメーションなのでsummonまで非活動。
+    //TODO:GeometricActor チェックをいれる？
+    GeometricActor* pChild = (GeometricActor*)prm_pChild;
+    pChild->_pFormation = this; //メンバーへフォーメーションを設定
+    Formation::appendChild(pChild);
+    pChild->inactivate(); //フォーメーションなのでsummonまで非活動。
     _is_append_member_experienced = true;
 }
 
@@ -62,7 +64,7 @@ void TreeFormation::onEnd() {
     Formation::onEnd();
 }
 
-Actor* TreeFormation::summonMember(int prm_formation_child_num) {
+GeometricActor* TreeFormation::summonMember(int prm_formation_child_num) {
     if (wasDeclaredEnd() || isInactivateScheduled()) {
         //終了を待つのみ
         return nullptr;
@@ -76,7 +78,7 @@ Actor* TreeFormation::summonMember(int prm_formation_child_num) {
                 _pIte = _pIte->getNext();
             } else {
                 //初回は子先頭
-                _pIte = getChildFirst();
+                _pIte = (GeometricActor*)getChildFirst();
                 if (!_pIte) {
                     //メンバーが追加されてない
                     _TRACE_("【警告】 TreeFormation::summonMember() メンバーが追加されてません。おかしいのでは？。this="<<NODE_INFO);

@@ -6,7 +6,7 @@
 using namespace GgafDx;
 
 FkFormation::FkFormation(const char* prm_name, frame prm_offset_frames_end) :
-        GgafCore::Formation(prm_name, prm_offset_frames_end)
+        Formation(prm_name, prm_offset_frames_end)
 {
     _class_name = "FkFormation";
     _pIte = nullptr;
@@ -28,10 +28,10 @@ void FkFormation::registerFormationFkBase(GeometricActor* prm_pFkBase) {
 //        }
 #endif
     }
-    GgafCore::Formation::appendChild(prm_pFkBase);
+    Formation::appendChild(prm_pFkBase);
 }
 
-void FkFormation::appendFormationMember(GeometricActor* prm_pMember,
+void FkFormation::appendFormationMember(GgafCore::Actor* prm_pMember,
                                         int prm_x_init_local,
                                         int prm_y_init_local,
                                         int prm_z_init_local,
@@ -48,17 +48,19 @@ void FkFormation::appendFormationMember(GeometricActor* prm_pMember,
         throwCriticalException(": FKベースアクターがいません。addFormationBase() してください。this="<<getName());
     }
 #endif
+    //TODO:GeometricActor チェックをいれる？
+    GeometricActor* pMember = (GeometricActor*)prm_pMember;
     GeometricActor* pFkBase = (GeometricActor*)(getChildFirst());
     _num_formation_member++;
-    prm_pMember->_pFormation = this; //メンバーへフォーメーションを設定
-    pFkBase->appendChildAsFk(prm_pMember,
+    pMember->_pFormation = this; //メンバーへフォーメーションを設定
+    pFkBase->appendChildAsFk(pMember,
                               prm_x_init_local,
                               prm_y_init_local,
                               prm_z_init_local,
                               prm_rx_init_local,
                               prm_ry_init_local,
                               prm_rz_init_local);
-    prm_pMember->inactivate(); //フォーメーションなのでSummonを待つため
+    pMember->inactivate(); //フォーメーションなのでSummonを待つため
 }
 
 void FkFormation::processFinal() {
@@ -81,17 +83,17 @@ void FkFormation::processFinal() {
 }
 
 void FkFormation::onEnd() {
-    GgafCore::Formation::onEnd();
+    Formation::onEnd();
 }
 
-GgafCore::Actor* FkFormation::summonMember(int prm_formation_child_num) {
+GeometricActor* FkFormation::summonMember(int prm_formation_child_num) {
     if (wasDeclaredEnd() || isInactivateScheduled()) {
         //終了を待つのみ
         return nullptr;
     }
     if (_can_summon) {
                                  //FkBase      ->Actor
-        GgafCore::Actor* pFirstActor = getChildFirst()->getChildFirst(); //今の先頭アクター
+        GeometricActor* pFirstActor = (GeometricActor*)(getChildFirst()->getChildFirst()); //今の先頭アクター
         if (_pIte) {
             _pIte = _pIte->getNext();
         } else {

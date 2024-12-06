@@ -18,8 +18,8 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-FormationErelman::FormationErelman(const char* prm_name, EnemyErelmanController* prm_pController) :
-        VvFormationActor<TreeFormation>(prm_name) {
+FormationErelman::FormationErelman(const char* prm_name, EnemyErelmanController* prm_pController, void* prm_pFuncResetStatus) :
+        VvFormationActor<TreeFormation>(prm_name, prm_pFuncResetStatus) {
     _class_name = "FormationErelman";
     pController_ = prm_pController;
 }

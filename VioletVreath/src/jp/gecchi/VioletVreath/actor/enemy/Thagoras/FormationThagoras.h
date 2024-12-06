@@ -29,7 +29,7 @@ public:
     XpmConnection* pXpmCon_;
 
 public:
-    FormationThagoras(const char* prm_name, const char* prm_xpm_id);
+    FormationThagoras(const char* prm_name, const char* prm_xpm_id, void* prm_pFuncResetStatus);
 
     /**
      * •Ò‘à‚ğì¬ .

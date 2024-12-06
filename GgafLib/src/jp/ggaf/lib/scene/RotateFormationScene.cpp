@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/scene/RotateFormationScene.h"
 
 #include "jp/ggaf/core/actor/SceneChief.h"
-#include "jp/ggaf/core/actor/ex/Formation.h"
+#include "jp/ggaf/dx/actor/ex/Formation.h"
 
 using namespace GgafLib;
 
@@ -13,8 +13,8 @@ RotateFormationScene::RotateFormationScene(const char* prm_name) :
 }
 
 
-void RotateFormationScene::addFormation(GgafCore::Formation* prm_pFormationActor, frame prm_max_delay_offset) {
-    if (prm_pFormationActor->instanceOf(Obj_ggaf_Formation)) {
+void RotateFormationScene::addFormation(GgafDx::Formation* prm_pFormationActor, frame prm_max_delay_offset) {
+    if (prm_pFormationActor->instanceOf(Obj_GgafDx_Formation)) {
         //OK
     } else {
         throwCriticalException("GgafCore::Formation 以外が登録されています。");
@@ -51,7 +51,7 @@ void RotateFormationScene::processBehavior() {
         }
 
         FormationTblElem* e = _table.getCurrent();
-        GgafCore::Formation* pF = e->_pFormationActor;
+        GgafDx::Formation* pF = e->_pFormationActor;
         //全滅判定
         if (pF->_was_all_destroyed) {
             //全滅の場合

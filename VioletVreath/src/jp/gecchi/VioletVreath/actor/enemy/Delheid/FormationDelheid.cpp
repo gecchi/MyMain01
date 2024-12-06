@@ -222,14 +222,14 @@ void FormationDelheid::processBehavior() {
      }
 }
 
-void FormationDelheid::order1(GgafCore::Actor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
+void FormationDelheid::order1(GgafDx::GeometricActor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
     //各メンバー減速
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
     pMember->getLocusVehicle()->setMvAcceByT(120, -(pFormation->RV_MvVelo_/8));
 }
 
-void FormationDelheid::order2(GgafCore::Actor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
+void FormationDelheid::order2(GgafDx::GeometricActor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
     //各メンバー停滞&発射
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
@@ -237,7 +237,7 @@ void FormationDelheid::order2(GgafCore::Actor* prm_pDelheid, void* prm1, void* p
     pMember->open_shot(); //ショット発射！
 }
 
-void FormationDelheid::order3(GgafCore::Actor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
+void FormationDelheid::order3(GgafDx::GeometricActor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
     //各メンバー再始動
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;

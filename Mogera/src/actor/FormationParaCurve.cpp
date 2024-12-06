@@ -81,7 +81,7 @@ void FormationParaCurve::processBehavior() {
     }
 }
 
-void FormationParaCurve::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
+void FormationParaCurve::onDestroyAll(GgafDx::GeometricActor* prm_pActor_last_destroyed) {
 }
 
 void FormationParaCurve::onSayonaraAll() {

@@ -20,7 +20,7 @@ enum {
 
 
 FormationErelman003::FormationErelman003(const char* prm_name, EnemyErelmanController* prm_pController) :
-        FormationErelman(prm_name,  prm_pController) {
+        FormationErelman(prm_name,  prm_pController, StatusReset(FormationErelman003)) {
     _class_name = "FormationErelman003";
     formation_col_num_ = 10;
     formation_row_num_ = 140;
