@@ -24,9 +24,6 @@ public:
     frame summon_interval_;
     int summon_row_idx_;
 
-    /** [r]出現座標(シーンが設定) */
-    GgafDx::GeoElem entry_pos_;
-
     XpmConnection* pXpmCon_;
 
 public:
@@ -55,28 +52,6 @@ public:
     }
     int getFormationRowNum() {
         return formation_row_num_;
-    }
-
-    /**
-     * 出現座標を設定。
-     * @param x
-     * @param y
-     * @param z
-     */
-    void setPosition(coord x, coord y, coord z) {
-        entry_pos_.x = x;
-        entry_pos_.y = y;
-        entry_pos_.z = z;
-    }
-
-    /**
-     * 出現方向を設定。
-     * @param rz
-     * @param ry
-     */
-    void setRzRyAng(angle rz, angle ry) {
-        entry_pos_.rz = rz;
-        entry_pos_.ry = ry;
     }
 
     virtual ~FormationUrydike();

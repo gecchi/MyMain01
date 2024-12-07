@@ -114,9 +114,9 @@ void EnemyErelmanController::processBehavior() {
         pFormationErelman_->setPosition(pErelmanCore_->_x,
                                         pErelmanCore_->_y,
                                         pErelmanCore_->_z );
-        pFormationErelman_->setAng(pErelmanCore_->_rx,
-                                   pErelmanCore_->_ry,
-                                   pErelmanCore_->_rz);
+        pFormationErelman_->setRxRzRyFaceAng(pErelmanCore_->_rx,
+                                             pErelmanCore_->_rz,
+                                             pErelmanCore_->_ry);
     }
 
 }

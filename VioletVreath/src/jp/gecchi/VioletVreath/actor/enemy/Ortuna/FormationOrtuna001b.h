@@ -15,24 +15,7 @@ namespace VioletVreath {
 class FormationOrtuna001b : public FormationOrtuna001 {
 
 public:
-    /** フォーメーション基点座標 */
-    GgafDx::GeoElem pos_;
-
-public:
     FormationOrtuna001b(const char* prm_name);
-
-    /**
-     * 基点座標セット。
-     * onSummonOrtuna() の初回時一回実行される
-     * @param X
-     * @param Y
-     * @param Z
-     */
-    void setPosition(coord x, coord y, coord z) {
-        pos_.x = x;
-        pos_.y = y;
-        pos_.z = z;
-    }
 
     virtual void onSummonOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) override;
 

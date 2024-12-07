@@ -103,8 +103,8 @@ void EnemyErelman::processBehavior() {
             }
             if (free_interval_ == 0) {
                 FormationErelman* pFormation = (FormationErelman*)getFormation();
-                pVehicleLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
-                pVehicleLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
+                pVehicleLeader_->setStartPosition(pFormation->_x, pFormation->_y, pFormation->_z);
+                pVehicleLeader_->setStartAngle(pFormation->_rx, pFormation->_ry, pFormation->_rz);
                 pVehicleLeader_->behave(); //ƒJ[ƒuˆÚ“®‚·‚é‚æ‚¤‚ÉDriver‚ğ‘€ì
             } else {
                 free_interval_--;

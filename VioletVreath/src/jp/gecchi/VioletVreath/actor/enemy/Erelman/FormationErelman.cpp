@@ -13,8 +13,6 @@
 #include "EnemyErelmanController.h"
 #include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

@@ -42,28 +42,28 @@ void FormationUrydike001::onSummon(GgafDx::FigureActor* prm_pActor, int prm_row,
     double d_col = -1.0 * papCurveManufConn_[prm_col]->peek()->_pCurve->_rotmat._41; //‰¡‚Æ‚ÌŠÔŠu
     float X = d_col*rate_x; //rate_x‚ðŠ|‚¯‚é‚±‚Æ‚É‚æ‚èA‚±‚±‚Å X ‚Ícoord‚Ì’PˆÊ‚Æ‚È‚éB
 
-    double sinRz = ANG_SIN(entry_pos_.rz);
-    double cosRz = ANG_COS(entry_pos_.rz);
-    double sinRy = ANG_SIN(entry_pos_.ry);
-    double cosRy = ANG_COS(entry_pos_.ry);
+    double sinRz = ANG_SIN(_rz);
+    double cosRz = ANG_COS(_rz);
+    double sinRy = ANG_SIN(_ry);
+    double cosRy = ANG_COS(_ry);
 
     //(X,0,0) ‚ð Rz > Ry ‰ñ“]ˆÚ“®‚³‚¹‚é‚Æ
     //(X*cosRz*cosRy, X*sinRz, X*cosRz*-sinRy)
     coord dx = X*cosRz*cosRy;
     coord dy = X*sinRz;
     coord dz = X*cosRz*-sinRy;
-    pUrydike->pVehicleLeader_->setStartPosition(entry_pos_.x + dx,
-                                               entry_pos_.y + dy,
-                                               entry_pos_.z + dz);
-    pUrydike->pVehicleLeader_->setStartAngle(entry_pos_.rx, entry_pos_.ry, entry_pos_.rz);
+    pUrydike->pVehicleLeader_->setStartPosition(_x + dx,
+                                                _y + dy,
+                                                _z + dz);
+    pUrydike->pVehicleLeader_->setStartAngle(_rx, _ry, _rz);
 
 
-    pUrydike->setPosition( RND_ABOUT(entry_pos_.x + dx, PX_C(700)),
-                           RND_ABOUT(entry_pos_.y + dy, PX_C(700)),
-                           RND_ABOUT(entry_pos_.z + dz, PX_C(700)) );
-    pUrydike->setFaceAngTwd(entry_pos_.x + dx,
-                            entry_pos_.y + dy,
-                            entry_pos_.z + dz);
+    pUrydike->setPosition( RND_ABOUT(_x + dx, PX_C(700)),
+                           RND_ABOUT(_y + dy, PX_C(700)),
+                           RND_ABOUT(_z + dz, PX_C(700)) );
+    pUrydike->setFaceAngTwd(_x + dx,
+                            _y + dy,
+                            _z + dz);
     pUrydike->getLocusVehicle()->setMvAngByFaceAng();
     pUrydike->getLocusVehicle()->setMvVelo(0);
     pUrydike->getLocusVehicle()->setMvAcce(80);

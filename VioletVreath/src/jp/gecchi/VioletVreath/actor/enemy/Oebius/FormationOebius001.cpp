@@ -96,23 +96,23 @@ void FormationOebius001::onSummon(GgafDx::FigureActor* prm_pActor, int prm_row, 
 //    //Z = (prm_col*(0.4+0.4))*rate_z  //基本間隔は0.4。本編隊はmobius1.spl、mobius3.spl、mobius5.spl と一つ飛びなので0.4+0.4
 //    //(0, 0, Z) を Rz > Ry 回転移動させると
 //    //(Z*sinRy, 0, Z*cosRy)
-//    float sinRy = ANG_SIN(geo_.ry);
-//    float cosRy = ANG_COS(geo_.ry);
+//    float sinRy = ANG_SIN(_ry);
+//    float cosRy = ANG_COS(_ry);
 //    double d_col = -1.0 * papCurveManufConn_[prm_col]->peek()->_pCurve->_rotmat._43;
 //    float Z = d_col*rate_z; //rate_zを掛けることにより、ここで Z はcoordの単位となる。
 //
 //    coord dx = Z*sinRy;
 //    coord dy = 0;
 //    coord dz = Z*cosRy;
-//    pOebius->pVehicleLeader_->setStartPosition(geo_.x + dx,
-//                                              geo_.y + dy,
-//                                              geo_.z + dz);
-    pOebius->pVehicleLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pOebius->pVehicleLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
-    pOebius->setPositionAround(geo_.x, geo_.y, geo_.z, PX_C(700));
-    pOebius->setFaceAngTwd(pOebius->_x + (pOebius->_x - geo_.x),
-                           pOebius->_y + (pOebius->_y - geo_.y),
-                           pOebius->_z + (pOebius->_z - geo_.z) );
+//    pOebius->pVehicleLeader_->setStartPosition(_x + dx,
+//                                               _y + dy,
+//                                               _z + dz);
+    pOebius->pVehicleLeader_->setStartPosition(_x, _y, _z);
+    pOebius->pVehicleLeader_->setStartAngle(_rx, _ry, _rz);
+    pOebius->setPositionAround(_x, _y, _z, PX_C(700));
+    pOebius->setFaceAngTwd(pOebius->_x + (pOebius->_x - _x),
+                           pOebius->_y + (pOebius->_y - _y),
+                           pOebius->_z + (pOebius->_z - _z) );
     pOebius->getLocusVehicle()->setMvAngByFaceAng();
     pOebius->getLocusVehicle()->setMvVelo(0);
     pOebius->getLocusVehicle()->setMvAcce(80);
@@ -125,9 +125,9 @@ void FormationOebius001::onSummon(GgafDx::FigureActor* prm_pActor, int prm_row, 
 //    double g = RCNV(-1.0, 1.0, sg, 0.2, 1.1);
 //    double b = RCNV(-1.0, 1.0, sb, 0.2, 1.1);
 
-    double r = RCNV(0, formation_col_num_                      , prm_col         , 0.3, 1.0);
+    double r = RCNV(0, formation_col_num_                    , prm_col         , 0.3, 1.0);
     double g = RCNV(0, formation_col_num_*formation_row_num_ , prm_col*prm_row , 0.3, 1.0);
-    double b = RCNV(0, formation_row_num_                      , prm_row         , 0.3, 1.0);
+    double b = RCNV(0, formation_row_num_                    , prm_row         , 0.3, 1.0);
 
     pOebius->setMaterialColor(r, g, b);
 }

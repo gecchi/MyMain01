@@ -113,22 +113,22 @@ void FormationOebius002::onSummon(GgafDx::FigureActor* prm_pActor, int prm_row, 
 //    //Z = (prm_col*0.4)*rate_z //0.4‚Í—×‚Ì—ñ‚Æ‚ÌŠÔŠu
 //    //(0, 0, Z) ‚ð Rz > Ry ‰ñ“]ˆÚ“®‚³‚¹‚é‚Æ
 //    //(Z*sinRy, 0, Z*cosRy)
-//    float sinRy = ANG_SIN(geo_.ry);
-//    float cosRy = ANG_COS(geo_.ry);
+//    float sinRy = ANG_SIN(_.ry);
+//    float cosRy = ANG_COS(_.ry);
 //    double d_col = -1.0 * papCurveManufConn_[prm_col]->peek()->_pCurve->_rotmat._43;
 //    dxcoord Z = d_col*rate_z; //rate_z‚ðŠ|‚¯‚é‚±‚Æ‚É‚æ‚èA‚±‚±‚Å Z ‚Ícoord‚Ì’PˆÊ‚Æ‚È‚éB(‚æ‚¤‚ÉMAG_X,MAG_Y,MAG_Z‚ðÝ’è‚µ‚Ä‚ ‚éj
 //    coord dx = Z*sinRy;
 //    coord dy = 0;
 //    coord dz = Z*cosRy;
-//    pOebius->pVehicleLeader_->setStartPosition(geo_.x + dx,
-//                                              geo_.y + dy,
-//                                              geo_.z + dz);
-    pOebius->pVehicleLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pOebius->pVehicleLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
-    pOebius->setPositionAround(geo_.x, geo_.y, geo_.z, PX_C(700));
-    pOebius->setFaceAngTwd(pOebius->_x + (pOebius->_x - geo_.x),
-                           pOebius->_y + (pOebius->_y - geo_.y),
-                           pOebius->_z + (pOebius->_z - geo_.z) );
+//    pOebius->pVehicleLeader_->setStartPosition(_x + dx,
+//                                              _y + dy,
+//                                              _z + dz);
+    pOebius->pVehicleLeader_->setStartPosition(_x, _y, _z);
+    pOebius->pVehicleLeader_->setStartAngle(_rx, _ry, _rz);
+    pOebius->setPositionAround(_x, _y, _z, PX_C(700));
+    pOebius->setFaceAngTwd(pOebius->_x + (pOebius->_x - _x),
+                           pOebius->_y + (pOebius->_y - _y),
+                           pOebius->_z + (pOebius->_z - _z) );
     pOebius->getLocusVehicle()->setMvAngByFaceAng();
     pOebius->getLocusVehicle()->setMvVelo(0);
     pOebius->getLocusVehicle()->setMvAcce(80);
@@ -139,7 +139,6 @@ void FormationOebius002::onSummon(GgafDx::FigureActor* prm_pActor, int prm_row, 
 }
 
 void FormationOebius002::onFinshLeading(GgafDx::FigureActor* prm_pActor) {
-
 }
 
 FormationOebius002::~FormationOebius002() {

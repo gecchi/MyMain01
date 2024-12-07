@@ -28,8 +28,6 @@ public:
     EnemyAlisana* pAlisana_start;
     /** 終点のアリサナ */
     EnemyAlisana* pAlisana_goal;
-    /** [r]設置座標と向き */
-    GgafDx::GeoElem geoLocate_;
 
     /** 編隊数(RANK変動) */
     int RV_Num_;
@@ -67,19 +65,6 @@ public:
     static void order2(GgafDx::GeometricActor* prm_pDelheid, void* prm1, void* prm2, void* prm3);
 
     static void order3(GgafDx::GeometricActor* prm_pDelheid, void* prm1, void* prm2, void* prm3);
-
-    /**
-     * 設置座標と向きをセット .
-     */
-    void setPosition(coord x, coord y, coord z,
-                     angle rx, angle rz, angle ry) {
-        geoLocate_.x = x;
-        geoLocate_.y = y;
-        geoLocate_.z = z;
-        geoLocate_.rx = rx;
-        geoLocate_.rz = rz;
-        geoLocate_.ry = ry;
-    }
 
     virtual ~FormationDelheid();
 };

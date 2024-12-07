@@ -123,17 +123,17 @@ void FormationErelman003::onSummon(GgafDx::FigureActor* prm_pActor, int prm_row,
     } else {
         pErelman->pVehicleLeader_ = pErelman->createCurveVehicleLeader(papCurveManufConn_[prm_col]->peek());
     }
-    pErelman->pVehicleLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pErelman->pVehicleLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
-    pErelman->setPositionAround(geo_.x, geo_.y, geo_.z, PX_C(100));
-//    pErelman->setFaceAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
-//                            pErelman->_y + (pErelman->_y - geo_.y),
-//                            pErelman->_z + (pErelman->_z - geo_.z) );
+    pErelman->pVehicleLeader_->setStartPosition(_x, _y, _z);
+    pErelman->pVehicleLeader_->setStartAngle(_rx, _ry, _rz);
+    pErelman->setPositionAround(_x, _y, _z, PX_C(100));
+//    pErelman->setFaceAngTwd(pErelman->_x + (pErelman->_x - _x),
+//                            pErelman->_y + (pErelman->_y - _y),
+//                            pErelman->_z + (pErelman->_z - _z) );
 //    pErelman->getLocusVehicle()->setMvAngByFaceAng();
 
-    pErelman->getLocusVehicle()->setMvAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
-                                       pErelman->_y + (pErelman->_y - geo_.y),
-                                       pErelman->_z + (pErelman->_z - geo_.z) );
+    pErelman->getLocusVehicle()->setMvAngTwd(pErelman->_x + (pErelman->_x - _x),
+                                       pErelman->_y + (pErelman->_y - _y),
+                                       pErelman->_z + (pErelman->_z - _z) );
     pErelman->getLocusVehicle()->setMvVelo(0);
     pErelman->getLocusVehicle()->setMvAcce(80);
 

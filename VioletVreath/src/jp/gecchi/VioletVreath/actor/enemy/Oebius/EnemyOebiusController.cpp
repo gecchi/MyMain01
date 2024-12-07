@@ -114,9 +114,9 @@ void EnemyOebiusController::processBehavior() {
         pFormationOebius_->setPosition(pOebiusCore_->_x,
                                        pOebiusCore_->_y,
                                        pOebiusCore_->_z );
-        pFormationOebius_->setAng(pOebiusCore_->_rx,
-                                  pOebiusCore_->_ry,
-                                  pOebiusCore_->_rz);
+        pFormationOebius_->setRxRzRyFaceAng(pOebiusCore_->_rx,
+                                            pOebiusCore_->_ry,
+                                            pOebiusCore_->_rz);
     }
 
 }

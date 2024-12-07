@@ -23,16 +23,13 @@ void FormationOrtuna001b::onSummonOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index
 
     //メンバーは自機前方のYZ平面円周上に整列
     static coord r1 = PX_C(50); //初期配置の半径
-    coord x = pos_.x;
-    coord y = pos_.y;
-    coord z = pos_.z;
-    prm_pOrtuna->entry_pos_.set(x,
-                                y + (ANG_SIN(ang) * r1),
-                                z + (ANG_COS(ang) * r1));
+    prm_pOrtuna->entry_pos_.set(_x,
+                                _y + (ANG_SIN(ang) * r1),
+                                _z + (ANG_COS(ang) * r1));
     static coord r2 = PX_C(200); //折り返し地点半径
-    prm_pOrtuna->stagnating_pos_.set( x,
-                                   y + (ANG_SIN(ang) * r2),
-                                   z + (ANG_COS(ang) * r2));
+    prm_pOrtuna->stagnating_pos_.set(_x,
+                                     _y + (ANG_SIN(ang) * r2),
+                                     _z + (ANG_COS(ang) * r2));
 }
 
 FormationOrtuna001b::~FormationOrtuna001b() {

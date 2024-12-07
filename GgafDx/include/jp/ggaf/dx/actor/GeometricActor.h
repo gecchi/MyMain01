@@ -516,6 +516,17 @@ public:
     virtual void setPositionAroundAt(const GeoElem* prm_pGeoElem, coord r);
 
     /**
+     * 設置座標と向きをセット .
+     */
+    virtual void setPosition(coord x, coord y, coord z,
+                             angle rx, angle rz, angle ry) {
+        _x = x;
+        _y = y;
+        _z = z;
+        setRollPitchYawFaceAng(rx, rz, ry);
+    }
+
+    /**
      * 回転角度 _rx, _ry, _rz をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */
@@ -581,6 +592,20 @@ public:
         setRyFaceAng(prm_axis_y_face);
     }
 
+    /**
+     * Actorの正面方角を設定 .
+     * @param prm_axis_x_face X軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_z_face Z軸方角のアングル値(-360,000～360,000)
+     * @param prm_axis_y_face Y軸方角のアングル値(-360,000～360,000)
+     */
+    virtual void setRxRzRyFaceAng(angle prm_axis_x_face,
+                                  angle prm_axis_z_face,
+                                  angle prm_axis_y_face) {
+        setRxFaceAng(prm_axis_x_face);
+        setRzFaceAng(prm_axis_z_face);
+        setRyFaceAng(prm_axis_y_face);
+
+    }
     inline void setFaceAngZero() {
         _rx = _rz = _ry = 0;
     }

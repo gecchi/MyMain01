@@ -100,8 +100,8 @@ void EnemyOebius::processBehavior() {
             }
             //FormationOebius‚Ì‰ñ“]ˆÚ“®‚É’Ç]
             FormationOebius* pFormation = (FormationOebius*)getFormation();
-            pVehicleLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
-            pVehicleLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
+            pVehicleLeader_->setStartPosition(pFormation->_x, pFormation->_y, pFormation->_z);
+            pVehicleLeader_->setStartAngle(pFormation->_rx, pFormation->_ry, pFormation->_rz);
             //ƒJ[ƒuˆÚ“®‚·‚é‚æ‚¤‚ÉDriver‚ğ‘€ì
             pVehicleLeader_->behave();
 

@@ -83,9 +83,9 @@ void FormationDelheid::processBehavior() {
              //ダミー(pDummy_)を使ってメンバーのカーブ移動の開始位置と方向、終了位置と方向を予め求める
              pDummy_->config(getSplManuf(), nullptr);
              pDummy_->getLocusVehicle()->setMvVelo(RV_MvVelo_);
-             pDummy_->setPositionAt(&geoLocate_);
-             pDummy_->setFaceAngAs(&geoLocate_);
-             pDummy_->getLocusVehicle()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
+             pDummy_->setPositionAt(this);
+             pDummy_->setFaceAngAs(this);
+             pDummy_->getLocusVehicle()->setRzRyMvAng(_rz, _ry);
              onSummonDelheid(pDummy_);
              pDummy_->pVehicleLeader_->start(RELATIVE_COORD_DIRECTION); //座標計算のためスタート＆オプション指定が必要
              coord next_x, next_y, next_z;             //開始+1 の補完点座標
@@ -140,10 +140,10 @@ void FormationDelheid::processBehavior() {
                              pDelheid->getLocusVehicle()->setMvVelo(RV_MvVelo_);
 
                              pDelheid->getLocusVehicle()->setMvAcce(0);
-                             pDelheid->setPositionAt(&geoLocate_);
-                             pDelheid->setFaceAngAs(&geoLocate_);
-                             pDelheid->getLocusVehicle()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
-                             pDelheid->pVehicleLeader_->setStartAngle(geoLocate_.rx, geoLocate_.ry, geoLocate_.rz);
+                             pDelheid->setPositionAt(this);
+                             pDelheid->setFaceAngAs(this);
+                             pDelheid->getLocusVehicle()->setRzRyMvAng(_rz, _ry);
+                             pDelheid->pVehicleLeader_->setStartAngle(_rx, _ry, _rz);
 //                             pDelheid->pVehicleLeader_->setLoopAngleByMvAng();
                              onSummonDelheid(pDelheid); //下位フォーメーションクラス個別実装の処理
                          } else {

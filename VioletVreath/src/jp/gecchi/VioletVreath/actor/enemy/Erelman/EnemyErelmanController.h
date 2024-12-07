@@ -34,7 +34,6 @@ public:
         entry_pos_.z = z;
     }
 
-
     /**
      *
      */
