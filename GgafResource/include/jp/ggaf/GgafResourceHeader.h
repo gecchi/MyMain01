@@ -2,8 +2,6 @@
 #define GGAFRESOURCEHEADER_H_
 #include "jp/ggaf/GgafCommonHeader.h"
 
-int xyzxyzxyz = 0;
-
 namespace GgafResource {
 
 class Util;
