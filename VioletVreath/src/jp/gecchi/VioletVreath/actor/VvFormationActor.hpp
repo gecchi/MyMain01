@@ -10,9 +10,6 @@ namespace VioletVreath {
 
 template<class T>
 class VvFormationActor : public VvGeometricActor<T> {
-public:
-    //TODO:フォーメーションアクター用のSEはここしかないのか・・・？
-    //GgafDx::SeTransmitterForActor* _pSeTransmitter;
 
 public:
     VvFormationActor(const char* prm_name, void* prm_pFuncResetStatus)
@@ -24,7 +21,6 @@ public:
 #endif
         GgafCore::Status* pStatus = T::getStatus();
         GgafDx::SeTransmitterForActor* pSeXmtr = T::getSeXmtr();
-
     }
 
     /**
@@ -34,12 +30,7 @@ public:
     virtual void onDestroyAll(GgafDx::GeometricActor* prm_pActor_last_destroyed) override {
         //フォーメーション全滅爆発エフェクト
         UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind);
-        //フォーメーション全滅時爆発SE
-//        t_se_id se_id = T::getStatus()->get(STAT_ExplosionSeKind);
-//        if (se_id != SE_NOTHING) {
-//            T::_pSeTransmitter->play3D(se_id);
-//        }
-//        //フォーメーション全滅アイテム出現
+        //フォーメーション全滅アイテム出現
         UTIL::activateCommonItemOf(this);
         //フォーメーション全滅やられ特殊エフェクト（ボーナス表示等）
         UTIL::activateCommonEffectOf(this, STAT_DestroyedEffectKind);
@@ -48,7 +39,6 @@ public:
     }
 
     virtual ~VvFormationActor() {
-        //GGAF_DELETE_NULLABLE(_pSeTransmitter);
     }
 };
 

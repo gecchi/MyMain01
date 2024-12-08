@@ -45,9 +45,19 @@ public:
      */
     void updateAABB(angle prm_rx, angle prm_ry, angle prm_rz);
 
+    /**
+     * ヒットパートを返す .
+     * @param prm_index ヒットパートのインデックス
+     * @return ヒットパート
+     */
     inline CollisionPart* getPart(int prm_index) {
         return _papColliPart[prm_index];
     }
+
+    /**
+     * ヒットチェックでヒットしたパートを返す .
+     * @return 直近のヒットしたパート
+     */
     inline CollisionPart* getHitPart() {
         return _papColliPart[_hit_colli_part_index];
     }

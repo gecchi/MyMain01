@@ -16,7 +16,6 @@ _pChecker(nullptr)
     _class_name = "Actor";
     _obj_class = Obj_ggaf_Actor;
     _pStatus = NEW Status();
-   // getStatus()->set(STAT_DEFAULT_ACTOR_KIND, 0);
 #ifdef MY_DEBUG
     Actor::_num_actors++;
 #endif
