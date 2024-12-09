@@ -4,8 +4,6 @@
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ortuna/EnemyOrtuna.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -25,9 +23,8 @@ void FormationOrtuna001a::onSummonOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index
     static coord r = PX_C(200);
     coord ang = UTIL::getAngle2D(z - pMyShip->_z, y - pMyShip->_y);
     prm_pOrtuna->stagnating_pos_.set( x,
-                                   y + (ANG_SIN(ang) * r),
-                                   z + (ANG_COS(ang) * r));
-
+                                      y + (ANG_SIN(ang) * r),
+                                      z + (ANG_COS(ang) * r) );
 }
 
 FormationOrtuna001a::~FormationOrtuna001a() {

@@ -33,9 +33,9 @@ void FormationThagoras002::onSummon(GgafDx::FigureActor* prm_pActor, int prm_row
     } else {
         pThagoras->pVehicleLeader_ = pThagoras->createCurveVehicleLeader(papCurveManufConn_[prm_col]->peek());
     }
-    pThagoras->pVehicleLeader_->setStartPosition(entry_pos_.x                      ,
-                                                entry_pos_.y + (prm_col*PX_C(30)) ,
-                                                entry_pos_.z                       );
+    pThagoras->pVehicleLeader_->setStartPosition(_x                      ,
+                                                 _y + (prm_col*PX_C(30)) ,
+                                                 _z                       );
 
     pThagoras->setPosition( RND(PX_C(-2600), PX_C(2600)),
                             RND(PX_C(-2600), PX_C(2600)),

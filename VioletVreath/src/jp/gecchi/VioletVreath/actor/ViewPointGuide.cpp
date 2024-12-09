@@ -3,8 +3,6 @@
 #include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

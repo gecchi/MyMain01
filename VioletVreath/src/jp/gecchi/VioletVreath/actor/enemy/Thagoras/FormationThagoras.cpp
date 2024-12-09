@@ -50,8 +50,8 @@ void FormationThagoras::processBehavior() {
                 EnemyThagoras* pThagoras = (EnemyThagoras*)summonMember();
                 if (pThagoras) {
                     onSummon(pThagoras, cnt_summon_row_, col);
+                    pThagoras->setMaterialColor(pXpm->getColor(cnt_summon_row_, col));
                 }
-                pThagoras->setMaterialColor(pXpm->getColor(cnt_summon_row_, col));
             }
         }
         cnt_summon_row_++;

@@ -19,7 +19,7 @@
 #include "GameScene/GamePreTitleScene.h"
 #include "GameScene/GameTitleScene.h"
 #include "GameScene/MyShipScene.h"
-
+#include "GameScene/GameMainScene/StageWorld/RankUpStageController.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -274,6 +274,11 @@ void GameScene::processBehavior() {
                         pChildScene->fadeoutSceneWithBgmTree(FADE_FRAMES);
                         pChildScene->inactivateDelay(FADE_FRAMES+10);
                     }
+                }
+                if (pRANKUP_CONTROLLER->pNowRankUpStage_) {
+                    _TRACE_(FUNC_NAME << " pRANKUP_CONTROLLER->sayonaraRankUpStages()");
+                    pRANKUP_CONTROLLER->sayonaraRankUpStages();
+                    pRANKUP_CONTROLLER->pNowRankUpStage_ = nullptr;
                 }
             }
             if (pPhase->hasArrivedFrameAt(FADE_FRAMES+20)) {

@@ -90,6 +90,12 @@ void Bgm::stop() {
 void Bgm::setVolume(int prm_volume) {
     _volume = prm_volume;
     //マスターBGM音量率を考慮
+    if (_volume > GGAF_MAX_VOLUME) {
+        _volume = GGAF_MAX_VOLUME;
+    }
+    if (_volume < GGAF_MIN_VOLUME) {
+        _volume = GGAF_MIN_VOLUME;
+    }
     int v = (int)(_volume * Sound::_pBgmManager->getBgmMasterVolumeRate());
     if (v > GGAF_MAX_VOLUME) {
         v = GGAF_MAX_VOLUME;

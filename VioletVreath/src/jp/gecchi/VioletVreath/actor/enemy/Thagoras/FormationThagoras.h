@@ -20,9 +20,6 @@ public:
     int cnt_summon_row_;
     frame summon_interval_;
 
-    /** [r]出現座標(シーンが設定) */
-    GgafDx::GeoElem entry_pos_;
-
     GgafDx::Scaler* pScaler4Sc_;
     GgafLib::DefaultGeometricActor* pActor4Sc_;
 

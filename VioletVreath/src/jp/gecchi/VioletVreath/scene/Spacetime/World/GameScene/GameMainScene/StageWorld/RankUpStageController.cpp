@@ -144,15 +144,16 @@ void RankUpStageController::onCatchEvent(eventval prm_event_val, void* prm_pSour
 
 void RankUpStageController::sayonaraRankUpStages() {
     if (getChildFirst()) {
-        GgafCore::Scene* pRankUpStage = getChildFirst()->getPrev();//last
+        RankUpStage* pRankUpStage = (RankUpStage*)getChildFirst()->getPrev();//last
         if (pRankUpStage) {
             while (1) {
                 _TRACE_(FUNC_NAME<<" pRankUpStage("<<pRankUpStage->getName()<<")->sayonara()");
-                pRankUpStage->sayonara();
+                pRankUpStage->fadeoutSceneWithBgmTree(10);
+                pRankUpStage->sayonara(10);
                 if (pRankUpStage == getChildFirst()) {
                     break;
                 } else {
-                    pRankUpStage = pRankUpStage->getPrev();
+                    pRankUpStage = (RankUpStage*)pRankUpStage->getPrev();
                 }
             }
         }
