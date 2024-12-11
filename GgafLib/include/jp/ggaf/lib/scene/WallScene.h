@@ -79,8 +79,6 @@ public:
      */
     virtual void processBehavior() override;
 
-    virtual void processFinal() override;
-
     /**
      * X軸の負の方向にスクロールさせる関数 .
      * @param pThat アクター

@@ -16,6 +16,16 @@ _pConductor(new BgmConductor()) {
     _scene_alpha_from_top = _scene_alpha;
 }
 
+void Scene::processNextFrame() {
+    MainScene::processNextFrame();
+    if (hasJustChangedToInactive()) {
+        //BGMを processSettlementBehavior() では、シーンがブチ切れた場合、
+        //BGMを停止、フェードアウトさせる手段がなくなってしまう。
+        //確実にBGM終了させるためにも processNextFrame() で stop() させることにした
+        _pConductor->stop();
+    }
+}
+
 void Scene::setSceneAlpha(float prm_scene_alpha) {
     _scene_alpha  = prm_scene_alpha;
     if (_scene_alpha > 1.0f) {
@@ -137,9 +147,6 @@ void Scene::fadeoutSceneWithBgm(int prm_frame_fade) {
 void Scene::fadeoutSceneWithBgmTree(int prm_frame_fade) {
     fadeoutScene(prm_frame_fade);
     fadeoutBgmTree( prm_frame_fade);
-}
-void Scene::onEnd() {
-    _pConductor->stop();
 }
 
 Scene::~Scene() {

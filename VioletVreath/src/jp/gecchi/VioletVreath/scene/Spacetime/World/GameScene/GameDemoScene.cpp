@@ -165,7 +165,7 @@ void GameDemoScene::onInactive() {
 
     if (pRANKUP_CONTROLLER->pNowRankUpStage_) {
         _TRACE_(FUNC_NAME<<" pRANKUP_CONTROLLER->sayonaraRankUpStages()");
-        pRANKUP_CONTROLLER->sayonaraRankUpStages();
+        pRANKUP_CONTROLLER->sayonaraRankUpStages(FADE_FRAMES);
         pRANKUP_CONTROLLER->pNowRankUpStage_ = nullptr;
     }
 }

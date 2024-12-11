@@ -156,6 +156,7 @@ void BgmConductor::unpause() {
 
 void BgmConductor::stop() {
     for (int bgm_no = 0; bgm_no < _bgm_num; bgm_no++) {
+        Bgm* pBgm = getBgm(bgm_no);
         stop(bgm_no);
     }
 }
@@ -245,6 +246,7 @@ void BgmConductor::fadeoutStopAll(frame prm_frame) {
 
 void BgmConductor::behave() {
     for (int bgm_no = 0; bgm_no < _bgm_num; bgm_no++) {
+        Bgm* pBgm = getBgm(bgm_no);
         if (_vec_is_fade[bgm_no]) {
             if (isPerforming(bgm_no)) {
                 //音量フェード

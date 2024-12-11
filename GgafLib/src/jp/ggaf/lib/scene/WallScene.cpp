@@ -144,9 +144,6 @@ void WallScene::processBehavior() {
     }
 }
 
-void WallScene::processFinal() {
-}
-
 void WallScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3) {
     if (pThat->instanceOf(Obj_GgafDx_GeometricActor)) {
         GgafDx::GeometricActor* pActor = (GgafDx::GeometricActor*)pThat;

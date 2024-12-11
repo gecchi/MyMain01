@@ -142,14 +142,14 @@ void RankUpStageController::onCatchEvent(eventval prm_event_val, void* prm_pSour
     }
 }
 
-void RankUpStageController::sayonaraRankUpStages() {
+void RankUpStageController::sayonaraRankUpStages(frame prm_offset_frames) {
     if (getChildFirst()) {
         RankUpStage* pRankUpStage = (RankUpStage*)getChildFirst()->getPrev();//last
         if (pRankUpStage) {
             while (1) {
                 _TRACE_(FUNC_NAME<<" pRankUpStage("<<pRankUpStage->getName()<<")->sayonara()");
-                pRankUpStage->fadeoutSceneWithBgmTree(10);
-                pRankUpStage->sayonara(10);
+                pRankUpStage->fadeoutSceneWithBgmTree(prm_offset_frames);
+                pRankUpStage->sayonara(prm_offset_frames);
                 if (pRankUpStage == getChildFirst()) {
                     break;
                 } else {

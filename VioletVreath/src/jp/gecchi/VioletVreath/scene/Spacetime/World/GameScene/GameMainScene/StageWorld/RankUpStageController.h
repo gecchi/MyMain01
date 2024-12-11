@@ -46,7 +46,7 @@ public:
     /**
      * 配下のランクアップステージを全て開放(sayonara())する。
      */
-    void sayonaraRankUpStages();
+    void sayonaraRankUpStages(frame prm_offset_frames);
     virtual ~RankUpStageController();
 
 };

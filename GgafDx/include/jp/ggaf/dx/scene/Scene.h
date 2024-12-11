@@ -46,6 +46,8 @@ public:
      */
     Scene(const char* prm_name, GgafCore::SceneChief* prm_pSceneChief = nullptr);
 
+    virtual void processNextFrame() override;
+
     void setSceneAlpha(float prm_scene_alpha);
     float getSceneAlpha();
     void addSceneAlpha(float prm_scene_alpha);
@@ -105,8 +107,6 @@ public:
     inline BgmConductor* getBgmConductor() {
         return _pConductor;
     }
-
-    virtual void onEnd() override;
 
     /**
      * 配下のアクターが破壊された場合に呼び出される .

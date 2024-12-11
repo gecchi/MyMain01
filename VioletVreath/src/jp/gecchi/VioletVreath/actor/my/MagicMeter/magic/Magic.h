@@ -273,8 +273,6 @@ public:
 
     virtual void processDraw() override {}
 
-    virtual void processFinal() override {}
-
     virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override {}
 
     virtual void save(std::stringstream& sts);

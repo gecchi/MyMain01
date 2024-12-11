@@ -460,7 +460,7 @@ GgafDx::FigureActor* MyStgUtil::activateCommonEffectOf(GgafDx::GeometricActor* p
         }
 /////////
         case EF_DAMAGED001: {
-            EffectExplosion001* pE = CommonScene_dispatch(EffectExplosion001);
+            EffectExplosion001* pE = CommonScene_dispatchForce(EffectExplosion001);
             //oŒ»À•W‚ðÝ’è
             pE->setPositionAt(pTargetActor);
             pE->getLocusVehicle()->takeoverFrom(pTargetActor->getLocusVehicle());
