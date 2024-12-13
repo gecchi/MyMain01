@@ -85,20 +85,6 @@ public:
 
 public:
     /**
-//     * コンストラクタ .
-//     * @param prm_name モデル名称（任意）
-//     * @param prm_model モデル識別キー文字列
-//     * @param prm_effect エフェクト識別キー文字列
-//     * @param prm_technique エフェクトのテクニック
-//     * @param prm_pColliChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
-//     */
-//    FigureActor(const char* prm_name,
-//                const char* prm_model,
-//                const char* prm_effect,
-//                const char* prm_technique);
-//                CollisionChecker* prm_pColliChecker);
-
-    /**
      * コンストラクタ .
      * ModelManager::processCreateResource() 及び
      * EffectManager::processCreateResource()

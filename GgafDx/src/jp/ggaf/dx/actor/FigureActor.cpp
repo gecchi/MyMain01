@@ -16,7 +16,6 @@
 #include "jp/ggaf/dx/actor/supporter/Colorist.h"
 #include "jp/ggaf/dx/Config.h"
 
-
 using namespace GgafDx;
 
 hashval FigureActor::_hash_technique_last_draw = 0;

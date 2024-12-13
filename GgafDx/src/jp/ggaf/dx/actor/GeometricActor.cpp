@@ -363,9 +363,6 @@ void GeometricActor::changeGeoFinal() {
     _is_local = false;
 }
 
-//void GeometricActor::updateGeoFinalFromLocal() {
-//
-//}
 void GeometricActor::appendChildAsFk( GeometricActor* prm_pGeoActor,
                                       coord prm_x_init_local,
                                       coord prm_y_init_local,
@@ -390,9 +387,6 @@ void GeometricActor::appendChildAsFk( GeometricActor* prm_pGeoActor,
     prm_pGeoActor->_rx = prm_rx_init_local;
     prm_pGeoActor->_ry = prm_ry_init_local;
     prm_pGeoActor->_rz = prm_rz_init_local;
-//    prm_pGeoActor->getLocusVehicle()->_rz_mv = prm_rz_init_local;
-//    prm_pGeoActor->getLocusVehicle()->_ry_mv = prm_ry_init_local;
-
     prm_pGeoActor->changeGeoFinal();
 }
 
