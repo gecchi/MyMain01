@@ -57,8 +57,8 @@ _pColorist(nullptr)
     _cull_mode = _cull_mode_default;
     _now_drawdepth = 0;
     _specal_render_depth_index = -1;
-    _zenable = true;
-    _zwriteenable = true;
+    _use_zbuffer_drawing = true;
+    _zbuffer_write_enable = true;
     _lstModelCon.push_back(_pModelCon);
     _lstModel.push_back(_pModel);
 

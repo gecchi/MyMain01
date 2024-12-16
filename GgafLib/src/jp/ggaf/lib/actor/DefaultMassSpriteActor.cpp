@@ -18,7 +18,7 @@ DefaultMassSpriteActor::DefaultMassSpriteActor(const char* prm_name, const char*
     _class_name = "DefaultMassSpriteActor";
     _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
     _pMassSpriteModel->registerCallback_VertexInstanceDataInfo(DefaultMassSpriteActor::createVertexInstanceData);
-    setZWriteEnable(false);
+    setZBufferWriteEnable(false);
 }
 
 void DefaultMassSpriteActor::drawHitArea() {

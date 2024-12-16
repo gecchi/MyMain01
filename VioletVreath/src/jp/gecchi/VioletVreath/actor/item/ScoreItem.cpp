@@ -24,8 +24,8 @@ ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, void* prm_pFun
                : VvItemActor<GgafLib::DefaultMassMeshActor>(prm_name, prm_model, prm_pFuncStatusReset) {
     _class_name = "ScoreItem";
     effectBlendOne(); //加算合成するTechnique指定
-    setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
-    setZWriteEnable(false);  //自身のZバッファを書き込みしない
+    useZBufferDrawing(true);        //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
     GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     pLocusVehicle->setFaceAngVelo(AXIS_X, D_ANG(3));

@@ -23,6 +23,24 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
+#define REGISTER_DEPO(TYPE, NUM)   do { \
+        MyShipScene_pCOMMON_DEPO(TYPE) = NEW GgafCore::ActorDepository("Depo_" #TYPE); \
+        MyShipScene_pCOMMON_DEPO(TYPE)->putn<TYPE>(NUM); \
+        getSceneChief()->appendChild(MyShipScene_pCOMMON_DEPO(TYPE)); \
+}while(0)
+#define REGISTER_LASERDEPO_STORE(TYPE, SET_NUM, LASER_NUM) do { \
+    MyShipScene_pCOMMON_DEPO_STORE(TYPE) = NEW GgafCore::ActorDepositoryStore("DepoStore_" #TYPE); \
+    LaserChipDepository* pLaserChipDepo; \
+    for (int laser_set = 0; laser_set < SET_NUM; laser_set++) { \
+        std::string name_depo = "LaserChipDepo["+XTOS(laser_set)+"]"; \
+        pLaserChipDepo = NEW LaserChipDepository(name_depo.c_str()); \
+        pLaserChipDepo->putn<TYPE>(LASER_NUM); \
+        MyShipScene_pCOMMON_DEPO_STORE(TYPE)->put(pLaserChipDepo); \
+    } \
+    getSceneChief()->appendChild(MyShipScene_pCOMMON_DEPO_STORE(TYPE)); \
+}while(0)
+
+
 enum {
     PHASE_INIT    ,
     PHASE_BEGIN   ,
@@ -69,6 +87,19 @@ papBunshinBase_(nullptr) {
 
     pLabelZanki_ = NEW LabelGecchi16Font("zankdisp");
     getSceneChief()->appendChild(pLabelZanki_);
+
+    //Effect EffectTurbo002 ターボ噴射
+    REGISTER_DEPO(EffectTurbo002, 10);
+    //アイテム小
+    REGISTER_DEPO(MagicPointItem001, 400);
+    //アイテム中
+    REGISTER_DEPO(MagicPointItem002, 30);
+    //アイテム大
+    REGISTER_DEPO(MagicPointItem003, 10);
+    //ボーナスポイント表示エフェクト
+    REGISTER_DEPO(SpriteLabelBonus001, 60);
+    REGISTER_DEPO(SpriteLabelBonus002, 20);
+    REGISTER_DEPO(LabelBonus001, 30);
 }
 
 void MyShipScene::initialize() {

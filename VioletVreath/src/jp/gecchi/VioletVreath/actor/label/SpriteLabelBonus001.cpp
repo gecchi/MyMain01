@@ -17,8 +17,8 @@ SpriteLabelBonus001::SpriteLabelBonus001(const char* prm_name) :
         FontSpriteActor(prm_name, "Ranking_16Font")
 {
     _class_name = "SpriteLabelBonus001";
-    setZEnableDraw(false);      //Zバッファは考慮無しに強制
-    setZWriteEnable(false); //自身のZバッファを書き込みしないに強制
+    useZBufferDrawing(false);      //Zバッファは考慮無しに強制
+    setZBufferWriteEnable(false); //自身のZバッファを書き込みしないに強制
     setSpecialRenderDepthIndex(1); //描画順序を最前面描画に強制。
     setHitAble(false);
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);

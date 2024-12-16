@@ -14,8 +14,8 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
     _class_name = "MyTorpedoBlast";
     effectBlendOne(); //加算合成するTechnique指定
     setAlpha(0.3);
-    setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
-    setZWriteEnable(false);  //自身のZバッファを書き込みしない
+    useZBufferDrawing(true);        //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
 }
 
 void MyTorpedoBlast::initialize() {

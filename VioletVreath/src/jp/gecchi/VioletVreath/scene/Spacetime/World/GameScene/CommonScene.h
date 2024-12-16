@@ -47,14 +47,7 @@ public:
     GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(EffectExplosion003);
     /** 汎用爆発エフェクトその４用、常備デポジトリ */
     GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(EffectExplosion004);
-    /** ターボエフェクト用、常備デポジトリ */
-    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(EffectTurbo002);
-    /** アイテムオブジェクト小、常備デポジトリ */
-    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(MagicPointItem001);
-    /** アイテムオブジェクト中、常備デポジトリ */
-    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(MagicPointItem002);
-    /** アイテムオブジェクト大、常備デポジトリ */
-    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(MagicPointItem003);
+
 
     /** 汎用出現エフェクトその１用、常備デポジトリ */
     GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(EffectBlink001);
@@ -63,9 +56,6 @@ public:
     /** 汎用出現エフェクトその３用、常備デポジトリ */
     GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(EffectBlink003);
 
-    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(SpriteLabelBonus001);
-    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(SpriteLabelBonus002);
-    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(LabelBonus001);
 
     /** 汎用出現エフェクトその３用、常備デポジトリ */
     GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(Shot004);

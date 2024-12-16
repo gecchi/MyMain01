@@ -318,8 +318,8 @@ void Spacetime::draw() {
         //SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
         //の場合は、一切 SetRenderState したくない・・・
         if (pDrawActor->_cull_mode == D3DCULL_CCW) {
-            if (pDrawActor->_zenable) {
-                if (pDrawActor->_zwriteenable) {
+            if (pDrawActor->_use_zbuffer_drawing) {
+                if (pDrawActor->_zbuffer_write_enable) {
                     pDrawActor->processDraw(); //デフォルト画
                 } else {
                     pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
@@ -328,7 +328,7 @@ void Spacetime::draw() {
                 }
             } else {
                 pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-                if (pDrawActor->_zwriteenable) {
+                if (pDrawActor->_zbuffer_write_enable) {
                     pDrawActor->processDraw();
                 } else {
                     pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
@@ -339,8 +339,8 @@ void Spacetime::draw() {
             }
         } else {
             pDevice->SetRenderState(D3DRS_CULLMODE, pDrawActor->_cull_mode);
-            if (pDrawActor->_zenable) {
-                if (pDrawActor->_zwriteenable) {
+            if (pDrawActor->_use_zbuffer_drawing) {
+                if (pDrawActor->_zbuffer_write_enable) {
                     pDrawActor->processDraw();
                 } else {
                     pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
@@ -349,7 +349,7 @@ void Spacetime::draw() {
                 }
             } else {
                 pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-                if (pDrawActor->_zwriteenable) {
+                if (pDrawActor->_zbuffer_write_enable) {
                     pDrawActor->processDraw();
                 } else {
                     pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
@@ -447,7 +447,7 @@ int Spacetime::registerDrawActor(FigureActor* prm_pActor) {
                 _papFirstRenderActor[render_depth_index] = prm_pActor;
                 _papLastRenderActor[render_depth_index] = prm_pActor;
             } else {
-                if (!prm_pActor->_zwriteenable) {
+                if (!prm_pActor->_zbuffer_write_enable) {
                     //Z値を書き込ま無いオブジェクトはお尻に追加。
                     //深度の深い順に表示は行われるが。
                     //同一の深度の「先頭」に追加 ＝ その深度で始めに描画される => 背面に描画される

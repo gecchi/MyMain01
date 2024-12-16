@@ -29,8 +29,8 @@ EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "GlajaLance001", StatusReset(EnemyGlajaLance001)) {
     _class_name = "EnemyGlajaLance001";
     effectBlendOne(); //â¡éZçáê¨
-    setZEnableDraw(true);
-    setZWriteEnable(false);
+    useZBufferDrawing(true);
+    setZBufferWriteEnable(false);
 }
 
 void EnemyGlajaLance001::initialize() {

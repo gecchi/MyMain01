@@ -20,8 +20,8 @@ Shot004Blue::Shot004Blue(const char* prm_name) :
 
 void Shot004Blue::initialize() {
     setHitAble(false);
-    setZEnableDraw(true);   //描画時、Zバッファ値は考慮される
-    setZWriteEnable(false); //自身のZバッファを書き込みしない
+    useZBufferDrawing(true);   //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false); //自身のZバッファを書き込みしない
     effectBlendOne();       //加算合成
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);

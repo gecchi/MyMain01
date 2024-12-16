@@ -16,8 +16,8 @@ Horizon001::Horizon001(const char* prm_name) :
         DefaultMeshActor(prm_name, "Horizon001") {
     _class_name = "Horizon001";
     setHitAble(false);
-    setZEnableDraw(true);        //Zバッファは考慮
-//    setZWriteEnable(false);  //自身のZバッファを書き込みしない
+    useZBufferDrawing(true);        //Zバッファは考慮
+//    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
 //    setSpecialRenderDepthIndex(RENDER_DEPTH_FAR_INDEX-3);
     chip_width_ = PX_C(256);
 }

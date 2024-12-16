@@ -30,7 +30,7 @@ MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicM
     tmp_alpha_ = getAlpha();
     tx_ = 0;
     ty_ = 0;
-    setZWriteEnable(false);
+    setZBufferWriteEnable(false);
 }
 
 void MagicLvCursor::initialize() {

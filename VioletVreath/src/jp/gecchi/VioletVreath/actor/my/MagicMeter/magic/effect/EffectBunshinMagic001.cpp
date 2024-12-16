@@ -12,8 +12,8 @@ EffectBunshinMagic001::EffectBunshinMagic001(const char* prm_name)
                : EffectBlink(prm_name, "EffectBunshinMagic001") {
     _class_name = "EffectBunshinMagic001";
     effectBlendOne(); //加算合成するTechnique指定
-    setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
-    setZWriteEnable(false);  //自身のZバッファを書き込みしない
+    useZBufferDrawing(true);        //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
     getLocusVehicle()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
 }

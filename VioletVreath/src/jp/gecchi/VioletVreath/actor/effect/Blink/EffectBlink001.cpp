@@ -12,7 +12,7 @@ EffectBlink001::EffectBlink001(const char* prm_name) :
         EffectBlink(prm_name, "EffectBlink001") {
     _class_name = "EffectBlink001";
     effectBlendOne();
-    setZWriteEnable(false);
+    setZBufferWriteEnable(false);
 }
 
 void EffectBlink001::initialize() {

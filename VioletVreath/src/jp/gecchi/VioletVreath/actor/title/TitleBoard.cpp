@@ -10,8 +10,8 @@ using namespace VioletVreath;
 
 TitleBoard::TitleBoard(const char* prm_name) : DefaultMassBoardActor(prm_name, "Title") {
     _class_name = "TitleBoard";
-    setZEnableDraw(false);
-    setZWriteEnable(false);
+    useZBufferDrawing(false);
+    setZBufferWriteEnable(false);
 
     _z = 10; //メニューを表に出すために、タイトルは奥へ・・・
 

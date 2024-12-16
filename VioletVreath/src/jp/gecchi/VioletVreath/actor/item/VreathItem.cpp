@@ -25,8 +25,8 @@ VreathItem::VreathItem(const char* prm_name, const char* prm_model, void* prm_pF
                : VvItemActor<GgafLib::DefaultMassMeshActor>(prm_name, prm_model, prm_pFuncStatusReset) {
     _class_name = "VreathItem";
     effectBlendOne(); //加算合成するTechnique指定
-    setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
-    setZWriteEnable(false);  //自身のZバッファを書き込みしない
+    useZBufferDrawing(true);        //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
     GgafDx::LocusVehicle* pLocusVehicle = getLocusVehicle();
     pLocusVehicle->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));

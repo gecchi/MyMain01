@@ -14,8 +14,8 @@ Planet001Atmosphere::Planet001Atmosphere(const char* prm_name) :
         DefaultMeshActor(prm_name, "Planet001Atmosphere") {
     _class_name = "Planet001Atmosphere";
     setHitAble(false);
-    setZEnableDraw(true);        //Zバッファは考慮
-    setZWriteEnable(false);  //自身のZバッファを書き込みしない
+    useZBufferDrawing(true);        //Zバッファは考慮
+    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
     defineRotMvWorldMatrix_Billboard(); //XYZ軸ビルボード
 }
 void Planet001Atmosphere::onCreateModel() {

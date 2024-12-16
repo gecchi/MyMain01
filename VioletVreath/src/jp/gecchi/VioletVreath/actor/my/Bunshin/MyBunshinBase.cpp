@@ -442,7 +442,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
     //prm_mode = 0 オールリセット
     //prm_mode = 1 ハーフリセット
 
-    EffectTurbo002* pTurbo002 = CommonScene_dispatch(EffectTurbo002);
+    EffectTurbo002* pTurbo002 = MyShipScene_dispatch(EffectTurbo002);
     if (pTurbo002) {
         pTurbo002->setPositionAt(pMyBunshinController_);
     }

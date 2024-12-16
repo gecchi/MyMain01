@@ -24,8 +24,8 @@ Jiki::Jiki(const char* prm_name) :
     _class_name = "Jiki";
 //    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv);
     effectBlendOne();
-    setZEnableDraw(false);
-    setZWriteEnable(false);
+    useZBufferDrawing(false);
+    setZBufferWriteEnable(false);
     setCullingDraw(false);
     setHitAble(true);
 }

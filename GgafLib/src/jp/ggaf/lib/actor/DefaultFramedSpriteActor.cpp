@@ -14,7 +14,7 @@ DefaultFramedSpriteActor::DefaultFramedSpriteActor(const char* prm_name, const c
                       "DefaultFramedSpriteTechnique") {
     _class_name = "DefaultFramedSpriteActor";
     _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
-    setZWriteEnable(false);
+    setZBufferWriteEnable(false);
 }
 
 void DefaultFramedSpriteActor::drawHitArea() {

@@ -313,7 +313,7 @@ void MyBunshin::effectFreeModeReady() {
 }
 
 void MyBunshin::effectFreeModeLaunch() {
-    EffectTurbo002* const pTurbo002 = CommonScene_dispatch(EffectTurbo002);
+    EffectTurbo002* const pTurbo002 = MyShipScene_dispatch(EffectTurbo002);
     if (pTurbo002) {
         if (_is_local) {
             pTurbo002->setPosition(_x_final,_y_final,_z_final);

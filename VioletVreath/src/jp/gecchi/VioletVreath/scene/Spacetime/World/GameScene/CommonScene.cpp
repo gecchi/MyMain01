@@ -41,24 +41,14 @@ CommonScene::CommonScene(const char* prm_name) : VvScene<DefaultScene>(prm_name)
     REGISTER_DEPO(EffectExplosion003, 50);
     //汎用爆発エフェクト大
     REGISTER_DEPO(EffectExplosion004, 100);
-    //アイテム小
-    REGISTER_DEPO(MagicPointItem001, 400);
-    //アイテム中
-    REGISTER_DEPO(MagicPointItem002, 30);
-    //アイテム大
-    REGISTER_DEPO(MagicPointItem003, 10);
-    //Effect EffectTurbo002 ターボ噴射
-    REGISTER_DEPO(EffectTurbo002, 10);
+
     //汎用出現エフェクト EffectBlink001
     REGISTER_DEPO(EffectBlink001, 200);
     //汎用出現エフェクト EffectBlink002
     REGISTER_DEPO(EffectBlink002, 30);
     //汎用出現エフェクト EffectBlink003
     REGISTER_DEPO(EffectBlink003, 30);
-    //ボーナスポイント表示エフェクト
-    REGISTER_DEPO(SpriteLabelBonus001, 60);
-    REGISTER_DEPO(SpriteLabelBonus002, 20);
-    REGISTER_DEPO(LabelBonus001, 30);
+
     //汎用ショット
     REGISTER_DEPO(Shot004, 30);
 

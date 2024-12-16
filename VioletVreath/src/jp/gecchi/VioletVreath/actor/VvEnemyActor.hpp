@@ -36,19 +36,9 @@ public:
 
     /**
      * 敵キャラヒット時の標準的な処理 .
-     * ＜破壊された場合＞<br>
-     * ・破壊時得点加算<br>
-     * ・ランク加算<br>
-     * ・アイテム出現             activateCommonItemOf()<br>
-     * ・消滅時特殊エフェクト開始 activateDestroyedEffectOf()<br>
-     * ・打ち返し弾出現           activateRevengeShotOf()<br>
-     * ・爆発エフェクト出現       activateExplosionEffectOf()<br>
-     * ・編隊全滅判定<br>
-     * ・編隊全滅時アイテム出現(STAT_ItemKind)<br>
-     * ＜破壊されなかった場合＞<br>
-     * ・ダメージを与えた得点加算<br>
-     * ・ダメージフラッシュ表示       STAT_FlushAble<br>
-     * ・ダメージ時特殊エフェクト出現 activateDamagedEffectOf()<br>
+     * ・破壊された場合<br>
+     * ・破壊されなかった場合<br>
+     * それぞれ、相手種別が MY*** （自機関連）である場合と、そうでない（地形など）の場合の共通処理
      * @param prm_pOther ヒットした相手のアクターを渡す
      * @return true:スタミナ0(破壊された)/false:スタミナ残あり(破壊されてない)
      */
@@ -57,25 +47,29 @@ public:
         if (VvGeometricActor<T>::calcStamina(prm_pOther) <= 0) { //体力が無くなったら
             //＜破壊された場合＞
             VvGeometricActor<T>::setHitAble(false); //当たり判定消失
+            //爆発エフェクト
+            UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind); 
             if ((prm_pOther->_pChecker->_kind) & KIND_MY) {
-                //相手(自機)の種別が MY*** （自機関連） ならば
+                //相手種別が MY*** （自機関連） ならば
                 GameGlobal::addDestroyedScoreBy(this);
                 VvGeometricActor<T>::notifyDestroyed(); //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
-                UTIL::activateCommonItemOf(this);    //アイテム出現
-                UTIL::activateCommonEffectOf(this, STAT_DestroyedEffectKind);  //やられ特殊エフェクト（ボーナス表示等）
+                UTIL::activateMyShipItemOf(this);    //アイテム出現
+                UTIL::activateCommonEffectOf(this, STAT_DestroyedEffectKind);  //編隊全滅判定に有効なやられ特殊エフェクト（今のところなし？）
+                UTIL::activateMyShipEffectOf(this, STAT_DestroyedEffectKind);  //得点表示等（編隊はボーナス得点）
                 UTIL::activateRevengeShotOf(this);     //打ち返し弾
             }
-            UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind); //爆発エフェクト
             return true;
         } else {
             //＜非破壊時、ダメージを受けた場合＞
-            if ((prm_pOther->_pChecker->_kind) & KIND_MY) { //相手(自機)の種別が MY*** （自機関連） ならば
+            //ダメージエフェクト
+            UTIL::activateCommonEffectOf(this, STAT_DamagedEffectKind); 
+            if ((prm_pOther->_pChecker->_kind) & KIND_MY) {
+                //相手種別が MY*** （自機関連） ならば
                 GameGlobal::addDamagedScoreBy(this); //ダメージ時得点
             }
             if (pThisStatus->get(STAT_FlushAble)) { //ダメージフラッシュするかどうか
                 VvGeometricActor<T>::effectFlush(2); //フラッシュ！
             }
-            UTIL::activateCommonEffectOf(this, STAT_DamagedEffectKind); //ダメージエフェクト
             return false;
         }
     }

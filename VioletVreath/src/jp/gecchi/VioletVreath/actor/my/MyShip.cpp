@@ -418,7 +418,7 @@ void MyShip::processBehavior() {
             if (pCoordVehicle->_velo_x == 0 && pCoordVehicle->_velo_y == 0 && pCoordVehicle->_velo_z == 0) {
                 //ターボ移動完全に終了しないと次のターボは実行不可
                 moveTurbo();
-                UTIL::activateCommonEffectOf(this, STAT_ProperEffect01Kind); //ターボ開始のエフェクト
+                UTIL::activateMyShipEffectOf(this, STAT_ProperEffect01Kind); //ターボ開始のエフェクト
                 getSeXmtr()->play3D(SE_MY_CANT_TURBO_001);
             } else {
                 //ターボ移動中

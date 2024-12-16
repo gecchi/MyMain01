@@ -15,8 +15,8 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
     _class_name = "WorldBoundActor";
     _offset_frames = 0;
     setHitAble(false);
-    setZEnableDraw(false);   //Zバッファは考慮無し
-    setZWriteEnable(false);  //自身のZバッファを書き込みしない
+    useZBufferDrawing(false);   //Zバッファは考慮無し
+    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
     setSpecialRenderDepthFar(0); //特別な最背面レンダリング（一番最初に描画）
     setFaceAngZero();
 }

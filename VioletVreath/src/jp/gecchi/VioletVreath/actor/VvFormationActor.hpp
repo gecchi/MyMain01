@@ -31,9 +31,10 @@ public:
         //フォーメーション全滅爆発エフェクト
         UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind);
         //フォーメーション全滅アイテム出現
-        UTIL::activateCommonItemOf(this);
+        UTIL::activateMyShipItemOf(this);
         //フォーメーション全滅やられ特殊エフェクト（ボーナス表示等）
         UTIL::activateCommonEffectOf(this, STAT_DestroyedEffectKind);
+        UTIL::activateMyShipEffectOf(this, STAT_DestroyedEffectKind);
         //編隊全滅時ボーナス加算
         GameGlobal::addDestroyedScoreBy(this);
     }

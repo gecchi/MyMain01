@@ -31,8 +31,8 @@ _pUvFlipper(NEW UvFlipper())
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
     _pUvFlipper->locatePatternNo(_pMassPointSpriteModel->_texture_split_rowcol,
                                  _pMassPointSpriteModel->_texture_split_rowcol );
-    setZEnableDraw(false);
-    setZWriteEnable(false);
+    useZBufferDrawing(false);
+    setZBufferWriteEnable(false);
 }
 
 void MassPointSpriteActor::changeModelByIndex(int prm_model_index) {

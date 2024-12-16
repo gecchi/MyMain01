@@ -21,8 +21,8 @@ EffectShotMagic::EffectShotMagic(const char* prm_name) :
         DefaultSpriteActor(prm_name, "EffectShotMagic") {
     _class_name = "EffectShotMagic";
     effectBlendOne(); //加算合成Technique
-    setZEnableDraw(true);       //描画時、Zバッファ値は考慮される
-    setZWriteEnable(false); //自身のZバッファを書き込みしない
+    useZBufferDrawing(true);       //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false); //自身のZバッファを書き込みしない
     defineRotMvWorldMatrix_Billboard(); //変換行列をビルボードに
     setHitAble(false);
 }

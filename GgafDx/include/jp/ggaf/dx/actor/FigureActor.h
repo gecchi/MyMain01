@@ -55,9 +55,9 @@ protected:
     Colorist* _pColorist;
 public:
     /** [r/w]描画時、Zバッファを考慮して描画を行うか否か。true:考慮する／false:Zバッファを無視して描画  */
-    bool _zenable;
+    bool _use_zbuffer_drawing;
     /** [r/w]描画時、Zバッファへ書き込みを行うか否か。true:Zバッファへ深度を書き込む／false:Zバッファへは何も書き込まない */
-    bool _zwriteenable;
+    bool _zbuffer_write_enable;
 
     /** [r]直近の描画時に使用されたテクニック名のハッシュコード */
     static hashval _hash_technique_last_draw;
@@ -319,16 +319,16 @@ public:
      * 描画時Zバッファを考慮するか .
      * @param prm_bool true:考慮する(default) / false:無視する
      */
-    inline void setZEnableDraw(bool prm_bool) {
-        _zenable = prm_bool;
+    inline void useZBufferDrawing(bool prm_bool) {
+        _use_zbuffer_drawing = prm_bool;
     }
 
     /**
      * 描画時Zバッファを書き込むか .
      * @param prm_bool true:書き込む(default) / false:書き込まない
      */
-    inline void setZWriteEnable(bool prm_bool) {
-        _zwriteenable = prm_bool;
+    inline void setZBufferWriteEnable(bool prm_bool) {
+        _zbuffer_write_enable = prm_bool;
     }
 
     /**

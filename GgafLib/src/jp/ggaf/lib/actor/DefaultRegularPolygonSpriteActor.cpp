@@ -14,7 +14,7 @@ DefaultRegularPolygonSpriteActor::DefaultRegularPolygonSpriteActor(const char* p
                                   "DefaultRegularPolygonSpriteTechnique") {
     _class_name = "DefaultRegularPolygonSpriteActor";
     _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
-    setZWriteEnable(false);
+    setZBufferWriteEnable(false);
 }
 
 void DefaultRegularPolygonSpriteActor::drawHitArea() {

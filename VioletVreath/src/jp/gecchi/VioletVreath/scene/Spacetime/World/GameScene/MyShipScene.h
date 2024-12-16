@@ -19,6 +19,18 @@
     #undef pVAM
 #endif
 
+
+#define MyShipScene_pCOMMON_DEPO(X)          pDepo_##X##_
+#define MyShipScene_getDepository(X)         (pMYSHIP_SCENE->MyShipScene_pCOMMON_DEPO(X))
+#define MyShipScene_dispatch(X)              ( (X*)(MyShipScene_getDepository(X)->dispatch()) )
+#define MyShipScene_dispatchDelay(X, F)      ( (X*)(MyShipScene_getDepository(X)->dispatch((F))) )
+#define MyShipScene_dispatchForce(X)         ( (X*)(MyShipScene_getDepository(X)->dispatchForce()) )
+
+#define MyShipScene_pCOMMON_DEPO_STORE(X)    pStore_##X##_
+#define MyShipScene_getDepoStore(X)          (pMYSHIP_SCENE->MyShipScene_pCOMMON_DEPO_STORE(X))
+#define MyShipScene_dispatchDepoStore(X)     ( (GgafCore::ActorDepository*)(MyShipScene_getDepoStore(X)->dispatch()) )
+
+
 namespace VioletVreath {
 
 /**
@@ -41,6 +53,20 @@ public:
 
     /** 自機分身土台 */
     MyBunshinBase** papBunshinBase_;
+
+    /** ターボエフェクト用、常備デポジトリ */
+    GgafCore::ActorDepository* MyShipScene_pCOMMON_DEPO(EffectTurbo002);
+    /** アイテムオブジェクト小、常備デポジトリ */
+    GgafCore::ActorDepository* MyShipScene_pCOMMON_DEPO(MagicPointItem001);
+    /** アイテムオブジェクト中、常備デポジトリ */
+    GgafCore::ActorDepository* MyShipScene_pCOMMON_DEPO(MagicPointItem002);
+    /** アイテムオブジェクト大、常備デポジトリ */
+    GgafCore::ActorDepository* MyShipScene_pCOMMON_DEPO(MagicPointItem003);
+
+    GgafCore::ActorDepository* MyShipScene_pCOMMON_DEPO(SpriteLabelBonus001);
+    GgafCore::ActorDepository* MyShipScene_pCOMMON_DEPO(SpriteLabelBonus002);
+    GgafCore::ActorDepository* MyShipScene_pCOMMON_DEPO(LabelBonus001);
+
 
 public:
     MyShipScene(const char* prm_name);

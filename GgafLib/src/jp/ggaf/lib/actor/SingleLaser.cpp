@@ -21,8 +21,8 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model) :
     _class_name = "SingleLaser";
     _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 
-    setZEnableDraw(true);    //描画時、Zバッファ値は考慮される
-    setZWriteEnable(false);  //自身のZバッファを書き込みしない
+    useZBufferDrawing(true);    //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
 }
 
 void SingleLaser::processDraw() {

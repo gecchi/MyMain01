@@ -20,8 +20,8 @@ Planet001::Planet001(const char* prm_name) :
         DefaultMeshActor(prm_name, "Planet001") {
     _class_name = "Planet001";
     setHitAble(false);
-    setZEnableDraw(true);        //Zバッファは考慮
-    setZWriteEnable(false);  //自身のZバッファを書き込みしない
+    useZBufferDrawing(true);        //Zバッファは考慮
+    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
 
     //大気圏エフェクトスプライト
     pAtmosphere_ = NEW Planet001Atmosphere("P001ATMOS");

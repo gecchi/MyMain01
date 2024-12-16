@@ -33,8 +33,8 @@ _pUvFlipper(NEW UvFlipper()) {
     _valign = VALIGN_TOP;
     _is_fix_2D = true;
     _pFunc_calc_rot_mv_world_matrix = nullptr;
-    setZEnableDraw(false);
-    setZWriteEnable(false);
+    useZBufferDrawing(false);
+    setZBufferWriteEnable(false);
     setSpecialRenderDepthNear(0); //特別な最前面レンダリング（一番最後に描画）
 }
 

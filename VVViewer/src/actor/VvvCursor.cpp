@@ -14,8 +14,8 @@ VvvCursor::VvvCursor(const char* prm_name) :
         GgafLib::DefaultSpriteActor(prm_name, "Cursor") {
     defineRotMvWorldMatrix_Billboard(); //ワールド変換はビルボードでRz回転に強制
     effectBlendOne(); //エフェクトテクニックは加算合成に強制
-    setZEnableDraw(false);      //Zバッファは考慮無しに強制
-    setZWriteEnable(false); //自身のZバッファを書き込みしないに強制
+    useZBufferDrawing(false);      //Zバッファは考慮無しに強制
+    setZBufferWriteEnable(false); //自身のZバッファを書き込みしないに強制
     setSpecialRenderDepthIndex(1); //描画順序を最前面描画に強制。ロックオンエフェクトが隠れないようにするため。
     tx_ = _x;
     ty_ = _y;

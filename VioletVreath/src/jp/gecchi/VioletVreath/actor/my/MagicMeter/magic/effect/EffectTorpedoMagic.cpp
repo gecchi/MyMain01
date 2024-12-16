@@ -14,8 +14,8 @@ EffectTorpedoMagic::EffectTorpedoMagic(const char* prm_name) :
         DefaultSpriteActor(prm_name, "EffectTorpedoMagic") {
     _class_name = "EffectTorpedoMagic";
     effectBlendOne(); //加算合成Technique
-    setZEnableDraw(true);       //描画時、Zバッファ値は考慮される
-    setZWriteEnable(false); //自身のZバッファを書き込みしない
+    useZBufferDrawing(true);       //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false); //自身のZバッファを書き込みしない
     defineRotMvWorldMatrix_Billboard(); //変換行列をビルボードに
     setHitAble(false);
 }

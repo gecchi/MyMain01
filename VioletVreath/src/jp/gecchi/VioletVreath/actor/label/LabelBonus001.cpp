@@ -19,8 +19,8 @@ LabelBonus001::LabelBonus001(const char* prm_name) :
         FontBoardActor(prm_name, "Ranking_16Font")
 {
     _class_name = "LabelBonus001";
-    //setZEnableDraw(false);      //Zバッファは考慮無しに強制
-    //setZWriteEnable(false); //自身のZバッファを書き込みしないに強制
+    //useZBufferDrawing(false);      //Zバッファは考慮無しに強制
+    //setZBufferWriteEnable(false); //自身のZバッファを書き込みしないに強制
     setSpecialRenderDepthIndex(1); //描画順序を最前面描画に強制。
     //setHitAble(false);
     //defineRotMvWorldMatrix(UTIL::setWorldMatrix_BxyzMv); //XYZ軸ビルボード

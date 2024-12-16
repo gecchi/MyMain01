@@ -369,10 +369,10 @@ void VvvWorld::manipulateWorld() {
         //自身のZバッファを書き込みする無し
         if (listActorInfo_.length() > 0) {
             GgafDx::FigureActor* pA = listActorInfo_.getCurrent()->pActor_;
-            if (pA->_zwriteenable) {
-                pA->setZWriteEnable(false); //自身のZバッファを書き込みしない
+            if (pA->_zbuffer_write_enable) {
+                pA->setZBufferWriteEnable(false); //自身のZバッファを書き込みしない
             } else {
-                pA->setZWriteEnable(true);  //自身のZバッファを書き込みする
+                pA->setZBufferWriteEnable(true);  //自身のZバッファを書き込みする
             }
         }
     } else if (GgafDx::Input::isPushedDownKey(DIK_B)) {

@@ -17,8 +17,8 @@ void Shot003::initialize() {
     setHitAble(false);
     _sx = _sy = _sz = R_SC(50);
     setCullingDraw(false);
-    setZEnableDraw(true);   //描画時、Zバッファ値は考慮される
-    setZWriteEnable(false); //自身のZバッファを書き込みしない
+    useZBufferDrawing(true);   //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false); //自身のZバッファを書き込みしない
     effectBlendOne();       //加算合成
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);

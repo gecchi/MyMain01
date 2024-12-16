@@ -13,7 +13,7 @@ DefaultSpriteSetActor::DefaultSpriteSetActor(const char* prm_name, const char* p
 
     _class_name = "DefaultSpriteSetActor";
     _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
-    setZWriteEnable(false);
+    setZBufferWriteEnable(false);
 }
 
 void DefaultSpriteSetActor::drawHitArea() {

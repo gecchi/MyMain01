@@ -37,8 +37,8 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _hitarea_edge_length_6   = _hitarea_edge_length_3 * 2;
     _hitarea_edge_length_6_2 = _hitarea_edge_length_6 * 2;
 
-    setZEnableDraw(true);    //描画時、Zバッファ値は考慮される
-    setZWriteEnable(false);  //自身のZバッファを書き込みしない
+    useZBufferDrawing(true);    //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
     _middle_colli_able = false;
     _rate_of_length = 1.0f;

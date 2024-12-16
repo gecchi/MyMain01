@@ -916,8 +916,8 @@ HRESULT Caretaker::initDx9Device() {
     //変更時は以下に影響がないか確認。
     // void Spacetime::draw() の描画時
     //FigureActor コンストラクタの以下のメンバの初期値
-    // _zenable = true;
-    // _zwriteenable = true;
+    // _use_zbuffer_drawing = true;
+    // _zbuffer_write_enable = true;
     // _cull_enable = true;
     // _cull_mode_default = D3DCULL_CCW;
     // _cull_mode = _cull_mode_default

@@ -31,8 +31,8 @@ _pUvFlipper(NEW UvFlipper()) {
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
     _pUvFlipper->locatePatternNo(_pPointSpriteModel->_texture_split_rowcol,
                                  _pPointSpriteModel->_texture_split_rowcol );
-    setZEnableDraw(false);
-    setZWriteEnable(false);
+    useZBufferDrawing(false);
+    setZBufferWriteEnable(false);
 }
 
 PointSpriteActor::PointSpriteActor(const char* prm_name,
@@ -57,8 +57,8 @@ _pUvFlipper(NEW UvFlipper()) {
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
     _pUvFlipper->locatePatternNo(_pPointSpriteModel->_texture_split_rowcol,
                                  _pPointSpriteModel->_texture_split_rowcol );
-    setZEnableDraw(false);
-    setZWriteEnable(false);
+    useZBufferDrawing(false);
+    setZBufferWriteEnable(false);
 }
 void PointSpriteActor::processDraw() {
     ID3DXEffect* const pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;

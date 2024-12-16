@@ -37,8 +37,8 @@ _pUvFlipper(NEW UvFlipper()) {
     _draw_fan_num = _pRegularPolygonBoardModel->_angle_num;
     setCullingMode(_pRegularPolygonBoardModel->_drawing_order == 1 ?  D3DCULL_CCW : D3DCULL_CW);
     _circumference_begin_position = 0;
-    setZEnableDraw(false);
-    setZWriteEnable(false);
+    useZBufferDrawing(false);
+    setZBufferWriteEnable(false);
     setSpecialRenderDepthNear(0); //特別な最前面レンダリング（一番最後に描画）
 }
 

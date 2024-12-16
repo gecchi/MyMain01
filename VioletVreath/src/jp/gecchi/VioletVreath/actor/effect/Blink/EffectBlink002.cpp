@@ -11,7 +11,7 @@ EffectBlink002::EffectBlink002(const char* prm_name) :
         EffectBlink(prm_name, "EffectBlink002") {
     _class_name = "EffectBlink002";
     effectBlendOne();
-    setZWriteEnable(false);
+    setZBufferWriteEnable(false);
 //    defineRotMvWorldMatrix_Billboard(); //ビルボードRz回転
 }
 

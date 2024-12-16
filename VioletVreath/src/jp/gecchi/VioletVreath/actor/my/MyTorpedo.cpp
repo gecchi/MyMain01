@@ -38,8 +38,8 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pTorpedoCont
     move_section_ = 0;
     appendChild(pTailEffectDepository_);
     effectBlendOne(); //加算合成するTechnique指定
-    setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
-    setZWriteEnable(false);  //自身のZバッファを書き込みしない
+    useZBufferDrawing(true);        //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
     pTarget_ = nullptr;
     trz_ = try_ = 0;
     GgafDx::SeTransmitterForActor* pSeXmtr = getSeXmtr();
