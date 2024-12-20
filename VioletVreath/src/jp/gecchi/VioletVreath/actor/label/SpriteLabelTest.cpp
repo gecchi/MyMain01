@@ -1,7 +1,5 @@
 #include "SpriteLabelTest.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

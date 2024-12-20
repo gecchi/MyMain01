@@ -11,6 +11,7 @@ NaviVehicle::NaviVehicle(GeometricActor* prm_pActor)  : ActorVehicle(prm_pActor)
     _velo_vc_x = 0;
     _velo_vc_y = 0;
     _velo_vc_z = 0;
+    _prev_velo = _velo;
     _acce = 0;
     _top_acce = INT_MAX;
     _bottom_acce = 0;
@@ -215,6 +216,7 @@ void NaviVehicle::setAcceZero() {
 }
 
 void NaviVehicle::behave() {
+    _prev_velo = _velo;
     if (_acce != 0) {
         setVeloByVc(_velo_vc_x+_acce_vc_x,
                     _velo_vc_y+_acce_vc_y,
@@ -224,6 +226,8 @@ void NaviVehicle::behave() {
     _pActor->_x += _velo_vc_x;
     _pActor->_y += _velo_vc_y;
     _pActor->_z += _velo_vc_z;
+
+
 }
 
 NaviVehicle::~NaviVehicle() {

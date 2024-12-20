@@ -4,7 +4,6 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
 
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -31,7 +30,6 @@ void LabelBonus001::onCreateModel() {
 }
 
 void LabelBonus001::initialize() {
-
 }
 
 void LabelBonus001::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
@@ -64,7 +62,6 @@ void LabelBonus001::processBehavior() {
         default :
             break;
     }
-
 }
 
 LabelBonus001::~LabelBonus001() {

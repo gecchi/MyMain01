@@ -17,10 +17,12 @@ public:
     /** シーンの現在イベント(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
     int _cnt_event;
 
-    /** 何フレームに１回動作するか */
+    /** このシーンは親シーンの何回に１回動作するか */
     frame _once_in_n_time;
     bool _is_next_frame;
-
+    /** トータルで何フレームに１回動作するか（親シーンからの_once_in_n_time累積） */
+    frame _once_in_n_frame;
+    frame _once_in_n_frame_cnt;
 public:
     VvScene(const char* prm_name, GgafCore::SceneChief* prm_pSceneChief = nullptr) : T(prm_name, prm_pSceneChief) {
 
@@ -29,12 +31,18 @@ public:
         _event_num = 0;
 
         _once_in_n_time = 1;
+        _once_in_n_frame = 1;
+        _once_in_n_frame_cnt = 0;
         _is_next_frame = true;
     }
     void nextFrame() override {
         _is_next_frame = (_once_in_n_time == 1 || pCARETAKER->_frame_of_Caretaker % _once_in_n_time == 0);
+        _once_in_n_frame_cnt++;
         if (_is_next_frame) {
             T::nextFrame();
+            //親シーンからの累積のスローフレームを加算
+            _once_in_n_frame = _once_in_n_frame_cnt + (((VvScene<T>*)T::getParent())->_once_in_n_frame_cnt - 1);
+            _once_in_n_frame_cnt = 0;
         }
     }
 

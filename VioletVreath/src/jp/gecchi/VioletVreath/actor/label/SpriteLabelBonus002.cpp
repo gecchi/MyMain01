@@ -1,8 +1,11 @@
 #include "SpriteLabelBonus002.h"
 
+#include "jp/ggaf/core/actor/SceneChief.h"
+#include "jp/ggaf/lib/scene/DefaultScene.h"
 #include "jp/ggaf/dx/actor/supporter/LocusVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/Caretaker.h"
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -38,9 +41,16 @@ void SpriteLabelBonus002::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
 
     getPhase()->reset(PHASE_DISP);
     setAlpha(0.9);
-    if (pLocusVehicle->getMvVelo() > PX_C(1)) {
-         pLocusVehicle->setMvAcceByT(60, PX_C(1));
-     }
+    //スローを考慮したスピードに補正する
+    GgafCore::Scene* pOrgActorPlatformScene = prm_pOrgActor->getSceneChief()->getPlatformScene();
+    VvScene<GgafLib::DefaultScene>* pOrgActorScene = (VvScene<GgafLib::DefaultScene>*)pOrgActorPlatformScene;
+    pLocusVehicle->setMvVelo((pLocusVehicle->getMvVelo()*1.0)/(pOrgActorScene->_once_in_n_frame) );
+
+    if (pLocusVehicle->getMvVelo() > PX_C(0.5)) {
+        pLocusVehicle->setMvAcceByT(60, PX_C(0.5));
+    } else {
+        pLocusVehicle->setMvAcce(0);
+    }
 }
 
 void SpriteLabelBonus002::processBehavior() {
@@ -49,7 +59,7 @@ void SpriteLabelBonus002::processBehavior() {
     switch (pPhase->getCurrent()) {
         case PHASE_DISP: {
             if(pPhase->getFrame() >= 60) {
-                pLocusVehicle->setMvAcce(0); //setMvAcceByT() の PX_C(1) 速度のまま
+                pLocusVehicle->setMvAcce(0); //setMvAcceByT() の PX_C(0.5) 速度のまま
                 pPhase->changeNext();
             }
             break;

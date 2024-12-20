@@ -1,7 +1,5 @@
 #include "LabelMenuTitleFont01.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

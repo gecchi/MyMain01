@@ -537,6 +537,14 @@ bool MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ, bool chk_don
         //ターゲットの付近(pNaviVehicle->_top_velo*2)で、内積が負の場合、ターゲットを惜しくも通り越してしまったと考えられないだろうか。
         //その場合は、諦めて戻ってきてほしくない。
         if (lvT < _hitarea_edge_length*3)  { //pNaviVehicle->_top_velo*2) {
+            //実験
+//            if (pNaviVehicle->_prev_velo - pNaviVehicle->_velo < 0) {
+//                //速度が減速場合諦める
+//                return true;
+//            }
+
+
+
             //自分の速度方向ベクトルと、ターゲットへの方向ベクトルの内積（ベクトルの違い具合）を計算し、
             //Aim を諦めるかどうかの判断に使用する。
             //自分の速度方向ベクトル
@@ -547,7 +555,7 @@ bool MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ, bool chk_don
             //内積
             coord dot = velo_vc_x*vTx + velo_vc_y*vTy + velo_vc_z*vTz;
             if (dot < 0) {
-                //諦める
+                //直角より反対にある場合諦める
                 //_TRACE_("aimChip("<<tX<<","<<tY<<","<<tZ<<") this=(" << _x << "," << _y << "," << _z << ") name="<<getName()<<"@"<<getActiveFrame()<<" dot で done!!");
                 return true;
             }

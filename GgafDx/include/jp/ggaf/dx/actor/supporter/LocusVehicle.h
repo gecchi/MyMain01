@@ -9,8 +9,8 @@
 namespace GgafDx {
 
 /**
- * アクターの移動支援(前進、後退、旋回) .
- * それはさて置き、つまりは座標計算支援（共通化）クラスです。<BR>
+ * アクターの移動支援、軌跡車両(前進、後退、旋回) .
+ * 座標計算支援（共通化）クラスです。<BR>
  * GeometricActor のメンバの<BR>
  *  _x,  _y,  _z  ・・・ アクターの座標<BR>
  * _rx, _ry, _rz  ・・・ アクターの軸回転角度<BR>
@@ -30,10 +30,6 @@ private:
     LocusVehicleFaceAngAssistant* _pAsstFaceAng;
     /** [r]移動車両の助手C(移動方角角速度の補佐) */
     LocusVehicleMvAngAssistant* _pAsstMvAng;
-
-public:
-    /** [r]対象アクター */
-   // GeometricActor* const _pActor;
 
 public:
     /**

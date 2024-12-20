@@ -1,7 +1,5 @@
 #include "LabelGecchi32Font.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

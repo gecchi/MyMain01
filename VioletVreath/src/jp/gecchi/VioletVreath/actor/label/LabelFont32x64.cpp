@@ -2,8 +2,6 @@
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

@@ -30,6 +30,8 @@ public:
     velo _velo_vc_y;
     /** [r]移動速度Z軸成分(単位ベクトルではありません) */
     velo _velo_vc_z;
+    /** [r]前の移動速度 */
+    velo _prev_velo;
 
     /** [r]移動加速度(_acce_vc_x,_acce_vc_y,_acce_vc_z の大きさ > 0) */
     acce _acce;
@@ -43,7 +45,6 @@ public:
     acce _acce_vc_y;
     /** [r]移動加速度Z軸成分(単位ベクトルではありません) */
     acce _acce_vc_z;
-
 public:
     /**
      * コンストラクタ<BR>

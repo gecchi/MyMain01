@@ -8,7 +8,7 @@
 namespace GgafDx {
 
 /**
- * アクターの移動支援(X,Y,Z軸の平行移動) .
+ * アクターの移動支援、平行移動車両((X,Y,Z軸のプロッタ的な動作) .
  * GeometricActor のメンバの<BR>
  *  _x, _y, _z  ・・・ アクターの座標<BR>
  * を、各成分毎に簡単に操作するために作成。<BR>
@@ -19,8 +19,6 @@ namespace GgafDx {
 class CoordVehicle : public ActorVehicle {
 
 public:
-    /** [r]対象アクター */
-    //GeometricActor* const _pActor;
     /** [r/w]X軸方向移動速度 */
     velo _velo_x;
     /** [r/w]X軸方向移動速度上限 */
