@@ -22,7 +22,13 @@ void MyBunshinShot001::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(50), -PX_C(50), -PX_C(50),
-                              PX_C(50),  PX_C(50),  PX_C(50));
+                                PX_C(50),  PX_C(50),  PX_C(50));
+    // Šg’£
+    WorldCollisionChecker* pExChecker = (WorldCollisionChecker*)pChecker->addExChecker(KIND_CHECK_CHIKEI_HIT);
+    pExChecker->addCollisionArea(1);
+    //Ž©‹@ pChecker->setColliAACube(0, PX_C(40));
+    pExChecker->setColliAACube(0, PX_C(40));
+
     getLocusVehicle()->setRollFaceAngVelo(D_ANG(-12));
     getLocusVehicle()->linkFaceAngByMvAng(true);
 }
@@ -42,7 +48,7 @@ void MyBunshinShot001::processJudgement() {
     }
 }
 
-void MyBunshinShot001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
+void MyBunshinShot001::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
     setHitAble(false);
     UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind);
     sayonara();

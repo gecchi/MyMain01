@@ -69,7 +69,7 @@ public:
     float _force_alpha;
     /** [r]trueならば、前方チップと離れすぎた場合に中間当たり判定自動生成 */
     bool _middle_colli_able;
-
+    /** レーザーチップが画面外であるかの判定に使用 */
     float _rate_of_length;
     /** [r] 火力率、攻撃力に乗じられる値 */
     float _power;
@@ -85,8 +85,6 @@ public:
     LaserChip(const char* prm_name, const char* prm_model);
 
     static bool initStatic(LaserChip* prm_pLaserChip);
-
-//    virtual void executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) override;
 
     virtual void onActive() override;
     /**
@@ -116,11 +114,13 @@ public:
      * 予めレーザーチップ間の距離が開かず、すり抜けが起こらないとわかっている場合は、<BR>
      * 本メソッドで設定せず、通常 getWorldCollisionChecker()->addCollisionArea(1);<BR>
      * を行ったほうがパフォーマンスが良い。<BR>
-     * @param prm_edge_length
+     * @param prm_edge_length 当たり判定立方体の１辺
+     * @param prm_edge_length_ex 拡張当たり判定立方体の１辺（地形ヒット確認用）
      */
-    virtual void registerHitAreaCube_AutoGenMidColli(int prm_edge_length);
+    virtual void registerHitAreaCube_AutoGenMidColli(int prm_edge_length, int prm_edge_length_ex = 0);
 
-    virtual GgafDx::CollisionChecker* createChecker() override;
+    virtual GgafDx::CollisionChecker* createChecker(kind_t prm_kind = 0) override;
+
     inline WorldCollisionChecker* getWorldCollisionChecker() {
         return _pWorldCollisionChecker;
     }

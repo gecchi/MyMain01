@@ -165,35 +165,43 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\ex\AABActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\debug\AABActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\ex\AABActor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\debug\AABActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\ex\AAPrismActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\debug\AABoardRectActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\ex\AAPrismActor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\debug\AABoardRectActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\ex\AAPyramidActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\debug\AAPrismActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\ex\AAPyramidActor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\debug\AAPrismActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\supporter\ActorDriver.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\debug\AAPyramidActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\supporter\ActorDriver.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\debug\AAPyramidActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\ActorVehicle.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\ActorVehicle.h"
 			>
 		</File>
 		<File
@@ -218,14 +226,6 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\dx\actor\supporter\AlphaFader.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\BaseActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\BaseActor.h"
 			>
 		</File>
 		<File
@@ -381,11 +381,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\supporter\Checker.cpp"
+			RelativePath=".\src\jp\ggaf\dx\Caretaker.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\supporter\Checker.h"
+			RelativePath=".\include\jp\ggaf\dx\Caretaker.h"
 			>
 		</File>
 		<File
@@ -394,6 +394,14 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\dx\util\CollisionArea.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\util\CollisionChecker.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\CollisionChecker.h"
 			>
 		</File>
 		<File
@@ -418,6 +426,22 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\dx\Config.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\CoordVehicle.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\CoordVehicle.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\CoordVehicleAssistant.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\CoordVehicleAssistant.h"
 			>
 		</File>
 		<File
@@ -597,11 +621,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\util\curve\DriverLeader.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\ex\DepositoryFormation.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dx\util\curve\DriverLeader.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\ex\DepositoryFormation.h"
 			>
 		</File>
 		<File
@@ -645,11 +669,27 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\util\curve\FixedFrameCurveGeoDriverLeader.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\Fix2DimEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dx\util\curve\FixedFrameCurveGeoDriverLeader.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\Fix2DimEffect.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\util\curve\FixedFrameCurveCoordVehicleLeader.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\curve\FixedFrameCurveCoordVehicleLeader.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\util\curve\FixedFrameCurveLocusVehicleLeader.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\curve\FixedFrameCurveLocusVehicleLeader.h"
 			>
 		</File>
 		<File
@@ -661,11 +701,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\util\curve\FixedFrameCurveVecDriverLeader.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\curve\FixedVelocityCurveLocusVehicleLeader.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dx\util\curve\FixedFrameCurveVecDriverLeader.h"
+			RelativePath=".\include\jp\ggaf\dx\util\curve\FixedVelocityCurveLocusVehicleLeader.h"
 			>
 		</File>
 		<File
@@ -677,19 +717,19 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\util\curve\FixedVelocityCurveVecDriverLeader.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dx\util\curve\FixedVelocityCurveVecDriverLeader.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\ggaf\dx\actor\ex\FkFormation.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\dx\actor\ex\FkFormation.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\ex\Formation.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\ex\Formation.h"
 			>
 		</File>
 		<File
@@ -765,22 +805,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\supporter\GeoDriver.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\supporter\GeoDriver.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\supporter\GeoDriverAssistant.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\supporter\GeoDriverAssistant.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\ggaf\dx\util\GeoElem.cpp"
 			>
 		</File>
@@ -797,15 +821,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\include\GgafDxCommonHeader.h"
+			RelativePath=".\include\jp\ggaf\GgafDxCommonHeader.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\Caretaker.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dx\Caretaker.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\interface\IAlignAbleActor.h"
 			>
 		</File>
 		<File
@@ -841,6 +861,50 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\dx\effect\interface\IPlaneEffect.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\effect\interface\IPlaneEffect.h"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\model\interface\IPlaneModel.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\LocusVehicle.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\LocusVehicle.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\LocusVehicleFaceAngAssistant.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\LocusVehicleFaceAngAssistant.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\LocusVehicleMvAngAssistant.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\LocusVehicleMvAngAssistant.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\LocusVehicleMvAssistant.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\LocusVehicleMvAssistant.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\dx\actor\MassActor.cpp"
 			>
 		</File>
@@ -870,14 +934,6 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\dx\model\MassBoardModel.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dx\effect\MassEffect.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dx\effect\MassEffect.h"
 			>
 		</File>
 		<File
@@ -1089,6 +1145,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\NaviVehicle.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\NaviVehicle.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\dx\sound\IkdLib\OggDecoder.cpp"
 			>
 		</File>
@@ -1257,19 +1321,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\SceneChief.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\SceneChief.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\dx\scene\supporter\SceneCurtain.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\dx\scene\supporter\SceneCurtain.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\SceneMediator.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\SceneMediator.h"
 			>
 		</File>
 		<File
@@ -1377,11 +1441,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\ex\SphereActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\debug\SphereActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\ex\SphereActor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\debug\SphereActor.h"
 			>
 		</File>
 		<File
@@ -1457,19 +1521,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\dx\util\curve\SteppedCoordCurveLocusVehicleLeader.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\curve\SteppedCoordCurveLocusVehicleLeader.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\dx\util\curve\SteppedCoordCurveManufacture.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\dx\util\curve\SteppedCoordCurveManufacture.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dx\util\curve\SteppedCoordCurveVecDriverLeader.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dx\util\curve\SteppedCoordCurveVecDriverLeader.h"
 			>
 		</File>
 		<File
@@ -1505,6 +1569,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\ex\TreeFormation.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\ex\TreeFormation.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\dx\util\Util.cpp"
 			>
 		</File>
@@ -1521,35 +1593,19 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\supporter\VecDriver.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\curve\VehicleLeader.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\supporter\VecDriver.h"
+			RelativePath=".\include\jp\ggaf\dx\util\curve\VehicleLeader.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\supporter\VecDriverFaceAngAssistant.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\World3DimEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\supporter\VecDriverFaceAngAssistant.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\supporter\VecDriverMvAngAssistant.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\supporter\VecDriverMvAngAssistant.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dx\actor\supporter\VecDriverMvAssistant.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dx\actor\supporter\VecDriverMvAssistant.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\World3DimEffect.h"
 			>
 		</File>
 		<File

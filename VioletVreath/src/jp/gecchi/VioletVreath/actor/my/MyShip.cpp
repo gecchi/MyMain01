@@ -743,8 +743,8 @@ void MyShip::processJudgement() {
     }
 }
 
-void MyShip::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
+void MyShip::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)(prm_pOppHitChecker->_pActor);
     //ここにヒットエフェクト
     int vreath = getStatus()->get(STAT_Stamina);
     if (calcStamina(pOther) <= 0) {
@@ -759,7 +759,7 @@ void MyShip::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::A
     }
 
     //壁の場合特別な処理
-    if (pOther->getCheckerKind() & KIND_CHIKEI) {
+    if (prm_pOppHitChecker->_kind & KIND_CHIKEI) {
         //吹っ飛び方向を考える。
         //現在の移動の逆方向（吹っ飛び威力は２倍に）
         double vx1,vy1,vz1;
@@ -996,7 +996,7 @@ void MyShip::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::A
         setBlownVelo(vx3*PX_C(40), vy3*PX_C(40), vz3*PX_C(40), 0.8);
         setInvincibleFrames(120);
     }
-    if (pOther->getCheckerKind() & KIND_ITEM)  {
+    if (prm_pOppHitChecker->_kind & KIND_ITEM)  {
     } else {
         UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind);
         getSeXmtr()->play3D(SE_MY_DAMAGED_001);

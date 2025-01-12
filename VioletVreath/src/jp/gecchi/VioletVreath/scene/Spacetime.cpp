@@ -51,7 +51,8 @@ void Spacetime::processHitCheck() {
         }
 #endif
         //八分木アルゴリズムでヒットチェック
-        executeWorldHitCheck(KIND_CHIKEI, KIND_MY_CHIKEI_HIT|KIND_ENEMY_CHIKEI_HIT|KIND_ITEM_CHIKEI_HIT|KIND_CHIKEI_CHIKEI_HIT);
+        executeWorldHitCheck(KIND_CHIKEI, KIND_MY_CHIKEI_HIT|KIND_ENEMY_CHIKEI_HIT|KIND_ITEM_CHIKEI_HIT|KIND_CHIKEI_CHIKEI_HIT|KIND_CHECK_CHIKEI_HIT);
+                                          //KIND_MY_CHIKEI_HIT|KIND_ENEMY_CHIKEI_HIT|KIND_ITEM_CHIKEI_HIT|KIND_CHIKEI_CHIKEI_HIT);
         executeWorldHitCheck(KIND_ITEM, KIND_MY_BODY_CHIKEI_HIT);
         executeWorldHitCheck(KIND_MY, KIND_ENEMY_BODY);
         executeWorldHitCheck(KIND_ENEMY_SHOT, KIND_MY_BODY);

@@ -91,8 +91,8 @@ void Test01::processJudgement() {
 void Test01::onInactive() {
 }
 
-void Test01::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    _TRACE_("Test01::onHit!"<<prm_pOtherActor->getName()<<"");
+void Test01::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    _TRACE_("Test01::onHit!"<<prm_pOppHitChecker->_pActor->getName()<<"");
 }
 
 Test01::~Test01() {

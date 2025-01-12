@@ -37,7 +37,7 @@ public:
     }
     void processFinal() override {
     }
-    void onHit(const Checker* prm_pOtherChecker, const Actor* prm_pOtherActor) override {
+    void onHit(const Checker* prm_pThisHitChecker, const Checker* prm_pOppHitChecker) override {
     }
     Caretaker* askCaretaker() {
         return nullptr;

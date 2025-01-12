@@ -40,8 +40,8 @@ void MySnipeShot001::processJudgement() {
     }
 }
 
-void MySnipeShot001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
+void MySnipeShot001::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)(prm_pOppHitChecker->_pActor);
     setHitAble(false);
     UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind);
     sayonara(); //ŠÑ’Ê‚µ‚È‚¢

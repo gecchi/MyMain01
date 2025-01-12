@@ -66,8 +66,8 @@ void VvvMousePointer::processJudgement() {
 //    _TRACE_("dleft,dright="<<DX_PX(pI_->_dest_from_vppln_left)<<","<<DX_PX(pI_->_dest_from_vppln_right));
 }
 
-void VvvMousePointer::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    MousePointerActor::onHit(prm_pOtherChecker, prm_pOtherActor);
+void VvvMousePointer::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    MousePointerActor::onHit(prm_pThisHitChecker, prm_pOppHitChecker);
 }
 
 void VvvMousePointer::onInactive() {

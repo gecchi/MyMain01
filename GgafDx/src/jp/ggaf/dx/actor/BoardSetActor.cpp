@@ -108,27 +108,6 @@ void BoardSetActor::setPositionAt(const GeoElem* prm_pGeoElem) {
     _y = prm_pGeoElem->y;
 }
 
-//void BoardSetActor::setAlign(Align prm_align, Valign prm_valign) {
-//    _align = prm_align;
-//    _valign = prm_valign;
-//}
-//
-//void BoardSetActor::setAlign(Align prm_align) {
-//    _align = prm_align;
-//}
-//
-//void BoardSetActor::setValign(Valign prm_valign) {
-//    _valign = prm_valign;
-//}
-
-//float BoardSetActor::getModelWidth() {
-//    return _pBoardSetModel->_model_width_px;
-//}
-//
-//float BoardSetActor::getModelHeight() {
-//    return _pBoardSetModel->_model_height_px;
-//}
-
 void BoardSetActor::changeModelByIndex(int prm_model_index) {
     FigureActor::changeModelByIndex(prm_model_index);
     _pBoardSetModel = (BoardSetModel*)_pModel;

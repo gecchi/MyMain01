@@ -123,8 +123,8 @@ void DefaultMassMeshActor::addModel(const char* prm_model) {
     pModel->registerCallback_VertexInstanceDataInfo(DefaultMassMeshActor::createVertexInstanceData);
 }
 
-GgafDx::CollisionChecker* DefaultMassMeshActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* DefaultMassMeshActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 DefaultMassMeshActor::~DefaultMassMeshActor() {

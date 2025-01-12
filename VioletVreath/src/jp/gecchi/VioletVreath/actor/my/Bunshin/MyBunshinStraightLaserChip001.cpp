@@ -42,7 +42,12 @@ MyBunshinStraightLaserChip001::MyBunshinStraightLaserChip001(const char* prm_nam
 }
 
 void MyBunshinStraightLaserChip001::initialize() {
-    registerHitAreaCube_AutoGenMidColli(MAX_VELO/4);
+    registerHitAreaCube_AutoGenMidColli(MAX_VELO/4, PX_C(40)); //PX_C(40) は自機と同じ大きさ
+
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
+    WorldCollisionChecker* pExChecker = (WorldCollisionChecker*)pChecker->_pNextExChecker;
+    pExChecker->_kind = KIND_CHECK_CHIKEI_HIT;
+
     setHitAble(true);
     setScaleR(6.0);
     setCullingDraw(false);
@@ -111,12 +116,12 @@ void MyBunshinStraightLaserChip001::processJudgement() {
     }
 }
 
-void MyBunshinStraightLaserChip001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;
+void MyBunshinStraightLaserChip001::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)(prm_pOppHitChecker->_pActor);
     //ヒットエフェクト
     GgafDx::FigureActor* pE = UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind, true); //爆発エフェクト出現
 
-    if ((pOther->getCheckerKind() & KIND_ENEMY_BODY) ) {
+    if ((prm_pOppHitChecker->_kind & KIND_ENEMY_BODY) ) {
         //ロックオン可能アクターならロックオン
         if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
             pOrg_->pLockonCtrler_->lockon(pOther);
@@ -132,7 +137,7 @@ void MyBunshinStraightLaserChip001::onHit(const GgafCore::Checker* prm_pOtherChe
             getStatus()->set(STAT_Stamina, default_stamina_);
         }
 
-    } else if (pOther->getCheckerKind() & KIND_CHIKEI) {
+    } else if ((prm_pThisHitChecker->_kind & KIND_CHECK_CHIKEI_HIT) && (prm_pOppHitChecker->_kind & KIND_CHIKEI)) {
         //地形相手は無条件さようなら
         sayonara();
     }

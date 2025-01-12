@@ -26,7 +26,7 @@ unsigned int WorldCollisionChecker::_num_otoku_check = 0;
 unsigned int WorldCollisionChecker::_num_otoku_check_actors = 0;
 unsigned int WorldCollisionChecker::_num_zannen_check = 0;
 #endif
-WorldCollisionChecker::WorldCollisionChecker(GgafDx::GeometricActor* prm_pActor) : GgafDx::CollisionChecker(prm_pActor) {
+WorldCollisionChecker::WorldCollisionChecker(GgafDx::GeometricActor* prm_pActor, kind_t prm_kind) : GgafDx::CollisionChecker(prm_pActor, prm_kind) {
     static volatile bool is_init = WorldCollisionChecker::initStatic(); //静的メンバ初期化
     (void)is_init;
 }
@@ -87,15 +87,15 @@ void WorldCollisionChecker::moveColliAABoxPos(int prm_index, coord cx, coord cy,
 }
 
 void WorldCollisionChecker::setColliAABox(int prm_index,
-                                     coord x1,
-                                     coord y1,
-                                     coord z1,
-                                     coord x2,
-                                     coord y2,
-                                     coord z2,
-                                     bool rot_x,
-                                     bool rot_y,
-                                     bool rot_z) {
+                                          coord x1,
+                                          coord y1,
+                                          coord z1,
+                                          coord x2,
+                                          coord y2,
+                                          coord z2,
+                                          bool rot_x,
+                                          bool rot_y,
+                                          bool rot_z) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == nullptr) {
         throwCriticalException("["<<getTargetActor()->getName()<<"]  まず addCollisionArea を実行して、要素数を宣言してください。");
@@ -201,7 +201,7 @@ void WorldCollisionChecker::drawHitArea(GgafDx::CollisionChecker* prm_pColliChec
         ColliAAPyramidActor::get()->drawHitarea(pColliChecker);
         ColliSphereActor::get()->drawHitarea(pColliChecker);
         if (pColliChecker) {
-            pColliChecker = (GgafDx::CollisionChecker*)pColliChecker->_pNextChecker;
+            pColliChecker = (GgafDx::CollisionChecker*)pColliChecker->_pNextExChecker;
         }
     } while (pColliChecker);
 #endif

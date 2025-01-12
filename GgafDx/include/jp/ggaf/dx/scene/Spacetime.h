@@ -20,14 +20,6 @@
 
 namespace GgafDx {
 
-typedef GgafCore::LinearOctree<GgafCore::Checker> WorldOctree;
-typedef GgafCore::LinearOctreeRounder<GgafCore::Checker> WorldOctreeRounder;
-typedef GgafCore::LinearQuadtree<GgafCore::Checker> WorldQuadtree;
-typedef GgafCore::LinearQuadtreeRounder<GgafCore::Checker> WorldQuadtreeRounder;
-
-typedef GgafCore::LinearQuadtree<GgafCore::Checker> ViewQuadtree;
-typedef GgafCore::LinearQuadtreeRounder<GgafCore::Checker> ViewQuadtreeRounder;
-
 /**
  * Core名前空間のこの世クラス.
  * Core名前空間内では、このクラスを基底のこの世クラスとします。<BR>
@@ -135,14 +127,6 @@ public:
 //    /** [r] 描画用バックバッファ矩形領域の内、ゲームに表示する矩形の左上座標空の高さ(副画面) */
 //    pixcoord _secondary_buffer_source_height;
 
-    static WorldOctree* _pWorldOctree;
-    static WorldOctreeRounder* _pWorldOctreeRounder;
-    static WorldQuadtree* _pWorldQuadtree;
-    static WorldQuadtreeRounder* _pWorldQuadtreeRounder;
-
-    static ViewQuadtree* _pViewQuadtree;
-    static ViewQuadtreeRounder* _pViewQuadtreeRounder;
-
 public:
     Spacetime(const char* prm_name, Camera* prm_pCamera);
 
@@ -206,23 +190,6 @@ public:
     void cnvWorldCoordToView(coord prm_world_x, coord prm_world_y, coord prm_world_z,
                              coord& out_view_x, coord& out_view_y);
 
-
-    /**
-      * ワールド座標上のアクターの「種別Aグループ 対 種別Bグループ」の ヒットチェック を行う  .
-      * ３次元（８分木） or ２次元（４分木）
-      * processHitCheck() で呼ぶ必要あり。<BR>
-      * @param prm_kind_groupA アクター種別Aグループ
-      * @param prm_kind_groupB アクター種別Bグループ
-      */
-     virtual void executeWorldHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB);
-
-     /**
-      * ビュー座標上のアクターの「種別Aグループ 対 種別Bグループ」の ヒットチェック を行う  .
-      * processHitCheck() で呼ぶ必要あり。<BR>
-      * @param prm_kind_groupA アクター種別Aグループ
-      * @param prm_kind_groupB アクター種別Bグループ
-      */
-     virtual void executeViewHitCheck(kind_t prm_kind_groupA, kind_t prm_kind_groupB);
 
      virtual void processFinal() override;
 

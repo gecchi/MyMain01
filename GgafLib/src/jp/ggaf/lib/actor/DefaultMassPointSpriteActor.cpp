@@ -137,8 +137,8 @@ void DefaultMassPointSpriteActor::addModel(const char* prm_model) {
     pModel->registerCallback_VertexInstanceDataInfo(DefaultMassPointSpriteActor::createVertexInstanceData);
 }
 
-GgafDx::CollisionChecker* DefaultMassPointSpriteActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* DefaultMassPointSpriteActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 DefaultMassPointSpriteActor::~DefaultMassPointSpriteActor() {

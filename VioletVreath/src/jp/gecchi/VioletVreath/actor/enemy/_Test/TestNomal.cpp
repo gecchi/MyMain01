@@ -27,10 +27,10 @@ void TestNomal::processJudgement() {
     }
 }
 
-void TestNomal::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
+void TestNomal::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
 _TRACE_(FUNC_NAME<<" !");
 
-    bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
+    bool is_stamina_zero = performEnemyHit(prm_pOppHitChecker);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
         //sayonara();

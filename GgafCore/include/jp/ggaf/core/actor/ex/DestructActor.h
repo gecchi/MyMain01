@@ -44,7 +44,7 @@ public:
             sayonara(1); //1ƒtƒŒ[ƒ€Œã
         }
     }
-    virtual void onHit(const Checker* prm_pOtherChecker, const Actor* prm_pOtherActor) override {
+    virtual void onHit(const Checker* prm_pThisHitChecker, const Checker* prm_pOppHitChecker) override {
     }
 
     virtual ~DestructActor();

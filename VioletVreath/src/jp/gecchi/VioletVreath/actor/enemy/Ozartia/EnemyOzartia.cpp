@@ -319,8 +319,8 @@ void EnemyOzartia::processJudgement() {
     }
 }
 
-void EnemyOzartia::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    VvEnemyActor<DefaultMorphMeshActor>::onHit(prm_pOtherChecker, prm_pOtherActor);
+void EnemyOzartia::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    VvEnemyActor<DefaultMorphMeshActor>::onHit(prm_pThisHitChecker, prm_pOppHitChecker);
     is_hit_ = true;
 }
 

@@ -32,10 +32,10 @@ public:
      * @return
      */
     MeshSetActor(const char* prm_name,
-                       const char* prm_model,
-                       const char* prm_effect_id,
-                       const char* prm_technique);
-    
+                 const char* prm_model,
+                 const char* prm_effect_id,
+                 const char* prm_technique);
+
 
     /**
      * 下位継承用コンストラクタ

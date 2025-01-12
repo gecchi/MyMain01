@@ -49,7 +49,7 @@ void Zakoko::processJudgement() {
     }
 }
 
-void Zakoko::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
+void Zakoko::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
 }
 
 void Zakoko::onInactive() {

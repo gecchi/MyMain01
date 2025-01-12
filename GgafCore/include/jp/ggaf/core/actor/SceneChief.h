@@ -75,7 +75,7 @@ public:
     void throwEventUpperTree(eventval prm_event_val) override {
         throwEventUpperTree(prm_event_val, this);
     }
-    void onHit(const Checker* prm_pOtherChecker, const Actor* prm_pOtherActor) override {
+    void onHit(const Checker* prm_pThisHitChecker, const Checker* prm_pOppHitChecker) override {
     }
 
     void remove();

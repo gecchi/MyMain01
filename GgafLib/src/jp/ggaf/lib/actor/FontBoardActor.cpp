@@ -128,8 +128,8 @@ void FontBoardActor::addModel(const char* prm_model) {
     pModel->registerCallback_VertexInstanceDataInfo(FontBoardActor::createVertexInstanceData);
 }
 
-GgafDx::CollisionChecker* FontBoardActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* FontBoardActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 FontBoardActor::~FontBoardActor() {

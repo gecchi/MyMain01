@@ -42,22 +42,6 @@ void RegularPolygonSpriteActor::processDraw() {
     angle a = UTIL::simplifyAng(_circumference_begin_position);
     float sin_rz = ANG_SIN(a);
     float cos_rz = ANG_COS(a);
-//    if (_align == ALIGN_CENTER) {
-//        //do nothing
-//    } else if (_align == ALIGN_LEFT) {
-//        _matWorld._41 += PX_DX(_pRegularPolygonSpriteModel->_model_width_px/2);
-//    } else {
-//        //ALIGN_RIGHT
-//        _matWorld._41 -= PX_DX(_pRegularPolygonSpriteModel->_model_width_px/2);
-//    }
-//    if (_valign == VALIGN_MIDDLE) {
-//        //do nothing
-//    } else if (_valign == VALIGN_TOP) {
-//        _matWorld._42 -= PX_DX(_pRegularPolygonSpriteModel->_model_height_px/2);
-//    } else {
-//        //VALIGN_BOTTOM
-//        _matWorld._42 += PX_DX(_pRegularPolygonSpriteModel->_model_height_px/2);
-//    }
     hr = pID3DXEffect->SetMatrix(_pRegularPolygonSpriteEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetValue(_pRegularPolygonSpriteEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );

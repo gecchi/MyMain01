@@ -105,7 +105,7 @@ void Zako::processJudgement() {
 //    }
 }
 
-void Zako::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
+void Zako::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
 }
 
 void Zako::onInactive() {

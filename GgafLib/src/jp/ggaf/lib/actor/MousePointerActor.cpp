@@ -72,8 +72,8 @@ void MousePointerActor::processSettlementBehavior() {
     _pHitActor = nullptr;
 }
 
-void MousePointerActor::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    _pHitActor = (Actor*)prm_pOtherActor;
+void MousePointerActor::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    _pHitActor = prm_pOppHitChecker->_pActor;
 }
 bool MousePointerActor::isReleasedUpButton(int prm_button_no) {
     bool button = GgafDx::Input::isReleasedUpMouseButton(prm_button_no);

@@ -23,7 +23,14 @@ void MyShot001::initialize() {
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(50), -PX_C(50), -PX_C(50),
-                              PX_C(50),  PX_C(50),  PX_C(50));
+                                PX_C(50),  PX_C(50),  PX_C(50));
+
+    // 拡張
+    WorldCollisionChecker* pExChecker = (WorldCollisionChecker*)pChecker->addExChecker(KIND_CHECK_CHIKEI_HIT);
+    pExChecker->addCollisionArea(1);
+    //自機 pChecker->setColliAACube(0, PX_C(40));
+    pExChecker->setColliAACube(0, PX_C(40));
+
     getLocusVehicle()->setRollFaceAngVelo(D_ANG(12));
     getLocusVehicle()->linkFaceAngByMvAng(true);
 }
@@ -43,9 +50,9 @@ void MyShot001::processJudgement() {
     }
 }
 
-void MyShot001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
-    if (pOther->getCheckerKind() & KIND_CHIKEI) {
+void MyShot001::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)(prm_pOppHitChecker->_pActor);
+    if (prm_pOppHitChecker->_kind & KIND_CHIKEI) {
         //ヒット相手が地形ならば自機の大きさで判定し、ヒットしなければ消失しない TODO: これではだめ
         MyShip* pMyShip = pMYSHIP;
         WorldCollisionChecker* pMyShipChecker = pMyShip->getWorldCollisionChecker();

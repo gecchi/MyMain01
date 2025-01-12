@@ -21,7 +21,7 @@ using namespace GgafLib;
 unsigned int ViewCollisionChecker::_num_check = 0;
 unsigned int ViewCollisionChecker::_num_check_actors = 0;
 #endif
-ViewCollisionChecker::ViewCollisionChecker(GgafDx::GeometricActor* prm_pActor) : GgafDx::CollisionChecker(prm_pActor)
+ViewCollisionChecker::ViewCollisionChecker(GgafDx::GeometricActor* prm_pActor, kind_t prm_kind) : GgafDx::CollisionChecker(prm_pActor, prm_kind)
 {
 }
 
@@ -40,9 +40,9 @@ void ViewCollisionChecker::updateHitArea() {
 #endif
         pActiveCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //ÅŠOˆæ‚Ì‹«ŠEAABBXV
         DefaultSpacetime::_pViewQuadtree->registerElem(this, pActor->_x + pActiveCollisionArea->_aabb_x1,
-                                                               pActor->_y + pActiveCollisionArea->_aabb_y1,
-                                                               pActor->_x + pActiveCollisionArea->_aabb_x2,
-                                                               pActor->_y + pActiveCollisionArea->_aabb_y2);
+                                                             pActor->_y + pActiveCollisionArea->_aabb_y1,
+                                                             pActor->_x + pActiveCollisionArea->_aabb_x2,
+                                                             pActor->_y + pActiveCollisionArea->_aabb_y2);
 #ifdef MY_DEBUG
         ViewCollisionChecker::_num_check_actors++;
 #endif
@@ -366,7 +366,7 @@ void ViewCollisionChecker::drawHitArea(GgafDx::CollisionChecker* prm_pColliCheck
     do {
         ColliAABoardRectActor::get()->drawHitarea(pColliChecker);
         if (pColliChecker) {
-            pColliChecker = (GgafDx::CollisionChecker*)pColliChecker->_pNextChecker;
+            pColliChecker = (GgafDx::CollisionChecker*)pColliChecker->_pNextExChecker;
         }
     } while (pColliChecker);
 #endif

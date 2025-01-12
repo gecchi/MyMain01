@@ -70,19 +70,6 @@ void EnemyStraeaLaserChip002::processJudgement() {
     }
 }
 
-void EnemyStraeaLaserChip002::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-//    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
-//    //ƒqƒbƒgŽž
-//
-//    //‘Ì—ÍŒvŽZ
-//    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
-//        //ƒqƒbƒg‚µ‚ÄÁ–ÅŽž
-//        sayonara();
-//    } else {
-//        //ƒqƒbƒg‚µ‚Ä¶‘¶Žž
-//    }
-}
-
 EnemyStraeaLaserChip002::~EnemyStraeaLaserChip002() {
 }
 

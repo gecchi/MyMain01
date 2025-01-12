@@ -7,11 +7,8 @@
 #endif
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 RankingTable::RankingTable() : GgafCore::Table() {
 }

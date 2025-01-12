@@ -23,8 +23,8 @@ void DefaultRegularPolygonSpriteActor::drawHitArea() {
 #endif
 }
 
-GgafDx::CollisionChecker* DefaultRegularPolygonSpriteActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* DefaultRegularPolygonSpriteActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 DefaultRegularPolygonSpriteActor::~DefaultRegularPolygonSpriteActor() {

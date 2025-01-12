@@ -36,16 +36,16 @@ void EnemyEmiliaBase::processJudgement() {
     }
 }
 
-void EnemyEmiliaBase::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
+void EnemyEmiliaBase::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
 //	if (getActiveFrame() < 5) {
 //		return;
 //	}
-    const GgafDx::GeometricActor* pOtherActor = (const GgafDx::GeometricActor*)prm_pOtherActor;
-    bool is_stamina_zero = performEnemyHit(pOtherActor);
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)(prm_pOppHitChecker->_pActor);
+    bool is_stamina_zero = performEnemyHit(prm_pOppHitChecker);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
         //下位クラスの個々の処理
-        processStaminaEnd(pOtherActor);
+        processStaminaEnd(pOther);
         sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)

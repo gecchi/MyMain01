@@ -299,7 +299,7 @@ void MyBunshin::onInactive() {
     pTorpedoCtrler_->onInactive();
 }
 
-void MyBunshin::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
+void MyBunshin::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
 }
 
 void MyBunshin::effectFreeModeIgnited() {

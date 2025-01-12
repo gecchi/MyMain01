@@ -39,7 +39,7 @@ void AniTest3::processBehavior() {
 void AniTest3::processJudgement() {
 }
 
-void AniTest3::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
+void AniTest3::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
 }
 
 void AniTest3::onInactive() {

@@ -198,9 +198,9 @@ void EnemyHalia::processJudgement() {
     }
 }
 
-void EnemyHalia::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
+void EnemyHalia::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
     if (getMorphWeight(1) > 0.3) { //Œû‚ª‹ó‚¢‚Ä‚½‚ç
-        VvEnemyActor<DefaultMassMorphMeshActor>::onHit(prm_pOtherChecker, prm_pOtherActor);
+        VvEnemyActor<DefaultMassMorphMeshActor>::onHit(prm_pThisHitChecker, prm_pOppHitChecker);
     } else {
         getSeXmtr()->play3D(SE_UNDAMAGED);
     }

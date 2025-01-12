@@ -21,7 +21,7 @@ public:
 
     void initialize() override;
 
-    void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) override;
 
     virtual ~EnemyErmioneArmBody();
 };

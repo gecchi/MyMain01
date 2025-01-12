@@ -162,13 +162,12 @@ void EnemyTalante::processJudgement() {
     }
 }
 
-void EnemyTalante::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
-    if (getActiveFrame() < 30 && (pOther->getCheckerKind() & KIND_CHIKEI)) {
+void EnemyTalante::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    if (getActiveFrame() < 30 && (prm_pOppHitChecker->_kind & KIND_CHIKEI)) {
          //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
          return;
     }
-    VvEnemyActor<DefaultMassMeshActor>::onHit(prm_pOtherChecker, prm_pOtherActor);
+    VvEnemyActor<DefaultMassMeshActor>::onHit(prm_pThisHitChecker, prm_pOppHitChecker);
 }
 
 void EnemyTalante::onInactive() {

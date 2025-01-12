@@ -171,8 +171,8 @@ void EnemyGlajaLance001::processJudgement() {
     }
 }
 
-void EnemyGlajaLance001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
+void EnemyGlajaLance001::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    bool is_stamina_zero = performEnemyHit(prm_pOppHitChecker);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
         getLocusVehicle()->stop();

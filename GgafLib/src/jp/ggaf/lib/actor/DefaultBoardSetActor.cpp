@@ -20,8 +20,8 @@ void DefaultBoardSetActor::drawHitArea() {
     ViewCollisionChecker::drawHitArea(_pViewCollisionChecker);
 #endif
 }
-GgafDx::CollisionChecker* DefaultBoardSetActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* DefaultBoardSetActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 DefaultBoardSetActor::~DefaultBoardSetActor() {

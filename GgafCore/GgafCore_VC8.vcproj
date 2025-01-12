@@ -188,6 +188,22 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\core\Caretaker.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\Caretaker.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\core\util\Checker.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\util\Checker.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp"
 			>
 		</File>
@@ -221,14 +237,6 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\core\util\Curtain.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\core\actor\ex\DepositoryFormation.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\actor\ex\DepositoryFormation.h"
 			>
 		</File>
 		<File
@@ -272,14 +280,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\actor\ex\Formation.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\actor\ex\Formation.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\ggaf\core\GarbageBox.cpp"
 			>
 		</File>
@@ -288,47 +288,35 @@
 			>
 		</File>
 		<File
-			RelativePath=".\include\GgafCommonHeader.h"
+			RelativePath=".\include\jp\ggaf\GgafCommonHeader.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\Caretaker.cpp"
+			RelativePath=".\include\jp\ggaf\core\util\lineartree\ITreeNodeElem.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\Caretaker.h"
+			RelativePath=".\include\jp\ggaf\core\util\lineartree\LinearOctree.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\actor\GroupHead.cpp"
+			RelativePath=".\include\jp\ggaf\core\util\lineartree\LinearOctreeRounder.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\actor\GroupHead.h"
+			RelativePath=".\include\jp\ggaf\core\util\lineartree\LinearQuadtree.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\util\LinearOctree.cpp"
+			RelativePath=".\include\jp\ggaf\core\util\lineartree\LinearQuadtreeRounder.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\util\LinearOctree.h"
+			RelativePath=".\include\jp\ggaf\core\util\lineartree\LinearTree.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\util\LinearQuadtree.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\LinearQuadtree.h"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\LinearTreeRounder.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\LinkedListRing.hpp"
+			RelativePath=".\include\jp\ggaf\core\util\lineartree\LinearTreeRounder.hpp"
 			>
 		</File>
 		<File
@@ -368,11 +356,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\Progress.cpp"
+			RelativePath=".\src\jp\ggaf\core\Phase.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\Progress.h"
+			RelativePath=".\include\jp\ggaf\core\Phase.h"
 			>
 		</File>
 		<File
@@ -408,6 +396,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\include\jp\ggaf\core\util\RingLinkedList.hpp"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\core\scene\Scene.cpp"
 			>
 		</File>
@@ -416,11 +408,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\actor\SceneMediator.cpp"
+			RelativePath=".\src\jp\ggaf\core\actor\SceneChief.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\actor\SceneMediator.h"
+			RelativePath=".\include\jp\ggaf\core\actor\SceneChief.h"
 			>
 		</File>
 		<File
@@ -452,27 +444,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\util\TransitionValueSet.hpp"
-			>
-		</File>
-		<File
 			RelativePath=".\include\jp\ggaf\core\util\TrapezoidalVeloValue.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\TreeElem.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\core\actor\ex\TreeFormation.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\actor\ex\TreeFormation.h"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\TreeSpace.hpp"
 			>
 		</File>
 		<File
@@ -481,6 +453,10 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\core\util\Util.h"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\util\ValueTransitioner.hpp"
 			>
 		</File>
 		<File

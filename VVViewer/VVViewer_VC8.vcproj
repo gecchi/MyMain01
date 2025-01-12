@@ -243,19 +243,19 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\actor\VvvCursor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\actor\VvvCursor.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\VvvCaretaker.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\src\VvvCaretaker.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvCursor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvCursor.h"
 			>
 		</File>
 		<File
@@ -267,11 +267,27 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\actor\VvvGrid2.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvGrid2.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\VVViewer.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\src\VVViewer.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvMousePointer.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\actor\VvvMousePointer.h"
 			>
 		</File>
 		<File

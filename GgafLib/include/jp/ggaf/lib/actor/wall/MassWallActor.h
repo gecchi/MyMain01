@@ -77,8 +77,6 @@ public:
 
     static bool initStatic(MassWallActor* prm_pMassWallActor);
 
-//    virtual void executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) override;
-
     virtual void onCreateModel() override {
     }
     virtual void initialize() override;
@@ -100,7 +98,7 @@ public:
     virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override {
     }
 
-    virtual void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) override {
     }
 
     virtual void drawHitArea() override;
@@ -115,7 +113,7 @@ public:
     virtual void config(WallSectionScene* prm_pWallSectionScene,
                         pos_t prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch);
 
-    virtual GgafDx::CollisionChecker* createChecker() override;
+    virtual GgafDx::CollisionChecker* createChecker(kind_t prm_kind = 0) override;
     inline WorldCollisionChecker* getWorldCollisionChecker() {
         return _pWorldCollisionChecker;
     }

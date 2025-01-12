@@ -21,8 +21,8 @@ void SpriteMeshSetActor::drawHitArea() {
 #endif
 }
 
-GgafDx::CollisionChecker* SpriteMeshSetActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* SpriteMeshSetActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 SpriteMeshSetActor::~SpriteMeshSetActor() {

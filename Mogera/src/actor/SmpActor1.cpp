@@ -56,8 +56,8 @@ void SmpActor1::processBehavior() {
     getLocusVehicle()->behave(); //ˆÚ“®Ô—¼‚ğŠˆ“®‚³‚¹‚éiZ²‰ñ“]‚·‚éj
 }
 
-void SmpActor1::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    _TRACE_("SmpActor1::onHit!!!! ‘Šè"<<prm_pOtherActor->getName()<<"");
+void SmpActor1::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    _TRACE_("SmpActor1::onHit!!!! ‘Šè"<<prm_pOppHitChecker->_pActor->getName()<<"");
 }
 
 SmpActor1::~SmpActor1() {

@@ -169,8 +169,8 @@ void FontSpriteActor::addModel(const char* prm_model) {
     pModel->registerCallback_VertexInstanceDataInfo(FontSpriteActor::createVertexInstanceData);
 }
 
-GgafDx::CollisionChecker* FontSpriteActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* FontSpriteActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 FontSpriteActor::~FontSpriteActor() {

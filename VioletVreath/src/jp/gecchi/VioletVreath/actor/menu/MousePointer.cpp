@@ -44,8 +44,8 @@ void MousePointer::processBehavior() {
 void MousePointer::processJudgement() {
 }
 
-void MousePointer::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    MousePointerActor::onHit(prm_pOtherChecker, prm_pOtherActor);
+void MousePointer::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    MousePointerActor::onHit(prm_pThisHitChecker, prm_pOppHitChecker);
 }
 
 void MousePointer::onInactive() {

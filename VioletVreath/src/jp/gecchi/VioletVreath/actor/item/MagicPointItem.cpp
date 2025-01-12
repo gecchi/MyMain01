@@ -167,12 +167,10 @@ void MagicPointItem::processJudgement() {
 void MagicPointItem::onInactive() {
 }
 
-void MagicPointItem::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
+void MagicPointItem::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
     //ここにヒットエフェクト
-
     GgafCore::Phase* pPhase = getPhase();
-    if (pPhase->getCurrent() == PHASE_DRIFT && (pOther->getCheckerKind() & KIND_MY_BODY))  {
+    if (pPhase->getCurrent() == PHASE_DRIFT && (prm_pOppHitChecker->_kind & KIND_MY_BODY))  {
         setHitAble(false);
         pPhase->change(PHASE_ATTACH);
     }

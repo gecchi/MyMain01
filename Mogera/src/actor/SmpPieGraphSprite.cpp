@@ -75,7 +75,7 @@ void SmpPieGraphSprite::processBehavior() {
     getLocusVehicle()->behave(); //ˆÚ“®Ô—¼‚ğŠˆ“®‚³‚¹‚éiZ²‰ñ“]‚·‚éj
 }
 
-void SmpPieGraphSprite::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
+void SmpPieGraphSprite::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
 }
 
 SmpPieGraphSprite::~SmpPieGraphSprite() {

@@ -177,7 +177,7 @@ public:
         return (CollisionChecker*)_pChecker;
     }
 
-    virtual CollisionChecker* createChecker() override; //共変の戻り値
+    virtual CollisionChecker* createChecker(kind_t prm_kind = 0) override; //共変の戻り値
 
     /**
      * 本アクターの移動車両を取得 .
@@ -782,7 +782,7 @@ public:
      * オーバーライドで行って下さい。
      * <code><pre>
      * ＜例＞
-     * void SampleActor::onHit(const Checker* prm_pOtherChecker, const Actor* prm_pOtherActor) {
+     * void SampleActor::onHit(const Checker* prm_pThisHitChecker, const Checker* prm_pOppHitChecker) {
      *    //自身の耐久力チェック
      *    if (MyStgUtil::calcSampleStatus(_pStatus, _kind, pOther->_pStatus, pOther->_kind) <= 0) {
      *        //Hitの相手のチェック

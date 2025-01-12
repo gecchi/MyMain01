@@ -45,12 +45,12 @@ public:
     virtual void onCatchEvent(eventval prm_event_val, void* prm_pSource) override {
     }
 
-    virtual void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) override {
     }
 
     virtual void drawHitArea() override;
 
-    virtual GgafDx::CollisionChecker* createChecker() override;
+    virtual GgafDx::CollisionChecker* createChecker(kind_t prm_kind = 0) override;
     inline WorldCollisionChecker* getWorldCollisionChecker() {
         return _pWorldCollisionChecker;
     }

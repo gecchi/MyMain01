@@ -56,15 +56,15 @@ void StgUtil::init() {
     StgUtil::_was_StgUtil_inited_flg = true;
 }
 
-GgafDx::CollisionChecker* StgUtil::createCollisionChecker(GgafDx::GeometricActor* prm_pActor) {
+GgafDx::CollisionChecker* StgUtil::createCollisionChecker(GgafDx::GeometricActor* prm_pActor, kind_t prm_kind) {
     if (!prm_pActor->_is_fix_2D) {
         if (CONFIG::ENABLE_WORLD_HIT_CHECK_2D) {
-            return NEW WorldCollisionChecker2D(prm_pActor);
+            return NEW WorldCollisionChecker2D(prm_pActor, prm_kind);
         } else {
-            return NEW WorldCollisionChecker3D(prm_pActor);
+            return NEW WorldCollisionChecker3D(prm_pActor, prm_kind);
         }
     } else {
-        return NEW ViewCollisionChecker(prm_pActor);
+        return NEW ViewCollisionChecker(prm_pActor, prm_kind);
     }
 }
 

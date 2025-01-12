@@ -81,8 +81,8 @@ void Actor::sayonara(frame prm_offset_frames) {
     }
 }
 
-Checker* Actor::createChecker() {
-    return NEW Checker(this);
+Checker* Actor::createChecker(kind_t prm_kind) {
+    return NEW Checker(this, prm_kind);
 }
 
 void Actor::appendChild(Actor* prm_pActor) {

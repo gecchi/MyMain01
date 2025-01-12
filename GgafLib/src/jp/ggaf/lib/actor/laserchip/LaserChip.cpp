@@ -56,19 +56,6 @@ bool LaserChip::initStatic(LaserChip* prm_pLaserChip) {
     return true;
 }
 
-//void LaserChip::executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) {
-//    if (_pChip_infront == nullptr) {  //先端チップ
-//        GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
-//    } else {
-//        if ((prm_pOtherActor->_obj_class & Obj_MassWallActor) == Obj_MassWallActor) {
-//            //相手が地形ブロックならば、先端だけしか判定しない
-//            return;
-//        } else {
-//            GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
-//        }
-//    }
-//}
-
 void LaserChip::onActive() {
     //出現時
     _chip_kind = 0; //未だ不明
@@ -81,6 +68,11 @@ void LaserChip::onActive() {
     if (pArea) {
         pChecker->changeCollisionArea(0);
         pChecker->moveColliAABoxPos(0, 0, 0, 0);
+        WorldCollisionChecker* pExChecker = (WorldCollisionChecker*)pChecker->_pNextExChecker;
+        if (pExChecker) {
+            pExChecker->changeCollisionArea(0);
+            pExChecker->moveColliAABoxPos(0, 0, 0, 0);
+        }
     }
 }
 
@@ -88,7 +80,7 @@ void LaserChip::processSettlementBehavior() {
     //ここだめ_was_paused_flg
 
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-//    WorldCollisionChecker* pSubChecker = (WorldCollisionChecker*)_pSubChecker;
+    WorldCollisionChecker* pExChecker = (WorldCollisionChecker*)pChecker->_pNextExChecker;
 
     const LaserChip* pChip_infront = _pChip_infront;
     const LaserChip* pChip_behind = _pChip_behind;
@@ -188,10 +180,10 @@ void LaserChip::processSettlementBehavior() {
                 coord cZ = dZ * 0.25;
                 pChecker->changeCollisionArea(0);
                 pChecker->moveColliAABoxPos(0, cX, cY, cZ);
-//                if (_sub_kind > 0) {
-//                    pSubChecker->changeCollisionArea(0);
-//                    pSubChecker->moveColliAABoxPos(0, cX, cY, cZ);
-//                }
+                if (pExChecker) {
+                    pExChecker->changeCollisionArea(0);
+                    pExChecker->moveColliAABoxPos(0, cX, cY, cZ);
+                }
             }
         } else { //if (_chip_kind != 5)
             //この処理はprocessBehavior()で行えない。なぜならば、_pChip_infront が座標移動済みの保証がないため。
@@ -232,9 +224,9 @@ void LaserChip::processSettlementBehavior() {
                         setHitAble(false);
                     } else {
                         pChecker->changeCollisionArea(0);  // [0] -□----------
-//                        if (_sub_kind > 0) {
-//                            pSubChecker->changeCollisionArea(0);
-//                        }
+                        if (pExChecker) {
+                            pExChecker->changeCollisionArea(0);
+                        }
                     }
                 } else {
                     if ((ucoord)(dX+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
@@ -242,9 +234,9 @@ void LaserChip::processSettlementBehavior() {
                         (ucoord)(dZ+_hitarea_edge_length_3) < _hitarea_edge_length_3_2)
                     {
                         pChecker->changeCollisionArea(0);  // [0] -□----------
-//                        if (_sub_kind > 0) {
-//                            pSubChecker->changeCollisionArea(0);
-//                        }
+                        if (pExChecker) {
+                            pExChecker->changeCollisionArea(0);
+                        }
                         _rate_of_length = 4.0f;
                     } else {
                         //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
@@ -258,10 +250,10 @@ void LaserChip::processSettlementBehavior() {
                         {
                             pChecker->changeCollisionArea(1); // [1] -□----□----
                             pChecker->moveColliAABoxPos(1, cX, cY, cZ);
-//                            if (_sub_kind > 0) {
-//                                pSubChecker->changeCollisionArea(1); // [1] -□----□----
-//                                pSubChecker->moveColliAABoxPos(1, cX, cY, cZ);
-//                            }
+                            if (pExChecker) {
+                                pExChecker->changeCollisionArea(1); // [1] -□----□----
+                                pExChecker->moveColliAABoxPos(1, cX, cY, cZ);
+                            }
                             _rate_of_length = 8.0f;
                         } else {
                             pChecker->changeCollisionArea(2); // [2] -□-□-□-□-
@@ -274,13 +266,12 @@ void LaserChip::processSettlementBehavior() {
                             coord cY3 = cY2 + cY;
                             coord cZ3 = cZ2 + cZ;
                             pChecker->moveColliAABoxPos(3, cX3, cY3, cZ3);
-//                            if (_sub_kind > 0) {
-//                                pSubChecker->changeCollisionArea(2); // [2] -□-□-□-□-
-//                                pSubChecker->moveColliAABoxPos(2, cX, cY, cZ);
-//                                pSubChecker->moveColliAABoxPos(1, cX2, cY2, cZ2);
-//                                pSubChecker->moveColliAABoxPos(3, cX3, cY3, cZ3);
-//                            }
-
+                            if (pExChecker) {
+                                pExChecker->changeCollisionArea(2); // [2] -□-□-□-□-
+                                pExChecker->moveColliAABoxPos(2, cX, cY, cZ);
+                                pExChecker->moveColliAABoxPos(1, cX2, cY2, cZ2);
+                                pExChecker->moveColliAABoxPos(3, cX3, cY3, cZ3);
+                            }
                             _rate_of_length = 16.0f;
                         }
                     }
@@ -296,10 +287,7 @@ void LaserChip::processSettlementBehavior() {
     if (getActiveFrame() > 60 && _force_alpha > 0) {
         _force_alpha -= 0.01;
     }
-    GgafDx::MassMeshActor::processSettlementBehavior(); //八分木登録
-    //TODO:八分木登録だけならprocessSettlementBehavior()を呼び出すのは少し効率が悪かもしれない。
-    //当たり判定領域を更新してからprocessSettlementBehaviorで八分木登録すること。
-//    }
+    GgafDx::MassMeshActor::processSettlementBehavior();
 }
 
 void LaserChip::processPreDraw() {
@@ -377,7 +365,7 @@ int LaserChip::isOutOfView() {
     return _offscreen_kind;
 }
 
-void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
+void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length, int prm_edge_length_ex) {
     //下位レーザーチップでオーバーライトされている可能性あり
     _middle_colli_able = true;
     _hitarea_edge_length = prm_edge_length;
@@ -399,21 +387,23 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     pChecker->setColliAACube(1, prm_edge_length);
     pChecker->setColliAACube(2, prm_edge_length);
     pChecker->setColliAACube(3, prm_edge_length);
-//    _pSubChecker = UTIL::createCollisionChecker(this);
-//    WorldCollisionChecker* pSubChecke = (WorldCollisionChecker*)_pSubChecker;
-//    pSubChecke->addCollisionArea(1);
-//    pSubChecke->setColliAACube(0, prm_edge_length/4);
-//
-//    pSubChecke->addCollisionArea(2);
-//    pSubChecke->setColliAACube(0, prm_edge_length/4);
-//    pSubChecke->setColliAACube(1, prm_edge_length/4);
-//
-//    pSubChecke->addCollisionArea(4);
-//    pSubChecke->setColliAACube(0, prm_edge_length/4);
-//    pSubChecke->setColliAACube(1, prm_edge_length/4);
-//    pSubChecke->setColliAACube(2, prm_edge_length/4);
-//    pSubChecke->setColliAACube(3, prm_edge_length/4);
 
+    if (prm_edge_length_ex > 0) {
+        // 拡張
+        WorldCollisionChecker* pExChecker = (WorldCollisionChecker*)pChecker->addExChecker();
+        pExChecker->addCollisionArea(1);
+        pExChecker->setColliAACube(0, prm_edge_length_ex);
+
+        pExChecker->addCollisionArea(2);
+        pExChecker->setColliAACube(0, prm_edge_length_ex);
+        pExChecker->setColliAACube(1, prm_edge_length_ex);
+
+        pExChecker->addCollisionArea(4);
+        pExChecker->setColliAACube(0, prm_edge_length_ex);
+        pExChecker->setColliAACube(1, prm_edge_length_ex);
+        pExChecker->setColliAACube(2, prm_edge_length_ex);
+        pExChecker->setColliAACube(3, prm_edge_length_ex);
+    }
 
     setHitAble(true);
 }
@@ -548,8 +538,9 @@ void LaserChip::addModel(const char* prm_model) {
     GgafDx::MassMeshModel* pModel = (GgafDx::MassMeshModel*)_lstModel.back(); //今追加したモデル
     pModel->registerCallback_VertexInstanceDataInfo(LaserChip::createVertexInstanceData);
 }
-GgafDx::CollisionChecker* LaserChip::createChecker() {
-    return UTIL::createCollisionChecker(this);
+
+GgafDx::CollisionChecker* LaserChip::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 LaserChip::~LaserChip() {

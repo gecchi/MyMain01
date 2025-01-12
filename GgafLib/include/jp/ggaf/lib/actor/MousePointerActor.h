@@ -45,7 +45,7 @@ public:
 
     virtual void processSettlementBehavior() override;
 
-    virtual void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor);
+    virtual void onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker);
 
     virtual GgafCore::Actor* getHitActor() {
         return _pHitActor;

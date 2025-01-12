@@ -61,8 +61,8 @@ void SingleLaser::drawHitArea() {
 #endif
 }
 
-GgafDx::CollisionChecker* SingleLaser::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* SingleLaser::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 SingleLaser::~SingleLaser() {

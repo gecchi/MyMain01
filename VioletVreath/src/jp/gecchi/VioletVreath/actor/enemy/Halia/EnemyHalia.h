@@ -55,9 +55,8 @@ public:
 
     /**
      * ƒnƒŠƒA‚ÌÕ“Ëˆ— .
-     * @param prm_pOtherActor Õ“Ë‘ÎÛ
      */
-    void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) override;
 
 
     void onInactive() override;

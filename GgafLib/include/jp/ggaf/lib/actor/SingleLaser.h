@@ -35,7 +35,7 @@ public:
 
     virtual void drawHitArea() override;
 
-    virtual GgafDx::CollisionChecker* createChecker() override;
+    virtual GgafDx::CollisionChecker* createChecker(kind_t prm_kind = 0) override;
     inline WorldCollisionChecker* getWorldCollisionChecker() {
         return _pWorldCollisionChecker;
     }

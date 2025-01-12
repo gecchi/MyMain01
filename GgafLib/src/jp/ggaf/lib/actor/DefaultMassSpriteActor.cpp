@@ -131,8 +131,8 @@ void DefaultMassSpriteActor::addModel(const char* prm_model) {
     pModel->registerCallback_VertexInstanceDataInfo(DefaultMassSpriteActor::createVertexInstanceData);
 }
 
-GgafDx::CollisionChecker* DefaultMassSpriteActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* DefaultMassSpriteActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 DefaultMassSpriteActor::~DefaultMassSpriteActor() {

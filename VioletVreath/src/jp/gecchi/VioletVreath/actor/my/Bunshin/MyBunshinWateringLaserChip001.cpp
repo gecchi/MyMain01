@@ -69,7 +69,11 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
 
 void MyBunshinWateringLaserChip001::initialize() {
     getLocusVehicle()->linkFaceAngByMvAng(true);
-    registerHitAreaCube_AutoGenMidColli(MAX_VELO/4); //速度に応じて大きさを変化
+    registerHitAreaCube_AutoGenMidColli(MAX_VELO/4, PX_C(40)); //PX_C(40) は自機と同じ大きさ
+    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
+    WorldCollisionChecker* pExChecker = (WorldCollisionChecker*)pChecker->_pNextExChecker;
+    pExChecker->_kind = KIND_CHECK_CHIKEI_HIT;
+
     setHitAble(true);
     setScaleR(6.0);
     setCullingDraw(false);
@@ -564,11 +568,9 @@ bool MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ, bool chk_don
     return false;
 }
 
-void MyBunshinWateringLaserChip001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;
-
-
-    if ((pOther->getCheckerKind() & KIND_ENEMY_BODY) ) {
+void MyBunshinWateringLaserChip001::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)(prm_pOppHitChecker->_pActor);
+    if ((prm_pOppHitChecker->_kind & KIND_ENEMY_BODY) ) {
         //ヒットエフェクト
         GgafDx::FigureActor* pE = UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind, true); //爆発エフェクト出現
         //ロックオン可能アクターならロックオン
@@ -586,9 +588,8 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Checker* prm_pOtherChe
             getStatus()->set(STAT_Stamina, default_stamina_);
         }
         AimInfo* pLeaderChip_AimInfo = pLeaderChip_AimInfo_;
-//        if (this == pLeaderChip_AimInfo->pLeaderChip && pLeaderChip_AimInfo->pTarget == prm_pOtherActor) {
         //先端が目標に見事命中した場合もT1終了
-        if (pLeaderChip_AimInfo->pTarget == prm_pOtherActor) {
+        if (pLeaderChip_AimInfo->pTarget == prm_pOppHitChecker->_pActor) {
              //目標に見事命中した場合もT1終了
             frame active_frame = getActiveFrame();
             if (pLeaderChip_AimInfo->aim_time_out_t1 > active_frame) {
@@ -598,7 +599,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Checker* prm_pOtherChe
             getPhase()->change(PHASE_T2);
         }
 
-    } else if (pOther->getCheckerKind() & KIND_CHIKEI) {
+    } else if ((prm_pThisHitChecker->_kind & KIND_CHECK_CHIKEI_HIT) && (prm_pOppHitChecker->_kind & KIND_CHIKEI)) {
         //ヒットエフェクト
         GgafDx::FigureActor* pE = UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind, true); //爆発エフェクト出現
         //地形相手は無条件さようなら

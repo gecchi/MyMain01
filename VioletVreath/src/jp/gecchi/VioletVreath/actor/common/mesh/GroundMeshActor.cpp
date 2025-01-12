@@ -52,8 +52,8 @@ void GroundMeshActor::drawHitArea() {
     WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
-GgafDx::CollisionChecker* GroundMeshActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* GroundMeshActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 GroundMeshActor::~GroundMeshActor() {
 }

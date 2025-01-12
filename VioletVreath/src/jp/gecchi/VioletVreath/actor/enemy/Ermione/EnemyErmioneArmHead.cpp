@@ -59,11 +59,8 @@ void  EnemyErmioneArmHead::processChangeGeoFinal() {
     }
 }
 
-void EnemyErmioneArmHead::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-
-
-
-    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
+void EnemyErmioneArmHead::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)(prm_pOppHitChecker->_pActor);
 //    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
 //        setHitAble(false);
 //        //”š”­Œø‰Ê

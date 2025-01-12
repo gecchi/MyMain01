@@ -22,8 +22,8 @@ void DefaultSkinAniMeshActor::drawHitArea() {
 #endif
 }
 
-GgafDx::CollisionChecker* DefaultSkinAniMeshActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* DefaultSkinAniMeshActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 DefaultSkinAniMeshActor::~DefaultSkinAniMeshActor() {

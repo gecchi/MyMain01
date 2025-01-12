@@ -35,7 +35,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  当たり判定機能を追加するActor
      */
-    explicit WorldCollisionChecker(GgafDx::GeometricActor* prm_pActor);
+    explicit WorldCollisionChecker(GgafDx::GeometricActor* prm_pActor, kind_t prm_kind = 0);
 
     static bool initStatic();
 

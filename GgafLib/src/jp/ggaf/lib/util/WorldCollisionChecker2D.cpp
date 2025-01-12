@@ -14,7 +14,7 @@
 
 using namespace GgafLib;
 
-WorldCollisionChecker2D::WorldCollisionChecker2D(GgafDx::GeometricActor* prm_pActor) : WorldCollisionChecker(prm_pActor)
+WorldCollisionChecker2D::WorldCollisionChecker2D(GgafDx::GeometricActor* prm_pActor, kind_t prm_kind) : WorldCollisionChecker(prm_pActor, prm_kind)
 {
 }
 
@@ -33,9 +33,9 @@ void WorldCollisionChecker2D::updateHitArea() {
 #endif
         pActiveCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //ÅŠOˆæ‚Ì‹«ŠEAABBXV
         DefaultSpacetime::_pWorldQuadtree->registerElem(this, pActor->_x + pActiveCollisionArea->_aabb_x1,
-                                                                pActor->_y + pActiveCollisionArea->_aabb_y1,
-                                                                pActor->_x + pActiveCollisionArea->_aabb_x2,
-                                                                pActor->_y + pActiveCollisionArea->_aabb_y2);
+                                                              pActor->_y + pActiveCollisionArea->_aabb_y1,
+                                                              pActor->_x + pActiveCollisionArea->_aabb_x2,
+                                                              pActor->_y + pActiveCollisionArea->_aabb_y2);
 #ifdef MY_DEBUG
         WorldCollisionChecker::_num_check_actors++;
 #endif

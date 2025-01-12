@@ -62,7 +62,7 @@ public:
     virtual void onInactive() override {
     }
 
-    virtual void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) override {
     }
 
     /**
@@ -73,7 +73,7 @@ public:
      */
     virtual void addModel(const char* prm_model) override;
 
-    virtual GgafDx::CollisionChecker* createChecker() override;
+    virtual GgafDx::CollisionChecker* createChecker(kind_t prm_kind = 0) override;
     inline WorldCollisionChecker* getWorldCollisionChecker() {
         return _pWorldCollisionChecker;
     }

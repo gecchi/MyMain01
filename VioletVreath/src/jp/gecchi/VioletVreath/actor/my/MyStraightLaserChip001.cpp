@@ -14,10 +14,8 @@
 
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
 
-
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 GgafDx::Model* MyStraightLaserChip001::pModel_  = nullptr;
 int MyStraightLaserChip001::tex_no_ = 0;
@@ -41,9 +39,20 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
 void MyStraightLaserChip001::initialize() {
     pOrg_ = pMYSHIP;
     getLocusVehicle()->setRzRyMvAng(0,0);
+
+    coord hit_check_width = MAX_VELO*N_DISPATCH_AT_ONCE;
+
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
-    pChecker->setColliAABox_WHD(0, MAX_VELO, MAX_VELO/4, MAX_VELO/4);
+    pChecker->setColliAABox_WHD(0, hit_check_width/2, 0, 0,
+                                   hit_check_width, MAX_VELO/4, MAX_VELO/4);
+    // 拡張
+    WorldCollisionChecker* pExChecker = (WorldCollisionChecker*)pChecker->addExChecker(KIND_CHECK_CHIKEI_HIT);
+    pExChecker->addCollisionArea(1);
+    //自機 pChecker->setColliAACube(0, PX_C(40));
+    pExChecker->setColliAABox_WHD(0, hit_check_width/2, 0, 0,
+                                     hit_check_width, PX_C(40), PX_C(40));
+
     setHitAble(true);
     setScaleR(5.0);
     setCullingDraw(false);
@@ -93,12 +102,12 @@ void MyStraightLaserChip001::processJudgement() {
     }
 }
 
-void MyStraightLaserChip001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;
+void MyStraightLaserChip001::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)(prm_pOppHitChecker->_pActor);
     //ヒットエフェクト
     UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind); //爆発エフェクト出現
 
-    if ((pOther->getCheckerKind() & KIND_ENEMY_BODY) ) {
+    if ((prm_pOppHitChecker->_kind & KIND_ENEMY_BODY) ) {
         //ロックオン可能アクターならロックオンを試みる
         if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
             pOrg_->pLockonCtrler_->lockon(pOther);
@@ -112,8 +121,8 @@ void MyStraightLaserChip001::onHit(const GgafCore::Checker* prm_pOtherChecker, c
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             getStatus()->set(STAT_Stamina, default_stamina_);
         }
-    } else if (pOther->getCheckerKind() & KIND_CHIKEI) {
-        //地形相手は無条件さようなら
+    } else if ((prm_pThisHitChecker->_kind & KIND_CHECK_CHIKEI_HIT) && (prm_pOppHitChecker->_kind & KIND_CHIKEI)) {
+        //地形と自機と同じ大きでの当たり判定用チェッカーの衝突は無条件さようなら。
         sayonara();
     }
 }

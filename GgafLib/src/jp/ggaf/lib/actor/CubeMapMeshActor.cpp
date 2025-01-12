@@ -21,8 +21,8 @@ void CubeMapMeshActor::drawHitArea() {
     WorldCollisionChecker::drawHitArea(_pWorldCollisionChecker);
 #endif
 }
-GgafDx::CollisionChecker* CubeMapMeshActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* CubeMapMeshActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 CubeMapMeshActor::~CubeMapMeshActor() {

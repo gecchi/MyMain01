@@ -24,8 +24,8 @@ public:
 
     }
 
-    virtual void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor)  override {
-        bool is_stamina_zero = performEnemyHit((const GgafDx::GeometricActor*)prm_pOtherActor);
+    virtual void onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker)  override {
+        bool is_stamina_zero = performEnemyHit(prm_pOppHitChecker);
         if (is_stamina_zero) {
             //破壊された時(スタミナ <= 0)
             VvGeometricActor<T>::sayonara();
@@ -42,14 +42,15 @@ public:
      * @param prm_pOther ヒットした相手のアクターを渡す
      * @return true:スタミナ0(破壊された)/false:スタミナ残あり(破壊されてない)
      */
-    bool performEnemyHit(const GgafDx::GeometricActor* prm_pOther) {
+    bool performEnemyHit(const GgafCore::Checker* prm_pOppHitChecker) {
+        GgafDx::GeometricActor* prm_pOther = (GgafDx::GeometricActor*)prm_pOppHitChecker->_pActor;
         GgafCore::Status* pThisStatus  = VvGeometricActor<T>::getStatus();
         if (VvGeometricActor<T>::calcStamina(prm_pOther) <= 0) { //体力が無くなったら
             //＜破壊された場合＞
             VvGeometricActor<T>::setHitAble(false); //当たり判定消失
             //爆発エフェクト
-            UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind); 
-            if ((prm_pOther->_pChecker->_kind) & KIND_MY) {
+            UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind);
+            if ((prm_pOppHitChecker->_kind) & KIND_MY) {
                 //相手種別が MY*** （自機関連） ならば
                 GameGlobal::addDestroyedScoreBy(this);
                 VvGeometricActor<T>::notifyDestroyed(); //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
@@ -62,8 +63,8 @@ public:
         } else {
             //＜非破壊時、ダメージを受けた場合＞
             //ダメージエフェクト
-            UTIL::activateCommonEffectOf(this, STAT_DamagedEffectKind); 
-            if ((prm_pOther->_pChecker->_kind) & KIND_MY) {
+            UTIL::activateCommonEffectOf(this, STAT_DamagedEffectKind);
+            if ((prm_pOppHitChecker->_kind) & KIND_MY) {
                 //相手種別が MY*** （自機関連） ならば
                 GameGlobal::addDamagedScoreBy(this); //ダメージ時得点
             }

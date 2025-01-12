@@ -49,7 +49,7 @@ void PointerTest::processBehavior() {
 void PointerTest::processJudgement() {
 }
 
-void PointerTest::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
+void PointerTest::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
 _TRACE_("マウスがひっとおお！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
 }
 

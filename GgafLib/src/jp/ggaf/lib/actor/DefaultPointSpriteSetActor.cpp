@@ -22,8 +22,8 @@ void DefaultPointSpriteSetActor::drawHitArea() {
 #endif
 }
 
-GgafDx::CollisionChecker* DefaultPointSpriteSetActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* DefaultPointSpriteSetActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 DefaultPointSpriteSetActor::~DefaultPointSpriteSetActor() {

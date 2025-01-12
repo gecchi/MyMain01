@@ -23,8 +23,8 @@ void DefaultMorphMeshActor::drawHitArea() {
 #endif
 }
 
-GgafDx::CollisionChecker* DefaultMorphMeshActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* DefaultMorphMeshActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 DefaultMorphMeshActor::~DefaultMorphMeshActor() {

@@ -21,8 +21,8 @@ void DefaultBoardActor::drawHitArea() {
 #endif
 }
 
-GgafDx::CollisionChecker* DefaultBoardActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* DefaultBoardActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 DefaultBoardActor::~DefaultBoardActor() {

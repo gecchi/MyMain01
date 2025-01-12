@@ -16,8 +16,8 @@ DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_m
     _pWorldCollisionChecker = (WorldCollisionChecker*)getChecker();
 }
 
-GgafDx::CollisionChecker* DefaultMeshSetActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* DefaultMeshSetActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 void DefaultMeshSetActor::drawHitArea() {

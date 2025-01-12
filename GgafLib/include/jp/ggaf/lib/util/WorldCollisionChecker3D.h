@@ -20,7 +20,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  当たり判定機能を追加するActor
      */
-    explicit WorldCollisionChecker3D(GgafDx::GeometricActor* prm_pActor);
+    explicit WorldCollisionChecker3D(GgafDx::GeometricActor* prm_pActor, kind_t prm_kind = 0);
 
     /**
      * 当たり判定領域BOXの回転平行移動と、八分木登録を行います .

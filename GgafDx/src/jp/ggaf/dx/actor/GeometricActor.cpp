@@ -54,8 +54,8 @@ _pFormation(nullptr)
     _class_name = "GeometricActor";
     _pFormation = nullptr;
 }
-CollisionChecker* GeometricActor::createChecker() {
-    return NEW CollisionChecker(this);
+CollisionChecker* GeometricActor::createChecker(kind_t prm_kind) {
+    return NEW CollisionChecker(this, prm_kind);
 }
 LocusVehicle* GeometricActor::getLocusVehicle() {
     return _pLocusVehicle ? _pLocusVehicle : _pLocusVehicle = NEW LocusVehicle(this);
@@ -270,7 +270,7 @@ void GeometricActor::judge() {
                     if (pColliChecker->_kind > 0) {
                         pColliChecker->updateHitArea();
                     }
-                    pColliChecker = (CollisionChecker*)pColliChecker->_pNextChecker;
+                    pColliChecker = (CollisionChecker*)pColliChecker->_pNextExChecker;
                 } while (pColliChecker);
             }
         }

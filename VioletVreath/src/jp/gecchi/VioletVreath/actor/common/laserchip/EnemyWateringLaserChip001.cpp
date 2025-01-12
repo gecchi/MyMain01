@@ -77,14 +77,13 @@ void EnemyWateringLaserChip001::processJudgement() {
     }
 }
 
-void EnemyWateringLaserChip001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
-    if (getActiveFrame() <= 2 && (pOther->getCheckerKind() & KIND_CHIKEI)) {
+void EnemyWateringLaserChip001::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    if (getActiveFrame() <= 2 && (prm_pOppHitChecker->_kind & KIND_CHIKEI)) {
         //出現2フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
         return;
     }
 
-    bool is_stamina_zero = performEnemyHit(pOther);
+    bool is_stamina_zero = performEnemyHit(prm_pOppHitChecker);
     if (is_stamina_zero) {
         //破壊された時(スタミナ <= 0)
         sayonara();

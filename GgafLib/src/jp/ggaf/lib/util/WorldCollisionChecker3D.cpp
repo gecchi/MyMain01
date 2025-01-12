@@ -14,7 +14,7 @@
 
 using namespace GgafLib;
 
-WorldCollisionChecker3D::WorldCollisionChecker3D(GgafDx::GeometricActor* prm_pActor) : WorldCollisionChecker(prm_pActor)
+WorldCollisionChecker3D::WorldCollisionChecker3D(GgafDx::GeometricActor* prm_pActor, kind_t prm_kind) : WorldCollisionChecker(prm_pActor, prm_kind)
 {
 }
 

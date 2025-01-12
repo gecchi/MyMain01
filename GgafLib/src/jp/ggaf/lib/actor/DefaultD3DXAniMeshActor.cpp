@@ -22,8 +22,8 @@ void DefaultD3DXAniMeshActor::drawHitArea() {
 #endif
 }
 
-GgafDx::CollisionChecker* DefaultD3DXAniMeshActor::createChecker() {
-    return UTIL::createCollisionChecker(this);
+GgafDx::CollisionChecker* DefaultD3DXAniMeshActor::createChecker(kind_t prm_kind) {
+    return UTIL::createCollisionChecker(this, prm_kind);
 }
 
 DefaultD3DXAniMeshActor::~DefaultD3DXAniMeshActor() {

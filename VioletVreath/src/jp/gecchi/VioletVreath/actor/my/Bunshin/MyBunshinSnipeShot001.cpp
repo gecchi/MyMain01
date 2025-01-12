@@ -42,7 +42,7 @@ void MyBunshinSnipeShot001::processJudgement() {
     }
 }
 
-void MyBunshinSnipeShot001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
+void MyBunshinSnipeShot001::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
     setHitAble(false);
     UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind);
     sayonara();

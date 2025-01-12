@@ -39,7 +39,7 @@ public:
     virtual void processFinal() override {
     }
 
-    virtual void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) override {
     }
 
     virtual GgafDx::CameraViewPoint* createCameraViewPoint() override;

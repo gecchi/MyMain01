@@ -25,7 +25,7 @@ public:
 
     void processJudgement() override;
 
-    void onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) override;
 
     int isOutOfView() override {
         return 0;

@@ -27,7 +27,7 @@ public:
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor
      */
-    explicit CollisionChecker(GeometricActor* prm_pActor);
+    explicit CollisionChecker(GeometricActor* prm_pActor, kind_t prm_kind = 0);
 
     /**
      * 当たり判定ロジック .
@@ -36,10 +36,10 @@ public:
      * CollisionChecker::isHit() で判定する。<BR>
      * チェッカーオブジェクトが無い場合、<BR>
      * ヒットしていないこととする。<BR>
-     * @param prm_pOtherChecker 相手のチェッカー
+     * @param prm_pOppHitChecker 相手のチェッカー
      * @return true：ヒットしている／false：ヒットしていない
      */
-    virtual bool processHitChkLogic(GgafCore::Checker* prm_pOtherChecker) override;
+    virtual bool processHitChkLogic(GgafCore::Checker* prm_pOppHitChecker) override;
 
     /**
      * 当たり判定領域を更新し、その領域をツリーに登録 .

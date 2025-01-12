@@ -230,8 +230,8 @@ void MyTorpedo::processJudgement() {
 void MyTorpedo::onInactive() {
 }
 
-void MyTorpedo::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
+void MyTorpedo::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)(prm_pOppHitChecker->_pActor);
     //ƒqƒbƒgŽž’ÊŠÑ‚Í‚µ‚Ü‚¹‚ñ
     int sta = calcStamina(pOther);
     setHitAble(false);

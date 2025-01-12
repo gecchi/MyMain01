@@ -38,13 +38,12 @@ void EnemyEmusLaserChip001::processJudgement() {
     }
 }
 
-void EnemyEmusLaserChip001::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
-    if (getActiveFrame() < 30 && (pOther->getCheckerKind() & KIND_CHIKEI)) {
+void EnemyEmusLaserChip001::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+    if (getActiveFrame() < 30 && (prm_pOppHitChecker->_kind & KIND_CHIKEI)) {
         //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
         return;
     } else {
-        bool is_stamina_zero = performEnemyHit(pOther);
+        bool is_stamina_zero = performEnemyHit(prm_pOppHitChecker);
         if (is_stamina_zero) {
             //破壊された時(スタミナ <= 0)
             sayonara();

@@ -27,7 +27,7 @@ namespace GgafCore {
  * void processFinal() ・・・フレーム毎の終端処理 <BR>
  * ＜毎フレーム呼び出されるわけではない純粋仮想関数＞<BR>
  * void onCatchEvent(eventval prm_event_val, void* prm_pSource) ・・・その他のイベント時の処理 <BR>
- * void onHit(const Checker* prm_pOtherChecker, const Actor* prm_pOtherActor) ・・・衝突判定ロジックがtrueの場合の処理 <BR>
+ * void onHit(const Checker* prm_pThisHitChecker, const Checker* prm_pOppHitChecker) ・・・衝突判定ロジックがtrueの場合の処理 <BR>
  * <BR>
  * 基底テンプレートクラスの Node と、Element の説明も参照のこと。<BR>
  * @version 1.00
@@ -122,9 +122,9 @@ public:
      * アクターと衝突した時の処理 .
      * _pColliChecker->processHitChkLogic(Checker*) が true の場合に呼び出されることになります。<BR>
      * 衝突判定の結果、衝突した場合の処理を下位クラス実装してください。<BR>
-     * @param	prm_pOtherActor	衝突している相手のアクター（１つ）
+     * @param	prm_pOppHitChecker	衝突している相手のチェッカー
      */
-    virtual void onHit(const Checker* prm_pOtherChecker, const Actor* prm_pOtherActor) {}
+    virtual void onHit(const Checker* prm_pThisHitChecker, const Checker* prm_pOppHitChecker) {}
 
     /**
      * Depositoryに所属している場合、それを返す。
@@ -188,7 +188,7 @@ public:
         return _pChecker;
     }
 
-    virtual Checker* createChecker();
+    virtual Checker* createChecker(kind_t prm_kind = 0);
 
     virtual void appendChild(Actor* prm_pActor) override;
 

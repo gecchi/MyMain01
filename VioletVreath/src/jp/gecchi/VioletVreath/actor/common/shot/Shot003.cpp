@@ -45,8 +45,8 @@ void Shot003::processJudgement() {
     }
 }
 
-void Shot003::onHit(const GgafCore::Checker* prm_pOtherChecker, const GgafCore::Actor* prm_pOtherActor) {
-//    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
+void Shot003::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
+//    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)(prm_pOppHitChecker->_pActor);
 //    //・・・ココにヒットされたエフェクト
 //    if (MyStgUtil::calcEnemyStamina(this, pOther) <= 0) {
 //        //破壊された場合

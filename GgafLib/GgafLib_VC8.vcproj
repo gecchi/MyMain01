@@ -213,6 +213,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\debug\ColliAABoardRectActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\debug\ColliAABoardRectActor.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\lib\util\ColliAABox.cpp"
 			>
 		</File>
@@ -221,11 +229,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\lib\actor\ColliAABoxActor.cpp"
+			RelativePath=".\src\jp\ggaf\lib\actor\debug\ColliAABoxActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\lib\actor\ColliAABoxActor.h"
+			RelativePath=".\include\jp\ggaf\lib\actor\debug\ColliAABoxActor.h"
 			>
 		</File>
 		<File
@@ -237,11 +245,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\lib\actor\ColliAAPrismActor.cpp"
+			RelativePath=".\src\jp\ggaf\lib\actor\debug\ColliAAPrismActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\lib\actor\ColliAAPrismActor.h"
+			RelativePath=".\include\jp\ggaf\lib\actor\debug\ColliAAPrismActor.h"
 			>
 		</File>
 		<File
@@ -253,35 +261,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\lib\actor\ColliAAPyramidActor.cpp"
+			RelativePath=".\src\jp\ggaf\lib\actor\debug\ColliAAPyramidActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\lib\actor\ColliAAPyramidActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\util\CollisionChecker.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\util\CollisionChecker.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\util\CollisionChecker2D.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\util\CollisionChecker2D.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\util\CollisionChecker3D.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\util\CollisionChecker3D.h"
+			RelativePath=".\include\jp\ggaf\lib\actor\debug\ColliAAPyramidActor.h"
 			>
 		</File>
 		<File
@@ -293,11 +277,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\lib\actor\ColliSphereActor.cpp"
+			RelativePath=".\src\jp\ggaf\lib\actor\debug\ColliSphereActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\lib\actor\ColliSphereActor.h"
+			RelativePath=".\include\jp\ggaf\lib\actor\debug\ColliSphereActor.h"
 			>
 		</File>
 		<File
@@ -389,6 +373,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\lib\DefaultCaretaker.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\DefaultCaretaker.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\lib\actor\DefaultD3DXAniMeshActor.cpp"
 			>
 		</File>
@@ -442,14 +434,6 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\lib\actor\DefaultGeometricActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\DefaultCaretaker.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\DefaultCaretaker.h"
 			>
 		</File>
 		<File
@@ -565,11 +549,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\lib\actor\DefaultSceneMediator.cpp"
+			RelativePath=".\src\jp\ggaf\lib\actor\DefaultSceneChief.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\lib\actor\DefaultSceneMediator.h"
+			RelativePath=".\include\jp\ggaf\lib\actor\DefaultSceneChief.h"
 			>
 		</File>
 		<File
@@ -653,14 +637,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\lib\scene\FormationTableScene.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\scene\FormationTableScene.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\ggaf\lib\actor\FramedHorizontalBarActor.cpp"
 			>
 		</File>
@@ -669,11 +645,15 @@
 			>
 		</File>
 		<File
-			RelativePath=".\include\GgafLib.h"
+			RelativePath=".\src\jp\ggaf\GgafLib.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\GgafLibCommonHeader.h"
+			RelativePath=".\include\jp\ggaf\GgafLib.h"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\GgafLibCommonHeader.h"
 			>
 		</File>
 		<File
@@ -741,6 +721,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\MousePointerActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\MousePointerActor.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\lib\actor\laserchip\NomalLaserChip.cpp"
 			>
 		</File>
@@ -773,11 +761,19 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\lib\util\SceneProgress.cpp"
+			RelativePath=".\src\jp\ggaf\lib\scene\RotateFormationScene.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\lib\util\SceneProgress.h"
+			RelativePath=".\include\jp\ggaf\lib\scene\RotateFormationScene.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\util\ScenePhase.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\util\ScenePhase.h"
 			>
 		</File>
 		<File
@@ -861,6 +857,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\lib\util\ViewCollisionChecker.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\util\ViewCollisionChecker.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\lib\util\VirtualButton.cpp"
 			>
 		</File>
@@ -906,6 +910,30 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\lib\actor\WorldBoundActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\util\WorldCollisionChecker.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\util\WorldCollisionChecker.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\util\WorldCollisionChecker2D.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\util\WorldCollisionChecker2D.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\util\WorldCollisionChecker3D.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\util\WorldCollisionChecker3D.h"
 			>
 		</File>
 	</Files>
