@@ -33,6 +33,7 @@ public:
     LaserChipDepository* _pDepo;
     /** registerHitAreaCube_AutoGenMidColli() ƒƒ\ƒbƒh‚É‚æ‚è“o˜^‚Ì“–‚½‚è”»’è—§•û‘Ì‚Ì‚P•Ó‚Ì’·‚³ */
     coord _hitarea_edge_length;
+    coord _hitarea_edge_length_harf;
     ucoord _hitarea_edge_length_2;
     coord _hitarea_edge_length_3;
     ucoord _hitarea_edge_length_3_2;

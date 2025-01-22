@@ -363,7 +363,7 @@ public:
                  );
     }
 
-    static double getDistance(GeometricActor* pA1, GeometricActor* pA2) {
+    static double getDistance(const GeometricActor* pA1, const GeometricActor* pA2) {
         return sqrt(
                       (
                         ((double)(pA2->_x - pA1->_x)) * ((double)(pA2->_x - pA1->_x))
@@ -375,7 +375,7 @@ public:
                     );
     }
 
-    static double getDistance(GeometricActor* pA1, GeoElem* pA2) {
+    static double getDistance(const GeometricActor* pA1, const GeoElem* pA2) {
         return sqrt(
                       (
                         ((double)(pA2->x - pA1->_x)) * ((double)(pA2->x - pA1->_x))
@@ -387,7 +387,7 @@ public:
                     );
     }
 
-    static double getDistance(GeoElem* pA1, GeometricActor* pA2) {
+    static double getDistance(const GeoElem* pA1, const GeometricActor* pA2) {
         return sqrt(
                       (
                         ((double)(pA2->_x - pA1->x)) * ((double)(pA2->_x - pA1->x))
@@ -399,7 +399,7 @@ public:
                     );
     }
 
-    static double getDistance(GeoElem* pA1 ,GeoElem* pA2) {
+    static double getDistance(const GeoElem* pA1 , const GeoElem* pA2) {
         return sqrt(
                       (
                         ((double)(pA2->x - pA1->x)) * ((double)(pA2->x - pA1->x))

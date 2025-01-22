@@ -52,7 +52,7 @@ StageController::StageController(const char* prm_name) : VvScene<DefaultScene>(p
 void StageController::onReset() {
     _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<"");
     loop_ = 1;
-    main_stage_ = 1; //stage0はデバッグ
+    main_stage_ = 0; //stage0はデバッグ
     if (pStageMainCannel_) {
         pStageMainCannel_->inactivate();
     }

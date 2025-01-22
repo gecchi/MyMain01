@@ -16,6 +16,9 @@ ColliAAPrismActor* ColliAAPrismActor::_pObj = nullptr;
 ColliAAPrismActor::ColliAAPrismActor(const char* prm_name) : GgafDx::AAPrismActor(prm_name) {
     _class_name = "ColliAAPrismActor";
     setAlpha(0.8);
+    useZBufferDrawing(true);    //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
+    setCullingDraw(false);
 }
 
 ColliAAPrismActor* ColliAAPrismActor::get() {

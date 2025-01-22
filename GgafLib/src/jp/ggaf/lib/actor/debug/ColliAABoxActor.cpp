@@ -7,8 +7,6 @@
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliAABox.h"
 
-
-
 using namespace GgafLib;
 
 ColliAABoxActor* ColliAABoxActor::_pObj = nullptr;
@@ -16,6 +14,9 @@ ColliAABoxActor* ColliAABoxActor::_pObj = nullptr;
 ColliAABoxActor::ColliAABoxActor(const char* prm_name) : GgafDx::AABActor(prm_name) {
     _class_name = "ColliAABoxActor";
     setAlpha(0.8);
+    useZBufferDrawing(true);    //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
+    setCullingDraw(false);
 }
 
 ColliAABoxActor* ColliAABoxActor::get() {

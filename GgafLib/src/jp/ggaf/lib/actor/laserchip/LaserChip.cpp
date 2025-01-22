@@ -31,6 +31,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _pDepo = nullptr; //LaserChipDepositoryに追加される時に設定される。通常LaserChipとLaserChipDepositoryはセット。
     _chip_kind = 0;
     _hitarea_edge_length = 0;
+    _hitarea_edge_length_harf = _hitarea_edge_length / 2;
     _hitarea_edge_length_2   = _hitarea_edge_length * 2;
     _hitarea_edge_length_3   = _hitarea_edge_length * 3;
     _hitarea_edge_length_3_2 = _hitarea_edge_length_3 * 2;
@@ -169,6 +170,8 @@ void LaserChip::processSettlementBehavior() {
     // [2] -□-□-□-□-□-□-□-□-□-□-□-□-□-
     //      ｜          ｜          ｜          ｜
     if (pChecker->getCollisionArea() && _can_hit_flg) {
+
+
         if (_chip_kind == 5) { //5:先端チップ
             //先端チップの当たり判定を、後ろチップとの中間の位置に凹ませる。
             if (pChip_behind) {
@@ -186,6 +189,10 @@ void LaserChip::processSettlementBehavior() {
                 }
             }
         } else { //if (_chip_kind != 5)
+
+            coord dX = pChip_infront->_x - _x;
+            coord dY = pChip_infront->_y - _y;
+            coord dZ = pChip_infront->_z - _z;
             //この処理はprocessBehavior()で行えない。なぜならば、_pChip_infront が座標移動済みの保証がないため。
             if (_middle_colli_able) { //おそらく水撒きレーザーチップの場合
                 //レーザーチップの広がった間隔に当たり判定を生成して埋める
@@ -206,9 +213,52 @@ void LaserChip::processSettlementBehavior() {
                 //         _hitarea_edge_length
                 //
 
-                coord dX = pChip_infront->_x - _x;
-                coord dY = pChip_infront->_y - _y;
-                coord dZ = pChip_infront->_z - _z;
+                //2025/01/20 下記のように変更
+                //判定領域要素  [0]        [1]        [2]        [3]        [0]
+                //            │                    │                    │
+                //            ├---┐    ┌---┐    ┌---┐    ┌---┐    ├---┐
+                //  +---------┼-+-┼----┼-+-┼----┼-+-┼----┼-+-┼----┼-+-┼---->
+                //           0├---┘    └---┘    └---┘    └---┘    ├---┘
+                //            │                    │                    │
+                //             0                    0.5                  1.0
+                //             <------------------------------------------>
+                //                                  dX
+                //             <--->  _hitarea_edge_length
+                //             <->    _hitarea_edge_length_harf
+                //
+                //  [0] の座標
+                //   d : 0 + _hitarea_edge_length_harf = 1.0 : r0
+                //   r0 =  _hitarea_edge_length_harf/d
+                //   ∴ dX * r0
+                //      dY * r0
+                //      dZ * r0
+                //
+                //  [1] の座標
+                //   d : ((1/4)*d)+_hitarea_edge_length_harf = 1.0 : r1
+                //   r1 = (((1/4)*d)+_hitarea_edge_length_harf)/d
+                //      = (d+4*_hitarea_edge_length_harf)/(4*d)
+                //
+                //  [2] の座標
+                //   d : ((2/4)*d)+_hitarea_edge_length_harf = 1.0 : r2
+                //   r2 = (((2/4)*d)+_hitarea_edge_length_harf)/d
+                //      = (d+2*_hitarea_edge_length_harf)/(2*d)
+                //
+                //  [3] の座標
+                //   d : ((3/4)*d)+_hitarea_edge_length_harf = 1.0 : r3
+                //   r3 = (((3/4)*d)+_hitarea_edge_length_harf)/d
+                //      = (3*d+4*_hitarea_edge_length_harf)/(4*d)
+                //
+                //coord d = UTIL::getDistance(this, pChip_infront); //前のチップとの距離
+                double dX_d = (double)dX;
+                double dY_d = (double)dY;
+                double dZ_d = (double)dZ;
+                double d = sqrt((dX_d * dX_d) + (dY_d * dY_d) + (dZ_d * dZ_d));
+
+//                double r0 = _hitarea_edge_length_harf / d;
+//                double r1 = (d + 4*_hitarea_edge_length_harf) / (4*d);
+//                double r2 = (d + 2*_hitarea_edge_length_harf) / (2*d);
+//                double r3 = (3*d + 4*_hitarea_edge_length_harf) / (4*d);
+                double r0 = _hitarea_edge_length_harf / d;
 
 //                if (ABS(dX) < _hitarea_edge_length &&
 //                    ABS(dY) < _hitarea_edge_length &&
@@ -223,53 +273,87 @@ void LaserChip::processSettlementBehavior() {
                     if (_chip_kind != 1) { //近くても末端だけは当たり判定あり
                         setHitAble(false);
                     } else {
+                        coord cX = dX * r0;
+                        coord cY = dY * r0;
+                        coord cZ = dZ * r0;
                         pChecker->changeCollisionArea(0);  // [0] -□----------
+                        pChecker->moveColliAABoxPos(0, cX, cY, cZ);
                         if (pExChecker) {
                             pExChecker->changeCollisionArea(0);
+                            pExChecker->moveColliAABoxPos(0, cX, cY, cZ);
                         }
+                        _rate_of_length = 4.0f;
                     }
                 } else {
                     if ((ucoord)(dX+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
                         (ucoord)(dY+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
                         (ucoord)(dZ+_hitarea_edge_length_3) < _hitarea_edge_length_3_2)
                     {
+                        //BOX横並び３個分以上の距離以内の場合
+                        //前方チップとくっつきすぎず、離れすぎず場合
+                        coord cX = dX * r0;
+                        coord cY = dY * r0;
+                        coord cZ = dZ * r0;
                         pChecker->changeCollisionArea(0);  // [0] -□----------
+                        pChecker->moveColliAABoxPos(0, cX, cY, cZ);
                         if (pExChecker) {
                             pExChecker->changeCollisionArea(0);
+                            pExChecker->moveColliAABoxPos(0, cX, cY, cZ);
                         }
                         _rate_of_length = 4.0f;
                     } else {
-                        //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
-                        //自身と前方チップの中間に当たり判定を作り出す
-                        coord cX = dX / 2;
-                        coord cY = dY / 2;
-                        coord cZ = dZ / 2;
+                        //BOX横並び３個分以上の距離以上の場合
                         if ((ucoord)(dX+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
                             (ucoord)(dY+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
                             (ucoord)(dZ+_hitarea_edge_length_6) < _hitarea_edge_length_6_2)
                         {
+                            //BOX横並び３個分以上６個分以内の距離以上の場合
+                            //前方チップと離れた場合に、中間に当たり判定領域を一時的に有効化
+                            //自身と前方チップの中間に当たり判定を作り出す
+                            double r2 = (1.0 + 2.0 * r0) / 2.0;
                             pChecker->changeCollisionArea(1); // [1] -□----□----
-                            pChecker->moveColliAABoxPos(1, cX, cY, cZ);
+                            coord cX0 = dX * r0;
+                            coord cY0 = dY * r0;
+                            coord cZ0 = dZ * r0;
+                            coord cX2 = dX * r2;
+                            coord cY2 = dY * r2;
+                            coord cZ2 = dZ * r2;
+                            pChecker->moveColliAABoxPos(0, cX0, cY0, cZ0);
+                            pChecker->moveColliAABoxPos(1, cX2, cY2, cZ2);
                             if (pExChecker) {
-                                pExChecker->changeCollisionArea(1); // [1] -□----□----
-                                pExChecker->moveColliAABoxPos(1, cX, cY, cZ);
+                                pExChecker->changeCollisionArea(1);
+                                pExChecker->moveColliAABoxPos(0, cX0, cY0, cZ0);
+                                pExChecker->moveColliAABoxPos(1, cX2, cY2, cZ2);
                             }
                             _rate_of_length = 8.0f;
                         } else {
+                            //BOX横並び６個分以内の距離以上の場合
+                            //前方チップと離れすぎた場合に、中間の中間にも当たり判定領域を一時的に有効化
+                            double r1 = (1.0 + 4.0 * r0) / 4.0;
+                            double r2 = (1.0 + 2.0 * r0) / 2.0;
+                            double r3 = (3.0 + 4.0 * r0) / 4.0;
                             pChecker->changeCollisionArea(2); // [2] -□-□-□-□-
-                            pChecker->moveColliAABoxPos(2, cX, cY, cZ);
-                            coord cX2 = cX / 2;
-                            coord cY2 = cY / 2;
-                            coord cZ2 = cZ / 2;
-                            pChecker->moveColliAABoxPos(1, cX2, cY2, cZ2);
-                            coord cX3 = cX2 + cX;
-                            coord cY3 = cY2 + cY;
-                            coord cZ3 = cZ2 + cZ;
+                            coord cX0 = dX * r0;
+                            coord cY0 = dY * r0;
+                            coord cZ0 = dZ * r0;
+                            coord cX1 = dX * r1;
+                            coord cY1 = dY * r1;
+                            coord cZ1 = dZ * r1;
+                            coord cX2 = dX * r2;
+                            coord cY2 = dY * r2;
+                            coord cZ2 = dZ * r2;
+                            coord cX3 = dX * r3;
+                            coord cY3 = dY * r3;
+                            coord cZ3 = dZ * r3;
+                            pChecker->moveColliAABoxPos(0, cX0, cY0, cZ0);
+                            pChecker->moveColliAABoxPos(1, cX1, cY1, cZ1);
+                            pChecker->moveColliAABoxPos(2, cX2, cY2, cZ2);
                             pChecker->moveColliAABoxPos(3, cX3, cY3, cZ3);
                             if (pExChecker) {
-                                pExChecker->changeCollisionArea(2); // [2] -□-□-□-□-
-                                pExChecker->moveColliAABoxPos(2, cX, cY, cZ);
-                                pExChecker->moveColliAABoxPos(1, cX2, cY2, cZ2);
+                                pExChecker->changeCollisionArea(2);
+                                pExChecker->moveColliAABoxPos(0, cX0, cY0, cZ0);
+                                pExChecker->moveColliAABoxPos(1, cX1, cY1, cZ1);
+                                pExChecker->moveColliAABoxPos(2, cX2, cY2, cZ2);
                                 pExChecker->moveColliAABoxPos(3, cX3, cY3, cZ3);
                             }
                             _rate_of_length = 16.0f;
@@ -292,7 +376,7 @@ void LaserChip::processSettlementBehavior() {
 
 void LaserChip::processPreDraw() {
     if (0 < _chip_kind && _chip_kind < 5) {
-        //1~3を表示対象にする
+        //1~4を表示対象にする
         GgafDx::FigureActor::processPreDraw();
     }
 }
@@ -369,6 +453,7 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length, int prm
     //下位レーザーチップでオーバーライトされている可能性あり
     _middle_colli_able = true;
     _hitarea_edge_length = prm_edge_length;
+    _hitarea_edge_length_harf = _hitarea_edge_length / 2;
     _hitarea_edge_length_2   = _hitarea_edge_length * 2;
     _hitarea_edge_length_3   = _hitarea_edge_length * 3;
     _hitarea_edge_length_3_2 = _hitarea_edge_length_3 * 2;

@@ -19,7 +19,7 @@ using namespace VioletVreath;
 
 GgafDx::Model* MyStraightLaserChip001::pModel_  = nullptr;
 int MyStraightLaserChip001::tex_no_ = 0;
-const velo MyStraightLaserChip001::MAX_VELO = PX_C(512); //この値を大きくすると、最高速度が早くなる。
+const velo MyStraightLaserChip001::MAX_VELO = PX_C(1024); //この値を大きくすると、最高速度が早くなる。
 
 MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
         VvMyActor<StraightLaserChip>(prm_name, "MyLaserChip001", StatusReset(MyStraightLaserChip001)) {
@@ -42,16 +42,21 @@ void MyStraightLaserChip001::initialize() {
 
     coord hit_check_width = MAX_VELO*N_DISPATCH_AT_ONCE;
 
+//    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
+//    pChecker->addCollisionArea(1);
+//    pChecker->setColliAABox_WHD(0, hit_check_width/2, 0, 0,
+//                                   hit_check_width, MAX_VELO/4, MAX_VELO/4);
+//    // 拡張
+//    WorldCollisionChecker* pExChecker = (WorldCollisionChecker*)pChecker->addExChecker(KIND_CHECK_CHIKEI_HIT);
+//    pExChecker->addCollisionArea(1);
+//    //自機 pChecker->setColliAACube(0, PX_C(40));
+//    pExChecker->setColliAABox_WHD(0, hit_check_width/2, 0, 0,
+//                                     hit_check_width, PX_C(40), PX_C(40));
+
+    registerHitAreaCube_AutoGenMidColli(MAX_VELO/4, PX_C(40)); //PX_C(40) は自機と同じ大きさ
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-    pChecker->addCollisionArea(1);
-    pChecker->setColliAABox_WHD(0, hit_check_width/2, 0, 0,
-                                   hit_check_width, MAX_VELO/4, MAX_VELO/4);
-    // 拡張
-    WorldCollisionChecker* pExChecker = (WorldCollisionChecker*)pChecker->addExChecker(KIND_CHECK_CHIKEI_HIT);
-    pExChecker->addCollisionArea(1);
-    //自機 pChecker->setColliAACube(0, PX_C(40));
-    pExChecker->setColliAABox_WHD(0, hit_check_width/2, 0, 0,
-                                     hit_check_width, PX_C(40), PX_C(40));
+    WorldCollisionChecker* pExChecker = (WorldCollisionChecker*)pChecker->_pNextExChecker;
+    pExChecker->_kind = KIND_CHECK_CHIKEI_HIT;
 
     setHitAble(true);
     setScaleR(5.0);

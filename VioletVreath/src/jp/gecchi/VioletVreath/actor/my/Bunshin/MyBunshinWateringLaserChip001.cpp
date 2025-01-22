@@ -572,7 +572,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Checker* prm_pThisHitC
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)(prm_pOppHitChecker->_pActor);
     if ((prm_pOppHitChecker->_kind & KIND_ENEMY_BODY) ) {
         //ヒットエフェクト
-        GgafDx::FigureActor* pE = UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind, true); //爆発エフェクト出現
+        GgafDx::FigureActor* pE = UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind); //爆発エフェクト出現
         //ロックオン可能アクターならロックオン
         if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
             pOrg_->pLockonCtrler_->lockon(pOther);
@@ -601,7 +601,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Checker* prm_pThisHitC
 
     } else if ((prm_pThisHitChecker->_kind & KIND_CHECK_CHIKEI_HIT) && (prm_pOppHitChecker->_kind & KIND_CHIKEI)) {
         //ヒットエフェクト
-        GgafDx::FigureActor* pE = UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind, true); //爆発エフェクト出現
+        GgafDx::FigureActor* pE = UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind); //爆発エフェクト出現
         //地形相手は無条件さようなら
         sayonara();
 
@@ -667,7 +667,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Checker* prm_pThisHitC
 //
 //                if (is_hit == true) {
 //                    //ヒットエフェクト
-//                    GgafDx::FigureActor* pE = UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind, true); //爆発エフェクト出現
+//                    GgafDx::FigureActor* pE = UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind); //爆発エフェクト出現
 //                    //地形相手は無条件さようなら
 //                    sayonara();
 //                }

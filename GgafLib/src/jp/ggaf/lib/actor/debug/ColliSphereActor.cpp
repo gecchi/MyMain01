@@ -7,8 +7,6 @@
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliSphere.h"
 
-
-
 using namespace GgafLib;
 
 ColliSphereActor* ColliSphereActor::_pObj = nullptr;
@@ -16,6 +14,9 @@ ColliSphereActor* ColliSphereActor::_pObj = nullptr;
 ColliSphereActor::ColliSphereActor(const char* prm_name) : GgafDx::SphereActor(prm_name) {
     _class_name = "ColliSphereActor";
     setAlpha(0.8);
+    useZBufferDrawing(true);    //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
+    setCullingDraw(false);
 }
 
 ColliSphereActor* ColliSphereActor::get() {

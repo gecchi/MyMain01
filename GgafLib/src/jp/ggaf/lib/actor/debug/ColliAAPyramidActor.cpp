@@ -7,8 +7,6 @@
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
 
-
-
 using namespace GgafLib;
 
 ColliAAPyramidActor* ColliAAPyramidActor::_pObj = nullptr;
@@ -16,6 +14,9 @@ ColliAAPyramidActor* ColliAAPyramidActor::_pObj = nullptr;
 ColliAAPyramidActor::ColliAAPyramidActor(const char* prm_name) : GgafDx::AAPyramidActor(prm_name) {
     _class_name = "ColliAAPyramidActor";
     setAlpha(0.8);
+    useZBufferDrawing(true);    //描画時、Zバッファ値は考慮される
+    setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
+    setCullingDraw(false);
 }
 
 ColliAAPyramidActor* ColliAAPyramidActor::get() {

@@ -23,7 +23,7 @@ using namespace VioletVreath;
 
 GgafDx::Model* MyBunshinStraightLaserChip001::pModel_  = nullptr;
 int MyBunshinStraightLaserChip001::tex_no_ = 0;
-const velo MyBunshinStraightLaserChip001::MAX_VELO = PX_C(512);
+const velo MyBunshinStraightLaserChip001::MAX_VELO = PX_C(1024);
 
 MyBunshinStraightLaserChip001::MyBunshinStraightLaserChip001(const char* prm_name) :
         VvMyActor<StraightLaserChip>(prm_name, "MyLaserChip001", StatusReset(MyBunshinStraightLaserChip001)) {
@@ -119,7 +119,7 @@ void MyBunshinStraightLaserChip001::processJudgement() {
 void MyBunshinStraightLaserChip001::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)(prm_pOppHitChecker->_pActor);
     //ヒットエフェクト
-    GgafDx::FigureActor* pE = UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind, true); //爆発エフェクト出現
+    GgafDx::FigureActor* pE = UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind); //爆発エフェクト出現
 
     if ((prm_pOppHitChecker->_kind & KIND_ENEMY_BODY) ) {
         //ロックオン可能アクターならロックオン
