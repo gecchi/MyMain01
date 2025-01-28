@@ -309,9 +309,14 @@ public:
             _cull_mode = D3DCULL_NONE;
         }
     }
-
-    inline void setCullingMode(DWORD prm__cull_mode) {
-        _cull_mode_default = prm__cull_mode;
+    /**
+     * カリング描画時価リングモード。
+     * @param prm__cull_mode D3DCULL_CCW 反時計回りを裏面とする(デフォルト)
+     *                       D3DCULL_CW 時計回りを裏面とする
+     *                       D3DCULL_NONE カリングなし
+     */
+    inline void setCullingMode(DWORD prm_cull_mode) {
+        _cull_mode_default = prm_cull_mode;
         _cull_mode = _cull_mode_default;
     }
 

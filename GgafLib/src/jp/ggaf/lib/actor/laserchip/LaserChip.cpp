@@ -271,7 +271,21 @@ void LaserChip::processSettlementBehavior() {
                 {
                     //前方チップとくっつきすぎた場合に、判定領域を一時的に無効化
                     if (_chip_kind != 1) { //近くても末端だけは当たり判定あり
-                        setHitAble(false);
+                        //判定領域を一時的に無効化（ただし２個に１個無効化）
+                        if (pChip_infront->_can_hit_flg) {
+                            setHitAble(false);
+                        } else {
+                            coord cX = dX * r0;
+                            coord cY = dY * r0;
+                            coord cZ = dZ * r0;
+                            pChecker->changeCollisionArea(0);  // [0] -□----------
+                            pChecker->moveColliAABoxPos(0, cX, cY, cZ);
+                            if (pExChecker) {
+                                pExChecker->changeCollisionArea(0);
+                                pExChecker->moveColliAABoxPos(0, cX, cY, cZ);
+                            }
+                            _rate_of_length = 4.0f;
+                        }
                     } else {
                         coord cX = dX * r0;
                         coord cY = dY * r0;

@@ -14,7 +14,7 @@ ColliAABoxActor* ColliAABoxActor::_pObj = nullptr;
 ColliAABoxActor::ColliAABoxActor(const char* prm_name) : GgafDx::AABActor(prm_name) {
     _class_name = "ColliAABoxActor";
     setAlpha(0.8);
-    useZBufferDrawing(true);    //描画時、Zバッファ値は考慮される
+    useZBufferDrawing(false);      //描画時、Zバッファ値は考慮しない
     setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
 }

@@ -14,7 +14,7 @@ ColliAABoardRectActor* ColliAABoardRectActor::_pObj = nullptr;
 ColliAABoardRectActor::ColliAABoardRectActor(const char* prm_name) : GgafDx::AABoardRectActor(prm_name) {
     _class_name = "ColliAABoardRectActor";
     setAlpha(0.8);
-    useZBufferDrawing(true);    //描画時、Zバッファ値は考慮される
+    useZBufferDrawing(false);      //描画時、Zバッファ値は考慮しない
     setZBufferWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
 }
