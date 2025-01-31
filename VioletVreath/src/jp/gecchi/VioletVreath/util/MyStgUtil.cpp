@@ -74,14 +74,14 @@ void MyStgUtil::init() {
 }
 
 GgafDx::FigureActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord prm_z,
-                                                  angle prm_rz, angle prm_ry,
-                                                  GgafCore::ActorDepository* prm_pDepo_shot,
-                                                  coord prm_r,
-                                                  int prm_way_num,
-                                                  angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
-                                                  velo prm_velo_first, acce prm_acce,
-                                                  int prm_draw_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                  void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int)) {
+                                                 angle prm_rz, angle prm_ry,
+                                                 GgafCore::ActorDepository* prm_pDepo_shot,
+                                                 coord prm_r,
+                                                 int prm_way_num,
+                                                 angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
+                                                 velo prm_velo_first, acce prm_acce,
+                                                 int prm_draw_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                 void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int)) {
     if (prm_way_num <= 0 || prm_draw_set_num <= 0) {  return nullptr;  }
     GgafDx::GeoElem* paGeo = NEW GgafDx::GeoElem[prm_way_num];
     angle expanse_rz = (D180ANG - prm_first_expanse_angle)/2;
@@ -357,13 +357,10 @@ void MyStgUtil::adjustHitCoord(GgafDx::GeometricActor* prm_pTargetAtor, coord& o
     out_z = prm_pTargetAtor->_z;
     if (prm_pTargetAtor->instanceOf(Obj_LaserChip)) {
         //ヒットパートレベルに爆発位置を補正
-        GgafCore::Checker* pChecker = prm_pTargetAtor->getChecker();
-        if (pChecker->_pNextExChecker) {
-            pChecker = pChecker->_pNextExChecker;
-        }
-        GgafDx::CollisionArea* pCollisionArea = ((GgafDx::CollisionChecker*)pChecker)->_pCollisionArea;
-        if (pCollisionArea) {
-            GgafDx::CollisionPart* pHitPart = pCollisionArea->getHitPart();
+        const GgafCore::Checker* pHitChecker = prm_pTargetAtor->_pHitChecker;
+        GgafDx::CollisionArea* pHitCollisionArea = ((GgafDx::CollisionChecker*)pHitChecker)->_pCollisionArea;
+        if (pHitCollisionArea) {
+            GgafDx::CollisionPart* pHitPart = pHitCollisionArea->getHitPart();
             out_x += pHitPart->_cx;
             out_y += pHitPart->_cy;
             out_z += pHitPart->_cz;

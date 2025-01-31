@@ -14,8 +14,10 @@ MousePointerActor::MousePointerActor(const char* prm_name, const char* prm_model
       : DefaultBoardActor(prm_name, prm_model) {
     DefaultSpacetime* pSpacetime = pCARETAKER->getSpacetime();
     _last_hWnd = pCARETAKER->_pHWndPrimary;
+    _point_hWnd = nullptr;
     _pHitActor = nullptr;
     _is_select_able = false;
+    _is_game_window = false;
 }
 
 void MousePointerActor::processSettlementBehavior() {
@@ -24,10 +26,12 @@ void MousePointerActor::processSettlementBehavior() {
     //マウスの座標を取得
     GetCursorPos(&_mouse_point);
     // カーソル位置からウィンドウハンドル取得
-    HWND hWnd = WindowFromPoint(_mouse_point);
+    _point_hWnd = WindowFromPoint(_mouse_point);
+    _is_game_window = false;
     for (int wno = 0; wno < pCaretaker->_num_window; wno++) {
-        if (hWnd == pCaretaker->_paHWnd[wno]) {
-            _last_hWnd = hWnd;
+        if (_point_hWnd == pCaretaker->_paHWnd[wno]) {
+            _last_hWnd = _point_hWnd;
+            _is_game_window = true;
             break;
         }
     }
@@ -76,12 +80,22 @@ void MousePointerActor::onHit(const GgafCore::Checker* prm_pThisHitChecker, cons
     _pHitActor = prm_pOppHitChecker->_pActor;
 }
 bool MousePointerActor::isReleasedUpButton(int prm_button_no) {
-    bool button = GgafDx::Input::isReleasedUpMouseButton(prm_button_no);
-    return button;
+    if (_is_game_window) {
+        bool button = GgafDx::Input::isReleasedUpMouseButton(prm_button_no);
+        return button;
+    } else {
+        return false;
+    }
+
 }
 bool MousePointerActor::isPushedDownButton(int prm_button_no) {
-    bool button = GgafDx::Input::isPushedDownMouseButton(prm_button_no);
-    return button;
+    if (_is_game_window) {
+        bool button = GgafDx::Input::isPushedDownMouseButton(prm_button_no);
+        return button;
+    } else {
+        return false;
+    }
+
 }
 
 GgafCore::Actor* MousePointerActor::getSelectedActor() {

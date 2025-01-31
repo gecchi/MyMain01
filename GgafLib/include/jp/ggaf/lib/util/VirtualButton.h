@@ -505,8 +505,6 @@ public:
     static std::map<vbk, std::string> _mapVBK2Str;
     static std::map<vbj, std::string> _mapVBJ2Str;
 
-
-
     typedef bool (*funcVJBtn)(int);
     static std::map<vbj_base, funcVJBtn> _mapVbjBase2PressedFunc;
     static std::map<vbj_base, funcVJBtn> _mapVbjBase2PushedDownFunc;

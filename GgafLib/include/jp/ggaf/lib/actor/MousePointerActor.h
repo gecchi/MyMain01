@@ -34,8 +34,9 @@ protected:
 //    coord _coord_primary_buffer_source_top;
 //    coord _coord_secondary_buffer_source_left;
 //    coord _coord_secondary_buffer_source_top;
-
+    HWND _point_hWnd;
     HWND _last_hWnd;
+    bool _is_game_window;
 //    GgafCore::Actor* _pSelectActor_prev;
     GgafCore::Actor* _pHitActor;
     bool _is_select_able;

@@ -94,6 +94,8 @@ bool WorldCollisionChecker3D::isHit(const GgafDx::CollisionChecker* const prm_pO
     GgafDx::CollisionArea* const pOppActiveCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
     const GgafDx::GeometricActor* const pActor = _pColliActor;                //相手のアクター
     const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pColliActor;                //相手のアクター
+    _pColliActor->_pHitChecker = this;
+    prm_pOppChecker->_pColliActor->_pHitChecker = prm_pOppChecker;
     const int colli_part_num = pActiveCollisionArea->_colli_part_num;
     const int opp_colli_part_num = pOppActiveCollisionArea->_colli_part_num; //相手の当たり判定要素数
     const coord pActor_x = pActor->_x;

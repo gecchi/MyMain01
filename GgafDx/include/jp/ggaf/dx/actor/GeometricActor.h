@@ -153,6 +153,8 @@ public:
 
     /** [r]効果音発生管理オブジェクト */
     SeTransmitterForActor* _pSeTransmitter;
+
+    const CollisionChecker* _pHitChecker;
 public:
     /**
      * コンストラクタ .
