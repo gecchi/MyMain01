@@ -48,7 +48,7 @@ _rx_local(_rx), _ry_local(_ry), _rz_local(_rz),
 _x_final(_x), _y_final(_y), _z_final(_z),
 _rx_final(_rx), _ry_final(_ry), _rz_final(_rz),
 _is_local(false),
-_pFormation(nullptr)
+_pFormation(nullptr),
 _pHitChecker(nullptr)
 {
     _obj_class |= Obj_GgafDx_GeometricActor;
