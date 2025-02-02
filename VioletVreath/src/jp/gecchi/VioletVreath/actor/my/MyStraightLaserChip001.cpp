@@ -39,20 +39,7 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
 void MyStraightLaserChip001::initialize() {
     pOrg_ = pMYSHIP;
     getLocusVehicle()->setRzRyMvAng(0,0);
-
     coord hit_check_width = MAX_VELO*N_DISPATCH_AT_ONCE;
-
-//    WorldCollisionChecker* pChecker = getWorldCollisionChecker();
-//    pChecker->addCollisionArea(1);
-//    pChecker->setColliAABox_WHD(0, hit_check_width/2, 0, 0,
-//                                   hit_check_width, MAX_VELO/4, MAX_VELO/4);
-//    // 拡張
-//    WorldCollisionChecker* pExChecker = (WorldCollisionChecker*)pChecker->addExChecker(KIND_CHECK_CHIKEI_HIT);
-//    pExChecker->addCollisionArea(1);
-//    //自機 pChecker->setColliAACube(0, PX_C(40));
-//    pExChecker->setColliAABox_WHD(0, hit_check_width/2, 0, 0,
-//                                     hit_check_width, PX_C(40), PX_C(40));
-
     registerHitAreaCube_AutoGenMidColli(MAX_VELO/4, PX_C(40)); //PX_C(40) は自機と同じ大きさ
     WorldCollisionChecker* pChecker = getWorldCollisionChecker();
     WorldCollisionChecker* pExChecker = (WorldCollisionChecker*)pChecker->_pNextExChecker;
@@ -112,6 +99,10 @@ void MyStraightLaserChip001::onHit(const GgafCore::Checker* prm_pThisHitChecker,
     //ヒットエフェクト
     UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind); //爆発エフェクト出現
 
+    if ((prm_pThisHitChecker->_kind & KIND_CHECK_CHIKEI_HIT) && (prm_pOppHitChecker->_kind & KIND_CHIKEI)) {
+        //地形と自機と同じ大きでの当たり判定用チェッカーの衝突は無条件さようなら。
+        sayonara();
+    }
     if ((prm_pOppHitChecker->_kind & KIND_ENEMY_BODY) ) {
         //ロックオン可能アクターならロックオンを試みる
         if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
@@ -126,10 +117,7 @@ void MyStraightLaserChip001::onHit(const GgafCore::Checker* prm_pThisHitChecker,
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             getStatus()->set(STAT_Stamina, default_stamina_);
         }
-    } else if ((prm_pThisHitChecker->_kind & KIND_CHECK_CHIKEI_HIT) && (prm_pOppHitChecker->_kind & KIND_CHIKEI)) {
-        //地形と自機と同じ大きでの当たり判定用チェッカーの衝突は無条件さようなら。
-        sayonara();
-    }
+    } 
 }
 
 void MyStraightLaserChip001::onInactive() {

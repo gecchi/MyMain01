@@ -52,27 +52,9 @@ void MyShot001::processJudgement() {
 
 void MyShot001::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)(prm_pOppHitChecker->_pActor);
-    if (prm_pOppHitChecker->_kind & KIND_CHIKEI) {
-        //ヒット相手が地形ならば自機の大きさで判定し、ヒットしなければ消失しない TODO: これではだめ
-        MyShip* pMyShip = pMYSHIP;
-        WorldCollisionChecker* pMyShipChecker = pMyShip->getWorldCollisionChecker();
-        coord x = pMyShip->_x;
-        coord y = pMyShip->_y;
-        coord z = pMyShip->_z;
-        pMyShip->setPositionAt(this); //座標だけすげかえる
-        WorldCollisionChecker* pOtherChecker = (WorldCollisionChecker*)pOther->getChecker();
-        bool r = pOtherChecker->isHit(pMyShipChecker);
-        pMyShip->_x = x;
-        pMyShip->_y = y;
-        pMyShip->_z = z;
-        if (!r) {
-            //自機の大きさで判定し、ヒットしないので無問題
-            return;
-        }
-    }
     setHitAble(false);
     UTIL::activateCommonEffectOf(this, STAT_ExplosionEffectKind);
-    sayonara(); //必ず貫通しない
+    sayonara();
 }
 
 
