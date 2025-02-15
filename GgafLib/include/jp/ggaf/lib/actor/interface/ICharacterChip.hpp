@@ -328,11 +328,10 @@ void ICharacterChip<T, N, L>::prepare1(const char* prm_str) {
     const pixcoord chr_base_width_px = _chr_base_width_px;
     while (true) {
         c = (int)(*p_prm_str);
-#ifdef MY_DEBUG
         if (0 > c || c > (N-1)) {
-            throwCriticalException("ICharacterChip::prepare1() 範囲外の扱えない文字種がありました prm_str=["<<prm_str<<"] の中の値:"<<c<<"。 0～"<<(N-1)<<"の範囲にして下さい。this="<<this);
+            _TRACE_("【警告】ICharacterChip::prepare1() 範囲外の扱えない文字種がありました prm_str=["<<prm_str<<"] の中の値:"<<c<<"。 0～"<<(N-1)<<"の範囲にして下さい。this="<<this);
+            c = N-1;
         }
-#endif
         if (c != (*p_draw_string)) {
             is_different = true;
             *p_draw_string = c; //保存
@@ -416,27 +415,27 @@ void ICharacterChip<T, N, L>::prepare1_append(const int prm_append_chr) {
     onUpdate(); //コールバック
     _draw_string = _buf;
     const pixcoord chr_base_width_px = _chr_base_width_px;
-#ifdef MY_DEBUG
-    if (0 > prm_append_chr || prm_append_chr > (N-1)) {
-        throwCriticalException("ICharacterChip::prepare1_append() 範囲外の扱えない文字種がありました prm_append_chr="<<prm_append_chr<<"。 0～"<<(N-1)<<"の範囲にして下さい。this="<<this);
+    int c = prm_append_chr;
+    if (0 > c || c > (N-1)) {
+        _TRACE_("【警告】ICharacterChip::prepare1_append() 範囲外の扱えない文字種がありました prm_append_chr="<<prm_append_chr<<"。 0～"<<(N-1)<<"の範囲にして下さい。this="<<this);
+        c = N-1;
     }
-#endif
-    _draw_string[_len-1 + 1] = prm_append_chr; //保存
+    _draw_string[_len-1 + 1] = c; //保存
     _draw_string[_len-1 + 1+1] = '\0';//保存
     _len += 1;
     if (_nn > 0) {
         _nn--;//行は未確定状態になるので、 -1 する。
     }
-    if (prm_append_chr == _chr_newline) {
+    if (c == _chr_newline) {
         _nn++; //行数カウント
     } else {
-        _px_row_width[_nn] += (_is_fixed_width ? chr_base_width_px : _px_chr_width[prm_append_chr]); //行の幅(px)を加算
+        _px_row_width[_nn] += (_is_fixed_width ? chr_base_width_px : _px_chr_width[c]); //行の幅(px)を加算
         if (_nn == 0 || _px_total_width < _px_row_width[_nn]) {
             _px_total_width = _px_row_width[_nn];
         }
         _nn++; //１文字追加は行数１としてカウント。
     }
-    if (prm_append_chr != _chr_blank) { //ブランク
+    if (c != _chr_blank) { //ブランク
         _draw_chr_num++; //描画文字数カウント
     }
     _px_total_height = _chr_base_height_px*_nn;
@@ -482,11 +481,10 @@ void ICharacterChip<T, N, L>::prepare1_append(const char* prm_append_str) {
     const pixcoord chr_base_width_px = _chr_base_width_px;
     while (true) {
         c = (int)(*p_prm_append_str);
-#ifdef MY_DEBUG
         if (0 > c || c > (N-1)) {
-            throwCriticalException("ICharacterChip::prepare1_append() 範囲外の扱えない文字種がありました p_append_str=["<<p_prm_append_str<<"] の中の値:"<<c<<"。 0～"<<(N-1)<<"の範囲にして下さい。this="<<this);
+            _TRACE_("【警告】ICharacterChip::prepare1_append() 範囲外の扱えない文字種がありました p_append_str=["<<p_prm_append_str<<"] の中の値:"<<c<<"。 0～"<<(N-1)<<"の範囲にして下さい。this="<<this);
+            c = N-1;
         }
-#endif
         *p_draw_string = c; //保存
         if (c == _chr_newline) {
             if (_nn == 0 || max_width_line_px < *p_width_line_px) {

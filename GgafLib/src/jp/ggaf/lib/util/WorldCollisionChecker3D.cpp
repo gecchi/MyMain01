@@ -131,11 +131,11 @@ bool WorldCollisionChecker3D::isHit(const GgafDx::CollisionChecker* const prm_pO
 CNT:
 
     for (int i = 0; i < colli_part_num; i++) {
+        pActiveCollisionArea->_hit_colli_part_index = i;
         const GgafDx::CollisionPart* const pColliPart = pActiveCollisionArea->_papColliPart[i];
         const int shape_kind = pColliPart->_shape_kind;
-        pActiveCollisionArea->_hit_colli_part_index = i;
-        if (shape_kind == COLLI_AABOX) {
 
+        if (shape_kind == COLLI_AABOX) {
             for (int j = 0; j < opp_colli_part_num; j++) {
                 pOppActiveCollisionArea->_hit_colli_part_index = j;
                 const GgafDx::CollisionPart* const pOppColliPart = pOppActiveCollisionArea->_papColliPart[j];
@@ -256,6 +256,19 @@ CNT:
                     //＜AAPrism と AAPrism＞
                     //TODO:未対応。 考えるだけで重たくなりそう、というかめんどくさそうな感じがする；。
                     //時間があれば考えよう・・・
+
+                    //座標変換する。
+                    // 0,0 に直角を持ってくる。
+                    //ここで、斜辺がねじれていない場合は、三角形同士の当たり判定
+                    //斜辺がねじれている場合
+                    // 1. Z軸側が頭が大きい場合
+                    //     0,0 に直角を持ってくる座標変換のときに底面側を (0,0,0)とする
+                    //     z=0でスライスした他方のプリズムの長方形４の頂点を求める
+                    //     三角形と長方形の当たり判定でOK
+                    //2. -Z軸側が頭が大きい場合
+                    //     0,0 に直角を持ってくる座標変換のときに上面側を (0,0,0)とする
+                    //     z=0でスライスした他方のプリズムの長方形４の頂点を求める
+                    //     三角形と長方形の当たり判定でOK
                     _TRACE_("【警告】AAPrism と AAPrism の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
                             pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
