@@ -35,7 +35,10 @@
 #include "actor/Font01.h"
 #include "actor/VvvMousePointer.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
-
+// 'max' マクロの定義を無効にします
+#ifdef max
+  #undef max
+#endif
 using namespace GgafLib;
 using namespace VVViewer;
 using namespace std;
@@ -843,7 +846,14 @@ void VvvWorld::processDragAndDrop() {
             int nFrameTransformMatrix = 0;
             std::string data;
             while (isSkinWeights == false && !ifs.eof()) {
+                AGAIN:
                 ifs >> data;
+                if (data == "template") {
+                    // 条件が満たされる場合、行末まで空読みします
+                    ifs.clear(); // unset failbit
+                    ifs.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // skip bad input
+                    goto AGAIN;
+                }
                 if (data == "SkinWeights") {
                     isSkinWeights = true;
                 }
