@@ -140,21 +140,21 @@ public:
      * }
      * </code>
      * @param prm_technique テクニック名
-     * @param prm_frame 変更テクニックの継続フレーム数
+     * @param prm_frame 変更テクニックの継続フレーム数(0 で ずっと継続）
      */
-    virtual void changeEffectTechniqueMoment(const char* prm_technique, frame prm_frame);
+    virtual void changeEffectTechniqueMoment(const char* prm_technique, frame prm_frame = 0);
 
     /**
      * ピカっと光る。
      * @param prm_frame 光る時間
      */
-    virtual void effectFlush(frame prm_frame = MAX_FRAME);
+    virtual void effectFlush(frame prm_frame = 1);
 
     /**
      * 加算合成エフェクト .
      * @param prm_frame
      */
-    virtual void effectBlendOne(frame prm_frame = MAX_FRAME);
+    virtual void effectBlendOne(frame prm_frame = 0);
 
     /**
      * 標準エフェクトに戻す .

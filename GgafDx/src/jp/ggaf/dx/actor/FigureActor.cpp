@@ -145,7 +145,7 @@ void FigureActor::processPreDraw() {
 
     //一時テクニック期間チェック
     if (_is_temp_technique) {
-        if (_frame_of_behaving_temp_technique_end <= _frame_of_behaving) {
+        if (_frame_of_behaving_temp_technique_end != 0 && _frame_of_behaving_temp_technique_end <= _frame_of_behaving) {
             //一時テクニック期間満了。元に戻す
             _hash_technique = _hash_temp_technique;
             strcpy(_technique, _temp_technique);
@@ -275,8 +275,8 @@ void FigureActor::changeEffectTechniqueMoment(const char* prm_technique, frame p
         _hash_temp_technique = _hash_technique;
         strcpy(_temp_technique, _technique);
         //テクニック変更
-        if (prm_frame == MAX_FRAME) {
-            _frame_of_behaving_temp_technique_end = MAX_FRAME;
+        if (prm_frame == 0) {
+            _frame_of_behaving_temp_technique_end = 0;
         } else {
             _frame_of_behaving_temp_technique_end = _frame_of_behaving + prm_frame; //変更満期フレーム
         }

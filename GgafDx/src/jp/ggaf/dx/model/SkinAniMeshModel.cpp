@@ -78,12 +78,6 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
         checkDxException(hr, D3D_OK, "SetFloat(_h_fog_starts_far_rate) に失敗しました。");
     }
 
-    //マテリアル・テクスチャの一発目をセット、
-    LPDIRECT3DBASETEXTURE9 pTex = _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9;
-    hr = pDevice->SetTexture(0, pTex);
-    checkDxException(hr, D3D_OK, "SetTexture に失敗しました。");
-    hr = pID3DXEffect->SetValue(pSkinAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
-    checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) に失敗しました。");
     Puppeteer* pActorPuppeteer = pTargetActor->_pPuppeteer;
     pActorPuppeteer->updateAnimationTrack(); //アニメーション反映
     //モデルのワールド変換行列更新
@@ -105,6 +99,17 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
         }
 
         const INDEXPARAM& idxparam = _paIndexParam[i];
+
+        UINT material_no = idxparam.MaterialNo;
+        if (_papTextureConnection[material_no]) {
+            pDevice->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
+        } else {
+            _TRACE_("MeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(CONFIG::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
+            //無ければテクスチャ無し
+            pDevice->SetTexture(0, nullptr);
+        }
+        hr = pID3DXEffect->SetValue(pSkinAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+        checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) に失敗しました。");
 
         Effect* pEffect_active = EffectManager::_pEffect_active;
         if ((FigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
@@ -178,6 +183,7 @@ void SkinAniMeshModel::restore() {
             byte  infl_bone_id[4];      //ボーンID
         };
         struct BoneConbi {
+            UINT material_no;
             DWORD vertex_start;
             DWORD vertex_count;
         };
@@ -369,7 +375,9 @@ void SkinAniMeshModel::restore() {
                 BoneConbi bc_info;
                 bc_info.vertex_start = pBoneCombination->VertexStart + vtx_idx_frame_start; //vtx_idx_frame_start は複数フレームにメッシュがあった場合のオフセット
                 bc_info.vertex_count = pBoneCombination->VertexCount;
+                bc_info.material_no = pBoneCombination->AttribId; //AttribIdがなんとマテリアルインデックス！
                 vec_bone_combi_info.push_back(bc_info);
+//                //DEBUG
 //                _TRACE_("paBoneCombination["<<bc_idx<<"] = "<<
 //                        " AttribId="<<pBoneCombination->AttribId<<
 //                        " FaceStart="<<pBoneCombination->FaceStart<<
@@ -467,8 +475,7 @@ void SkinAniMeshModel::restore() {
                }
             }
 
-
-            //DEBUG
+//            //DEBUG
 //            for (DWORD frame_idx = 0; frame_idx < _vecAllBoneFrame.size(); frame_idx++) {
 //                _TRACE_("_vecAllBoneFrame["<<frame_idx<<"] Name=\""<<_vecAllBoneFrame[frame_idx]->Name<<"\" "<<
 //                                                          "_bone_id="<<_vecAllBoneFrame[frame_idx]->_bone_id<<" "<<
@@ -485,6 +492,7 @@ void SkinAniMeshModel::restore() {
 //                }
 //            }
 
+            //描画最適化のためボーンコンビネーション情報を結合し、独自のボーンコンビネーションの「グループ」を追記
             std::vector<DWORD> vec_infl_bone_id_order; //ユニークなvec_cb_idx_orderが挿入されていく
             std::vector<DWORD> vec_cb_idx_order;       //vec_infl_bone_id_order が挿入された時の
             int grp_cb_vertex_start = 0;
@@ -492,7 +500,8 @@ void SkinAniMeshModel::restore() {
             bool is_break = false;
             int cb_vertex_start;
             int cb_vertex_count;
-            //ボーンコンビネーション情報を結合し、ボーンコンビネーショングループを追記
+            UINT cb_material_no;
+            UINT cb_material_prev;
 //_TRACE_("ボーンコンビネーションでループ  vec_bone_combi_info.size()="<< vec_bone_combi_info.size()<<"!!!!!!!!!!!!!!!!!!!!!");
             int bone_cb_idx;
             for (bone_cb_idx = 0; bone_cb_idx < vec_bone_combi_info.size(); bone_cb_idx ++) {
@@ -500,7 +509,9 @@ void SkinAniMeshModel::restore() {
                 BoneConbi* bone_cb = &(vec_bone_combi_info[bone_cb_idx]);
                 cb_vertex_start = bone_cb->vertex_start;
                 cb_vertex_count = bone_cb->vertex_count;
+                cb_material_no = bone_cb->material_no;
 
+//_TRACE_("ボーンコンビネーションでループ bone_cb_idx="<<bone_cb_idx<<" cb_material_no ="<<cb_material_no);
                 //初回、またはブレイク処理後の最初のループの設定
                 if (bone_cb_idx == 0 || is_break == true) {
 //_TRACE_("bone_cb_idx="<<bone_cb_idx<<" 初回、またはブレイク処理後の最初のループの設定実行 bone_cb_idx="<<bone_cb_idx<<" 初回設定！！！");
@@ -508,49 +519,55 @@ void SkinAniMeshModel::restore() {
                     vec_cb_idx_order.clear();
                     grp_cb_vertex_start = cb_vertex_start;
                     grp_cb_vertex_count = 0;
+                    cb_material_prev = cb_material_no;
                     is_break = false;
                 }
+                if (cb_material_prev != cb_material_no) {
+                    //マテリアルが変更されてもブレイク！
+                    is_break = true;
+                } else {
+                    //ボーンコンビネーションの頂点バッファでループ
+                    for (int v_idx = cb_vertex_start; v_idx < cb_vertex_start+cb_vertex_count; v_idx++) {
 
-                //ボーンコンビネーションの頂点バッファでループ
-                for (int v_idx = cb_vertex_start; v_idx < cb_vertex_start+cb_vertex_count; v_idx++) {
-                    SkinAniMeshModel::VERTEX* pVtx_data = &(_paVtxBuffer_data[v_idx]);
-                    VERTEX_EX* pVtx_data_ex = &(paVtx_wk[v_idx]);
-                    for (int i = 0; i < 4; i++) {
-                        byte infl_bone_id = pVtx_data_ex->infl_bone_id[i];
-                        if (infl_bone_id == 0xFF) {
-                            break;
-                        } else {
-                            //vec_infl_bone_id_order に infl_bone_id が未登録なら登録
-                            std::vector<DWORD>::iterator p = std::find(
-                                    vec_infl_bone_id_order.begin(),
-                                    vec_infl_bone_id_order.end(),
-                                    infl_bone_id);
-                            if (p == vec_infl_bone_id_order.end()) {
-                                //存在しない＝初めての infl_bone_id
-                                if (vec_infl_bone_id_order.size() >= _draw_combined_matrix_set_num) {
-                                    //_draw_combined_matrix_set_num を超過したら、
-                                    //その ボーンコンビネーションまでを一度に描画処理するのは無理があるので
-                                    //ひとつ前のボーンコンビネーションまでを一括描画対象とする。
-//                                    _TRACE_("bone_cb_idx="<<bone_cb_idx<<"  is_break!!!!!!!!!!!! ");
-                                    is_break = true;
-                                    break;
-                                } else {
-//                                    _TRACE_("bone_cb_idx="<<bone_cb_idx<<" : vec_cb_idx_order.push_back("<<(int)bone_cb_idx<<");  vec_infl_bone_id_order.push_back("<<(int)infl_bone_id<<");");
-                                    vec_cb_idx_order.push_back(bone_cb_idx);
-                                    vec_infl_bone_id_order.push_back(infl_bone_id);
-                                }
+                        SkinAniMeshModel::VERTEX* pVtx_data = &(_paVtxBuffer_data[v_idx]);
+                        VERTEX_EX* pVtx_data_ex = &(paVtx_wk[v_idx]);
+                        for (int i = 0; i < 4; i++) {
+                            byte infl_bone_id = pVtx_data_ex->infl_bone_id[i];
+                            if (infl_bone_id == 0xFF) {
+                                break;
                             } else {
-                                //_TRACE_("bone_cb_idx="<<bone_cb_idx<<"  infl_bone_id="<<(int)infl_bone_id<<" は vec_infl_bone_id_order にすでに存在してます");
-                                //存在する＝既知の infl_bone_id は、するーする
-                            }
+                                //vec_infl_bone_id_order に infl_bone_id が未登録なら登録
+                                std::vector<DWORD>::iterator p = std::find(
+                                        vec_infl_bone_id_order.begin(),
+                                        vec_infl_bone_id_order.end(),
+                                        infl_bone_id);
+                                if (p == vec_infl_bone_id_order.end()) {
+                                    //存在しない＝初めての infl_bone_id
+                                    if (vec_infl_bone_id_order.size() >= _draw_combined_matrix_set_num) {
+                                        //_draw_combined_matrix_set_num を超過したら、
+                                        //その ボーンコンビネーションまでを一度に描画処理するのは無理があるので
+                                        //ひとつ前のボーンコンビネーションまでを一括描画対象とする。
+//                                    _TRACE_("bone_cb_idx="<<bone_cb_idx<<"  is_break!!!!!!!!!!!! ");
+                                        is_break = true;
+                                        break;
+                                    } else {
+//                                  _TRACE_("bone_cb_idx="<<bone_cb_idx<<" : vec_cb_idx_order.push_back("<<(int)bone_cb_idx<<");  vec_infl_bone_id_order.push_back("<<(int)infl_bone_id<<");");
+                                        vec_cb_idx_order.push_back(bone_cb_idx);
+                                        vec_infl_bone_id_order.push_back(infl_bone_id);
+                                    }
+                                } else {
+                                    //_TRACE_("bone_cb_idx="<<bone_cb_idx<<"  infl_bone_id="<<(int)infl_bone_id<<" は vec_infl_bone_id_order にすでに存在してます");
+                                    //存在する＝既知の infl_bone_id は、するーする
+                                }
 
-                        }
-                    } //for (int i = 0; i < 4; i++)
-                    if (is_break) {
+                            }
+                        } //for (int i = 0; i < 4; i++)
+                        if (is_break) {
 //                        _TRACE_("bone_cb_idx="<<bone_cb_idx<<" is_break でブレイク");
-                        break;
-                    }
-                } //ボーンコンビネーションの頂点バッファでループ
+                            break;
+                        }
+                    } //ボーンコンビネーションの頂点バッファでループ
+                }
                 if (!is_break) {
                    grp_cb_vertex_count += cb_vertex_count;
                 }
@@ -559,11 +576,9 @@ void SkinAniMeshModel::restore() {
                     //戻した bone_cb_idx までのボーンコンビネーション達が一まとまり
 //                    _TRACE_("bone_cb_idx="<<bone_cb_idx<<" ブレイク処理、ボーンコンビネーショングループに情報設定");
                     BoneConbiGrp bone_combi_grp_info;  //戻した bone_cb_idx までのボーンコンビネーション達の情報
-                    bone_combi_grp_info.bone_combi_start_index = vec_cb_idx_order[0];
-                    bone_combi_grp_info.bone_combi_count = (bone_cb_idx-1) - (vec_cb_idx_order[0]) + 1;
                     bone_combi_grp_info.grp_vertex_start = grp_cb_vertex_start;
                     bone_combi_grp_info.grp_vertex_count = grp_cb_vertex_count;
-
+                    bone_combi_grp_info.material_no = cb_material_prev; //prev!
 //                    _TRACE_("bone_cb_idx="<<bone_cb_idx<<" vec_infl_bone_id_order.size()="<<vec_infl_bone_id_order.size());
 
                     for (int i = 0; i < vec_infl_bone_id_order.size(); i++) {
@@ -588,10 +603,9 @@ void SkinAniMeshModel::restore() {
             //最終ボーンコンビネーショングループに情報設定
             bone_cb_idx--;
             BoneConbiGrp bone_combi_grp_info;  //戻した bone_cb_idx までのボーンコンビネーション達の情報
-            bone_combi_grp_info.bone_combi_start_index = vec_cb_idx_order[0];
-            bone_combi_grp_info.bone_combi_count = (bone_cb_idx-1) - (vec_cb_idx_order[0]) + 1;
             bone_combi_grp_info.grp_vertex_start = grp_cb_vertex_start;
             bone_combi_grp_info.grp_vertex_count = grp_cb_vertex_count;
+            bone_combi_grp_info.material_no = cb_material_no;
             for (int i = 0; i < vec_infl_bone_id_order.size(); i++) {
                 bone_combi_grp_info.vec_infl_bone_id_order.push_back(vec_infl_bone_id_order[i]);
                 bone_combi_grp_info.vec_cb_idx_order.push_back(vec_cb_idx_order[i]);
@@ -704,12 +718,13 @@ void SkinAniMeshModel::restore() {
                 index_buffer_idx = _paIndex32Buffer_data[face_idx*3+0];
             }
             bone_combi_grp_index = (int)(paVtx_wk[index_buffer_idx].bone_combi_grp_index);
+
             if (bone_combi_grp_index != prev_bone_combi_grp_index) {
                 prev_face_idx_break = face_idx_break;
                 face_idx_break = face_idx;
 
                 param_tmp.push_back(SkinAniMeshModel::INDEXPARAM());
-                param_tmp[paramno].MaterialNo = 0;
+                param_tmp[paramno].MaterialNo = _vec_bone_combi_grp_info[bone_combi_grp_index].material_no;
                 param_tmp[paramno].BaseVertexIndex = 0;
                 param_tmp[paramno].MinIndex = UINT_MAX; //次回ブレイク時に設定、必ずブレイクしたいため変な値にしとく
                 param_tmp[paramno].NumVertices = UINT_MAX; //次回ブレイク時に設定
@@ -735,8 +750,6 @@ void SkinAniMeshModel::restore() {
                 vtx_idx2 = _paIndex32Buffer_data[face_idx*3 + 1];
                 vtx_idx3 = _paIndex32Buffer_data[face_idx*3 + 2];
             }
-
-
             if (max_num_vertices < vtx_idx1) {
                 max_num_vertices = vtx_idx1;
             }
@@ -774,7 +787,7 @@ void SkinAniMeshModel::restore() {
             _paIndexParam[i].PrimitiveCount  = param_tmp[i].PrimitiveCount;
         }
         _size_vertices = _size_vertex_unit * _nVertices;
-
+//        //DEBUG
 //        _TRACE_("まとめ！------------");
 //        for (int i = 0; i < _nVertices; i++) {
 //            SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[i]); //書き込む1頂点の開始アドレス
@@ -789,24 +802,24 @@ void SkinAniMeshModel::restore() {
 //
 //            );
 //        }
-//        _TRACE_("ボーンコンビグループ");
+        //DEBUG
+//        _TRACE_("ボーンコンビネーションのグループ");
 //        for (int i = 0; i < _vec_bone_combi_grp_info.size(); i++) {
 //            BoneConbiGrp& bcg = _vec_bone_combi_grp_info[i];
 //            _TRACE_("["<<i<<"]:"<<
-//                     " bone_combi_start_index="<<bcg.bone_combi_start_index<<" "<<
-//                     " bone_combi_count="<<bcg.bone_combi_count<<" "<<
-//                     " grp_vertex_start="<<bcg.grp_vertex_start<<" "<<
-//                     " grp_vertex_count="<<bcg.grp_vertex_count<<" "<<
+//                     " grp_vertex_start="<<bcg.grp_vertex_start<<", "<<
+//                     " grp_vertex_count="<<bcg.grp_vertex_count<<", "<<
+//                     " material_no="<<bcg.material_no<<" "<<
 //                     "");
 //            _TRACE_N_("infl_bone_id_order=");
 //            for (int j = 0; j < bcg.vec_infl_bone_id_order.size(); ++j) {
-//                _TRACE_N_("["<<j<<"]"<<bcg.vec_infl_bone_id_order[j]<<"\t");
+//                _TRACE_N_("["<<j<<"]"<<bcg.vec_infl_bone_id_order[j]<<", ");
 //            }
 //            _TRACE_N_("\n");
 //
 //            _TRACE_N_("vec_cb_idx_order  =");
 //            for (int j = 0; j < bcg.vec_cb_idx_order.size(); ++j) {
-//                _TRACE_N_("["<<j<<"]"<<bcg.vec_cb_idx_order[j]<<"\t");
+//                _TRACE_N_("["<<j<<"]"<<bcg.vec_cb_idx_order[j]<<", ");
 //            }
 //            _TRACE_N_("\n");
 //        }

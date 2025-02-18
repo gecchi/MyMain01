@@ -780,7 +780,7 @@ void VvvWorld::processDragAndDrop() {
         CONFIG::DIR_SPRITE[0]      = vvv_dir_sprite_system; //vvv_dir_mesh_system はシステムスキンディレクトリ
         CONFIG::DIR_SPRITE[1]      = dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKINXXX_MODELXXX_SPRITE + "/";
         CONFIG::DIR_SPRITE[2]      = dropfile_dir;
-        CONFIG::DIR_TEXTURE[0]      = dropfile_dir; //ここは dropfile_dir
+        CONFIG::DIR_TEXTURE[0]      = dropfile_dir; //ここは dropfile_dir vvv_dir_texture_system
         CONFIG::DIR_TEXTURE[1]      = dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
         CONFIG::DIR_TEXTURE[2]      = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
     } else {
@@ -798,7 +798,7 @@ void VvvWorld::processDragAndDrop() {
         CONFIG::DIR_SPRITE[1]      = was_dropfile_dir + CONFIG::DIRNAME_RESOURCE_SKINXXX_MODELXXX_SPRITE + "/";
         CONFIG::DIR_SPRITE[2]      = was_dropfile_dir;
 
-        CONFIG::DIR_TEXTURE[0]      = was_dropfile_dir;
+        CONFIG::DIR_TEXTURE[0]      = was_dropfile_dir;//ここは was_dropfile_dir vvv_dir_texture_system
         CONFIG::DIR_TEXTURE[1]      = was_dropfile_dir + "/../../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
         CONFIG::DIR_TEXTURE[2]      = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "/";
     }

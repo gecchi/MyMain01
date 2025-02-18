@@ -40,29 +40,29 @@ public:
 
     /**
      * 一括描画単位のボーンコンビネーショングループ .
+     * ボーンコンビネーションの頂点をまとめて描画効率を上げるために作成する
+     * マテリアルの切れ目、またはワールド変換の一括設定の上限（_draw_combined_matrix_set_num）で区切るグループ
      */
     class BoneConbiGrp {
     public:
-        /** グループの最初のボーンコンビネーションインデックス */
-        int bone_combi_start_index;
-        /** グループの bone_combi_start_index 空のボーンコンビネーションインデックス数 */
-        int bone_combi_count;
         /** グループの頂点バッファ開始インデックス */
         DWORD grp_vertex_start;
         /** グループの grp_vertex_start からの頂点バッファ数 */
         DWORD grp_vertex_count;
-
+        /** グループの マテリアルインデックス */
+        UINT material_no;
         std::vector<DWORD> vec_infl_bone_id_order; //ユニークなvec_cb_idx_orderが挿入されていく
         std::vector<DWORD> vec_cb_idx_order;       //vec_infl_bone_id_order が挿入された時の
 
         //bone_id から、bone_id_order を得るMAP
         std::map<DWORD, DWORD> map_infl_bone_id_to_order;
+
+
         /** 描画時の最終的な変換行列（通し時） */
         BoneConbiGrp() {
-            bone_combi_start_index = 0;
-            bone_combi_count = 0;
             grp_vertex_start = 0;
             grp_vertex_count = 0;
+            material_no = 0;
         }
     };
     std::vector<BoneConbiGrp> _vec_bone_combi_grp_info;

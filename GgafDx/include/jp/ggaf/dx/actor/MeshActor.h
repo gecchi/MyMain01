@@ -58,7 +58,7 @@ public:
 
     virtual void processDraw() override;
 
-    void effectBumpMapping(const char* prm_cubemap_tex, frame prm_frame = MAX_FRAME);
+    void effectBumpMapping(const char* prm_cubemap_tex, frame prm_frame = 0);
 
     /**
      * モデル資源(MeshModel)を切り替える（表示が切り替わります） .
