@@ -1,5 +1,6 @@
 #include "jp/ggaf/dx/util/Util.h"
 
+#include <fstream>
 #include "jp/ggaf/dx/exception/CriticalException.h"
 
 
@@ -842,6 +843,47 @@ void Util::getPlaneNomalVec(float p1x, float p1y, float p1z,
     out_nvy = plane.b;
     out_nvz = plane.c;
     out_d = plane.d;
+}
+
+int Util::getAnimTicksPerSecond(std::string& prm_xfile_name) {
+    if (prm_xfile_name == "") {
+         throwCriticalException("BoneAniMeshModel::getAnimTicksPerSecond() メッシュファイル(*.x)が見つかりません。");
+    }
+    //XファイルからAnimTicksPerSecondの値を独自に取り出す
+    std::ifstream ifs(prm_xfile_name.c_str());
+    if (ifs.fail()) {
+        throwCriticalException("["<<prm_xfile_name<<"] が開けません");
+    }
+    std::string buf;
+    bool isdone = false;
+    int anim_ticks_per_second = -1;
+    std::string data;
+    while (isdone == false && !ifs.eof()) {
+        ifs >> data;
+        if (data == "AnimTicksPerSecond" || data == "AnimTicksPerSecond{") {
+            while (isdone == false) {
+                ifs >> data;
+                if (data == "{") {
+                    continue;
+                } else if (data == "}") {
+                    isdone = true;
+                    break;
+                } else {
+                    anim_ticks_per_second = atoi(data.c_str()); //"60;" → 60を得る
+                    if (anim_ticks_per_second == 0) {
+                        //数値に変換できない場合は無効
+                        anim_ticks_per_second = -1;
+                        isdone = false;
+                    } else {
+                        isdone = true;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    ifs.close();
+    return anim_ticks_per_second;
 }
 
 void Util::setWorldMatrix_ScRxRzRyMv(const GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {

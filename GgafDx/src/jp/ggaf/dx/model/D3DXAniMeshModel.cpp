@@ -178,33 +178,10 @@ void D3DXAniMeshModel::restore() {
     }
     std::string xfilepath = Model::getMeshXFilePath(xdata.XFileNames[0]);
     //AnimTicksPerSecondの値を独自に取り出す
-    std::ifstream ifs(xfilepath.c_str());
-    if (ifs.fail()) {
-        throwCriticalException("["<<xfilepath<<"] が開けません");
+    _anim_ticks_per_second = UTIL::getAnimTicksPerSecond(xfilepath);
+    if (_anim_ticks_per_second < 0) {
+        _anim_ticks_per_second = 4800;
     }
-    std::string buf;
-    bool isdone = false;
-    int anim_ticks_per_second = 4800;
-    std::string data;
-    while (isdone == false && !ifs.eof()) {
-        ifs >> data;
-        if (data == "AnimTicksPerSecond" || data == "AnimTicksPerSecond{") {
-            while (isdone == false) {
-                ifs >> data;
-                if (data == "{") {
-                    continue;
-                } else if (data == "}") {
-                    isdone = true;
-                    break;
-                } else {
-                    anim_ticks_per_second = atoi(data.c_str()); //"60;" → 60を得る
-                    isdone = true;
-                    break;
-                }
-            }
-        }
-    }
-    ifs.close();
 
 //    LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
     HRESULT hr;
@@ -283,7 +260,6 @@ void D3DXAniMeshModel::restore() {
     _paMaterial_default = model_paMaterial;
     _papTextureConnection = model_papTextureConnection;
     _num_materials = model_nMaterials;
-    _anim_ticks_per_second = anim_ticks_per_second;
     _TRACE3_("_model_id=" << _model_id << " end");
 }
 

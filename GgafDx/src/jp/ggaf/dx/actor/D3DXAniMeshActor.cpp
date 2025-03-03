@@ -28,7 +28,7 @@ _stackWorldMat() {
     _papAnimationSet = nullptr;
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
     ID3DXAnimationController* pAc_cloned = _pD3DXAniMeshModel->getCloneAnimationController();
-    _pPuppeteer = NEW Puppeteer(pAc_cloned);
+    _pPuppeteer = NEW Puppeteer(pAc_cloned, _pD3DXAniMeshModel->_anim_ticks_per_second);
     BoneAniMeshFrame* pFrameRoot = _pD3DXAniMeshModel->_pFrameRoot;
     _stackWorldMat.registerFrameTransformationMatrix(pFrameRoot);
 }

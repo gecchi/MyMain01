@@ -6,7 +6,6 @@
 #include "jp/ggaf/dx/util/SkinAniMeshFrame.h"
 #include "jp/ggaf/dx/util/Util.h"
 
-
 using namespace GgafDx;
 
 DWORD SkinAniMeshActor::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
@@ -31,8 +30,7 @@ _stackWorldMat() {
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 
     ID3DXAnimationController* pAc_cloned = _pSkinAniMeshModel->getCloneAnimationController();
-//    FLOAT track_speed = 60.0f / (FLOAT)(_pSkinAniMeshModel->_anim_ticks_per_second);
-    _pPuppeteer = NEW Puppeteer(pAc_cloned);
+    _pPuppeteer = NEW Puppeteer(pAc_cloned, _pSkinAniMeshModel->_anim_ticks_per_second);
     SkinAniMeshFrame* pFrameRoot = _pSkinAniMeshModel->_pFrameRoot;
     _stackWorldMat.registerFrameTransformationMatrix(pFrameRoot);
 }

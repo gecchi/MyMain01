@@ -90,6 +90,8 @@ public:
     /** アニメーションコントローラのデフォルトの１フレームあたりのアニメーションフレーム */
     double _ani_time_delta;
 
+    double _track_speed;
+
     double _advance_time;
 public:
     Puppeteer();
@@ -100,7 +102,7 @@ public:
      * @param prm_ani_time_delta アニメーション最小時間（アニメーションコントローラーの内部の単位）
      */
     explicit Puppeteer(ID3DXAnimationController* prm_pAc_cloned,
-                       double prm_ani_time_delta = 60.0 / 4800);  //内部4800フレームを1秒換算 (60FPSの場合)
+                       double prm_anim_ticks_per_second =  4800);  //内部4800フレームを1秒換算 (60FPSの場合)
 
     /**
      * 芸（メイン）をプレイしてもらう（＝パペットが操られる） .

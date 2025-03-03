@@ -23,6 +23,8 @@ void Puppeteer::Performance::setAnimationSet(LPD3DXANIMATIONSET prm_pAnimationSe
     _pAnimationSet = prm_pAnimationSet;
     _animation_set_index = prm_animation_set_index;
     _period = _pAnimationSet->GetPeriod();
+    //_period は、4800 を 1 秒とした場合の単位のまま
+    //_TRACE_("_period=" << _period);
 }
 Puppeteer::Performance::~Performance() {
 }
@@ -41,7 +43,8 @@ Puppeteer::Performance::~Performance() {
 Puppeteer::Puppeteer() {
     _pAc = nullptr;
     _advance_time = 0.0;
-    _ani_time_delta =  0.0;
+    _ani_time_delta = (1.0 / 60.0) * (60.0 / CONFIG::FPS);
+    _track_speed = 1.0;
     _num_perform = 0;
     _paPerformances = nullptr;
     _pStickMain = NEW Stick;
@@ -51,7 +54,7 @@ Puppeteer::Puppeteer() {
 
 }
 Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned,
-                     double prm_ani_time_delta) : GgafCore::Object() {
+                     double prm_anim_ticks_per_second) : GgafCore::Object() {
     _paPerformances = nullptr;
     _pAc = prm_pAc_cloned;
     _advance_time = 0.0;
@@ -70,7 +73,8 @@ Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned,
     hr = _pAc->ResetTime();
     checkDxException(hr, D3D_OK, "失敗しました。");
 
-    _ani_time_delta =  prm_ani_time_delta; //デフォルトはとりあえずマルペケ参考値 4800フレームを1秒
+    _ani_time_delta =  (1.0 / 60.0) * (60.0 / CONFIG::FPS); //デフォルトはとりあえずマルペケ参考値 4800フレームを1秒
+    _track_speed = (prm_anim_ticks_per_second / 4800.0);
     _pStickMain = NEW Stick;
     _pStickSub = NEW Stick;
     _apStick[0] = _pStickMain;
@@ -130,7 +134,6 @@ Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned,
 
 }
 
-
 void Puppeteer::play(UINT prm_performance_no) {
     if (prm_performance_no > _num_perform-1) {
         throwCriticalException("Puppeteer::play() アニメIDが範囲外です。prm_performance_no="<<prm_performance_no);
@@ -147,7 +150,7 @@ void Puppeteer::play(UINT prm_performance_no) {
     checkDxException(hr, D3D_OK, "失敗しました。");
     hr = _pAc->SetTrackAnimationSet(main_tno, _pStickMain->_pPerformance->_pAnimationSet); _apAs[main_tno] = _pStickMain->_pPerformance->_pAnimationSet;
     checkDxException(hr, D3D_OK, "失敗しました。");
-    hr = _pAc->SetTrackSpeed(main_tno, 1.0);
+    hr = _pAc->SetTrackSpeed(main_tno, _track_speed);
     checkDxException(hr, D3D_OK, "失敗しました。");
     hr = _pAc->SetTrackPosition(main_tno, 0.0);
     checkDxException(hr, D3D_OK, "失敗しました。");
@@ -182,7 +185,7 @@ void Puppeteer::shiftTo(UINT prm_performance_no, frame prm_switch_frames) {
     checkDxException(hr, D3D_OK, "失敗しました。");
     hr = _pAc->SetTrackAnimationSet(sub_tno, _pStickSub->_pPerformance->_pAnimationSet); _apAs[sub_tno] = _pStickSub->_pPerformance->_pAnimationSet;
     checkDxException(hr, D3D_OK, "失敗しました。");
-    hr = _pAc->SetTrackSpeed(sub_tno, 1.0);
+    hr = _pAc->SetTrackSpeed(sub_tno, _track_speed);
     checkDxException(hr, D3D_OK, "失敗しました。");
     hr = _pAc->SetTrackPosition(sub_tno, 0.0);
     checkDxException(hr, D3D_OK, "失敗しました。");
@@ -216,7 +219,12 @@ void Puppeteer::playPartly(UINT prm_performance_no, double prm_num_loop) {
         _TRACE_("Puppeteer::shiftTo() prm_performance_no="<<prm_performance_no<<" は既にアニメーション中の為無視されました。");
         return;
     }
-    double spend_frames = p->_period*prm_num_loop / _ani_time_delta;
+    //_TRACE_("prm_performance_no=" << prm_performance_no);
+    //_TRACE_("p->_period=" << (p->_period));
+    //_TRACE_("_ani_time_delta=" << _ani_time_delta);
+    //_TRACE_("_track_speed=" << _track_speed);
+    double spend_frames = (p->_period*prm_num_loop / _ani_time_delta) / _track_speed;
+    //_TRACE_("spend_frames=" << spend_frames);
     _pStickSub->_pPerformance = p;
     _pStickSub->_weight.setValueBottom();
     _pStickSub->_weight.beat((frame)spend_frames,
@@ -228,7 +236,7 @@ void Puppeteer::playPartly(UINT prm_performance_no, double prm_num_loop) {
     checkDxException(hr, D3D_OK, "失敗しました。");
     hr = _pAc->SetTrackAnimationSet(sub_tno, _pStickSub->_pPerformance->_pAnimationSet); _apAs[sub_tno] = _pStickSub->_pPerformance->_pAnimationSet;
     checkDxException(hr, D3D_OK, "失敗しました。");
-    hr = _pAc->SetTrackSpeed(sub_tno, 1.0);
+    hr = _pAc->SetTrackSpeed(sub_tno, _track_speed);
     checkDxException(hr, D3D_OK, "失敗しました。");
     hr = _pAc->SetTrackPosition(sub_tno, 0.0);
     checkDxException(hr, D3D_OK, "失敗しました。");

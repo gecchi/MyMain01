@@ -113,6 +113,7 @@ public:
     /** [アニメーションセットインデックス][フレームインデックス] で アニメーションセットのアニメーション対象のフレームであるかどうかが返る */
     bool** _papaBool_AnimationSetIndex_BoneFrameIndex_is_act;
 
+    int _anim_ticks_per_second;
 public:
     /**
      * コンストラクタ<BR>

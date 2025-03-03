@@ -35,18 +35,27 @@ std::string Texture::getTextureFilePath(std::string prm_file) {
                 _TRACE_("Texture::getTextureFilePath() texture_file0.c_str()="<<texture_file0.c_str());
                 return texture_file0;
             } else {
-                std::string texture_file = "./" + prm_file;
-                UTIL::strReplace(texture_file, "//", "/");
-                if (PathFileExists(texture_file.c_str()) ) {
-                    _TRACE_("Texture::getTextureFilePath() texture_file.c_str()="<<texture_file.c_str());
-                    return texture_file;
+                std::string texture_file_x = GgafCore::Config::DIR_SKIN_KIND[0] + "/" + Config::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "./" + prm_file;
+                UTIL::strReplace(texture_file_x, "//", "/");
+                if (PathFileExists(texture_file_x.c_str()) ) {
+                    _TRACE_("Texture::getTextureFilePath() texture_file_x.c_str()="<< texture_file_x.c_str());
+                    return texture_file_x;
                 } else {
-                    _TRACE_("【警告】Texture::getTextureFilePath テクスチャファイルが見つかりません。prm_file="<<prm_file<<"\n"<<
-                            "texture_file2="<<texture_file2<<"\n"
-                            "texture_file1="<<texture_file1<<"\n"
-                            "texture_file0="<<texture_file0<<"\n"
-                            "texture_file="<<texture_file);
-                    return "";
+                    std::string texture_file_y = GgafCore::Config::DIR_SKIN_KIND[1] + "/" + Config::DIRNAME_RESOURCE_SKINXXX_TEXTURE + "./" + prm_file;
+                    UTIL::strReplace(texture_file_y, "//", "/");
+                    if (PathFileExists(texture_file_y.c_str())) {
+                        _TRACE_("Texture::getTextureFilePath() texture_file_y.c_str()=" << texture_file_y.c_str());
+                        return texture_file_y;
+                    }
+                    else {
+                        _TRACE_("【警告】Texture::getTextureFilePath テクスチャファイルが見つかりません。prm_file=" << prm_file << "\n" <<
+                            "texture_file2=" << texture_file2 << "\n"
+                            "texture_file1=" << texture_file1 << "\n"
+                            "texture_file0=" << texture_file0 << "\n"
+                            "texture_file_x=" << texture_file_x << "\n"
+                            "texture_file_y=" << texture_file_y);
+                        return "";
+                    }
                 }
             }
         }

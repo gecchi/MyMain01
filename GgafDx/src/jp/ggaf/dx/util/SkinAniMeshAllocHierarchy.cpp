@@ -40,13 +40,13 @@ HRESULT SkinAniMeshAllocHierarchy::CreateMeshContainer(THIS_
         DWORD bone_num = pSkinInfo->GetNumBones();
         // 描画頂点に関係するボーンの数 ＝ ボーンオフセット行列の数
         pNewMC->_dwBoneOffsetMatrixNum = bone_num;
-        _TRACE_("pSkinInfo->GetNumBones() = "<<bone_num);
+        //_TRACE_("pSkinInfo->GetNumBones() = "<<bone_num);
         pNewMC->_paBoneOffsetMatrix = new D3DXMATRIX[bone_num];
         for (DWORD i =  0; i < bone_num; i++) {
             // オフセット行列をコピーする
             memcpy(&pNewMC->_paBoneOffsetMatrix[i], pSkinInfo->GetBoneOffsetMatrix(i), sizeof(D3DXMATRIX));
         }
-        _TRACE_("ボーンオフセット行列をコピーしますた");
+        //_TRACE_("ボーンオフセット行列をコピーしますた");
 
         // メッシュデータ登録
         pNewMC->MeshData.Type = pMeshData->Type;   // メッシュタイプ

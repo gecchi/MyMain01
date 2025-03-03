@@ -45,6 +45,7 @@ SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_id) : Model(prm_model_i
     _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = nullptr;
     _max_draw_set_num = 1;
     _indexBuffer_fmt = D3DFMT_UNKNOWN;
+    _anim_ticks_per_second = 4800;
 }
 
 HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -190,6 +191,10 @@ void SkinAniMeshModel::restore() {
 
         HRESULT hr;
         std::string xfilepath = Model::getMeshXFilePath(xdata.XFileNames[0]);
+        _anim_ticks_per_second = UTIL::getAnimTicksPerSecond(xfilepath);
+        if (_anim_ticks_per_second < 0) {
+            _anim_ticks_per_second = 4800;
+        }
         //Xファイルのファイルロード
         _pAllocHierarchy = NEW SkinAniMeshAllocHierarchy(); // CAllocHierarchyBaseの派生クラス
         hr = D3DXLoadMeshHierarchyFromX(
@@ -511,7 +516,7 @@ void SkinAniMeshModel::restore() {
                 cb_vertex_count = bone_cb->vertex_count;
                 cb_material_no = bone_cb->material_no;
 
-//_TRACE_("ボーンコンビネーションでループ bone_cb_idx="<<bone_cb_idx<<" cb_material_no ="<<cb_material_no);
+//_TRACE_("ボーンコンビネーションでループ bone_cb_idx="<<bone_cb_idx<<" cb_material_no="<<cb_material_no<<" is_break="<<is_break);
                 //初回、またはブレイク処理後の最初のループの設定
                 if (bone_cb_idx == 0 || is_break == true) {
 //_TRACE_("bone_cb_idx="<<bone_cb_idx<<" 初回、またはブレイク処理後の最初のループの設定実行 bone_cb_idx="<<bone_cb_idx<<" 初回設定！！！");
@@ -787,6 +792,7 @@ void SkinAniMeshModel::restore() {
             _paIndexParam[i].PrimitiveCount  = param_tmp[i].PrimitiveCount;
         }
         _size_vertices = _size_vertex_unit * _nVertices;
+
 //        //DEBUG
 //        _TRACE_("まとめ！------------");
 //        for (int i = 0; i < _nVertices; i++) {
@@ -802,7 +808,7 @@ void SkinAniMeshModel::restore() {
 //
 //            );
 //        }
-        //DEBUG
+//        //DEBUG
 //        _TRACE_("ボーンコンビネーションのグループ");
 //        for (int i = 0; i < _vec_bone_combi_grp_info.size(); i++) {
 //            BoneConbiGrp& bcg = _vec_bone_combi_grp_info[i];

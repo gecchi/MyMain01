@@ -913,6 +913,9 @@ public:
         _TRACE_( pMat->_41<<", "<< pMat->_42<<", "<< pMat->_43<<", "<< pMat->_44);
     };
 
+
+    static int getAnimTicksPerSecond(std::string& prm_xfile_name);
+
     /**
      * world•ÏŠ·s—ñİ’è .
      * Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>

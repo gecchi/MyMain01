@@ -178,7 +178,7 @@ void BoneAniMeshModel::restore() {
         }
         std::string xfilepath = Model::getMeshXFilePath(xdata.XFileNames[0]);
         //AnimTicksPerSecondを独自に取り出す。デフォルトは4800
-        _anim_ticks_per_second = BoneAniMeshModel::getAnimTicksPerSecond(xfilepath);
+        _anim_ticks_per_second = UTIL::getAnimTicksPerSecond(xfilepath);
         if (_anim_ticks_per_second < 0) {
             _anim_ticks_per_second = 4800;
         }
@@ -624,46 +624,7 @@ ID3DXAnimationController* BoneAniMeshModel::getCloneAnimationController() {
     checkDxException(hr, D3D_OK, "アニメーションコントローラーのクローンに失敗しました。");
     return _pAc;
 }
-int BoneAniMeshModel::getAnimTicksPerSecond(std::string& prm_xfile_name) {
-    if (prm_xfile_name == "") {
-         throwCriticalException("BoneAniMeshModel::getAnimTicksPerSecond() メッシュファイル(*.x)が見つかりません。");
-    }
-    //XファイルからAnimTicksPerSecondの値を独自に取り出す
-    std::ifstream ifs(prm_xfile_name.c_str());
-    if (ifs.fail()) {
-        throwCriticalException("["<<prm_xfile_name<<"] が開けません");
-    }
-    std::string buf;
-    bool isdone = false;
-    int anim_ticks_per_second = -1;
-    std::string data;
-    while (isdone == false && !ifs.eof()) {
-        ifs >> data;
-        if (data == "AnimTicksPerSecond" || data == "AnimTicksPerSecond{") {
-            while (isdone == false) {
-                ifs >> data;
-                if (data == "{") {
-                    continue;
-                } else if (data == "}") {
-                    isdone = true;
-                    break;
-                } else {
-                    anim_ticks_per_second = atoi(data.c_str()); //"60;" → 60を得る
-                    if (anim_ticks_per_second == 0) {
-                        //数値に変換できない場合は無効
-                        anim_ticks_per_second = -1;
-                        isdone = false;
-                    } else {
-                        isdone = true;
-                    }
-                    break;
-                }
-            }
-        }
-    }
-    ifs.close();
-    return anim_ticks_per_second;
-}
+
 
 void BoneAniMeshModel::setFrameInfo(BoneAniMeshFrame* prm_pFrame) {
     prm_pFrame->_frame_index = _tmp_frame_index; //フレームインデックスを保持
