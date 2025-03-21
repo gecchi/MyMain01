@@ -503,7 +503,6 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length, int prm
         pExChecker->setColliAACube(2, prm_edge_length_ex);
         pExChecker->setColliAACube(3, prm_edge_length_ex);
     }
-
     setHitAble(true);
 }
 

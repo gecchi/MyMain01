@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# 変換するディレクトリを指定
+input_dir="C:\Users\tsuge\workspace\_git_repo_my_main\VVViewer\VvvRs\model"
+output_dir="./output"
+
+# 出力ディレクトリが存在しない場合は作成
+mkdir -p "$output_dir"
+
+# 各ファイルを変換
+for file in "$input_dir"/*.modelx; do
+  output_file="$output_dir/$(basename "$file")"
+  
+  # ファイルの内容を読み込み、変換
+  awk '
+  function trim_newline(s) {
+    sub(/\r/, "", s)
+    sub(/\n/, "", s)
+    return s
+  }
+  {
+    if ($0 ~ /MetaModelInfo/) {
+      printf "%s\r\n", trim_newline($0)
+      getline
+      printf "%s\r\n", trim_newline($0)
+      while (getline) {
+        if ($0 ~ /^\s*[0-9.]+,\s*[0-9.]+,\s*[0-9.]+,\s*[0-9.]+,\s*$/) {
+          printf "  BaseTransformMatrix {\r\n"
+          printf "  %s\r\n", trim_newline($0)
+          break
+        } else {
+          printf "%s\r\n", trim_newline($0)
+        }
+      }
+      while (getline) {
+         if ($0 ~ /^\s*[0-9.]+,\s*[0-9.]+,\s*[0-9.]+,\s*[0-9.]+;\s*$/) {
+           printf "  %s\r\n", trim_newline($0)
+           printf "  }\r\n"
+           break
+         } else {
+           printf "  %s\r\n", trim_newline($0)
+         }
+      }
+      while (getline) {
+        printf "%s\r\n", trim_newline($0)
+      }
+    } else {
+      printf "%s\r\n", trim_newline($0)
+    }
+  }
+  END {
+    #printf "\r\n"
+  }' "$file" > "$output_file"
+done
+
+echo "変換が完了しました。出力ディレクトリ: $output_dir"

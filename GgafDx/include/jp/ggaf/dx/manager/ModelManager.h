@@ -157,6 +157,8 @@ public:
     void obtainPointSpriteModelInfo(PointSpriteXFileFmt* prm_pPointSpriteFmt_out, std::string prm_psprx_filepath);
 
     void obtainMetaModelInfo(ModelXFileFmt* prm_pModelDefineXFileFmt_out, std::string prm_modelfile_filepath);
+
+    static std::string cnvGuid2Str(const GUID& guid);
 public:
     /**
      * コンストラクタ

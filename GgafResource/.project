@@ -3,6 +3,7 @@
 	<name>GgafResource</name>
 	<comment></comment>
 	<projects>
+		<project>GgafCore</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

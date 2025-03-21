@@ -71,12 +71,16 @@ ModelManager::ModelManager(const char* prm_manager_name) :
 
     static const char* modelx_template =
         "xof 0303txt 0032 \n" \
+        "template BaseTransformMatrix { " \
+        "   <6be8f2ae-642b-8b0e-1dba-0b358a66f843> " \
+        "   array FLOAT matrix[16]; " \
+        "}\n"
         "template MetaModelInfo { " \
-        "   <02ED1962-4073-44FB-9BC3-BFC40F8BC537> " \
+        "   <02ed1962-4073-44fb-9bc3-bfc40f8bc537> " \
         "   DWORD XFileNum; " \
         "   array STRING XFileNames[XFileNum]; " \
         "   DWORD DrawSetNum; " \
-        "   array FLOAT BaseTransformMatrix[16]; " \
+        "   [...] " \
         "}\n";
     hr = _pID3DXFile_modelx->RegisterTemplates(modelx_template, (DWORD)(strlen(modelx_template)));
 #ifdef MY_DEBUG
@@ -334,17 +338,34 @@ D3DXMeshModel* ModelManager::createD3DXMeshModel(char prm_model_type, const char
     pD3DXMeshModel_new->restore();
     return pD3DXMeshModel_new;
 }
-
+// GUIDを文字列に変換する関数
+std::string ModelManager::cnvGuid2Str(const GUID& guid) {
+    std::stringstream ss;
+    ss << std::hex << std::setfill('0')
+       << std::setw(8) << guid.Data1 << '-'
+       << std::setw(4) << guid.Data2 << '-'
+       << std::setw(4) << guid.Data3 << '-'
+       << std::setw(2) << static_cast<int>(guid.Data4[0])
+       << std::setw(2) << static_cast<int>(guid.Data4[1]) << '-';
+    for (int i = 2; i < 8; ++i) {
+        ss << std::setw(2) << static_cast<int>(guid.Data4[i]);
+    }
+    return ss.str();
+}
 
 void ModelManager::obtainMetaModelInfo(ModelXFileFmt* prm_pModelDefineXFileFmt_out, std::string prm_modelfile_filepath) {
-    //    "xof 0303txt 0032 \n" \
-    //    "template MetaModelInfo { " \
-    //    "   <02ED1962-4073-44FB-9BC3-BFC40F8BC537> " \
-    //    "   DWORD XFileNum; " \
-    //    "   array STRING XFileNames[XFileNum]; " \
-    //    "   DWORD DrawSetNum; " \
-    //    "   array FLOAT BaseTransformMatrix[16]; " \
-    //    "}\n";
+//    "xof 0303txt 0032 \n" \
+//    "template BaseTransformMatrix { " \
+//    "   <6be8f2ae-642b-8b0e-1dba-0b358a66f843> " \
+//    "   array FLOAT matrix[16]; " \
+//    "}\n"
+//    "template MetaModelInfo { " \
+//    "   <02ed1962-4073-44fb-9bc3-bfc40f8bc537> " \
+//    "   DWORD XFileNum; " \
+//    "   array STRING XFileNames[XFileNum]; " \
+//    "   DWORD DrawSetNum; " \
+//    "   [...] " \
+//    "}\n";
 
     ID3DXFileEnumObject* pID3DXFileEnumObject;
     HRESULT hr = _pID3DXFile_modelx->CreateEnumObject(
@@ -357,6 +378,16 @@ void ModelManager::obtainMetaModelInfo(ModelXFileFmt* prm_pModelDefineXFileFmt_o
     pID3DXFileEnumObject->GetChildren(&nChildren);
     for (SIZE_T childCount = 0; childCount < nChildren; childCount++) {
         pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
+//        CHAR name[512];
+//        SIZE_T nameSize = sizeof(name);
+//        pID3DXFileData->GetName(name, &nameSize);
+        GUID id;
+        pID3DXFileData->GetType(&id);
+        std::string idString = ModelManager::cnvGuid2Str(id);
+        //_TRACE_("childCount="<<childCount<<" idString="<<idString);
+        if (idString == "02ed1962-4073-44fb-9bc3-bfc40f8bc537") { //MetaModelInfo
+            break;
+        }
     } //ループしているが、child は一つだけです。
     if (pID3DXFileData == nullptr) {
         throwCriticalException("ModelManager::loadMetaModelInfo() "<<prm_modelfile_filepath<<" のフォーマットエラー。 \n"<<
@@ -368,8 +399,10 @@ void ModelManager::obtainMetaModelInfo(ModelXFileFmt* prm_pModelDefineXFileFmt_o
     if (pXData == nullptr) {
         throwCriticalException("ModelManager::loadMetaModelInfo() "<<prm_modelfile_filepath<<" のフォーマットエラー。");
     }
+    //    "   DWORD XFileNum; "
     memcpy(&(prm_pModelDefineXFileFmt_out->XFileNum), pXData, sizeof(DWORD));
     pXData += sizeof(DWORD);
+    //    "   array STRING XFileNames[XFileNum]; "
     int xfile_num = prm_pModelDefineXFileFmt_out->XFileNum;
     prm_pModelDefineXFileFmt_out->XFileNames = NEW std::string[xfile_num];
     char tmp_filename[256];
@@ -380,28 +413,51 @@ void ModelManager::obtainMetaModelInfo(ModelXFileFmt* prm_pModelDefineXFileFmt_o
         pXData += sizeof(char); // '\0'
         prm_pModelDefineXFileFmt_out->XFileNames[i] = std::string(tmp_filename);
     }
+    //    "   DWORD DrawSetNum; "
     memcpy(&(prm_pModelDefineXFileFmt_out->DrawSetNum), pXData, sizeof(DWORD));
     pXData += sizeof(DWORD);
-    FLOAT aMat[16];
-    memcpy(aMat, pXData, sizeof(FLOAT)*16);
-    pXData += sizeof(FLOAT)*16;
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._11 = aMat[0];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._12 = aMat[1];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._13 = aMat[2];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._14 = aMat[3];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._21 = aMat[4];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._22 = aMat[5];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._23 = aMat[6];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._24 = aMat[7];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._31 = aMat[8];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._32 = aMat[9];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._33 = aMat[10];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._34 = aMat[11];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._41 = aMat[12];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._42 = aMat[13];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._43 = aMat[14];
-    prm_pModelDefineXFileFmt_out->BaseTransformMatrix._44 = aMat[15];
 
+    //    "   [...]  "
+    ID3DXFileData* pID3DXFileData_BaseTransformMatrix = nullptr;
+    SIZE_T nChildren2;
+    pID3DXFileData->GetChildren(&nChildren2);
+    for (SIZE_T childCount = 0; childCount < nChildren2; childCount++) {
+        pID3DXFileData->GetChild(childCount, &pID3DXFileData_BaseTransformMatrix);
+        //CHAR name[512];
+        //SIZE_T nameSize = sizeof(name);
+        //pID3DXFileData_BaseTransformMatrix->GetName(name, &nameSize);
+        GUID id;
+        pID3DXFileData_BaseTransformMatrix->GetType(&id);
+        std::string idString = ModelManager::cnvGuid2Str(id);
+        //_TRACE_("  childCount=" << childCount << " name=" << name << " idString=" << idString);
+        if (idString == "6be8f2ae-642b-8b0e-1dba-0b358a66f843") { //BaseTransformMatrix
+            break;
+        }
+    }
+    if (pID3DXFileData_BaseTransformMatrix != nullptr) {
+        pID3DXFileData_BaseTransformMatrix->Lock(&xsize, (const void**)&pXData);
+        FLOAT aMat[16];
+        memcpy(aMat, pXData, sizeof(FLOAT)*16);
+        pXData += sizeof(FLOAT)*16;
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._11 = aMat[0];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._12 = aMat[1];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._13 = aMat[2];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._14 = aMat[3];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._21 = aMat[4];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._22 = aMat[5];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._23 = aMat[6];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._24 = aMat[7];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._31 = aMat[8];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._32 = aMat[9];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._33 = aMat[10];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._34 = aMat[11];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._41 = aMat[12];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._42 = aMat[13];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._43 = aMat[14];
+        prm_pModelDefineXFileFmt_out->BaseTransformMatrix._44 = aMat[15];
+
+        pID3DXFileData_BaseTransformMatrix->Unlock();
+    }
     pID3DXFileData->Unlock();
     GGAF_RELEASE_BY_FROCE(pID3DXFileData);
     GGAF_RELEASE(pID3DXFileEnumObject);

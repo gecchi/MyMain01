@@ -15,6 +15,7 @@ Checker* Checker::addExChecker(kind_t prm_kind) {
     }
 #endif
     _pNextExChecker = _pActor->createChecker(prm_kind);
+    return _pNextExChecker;
 }
 Checker::~Checker() {
     GGAF_DELETE_NULLABLE(_pNextExChecker);
