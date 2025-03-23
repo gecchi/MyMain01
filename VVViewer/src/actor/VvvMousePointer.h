@@ -9,7 +9,7 @@ class VvvMousePointer : public GgafLib::MousePointerActor {
 
 public:
 
-    GgafLib::DefaultMeshActor* pI_;
+    GgafLib::DefaultSpriteActor* pWorldMousePointer_;
 
     VvvMousePointer(const char* prm_name);
 

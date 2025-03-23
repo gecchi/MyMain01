@@ -12,7 +12,7 @@
 #include "jp/ggaf/lib/util/WorldCollisionChecker.h"
 #include "jp/ggaf/lib/util/ViewCollisionChecker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+#include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
 #include "scene/VvvSpacetime/VvvWorld.h"
 #include "VvvCaretaker.h"
 
@@ -22,8 +22,8 @@ using namespace VVViewer;
 VvvMousePointer::VvvMousePointer(const char* prm_name) :
         MousePointerActor(prm_name, "VvvMousePointer") {
     _class_name = "VvvMousePointer";
-    pI_ = nullptr;
-
+    pWorldMousePointer_ = nullptr;
+    setAlpha(0.7f);
     setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     ViewCollisionChecker* pChecker = getViewCollisionChecker();
     pChecker->addCollisionArea(1);
@@ -35,14 +35,15 @@ void VvvMousePointer::onCreateModel() {
 }
 
 void VvvMousePointer::initialize() {
-    pI_ = desireActor(GgafLib::DefaultMeshActor, "Guruguru", "Guruguru");
-    WorldCollisionChecker* pChecker = pI_->getWorldCollisionChecker();
+    pWorldMousePointer_ = desireActor(GgafLib::DefaultSpriteActor, "VvvMousePointer", "VvvMousePointer");
+    WorldCollisionChecker* pChecker = pWorldMousePointer_->getWorldCollisionChecker();
     pChecker->addCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(100));
-    pI_->setScaleR(3.0);
-    pI_->setHitAble(true);
-    pI_->setCheckerKind(KIND_ACTOR);
-    appendChild(pI_);
+    pWorldMousePointer_->setAlpha(0.7f);
+    pWorldMousePointer_->setCullingDraw(false);
+    pWorldMousePointer_->setHitAble(true);
+    pWorldMousePointer_->setCheckerKind(KIND_ACTOR);
+    appendChild(pWorldMousePointer_);
 }
 
 void VvvMousePointer::onActive() {
@@ -55,15 +56,15 @@ void VvvMousePointer::processBehavior() {
     if (pActorInfo) {
         GgafDx::FigureActor* pT = pActorInfo->pActor_;
         double d = UTIL::getDistance(pCam, pT);
-        pI_->setPositionByViewCoord(_x, _y, d);
+        pWorldMousePointer_->setPositionByViewCoord(_x, _y, d);
     } else {
-        pI_->setPositionByViewCoord(_x, _y, DX_C(-(pCam->_cameraZ_org)));
+        pWorldMousePointer_->setPositionByViewCoord(_x, _y, DX_C(-(pCam->_cameraZ_org)));
     }
 }
 
 void VvvMousePointer::processJudgement() {
-//    _TRACE_("dtop,dbottom="<<DX_PX(pI_->_dest_from_vppln_top)<<","<<DX_PX(pI_->_dest_from_vppln_bottom));
-//    _TRACE_("dleft,dright="<<DX_PX(pI_->_dest_from_vppln_left)<<","<<DX_PX(pI_->_dest_from_vppln_right));
+//    _TRACE_("dtop,dbottom="<<DX_PX(pWorldMousePointer_->_dest_from_vppln_top)<<","<<DX_PX(pWorldMousePointer_->_dest_from_vppln_bottom));
+//    _TRACE_("dleft,dright="<<DX_PX(pWorldMousePointer_->_dest_from_vppln_left)<<","<<DX_PX(pWorldMousePointer_->_dest_from_vppln_right));
 }
 
 void VvvMousePointer::onHit(const GgafCore::Checker* prm_pThisHitChecker, const GgafCore::Checker* prm_pOppHitChecker) {
