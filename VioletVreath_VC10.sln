@@ -14,8 +14,15 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GgafCore", "GgafCore\GgafCore.vcxproj", "{4CD46674-BB16-4B83-B01E-D6DAF7FB6C81}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GgafDx", "GgafDx\GgafDx.vcxproj", "{F04B2BAE-F007-4DE8-A91F-EA7E9DDCB6F2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4CD46674-BB16-4B83-B01E-D6DAF7FB6C81} = {4CD46674-BB16-4B83-B01E-D6DAF7FB6C81}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GgafLib", "GgafLib\GgafLib.vcxproj", "{55C018DB-2586-4F20-ADDB-8DA23932824C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4CD46674-BB16-4B83-B01E-D6DAF7FB6C81} = {4CD46674-BB16-4B83-B01E-D6DAF7FB6C81}
+		{F04B2BAE-F007-4DE8-A91F-EA7E9DDCB6F2} = {F04B2BAE-F007-4DE8-A91F-EA7E9DDCB6F2}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Ogg", "_Ogg\_Ogg.vcxproj", "{2FDEFA24-55E5-4955-8497-44085C92A5B1}"
 EndProject
@@ -83,6 +90,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VioletVreath_launcher", "Vi
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GgafResource", "GgafResource\GgafResource.vcxproj", "{5D838D9B-A09B-4397-B012-824285AEDDBA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4CD46674-BB16-4B83-B01E-D6DAF7FB6C81} = {4CD46674-BB16-4B83-B01E-D6DAF7FB6C81}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -13,8 +13,15 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GgafCore", "GgafCore\GgafCore_VC16.vcxproj", "{3A785B3F-EA57-4320-9034-7BC4A9C4A105}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GgafDx", "GgafDx\GgafDx_VC16.vcxproj", "{9CE55F24-1EB4-4B75-9A3E-3B95937973F7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3A785B3F-EA57-4320-9034-7BC4A9C4A105} = {3A785B3F-EA57-4320-9034-7BC4A9C4A105}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GgafLib", "GgafLib\GgafLib_VC16.vcxproj", "{8DCA921E-86EE-410D-A91A-3249D6D92AE9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9CE55F24-1EB4-4B75-9A3E-3B95937973F7} = {9CE55F24-1EB4-4B75-9A3E-3B95937973F7}
+		{3A785B3F-EA57-4320-9034-7BC4A9C4A105} = {3A785B3F-EA57-4320-9034-7BC4A9C4A105}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VVViewer", "VVViewer\VVViewer_VC16.vcxproj", "{207C35EC-7B3A-4CF1-B4C0-E91834D11620}"
 	ProjectSection(ProjectDependencies) = postProject
