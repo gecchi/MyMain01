@@ -1,5 +1,7 @@
-/ReleaseCdt*
 /.settings
+!/.settings/org.eclipse.cdt.core.prefs
+!/.settings/org.eclipse.core.resources.prefs
+/ReleaseCdt*
 /DebugCdt*
 /Release
 /Release(dll)

@@ -1,0 +1,11 @@
+MSYS2をインストールする。
+
+パッケージ管理ツールのアップデート
+$ pacman --needed -Sy bash pacman pacman-mirrors msys2-runtime
+bash も更新時は再起動
+パッケージデータベースの同期
+$ pacman -Syu
+
+$ pacman -S mingw-w64-x86_64-toolchain
+$ pacman -S mingw-w64-i686-toolchain
+

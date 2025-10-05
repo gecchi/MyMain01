@@ -1,3 +1,6 @@
+/.settings
+!/.settings/org.eclipse.cdt.core.prefs
+!/.settings/org.eclipse.core.resources.prefs
 /ReleaseCdt*
 /GprofCdt*
 /DebugCdt*
@@ -6,7 +9,6 @@
 /Debug
 /gmon.out
 /log
-/*settings
 /VioletVreath.exe
 /*user
 /.checkstyle
