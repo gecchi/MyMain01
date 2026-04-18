@@ -251,10 +251,10 @@ L_PHASE_T2:
                                                 _z + pNaviVehicle->_velo_vc_z
                                               );
                      }
-                     coord t2_d = UTIL::getDistance(_x, _y, _z,
-                                                    pLeaderChip_AimInfo->t2_x,
-                                                    pLeaderChip_AimInfo->t2_y,
-                                                    pLeaderChip_AimInfo->t2_z);
+                     coord t2_d = UTIL::getDistanceFast(_x, _y, _z,
+                                                        pLeaderChip_AimInfo->t2_x,
+                                                        pLeaderChip_AimInfo->t2_y,
+                                                        pLeaderChip_AimInfo->t2_z);
                      pLeaderChip_AimInfo->aim_time_out_t2 =
                              active_frame + (frame)(t2_d/(MyBunshinWateringLaserChip001::MAX_VELO*_n_dispatch_at_once)); //T2到達時間概算
                  }
@@ -335,7 +335,7 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
                 D3DXVECTOR3 W(C_DX(pNaviVehicle->_velo_vc_x), C_DX(pNaviVehicle->_velo_vc_y), C_DX(pNaviVehicle->_velo_vc_z));
                 float rad = UTIL::get3DRadAngle(V, W); //成す角
                 double rate_estimate = RCNV(0.0, PI, rad, 1.0, 4.5); //直線に近ければ 1.0 ～ 真逆 4.5 の割合を見積もる(※真横が往復で、約2.0 と考えた)
-                coord t1_d = UTIL::getDistance(this, pLockonTarget);
+                coord t1_d = UTIL::getDistanceFast(this, pLockonTarget);
                 //距離÷初期速度 に割合を乗じて、到達時間を概算で見積もる。
                 pLeaderChip_AimInfo_->aim_time_out_t1 = getActiveFrame() + ((t1_d / pNaviVehicle->_velo) * rate_estimate);
             } else {
@@ -439,7 +439,7 @@ throwCriticalException("pLeaderChip_AimInfo_ が引き継がれていません！"<<this<<
                 //レーザー末尾がはねる（髪の毛がはねるみたいになる）のを若干防ぐ
                 //一つ前と、自身のアングル値（＝向き）（_rz, _ry)の差と距離をとり、
                 //自身のアングル差を加えて、距離を離した仮想の点を、自身の一つ後ろの点として予測する。
-                coord d_pF = UTIL::getDistance(this, pF); //前のチップとの距離
+                coord d_pF = UTIL::getDistanceFast(this, pF); //前のチップとの距離
                 angle diff_rz = UTIL::getAngDiff(pF->_rz, _rz); //前のチップとの _rz 方向値差
                 angle diff_ry = UTIL::getAngDiff(pF->_ry, _ry); //前のチップとの _ry 方向値差
                 angle v_b_rz = UTIL::addAng(_rz, diff_rz*0.625); //自身の方向値に、_rz 方向値差を加える（0.625 倍は、気持ち緩めようと思ったため）
@@ -518,7 +518,7 @@ bool MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ, bool chk_don
     coord vTy = tY - _y;
     coord vTz = tZ - _z;
     //|vT|
-    coord lvT = UTIL::getDistanceFromOrigin(vTx, vTy, vTz);
+    coord lvT = UTIL::getDistanceFastFromOrigin(vTx, vTy, vTz);
     double ve = pNaviVehicle->_velo;
     //自→仮自  (→vVM)
     coord vVMx = lvT * (pNaviVehicle->_velo_vc_x / ve)*0.9;

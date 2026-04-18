@@ -410,7 +410,81 @@ public:
                       )
                     );
     }
+    /**
+     * 簡易距離計算、誤差ありだが速い .
+     * 考え方
+     * dx = 0 または dy = 0 または dx=dy、距離が実際の計算と同じになるような、簡易計算
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @return
+     */
+    static int getDistanceFast(coord x1, coord y1, coord x2, coord y2)
+    {
+        int dx = abs(x2 - x1);
+        int dy = abs(y2 - y1);
+        int M = (dx > dy) ? dx : dy;
+        int m = (dx > dy) ? dy : dx;
+        return M + ((m * 13) >> 5); // 0.40625
+    }
 
+    /**
+     * 簡易距離計算、誤差ありだが速い .
+     * 考え方
+     * getDistanceFast にZ軸を考慮。しかし dx=dy=dz の場合は少し誤差(0.13%)あり
+     * @param x1
+     * @param y1
+     * @param z1
+     * @param x2
+     * @param y2
+     * @param z2
+     * @return
+     */
+    static coord getDistanceFast(coord x1, coord y1, coord z1,
+                                 coord x2, coord y2, coord z2)
+    {
+        coord dx = abs(x2 - x1);
+        coord dy = abs(y2 - y1);
+        coord dz = abs(z2 - z1);
+
+        // 大きい順に並べる
+        coord L = dx, M = dy, S = dz;
+        if (L < M) { coord t = L; L = M; M = t; }
+        if (M < S) { coord t = M; M = S; S = t; }
+        if (L < M) { coord t = L; L = M; M = t; }
+
+        // L + 0.40625*M + 0.328125*S
+        return L + ((M * 13) >> 5) + ((S * 21) >> 6);
+    }
+
+    static int getDistanceFastFromOrigin(coord x, coord y, coord z)
+    {
+        // 大きい順に並べる
+        coord L = abs(x), M = abs(y), S = abs(z);
+        if (L < M) { coord t = L; L = M; M = t; }
+        if (M < S) { coord t = M; M = S; S = t; }
+        if (L < M) { coord t = L; L = M; M = t; }
+
+        // L + 0.40625*M + 0.328125*S
+        return L + ((M * 13) >> 5) + ((S * 21) >> 6);
+    }
+
+    static double getDistanceFast(const GeometricActor* pA1, const GeometricActor* pA2) {
+        return UTIL::getDistanceFast(pA1->_x, pA1->_y, pA1->_z, pA2->_x, pA2->_y, pA2->_z);
+    }
+
+    static double getDistanceFast(const GeometricActor* pA1, const GeoElem* pA2) {
+         return UTIL::getDistanceFast(pA1->_x, pA1->_y, pA1->_z, pA2->x, pA2->y, pA2->z);
+    }
+
+    static double getDistanceFast(const GeoElem* pA1, const GeometricActor* pA2) {
+        return UTIL::getDistanceFast(pA1->x, pA1->y, pA1->z, pA2->_x, pA2->_y, pA2->_z);
+    }
+
+    static double getDistanceFast(const GeoElem* pA1 , const GeoElem* pA2) {
+        return UTIL::getDistanceFast(pA1->x, pA1->y, pA1->z, pA2->x, pA2->y, pA2->z);
+    }
     /**
      * 原点からの距離(2D)の近似を計算 .
      * sqrt() を使用するよりも速い。

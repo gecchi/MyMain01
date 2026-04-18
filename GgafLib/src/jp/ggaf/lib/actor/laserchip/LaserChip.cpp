@@ -15,6 +15,7 @@
 
 using namespace GgafLib;
 
+
 LaserChip::VERTEX_instancedata LaserChip::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
 LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
@@ -248,11 +249,12 @@ void LaserChip::processSettlementBehavior() {
                 //   r3 = (((3/4)*d)+_hitarea_edge_length_harf)/d
                 //      = (3*d+4*_hitarea_edge_length_harf)/(4*d)
                 //
-                //coord d = UTIL::getDistance(this, pChip_infront); //前のチップとの距離
-                double dX_d = (double)dX;
-                double dY_d = (double)dY;
-                double dZ_d = (double)dZ;
-                double d = sqrt((dX_d * dX_d) + (dY_d * dY_d) + (dZ_d * dZ_d));
+                //coord d = UTIL::getDistanceFast(this, pChip_infront); //前のチップとの距離
+                coord d = UTIL::getDistanceFastFromOrigin(dX, dY, dZ); //前のチップとの距離
+//                double dX_d = (double)dX;
+//                double dY_d = (double)dY;
+//                double dZ_d = (double)dZ;
+//                double d = sqrt((dX_d * dX_d) + (dY_d * dY_d) + (dZ_d * dZ_d));
 
 //                double r0 = _hitarea_edge_length_harf / d;
 //                double r1 = (d + 4*_hitarea_edge_length_harf) / (4*d);
