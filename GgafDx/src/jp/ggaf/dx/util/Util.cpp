@@ -369,52 +369,88 @@ void Util::convRzRyToRyRz(angle prm_rz, angle prm_ry, angle& out_ry, angle& out_
 angle Util::addAng(angle prm_ang, angle prm_offset) {
     return UTIL::simplifyAng(prm_ang + prm_offset);
 }
+angle Util::addAngF(angle prm_ang, angle prm_offset) {
+    return UTIL::simplifyAngF(prm_ang + prm_offset);
+}
+
+angle Util::getAngDiff(angle prm_from, angle prm_to) {
+    const angle from = UTIL::simplifyAng(prm_from);
+    const angle to = UTIL::simplifyAng(prm_to);
+    return UTIL::getAngDiffN(from, to);
+}
 
 angle Util::getAngDiff(angle prm_from, angle prm_to, int prm_way) {
     const angle from = UTIL::simplifyAng(prm_from);
     const angle to = UTIL::simplifyAng(prm_to);
-    if (prm_way == TURN_CLOSE_TO) {
-        if (0 <= from && from < D180ANG) {
-            if (0 <= to && to < from) {
-                return -1 * (from - to);
-            } else if (to == from) {
-                //重なってる場合
-                return 0;
-            } else if (from < to && to < from + D180ANG) {
-                return to - from;
-            } else if (to == from + D180ANG) {
-                //正反対を向いている（＝距離は等しい）
-                //仕方ないので正の値とする。(正確には -D180ANG or D180ANG)
-                return D180ANG;
-            } else if (from + D180ANG < to && to <= D360ANG) {
-                return -1 * (from + (D360ANG - to));
-            } else {
-                //おかしい
-                _TRACE_(FUNC_NAME<<" bad from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
-                throwCriticalException("アングル値が範囲外です(1)。\n"
-                                           "from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
-            }
-        } else if (D180ANG <= from && from <= D360ANG) {
-            if (0 <= to && to < from - D180ANG) {
-                return D360ANG - from + to;
-            } else if (to == from - D180ANG) {
-                //正反対を向いている（＝距離は等しい）
-                //仕方ないので負の値とする。(正確には -D180ANG or D180ANG)
-                return D180ANG;
-            } else if (from - D180ANG < to && to < from) {
-                return -1 * (from - to);
-            } else if (from == to) {
-                //重なってる場合
-                return 0;
-            } else if (from < to && to <= D360ANG) {
-                return to - from;
-            } else {
-                //おかしい
-                _TRACE_(FUNC_NAME<<" bad from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
-                throwCriticalException("アングル値が範囲外です(2)。\n"
-                                           "from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
-            }
+    return UTIL::getAngDiffN(from, to, prm_way);
+}
+angle Util::getAngDiffF(angle prm_from, angle prm_to) {
+    const angle from = UTIL::simplifyAngF(prm_from);
+    const angle to = UTIL::simplifyAngF(prm_to);
+    return UTIL::getAngDiffN(from, to);
+}
+
+angle Util::getAngDiffF(angle prm_from, angle prm_to, int prm_way) {
+    const angle from = UTIL::simplifyAngF(prm_from);
+    const angle to = UTIL::simplifyAngF(prm_to);
+    return UTIL::getAngDiffN(from, to, prm_way);
+}
+
+angle Util::getAngDiffN(angle prm_from, angle prm_to) {
+    const angle from = prm_from;
+    const angle to = prm_to;
+    //TURN_CLOSE_TO
+    if (0 <= from && from < D180ANG) {
+        if (0 <= to && to < from) {
+            return -1 * (from - to);
+        } else if (to == from) {
+            //重なってる場合
+            return 0;
+        } else if (from < to && to < from + D180ANG) {
+            return to - from;
+        } else if (to == from + D180ANG) {
+            //正反対を向いている（＝距離は等しい）
+            //仕方ないので正の値とする。(正確には -D180ANG or D180ANG)
+            return D180ANG;
+        } else if (from + D180ANG < to && to <= D360ANG) {
+            return -1 * (from + (D360ANG - to));
+        } else {
+            //おかしい
+            _TRACE_(FUNC_NAME<<" bad from=" << from << "/to=" << to);
+            throwCriticalException("アングル値が範囲外です(1)。\n"
+                                       "from=" << from << "/to=" << to);
         }
+    } else if (D180ANG <= from && from <= D360ANG) {
+        if (0 <= to && to < from - D180ANG) {
+            return D360ANG - from + to;
+        } else if (to == from - D180ANG) {
+            //正反対を向いている（＝距離は等しい）
+            //仕方ないので負の値とする。(正確には -D180ANG or D180ANG)
+            return D180ANG;
+        } else if (from - D180ANG < to && to < from) {
+            return -1 * (from - to);
+        } else if (from == to) {
+            //重なってる場合
+            return 0;
+        } else if (from < to && to <= D360ANG) {
+            return to - from;
+        } else {
+            //おかしい
+            _TRACE_(FUNC_NAME<<" bad from=" << from << "/to=" << to);
+            throwCriticalException("アングル値が範囲外です(2)。\n"
+                                       "from=" << from << "/to=" << to);
+        }
+    }
+    _TRACE_("bad from=" << from << "/to=" << to<<"");
+    throwCriticalException("何故かしら角の距離が求めれません。(X) \n"
+                               "from=" << from << "/to=" << to);
+
+}
+angle Util::getAngDiffN(angle prm_from, angle prm_to, int prm_way) {
+    const angle from = prm_from;
+    const angle to = prm_to;
+    if (prm_way == TURN_CLOSE_TO) {
+        return UTIL::getAngDiffN(prm_from, prm_to);
     } else if (prm_way == TURN_ANTICLOSE_TO) {
         if (0 <= from && from < D180ANG) {
             if (0 <= to && to < from) {

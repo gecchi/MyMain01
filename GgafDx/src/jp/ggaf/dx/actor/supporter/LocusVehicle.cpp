@@ -380,9 +380,9 @@ void LocusVehicle::behave() {
                     _taget_face_alltime_optimize_ang);
         } else {
             keepOnTurningFaceAngTwd(
-                    _taget_face_alltime_pActor->_x,
-                    _taget_face_alltime_pActor->_y,
-                    _taget_face_alltime_pActor->_z,
+                    _taget_face_alltime_tx,
+                    _taget_face_alltime_ty,
+                    _taget_face_alltime_tz,
                     _taget_face_alltime_angvelo,
                     _taget_face_alltime_angacce,
                     _taget_face_alltime_way,

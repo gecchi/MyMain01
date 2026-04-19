@@ -440,10 +440,10 @@ throwCriticalException("pLeaderChip_AimInfo_ が引き継がれていません！"<<this<<
                 //一つ前と、自身のアングル値（＝向き）（_rz, _ry)の差と距離をとり、
                 //自身のアングル差を加えて、距離を離した仮想の点を、自身の一つ後ろの点として予測する。
                 coord d_pF = UTIL::getDistanceFast(this, pF); //前のチップとの距離
-                angle diff_rz = UTIL::getAngDiff(pF->_rz, _rz); //前のチップとの _rz 方向値差
-                angle diff_ry = UTIL::getAngDiff(pF->_ry, _ry); //前のチップとの _ry 方向値差
-                angle v_b_rz = UTIL::addAng(_rz, diff_rz*0.625); //自身の方向値に、_rz 方向値差を加える（0.625 倍は、気持ち緩めようと思ったため）
-                angle v_b_ry = UTIL::addAng(_ry, diff_ry*0.625); //自身の方向値に、_ry 方向値差を加える（0.625 倍は、気持ち緩めようと思ったため）
+                angle diff_rz = UTIL::getAngDiffF(pF->_rz, _rz); //前のチップとの _rz 方向値差
+                angle diff_ry = UTIL::getAngDiffF(pF->_ry, _ry); //前のチップとの _ry 方向値差
+                angle v_b_rz = UTIL::addAngF(_rz, diff_rz*0.625); //自身の方向値に、_rz 方向値差を加える（0.625 倍は、気持ち緩めようと思ったため）
+                angle v_b_ry = UTIL::addAngF(_ry, diff_ry*0.625); //自身の方向値に、_ry 方向値差を加える（0.625 倍は、気持ち緩めようと思ったため）
                 double v_b_vx, v_b_vy, v_b_vz;
                 UTIL::convRzRyToVector(v_b_rz,v_b_ry,             //加えた方向の方向ベクトルを求める、仮想の自身の一つ後ろの点の座標を得るため。
                                        v_b_vx, v_b_vy, v_b_vz);

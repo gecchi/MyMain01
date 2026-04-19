@@ -241,11 +241,30 @@ public:
      * TURN_CLOCKWISE        ・・・ 回転方向が右回りで差異角取得、負の値で返る。<BR>
      * @param prm_from 基準のアングル値
      * @param prm_to 差を取る対象のアングル値
-     * @param prm_way TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE
+     * @param prm_way TURN_CLOSE_TO(デフォルト)/TURN_ANTICLOSE_TO/TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE
      * @return prm_from ～ prm_to のアングル値の差（結果が 反時計周りは正、時計回りは負を意味する)
      */
-    static angle getAngDiff(angle prm_from, angle prm_to, int prm_way=TURN_CLOSE_TO);
+    static angle getAngDiff(angle prm_from, angle prm_to);
+    static angle getAngDiff(angle prm_from, angle prm_to, int prm_way);
 
+    /**
+     * 高速版 （simplifyAngF 範囲前提）
+     * @param prm_from
+     * @param prm_to
+     * @param prm_way
+     * @return
+     */
+    static angle getAngDiffF(angle prm_from, angle prm_to);
+    static angle getAngDiffF(angle prm_from, angle prm_to, int prm_way);
+
+    /**
+     * simplifyAng 済み前提
+     * @param prm_from
+     * @param prm_to
+     * @return
+     */
+    static angle getAngDiffN(angle prm_from, angle prm_to);
+    static angle getAngDiffN(angle prm_from, angle prm_to, int prm_way);
     /**
      * 平面上において、'N'way弾(N=整数)の射出アングル値をセット(配列)で取得 .
      * @param prm_vx_Center     [in] 'N'way弾の全体として向いている方向の、方向ベクトルX要素
@@ -304,6 +323,7 @@ public:
      * @return 標準化された アングル値 + 加えるアングル値 のアングル値
      */
     static angle addAng(angle prm_ang, angle prm_offset);
+    static angle addAngF(angle prm_ang, angle prm_offset);
 
     /**
      *
@@ -786,6 +806,20 @@ public:
             return D360ANG - ((-1 * prm_ang) % D360ANG);
         }
     }
+    /**
+     * アングル値の正規化(高速) .
+     * @param prm_ang アングル値(-D360ANG <= prm_ang <= D360ANG+D360ANG)
+     * @return 0 ～ D360ANG の範囲に収められたアングル値
+     */
+    static inline angle simplifyAngF(angle prm_ang) {
+        if (prm_ang > D360ANG) {
+            return prm_ang - D360ANG;
+        } else if (prm_ang < 0 ) {
+            return prm_ang + D360ANG;
+        }
+        return prm_ang;
+    }
+
 
     /**
      * 線分の当たり判定<BR>
