@@ -16,13 +16,17 @@ RankingTable::RankingTable() : GgafCore::Table() {
 void RankingTable::init() {
     if (PathFileExists(RANKINGTABLE_DATA_FILE) ) {
         importFromFile(RANKINGTABLE_DATA_FILE);
-    } else {
-        std::string default_name = std::string(RANKINGTABLE_NAME_LEN, '.');
-        for (int i = 0; i < RANKINGTABLE_RECORD_NUM; i++) {
+    }
+    int cnt = getCount();
+    if (cnt < RANKINGTABLE_RECORD_NUM) {
+        //RANKINGTABLE_RECORD_NUM ‚ð‰º‚É•t‚¯‘«‚·
+        std::string default_name = "GECCHIRAQ!";
+        for (int i = 0; i < RANKINGTABLE_RECORD_NUM - cnt; i++) {
             addRow(default_name, (i+1)*1000);
         }
+        sortTopN(); //RANKINGTABLE_RECORD_NUM ‚æ‚è‘½‚¢ƒ‰ƒ“ƒN‚ðØ‚é
+        save();
     }
-    sort();
 }
 
 void RankingTable::addRow(std::string& prm_name, int prm_score) {
@@ -33,7 +37,7 @@ void RankingTable::addRow(std::string& prm_name, int prm_score) {
     GgafCore::Table::addRow(r);
 }
 
-void RankingTable::sort() {
+void RankingTable::sortTopN() {
     sortDescBy("SCORE","REGDATE",false);
     if (getCount() > RANKINGTABLE_RECORD_NUM) {
         removeRows(RANKINGTABLE_RECORD_NUM);

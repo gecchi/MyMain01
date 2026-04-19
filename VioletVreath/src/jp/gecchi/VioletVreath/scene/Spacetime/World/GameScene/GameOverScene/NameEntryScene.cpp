@@ -114,7 +114,7 @@ void NameEntryScene::processBehavior() {
                 inputed_name_ = std::string(cstr); //“ü—Í•¶š
                 GGAF_DELETEARR(cstr);
                 G_RANKING_TABLE.addRow(inputed_name_, G_SCORE);
-                G_RANKING_TABLE.sort();
+                G_RANKING_TABLE.sortTopN();
                 G_RANKING_TABLE.save();
 
                 pWorldBound_->fadeout();

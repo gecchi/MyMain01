@@ -35,9 +35,9 @@ public:
     void addRow(std::string& prm_name, int prm_score);
 
     /**
-     * ランキングクエリのソートを行う .
+     * ランキングクエリのソートして RANKINGTABLE_RECORD_NUM より大きいレコードよ除外 .
      */
-    void sort();
+    void sortTopN();
 
     /**
      * ランキングのスコアを調べて、ランク・インするかどうか調べる 。
