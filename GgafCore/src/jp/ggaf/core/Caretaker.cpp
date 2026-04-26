@@ -82,7 +82,18 @@ Caretaker::Caretaker() : Object(),
     _apaTime_offset_of_next_view[0] = getArrTimeOffset((DWORD)(1.0 * 1000), CONFIG::FPS); // 1フレームを、(1000 / CONFIG::FPS) ミリ秒とする
     _apaTime_offset_of_next_view[1] = getArrTimeOffset((DWORD)(CONFIG::RATE_OF_SLOWDOWN1 * 1000), CONFIG::FPS); // 1フレームを、(1500 / CONFIG::FPS) ミリ秒とする
     _apaTime_offset_of_next_view[2] = getArrTimeOffset((DWORD)(CONFIG::RATE_OF_SLOWDOWN2 * 1000), CONFIG::FPS); // 1フレームを、(2000 / CONFIG::FPS) ミリ秒とする
-
+#ifdef MY_DEBUG
+    _TRACE_("DEBUG FPS time offset");
+    for (int i = 0; i <  3; i++) {
+        DWORD f = 0;
+        _TRACE_N_("_apaTime_offset_of_next_view["<<i<<"]={");
+        for (int j = 0; j <  CONFIG::FPS; j++) {
+            f += _apaTime_offset_of_next_view[i][j];
+            _TRACE_N_(" " << _apaTime_offset_of_next_view[i][j]);
+        }
+        _TRACE_N_(" } sum="<<f<<"\n");
+    }
+#endif
 }
 
 
