@@ -44,7 +44,7 @@ protected:
 //        T* pElementTemp = Node<T>::_pChildFirst;
 //        while (pElementTemp) {
 //            (pElementTemp->*pFunc)(); //実行
-//            if (pElementTemp->_is_last_flg) {
+//            if (pElementTemp->isLast()) {
 //                break;
 //            } else {
 //                pElementTemp = pElementTemp->_pNext;
@@ -61,7 +61,7 @@ protected:
 //        T* pElementTemp = Node<T>::_pChildFirst;
 //        while (pElementTemp) {
 //            (pElementTemp->*pFunc)(prm_frame); //実行
-//            if (pElementTemp->_is_last_flg) {
+//            if (pElementTemp->isLast()) {
 //                break;
 //            } else {
 //                pElementTemp = pElementTemp->_pNext;
@@ -841,7 +841,7 @@ void Element<T>::nextFrame() {
     //配下の全ノードに再帰的にnextFrame()実行
     T* p = Node<T>::_pChildFirst; //一つ配下の先頭ノード。潜れる場合は先に潜る。
     if (p) {
-        while (!p->_is_last_flg) {
+        while (!p->isLast()) {
             //配下の先頭 ～ 末尾-1 ノードに nextFrame()
             p->nextFrame();  //再帰
             if (p->_can_live_flg) {
@@ -922,7 +922,7 @@ void Element<T>::behave() {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->behave();
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -940,7 +940,7 @@ void Element<T>::settleBehavior() {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->settleBehavior();
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -958,7 +958,7 @@ void Element<T>::judge() {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->judge();
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -976,7 +976,7 @@ void Element<T>::preDraw() {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->preDraw();
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -994,7 +994,7 @@ void Element<T>::draw() {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->draw();
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -1012,7 +1012,7 @@ void Element<T>::afterDraw() {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->afterDraw();
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -1030,7 +1030,7 @@ void Element<T>::doFinally() {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->doFinally();
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -1070,7 +1070,7 @@ void Element<T>::resetTree() {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->resetTree(); //実行
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -1095,7 +1095,7 @@ void Element<T>::activateTree() {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->activateTree(); //実行
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -1127,7 +1127,7 @@ void Element<T>::activateTreeImmed() {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->activateTreeImmed(); //実行
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -1201,7 +1201,7 @@ void Element<T>::activateTreeDelay(frame prm_offset_frames) {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->activateTreeDelay(prm_offset_frames); //実行
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -1226,7 +1226,7 @@ void Element<T>::inactivateTree() {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->inactivateTree();
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -1288,7 +1288,7 @@ void Element<T>::inactivateTreeDelay(frame prm_offset_frames) {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->inactivateTreeDelay(prm_offset_frames);
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -1320,7 +1320,7 @@ void Element<T>::inactivateTreeImmed() {
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->inactivateTreeImmed();
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -1343,7 +1343,7 @@ void Element<T>::end(frame prm_offset_frames) {
     T* pElementTemp = Node<T>::_pChildFirst;
     while (pElementTemp) {
         pElementTemp->end(prm_offset_frames);
-        if (pElementTemp->_is_last_flg) {
+        if (pElementTemp->isLast()) {
             break;
         } else {
             pElementTemp = pElementTemp->_pNext;
@@ -1378,7 +1378,7 @@ void Element<T>::clean(int prm_num_cleaning) {
                 break;
             }
         }
-        if (pElementTemp->_is_first_flg) { //最後の一つ
+        if (pElementTemp->isFirst()) { //最後の一つ
             if (pElementTemp->_pChildFirst) {
                 //子の子がまだのっている場合さらにもぐる
                 pElementTemp->clean(prm_num_cleaning);
@@ -1418,7 +1418,7 @@ void Element<T>::executeFuncLowerTree(void (*pFunc)(Object*, void*, void*, void*
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->executeFuncLowerTree(pFunc, prm1, prm2, prm3);
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;
@@ -1434,7 +1434,7 @@ void Element<T>::throwEventLowerTree(eventval prm_event_val, void* prm_pSource) 
         T* pElementTemp = Node<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->throwEventLowerTree(prm_event_val, prm_pSource);
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;

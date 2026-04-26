@@ -177,7 +177,7 @@ public:
             Scene* pElementTemp = _pChildFirst;
             while (pElementTemp) {
                 pElementTemp->pause(); //ŽÀs
-                if (pElementTemp->_is_last_flg) {
+                if (pElementTemp->isLast()) {
                     break;
                 } else {
                     pElementTemp = pElementTemp->_pNext;
@@ -201,7 +201,7 @@ public:
             Scene* pElementTemp = _pChildFirst;
             while (pElementTemp) {
                 pElementTemp->unpause(); //ŽÀs
-                if (pElementTemp->_is_last_flg) {
+                if (pElementTemp->isLast()) {
                     break;
                 } else {
                     pElementTemp = pElementTemp->_pNext;

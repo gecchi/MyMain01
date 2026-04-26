@@ -73,7 +73,7 @@ void ActorDepository::end(frame prm_offset_frames) {
     while (pElementTemp) {
         end_frame_delay -= 2;
         pElementTemp->end(end_frame_delay);
-        if (pElementTemp->_is_last_flg) {
+        if (pElementTemp->isLast()) {
             break;
         } else {
             pElementTemp = pElementTemp->_pNext;

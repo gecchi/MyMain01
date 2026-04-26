@@ -119,7 +119,7 @@ public:
                 pActor->activateDelay(offset_frames); //activate自動実行。
                 break;
             } else {   //今活動中、或いは、次フレーム活動予定の場合は見送る
-                if (pActor->_is_last_flg) {
+                if (pActor->isLast()) {
                     pActor = nullptr;
                     break;
                 } else {

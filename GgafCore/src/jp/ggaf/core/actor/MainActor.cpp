@@ -42,7 +42,7 @@ void MainActor::setSceneChief(SceneChief* prm_pSceneChief) {
         if (pActor->instanceOf(Obj_ggaf_MainActor)) {
             ((MainActor*)(pActor))->setSceneChief(prm_pSceneChief);
         }
-        if (pActor->_is_last_flg) {
+        if (pActor->isLast()) {
             break;
         } else {
             pActor = pActor->getNext();

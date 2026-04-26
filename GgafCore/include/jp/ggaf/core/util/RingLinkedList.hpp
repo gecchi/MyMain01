@@ -84,7 +84,7 @@ public:
         /** [r]先頭要素フラグ (自要素が先頭要素の場合 true)*/
         bool _is_first_flg;
         /** [r]末尾要素フラグ (自要素が末尾要素の場合 true)*/
-        bool _is_last_flg;
+//        bool _is_last_flg;
         /** [r/w]delete時に_pValueもdeleteするかどうかのフラグ */
         bool _is_delete_value;
         /** [r]先頭要素からのインデックス(0～)。createIndex()実行で作成される */
@@ -101,7 +101,7 @@ public:
         Elem(const T* prm_pValue, int prm_relation_num,
                 bool prm_is_delete_value = true) {
             _pValue = prm_pValue;
-            _pNext = _pPrev = nullptr;
+            _pNext = _pPrev = this;
             if (prm_relation_num == 0) {
                 _papRelation = nullptr;
             } else {
@@ -110,9 +110,16 @@ public:
                     _papRelation[i] = nullptr;
                 }
             }
-            _is_first_flg = _is_last_flg = false;
+            _is_first_flg = false;
             _is_delete_value = prm_is_delete_value;
             _idx = -1;
+        }
+
+        inline bool isFirst() const {
+            return _is_first_flg;
+        }
+        inline bool isLast() const {
+            return _pNext->_is_first_flg;
         }
         /**
          * 要素の値を返す。
@@ -274,7 +281,6 @@ public:
     virtual void addPrev(const T* prm_pNew, bool prm_is_delete_value = true);
 
     /**
-     * 引数の値を、末尾(_is_last_flg が true)として追加する .
      * 追加される場所は以下の図のようになります。
      * <pre>
      * ---「実行前」------------------------------
@@ -881,7 +887,6 @@ void RingLinkedList<T>::addNext(const T* prm_pNew,
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
     if (_pElem_first == nullptr) {
         //最初の１つ
-        pElem->_is_last_flg = true;
         pElem->_is_first_flg = true;
         pElem->_pNext = pElem;
         pElem->_pPrev = pElem;
@@ -889,9 +894,7 @@ void RingLinkedList<T>::addNext(const T* prm_pNew,
         _pElem_first = pElem;
     } else {
         Elem* pMy = _pElemActive;
-        if (pMy->_is_last_flg) {
-            pMy->_is_last_flg = false;
-            pElem->_is_last_flg = true;
+        if (pMy->isLast()) {
             pElem->_is_first_flg = false;
         }
         Elem* pMyNext = _pElemActive->_pNext;
@@ -917,7 +920,6 @@ void RingLinkedList<T>::addPrev(const T* prm_pNew,
     Elem* pElem = NEW Elem(prm_pNew, _relation_num, prm_is_delete_value);
     if (_pElem_first == nullptr) {
         //最初の１つ
-        pElem->_is_last_flg = true;
         pElem->_is_first_flg = true;
         pElem->_pNext = pElem;
         pElem->_pPrev = pElem;
@@ -925,10 +927,9 @@ void RingLinkedList<T>::addPrev(const T* prm_pNew,
         _pElem_first = pElem;
     } else {
         Elem* pMy = _pElemActive;
-        if (pMy->_is_first_flg) {
+        if (pMy->isFirst()) {
             pMy->_is_first_flg = false;
             pElem->_is_first_flg = true;
-            pElem->_is_last_flg = false;
             _pElem_first = pElem;
         }
         Elem* pMyPrev = _pElemActive->_pPrev;
@@ -956,7 +957,6 @@ void RingLinkedList<T>::addLast(const T* prm_pNew,
     if (_pElem_first == nullptr) {
         //最初の１つ
         pElem->_is_first_flg = true;
-        pElem->_is_last_flg = true;
         pElem->_pNext = pElem;
         pElem->_pPrev = pElem;
         _pElemActive = pElem;
@@ -964,9 +964,7 @@ void RingLinkedList<T>::addLast(const T* prm_pNew,
     } else {
         //２つ目以降
         pElem->_is_first_flg = false;
-        pElem->_is_last_flg = true;
         Elem* pLastElem = _pElem_first->_pPrev;
-        pLastElem->_is_last_flg = false;
         pLastElem->_pNext = pElem;
         pElem->_pPrev = pLastElem;
         pElem->_pNext = _pElem_first;
@@ -990,7 +988,6 @@ void RingLinkedList<T>::addFirst(const T* prm_pNew,
     if (_pElem_first == nullptr) {
         //最初の１つ
         pElem->_is_first_flg = true;
-        pElem->_is_last_flg = true;
         pElem->_pNext = pElem;
         pElem->_pPrev = pElem;
         _pElemActive = pElem;
@@ -1005,7 +1002,6 @@ void RingLinkedList<T>::addFirst(const T* prm_pNew,
         pFirstElem->_is_first_flg = false;
 
         pElem->_is_first_flg = true;
-        pElem->_is_last_flg = false;
         _pElem_first = pElem;
     }
     _num_elem++;
@@ -1227,12 +1223,12 @@ int RingLinkedList<T>::getCurrentIndex() const {
 
 template<class T>
 bool RingLinkedList<T>::isLast() const {
-    return _pElemActive->_is_last_flg;
+    return _pElemActive->isLast();
 }
 
 template<class T>
 bool RingLinkedList<T>::isFirst() const {
-    return _pElemActive->_is_first_flg;
+    return _pElemActive->isFirst();
 }
 
 template<class T>
@@ -1269,7 +1265,7 @@ T* RingLinkedList<T>::remove() {
         }
         const T* pRetValue =  nullptr;
         _num_elem--;
-        if (pMy->_is_first_flg && pMy->_is_last_flg) {
+        if (pMy->isFirst() && pMy->isLast() ) {
             //要素が１つの場合
             _pElemActive = nullptr;
             _pElem_first = nullptr;
@@ -1281,10 +1277,7 @@ T* RingLinkedList<T>::remove() {
             //両隣のノード同士を繋ぎ、自分を指さなくする。
             pMyPrev->_pNext = pMyNext;
             pMyNext->_pPrev = pMyPrev;
-            if (pMy->_is_last_flg) { //抜き取られる要素が末尾だったなら
-                pMyPrev->_is_last_flg = true; //一つ前の要素が新しい末尾になる
-            }
-            if (pMy->_is_first_flg) { //抜き取られる要素が先頭だったなら
+            if (pMy->isFirst()) { //抜き取られる要素が先頭だったなら
                 _pElem_first = pMyNext;
                 pMyNext->_is_first_flg = true; //次の要素が新しい先頭になる
             }
@@ -1312,7 +1305,7 @@ void RingLinkedList<T>::removeAll() {
 
     Elem* pElem = _pElem_first;
     while (pElem) {
-        if (pElem->_is_last_flg) {
+        if (pElem->isLast()) {
             GGAF_DELETE(pElem);
             break;
         } else {
@@ -1337,7 +1330,7 @@ int RingLinkedList<T>::indexOf(const T* prm_pVal) const {
         if (pElem->_pValue == prm_pVal) {
             return r;
         } else {
-            if (pElem->_is_last_flg) {
+            if (pElem->isLast()) {
                 break;
             } else {
                 pElem = pElem->_pNext;
@@ -1387,7 +1380,7 @@ RingLinkedList<T>::~RingLinkedList() {
             Elem* pLastPrev = pLast->_pPrev;
             while (true) {
                 GGAF_DELETE(pLast); //末尾からdelete
-                if (pLastPrev->_is_first_flg) {
+                if (pLastPrev->isFirst()) {
                     GGAF_DELETE(_pElem_first); //pChildLastPrev == _pChildFirst である
                     _pElem_first = nullptr;
                     _pElemActive = nullptr;

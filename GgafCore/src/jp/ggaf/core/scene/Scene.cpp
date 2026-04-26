@@ -183,7 +183,7 @@ void Scene::executeFuncLowerSceneTree(void (*pFunc)(Object*, void*, void*, void*
         Scene* pScene = _pChildFirst;
         while (pScene) {
             pScene->executeFuncLowerSceneTree(pFunc, prm1, prm2, prm3);
-            if (pScene->_is_last_flg) {
+            if (pScene->isLast()) {
                 break;
             } else {
                 pScene = pScene->_pNext;
@@ -222,7 +222,7 @@ void Scene::sayonara(frame prm_offset_frames) {
     Scene* pScene = _pChildFirst;
     while (pScene) {
         pScene->sayonara(prm_offset_frames);
-        if (pScene->_is_last_flg) {
+        if (pScene->isLast()) {
             break;
         } else {
             pScene = pScene->_pNext;
@@ -264,7 +264,7 @@ void Scene::dump() {
                 _TRACE_("ÅyåxçêÅz"<<NODE_INFO<<" ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
                 break;
             }
-            if (pScene_tmp->_is_first_flg) {
+            if (pScene_tmp->isFirst()) {
                 break;
             }
         }
@@ -284,7 +284,7 @@ void Scene::dump(std::string prm_parent) {
                 _TRACE_("ÅyåxçêÅz"<<NODE_INFO<<" ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
                 break;
             }
-            if (pScene_tmp->_is_first_flg) {
+            if (pScene_tmp->isFirst()) {
                 break;
             }
         }

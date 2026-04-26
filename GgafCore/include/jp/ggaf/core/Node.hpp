@@ -105,7 +105,7 @@ public:
     /** [r]先頭ノードフラグ (自ノードが先頭ノードの場合 true)*/
     bool _is_first_flg;
     /** [r]末尾ノードフラグ (自ノードが末尾ノードの場合 true)*/
-    bool _is_last_flg;
+//    bool _is_last_flg;
     /** [r]子ノードの数 */
     int _child_num;
 
@@ -353,7 +353,8 @@ public:
      * @return    bool true:末尾ノード／false:末尾ノードではない
      */
     inline virtual bool isLast() const {
-        return _is_last_flg;
+        return _pNext->_is_first_flg;
+//        return _is_last_flg;
     }
 
     virtual std::string toString() override {
@@ -377,7 +378,7 @@ Node<T>::Node(const char* prm_name) :
     _pPrev((T*)this),
     _pChildFirst(nullptr),
     _is_first_flg(true),
-    _is_last_flg(true),
+//    _is_last_flg(true),
     _child_num(0)
 {
     _name_hash = UTIL::easy_hash(prm_name);
@@ -393,7 +394,7 @@ T* Node<T>::extract() {
         _pParent->_child_num--;
         T* pMyNext = _pNext;
         T* pMyPrev = _pPrev;
-        if (_is_first_flg && _is_last_flg) {
+        if (isFirst() && isLast()) {
             //連結が自分のみ場合
             _pParent->_pChildFirst = nullptr;
         } else {
@@ -401,10 +402,7 @@ T* Node<T>::extract() {
             //両隣のノード同士を繋ぎ、自分を指さなくする。
             pMyPrev->_pNext = pMyNext;
             pMyNext->_pPrev = pMyPrev;
-            if (_is_last_flg) {
-                pMyPrev->_is_last_flg = true;
-            }
-            if (_is_first_flg) {
+            if (isFirst()) {
                 pMyNext->_is_first_flg = true;
                 _pParent->_pChildFirst = pMyNext;
             }
@@ -413,7 +411,6 @@ T* Node<T>::extract() {
         _pNext = (T*)this;
         _pPrev = (T*)this;
         _is_first_flg = true;
-        _is_last_flg = true;
         //ツリーは維持するので、_pChildFirst そのまま（nullptrにしない）
         return ((T*)this);
     } else {
@@ -430,13 +427,11 @@ T* Node<T>::extract() {
 
 template<class T>
 void Node<T>::moveLast() {
-    if (_is_last_flg) { //既に最終ノードならば何もしない
+    if (isLast()) { //既に最終ノードならば何もしない
         return;
-    } else if (_is_first_flg) { //先頭ノードならば、親の指している先頭ノードを次へずらす
+    } else if (isFirst()) { //先頭ノードならば、親の指している先頭ノードを次へずらす
         _pParent->_pChildFirst = _pNext;
-        _pPrev->_is_last_flg = false;
         _is_first_flg = false;
-        _is_last_flg = true;
         _pNext->_is_first_flg = true;
     } else { //中間ノード時
         //両隣のノード同士を繋ぐ
@@ -445,8 +440,6 @@ void Node<T>::moveLast() {
         //末尾ノードと先頭ノードの間にもぐりこませる
         T* pFirst = _pParent->_pChildFirst; //現First
         T* pLast = pFirst->_pPrev;        //現Last
-        pLast->_is_last_flg = false;      //現LastのLastだフラグ解除
-        _is_last_flg = true;              //俺が新Lastだフラグセット
         _pPrev = pLast;                   //俺の前は現Lastで
         _pNext = pFirst;                  //俺の次は現Firstだ。
         pLast->_pNext = (T*)this;         //現Lastの次は俺で
@@ -456,13 +449,11 @@ void Node<T>::moveLast() {
 
 template<class T>
 void Node<T>::moveFirst() {
-    if (_is_first_flg) { //既に先頭ノードならば何もしない
+    if (isFirst()) { //既に先頭ノードならば何もしない
         return;
-    } else if (_is_last_flg) { //末尾ノードならば、親の指している先頭ノードを前にずらす
+    } else if (isLast()) { //末尾ノードならば、親の指している先頭ノードを前にずらす
         _pParent->_pChildFirst = (T*)this;
-        _pPrev->_is_last_flg = true;
         _is_first_flg = true;
-        _is_last_flg = false;
         _pNext->_is_first_flg = false;
     } else { //中間ノード時
         //両隣のノード同士を繋ぐ
@@ -494,7 +485,7 @@ T* Node<T>::getChildByName(const char* prm_child_name) {
             break;
         }
 #ifdef MY_DEBUG
-        if (pNodeTemp->_is_last_flg) {
+        if (pNodeTemp->isLast()) {
             throwCriticalException("[Node<" << _class_name << ">::getChild()] Error! 子ノードは存在しません。(prm_child_actor_name=" << prm_child_name << ")");
         }
 #endif
@@ -513,7 +504,7 @@ T* Node<T>::getChild(T* prm_pChild) const {
         if (prm_pChild == pNodeTemp) {
             break;
         }
-        if (pNodeTemp->_is_last_flg) {
+        if (pNodeTemp->isLast()) {
             return nullptr;
         }
         pNodeTemp = pNodeTemp->_pNext;
@@ -540,7 +531,7 @@ bool Node<T>::hasChild(char* prm_child_actor_name) const {
             if (strcmp(pNodeTemp->getName(), prm_child_actor_name) == 0) {
                 return true;
             }
-            if (pNodeTemp->_is_last_flg) {
+            if (pNodeTemp->isLast()) {
                 return false;
             } else {
                 pNodeTemp = pNodeTemp->_pNext;
@@ -558,7 +549,6 @@ void Node<T>::appendChild(T* prm_pChild) {
     }
 #endif
     prm_pChild->_pParent = (T*)this;
-    prm_pChild->_is_last_flg = true;
     if (_pChildFirst == nullptr) { //最初の子
         prm_pChild->_is_first_flg = true;
         _pChildFirst = prm_pChild;
@@ -567,7 +557,6 @@ void Node<T>::appendChild(T* prm_pChild) {
     } else {  //２つ目以降の子
         prm_pChild->_is_first_flg = false;
         T* pChildLast = _pChildFirst->_pPrev;
-        pChildLast->_is_last_flg = false;
         pChildLast->_pNext = prm_pChild;
         prm_pChild->_pPrev = pChildLast;
         prm_pChild->_pNext = _pChildFirst;
@@ -587,11 +576,9 @@ void Node<T>::prependChild(T* prm_pChild) {
     prm_pChild->_pParent = (T*)this;
     prm_pChild->_is_first_flg = true;
     if (_pChildFirst == nullptr) { //最初の子
-        prm_pChild->_is_last_flg = true;
         prm_pChild->_pNext = prm_pChild;
         prm_pChild->_pPrev = prm_pChild;
     } else {
-        prm_pChild->_is_last_flg = false;
         T* pChildLast = _pChildFirst->_pPrev;
         pChildLast->_pNext = prm_pChild;
         prm_pChild->_pPrev = pChildLast;
@@ -619,7 +606,7 @@ Node<T>::~Node() {
     //自分に子がある場合
     if (_pChildFirst) {
         //まず子をdelete
-        if (_pChildFirst->_is_last_flg) {
+        if (_pChildFirst->isLast()) {
             //子ノードは１つの場合
             GGAF_DELETE(_pChildFirst);
             _pChildFirst = nullptr;
@@ -646,7 +633,7 @@ Node<T>::~Node() {
         //連結から外す
         T* pMyNext = _pNext;
         T* pMyPrev = _pPrev;
-        if (_is_first_flg && _is_last_flg) {
+        if (isFirst() && isLast()) {
             //連結しているノードが無く、自分のみ場合
             _pParent->_pChildFirst = nullptr;
             _pParent = nullptr;
@@ -658,10 +645,7 @@ Node<T>::~Node() {
             //両隣のノード同士を繋ぎ、自分を指さなくする。
             pMyPrev->_pNext = pMyNext;
             pMyNext->_pPrev = pMyPrev;
-            if (_is_last_flg) {
-                pMyPrev->_is_last_flg = true;
-            }
-            if (_is_first_flg) {
+            if (isFirst()) {
                 pMyNext->_is_first_flg = true;
                 _pParent->_pChildFirst = pMyNext;
             }
@@ -670,7 +654,6 @@ Node<T>::~Node() {
             _pPrev = (T*)this;
             _pChildFirst = nullptr;
             _is_first_flg = true;
-            _is_last_flg = true;
         }
     }
     GGAF_DELETEARR(_name);

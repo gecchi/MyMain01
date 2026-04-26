@@ -43,7 +43,7 @@ void Actor::setHitAbleTree(bool prm_can_hit_flg, bool prm_enable_out_of_view_hit
     Actor* pActor_tmp = _pChildFirst;
     while (pActor_tmp) {
         pActor_tmp->setHitAble(prm_can_hit_flg, prm_enable_out_of_view_hit_flg);
-        if (pActor_tmp->_is_last_flg) {
+        if (pActor_tmp->isLast()) {
             break;
         } else {
             pActor_tmp = pActor_tmp->_pNext;
@@ -56,7 +56,7 @@ void Actor::setHitAbleTree(bool prm_can_hit_flg) {
     Actor* pActor_tmp = _pChildFirst;
     while (pActor_tmp) {
         pActor_tmp->setHitAble(prm_can_hit_flg);
-        if (pActor_tmp->_is_last_flg) {
+        if (pActor_tmp->isLast()) {
             break;
         } else {
             pActor_tmp = pActor_tmp->_pNext;
@@ -73,7 +73,7 @@ void Actor::sayonara(frame prm_offset_frames) {
     Actor* pActor = _pChildFirst;
     while (pActor) {
         pActor->sayonara(prm_offset_frames);
-        if (pActor->_is_last_flg) {
+        if (pActor->isLast()) {
             break;
         } else {
             pActor = pActor->_pNext;
@@ -120,7 +120,7 @@ void Actor::dump() {
             _TRACE_("ÅyåxçêÅz"<<NODE_INFO<<" ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
             break;
         }
-        if (pActor_tmp->_is_first_flg) {
+        if (pActor_tmp->isFirst()) {
             _TRACE_("\t\t\t\t\t\t\t\tÑ§Ñü");
             break;
         }
@@ -138,7 +138,7 @@ void Actor::dump(std::string prm_parent) {
             _TRACE_("ÅyåxçêÅz"<<NODE_INFO<<"ÇÃnextÇ™nullptrÇ¡ÇƒÇ¢Ç‹Ç∑");
             break;
         }
-        if (pActor_tmp->_is_first_flg) {
+        if (pActor_tmp->isFirst()) {
             _TRACE_(prm_parent+"Ñ§Ñü");
             break;
         }

@@ -279,7 +279,7 @@ void GeometricActor::judge() {
         GgafCore::Element<GgafCore::Actor>* pElementTemp = _pChildFirst;
         while (pElementTemp) {
             pElementTemp->judge();
-            if (pElementTemp->_is_last_flg) {
+            if (pElementTemp->isLast()) {
                 break;
             } else {
                 pElementTemp = pElementTemp->_pNext;

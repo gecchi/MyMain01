@@ -136,8 +136,6 @@ void MyLockonController::lockon(GgafDx::GeometricActor* prm_pTarget) {
                     GgafCore::MainActor* pLockonCursor_Prev = pLockonCursor->getPrev();
                     pLockonCursor_Prev->_pNext = pLockonCursor_Next;
                     pLockonCursor_Next->_pPrev = pLockonCursor_Prev;
-                    pLockonCursor_Prev->_is_last_flg = true;
-                    pLockonCursor->_is_last_flg = false;
                     //First->Next ‚ÌŠÔ‚É“ü‚ê‚é
                     GgafCore::MainActor* pMainLockonCursor = (GgafCore::MainActor*)getChildFirst();
                     GgafCore::MainActor* pMainLockonCursor_Next = (GgafCore::MainActor*)getChildFirst()->getNext();

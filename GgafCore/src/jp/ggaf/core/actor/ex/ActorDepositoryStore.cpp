@@ -37,7 +37,7 @@ void ActorDepositoryStore::processFinal() {
                     //‚Ì‘Î‹ô‚ÌðŒ‚Å”»’è‚·‚é‚±‚ÆB
                     break;
                 }
-                if (pActor->_is_first_flg) {
+                if (pActor->isFirst()) {
                     is_inactive_all = true;
                     break;
                 }
@@ -48,7 +48,7 @@ void ActorDepositoryStore::processFinal() {
                 pChildDepository->inactivate();
             }
         }
-        if (pChildDepository->_is_last_flg) {
+        if (pChildDepository->isLast()) {
             break;
         }
         pChildDepository = pChildDepository->getNext();

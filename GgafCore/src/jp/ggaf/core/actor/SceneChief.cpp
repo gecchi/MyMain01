@@ -73,7 +73,7 @@ Actor* SceneChief::search(hashval prm_name_hash) {
             } else {
                 //下から上がってきた場合
                 //右へ行く事を試みる
-                if (pCur->_is_last_flg) {
+                if (pCur->isLast()) {
                     //と思ったら右端だったので、上に戻る
                     pCur = pCur->getParent();
                 } else {
@@ -88,7 +88,7 @@ susume:
                 pCur = pCur->getChildFirst();
             } else {
                 //降りれない場合は右へ行く事を試みる
-                if (pCur->_is_last_flg) {
+                if (pCur->isLast()) {
                     //と思ったら右端だったので、上に戻る
                     pCur = pCur->getParent();
                 } else {
