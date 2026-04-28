@@ -50,7 +50,7 @@ public:
     static double RATE_OF_SLOWDOWN2;
 
     /** [r/w] ゴミ箱を掃除(インスタンス解放)を行うことが出来るFPS */
-    static float FPS_TO_CLEAN_GARBAGE_BOX;
+    static float FPS_TO_CLEAN_GARBAGE_BOX;//TODO:この値は、処理落ち演出の SLOWDOWN 状態を考慮して変動させるようにする。
     /** [r] アプリケーションのリソースディレクトリ */
     static std::string DIR_RESOURCE;
     /** [r] アプリケーションのスキンフォルダ名(リソースディレクトリ配下) */
