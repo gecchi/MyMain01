@@ -648,7 +648,7 @@ public:
      * </pre>
      * @return true:末尾である／false:そうでは無い
      */
-    virtual isFirst() const;
+    bool isFirst() const;
 
     /**
      * カレント要素に値を上書き設定する。 .
