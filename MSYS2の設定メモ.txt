@@ -1,5 +1,7 @@
 MSYS2をインストールする。
 
+MSYS2 MINGW64
+
 パッケージ管理ツールのアップデート
 $ pacman --needed -Sy bash pacman pacman-mirrors msys2-runtime
 bash も更新時は再起動

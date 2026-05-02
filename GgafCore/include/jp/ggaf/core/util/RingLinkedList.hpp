@@ -115,10 +115,10 @@ public:
             _idx = -1;
         }
 
-        inline bool isFirst() const {
+        bool isFirst() const {
             return _is_first_flg;
         }
-        inline bool isLast() const {
+        bool isLast() const {
             return _pNext->_is_first_flg;
         }
         /**
@@ -636,7 +636,7 @@ public:
      * </pre>
      * @return true:末尾である／false:そうでは無い
      */
-    virtual bool isLast() const;
+    bool isLast() const;
 
     /**
      * カレント要素がリストの先頭であるかどうか判定する .
@@ -648,7 +648,7 @@ public:
      * </pre>
      * @return true:末尾である／false:そうでは無い
      */
-    virtual bool isFirst() const;
+    virtual isFirst() const;
 
     /**
      * カレント要素に値を上書き設定する。 .

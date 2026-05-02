@@ -187,7 +187,7 @@ public:
      * -----------------------
      * </PRE>
      */
-    virtual void moveLast();
+    void moveLast();
 
     /**
      * 自ノードを、先頭ノードへ移動する .
@@ -206,7 +206,7 @@ public:
      * -----------------------
      * </PRE>
      */
-    virtual void moveFirst();
+    void moveFirst();
 
     /**
      * 次のノード取得する。
@@ -341,18 +341,18 @@ public:
     }
 
     /**
-     * 自ノードが先頭ノードか調べる .
+     * 自ノードが先頭ノードか調べる(注意：virtualではない) .
      * @return    bool true:先頭ノード／false:先頭ノードではない
      */
-    inline virtual bool isFirst() const {
+    inline bool isFirst() const {
         return _is_first_flg;
     }
 
     /**
-     * 自ノードが末尾ノードか調べる .
+     * 自ノードが末尾ノードか調べる(注意：virtualではない) .
      * @return    bool true:末尾ノード／false:末尾ノードではない
      */
-    inline virtual bool isLast() const {
+    inline bool isLast() const {
         return _pNext->_is_first_flg;
 //        return _is_last_flg;
     }
